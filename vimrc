@@ -1,5 +1,5 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-  " Filename: .vimrc                                                    
+  " Filename: .vimrc
   " Sections:
   "
   "   01. General ................. General Vim behavior
@@ -17,7 +17,7 @@
   """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 01. General                                                           
+" 01. General
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible         " get rid of Vi compatibility mode. SET FIRST!
@@ -49,8 +49,8 @@ else
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 04. Vim UI                                                                 
-" 
+" 04. Vim UI
+"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set number                " show line numbers
 set numberwidth=6         " make the number gutter 6 characters wide
@@ -60,13 +60,27 @@ set nohlsearch            " Don't continue to highlight searched phrases.
 set incsearch             " But do highlight as you type your search.
 set ignorecase            " Make searches case-insensitive.
 set ruler                 " Always show info along bottom.
+set relativenumber
 set showmatch
-set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \
-\%h%m%r%=%-40(bytval=0x%B,%n%Y%)\%P
 set visualbell
-
+set scrolloff=7
+set sidescrolloff=15
+set ttyfast
+" Show funny characters
+set list
+set listchars=nbsp:¬,tab:»·,trail:·
+" Statusline
+set statusline=                                     " Override default
+set statusline+=%2*\ %f\ %m\ %r%*                   " Show filename/path
+set statusline+=%3*%=%*                             " Set right-side status info after this line
+set statusline+=%4*%l/%L:%v%*                       " Set <line number>/<total lines>:<column>
+set statusline+=%5*\ %*
+" Wildmenu
+set wildmenu
+" Folding
+set foldmethod=syntax
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 05. Text Formatting/Layout
+" 05. Text Formattingk/Layout
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set autoindent            " auto-indent
@@ -83,3 +97,5 @@ set nowrap                " don't wrap text
 " 06. Custom Commands
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map Q <Nop>
+inoremap jk <esc>
