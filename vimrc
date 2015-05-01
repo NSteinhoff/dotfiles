@@ -1,74 +1,85 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  " Filename: .vimrc                                                    
+  " Sections:
+  "
+  "   01. General ................. General Vim behavior
+  "
+  "   02. Events .................. General autocmd events
+  "
+  "   03. Theme/Colors ............ Colors, fonts, etc.
+  "
+  "   04. Vim UI .................. User interface behavior
+  "
+  "   05. Text Formatting/Layout .. Text, tab, indentation related
+  "
+  "   06. Custom Commands ......... Any custom command aliases
+  "
+  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 01. General                                                           
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible         " get rid of Vi compatibility mode. SET FIRST!
 
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 02. Events
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+filetype plugin indent on " filetype detection[ON] plugin[ON] indent[ON]
 
-" General settings
-set history=50		    " keep 50 lines of command line history
-set ruler		        " show the cursor position all the time
-set showcmd		        " display incomplete commands
-set incsearch		    " do incremental searching
-set number              " show line numbers
-set numberwidth=3       " set gutter column width
-set cursorline          " highlight cursor line
-set showmatch           " highlight matching braces
-set wildmenu            " visual autocomplete for command menu
-set incsearch           " search as you type
+" Enable omnicompletion (to use, hold Ctrl+X then Ctrl+O while in Insert mode.
+set ofu=syntaxcomplete#Complete
 
-" Folding
-set foldenable          " enable folding
-set foldlevelstart=5    " open N number of folds by default
-set foldnestmax=10      " limit number of nested folds
-nnoremap <space> za
-
-
-" Filetype specific
-filetype plugin on
-filetype indent on
-set omnifunc=syntaxcomplete#Complete
-
-" Don't use Ex mode, use Q for formatting
-map Q gq
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
-
-" Custom Keymappings
-" Movement testing
-nnoremap j gj
-nnoremap k gk
-xnoremap j gj
-xnoremap k gk
-nnoremap B ^
-nnoremap E $
-nnoremap gV `[v`]
-inoremap jk <esc>
-
-" Execute current file
-nnoremap <C-p> :w<CR>:cd %:p:h<CR>:! ./%<CR>
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 03. Theme/Colors
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set t_Co=256              " enable 256-color mode.
+syntax enable             " enable syntax highlighting (previously syntax on).
+colorscheme molokai       " set colorscheme
+"
+" Highlight characters that go over 80 columns (by drawing a border on the 81st)
+if exists('+colorcolumn')
+        set colorcolumn=81
+        highlight ColorColumn ctermbg=red
+else
+        highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+        match OverLength /\%81v.\+/
 endif
 
-" Indentation
-set autoindent		" always set autoindenting on
-set tabstop=8           " tabstop width
-set expandtab 		" tabs to spaces
-set softtabstop=8	" tabs are 4 spaces
-set shiftwidth=8	" shift by 4 spaces
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 04. Vim UI                                                                 
+" 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set number                " show line numbers
+set numberwidth=6         " make the number gutter 6 characters wide
+set cul                   " highlight current line
+set laststatus=2          " last window always has a statusline
+set nohlsearch            " Don't continue to highlight searched phrases.
+set incsearch             " But do highlight as you type your search.
+set ignorecase            " Make searches case-insensitive.
+set ruler                 " Always show info along bottom.
+set showmatch
+set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \
+\%h%m%r%=%-40(bytval=0x%B,%n%Y%)\%P
+set visualbell
 
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
-endif
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 05. Text Formatting/Layout
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set autoindent            " auto-indent
+set tabstop=4             " tab spacing
+set softtabstop=4         " unify
+set shiftwidth=4          " indent/outdent by 2 columns
+set shiftround            " always indent/outdent to the nearest tabstop
+set expandtab             " use spaces instead of tabs
+set smartindent           " automatically insert one extra level of indentation
+set smarttab              " use tabs at the start of a line, spaces elsewhere
+set nowrap                " don't wrap text
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 06. Custom Commands
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
