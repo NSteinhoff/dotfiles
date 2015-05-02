@@ -35,9 +35,10 @@ set ofu=syntaxcomplete#Complete
 " 03. Theme/Colors
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set t_Co=256              " enable 256-color mode.
-syntax enable             " enable syntax highlighting (previously syntax on).
-colorscheme molokai       " set colorscheme
+set t_Co=256                " enable 256-color mode.
+syntax enable               " enable syntax highlighting (previously syntax on).
+" colorscheme wombat256      " set colorscheme
+colorscheme monokai
 "
 " Highlight characters that go over 80 columns (by drawing a border on the 81st)
 if exists('+colorcolumn')
@@ -52,20 +53,20 @@ endif
 " 04. Vim UI
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set number                " show line numbers
-set numberwidth=6         " make the number gutter 6 characters wide
-set cul                   " highlight current line
-set laststatus=2          " last window always has a statusline
-set nohlsearch            " Don't continue to highlight searched phrases.
-set incsearch             " But do highlight as you type your search.
-set ignorecase            " Make searches case-insensitive.
-set ruler                 " Always show info along bottom.
-set relativenumber
-set showmatch
-set visualbell
-set scrolloff=7
-set sidescrolloff=15
-set ttyfast
+set number                  " show line numbers
+set relativenumber          " show line numbers relative to cursor
+set numberwidth=6           " make the number gutter 6 characters wide
+set cul                     " highlight current line
+set laststatus=2            " last window always has a statusline
+set nohlsearch              " Don't continue to highlight searched phrases.
+set incsearch               " But do highlight as you type your search.
+set ignorecase              " Make searches case-insensitive.
+set ruler                   " Always show info along bottom.
+set showmatch               " Show matching braces
+set visualbell              " Visual feedback
+set scrolloff=7             " Vertical offset
+set sidescrolloff=15        " Horizontal offset
+set ttyfast                 " Faster
 " Show funny characters
 set list
 set listchars=nbsp:¬,tab:»·,trail:·
