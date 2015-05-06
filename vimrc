@@ -22,6 +22,21 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible         " get rid of Vi compatibility mode. SET FIRST!
 
+" Managing Plugins
+filetype off                " required 
+
+" Vundle
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+
+" Bundles to install go here
+" Python Mode
+Bundle 'klen/python-mode'
+
+
+call vundle#end()           "required
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 02. Events
 "
@@ -37,6 +52,7 @@ set ofu=syntaxcomplete#Complete
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256                " enable 256-color mode.
 syntax enable               " enable syntax highlighting (previously syntax on).
+let python_highlight_all=1
 " colorscheme wombat256      " set colorscheme
 colorscheme monokai
 "
@@ -65,8 +81,9 @@ set ruler                   " Always show info along bottom.
 set showmatch               " Show matching braces
 set visualbell              " Visual feedback
 set scrolloff=7             " Vertical offset
-set sidescrolloff=15        " Horizontal offset
+set sidescrolloff=5        " Horizontal offset
 set ttyfast                 " Faster
+set showcmd                 " Show partial commands
 " Show funny characters
 set list
 set listchars=nbsp:¬,tab:»·,trail:·
@@ -100,3 +117,10 @@ set nowrap                " don't wrap text
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map Q <Nop>
 inoremap jk <esc>
+nnoremap <Leader>r :w<cr> :!python %<cr>
+"
+" PyMode Config
+let g:pymode_run = 0
+let g:pymode_run_bind = ''
+let g:pymode_rope_complete_on_dot = 0
+let g:pymode_rope_show_doc_bind = 'K'
