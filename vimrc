@@ -56,21 +56,11 @@ let python_highlight_all=1
 " colorscheme wombat256      " set colorscheme
 colorscheme monokai
 "
-" Highlight characters that go over 80 columns (by drawing a border on the 81st)
-if exists('+colorcolumn')
-        set colorcolumn=81
-        highlight ColorColumn ctermbg=red
-else
-        highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-        match OverLength /\%81v.\+/
-endif
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 04. Vim UI
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set number                  " show line numbers
-set relativenumber          " show line numbers relative to cursor
 set numberwidth=6           " make the number gutter 6 characters wide
 set cul                     " highlight current line
 set laststatus=2            " last window always has a statusline
@@ -96,7 +86,7 @@ set statusline+=%5*\ %*
 " Wildmenu
 set wildmenu
 " Folding
-set foldmethod=syntax
+" set foldmethod=syntax
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 05. Text Formattingk/Layout
 "
@@ -118,6 +108,7 @@ set nowrap                " don't wrap text
 map Q <Nop>
 inoremap jk <esc>
 nnoremap <Leader>r :w<cr> :!python %<cr>
+nnoremap <Leader>z :syn sync fromstart<cr>
 "
 " PyMode Config
 let g:pymode_run = 0
