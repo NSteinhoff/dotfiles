@@ -44,7 +44,7 @@ call vundle#end()           "required
 filetype plugin indent on " filetype detection[ON] plugin[ON] indent[ON]
 
 " Enable omnicompletion (to use, hold Ctrl+X then Ctrl+O while in Insert mode.
-set ofu=syntaxcomplete#Complete
+" set ofu=syntaxcomplete#Complete
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 03. Theme/Colors
@@ -55,6 +55,7 @@ syntax enable               " enable syntax highlighting (previously syntax on).
 let python_highlight_all=1
 " colorscheme wombat256      " set colorscheme
 colorscheme monokai
+set background=dark
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 04. Vim UI
@@ -64,7 +65,6 @@ set number                  " show line numbers
 set numberwidth=6           " make the number gutter 6 characters wide
 set cul                     " highlight current line
 set laststatus=2            " last window always has a statusline
-set nohlsearch              " Don't continue to highlight searched phrases.
 set incsearch               " But do highlight as you type your search.
 set ignorecase              " Make searches case-insensitive.
 set ruler                   " Always show info along bottom.
@@ -74,6 +74,9 @@ set scrolloff=7             " Vertical offset
 set sidescrolloff=5        " Horizontal offset
 set ttyfast                 " Faster
 set showcmd                 " Show partial commands
+set hlsearch
+hi Search ctermbg=LightGray
+hi Search ctermfg=Black
 " Show funny characters
 set list
 set listchars=nbsp:¬,tab:»·,trail:·
@@ -109,6 +112,14 @@ map Q <Nop>
 inoremap jk <esc>
 nnoremap <Leader>r :w<cr> :!python %<cr>
 nnoremap <Leader>z :syn sync fromstart<cr>
+nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+inoremap {{ {}<Left>
+inoremap {{<CR> {<CR>}<esc>kA<CR>
+inoremap [[ []<Left>
+inoremap [[<CR> [<CR>]<esc>kA<CR>
+inoremap (( ()<Left>
+inoremap ((<CR> (<CR>)<esc>kA<CR>
+"
 "
 " PyMode Config
 let g:pymode_run = 0
