@@ -23,7 +23,7 @@
 set nocompatible         " get rid of Vi compatibility mode. SET FIRST!
 
 " Managing Plugins
-filetype off                " required 
+filetype off                " required
 
 " Vundle
 set rtp+=~/.vim/bundle/Vundle.vim
