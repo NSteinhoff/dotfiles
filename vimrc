@@ -34,6 +34,11 @@ Plugin 'gmarik/Vundle.vim'
 " Python Mode
 Bundle 'klen/python-mode'
 
+" Airline
+Plugin 'bling/vim-airline'
+
+" Fugitive
+Plugin 'fugitive.vim'
 
 call vundle#end()           "required
 
@@ -55,9 +60,10 @@ syntax enable               " enable syntax highlighting (previously syntax on).
 let python_highlight_all=1
 " colorscheme wombat256      " set colorscheme
 colorscheme monokai
+let g:airline_theme='molokai'
 set background=dark
 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""kkkk""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 04. Vim UI
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -108,6 +114,7 @@ set nowrap                " don't wrap text
 " 06. Custom Commands
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set pastetoggle=<F2>
 map Q <Nop>
 inoremap jk <esc>
 nnoremap <Leader>r :w<cr> :!python %<cr>
