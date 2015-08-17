@@ -20,27 +20,27 @@
 " 01. General
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible         " get rid of Vi compatibility mode. SET FIRST!
+set nocompatible                    " get rid of Vi compatibility mode. SET FIRST!
 
 " Managing Plugins
-filetype off                " required
+filetype off                        " required
 
 " Vundle
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
-" Bundles to install go here
-" Python Mode
+" Bundles to install go here:
+" Python Mode                       " Python mode with linter and code completion
 Bundle 'klen/python-mode'
 
-" Airline
+" Airline                           " Nice status line
 Plugin 'bling/vim-airline'
 
-" Fugitive
+" Fugitive                          " Git integration
 Plugin 'fugitive.vim'
 
-call vundle#end()           "required
+call vundle#end()                   " required
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 02. Events
@@ -48,22 +48,19 @@ call vundle#end()           "required
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 filetype plugin indent on " filetype detection[ON] plugin[ON] indent[ON]
 
-" Enable omnicompletion (to use, hold Ctrl+X then Ctrl+O while in Insert mode.
-" set ofu=syntaxcomplete#Complete
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 03. Theme/Colors
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set t_Co=256                " enable 256-color mode.
-syntax enable               " enable syntax highlighting (previously syntax on).
-let python_highlight_all=1
-" colorscheme wombat256      " set colorscheme
-colorscheme monokai
+set t_Co=256                        " enable 256-color mode.
+syntax enable                       " enable syntax highlighting (previously syntax on).
+let python_highlight_all=1          " improved syntax highlighting
+" colorscheme wombat256
+colorscheme monokai                 " nice dark colorscheme
 let g:airline_theme='molokai'
 set background=dark
 "
-""""""""""""""""""kkkk""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 04. Vim UI
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -77,25 +74,20 @@ set ruler                   " Always show info along bottom.
 set showmatch               " Show matching braces
 set visualbell              " Visual feedback
 set scrolloff=7             " Vertical offset
-set sidescrolloff=5        " Horizontal offset
+set sidescrolloff=5         " Horizontal offset
 set ttyfast                 " Faster
 set showcmd                 " Show partial commands
 set hlsearch
 hi Search ctermbg=LightGray
 hi Search ctermfg=Black
+"
 " Show funny characters
 set list
 set listchars=nbsp:¬,tab:»·,trail:·
-" Statusline
-set statusline=                                     " Override default
-set statusline+=%2*\ %f\ %m\ %r%*                   " Show filename/path
-set statusline+=%3*%=%*                             " Set right-side status info after this line
-set statusline+=%4*%l/%L:%v%*                       " Set <line number>/<total lines>:<column>
-set statusline+=%5*\ %*
+"
 " Wildmenu
-set wildmenu
-" Folding
-" set foldmethod=syntax
+set wildmenu                                        " command line completion
+set wildmode=longest:full,full
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 05. Text Formattingk/Layout
 "
@@ -116,10 +108,20 @@ set nowrap                " don't wrap text
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set pastetoggle=<F2>
 map Q <Nop>
+"
+" faster exiting insert mode without having to leave the homerow
 inoremap jk <esc>
+"
+" execute the current file with python
 nnoremap <Leader>r :w<cr> :!python %<cr>
+"
+" resync code folding
 nnoremap <Leader>z :syn sync fromstart<cr>
+"
+" remove search highlights
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+"
+" create opening and closing brackets and put cursor inside:
 inoremap {{ {}<Left>
 inoremap {{<CR> {<CR>}<esc>kA<CR>
 inoremap [[ []<Left>
