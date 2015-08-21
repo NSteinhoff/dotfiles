@@ -46,7 +46,9 @@ call vundle#end()                   " required
 " 02. Events
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-filetype plugin indent on " filetype detection[ON] plugin[ON] indent[ON]
+set ffs=unix,dos,mac        " Unix as standard file type
+set encoding=utf8           " Standard encoding
+filetype plugin indent on   " filetype detection[ON] plugin[ON] indent[ON]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 03. Theme/Colors
@@ -92,30 +94,46 @@ set wildmode=longest:full,full
 " 05. Text Formattingk/Layout
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set autoindent            " auto-indent
-set tabstop=4             " tab spacing
-set softtabstop=4         " unify
-set shiftwidth=4          " indent/outdent by 2 columns
-set shiftround            " always indent/outdent to the nearest tabstop
-set expandtab             " use spaces instead of tabs
-set smartindent           " automatically insert one extra level of indentation
-set smarttab              " use tabs at the start of a line, spaces elsewhere
-set nowrap                " don't wrap text
+set autoindent              " auto-indent
+set tabstop=4               " tab spacing
+set softtabstop=4           " unify
+set shiftwidth=4            " indent/outdent by 4 columns
+set shiftround              " always indent/outdent to the nearest tabstop
+set expandtab               " use spaces instead of tabs
+set cindent                 " automatically insert one extra level of indentation
+set smarttab                " use tabs at the start of a line, spaces elsewhere
+set nowrap                  " don't wrap text
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 06. Custom Commands
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Disable arrow keys
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+"
+" activate/deactivate paste mode
 set pastetoggle=<F2>
+"
+" disable Ex-mode
 map Q <Nop>
 "
 " faster exiting insert mode without having to leave the homerow
 inoremap jk <esc>
 "
+" easier switching between vim splits
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+"
 " execute the current file with python
 nnoremap <Leader>r :w<cr> :!python %<cr>
 "
-" resync code folding
+"
 nnoremap <Leader>z :syn sync fromstart<cr>
 "
 " remove search highlights
@@ -128,7 +146,6 @@ inoremap [[ []<Left>
 inoremap [[<CR> [<CR>]<esc>kA<CR>
 inoremap (( ()<Left>
 inoremap ((<CR> (<CR>)<esc>kA<CR>
-"
 "
 " PyMode Config
 let g:pymode_run = 0
