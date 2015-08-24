@@ -14,7 +14,10 @@
   "
   "   06. Custom Commands ......... Any custom command aliases
   "
+  "   07. Plugin Configuration .... Configurations of Vundle Plugins
+  "
   """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 01. General
@@ -31,16 +34,27 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Bundles to install go here:
+"
 " Python Mode                       " Python mode with linter and code completion
 Bundle 'klen/python-mode'
-
+"
 " Airline                           " Nice status line
 Plugin 'bling/vim-airline'
-
+"
 " Fugitive                          " Git integration
 Plugin 'fugitive.vim'
+"
+" csv.vim                           " CSV-files
+Plugin 'csv.vim'
+"
+" Buffer-Line                       " Show buffers
+Plugin 'bling/vim-bufferline'
+"
+" GitGutter                         " Sow git diff stats in gutter
+Plugin 'airblade/vim-gitgutter'
 
 call vundle#end()                   " required
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 02. Events
@@ -49,6 +63,7 @@ call vundle#end()                   " required
 set ffs=unix,dos,mac        " Unix as standard file type
 set encoding=utf8           " Standard encoding
 filetype plugin indent on   " filetype detection[ON] plugin[ON] indent[ON]
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 03. Theme/Colors
@@ -61,16 +76,17 @@ let python_highlight_all=1          " improved syntax highlighting
 colorscheme monokai                 " nice dark colorscheme
 let g:airline_theme='molokai'
 set background=dark
-"
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 04. Vim UI
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set number                  " show line numbers
-set numberwidth=6           " make the number gutter 6 characters wide
+set numberwidth=4           " make the number gutter 4 characters wide
 set cul                     " highlight current line
 set laststatus=2            " last window always has a statusline
-set incsearch               " But do highlight as you type your search.
+set incsearch               " Highlight as you type your search.
 set ignorecase              " Make searches case-insensitive.
 set ruler                   " Always show info along bottom.
 set showmatch               " Show matching braces
@@ -90,6 +106,8 @@ set listchars=nbsp:¬,tab:»·,trail:·
 " Wildmenu
 set wildmenu                                        " command line completion
 set wildmode=longest:full,full
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 05. Text Formattingk/Layout
 "
@@ -103,6 +121,7 @@ set expandtab               " use spaces instead of tabs
 set cindent                 " automatically insert one extra level of indentation
 set smarttab                " use tabs at the start of a line, spaces elsewhere
 set nowrap                  " don't wrap text
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 06. Custom Commands
@@ -146,9 +165,28 @@ inoremap [[ []<Left>
 inoremap [[<CR> [<CR>]<esc>kA<CR>
 inoremap (( ()<Left>
 inoremap ((<CR> (<CR>)<esc>kA<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 07. Plugin Configuration
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " PyMode Config
 let g:pymode_run = 0
 let g:pymode_run_bind = ''
 let g:pymode_rope_complete_on_dot = 0
 let g:pymode_rope_show_doc_bind = 'K'
+"
+" Netrw Explorer
+nnoremap <leader>e :Vex<cr>
+let g:netrw_listtyle=0      " Set default view style
+let g:netrw_banner=1        " Toggle banner
+let g:netrw_altv=1          " Open files on right
+let g:netrw_preview=1       " Open previews vertically
+"
+" Airline Config
+let g:airline#extensions#tabline#enabled = 0
+"
+" BufferLine Config
+let g:bufferline_echo = 0
