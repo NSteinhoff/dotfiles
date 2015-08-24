@@ -152,7 +152,7 @@ nnoremap <C-l> <C-w>l
 " execute the current file with python
 nnoremap <Leader>r :w<cr> :!python %<cr>
 "
-"
+" resync folding
 nnoremap <Leader>z :syn sync fromstart<cr>
 "
 " remove search highlights
