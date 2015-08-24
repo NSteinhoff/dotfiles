@@ -83,6 +83,7 @@ set background=dark
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set number                  " show line numbers
+set relativenumber          " show relative line numbers
 set numberwidth=4           " make the number gutter 4 characters wide
 set cul                     " highlight current line
 set laststatus=2            " last window always has a statusline
@@ -179,7 +180,8 @@ let g:pymode_rope_complete_on_dot = 0
 let g:pymode_rope_show_doc_bind = 'K'
 "
 " Netrw Explorer
-nnoremap <leader>e :Vex<cr>
+nnoremap <leader>e :E<cr>
+nnoremap <leader>v :Vex<cr>
 let g:netrw_listtyle=0      " Set default view style
 let g:netrw_banner=1        " Toggle banner
 let g:netrw_altv=1          " Open files on right
