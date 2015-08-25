@@ -47,7 +47,7 @@ Plugin 'fugitive.vim'
 " csv.vim                           " CSV-files
 Plugin 'csv.vim'
 "
-" Buffer-Line                       " Show buffers
+" Buffer-Line                       " Show a list of buffers
 Plugin 'bling/vim-bufferline'
 "
 " GitGutter                         " Sow git diff stats in gutter
@@ -189,6 +189,7 @@ let g:netrw_preview=1       " Open previews vertically
 "
 " Airline Config
 let g:airline#extensions#tabline#enabled = 0
+let g:airline#extensions#bufferline#enabled = 1
 "
 " BufferLine Config
 let g:bufferline_echo = 0
