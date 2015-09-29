@@ -47,9 +47,6 @@ Plugin 'fugitive.vim'
 " csv.vim                           " CSV-files
 Plugin 'csv.vim'
 "
-" Buffer-Line                       " Show a list of buffers
-Plugin 'bling/vim-bufferline'
-"
 " GitGutter                         " Sow git diff stats in gutter
 Plugin 'airblade/vim-gitgutter'
 
@@ -76,6 +73,7 @@ let python_highlight_all=1          " improved syntax highlighting
 colorscheme monokai                 " nice dark colorscheme
 let g:airline_theme='molokai'
 set background=dark
+hi Folded ctermbg=234
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -150,6 +148,12 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 "
+" easier resizing of vim splits
+nnoremap - <C-w><
+nnoremap = <C-w>>
+nnoremap _ <C-w>-
+nnoremap + <C-w>+
+"
 " execute the current file with python
 nnoremap <Leader>r :w<cr> :!python %<cr>
 "
@@ -176,12 +180,15 @@ inoremap ((<CR> (<CR>)<esc>kA<CR>
 " PyMode Config
 let g:pymode_run = 0
 let g:pymode_run_bind = ''
+let g:pymode_rope_lookup_project = 0
 let g:pymode_rope_complete_on_dot = 0
-let g:pymode_rope_show_doc_bind = 'K'
+let g:pymode_rope_show_doc_bind = '<leader>d'
+let g:pymode_rope_goto_definition_bind = '<leader>g'
 "
 " Netrw Explorer
-nnoremap <leader>e :E<cr>
-nnoremap <leader>v :Vex<cr>
+nnoremap <leader>e :Explore<cr>
+nnoremap <leader>v :Vexplore<cr>
+nnoremap <leader>t :Texplore<cr>
 let g:netrw_listtyle=0      " Set default view style
 let g:netrw_banner=1        " Toggle banner
 let g:netrw_altv=1          " Open files on right
@@ -189,7 +196,3 @@ let g:netrw_preview=1       " Open previews vertically
 "
 " Airline Config
 let g:airline#extensions#tabline#enabled = 0
-let g:airline#extensions#bufferline#enabled = 1
-"
-" BufferLine Config
-let g:bufferline_echo = 0
