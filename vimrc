@@ -21,7 +21,6 @@
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 01. General
-"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible                    " get rid of Vi compatibility mode. SET FIRST!
 
@@ -34,28 +33,51 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Bundles to install go here:
-"
-" Python Mode                       " Python mode with linter and code completion
-Bundle 'klen/python-mode'
-"
+"""""""""""""""""""""""""""""""""""""
+""""" Total Conversion """""
+" Python Mode                       " Python mode with linter
+                                    " and code completion
+                                    " (currently disabled in favor of Jedi-Vim
+                                    " and Syntastic)
+" Bundle 'klen/python-mode'
+
+
+""""" UI """""
 " Airline                           " Nice status line
 Plugin 'bling/vim-airline'
-"
+
 " Fugitive                          " Git integration
 Plugin 'fugitive.vim'
-"
-" csv.vim                           " CSV-files
-Plugin 'csv.vim'
-"
+
 " GitGutter                         " Sow git diff stats in gutter
 Plugin 'airblade/vim-gitgutter'
 
+
+""""" General Functionality """""
+" csv.vim
+Plugin 'csv.vim'                    " Added functionality for reading
+                                    " and editing .csv files
+
+" FuzzyFinder
+Plugin 'ctrlp.vim'                  " Fuzzy file finder
+
+
+""""" Programming """""
+" Jedi-Vim
+Plugin 'davidhalter/jedi-vim'       " Code completion and refactoring
+
+" Syntastic
+Plugin 'scrooloose/syntastic'       " Syntax checking
+                                    " Requires the chosen syntax checkers to be
+                                    " installed (i.e. 'flake8' for python)
+
+
+"""""""""""""""""""""""""""""""""""""
 call vundle#end()                   " required
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 02. Events
-"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set ffs=unix,dos,mac        " Unix as standard file type
 set encoding=utf8           " Standard encoding
@@ -64,10 +86,10 @@ filetype plugin indent on   " filetype detection[ON] plugin[ON] indent[ON]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 03. Theme/Colors
-"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256                        " enable 256-color mode.
-syntax enable                       " enable syntax highlighting (previously syntax on).
+syntax enable                       " enable syntax highlighting
+                                    " (previously syntax on)
 let python_highlight_all=1          " improved syntax highlighting
 " colorscheme wombat256
 colorscheme monokai                 " nice dark colorscheme
@@ -78,7 +100,6 @@ hi Folded ctermbg=234
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 04. Vim UI
-"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set number                  " show line numbers
 set relativenumber          " show relative line numbers
@@ -86,7 +107,6 @@ set numberwidth=4           " make the number gutter 4 characters wide
 set cul                     " highlight current line
 set laststatus=2            " last window always has a statusline
 set incsearch               " Highlight as you type your search.
-set ignorecase              " Make searches case-insensitive.
 set ruler                   " Always show info along bottom.
 set showmatch               " Show matching braces
 set visualbell              " Visual feedback
@@ -94,14 +114,17 @@ set scrolloff=7             " Vertical offset
 set sidescrolloff=5         " Horizontal offset
 set ttyfast                 " Faster
 set showcmd                 " Show partial commands
-set hlsearch
+set hlsearch                " highlight search terms in text
+set foldmethod=indent       " how to determine folds
+set foldnestmax=2           " limit nested folds
+set foldignore=             " Set this to nothing to also fold python comments
 hi Search ctermbg=LightGray
 hi Search ctermfg=Black
-"
+
 " Show funny characters
 set list
 set listchars=nbsp:¬,tab:»·,trail:·
-"
+
 " Wildmenu
 set wildmenu                                        " command line completion
 set wildmode=longest:full,full
@@ -117,9 +140,14 @@ set softtabstop=4           " unify
 set shiftwidth=4            " indent/outdent by 4 columns
 set shiftround              " always indent/outdent to the nearest tabstop
 set expandtab               " use spaces instead of tabs
-set cindent                 " automatically insert one extra level of indentation
+set cindent                 " automatically insert one extra level of 
+                            " indentation
 set smarttab                " use tabs at the start of a line, spaces elsewhere
 set nowrap                  " don't wrap text
+
+" Hightlight overly long lines
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -155,7 +183,7 @@ nnoremap _ <C-w>-
 nnoremap + <C-w>+
 "
 " execute the current file with python
-nnoremap <Leader>r :w<cr> :!python %<cr>
+nnoremap <Leader>R :w<cr> :!python %<cr>
 "
 " resync folding
 nnoremap <Leader>z :syn sync fromstart<cr>
@@ -178,12 +206,18 @@ inoremap ((<CR> (<CR>)<esc>kA<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " PyMode Config
-let g:pymode_run = 0
-let g:pymode_run_bind = ''
-let g:pymode_rope_lookup_project = 0
-let g:pymode_rope_complete_on_dot = 0
-let g:pymode_rope_show_doc_bind = '<leader>d'
-let g:pymode_rope_goto_definition_bind = '<leader>g'
+" let g:pymode_run = 0
+" let g:pymode_run_bind = ''
+
+" let g:pymode_doc = 0
+
+" let g:pymode_lint_unmodified = 1
+
+" let g:pymode_rope = 0
+" let g:pymode_rope_lookup_project = 0
+" let g:pymode_rope_complete_on_dot = 0
+" let g:pymode_rope_show_doc_bind = '<leader>d'
+" let g:pymode_rope_goto_definition_bind = '<leader>g'
 "
 " Netrw Explorer
 nnoremap <leader>e :Explore<cr>
@@ -196,3 +230,15 @@ let g:netrw_preview=1       " Open previews vertically
 "
 " Airline Config
 let g:airline#extensions#tabline#enabled = 0
+let g:airline#extensions#syntastic#enabled = 1
+"
+" Jedi-Vim
+let g:jedi#popup_on_dot = 0
+let g:jedi#show_call_signatures = 0
+let g:jedi#use_splits_not_buffers = "left"
+"
+" Syntastic
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_loc_list_height = 5
+let g:syntastic_python_checkers = ["flake8"]
