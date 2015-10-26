@@ -119,7 +119,6 @@
     set foldmethod=indent       " how to determine folds
     set foldnestmax=2           " limit nested folds
     set foldignore=             " Set this to nothing to also fold python comments
-    set textwidth=79            " Line break after column 79
     hi Search ctermbg=LightGray
     hi Search ctermfg=Black
 
@@ -130,11 +129,11 @@
     " Wildmenu
     set wildmenu                                        " command line completion
     set wildmode=longest:full,full
+    set wildignore=*.swp,*.zip,*.pyc
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 05. Text Formattingk/Layout
-"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     set autoindent              " auto-indent
     set tabstop=4               " tab spacing
@@ -142,14 +141,18 @@
     set shiftwidth=4            " indent/outdent by 4 columns
     set shiftround              " always indent/outdent to the nearest tabstop
     set expandtab               " use spaces instead of tabs
-    set cindent                 " automatically insert one extra level of 
+    set cindent                 " automatically insert one extra level of
                                 " indentation
-    set smarttab                " use tabs at the start of a line, spaces elsewhere
+    set smarttab                " use tabs at the start of a line, spaces
+                                " elsewhere
     set nowrap                  " don't wrap text
 
-    " Hightlight overly long lines
-    highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-    match OverLength /\%81v.\+/
+    """ Python specific
+    " Hightlight overlength
+    autocmd FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+    autocmd FileType python match OverLength /\%81v.\+/
+    " Line break after 79 characters
+    autocmd FileType python setlocal textwidth=79
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
