@@ -34,12 +34,9 @@
 
     " Bundles to install go here:
     """""""""""""""""""""""""""""""""""""
-        """"" Total Conversion """""
+    """"" Total Conversion """""
         " Python Mode                       " Python mode with linter
-                                            " and code completion
-                                            " (currently disabled in favor of Jedi-Vim
-                                            " and Syntastic)
-        " Bundle 'klen/python-mode'
+        Plugin 'klen/python-mode'           " and code completion
 
 
     """"" UI """""
@@ -64,10 +61,10 @@
 
         """"" Programming """""
         " Jedi-Vim
-        Plugin 'davidhalter/jedi-vim'       " Code completion and refactoring
+        " Plugin 'davidhalter/jedi-vim'       " Code completion and refactoring
 
         " Syntastic
-        Plugin 'scrooloose/syntastic'       " Syntax checking
+        " Plugin 'scrooloose/syntastic'       " Syntax checking
                                             " Requires the chosen syntax checkers to be
                                             " installed (i.e. 'flake8' for python)
 
@@ -95,7 +92,8 @@
     colorscheme monokai                 " nice dark colorscheme
     let g:airline_theme='molokai'
     set background=dark
-    hi Folded ctermbg=234
+    " hi Folded ctermbg=234
+    hi Folded ctermfg=138
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -149,10 +147,10 @@
 
     """ Python specific
     " Hightlight overlength
-    autocmd FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-    autocmd FileType python match OverLength /\%81v.\+/
+    " autocmd FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+    " autocmd FileType python match OverLength /\%81v.\+/
     " Line break after 79 characters
-    autocmd FileType python setlocal textwidth=79
+    " autocmd FileType python setlocal textwidth=79
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -209,19 +207,15 @@
 " 07. Plugin Configuration
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    " " PyMode Config
-    " let g:pymode_run = 0
-    " let g:pymode_run_bind = ''
-
-    " let g:pymode_doc = 0
-
-    " let g:pymode_lint_unmodified = 1
-
-    " let g:pymode_rope = 0
-    " let g:pymode_rope_lookup_project = 0
-    " let g:pymode_rope_complete_on_dot = 0
-    " let g:pymode_rope_show_doc_bind = '<leader>d'
-    " let g:pymode_rope_goto_definition_bind = '<leader>g'
+    " PyMode Config
+    let g:pymode_run = 0
+    let g:pymode_run_bind = ''
+    let g:pymode_lint_on_write = 1
+    let g:pymode_lint_unmodified = 1
+    let g:pymode_rope_lookup_project = 1
+    let g:pymode_rope_complete_on_dot = 0
+    let g:pymode_rope_show_doc_bind = '<leader>d'
+    let g:pymode_rope_goto_definition_bind = '<leader>g'
     "
     " Netrw Explorer
     nnoremap <leader>e :Explore<cr>
@@ -237,12 +231,12 @@
     let g:airline#extensions#syntastic#enabled = 1
     "
     " Jedi-Vim
-    let g:jedi#popup_on_dot = 0
-    let g:jedi#show_call_signatures = 0
-    let g:jedi#use_splits_not_buffers = "left"
+    " let g:jedi#popup_on_dot = 0
+    " let g:jedi#show_call_signatures = 0
+    " let g:jedi#use_splits_not_buffers = "left"
     "
     " Syntastic
-    let g:syntastic_auto_loc_list = 2
-    let g:syntastic_always_populate_loc_list = 0
-    let g:syntastic_loc_list_height = 5
-    let g:syntastic_python_checkers = ["flake8"]
+    " let g:syntastic_auto_loc_list = 2
+    " let g:syntastic_always_populate_loc_list = 0
+    " let g:syntastic_loc_list_height = 5
+    " let g:syntastic_python_checkers = ["flake8"]
