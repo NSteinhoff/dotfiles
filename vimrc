@@ -40,6 +40,9 @@
 
 
     """"" UI """""
+        " Solarized
+        Plugin 'altercation/vim-colors-solarized'
+
         " Airline                           " Nice status line
         Plugin 'bling/vim-airline'
 
@@ -84,16 +87,14 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 03. Theme/Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    set t_Co=256                        " enable 256-color mode.
+    set background=light
+
     syntax enable                       " enable syntax highlighting
-                                        " (previously syntax on)
     let python_highlight_all=1          " improved syntax highlighting
-    " colorscheme wombat256
-    colorscheme monokai                 " nice dark colorscheme
-    let g:airline_theme='molokai'
-    set background=dark
-    " hi Folded ctermbg=234
-    hi Folded ctermfg=138
+
+    let g:solarized_termtrans = 1
+    colorscheme solarized
+    let g:airline_theme='solarized'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -117,8 +118,6 @@
     set foldmethod=indent       " how to determine folds
     set foldnestmax=2           " limit nested folds
     set foldignore=             " Set this to nothing to also fold python comments
-    hi Search ctermbg=LightGray
-    hi Search ctermfg=Black
 
     " Show funny characters
     set list
@@ -144,13 +143,6 @@
     set smarttab                " use tabs at the start of a line, spaces
                                 " elsewhere
     set nowrap                  " don't wrap text
-
-    """ Python specific
-    " Hightlight overlength
-    " autocmd FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-    " autocmd FileType python match OverLength /\%81v.\+/
-    " Line break after 79 characters
-    " autocmd FileType python setlocal textwidth=79
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -188,6 +180,9 @@
     " execute the current file with python
     nnoremap <Leader>R :w<cr> :!python %<cr>
     "
+    " run linter
+    nnoremap <Leader>l :PymodeLint<cr>
+    "
     " resync folding
     nnoremap <Leader>z :syn sync fromstart<cr>
     "
@@ -212,6 +207,7 @@
     let g:pymode_run_bind = ''
     let g:pymode_lint_on_write = 1
     let g:pymode_lint_unmodified = 1
+    let g:pymode_rope = 1
     let g:pymode_rope_lookup_project = 1
     let g:pymode_rope_complete_on_dot = 0
     let g:pymode_rope_show_doc_bind = '<leader>d'
@@ -229,14 +225,3 @@
     " Airline Config
     let g:airline#extensions#tabline#enabled = 0
     let g:airline#extensions#syntastic#enabled = 1
-    "
-    " Jedi-Vim
-    " let g:jedi#popup_on_dot = 0
-    " let g:jedi#show_call_signatures = 0
-    " let g:jedi#use_splits_not_buffers = "left"
-    "
-    " Syntastic
-    " let g:syntastic_auto_loc_list = 2
-    " let g:syntastic_always_populate_loc_list = 0
-    " let g:syntastic_loc_list_height = 5
-    " let g:syntastic_python_checkers = ["flake8"]
