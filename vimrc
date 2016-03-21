@@ -44,7 +44,8 @@
         Plugin 'altercation/vim-colors-solarized'
 
         " Airline                           " Nice status line
-        Plugin 'bling/vim-airline'
+        Plugin 'vim-airline/vim-airline'
+        Plugin 'vim-airline/vim-airline-themes'
 
         " Fugitive                          " Git integration
         Plugin 'fugitive.vim'
@@ -61,16 +62,8 @@
         " FuzzyFinder
         Plugin 'ctrlp.vim'                  " Fuzzy file finder
 
-
-        """"" Programming """""
-        " Jedi-Vim
-        " Plugin 'davidhalter/jedi-vim'       " Code completion and refactoring
-
-        " Syntastic
-        " Plugin 'scrooloose/syntastic'       " Syntax checking
-                                            " Requires the chosen syntax checkers to be
-                                            " installed (i.e. 'flake8' for python)
-
+        " Virtualenv
+        Plugin 'virtualenv.vim'
 
     """""""""""""""""""""""""""""""""""""
     call vundle#end()                   " required
@@ -87,12 +80,14 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 03. Theme/Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    set background=light
+    set t_Co=256
+    set background=dark
 
     syntax enable                       " enable syntax highlighting
     let python_highlight_all=1          " improved syntax highlighting
 
     let g:solarized_termtrans = 1
+    let g:solarized_termcolors=256
     colorscheme solarized
     let g:airline_theme='solarized'
 
