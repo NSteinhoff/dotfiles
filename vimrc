@@ -53,6 +53,10 @@
         " GitGutter                         " Sow git diff stats in gutter
         Plugin 'airblade/vim-gitgutter'
 
+        " NERDTree
+        Plugin 'scrooloose/nerdtree'
+        Plugin 'jistr/vim-nerdtree-tabs'
+
 
     """"" General Functionality """""
         " csv.vim
@@ -181,6 +185,9 @@
     " resync folding
     nnoremap <Leader>z :syn sync fromstart<cr>
     "
+    " open/close folds
+    " nnoremap <Space> za
+
     " remove search highlights
     nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
     "
@@ -192,6 +199,8 @@
     inoremap (( ()<Left>
     inoremap ((<CR> (<CR>)<esc>kA<CR>
 
+    " toggle background
+    call togglebg#map("<F5")
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 07. Plugin Configuration
@@ -201,7 +210,6 @@
     let g:pymode_run = 0
     let g:pymode_run_bind = ''
     let g:pymode_lint_on_write = 1
-    let g:pymode_lint_unmodified = 1
     let g:pymode_rope = 1
     let g:pymode_rope_lookup_project = 1
     let g:pymode_rope_complete_on_dot = 0
@@ -209,14 +217,18 @@
     let g:pymode_rope_goto_definition_bind = '<leader>g'
     "
     " Netrw Explorer
-    nnoremap <leader>e :Explore<cr>
-    nnoremap <leader>v :Vexplore<cr>
-    nnoremap <leader>t :Texplore<cr>
-    let g:netrw_listtyle=0      " Set default view style
-    let g:netrw_banner=1        " Toggle banner
-    let g:netrw_altv=1          " Open files on right
-    let g:netrw_preview=1       " Open previews vertically
+    " nnoremap <leader>e :Explore<cr>
+    " nnoremap <leader>v :Vexplore<cr>
+    " nnoremap <leader>t :Texplore<cr>
+    " let g:netrw_listtyle=0      " Set default view style
+    " let g:netrw_banner=1        " Toggle banner
+    " let g:netrw_altv=1          " Open files on right
+    " let g:netrw_preview=1       " Open previews vertically
     "
     " Airline Config
     let g:airline#extensions#tabline#enabled = 0
     let g:airline#extensions#syntastic#enabled = 1
+
+    " NERDTree
+    let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+    map <Leader>t <plug>NERDTreeTabsToggle<CR>
