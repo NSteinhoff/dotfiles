@@ -88,7 +88,11 @@
 
     let g:solarized_termtrans = 1
     let g:solarized_termcolors=256
+    try
     colorscheme solarized
+    catch /^Vim\%((\a\+)\)\=:E185/
+        " deal with it
+    endtry
     let g:airline_theme='solarized'
 
 
@@ -194,9 +198,6 @@
     inoremap [[<CR> [<CR>]<esc>kA<CR>
     inoremap (( ()<Left>
     inoremap ((<CR> (<CR>)<esc>kA<CR>
-
-    " toggle background
-    call togglebg#map("<F5")
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 07. Plugin Configuration
