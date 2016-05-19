@@ -1,5 +1,4 @@
-vim/bundle/*
-vim/vim
+vim/
 !vim/bundle/.placeholder
 .netrwhist
 .netrwbook
