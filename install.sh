@@ -36,6 +36,7 @@ mkdir $dir/vim
 
 # install vundle
 echo -n "Installing vundle ..."
+rm -rf ~/.vim/bundle/Vundle.vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # install vim plugins
