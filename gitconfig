@@ -1,7 +1,7 @@
 # This is Git's per-user configuration file.
 [core]
 # Please adapt and uncomment the following lines:
-#    user = Niko Steinhoff
+#    name = Niko Steinhoff
 #    email = nas@gpredictive.de
 [user]
     name = Niko Steinhoff
