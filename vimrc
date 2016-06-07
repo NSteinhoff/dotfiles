@@ -111,7 +111,6 @@
     set number                  " show line numbers
     set relativenumber          " show relative line numbers
     set numberwidth=4           " make the number gutter 4 characters wide
-    set cul                     " highlight current line
     set laststatus=2            " last window always has a statusline
     set incsearch               " Highlight as you type your search.
     set ruler                   " Always show info along bottom.
