@@ -40,6 +40,9 @@
 
 
     """"" UI """""
+        " Monokai
+        Plugin 'lsdr/monokai'
+
         " Solarized
         Plugin 'altercation/vim-colors-solarized'
 
@@ -53,6 +56,8 @@
         " GitGutter                         " Sow git diff stats in gutter
         Plugin 'airblade/vim-gitgutter'
 
+        " Toggle Background
+        Plugin 'https://github.com/saghul/vim-colortoggle.git'
 
     """"" General Functionality """""
         " csv.vim
@@ -95,6 +100,9 @@
     endtry
     let g:airline_theme='solarized'
 
+    let g:default_background_type = "dark"
+    let g:dark_colorscheme = "solarized"
+    let g:light_colorscheme = "solarized"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 04. Vim UI
@@ -198,6 +206,9 @@
     inoremap [[<CR> [<CR>]<esc>kA<CR>
     inoremap (( ()<Left>
     inoremap ((<CR> (<CR>)<esc>kA<CR>
+
+    " Toggle Background
+    map <silent><F11> :ToggleBg<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 07. Plugin Configuration
