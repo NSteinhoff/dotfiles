@@ -86,7 +86,6 @@
 " 03. Theme/Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     set t_Co=256
-    set background=dark
 
     syntax enable                       " enable syntax highlighting
     let python_highlight_all=1          " improved syntax highlighting
@@ -217,6 +216,8 @@
     let g:pymode_run = 0
     let g:pymode_run_bind = ''
     let g:pymode_lint_on_write = 1
+    let g:pymode_lint_checkers = ['pylint']
+    let g:pymode_lint_ignore = "C0325"
     let g:pymode_rope = 0
     let g:pymode_rope_lookup_project = 1
     let g:pymode_rope_complete_on_dot = 0
