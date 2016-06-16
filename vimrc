@@ -38,6 +38,9 @@
         " Python Mode                       " Python mode with linter
         Plugin 'klen/python-mode'           " and code completion
 
+        " Haskell
+        Plugin 'haskell.vim'
+
 
     """"" UI """""
         " Monokai
@@ -148,6 +151,7 @@
     set smarttab                " use tabs at the start of a line, spaces
                                 " elsewhere
     set nowrap                  " don't wrap text
+    set backspace=2
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -216,7 +220,6 @@
     let g:pymode_run = 0
     let g:pymode_run_bind = ''
     let g:pymode_lint_on_write = 1
-    let g:pymode_lint_checkers = ['pylint']
     let g:pymode_lint_ignore = "C0325"
     let g:pymode_rope = 0
     let g:pymode_rope_lookup_project = 1
