@@ -8,7 +8,7 @@
 
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files="vimrc vim screenrc gitconfig tmux.conf"          # list of files/folders to symlink in homedir
+files="vimrc vim screenrc gitconfig tmux.conf zshrc"          # list of files/folders to symlink in homedir
 
 ##########
 
@@ -42,3 +42,9 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 # install vim plugins
 echo -n "Installing vim plugins ..."
 vim -c 'PluginInstall' -c 'qa!'
+
+# install zsh
+echo -n "Making zsh default shell"
+sh -s `which zsh`
+echo -n "Installing oh-my-zsh"
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
