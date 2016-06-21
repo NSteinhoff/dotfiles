@@ -66,12 +66,17 @@
         " csv.vim
         Plugin 'csv.vim'                    " Added functionality for reading
                                             " and editing .csv files
+        " Text alignment
+        Plugin 'Tabular'
 
         " FuzzyFinder
         Plugin 'ctrlp.vim'                  " Fuzzy file finder
 
         " Virtualenv
         Plugin 'virtualenv.vim'
+
+        " Send text to tmux
+        Plugin 'jgdavey/tslime.vim'
 
     """""""""""""""""""""""""""""""""""""
     call vundle#end()                   " required
@@ -186,12 +191,6 @@
     nnoremap _ <C-w>-
     nnoremap + <C-w>+
     "
-    " execute the current file with python
-    nnoremap <Leader>R :w<cr> :!python %<cr>
-    "
-    " run linter
-    nnoremap <Leader>l :PymodeLint<cr>
-    "
     " resync folding
     nnoremap <Leader>z :syn sync fromstart<cr>
     "
@@ -211,6 +210,29 @@
 
     " Toggle Background
     map <silent><F11> :ToggleBg<CR>
+
+    " autocommands:
+    augroup write_events
+        autocmd!
+        " Source vimrc on write
+        autocmd BufWritePost *vimrc :so %
+        autocmd BufWritePost *.hs :!ghc --make %:p
+    augroup END
+
+    augroup script_execution
+        autocmd!
+        " execute the current file with python
+        autocmd FileType python nnoremap <Leader>R
+                    \ :w<cr>
+                    \ :!echo Running python script: %:p &&
+                    \ python %:p<cr>
+        autocmd FileType haskell nnoremap <Leader>R
+                    \ :w<cr>
+                    \ :!runhaskell %:p<cr>
+                    "\ :!ghc --make % && %:p:r<cr>
+        " run linter
+        autocmd FileType python nnoremap <Leader>l :PymodeLint<cr>
+    augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 07. Plugin Configuration
@@ -240,3 +262,8 @@
     " Airline Config
     let g:airline#extensions#tabline#enabled = 0
     let g:airline#extensions#syntastic#enabled = 1
+
+    " tslime
+    vmap <C-c><C-c> <Plug>SendSelectionToTmux
+    nmap <C-c><C-c> <Plug>NormalModeSendToTmux
+    nmap <C-c>r <Plug>SetTmuxVars
