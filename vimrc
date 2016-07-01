@@ -34,14 +34,6 @@
 
     " Bundles to install go here:
     """""""""""""""""""""""""""""""""""""
-    """"" Total Conversion """""
-        " Python Mode                       " Python mode with linter
-        Plugin 'klen/python-mode'           " and code completion
-
-        " Haskell
-        Plugin 'haskell.vim'
-
-
     """"" UI """""
         " Monokai
         Plugin 'lsdr/monokai'
@@ -77,6 +69,20 @@
 
         " Send text to tmux
         Plugin 'jgdavey/tslime.vim'
+
+        " Syntax Checking
+        Plugin 'https://github.com/scrooloose/syntastic.git'
+
+
+    """""" Language Specific """"""
+    """ Python """
+        Plugin 'hynek/vim-python-pep8-indent'
+        Plugin 'https://github.com/hdima/python-syntax'
+
+    """ Haskell """
+        Plugin 'haskell.vim'
+
+
 
     """""""""""""""""""""""""""""""""""""
     call vundle#end()                   " required
@@ -129,7 +135,7 @@
     set showcmd                 " Show partial commands
     set hlsearch                " highlight search terms in text
     set foldmethod=indent       " how to determine folds
-    set foldnestmax=2           " limit nested folds
+    set foldnestmax=1           " limit nested folds
     set foldignore=             " Set this to nothing to also fold python comments
 
     " Show funny characters
@@ -229,7 +235,6 @@
         autocmd FileType haskell nnoremap <Leader>R
                     \ :w<cr>
                     \ :!runhaskell %:p<cr>
-                    "\ :!ghc --make % && %:p:r<cr>
         " run linter
         autocmd FileType python nnoremap <Leader>l :PymodeLint<cr>
     augroup END
@@ -238,17 +243,6 @@
 " 07. Plugin Configuration
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    " PyMode Config
-    let g:pymode_run = 0
-    let g:pymode_run_bind = ''
-    let g:pymode_lint_on_write = 1
-    let g:pymode_lint_ignore = "C0325"
-    let g:pymode_rope = 0
-    let g:pymode_rope_lookup_project = 1
-    let g:pymode_rope_complete_on_dot = 0
-    let g:pymode_rope_show_doc_bind = '<leader>d'
-    let g:pymode_rope_goto_definition_bind = '<leader>g'
-    "
     " Netrw Explorer
      nnoremap <leader>e :Explore<cr>
      nnoremap <leader>v :Vexplore<cr>
@@ -267,3 +261,17 @@
     vmap <C-c><C-c> <Plug>SendSelectionToTmux
     nmap <C-c><C-c> <Plug>NormalModeSendToTmux
     nmap <C-c>r <Plug>SetTmuxVars
+
+    " Syntastic
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
+
+    """" Python Plugins
+    " Python Syntax
+    let python_highlight_all = 1
