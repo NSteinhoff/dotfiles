@@ -52,9 +52,6 @@
         " FuzzyFinder
         Plugin 'ctrlp.vim'                  " Fuzzy file finder
 
-        " Virtualenv
-        Plugin 'virtualenv.vim'
-
         " Send text to tmux
         Plugin 'jgdavey/tslime.vim'
 
@@ -95,12 +92,7 @@
 
     augroup filetype_settings
         autocmd!
-        autocmd FileType python set colorcolumn=80
-        autocmd FileType python colorscheme ron
-        autocmd FileType python set background=dark
-
-        autocmd FileType haskell set colorcolumn=80
-        autocmd FileType haskell colorscheme peachpuff
+        autocmd FileType python,haskell set colorcolumn=80
     augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
