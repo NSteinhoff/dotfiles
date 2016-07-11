@@ -104,12 +104,12 @@
     syntax enable                       " enable syntax highlighting
     let python_highlight_all=1          " improved syntax highlighting
 
-    " let g:solarized_termtrans=1
-    " let g:solarized_termcolors=256
+    let g:solarized_termtrans=1
+    let g:solarized_termcolors=256
     try
-    colorscheme default
     set background=dark
     catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme solarized
         " deal with it
     endtry
     let g:airline_theme='solarized'
@@ -117,6 +117,17 @@
     let g:default_background_type = "dark"
     let g:dark_colorscheme = "solarized"
     let g:light_colorscheme = "solarized"
+
+    augroup filetype_settings
+        autocmd!
+        autocmd FileType python set colorcolumn=80
+        autocmd FileType python set colorscheme solarized
+        autocmd FileType python set background=dark
+
+        autocmd FileType haskell set colorcolumn=80
+        autocmd FileType python set colorscheme solarized
+        autocmd FileType haskell set background=light
+    augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 04. Vim UI
@@ -217,17 +228,6 @@
 
     " Toggle Background
     map <silent><F11> :ToggleBg<CR>
-
-    augroup file_base_settings
-        autocmd!
-        autocmd FileType python set colorcolumn=80
-        autocmd FileType python set colorscheme solarized
-        autocmd FileType python set background=dark
-
-        autocmd FileType haskell set colorcolumn=80
-        autocmd FileType python set colorscheme solarized
-        autocmd FileType haskell set background=light
-    augroup END
     "
     " autocommands:
     augroup write_events
