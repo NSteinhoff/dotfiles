@@ -107,7 +107,8 @@
     " let g:solarized_termtrans=1
     " let g:solarized_termcolors=256
     try
-    colorscheme solarized
+    colorscheme default
+    set background=dark
     catch /^Vim\%((\a\+)\)\=:E185/
         " deal with it
     endtry
@@ -220,8 +221,11 @@
     augroup file_base_settings
         autocmd!
         autocmd FileType python set colorcolumn=80
+        autocmd FileType python set colorscheme solarized
         autocmd FileType python set background=dark
+
         autocmd FileType haskell set colorcolumn=80
+        autocmd FileType python set colorscheme solarized
         autocmd FileType haskell set background=light
     augroup END
     "
