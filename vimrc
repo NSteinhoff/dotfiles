@@ -35,6 +35,9 @@
     " Bundles to install go here:
     """""""""""""""""""""""""""""""""""""
     """"" UI """""
+        " Better colorscheme support for 256 color termina
+        Plugin 'CSApprox'
+
         " Monokai
         Plugin 'lsdr/monokai'
 
@@ -100,32 +103,33 @@
 " 03. Theme/Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     set t_Co=256
+    set background=dark
+    let g:default_background_type = "dark"
 
     syntax enable                       " enable syntax highlighting
-    let python_highlight_all=1          " improved syntax highlighting
 
+    " Solarized
     let g:solarized_termtrans=1
     let g:solarized_termcolors=256
-    try
-    set background=dark
-    catch /^Vim\%((\a\+)\)\=:E185/
-    colorscheme solarized
-        " deal with it
-    endtry
     let g:airline_theme='solarized'
-
-    let g:default_background_type = "dark"
     let g:dark_colorscheme = "solarized"
     let g:light_colorscheme = "solarized"
+
+    try
+    colorscheme solarized
+    catch /^Vim\%((\a\+)\)\=:E185/
+        " deal with it
+    endtry
 
     augroup filetype_settings
         autocmd!
         autocmd FileType python set colorcolumn=80
-        autocmd FileType python set colorscheme solarized
+        autocmd FileType python colorscheme solarized
         autocmd FileType python set background=dark
+        autocmd FileType python let python_highlight_all=1          " improved syntax highlighting
 
         autocmd FileType haskell set colorcolumn=80
-        autocmd FileType python set colorscheme solarized
+        autocmd FileType haskell colorscheme solarized
         autocmd FileType haskell set background=light
     augroup END
 
