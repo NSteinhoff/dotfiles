@@ -35,27 +35,12 @@
     " Bundles to install go here:
     """""""""""""""""""""""""""""""""""""
     """"" UI """""
-        " Better colorscheme support for 256 color termina
-        Plugin 'CSApprox'
-
-        " Monokai
-        Plugin 'lsdr/monokai'
-
-        " Solarized
-        Plugin 'altercation/vim-colors-solarized'
-
         " Airline                           " Nice status line
         Plugin 'vim-airline/vim-airline'
         Plugin 'vim-airline/vim-airline-themes'
 
-        " Fugitive                          " Git integration
+        " Fugitive
         Plugin 'fugitive.vim'
-
-        " GitGutter                         " Sow git diff stats in gutter
-        Plugin 'airblade/vim-gitgutter'
-
-        " Toggle Background
-        Plugin 'https://github.com/saghul/vim-colortoggle.git'
 
     """"" General Functionality """""
         " csv.vim
@@ -104,33 +89,18 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     set t_Co=256
     set background=dark
-    let g:default_background_type = "dark"
+    colorscheme desert
 
     syntax enable                       " enable syntax highlighting
-
-    " Solarized
-    let g:solarized_termtrans=1
-    let g:solarized_termcolors=256
-    let g:airline_theme='solarized'
-    let g:dark_colorscheme = "solarized"
-    let g:light_colorscheme = "solarized"
-
-    try
-    colorscheme solarized
-    catch /^Vim\%((\a\+)\)\=:E185/
-        " deal with it
-    endtry
 
     augroup filetype_settings
         autocmd!
         autocmd FileType python set colorcolumn=80
-        autocmd FileType python colorscheme solarized
+        autocmd FileType python colorscheme ron
         autocmd FileType python set background=dark
-        autocmd FileType python let python_highlight_all=1          " improved syntax highlighting
 
         autocmd FileType haskell set colorcolumn=80
-        autocmd FileType haskell colorscheme solarized
-        autocmd FileType haskell set background=light
+        autocmd FileType haskell colorscheme peachpuff
     augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -230,9 +200,6 @@
     inoremap (( ()<Left>
     inoremap ((<CR> (<CR>)<esc>kA<CR>
 
-    " Toggle Background
-    map <silent><F11> :ToggleBg<CR>
-    "
     " autocommands:
     augroup write_events
         autocmd!
