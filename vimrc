@@ -104,8 +104,8 @@
     syntax enable                       " enable syntax highlighting
     let python_highlight_all=1          " improved syntax highlighting
 
-    let g:solarized_termtrans = 1
-    let g:solarized_termcolors=256
+    " let g:solarized_termtrans=1
+    " let g:solarized_termcolors=256
     try
     colorscheme solarized
     catch /^Vim\%((\a\+)\)\=:E185/
@@ -217,6 +217,14 @@
     " Toggle Background
     map <silent><F11> :ToggleBg<CR>
 
+    augroup file_base_settings
+        autocmd!
+        autocmd FileType python set colorcolumn=80
+        autocmd FileType python set background=dark
+        autocmd FileType haskell set colorcolumn=80
+        autocmd FileType haskell set background=light
+    augroup END
+    "
     " autocommands:
     augroup write_events
         autocmd!
@@ -269,7 +277,7 @@
 
     let g:syntastic_always_populate_loc_list = 1
     let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_open = 0
     let g:syntastic_check_on_wq = 0
 
     """" Python Plugins
