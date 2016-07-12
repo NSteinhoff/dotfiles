@@ -47,4 +47,4 @@ vim -c 'PluginInstall' -c 'qa!'
 echo -n "Making zsh default shell"
 sh -s `which zsh`
 echo -n "Installing oh-my-zsh"
-wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
