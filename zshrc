@@ -45,6 +45,15 @@ else
 fi
 ##############################################################################
 
+# GIT CONFIG #################################################################
+if (( $USER == "gpred" )) || (( $USER == "nas" )); then
+    GIT_AUTHOR_NAME="Niko Steinhoff"
+    GIT_AUTHOR_EMAIL="nas@gpredictive.de"
+else
+    GIT_AUTHOR_NAME="NSteinhoff"
+    GIT_AUTHOR_EMAIL="niko.steinhoff@gmail.com"
+fi
+##############################################################################
 
 # Uncomment the following line to use case-sensitive completion.
 CASE_SENSITIVE="true"
@@ -101,7 +110,7 @@ source $ZSH/oh-my-zsh.sh
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
+ #Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
@@ -123,6 +132,7 @@ export LANG=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Vi mode
 bindkey -v
 export KEYTIMEOUT=1
 
@@ -131,4 +141,11 @@ if [[ $OS == 'Linux' ]]; then
     alias ll='ls -lF --group-directories-first'
 elif [[ $OS == 'Mac' ]]; then
     alias ll='ls -lF'
+    alias crawl='/Applications/Dungeon\ Crawl\ Stone\ Soup\ -\ Console.app/Contents/Resources/crawl'
+    export SPARK_HOME=/usr/local/Cellar/apache-spark/2.1.0/libexec/
+    export PYTHONPATH=/usr/local/Cellar/apache-spark/2.1.0/libexec/python/:/usr/local/Cellar/apache-spark/2.1.0/libexec/python/lib/py4j-0.10.4-src.zip
 fi
+#
+export XDG_CONFIG_HOME=~/.config
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

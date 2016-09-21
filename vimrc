@@ -71,9 +71,6 @@
     """ Scala """
         Plugin 'derekwyatt/vim-scala'
 
-    """ Taskpaper """
-        Plugin 'taskpaper.vim'
-
     """""""""""""""""""""""""""""""""""""
     call vundle#end()                   " required
 
@@ -167,9 +164,6 @@
     "
     " activate/deactivate paste mode
     set pastetoggle=<F2>
-    "
-    " disable Ex-mode
-    map Q <Nop>
     "
     " faster exiting insert mode without having to leave the homerow
     inoremap jk <esc>
@@ -269,3 +263,11 @@
     """" Scala  Plugins
     " Scala documentation
     let g:scala_scaladoc_indent = 1
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 08. NeoVim Config
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    let g:python_host_prog='~/.virtualenvs/nvim2/bin/python'
+    let g:python3_host_prog='~/.virtualenvs/nvim3/bin/python'
