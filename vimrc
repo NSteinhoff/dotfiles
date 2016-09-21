@@ -49,12 +49,6 @@
         " Text alignment
         Plugin 'Tabular'
 
-        " FuzzyFinder
-        Plugin 'ctrlp.vim'                  " Fuzzy file finder
-
-        " Send text to tmux
-        Plugin 'jgdavey/tslime.vim'
-
         " Syntax Checking
         Plugin 'https://github.com/scrooloose/syntastic.git'
 
@@ -216,6 +210,13 @@
         autocmd FileType python nnoremap <Leader>l :PymodeLint<cr>
     augroup END
 
+    augroup language_specific_commands
+        autocmd!
+        autocmd FileType python nnoremap <Leader>b
+                    \ oimport pdb; pdb.set_trace()<esc>
+    augroup END
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 07. Plugin Configuration
 "
@@ -233,11 +234,6 @@
     " Airline Config
     let g:airline#extensions#tabline#enabled = 0
     let g:airline#extensions#syntastic#enabled = 1
-
-    " tslime
-    vmap <C-c><C-c> <Plug>SendSelectionToTmux
-    nmap <C-c><C-c> <Plug>NormalModeSendToTmux
-    nmap <C-c>r <Plug>SetTmuxVars
 
     " Syntastic
     set statusline+=%#warningmsg#
