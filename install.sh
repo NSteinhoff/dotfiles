@@ -12,6 +12,12 @@ files="vimrc vim screenrc gitconfig tmux.conf zshrc"          # list of files/fo
 
 ##########
 
+# install zsh
+echo -n "Making zsh default shell"
+chsh -s `which zsh`
+echo -n "Installing oh-my-zsh"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
 # create dotfiles_old in homedir
 echo -n "Creating $olddir for backup of any existing dotfiles in ~ ..."
 mkdir -p $olddir
@@ -42,9 +48,3 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 # install vim plugins
 echo -n "Installing vim plugins ..."
 vim -c 'PluginInstall' -c 'qa!'
-
-# install zsh
-echo -n "Making zsh default shell"
-sh -s `which zsh`
-echo -n "Installing oh-my-zsh"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
