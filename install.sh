@@ -14,7 +14,7 @@ files="vimrc vim screenrc gitconfig tmux.conf zshrc"          # list of files/fo
 
 # install zsh
 echo -n "Making zsh default shell"
-chsh -s `which zsh`
+sudo chsh -s `which zsh`
 echo -n "Installing oh-my-zsh"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
