@@ -54,6 +54,9 @@
 
 
     """""" Language Specific """"""
+    """ Markdown """
+        Plugin 'markdown'
+
     """ Python """
         Plugin 'hynek/vim-python-pep8-indent'
         Plugin 'https://github.com/hdima/python-syntax'
