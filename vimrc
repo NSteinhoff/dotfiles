@@ -112,7 +112,7 @@
     set showcmd                 " Show partial commands
     set hlsearch                " highlight search terms in text
     set foldmethod=indent       " how to determine folds
-    set foldnestmax=1           " limit nested folds
+    set foldnestmax=2           " limit nested folds
     set foldignore=             " Set this to nothing to also fold python comments
 
     " Show funny characters
