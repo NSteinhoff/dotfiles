@@ -64,7 +64,11 @@
     """ Haskell """
         Plugin 'haskell.vim'
 
+    """ Scala """
+        Plugin 'derekwyatt/vim-scala'
 
+    """ Taskpaper """
+        Plugin 'taskpaper.vim'
 
     """""""""""""""""""""""""""""""""""""
     call vundle#end()                   " required
@@ -91,7 +95,7 @@
 
     augroup filetype_settings
         autocmd!
-        autocmd FileType python,haskell set colorcolumn=80
+        autocmd FileType python,haskell,scala set colorcolumn=80
     augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -251,3 +255,7 @@
     """" Python Plugins
     " Python Syntax
     let python_highlight_all = 1
+
+    """" Scala  Plugins
+    " Scala documentation
+    let g:scala_scaladoc_indent = 1
