@@ -52,6 +52,10 @@
         " Syntax Checking
         Plugin 'https://github.com/scrooloose/syntastic.git'
 
+        " Auto save and reload
+        Plugin 'vim-scripts/vim-auto-save'
+        Plugin 'djoshea/vim-autoread'
+
 
     """""" Language Specific """"""
     """ Markdown """
@@ -97,6 +101,8 @@
         autocmd!
         autocmd FileType python,haskell,scala set colorcolumn=80
         autocmd FileType gitcommit set colorcolumn=70
+        autocmd FileType taskpaper let g:auto_save = 1
+        autocmd FileType taskpaper :WatchForChanges!
     augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
