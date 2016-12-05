@@ -96,6 +96,7 @@
     augroup filetype_settings
         autocmd!
         autocmd FileType python,haskell,scala set colorcolumn=80
+        autocmd FileType gitcommit set colorcolumn=70
     augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
