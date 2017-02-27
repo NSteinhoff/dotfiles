@@ -84,6 +84,7 @@
     set ffs=unix,dos,mac        " Unix as standard file type
     set encoding=utf8           " Standard encoding
     filetype plugin indent on   " filetype detection[ON] plugin[ON] indent[ON]
+    set hidden                  " Allow hidden buffers by default
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
