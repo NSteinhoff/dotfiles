@@ -84,3 +84,5 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias ll='ls -lF --group-directories-first'
+bindkey -v
+export KEYTIMEOUT=1
