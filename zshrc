@@ -1,17 +1,51 @@
 # Path to your oh-my-zsh installation.
-  export ZSH=~/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
+
+
+# Detect OS ##################################################################
+case $(uname) in
+    'Linux')
+        OS='Linux'
+        ;;
+    'FreeBSD')
+        OS='FreeBSD'
+        ;;
+    'WindowsNT')
+        OS='Windows'
+        ;;
+    'Darwin')
+        OS='Mac'
+        ;;
+    'SunOS')
+        OS='Solaris'
+        ;;
+    'AIX')
+        ;;
+    *)
+        OS=$(uname)
+        ;;
+esac
+##############################################################################
+
+
+# THEMES #####################################################################
 # ZSH_THEME="robbyrussell"
 # ZSH_THEME="terminalparty"
-# ZSH_THEME="ys"
-ZSH_THEME="gallois"
+if [[ $HOST == "nasblank" ]]; then
+    ZSH_THEME="ys"
+else
+    ZSH_THEME="gallois"
+fi
+##############################################################################
+
 
 # Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -89,28 +123,6 @@ export LANG=en_US.UTF-8
 
 bindkey -v
 export KEYTIMEOUT=1
-
-# Detect OS
-OS="`uname`"
-case $OS in
-  'Linux')
-    OS='Linux'
-    ;;
-  'FreeBSD')
-    OS='FreeBSD'
-    ;;
-  'WindowsNT')
-    OS='Windows'
-    ;;
-  'Darwin') 
-    OS='Mac'
-    ;;
-  'SunOS')
-    OS='Solaris'
-    ;;
-  'AIX') ;;
-  *) ;;
-esac
 
 # Aliases
 if [[ $OS == 'Linux' ]]; then
