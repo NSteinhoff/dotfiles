@@ -89,3 +89,30 @@ export LANG=en_US.UTF-8
 
 bindkey -v
 export KEYTIMEOUT=1
+
+# Detect OS
+OS="`uname`"
+case $OS in
+  'Linux')
+    OS='Linux'
+    ;;
+  'FreeBSD')
+    OS='FreeBSD'
+    ;;
+  'WindowsNT')
+    OS='Windows'
+    ;;
+  'Darwin') 
+    OS='Mac'
+    ;;
+  'SunOS')
+    OS='Solaris'
+    ;;
+  'AIX') ;;
+  *) ;;
+esac
+
+# Aliases
+if [[ $OS == 'Linux' ]]; then
+    alias ll='ls -lF --group-directories-first'
+fi
