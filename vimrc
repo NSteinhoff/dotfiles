@@ -100,7 +100,7 @@
 
     augroup filetype_settings
         autocmd!
-        autocmd FileType python,haskell,scala set colorcolumn=80
+        autocmd FileType python,haskell,scala,markdown set colorcolumn=80
         autocmd FileType gitcommit set colorcolumn=70
         autocmd FileType taskpaper let g:auto_save = 1
         autocmd FileType taskpaper :WatchForChanges!
@@ -202,6 +202,8 @@
     inoremap [[<CR> [<CR>]<esc>kA<CR>
     inoremap (( ()<Left>
     inoremap ((<CR> (<CR>)<esc>kA<CR>
+    inoremap """ """"""<Left><Left><Left>
+    inoremap """<CR> """<CR>"""<esc>kA
 
     " autocommands:
     augroup write_events
