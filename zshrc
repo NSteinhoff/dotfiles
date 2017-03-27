@@ -127,4 +127,6 @@ export KEYTIMEOUT=1
 # Aliases
 if [[ $OS == 'Linux' ]]; then
     alias ll='ls -lF --group-directories-first'
+elif [[ $OS == 'Mac' ]]; then
+    alias ll='ls -lF'
 fi
