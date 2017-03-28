@@ -36,8 +36,10 @@ esac
 # THEMES #####################################################################
 # ZSH_THEME="robbyrussell"
 # ZSH_THEME="terminalparty"
-if [[ $HOST == "nasblank" ]]; then
+if [[ $USER == "gpred" ]]; then
     ZSH_THEME="ys"
+elif [[ $USER == "nas" ]]; then
+    ZSH_THEME="terminalparty"
 else
     ZSH_THEME="gallois"
 fi
