@@ -46,7 +46,7 @@ fi
 ##############################################################################
 
 # GIT CONFIG #################################################################
-if (( $USER == "gpred" )) || (( $USER == "nas" )); then
+if [[ $USER == "gpred" ]] || [[ $USER == "nas" ]]; then
     GIT_AUTHOR_NAME="Niko Steinhoff"
     GIT_AUTHOR_EMAIL="nas@gpredictive.de"
 else
