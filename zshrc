@@ -47,12 +47,14 @@ fi
 
 # GIT CONFIG #################################################################
 if [[ $USER == "gpred" ]] || [[ $USER == "nas" ]]; then
-    GIT_AUTHOR_NAME="Niko Steinhoff"
-    GIT_AUTHOR_EMAIL="nas@gpredictive.de"
+    export GIT_AUTHOR_NAME="Niko Steinhoff"
+    export GIT_AUTHOR_EMAIL="nas@gpredictive.de"
 else
-    GIT_AUTHOR_NAME="NSteinhoff"
-    GIT_AUTHOR_EMAIL="niko.steinhoff@gmail.com"
+    export GIT_AUTHOR_NAME="NSteinhoff"
+    export GIT_AUTHOR_EMAIL="niko.steinhoff@gmail.com"
 fi
+export GIT_COMMITTER_NAME=$GIT_AUTHOR_NAME
+export GIT_COMMITTER_EMAIL=$GIT_AUTHOR_EMAIL
 ##############################################################################
 
 # Uncomment the following line to use case-sensitive completion.
