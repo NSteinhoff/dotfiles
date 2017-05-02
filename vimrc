@@ -39,8 +39,14 @@
         Plugin 'vim-airline/vim-airline'
         Plugin 'vim-airline/vim-airline-themes'
 
+        " Rainbow Parantheses
+        Plugin 'rainbow_parentheses.vim'
+
         " Fugitive
         Plugin 'fugitive.vim'
+
+        " Indent Guides
+        Plugin 'nathanaelkane/vim-indent-guides'
 
     """"" General Functionality """""
         " csv.vim
@@ -59,7 +65,7 @@
 
     """""" Language Specific """"""
     """ Markdown """
-        Plugin 'markdown'
+        Plugin 'gabrielelana/vim-markdown'
 
     """ Python """
         Plugin 'hynek/vim-python-pep8-indent'
@@ -246,6 +252,12 @@
     let g:airline#extensions#tabline#enabled = 0
     let g:airline#extensions#syntastic#enabled = 1
 
+    " Rainbow Parentheses
+    au VimEnter * RainbowParenthesesToggle
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
+
     " Syntastic
     set statusline+=%#warningmsg#
     set statusline+=%{SyntasticStatuslineFlag()}
@@ -253,17 +265,21 @@
 
     let g:syntastic_always_populate_loc_list = 1
     let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 0
+    let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 0
+    let g:syntastic_mode_map = {
+        \ "mode": "active",
+        \ "active_filetypes": [],
+        \ "passive_filetypes": ["scala"]
+        \ }
 
     """" Python Plugins
     " Python Syntax
     let python_highlight_all = 1
 
-    """" Scala  Plugins
+    """" Scala Plugins
     " Scala documentation
     let g:scala_scaladoc_indent = 1
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 08. NeoVim Config

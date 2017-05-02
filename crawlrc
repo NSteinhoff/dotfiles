@@ -94,11 +94,16 @@ hp_colour = 95:yellow, 75:brown, 50:magenta, 25:red
 
 # Travel
 travel_avoid_terrain = deep water  # don't auto-explore over deep water
-travel_delay = 30
+travel_delay = 10
 explore_wall_bias = 5
 show_travel_trail = true
 
 # Messages
 show_more = false
-force_more_message += .* comes? into view.
-force_more_message += You (kill|destroy) .*
+# force_more_message += .* comes? into view.
+# force_more_message += You (kill|destroy) .*
+force_more_message += You feel you are being watched by something.
+
+# Quality of life:
+confirm_butcher = never
+default_manual_training = true
