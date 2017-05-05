@@ -62,6 +62,9 @@
         Plugin 'vim-scripts/vim-auto-save'
         Plugin 'djoshea/vim-autoread'
 
+        " Automatically update tags
+        Plugin 'craigemery/vim-autotag'
+
 
     """""" Language Specific """"""
     """ Markdown """
@@ -88,6 +91,7 @@
     set encoding=utf8           " Standard encoding
     filetype plugin indent on   " filetype detection[ON] plugin[ON] indent[ON]
     set hidden                  " Allow hidden buffers by default
+    set tags=tags;/
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -272,6 +276,9 @@
         \ "active_filetypes": [],
         \ "passive_filetypes": ["scala"]
         \ }
+
+    """" Autotags
+    let g:autotagTagsFile="tags"
 
     """" Python Plugins
     " Python Syntax
