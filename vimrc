@@ -246,7 +246,7 @@
      nnoremap <leader>e :Explore<cr>
      nnoremap <leader>v :Vexplore<cr>
      nnoremap <leader>t :Texplore<cr>
-     let g:netrw_listtyle=0      " Set default view style
+     let g:netrw_liststyle=3      " Set default view style
      let g:netrw_banner=1        " Toggle banner
      let g:netrw_altv=1          " Open files on right
      let g:netrw_preview=1       " Open previews vertically
