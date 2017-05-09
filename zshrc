@@ -140,9 +140,9 @@ export KEYTIMEOUT=1
 
 # Aliases
 if [[ $OS == 'Linux' ]]; then
-    alias ll='ls -lF --group-directories-first'
+    alias ll='ls -lhF --group-directories-first'
 elif [[ $OS == 'Mac' ]]; then
-    alias ll='ls -lF'
+    alias ll='ls -lhF'
     alias crawl='/Applications/Dungeon\ Crawl\ Stone\ Soup\ -\ Console.app/Contents/Resources/crawl'
     export SPARK_HOME=/usr/local/Cellar/apache-spark/2.1.0/libexec/
     export PYTHONPATH=/usr/local/Cellar/apache-spark/2.1.0/libexec/python/:/usr/local/Cellar/apache-spark/2.1.0/libexec/python/lib/py4j-0.10.4-src.zip
