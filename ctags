@@ -1,3 +1,4 @@
+-f .tags
 --recurse=yes
 --exclude=.git
 --exclude=db/*

@@ -49,12 +49,9 @@ fi
 if [[ $USER == "gpred" ]] || [[ $USER == "nas" ]]; then
     export GIT_AUTHOR_NAME="Niko Steinhoff"
     export GIT_AUTHOR_EMAIL="nas@gpredictive.de"
-else
-    export GIT_AUTHOR_NAME="NSteinhoff"
-    export GIT_AUTHOR_EMAIL="niko.steinhoff@gmail.com"
+    export GIT_COMMITTER_NAME=$GIT_AUTHOR_NAME
+    export GIT_COMMITTER_EMAIL=$GIT_AUTHOR_EMAIL
 fi
-export GIT_COMMITTER_NAME=$GIT_AUTHOR_NAME
-export GIT_COMMITTER_EMAIL=$GIT_AUTHOR_EMAIL
 ##############################################################################
 
 # Uncomment the following line to use case-sensitive completion.
@@ -109,10 +106,17 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
-export LC_ALL=en_US.UTF-8
+# export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+export LC_MESSAGES=en_US.UTF-8
+export LC_MONETARY=en_US.UTF-8
+export LC_NUMERIC=en_US.UTF-8
+export LC_TIME=en_US.UTF-8
+export LC_COLLATE=C
 
- #Preferred editor for local and remote sessions
+#Preferred editor for local and remote sessions
+export EDITOR='vim'
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else

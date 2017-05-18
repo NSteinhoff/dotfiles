@@ -58,10 +58,6 @@
         " Syntax Checking
         Plugin 'https://github.com/scrooloose/syntastic.git'
 
-        " Auto save and reload
-        Plugin 'vim-scripts/vim-auto-save'
-        Plugin 'djoshea/vim-autoread'
-
         " Automatically update tags
         Plugin 'craigemery/vim-autotag'
 
@@ -91,7 +87,9 @@
     set encoding=utf8           " Standard encoding
     filetype plugin indent on   " filetype detection[ON] plugin[ON] indent[ON]
     set hidden                  " Allow hidden buffers by default
-    set tags=tags;/
+    set tags=.tags;/
+    set path+=$PWD/**
+    set ignorecase
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -107,10 +105,9 @@
 
     augroup filetype_settings
         autocmd!
-        autocmd FileType python,haskell,scala,markdown set colorcolumn=80
+        autocmd FileType python,haskell set colorcolumn=80
+        autocmd FileType scala,markdown set colorcolumn=100
         autocmd FileType gitcommit set colorcolumn=70
-        autocmd FileType taskpaper let g:auto_save = 1
-        autocmd FileType taskpaper :WatchForChanges!
     augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -142,6 +139,8 @@
     set wildmenu                                        " command line completion
     set wildmode=longest:full,full
     set wildignore=*.swp,*.zip,*.pyc
+    set wildignore+=**/.git/**,**/db/**,**/log/**
+    set wildignore+=**/target/**,**/vendor/**,**/node_modules/**
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -163,7 +162,6 @@
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 06. Custom Commands
-"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "
     " Disable arrow keys
@@ -234,7 +232,7 @@
     augroup language_specific_commands
         autocmd!
         autocmd FileType python nnoremap <Leader>b
-                    \ oimport pdb; pdb.set_trace()<esc>
+                    \ import pdb; pdb.set_trace()<esc>
     augroup END
 
 
@@ -246,7 +244,7 @@
      nnoremap <leader>e :Explore<cr>
      nnoremap <leader>v :Vexplore<cr>
      nnoremap <leader>t :Texplore<cr>
-     let g:netrw_liststyle=3      " Set default view style
+     let g:netrw_liststyle=0      " Set default view style
      let g:netrw_banner=1        " Toggle banner
      let g:netrw_altv=1          " Open files on right
      let g:netrw_preview=1       " Open previews vertically
