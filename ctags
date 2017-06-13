@@ -1,12 +1,12 @@
 -f .tags
 --recurse=yes
 --exclude=.git
---exclude=db/*
---exclude=log/*
+--exclude=*db/*
+--exclude=*log/*
 
---exclude=target/*
---exclude=vendor/*
---exclude=node_modules/*
+--exclude=*target/*
+--exclude=*vendor/*
+--exclude=*node_modules/*
 
 --langdef=scala
 --langmap=scala:.scala
