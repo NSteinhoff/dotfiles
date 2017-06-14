@@ -35,6 +35,9 @@
     " Bundles to install go here:
     """""""""""""""""""""""""""""""""""""
     """"" UI """""
+        " Colorschemes
+        Plugin 'chriskempson/base16-vim'
+
         " Airline                           " Nice status line
         Plugin 'vim-airline/vim-airline'
         Plugin 'vim-airline/vim-airline-themes'
@@ -99,7 +102,13 @@
       set t_Co=256
     endif
     set background=dark
-    colorscheme desert
+
+    if &diff
+        colorscheme base16-default-dark
+    else
+        colorscheme base16-default-dark
+    endif
+
 
     syntax enable                       " enable syntax highlighting
 
