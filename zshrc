@@ -143,6 +143,8 @@ bindkey -v
 export KEYTIMEOUT=1
 
 # Aliases
+alias tree='tree -C -F'
+alias scalafmt="scalafmt --config ${HOME}/.scalafmt.conf"
 if [[ $OS == 'Linux' ]]; then
     alias ll='ls -lhF --group-directories-first'
 elif [[ $OS == 'Mac' ]]; then

@@ -64,6 +64,9 @@
         " Automatically update tags
         Plugin 'craigemery/vim-autotag'
 
+        " Autoformat
+        Plugin 'Chiel92/vim-autoformat'
+
 
     """""" Language Specific """"""
     """ Markdown """
@@ -78,6 +81,7 @@
 
     """ Scala """
         Plugin 'derekwyatt/vim-scala'
+        " Plugin 'ensime/ensime-vim'
 
     """""""""""""""""""""""""""""""""""""
     call vundle#end()                   " required
@@ -93,14 +97,15 @@
     set tags=.tags;/
     set path+=$PWD/**
     set ignorecase
+    set nospell
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 03. Theme/Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    if &term == "screen"
-      set t_Co=256
-    endif
+    " if &term == "screen"
+    "   set t_Co=256
+    " endif
     set background=dark
 
     if &diff
@@ -149,7 +154,7 @@
     set wildmode=longest:full,full
     set wildignore=*.swp,*.zip,*.pyc
     set wildignore+=**/.git/**,**/db/**,**/log/**
-    set wildignore+=**/target/**,**/vendor/**,**/node_modules/**
+    set wildignore+=**/target/**,**/vendor/**,**/node_modules/**,**/devenv/**
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -184,6 +189,7 @@
     "
     " faster exiting insert mode without having to leave the homerow
     inoremap jk <esc>
+    " vnoremap jk <esc>
     "
     " easier switching between vim splits
     nnoremap <C-h> <C-w>h
@@ -234,14 +240,15 @@
         autocmd FileType haskell nnoremap <Leader>R
                     \ :w<cr>
                     \ :!runhaskell %:p<cr>
-        " run linter
-        autocmd FileType python nnoremap <Leader>l :PymodeLint<cr>
     augroup END
 
     augroup language_specific_commands
         autocmd!
         autocmd FileType python nnoremap <Leader>b
                     \ import pdb; pdb.set_trace()<esc>
+        " run linter
+        autocmd FileType python nnoremap <Leader>l :PymodeLint<cr>
+        " autocmd FileType scala nnoremap <localleader>df :EnDeclarationSplit v<CR>
     augroup END
 
 
@@ -302,7 +309,13 @@
         \ "passive_filetypes": ["scala"]
         \ }
 
-    """" Autotags
+    " Autoformat
+    noremap <leader>af :Autoformat<CR>
+    let g:formatdef_scalafmt = '"scalafmt --config=$HOME/.scalafmt.conf --stdin 2>/dev/null"'
+    let g:formatters_scala = ['scalafmt']
+    let g:autoformat_verbosemode = 1
+
+    " Autotags
     let g:autotagTagsFile=".tags"
 
     """" Python Plugins
