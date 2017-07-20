@@ -188,8 +188,7 @@
     set pastetoggle=<F2>
     "
     " faster exiting insert mode without having to leave the homerow
-    inoremap jk <esc>
-    " vnoremap jk <esc>
+    " inoremap jk <esc>
     "
     " easier switching between vim splits
     nnoremap <C-h> <C-w>h
@@ -313,7 +312,7 @@
     noremap <leader>af :Autoformat<CR>
     let g:formatdef_scalafmt = '"scalafmt --config=$HOME/.scalafmt.conf --stdin 2>/dev/null"'
     let g:formatters_scala = ['scalafmt']
-    let g:autoformat_verbosemode = 1
+    " let g:autoformat_verbosemode = 1
 
     " Autotags
     let g:autotagTagsFile=".tags"
