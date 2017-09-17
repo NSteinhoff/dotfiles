@@ -103,6 +103,7 @@ show_more = false
 # force_more_message += .* comes? into view.
 # force_more_message += You (kill|destroy) .*
 force_more_message += You feel you are being watched by something.
+force_more_message += You feel unstable.
 
 # Quality of life:
 confirm_butcher = never

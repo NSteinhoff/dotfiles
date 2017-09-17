@@ -149,7 +149,7 @@ if [[ $OS == 'Linux' ]]; then
     alias ll='ls -lhF --group-directories-first'
 elif [[ $OS == 'Mac' ]]; then
     alias ll='ls -lhF'
-    alias crawl='/Applications/Dungeon\ Crawl\ Stone\ Soup\ -\ Console.app/Contents/Resources/crawl'
+    alias crawl='/Applications/Dungeon\ Crawl\ Stone\ Soup\ -\ Console.app/Contents/Resources/crawl -rc ~/.crawlrc'
     export SPARK_HOME=/usr/local/Cellar/apache-spark/2.1.0/libexec/
     export PYTHONPATH=/usr/local/Cellar/apache-spark/2.1.0/libexec/python/:/usr/local/Cellar/apache-spark/2.1.0/libexec/python/lib/py4j-0.10.4-src.zip
 fi
@@ -160,7 +160,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 #
 # You may add following to ~/.bash_profile to ease starting/stopping kafka
 # START of .bash_profile changes for Kafka and ES
-export KF_HOME="/opt/kafka_2.11-0.10.1.0"
+export KF_HOME="/opt/kafka/current"
 export ES_HOME="/opt/elasticsearch-2.4.3"
 alias kstart="nohup ${KF_HOME}/bin/kafka-server-start.sh ${KF_HOME}/config/server.properties > /var/log/kafka.log 2>&1 &"
 alias kstop="${KF_HOME}/bin/kafka-server-stop.sh"
