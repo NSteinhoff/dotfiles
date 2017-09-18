@@ -47,6 +47,7 @@
 
         " Fugitive
         Plugin 'fugitive.vim'
+        Plugin 'airblade/vim-gitgutter'
 
         " Indent Guides
         Plugin 'nathanaelkane/vim-indent-guides'
@@ -119,8 +120,8 @@
 
     augroup filetype_settings
         autocmd!
-        autocmd FileType python,haskell set colorcolumn=80
-        autocmd FileType scala,markdown set colorcolumn=100
+        autocmd FileType python,haskell,scala set colorcolumn=80
+        autocmd FileType markdown set colorcolumn=100
         autocmd FileType gitcommit set colorcolumn=70
     augroup END
 
@@ -307,6 +308,7 @@
         \ "active_filetypes": [],
         \ "passive_filetypes": ["scala"]
         \ }
+    " let g:syntastic_python_checkers = ['mypy', 'flake8']
 
     " Autoformat
     noremap <leader>af :Autoformat<CR>
