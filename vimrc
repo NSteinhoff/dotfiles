@@ -245,7 +245,7 @@
     augroup language_specific_commands
         autocmd!
         autocmd FileType python nnoremap <Leader>b
-                    \ import pdb; pdb.set_trace()<esc>
+                    \ Oimport pdb; pdb.set_trace()<esc>
         " run linter
         autocmd FileType python nnoremap <Leader>l :PymodeLint<cr>
         " autocmd FileType scala nnoremap <localleader>df :EnDeclarationSplit v<CR>
