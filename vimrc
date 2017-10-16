@@ -143,7 +143,8 @@
     set showcmd                 " Show partial commands
     set hlsearch                " highlight search terms in text
     set foldmethod=indent       " how to determine folds
-    set foldnestmax=4           " limit nested folds
+    set foldcolumn=4            " Show indicator column for the first 4 folds in a sidebar
+    set foldnestmax=8           " limit nested folds
     set foldignore=             " Set this to nothing to also fold python comments
 
     " Show funny characters
@@ -155,7 +156,7 @@
     set wildmode=longest:full,full
     set wildignore=*.swp,*.zip,*.pyc
     set wildignore+=**/.git/**,**/db/**,**/log/**
-    set wildignore+=**/target/**,**/vendor/**,**/node_modules/**,**/devenv/**
+    set wildignore+=**/target/**,**/vendor/**,**/node_modules/**,**/*env/**
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
