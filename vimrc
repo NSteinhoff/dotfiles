@@ -156,7 +156,8 @@
     set wildmode=longest:full,full
     set wildignore=*.swp,*.zip,*.pyc
     set wildignore+=**/.git/**,**/db/**,**/log/**
-    set wildignore+=**/target/**,**/vendor/**,**/node_modules/**,**/*env/**
+    set wildignore+=**/target/**,**/vendor/**,**/node_modules/**
+    set wildignore=+**/devenv/**,**/venv/**,**/env/**
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
