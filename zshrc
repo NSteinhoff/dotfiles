@@ -149,9 +149,6 @@ if [[ $OS == 'Linux' ]]; then
     alias ll='ls -lhF --group-directories-first'
 elif [[ $OS == 'Mac' ]]; then
     alias ll='ls -lhF'
-    alias crawl='/Applications/Dungeon\ Crawl\ Stone\ Soup\ -\ Console.app/Contents/Resources/crawl -rc ~/.crawlrc'
-    export SPARK_HOME=/usr/local/Cellar/apache-spark/2.1.0/libexec/
-    export PYTHONPATH=/usr/local/Cellar/apache-spark/2.1.0/libexec/python/:/usr/local/Cellar/apache-spark/2.1.0/libexec/python/lib/py4j-0.10.4-src.zip
 fi
 #
 export XDG_CONFIG_HOME=~/.config
