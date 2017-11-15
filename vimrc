@@ -60,7 +60,8 @@
         Plugin 'Tabular'
 
         " Syntax Checking
-        Plugin 'https://github.com/scrooloose/syntastic.git'
+        " Plugin 'https://github.com/scrooloose/syntastic.git'
+        Plugin 'w0rp/ale'
 
         " Automatically update tags
         Plugin 'craigemery/vim-autotag'
@@ -157,7 +158,7 @@
     set wildignore=*.swp,*.zip,*.pyc
     set wildignore+=**/.git/**,**/db/**,**/log/**
     set wildignore+=**/target/**,**/vendor/**,**/node_modules/**
-    set wildignore=+**/devenv/**,**/venv/**,**/env/**
+    set wildignore+=**/devenv/**,**/venv/**,**/env/**,**/runenv/**
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -297,20 +298,26 @@
     " \ ['black',       'SeaGreen3'],
 
     " Syntastic
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
+    " set statusline+=%#warningmsg#
+    " set statusline+=%{SyntasticStatuslineFlag()}
+    " set statusline+=%*
 
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
-    let g:syntastic_mode_map = {
-        \ "mode": "active",
-        \ "active_filetypes": [],
-        \ "passive_filetypes": ["scala"]
-        \ }
+    " let g:syntastic_always_populate_loc_list = 1
+    " let g:syntastic_auto_loc_list = 1
+    " let g:syntastic_check_on_open = 1
+    " let g:syntastic_check_on_wq = 0
+    " let g:syntastic_mode_map = {
+    "     \ "mode": "active",
+    "     \ "active_filetypes": [],
+    "     \ "passive_filetypes": ["scala"]
+    "     \ }
     " let g:syntastic_python_checkers = ['mypy', 'flake8']
+
+    " ALE
+    let g:ale_open_list = 0
+    let g:ale_linters = {
+        \   'python': ['pylint']
+        \}
 
     " Autoformat
     noremap <leader>af :Autoformat<CR>
