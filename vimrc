@@ -88,6 +88,7 @@
     """""""""""""""""""""""""""""""""""""
     call vundle#end()                   " required
 
+    runtime! ftplugin/man.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 02. General
@@ -270,7 +271,7 @@
 
     " Airline Config
     let g:airline#extensions#tabline#enabled = 0
-    let g:airline#extensions#syntastic#enabled = 1
+    " let g:airline#extensions#syntastic#enabled = 1
 
     " Rainbow Parentheses
     au VimEnter * RainbowParenthesesToggle
@@ -315,14 +316,14 @@
     " ALE
     let g:ale_open_list = 1
     let g:ale_linters = {
-        \   'python': ['pylint']
-        \}
+    \   'python': ['pylint'],
+    \}
 
     " Autoformat
     noremap <leader>af :Autoformat<CR>
     let g:formatdef_scalafmt = '"scalafmt --config=$HOME/.scalafmt.conf --stdin 2>/dev/null"'
     let g:formatters_scala = ['scalafmt']
-    " let g:autoformat_verbosemode = 1
+    let g:autoformat_verbosemode = 1
 
     " Autotags
     let g:autotagTagsFile=".tags"
