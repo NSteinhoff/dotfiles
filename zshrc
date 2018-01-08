@@ -144,7 +144,7 @@ export KEYTIMEOUT=1
 
 # Aliases
 alias tree='tree -C -F'
-alias scalafmt="scalafmt --config ${HOME}/.scalafmt.conf"
+alias scalafmt="scalafmt --config $HOME/.scalafmt.conf"
 if [[ $OS == 'Linux' ]]; then
     alias ll='ls -lhF --group-directories-first'
 elif [[ $OS == 'Mac' ]]; then
@@ -153,17 +153,17 @@ fi
 #
 export XDG_CONFIG_HOME=~/.config
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh"
 #
 # You may add following to ~/.bash_profile to ease starting/stopping kafka
 # START of .bash_profile changes for Kafka and ES
 export KF_HOME="/opt/kafka/current"
 export ES_HOME="/opt/elasticsearch-2.4.3"
-alias kstart="nohup ${KF_HOME}/bin/kafka-server-start.sh ${KF_HOME}/config/server.properties > /var/log/kafka.log 2>&1 &"
-alias kstop="${KF_HOME}/bin/kafka-server-stop.sh"
-alias zkstop="${KF_HOME}/bin/zookeeper-server-stop.sh"
-alias zkstart="nohup ${KF_HOME}/bin/zookeeper-server-start.sh ${KF_HOME}/config/zookeeper.properties > /var/log/zookeeper.log 2>&1 &"
-alias estart="nohup ${ES_HOME}/bin/elasticsearch > /var/log/elasticsearch.log 2>&1 &"
+alias kstart="nohup $KF_HOME/bin/kafka-server-start.sh $KF_HOME/config/server.properties > $HOME/log/kafka.log 2>&1 &"
+alias kstop="$KF_HOME/bin/kafka-server-stop.sh"
+alias zkstop="$KF_HOME/bin/zookeeper-server-stop.sh"
+alias zkstart="nohup $KF_HOME/bin/zookeeper-server-start.sh $KF_HOME/config/zookeeper.properties > $HOME/log/zookeeper.log 2>&1 &"
+alias estart="nohup $ES_HOME/bin/elasticsearch > $HOME/log/elasticsearch.log 2>&1 &"
 alias estop="if [[ ! -z \$(es_proc_id) ]] ; then kill -TERM \$(es_proc_id); else echo 'No ES process is running.'; fi"
 
 function es_proc_id() {
