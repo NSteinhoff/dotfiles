@@ -160,6 +160,10 @@
     set wildignore+=**/target/**,**/vendor/**,**/node_modules/**
     set wildignore+=**/devenv/**,**/venv/**,**/env/**,**/runenv/**
 
+    " Autocompletion
+    set complete-=t             " don't scan tags
+    set complete-=i             " don't scan files
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 05. Text Formattingk/Layout
@@ -172,8 +176,6 @@
     set expandtab               " use spaces instead of tabs
     set cindent                 " automatically insert one extra level of
                                 " indentation
-    set smarttab                " use tabs at the start of a line, spaces
-                                " elsewhere
     set nowrap                  " don't wrap text
     set backspace=2
 
@@ -249,9 +251,6 @@
         autocmd!
         autocmd FileType python nnoremap <Leader>b
                     \ Oimport pdb; pdb.set_trace()<esc>
-        " run linter
-        autocmd FileType python nnoremap <Leader>l :PymodeLint<cr>
-        " autocmd FileType scala nnoremap <localleader>df :EnDeclarationSplit v<CR>
     augroup END
 
 
@@ -314,7 +313,7 @@
     " let g:syntastic_python_checkers = ['mypy', 'flake8']
 
     " ALE
-    let g:ale_open_list = 0
+    let g:ale_open_list = 1
     let g:ale_linters = {
         \   'python': ['pylint']
         \}
