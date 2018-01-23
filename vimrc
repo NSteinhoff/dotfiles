@@ -99,7 +99,7 @@
     set hidden                  " Allow hidden buffers by default
     set tags=.tags;/
     set path+=$PWD/**
-    set ignorecase
+    set noignorecase
     set nospell
 
 
