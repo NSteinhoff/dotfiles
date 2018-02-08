@@ -37,6 +37,7 @@
     """"" UI """""
         " Colorschemes
         Plugin 'chriskempson/base16-vim'
+        Plugin 'tyrannicaltoucan/vim-quantum'
 
         " Airline                           " Nice status line
         Plugin 'vim-airline/vim-airline'
@@ -68,7 +69,6 @@
 
         " Autoformat
         Plugin 'Chiel92/vim-autoformat'
-
 
     """""" Language Specific """"""
     """ Markdown """
@@ -110,12 +110,15 @@
     "   set t_Co=256
     " endif
     set background=dark
+    set termguicolors
+    colorscheme quantum
+    let g:airlinetheme='quantum'
 
-    if &diff
-        colorscheme base16-default-dark
-    else
-        colorscheme base16-default-dark
-    endif
+    " if &diff
+    "     colorscheme base16-default-dark
+    " else
+    "     colorscheme base16-default-dark
+    " endif
 
 
     syntax enable                       " enable syntax highlighting
@@ -157,7 +160,7 @@
     set wildmenu                                        " command line completion
     set wildmode=longest:full,full
     set wildignore=*.swp,*.zip,*.pyc
-    set wildignore+=**/.git/**,**/db/**,**/log/**
+    set wildignore+=**/.git/**,**/db/**,**/log/**,**/docs/**
     set wildignore+=**/target/**,**/vendor/**,**/node_modules/**
     set wildignore+=**/devenv/**,**/venv/**,**/env/**,**/runenv/**
 
