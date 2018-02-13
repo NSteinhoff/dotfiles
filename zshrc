@@ -36,22 +36,7 @@ esac
 # THEMES #####################################################################
 # ZSH_THEME="robbyrussell"
 # ZSH_THEME="terminalparty"
-if [[ $USER == "gpred" ]]; then
-    ZSH_THEME="ys"
-elif [[ $USER == "nas" ]]; then
-    ZSH_THEME="terminalparty"
-else
-    ZSH_THEME="gallois"
-fi
-##############################################################################
-
-# GIT CONFIG #################################################################
-if [[ $USER == "gpred" ]] || [[ $USER == "nas" ]]; then
-    export GIT_AUTHOR_NAME="Niko Steinhoff"
-    export GIT_AUTHOR_EMAIL="nas@gpredictive.de"
-    export GIT_COMMITTER_NAME=$GIT_AUTHOR_NAME
-    export GIT_COMMITTER_EMAIL=$GIT_AUTHOR_EMAIL
-fi
+ZSH_THEME="gallois"
 ##############################################################################
 
 # Uncomment the following line to use case-sensitive completion.
