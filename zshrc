@@ -158,3 +158,5 @@ function es_proc_id() {
 
 # Configure sbt memory settings to avoid OutofMemory error.
 export SBT_OPTS="-Xmx4G -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -Xss2M"
+
+source "$HOME/.bash_functions"
