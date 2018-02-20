@@ -147,6 +147,7 @@
     set ttyfast                 " Faster
     set showcmd                 " Show partial commands
     set hlsearch                " highlight search terms in text
+    hi IncSearch term=underline cterm=underline gui=underline
     set foldmethod=indent       " how to determine folds
     set foldcolumn=4            " Show indicator column for the first 4 folds in a sidebar
     set foldnestmax=8           " limit nested folds
