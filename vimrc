@@ -38,10 +38,13 @@
         " Colorschemes
         Plugin 'chriskempson/base16-vim'
         Plugin 'tyrannicaltoucan/vim-quantum'
+        Plugin 'arcticicestudio/nord-vim'
 
-        " Airline                           " Nice status line
-        Plugin 'vim-airline/vim-airline'
-        Plugin 'vim-airline/vim-airline-themes'
+        " Statusline                           " Nice status line
+        " Plugin 'vim-airline/vim-airline'
+        " Plugin 'vim-airline/vim-airline-themes'
+
+        Plugin 'itchyny/lightline.vim'
 
         " Rainbow Parantheses
         Plugin 'rainbow_parentheses.vim'
@@ -111,8 +114,8 @@
     " endif
     set background=dark
     set termguicolors
-    colorscheme quantum
-    let g:airlinetheme='quantum'
+    colorscheme nord
+    " let g:airlinetheme='nord'
 
     " if &diff
     "     colorscheme base16-default-dark
@@ -273,9 +276,18 @@
      let g:netrw_preview=1       " Open previews vertically
      let g:netrw_list_hide= '.*\.swp$,.*\.pyc'
 
-    " Airline Config
-    let g:airline#extensions#tabline#enabled = 0
-    " let g:airline#extensions#syntastic#enabled = 1
+    " Statusline config
+    " let g:airline#extensions#tabline#enabled = 0
+    let g:lightline = {
+        \ 'colorscheme': 'nord',
+        \ 'active': {
+        \   'left': [[ 'mode', 'paste' ],
+        \            [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+        \   },
+        \ 'component_function': {
+        \   'gitbranch': 'fugitive#head'
+        \   },
+        \ }
 
     " Rainbow Parentheses
     au VimEnter * RainbowParenthesesToggle
