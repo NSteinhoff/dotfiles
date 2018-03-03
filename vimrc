@@ -236,7 +236,6 @@
         autocmd!
         " Source vimrc on write
         autocmd BufWritePost *vimrc :so %
-        autocmd BufWritePost *.hs :!ghc --make %:p
     augroup END
 
     augroup script_execution
@@ -329,6 +328,7 @@
     let g:ale_open_list = 1
     let g:ale_linters = {
     \   'python': ['pylint'],
+    \   'haskell': ['stack-ghc'],
     \}
 
     " Autoformat
