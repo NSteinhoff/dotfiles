@@ -41,9 +41,6 @@
         Plugin 'arcticicestudio/nord-vim'
 
         " Statusline                           " Nice status line
-        " Plugin 'vim-airline/vim-airline'
-        " Plugin 'vim-airline/vim-airline-themes'
-
         Plugin 'itchyny/lightline.vim'
 
         " Rainbow Parantheses
@@ -114,8 +111,7 @@
     " endif
     set background=dark
     set termguicolors
-    colorscheme nord
-    " let g:airlinetheme='nord'
+    colorscheme quantum
 
     " if &diff
     "     colorscheme base16-default-dark
@@ -279,7 +275,7 @@
     " Statusline config
     " let g:airline#extensions#tabline#enabled = 0
     let g:lightline = {
-        \ 'colorscheme': 'nord',
+        \ 'colorscheme': 'quantum',
         \ 'active': {
         \   'left': [[ 'mode', 'paste' ],
         \            [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
