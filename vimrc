@@ -16,6 +16,8 @@
   "
   "   07. Plugin Configuration .... Configurations of Vundle Plugins
   "
+  "   08. NeoVim Stuff ............ NeoVim options
+  "
   """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -39,6 +41,7 @@
         Plugin 'chriskempson/base16-vim'
         Plugin 'tyrannicaltoucan/vim-quantum'
         Plugin 'arcticicestudio/nord-vim'
+        Plugin 'KeitaNakamura/neodark.vim'
 
         " Statusline                           " Nice status line
         Plugin 'itchyny/lightline.vim'
@@ -88,7 +91,7 @@
     """""""""""""""""""""""""""""""""""""
     call vundle#end()                   " required
 
-    runtime! ftplugin/man.vim
+    runtime! ftplugin/man.vim           " Man page browser
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 02. General
@@ -102,25 +105,14 @@
     set noignorecase
     set nospell
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 03. Theme/Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    " if &term == "screen"
-    "   set t_Co=256
-    " endif
     set background=dark
     set termguicolors
-    colorscheme quantum
+    colorscheme neodark
 
-    " if &diff
-    "     colorscheme base16-default-dark
-    " else
-    "     colorscheme base16-default-dark
-    " endif
-
-
-    syntax enable                       " enable syntax highlighting
+    syntax enable              " enable syntax highlighting
 
     augroup filetype_settings
         autocmd!
@@ -137,7 +129,6 @@
     set relativenumber          " show relative line numbers
     set numberwidth=4           " make the number gutter 4 characters wide
     set laststatus=2            " last window always has a statusline
-    set incsearch               " Highlight as you type your search.
     set ruler                   " Always show info along bottom.
     set showmatch               " Show matching braces
     set visualbell              " Visual feedback
@@ -145,6 +136,7 @@
     set sidescrolloff=5         " Horizontal offset
     set ttyfast                 " Faster
     set showcmd                 " Show partial commands
+    set incsearch               " Highlight as you type your search.
     set hlsearch                " highlight search terms in text
     hi IncSearch term=underline cterm=underline gui=underline
     set foldmethod=indent       " how to determine folds
@@ -178,8 +170,7 @@
     set shiftwidth=4            " indent/outdent by 4 columns
     set shiftround              " always indent/outdent to the nearest tabstop
     set expandtab               " use spaces instead of tabs
-    set cindent                 " automatically insert one extra level of
-                                " indentation
+    set cindent                 " automatically insert one extra level of indentation
     set nowrap                  " don't wrap text
     set backspace=2
 
@@ -187,36 +178,29 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 06. Custom Commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    "
     " Disable arrow keys
     noremap <Up> <NOP>
     noremap <Down> <NOP>
     noremap <Left> <NOP>
     noremap <Right> <NOP>
-    "
+
     " activate/deactivate paste mode
     set pastetoggle=<F2>
-    "
-    " faster exiting insert mode without having to leave the homerow
-    " inoremap jk <esc>
-    "
+
     " easier switching between vim splits
     nnoremap <C-h> <C-w>h
     nnoremap <C-j> <C-w>j
     nnoremap <C-k> <C-w>k
     nnoremap <C-l> <C-w>l
-    "
+
     " easier resizing of vim splits
     nnoremap - <C-w><
     nnoremap = <C-w>>
     nnoremap _ <C-w>-
     nnoremap + <C-w>+
-    "
+
     " resync folding
     nnoremap <Leader>z :syn sync fromstart<cr>
-    "
-    " open/close folds
-    " nnoremap <Space> za
 
     " remove search highlights
     nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
@@ -259,9 +243,8 @@
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 07. Plugin Configuration
-"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    " Netrw Explorer
+    "----- Netrw Explorer -----
      nnoremap <leader>e :Explore<cr>
      nnoremap <leader>v :Vexplore<cr>
      nnoremap <leader>t :Texplore<cr>
@@ -271,10 +254,9 @@
      let g:netrw_preview=1       " Open previews vertically
      let g:netrw_list_hide= '.*\.swp$,.*\.pyc'
 
-    " Statusline config
-    " let g:airline#extensions#tabline#enabled = 0
+    "----- Statusline -----
     let g:lightline = {
-        \ 'colorscheme': 'quantum',
+        \ 'colorscheme': 'neodark',
         \ 'active': {
         \   'left': [[ 'mode', 'paste' ],
         \            [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -284,7 +266,7 @@
         \   },
         \ }
 
-    " Rainbow Parentheses
+    "------ Rainbow Parentheses ------
     au VimEnter * RainbowParenthesesToggle
     au Syntax * RainbowParenthesesLoadRound
     au Syntax * RainbowParenthesesLoadSquare
@@ -305,52 +287,35 @@
     \ ['darkred',     'DarkOrchid3'],
     \ ['red',         'firebrick3'],
     \ ]
-    " \ ['gray',        'RoyalBlue3'],
-    " \ ['black',       'SeaGreen3'],
 
-    " Syntastic
-    " set statusline+=%#warningmsg#
-    " set statusline+=%{SyntasticStatuslineFlag()}
-    " set statusline+=%*
-
-    " let g:syntastic_always_populate_loc_list = 1
-    " let g:syntastic_auto_loc_list = 1
-    " let g:syntastic_check_on_open = 1
-    " let g:syntastic_check_on_wq = 0
-    " let g:syntastic_mode_map = {
-    "     \ "mode": "active",
-    "     \ "active_filetypes": [],
-    "     \ "passive_filetypes": ["scala"]
-    "     \ }
-    " let g:syntastic_python_checkers = ['mypy', 'flake8']
-
-    " ALE
+    "----- ALE linting ----
     let g:ale_open_list = 1
     let g:ale_linters = {
     \   'python': ['pylint'],
     \   'haskell': ['stack-ghc'],
     \}
 
-    " Autoformat
+    "------ Autoformat -----
     noremap <leader>af :Autoformat<CR>
     let g:formatdef_scalafmt = '"scalafmt --config=$HOME/.scalafmt.conf --stdin 2>/dev/null"'
     let g:formatters_scala = ['scalafmt']
     let g:autoformat_verbosemode = 1
 
-    " Autotags
+    "----- Autotags ------
     let g:autotagTagsFile=".tags"
 
-    """" Python Plugins
-    " Python Syntax
+    "----- Python -----
     let python_highlight_all = 1
 
-    """" Scala Plugins
-    " Scala documentation
+    "----- Scala -----
     let g:scala_scaladoc_indent = 1
+
+    "----- Neodark -----
+    let g:neodark#use_custom_terminal_theme = 1
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 08. NeoVim Config
-"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     let g:python_host_prog='~/.virtualenvs/nvim2/bin/python'
     let g:python3_host_prog='~/.virtualenvs/nvim3/bin/python'
