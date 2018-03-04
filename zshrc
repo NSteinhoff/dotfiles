@@ -123,11 +123,20 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Vi mode
+# ----- Vi mode ------
 bindkey -v
 export KEYTIMEOUT=1
+function zle-line-init zle-keymap-select {
+    VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
+    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$(git_custom_status) $EPS1"
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+export KEYTIMEOUT=1
+# --------------------
 
-# Aliases
+# ------ Aliases ------
 alias tree='tree -C -F'
 alias scalafmt="scalafmt --config $HOME/.scalafmt.conf"
 if [[ $OS == 'Linux' ]]; then
@@ -135,11 +144,12 @@ if [[ $OS == 'Linux' ]]; then
 elif [[ $OS == 'Mac' ]]; then
     alias ll='ls -lhF'
 fi
-#
+# ---------------------
+
 export XDG_CONFIG_HOME=~/.config
 
 test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh"
-#
+
 # You may add following to ~/.bash_profile to ease starting/stopping kafka
 # START of .bash_profile changes for Kafka and ES
 export KF_HOME="/opt/kafka/current"
