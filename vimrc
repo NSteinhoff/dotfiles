@@ -299,6 +299,7 @@
     noremap <leader>af :Autoformat<CR>
     let g:formatdef_scalafmt = '"scalafmt --config=$HOME/.scalafmt.conf --stdin 2>/dev/null"'
     let g:formatters_scala = ['scalafmt']
+    let g:formatters_python = ['yapf']
     let g:autoformat_verbosemode = 1
 
     "----- Autotags ------
