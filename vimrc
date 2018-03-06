@@ -240,12 +240,6 @@
                     \ Oimport pdb; pdb.set_trace()<esc>
     augroup END
 
-    augroup local_settings
-        autocmd!
-        autocmd FileType markdown setlocal wrap linebreak nolist
-        autocmd FileType markdown setlocal textwidth=0 wrapmargin=0 formatoptions-=t
-    augroup END
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 07. Plugin Configuration
