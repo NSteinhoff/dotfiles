@@ -289,9 +289,10 @@
     \ ]
 
     "----- ALE linting ----
-    let g:ale_open_list = 1
+    let g:ale_open_list = 0
+    let g:ale_lint_delay = 1000
     let g:ale_linters = {
-    \   'python': ['pylint'],
+    \   'python': ['pylint', 'mypy'],
     \   'haskell': ['stack-ghc'],
     \}
 
