@@ -43,9 +43,6 @@
         Plugin 'arcticicestudio/nord-vim'
         Plugin 'KeitaNakamura/neodark.vim'
 
-        " Statusline                           " Nice status line
-        Plugin 'itchyny/lightline.vim'
-
         " Rainbow Parantheses
         Plugin 'rainbow_parentheses.vim'
 
@@ -126,7 +123,7 @@
     set relativenumber          " show relative line numbers
     set numberwidth=4           " make the number gutter 4 characters wide
     set laststatus=2            " last window always has a statusline
-    set ruler                   " Always show info along bottom.
+    " set ruler                   " Always show info along bottom.
     set showmatch               " Show matching braces
     set visualbell              " Visual feedback
     set scrolloff=7             " Vertical offset
@@ -156,6 +153,21 @@
     " Autocompletion
     set complete-=t             " don't scan tags
     set complete-=i             " don't scan files
+
+    "----- Statusline -----
+    set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
+    "              | | | | |  |   |      |  |     |    |
+    "              | | | | |  |   |      |  |     |    +-- current column
+    "              | | | | |  |   |      |  |     +-- current line
+    "              | | | | |  |   |      |  +-- current % into file
+    "              | | | | |  |   |      +-- current syntax
+    "              | | | | |  |   +-- current fileformat
+    "              | | | | |  +-- number of lines
+    "              | | | | +-- preview flag in square brackets
+    "              | | | +-- help flag in square brackets
+    "              | | +-- readonly flag in square brackets
+    "              | +-- rodified flag in square brackets
+    "              +-- full path to file in the buffer
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -250,18 +262,6 @@
      let g:netrw_altv=1          " Open files on right
      let g:netrw_preview=1       " Open previews vertically
      let g:netrw_list_hide= '.*\.swp$,.*\.pyc'
-
-    "----- Statusline -----
-    let g:lightline = {
-        \ 'colorscheme': 'neodark',
-        \ 'active': {
-        \   'left': [[ 'mode', 'paste' ],
-        \            [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-        \   },
-        \ 'component_function': {
-        \   'gitbranch': 'fugitive#head'
-        \   },
-        \ }
 
     "------ Rainbow Parentheses ------
     au VimEnter * RainbowParenthesesToggle
