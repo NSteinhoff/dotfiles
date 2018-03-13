@@ -74,9 +74,6 @@
         Plugin 'Chiel92/vim-autoformat'
 
     """""" Language Specific """"""
-    """ Markdown """
-        Plugin 'gabrielelana/vim-markdown'
-
     """ Python """
         Plugin 'hynek/vim-python-pep8-indent'
         Plugin 'https://github.com/hdima/python-syntax'
@@ -117,7 +114,7 @@
     augroup filetype_settings
         autocmd!
         autocmd FileType python,haskell,scala set colorcolumn=80
-        autocmd FileType markdown set colorcolumn=100
+        autocmd FileType markdown set colorcolumn=80
         autocmd FileType gitcommit set colorcolumn=70
     augroup END
 
