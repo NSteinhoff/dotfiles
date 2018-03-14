@@ -35,11 +35,6 @@
     augroup END
 
 
-"----- Colorscheme -----
-    set background=dark
-    colorscheme default
-
-
 "----- Searching -----
     set incsearch                               " Incremental search
     set hlsearch                                " Highlight search results
