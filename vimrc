@@ -15,6 +15,7 @@
 
 
 "----- UI -----
+    set laststatus=2
     set number                                  " Show line numbers
     set relativenumber                          " Show line numbers relative to current cursor position
     set numberwidth=4                           " Width of the number gutter
