@@ -8,7 +8,7 @@
 
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files="vimrc vim screenrc gitconfig tmux.conf tmux zshrc crawlrc ctags scalafmt.conf bash_functions"          # list of files/folders to symlink in homedir
+files="vimrc vim screenrc gitconfig tmux.conf zshrc crawlrc ctags scalafmt.conf bash_functions"          # list of files/folders to symlink in homedir
 
 ##########
 
@@ -39,15 +39,3 @@ done
 # create ~/dotfiles/vim directory
 echo -n "Creating the $dir/vim directory ..."
 mkdir $dir/vim
-
-# install vundle
-echo -n "Installing vundle ..."
-rm -rf ~/.vim/bundle/Vundle.vim
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
-# install vim plugins
-echo -n "Installing vim plugins ..."
-vim -c 'PluginInstall' -c 'qa!'
-
-# install tmux plugin manager
-git clone https://github.com/tmux-plugins/tpm $dir/tmux/plugins/tpm
