@@ -7,6 +7,10 @@
 --exclude=*target/*
 --exclude=*vendor/*
 --exclude=*node_modules/*
+--exclude=*venv/*
+--exclude=*devenv/*
+--exclude=*runenv/*
+--exclude=*.tox/*
 
 --langdef=scala
 --langmap=scala:.scala

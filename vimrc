@@ -46,7 +46,7 @@
     set wildignore=*.swp,*.zip,*.pyc
     set wildignore+=**/.git/**,**/db/**,**/log/**,**/docs/**
     set wildignore+=**/target/**,**/vendor/**,**/node_modules/**
-    set wildignore+=**/devenv/**,**/venv/**,**/env/**,**/runenv/**
+    set wildignore+=**/.tox/**,**/devenv/**,**/venv/**,**/env/**,**/runenv/**
 
 
 "----- Folding -----
