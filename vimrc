@@ -43,10 +43,21 @@
     set tags+=./tags;,.tags;                    " Search for .tags' files upwards
 
     " Ignore certain files when searching
-    set wildignore=*.swp,*.zip,*.pyc
-    set wildignore+=**/.git/**,**/db/**,**/log/**,**/docs/**
-    set wildignore+=**/target/**,**/vendor/**,**/node_modules/**
-    set wildignore+=**/.tox/**,**/devenv/**,**/venv/**,**/env/**,**/runenv/**
+    set wildignore+=*.swp
+    set wildignore+=*.zip
+    set wildignore+=*.pyc
+    set wildignore+=**/.git/**
+    set wildignore+=**/db/**
+    set wildignore+=**/log/**
+    set wildignore+=**/docs/**
+    set wildignore+=**/target/**
+    set wildignore+=**/vendor/**
+    set wildignore+=**/node_modules/**
+    set wildignore+=**/.tox/**
+    set wildignore+=**/devenv/**
+    set wildignore+=**/venv/**
+    set wildignore+=**/env/**
+    set wildignore+=**/runenv/**
 
 
 "----- Folding -----
