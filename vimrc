@@ -1,6 +1,7 @@
 "----- Basics -----
     set nocompatible                            " Enable Vim features (vi -> vim)
     set ttyfast                                 " Indicate a fast terminal connection
+    set lazyredraw				" Only redraw when necessary
     set ffs=unix,dos,mac                        " Unix as standard file type
     set encoding=utf8                           " Standard encoding
     set hidden                                  " Allow hidden buffers
@@ -15,7 +16,7 @@
 
 
 "----- UI -----
-    set laststatus=2
+    set laststatus=2                            " Always show the statusbar
     set number                                  " Show line numbers
     set relativenumber                          " Show line numbers relative to current cursor position
     set numberwidth=4                           " Width of the number gutter
@@ -70,7 +71,20 @@
 
 
 "----- Statusline -----
-    set statusline=[%{&ff}]%y\ %F%m%r%h%w%=[%l:%v\|%p%%]
+    function! CurrentGitStatus()
+        let gitoutput = split(system('git status --porcelain -b '.shellescape(expand('%')).' 2>/dev/null'),'\n')
+        if len(gitoutput) > 0
+            let b:gitstatus = strpart(get(gitoutput,0,''),3) . '/' . strpart(get(gitoutput,1,'  '),0,2)
+        else
+            let b:gitstatus = ''
+        endif
+    endfunc
+    augroup git_status
+        autocmd!
+        autocmd BufEnter,BufWritePost * call CurrentGitStatus()
+    augroup end
+    let b:gitstatus = ''
+    set statusline=[%{&ff}]%y\ %F%m%r%h%w%=%(<%{b:gitstatus}>%)[%l:%v\|%p%%]
 
 
 "----- Browsing -----
