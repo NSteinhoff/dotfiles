@@ -73,9 +73,12 @@
     set shiftround                              " When indenting, always round to the nearest 'shiftwidth'
     set expandtab                               " Expand <Tab> into spaces
 
+    " Autocompletion
+    set complete-=t                             " Don't scan tags
+    set complete-=i                             " Don't scan included files
 
 "----- Statusline -----
-    set statusline=[%{&ff}]%y\ %F%m%r%h%w%=[%l:%v\|%p%%]
+    set statusline=[%{&ff}]%y\ %F%m%r%h%w%=%{gutentags#statusline()}%{fugitive#statusline()}[%l:%v\|%p%%]
 
 
 "----- Browsing -----
@@ -88,3 +91,16 @@
 
 "----- Custom Commands -----
     nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
+
+"----- ALE linting -----
+    let g:ale_open_list = 1
+    let g:ale_lint_delay = 1000
+    let g:ale_linters = {
+        \   'python': ['pylint', 'mypy'],
+        \   'haskell': ['stack-ghc'],
+        \}
+
+
+"----- Gutentags -----
+    let g:gutentags_ctags_tagfile='.tags'
