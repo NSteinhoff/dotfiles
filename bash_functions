@@ -1,2 +1,0 @@
-# Helpful bash functions
-
