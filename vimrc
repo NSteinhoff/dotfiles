@@ -38,6 +38,15 @@
 "----- Searching -----
     set incsearch                               " Incremental search
     set hlsearch                                " Highlight search results
+    set wildmenu                                " Better command-line completion
+    set wildmode=longest:full,full              " Default matching, but also start wildmenu
+    set tags+=./tags;,.tags;                    " Search for .tags' files upwards
+
+    " Ignore certain files when searching
+    set wildignore=*.swp,*.zip,*.pyc
+    set wildignore+=**/.git/**,**/db/**,**/log/**,**/docs/**
+    set wildignore+=**/target/**,**/vendor/**,**/node_modules/**
+    set wildignore+=**/devenv/**,**/venv/**,**/env/**,**/runenv/**
 
 
 "----- Folding -----
@@ -66,25 +75,12 @@
 
 
 "----- Statusline -----
-    function! CurrentGitStatus()
-        let gitoutput = split(system('git status --porcelain -b '.shellescape(expand('%')).' 2>/dev/null'),'\n')
-        if len(gitoutput) > 0
-            let b:gitstatus = strpart(get(gitoutput,0,''),3) . '/' . strpart(get(gitoutput,1,'  '),0,2)
-        else
-            let b:gitstatus = ''
-        endif
-    endfunc
-    augroup git_status
-        autocmd!
-        autocmd BufEnter,BufWritePost * call CurrentGitStatus()
-    augroup end
-    let b:gitstatus = ''
-    set statusline=[%{&ff}]%y\ %F%m%r%h%w%=%(<%{b:gitstatus}>%)[%l:%v\|%p%%]
+    set statusline=[%{&ff}]%y\ %F%m%r%h%w%=[%l:%v\|%p%%]
 
 
 "----- Browsing -----
     let g:netrw_liststyle=0                     " Set default view style [thin|long|wide|tree]
-    let g:netrw_banner=0                        " Show banner yes/no [0|1]
+    let g:netrw_banner=1                        " Show banner no/yes [0|1]
     let g:netrw_altv=1                          " Open vertical splits on the right, not left
     let g:netrw_preview=1                       " Open previews in a vertical split, not horizontal
     let g:netrw_list_hide= '.*\.swp$,.*\.pyc'   " File patterns to hide from the list
