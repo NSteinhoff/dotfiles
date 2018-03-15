@@ -72,7 +72,7 @@
 
     " Indenting
     set autoindent                              " Automatically indent new lines
-    set smartindent                             " Be smart about indenting new lines
+    " set smartindent                             " Be smart about indenting new lines
 
     " Wrapping
     set textwidth=0                             " Do not break long lines
@@ -95,18 +95,30 @@
 
 "----- Browsing -----
     let g:netrw_liststyle=0                     " Set default view style [thin|long|wide|tree]
-    let g:netrw_banner=1                        " Show banner no/yes [0|1]
+    let g:netrw_banner=0                        " Show banner no/yes [0|1]
     let g:netrw_altv=1                          " Open vertical splits on the right, not left
     let g:netrw_preview=1                       " Open previews in a vertical split, not horizontal
     let g:netrw_list_hide= '.*\.swp$,.*\.pyc'   " File patterns to hide from the list
 
 
 "----- Custom Commands -----
+
+    "--- General ---
+
     " Remove highlights of last search results
     nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
-    " Search for the name under the cursor in all files with
-    " the same extension
+    " Make arrow keys do something useful -- resizing windows
+    nnoremap <silent> <Left> :vertical resize -1<CR>
+    nnoremap <silent> <Right> :vertical resize +1<CR>
+    nnoremap <silent> <Up> :resize +1<CR>
+    nnoremap <silent> <Down> :resize -1<CR>
+
+    "--- Searching ---
+
+    " Search for the name under the cursor in all files with the same extension
     nnoremap <leader>* *:vimgrep //j **/*%:e \| copen<CR>
+    " Search for the last search pattern in all files with the same extension
+    nnoremap <leader>/ :vimgrep //j **/*%:e \| copen<CR>
 
 
 "----- ALE linting -----
