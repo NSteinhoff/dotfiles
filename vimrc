@@ -43,22 +43,22 @@
     set tags+=./tags;,.tags;                    " Search for .tags' files upwards
 
     " Ignore certain files when searching
-    set wildignore+=**.swp
-    set wildignore+=**.zip
-    set wildignore+=**.pyc
-    set wildignore+=**__pycache__/**
-    set wildignore+=**.egg-info/**
-    set wildignore+=**.git/**
-    set wildignore+=**db/**
-    set wildignore+=**log/**
-    set wildignore+=**docs/**
-    set wildignore+=**target/**
-    set wildignore+=**vendor/**
-    set wildignore+=**node_modules/**
-    set wildignore+=**.tox/**
-    set wildignore+=**venv/**
-    set wildignore+=**devenv/**
-    set wildignore+=**runenv/**
+    set wildignore+=*.swp
+    set wildignore+=*.zip
+    set wildignore+=*.pyc
+    set wildignore+=*__pycache__/*
+    set wildignore+=*.egg-info/*
+    set wildignore+=*.git/*
+    set wildignore+=*db/*
+    set wildignore+=*log/*
+    set wildignore+=*docs/*
+    set wildignore+=*target/*
+    set wildignore+=*vendor/*
+    set wildignore+=*node_modules/*
+    set wildignore+=*.tox/*
+    set wildignore+=*venv/*
+    set wildignore+=*devenv/*
+    set wildignore+=*runenv/*
 
 
 "----- Folding -----
@@ -125,6 +125,6 @@
 "----- Snippets -----
 augroup filetype_snippets
     autocmd!
-    au FileType python nnoremap _pdb oimport pdb; pdb.set_trace()<Esc>
-    au FileType python nnoremap _Pdb Oimport pdb; pdb.set_trace()<Esc>
+    au FileType python nnoremap _bp oimport pdb; pdb.set_trace()<Esc>
+    au FileType python nnoremap _BP Oimport pdb; pdb.set_trace()<Esc>
 augroup END
