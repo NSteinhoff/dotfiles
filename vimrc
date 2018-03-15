@@ -41,6 +41,7 @@
     set wildmenu                                " Better command-line completion
     set wildmode=longest:full,full              " Default matching, but also start wildmenu
     set tags+=./tags;,.tags;                    " Search for .tags' files upwards
+    set path+=**                                " Search downwards from current directory
 
     " Ignore certain files when searching
     set wildignore+=*.swp
