@@ -1,7 +1,7 @@
 "----- Basics -----
     set nocompatible                            " Enable Vim features (vi -> vim)
     set ttyfast                                 " Indicate a fast terminal connection
-    set lazyredraw				" Only redraw when necessary
+    set lazyredraw                              " Only redraw when necessary
     set ffs=unix,dos,mac                        " Unix as standard file type
     set encoding=utf8                           " Standard encoding
     set hidden                                  " Allow hidden buffers
@@ -117,9 +117,9 @@
     "--- Searching ---
 
     " Search for the name under the cursor in all files with the same extension
-    nnoremap <leader>* *:vimgrep //j **/*%:e \| copen<CR>
+    nnoremap <leader>* *:vimgrep //j **/*%:e \| bo copen<CR>
     " Search for the last search pattern in all files with the same extension
-    nnoremap <leader>/ :vimgrep //j **/*%:e \| copen<CR>
+    nnoremap <leader>/ :vimgrep //j **/*%:e \| bo copen<CR>
 
 
 "----- ALE linting -----
@@ -136,8 +136,8 @@
 
 
 "----- Snippets -----
-augroup filetype_snippets
-    autocmd!
-    au FileType python nnoremap _bp oimport pdb; pdb.set_trace()<Esc>
-    au FileType python nnoremap _BP Oimport pdb; pdb.set_trace()<Esc>
-augroup END
+    augroup filetype_snippets
+        autocmd!
+        au FileType python nnoremap <buffer> _bp oimport pdb; pdb.set_trace()<Esc>
+        au FileType python nnoremap <buffer> _BP Oimport pdb; pdb.set_trace()<Esc>
+    augroup END
