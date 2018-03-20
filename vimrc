@@ -135,6 +135,10 @@
     let g:gutentags_ctags_tagfile='.tags'
 
 
+"----- Python-Vim -----
+    let g:python_highlight_all = 1
+
+
 "----- Snippets -----
     augroup filetype_snippets
         autocmd!
