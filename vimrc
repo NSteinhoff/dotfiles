@@ -26,6 +26,13 @@
     set scrolloff=7                             " Vertical offset from the cursor to the margins when scrolling
     set sidescrolloff=5                         " Horizontal offset from the cursor to the margins when scrolling
 
+    " Cursorline in active window
+    augroup active_window_indicator
+        autocmd!
+        autocmd WinEnter * set cursorline
+        autocmd WinLeave * set nocursorline
+    augroup END
+
     " Filetype specific options
     augroup filetype_settings
         autocmd!
