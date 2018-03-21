@@ -1,4 +1,4 @@
-"----- Basics -----
+"----------------------------------- Basics -----------------------------------
     set nocompatible                            " Enable Vim features (vi -> vim)
     set ttyfast                                 " Indicate a fast terminal connection
     set lazyredraw                              " Only redraw when necessary
@@ -8,14 +8,14 @@
     set showcmd                                 " Show commands in bottom line
 
 
-"----- Filetypes -----
+"--------------------------------- Filetypes ----------------------------------
     filetype on                                 " Enable filetype detection
     filetype plugin on                          " Load filetype plugin files ('ftplugin.vim')
     filetype indent on                          " Load filetype indent files ('indent.vim')
     syntax enable                               " Enable syntax highlighting ('syntax.vim')
 
 
-"----- UI -----
+"------------------------------------- UI -------------------------------------
     set laststatus=2                            " Always show the statusbar
     set number                                  " Show line numbers
     set relativenumber                          " Show line numbers relative to current cursor position
@@ -42,7 +42,7 @@
     augroup END
 
 
-"----- Searching -----
+"--------------------------------- Searching ----------------------------------
     set incsearch                               " Incremental search
     set hlsearch                                " Highlight search results
     set wildmenu                                " Better command-line completion
@@ -69,13 +69,13 @@
     set wildignore+=*runenv/*
 
 
-"----- Folding -----
+"---------------------------------- Folding -----------------------------------
     set foldmethod=indent                       " Fold by indent
     set foldignore=                             " Fold everything
     set foldnestmax=8                           " Set the maximum number of folds
 
 
-"----- Editing -----
+"---------------------------------- Editing -----------------------------------
     set backspace=2                             " Allow backspacing over 'indent,eol,start' => mode: 2
 
     " Indenting
@@ -97,11 +97,11 @@
     set complete-=t                             " Don't scan tags
     set complete-=i                             " Don't scan included files
 
-"----- Statusline -----
+"--------------------------------- Statusline ---------------------------------
     set statusline=[%{&ff}]%y\ %F%m%r%h%w%=%{gutentags#statusline()}%{fugitive#statusline()}[%l:%v\|%p%%]
 
 
-"----- Browsing -----
+"---------------------------------- Browsing ----------------------------------
     let g:netrw_liststyle=0                     " Set default view style [thin|long|wide|tree]
     let g:netrw_banner=0                        " Show banner no/yes [0|1]
     let g:netrw_altv=1                          " Open vertical splits on the right, not left
@@ -109,7 +109,7 @@
     let g:netrw_list_hide= '.*\.swp$,.*\.pyc'   " File patterns to hide from the list
 
 
-"----- Custom Commands -----
+"------------------------------ Custom Commands -------------------------------
 
     "--- General ---
 
@@ -129,7 +129,7 @@
     nnoremap <leader>/ :vimgrep //j **/*%:e \| bo copen<CR>
 
 
-"----- ALE linting -----
+"-------------------------------- ALE linting ---------------------------------
     let g:ale_open_list = 1
     let g:ale_lint_delay = 1000
     let g:ale_linters = {
@@ -138,15 +138,15 @@
         \}
 
 
-"----- Gutentags -----
+"--------------------------------- Gutentags ----------------------------------
     let g:gutentags_ctags_tagfile='.tags'
 
 
-"----- Python-Vim -----
+"--------------------------------- Python-Vim ---------------------------------
     let g:python_highlight_all = 1
 
 
-"----- Snippets -----
+"---------------------------------- Snippets ----------------------------------
     augroup filetype_snippets
         autocmd!
         au FileType python nnoremap <buffer> _bp oimport pdb; pdb.set_trace()<Esc>
