@@ -1,30 +1,21 @@
 "----------------------------------- Basics -----------------------------------
-    set nocompatible                            " Enable Vim features (vi -> vim)
+    unlet! skip_defaults_vim
+    source $VIMRUNTIME/defaults.vim
     set ttyfast                                 " Indicate a fast terminal connection
     set lazyredraw                              " Only redraw when necessary
     set ffs=unix,dos,mac                        " Unix as standard file type
     set encoding=utf8                           " Standard encoding
     set hidden                                  " Allow hidden buffers
-    set showcmd                                 " Show commands in bottom line
-
-
-"--------------------------------- Filetypes ----------------------------------
-    filetype on                                 " Enable filetype detection
-    filetype plugin on                          " Load filetype plugin files ('ftplugin.vim')
-    filetype indent on                          " Load filetype indent files ('indent.vim')
-    syntax enable                               " Enable syntax highlighting ('syntax.vim')
 
 
 "------------------------------------- UI -------------------------------------
     set laststatus=2                            " Always show the statusbar
     set number                                  " Show line numbers
-    set relativenumber                          " Show line numbers relative to current cursor position
+    set norelativenumber                        " Don't show line numbers relative to current cursor position
     set numberwidth=4                           " Width of the number gutter
     set list                                    " Enable list mode showing 'listchars'
     set listchars=nbsp:¬,tab:»·,trail:·         " Configure which characters to show in list mode
     set foldcolumn=1                            " Show gutter that shows the foldlevel
-    set scrolloff=7                             " Vertical offset from the cursor to the margins when scrolling
-    set sidescrolloff=5                         " Horizontal offset from the cursor to the margins when scrolling
 
     " Cursorline in active window
     augroup active_window_indicator
@@ -43,9 +34,7 @@
 
 
 "--------------------------------- Searching ----------------------------------
-    set incsearch                               " Incremental search
     set hlsearch                                " Highlight search results
-    set wildmenu                                " Better command-line completion
     set wildmode=longest:full,full              " Default matching, but also start wildmenu
     set tags+=./tags;,.tags;                    " Search for .tags' files upwards
     set path+=**                                " Search downwards from current directory
@@ -76,8 +65,6 @@
 
 
 "---------------------------------- Editing -----------------------------------
-    set backspace=2                             " Allow backspacing over 'indent,eol,start' => mode: 2
-
     " Indenting
     set autoindent                              " Automatically indent new lines
     " set smartindent                             " Be smart about indenting new lines
