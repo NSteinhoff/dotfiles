@@ -16,6 +16,7 @@
     set list                                    " Enable list mode showing 'listchars'
     set listchars=nbsp:¬,tab:»·,trail:·         " Configure which characters to show in list mode
     set foldcolumn=1                            " Show gutter that shows the foldlevel
+    set cursorline                              " Highlight the line with the cursor
 
     " Cursorline in active window
     augroup active_window_indicator
@@ -27,11 +28,10 @@
     " Filetype specific options
     augroup filetype_settings
         autocmd!
-        autocmd FileType gitcommit set colorcolumn=70
-        autocmd FileType markdown set colorcolumn=100
+        autocmd FileType gitcommit set colorcolumn=70 | set textwidth=69
+        autocmd FileType markdown set colorcolumn=80 | set textwidth=79
         autocmd FileType python,haskell,scala set colorcolumn=80
     augroup END
-
 
 "--------------------------------- Searching ----------------------------------
     set hlsearch                                " Highlight search results
@@ -40,22 +40,22 @@
     set path+=**                                " Search downwards from current directory
 
     " Ignore certain files when searching
-    set wildignore+=*.swp
-    set wildignore+=*.zip
-    set wildignore+=*.pyc
-    set wildignore+=*__pycache__/*
     set wildignore+=*.egg-info/*
     set wildignore+=*.git/*
+    set wildignore+=*.pyc
+    set wildignore+=*.swp
+    set wildignore+=*.tox/*
+    set wildignore+=*.zip
+    set wildignore+=*__pycache__/*
     set wildignore+=*db/*
-    set wildignore+=*log/*
+    set wildignore+=*devenv/*
     set wildignore+=*docs/*
+    set wildignore+=*log/*
+    set wildignore+=*node_modules/*
+    set wildignore+=*runenv/*
     set wildignore+=*target/*
     set wildignore+=*vendor/*
-    set wildignore+=*node_modules/*
-    set wildignore+=*.tox/*
     set wildignore+=*venv/*
-    set wildignore+=*devenv/*
-    set wildignore+=*runenv/*
 
 
 "---------------------------------- Folding -----------------------------------
