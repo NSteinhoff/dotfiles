@@ -28,8 +28,8 @@
     " Filetype specific options
     augroup filetype_settings
         autocmd!
-        autocmd FileType gitcommit set colorcolumn=70 | set textwidth=69
-        autocmd FileType markdown set colorcolumn=80 | set textwidth=79
+        autocmd FileType gitcommit set colorcolumn=70
+        autocmd FileType markdown set colorcolumn=100
         autocmd FileType python,haskell,scala set colorcolumn=80
     augroup END
 
@@ -37,7 +37,7 @@
     set hlsearch                                " Highlight search results
     set wildmode=longest:full,full              " Default matching, but also start wildmenu
     set tags+=./tags;,.tags;                    " Search for .tags' files upwards
-    set path+=**                                " Search downwards from current directory
+    set path=.,,**                              " Search downwards from current directory
 
     " Ignore certain files when searching
     set wildignore+=*.egg-info/*
@@ -99,9 +99,15 @@
 "------------------------------ Custom Commands -------------------------------
 
     "--- General ---
+    " Navigate splits
+    nnoremap <c-j> <c-w><c-j>
+    nnoremap <c-k> <c-w><c-k>
+    nnoremap <c-l> <c-w><c-l>
+    nnoremap <c-h> <c-w><c-h>
 
     " Remove highlights of last search results
     nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
     " Make arrow keys do something useful -- resizing windows
     nnoremap <silent> <Left> :vertical resize -1<CR>
     nnoremap <silent> <Right> :vertical resize +1<CR>
@@ -112,6 +118,7 @@
 
     " Search for the name under the cursor in all files with the same extension
     nnoremap <leader>* *:vimgrep //j **/*%:e \| bo copen<CR>
+
     " Search for the last search pattern in all files with the same extension
     nnoremap <leader>/ :vimgrep //j **/*%:e \| bo copen<CR>
 
