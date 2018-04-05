@@ -31,6 +31,7 @@
         autocmd FileType gitcommit set colorcolumn=70
         autocmd FileType markdown set colorcolumn=100
         autocmd FileType python,haskell,scala set colorcolumn=80
+        autocmd FileType python set formatprg=yapf
     augroup END
 
 "--------------------------------- Searching ----------------------------------
