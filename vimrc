@@ -16,14 +16,14 @@
     set list                                    " Enable list mode showing 'listchars'
     set listchars=nbsp:¬,tab:»·,trail:·         " Configure which characters to show in list mode
     set foldcolumn=1                            " Show gutter that shows the foldlevel
-    set cursorline                              " Highlight the line with the cursor
+    " set cursorline                              " Highlight the line with the cursor
 
     " Cursorline in active window
-    augroup active_window_indicator
-        autocmd!
-        autocmd WinEnter * set cursorline
-        autocmd WinLeave * set nocursorline
-    augroup END
+    " augroup active_window_indicator
+    "     autocmd!
+    "     autocmd WinEnter * set cursorline
+    "     autocmd WinLeave * set nocursorline
+    " augroup END
 
     " Filetype specific options
     augroup filetype_settings
@@ -32,6 +32,7 @@
         autocmd FileType markdown set colorcolumn=100
         autocmd FileType python,haskell,scala set colorcolumn=80
         autocmd FileType python set formatprg=yapf
+        autocmd FileType scala set formatprg=scalafmt\ --config\ /Users/nikosteinhoff/.scalafmt.conf\ --stdin
     augroup END
 
 "--------------------------------- Searching ----------------------------------
@@ -67,6 +68,8 @@
 
 "---------------------------------- Editing -----------------------------------
     " Indenting
+    set shiftwidth=4                            " Number of spaces to indent
+    set shiftround                              " When indenting, always round to the nearest 'shiftwidth'
     set autoindent                              " Automatically indent new lines
     " set smartindent                             " Be smart about indenting new lines
 
@@ -76,9 +79,7 @@
 
     " Tabbing
     set tabstop=4                               " Number of spaces for each <Tab>
-    set shiftwidth=4                            " Number of spaces to indent
     set softtabstop=4                           " Make <Tab>s feel like tabs while using spaces when inserting
-    set shiftround                              " When indenting, always round to the nearest 'shiftwidth'
     set expandtab                               " Expand <Tab> into spaces
 
     " Autocompletion
