@@ -25,7 +25,8 @@
     "     autocmd WinLeave * set nocursorline
     " augroup END
 
-    " Filetype specific options
+
+"----------------------------- Filetype settings ------------------------------
     augroup filetype_settings
         autocmd!
         autocmd FileType gitcommit set colorcolumn=70
@@ -34,6 +35,7 @@
         autocmd FileType python set formatprg=yapf
         autocmd FileType scala set formatprg=scalafmt\ --config\ /Users/nikosteinhoff/.scalafmt.conf\ --stdin
     augroup END
+
 
 "--------------------------------- Searching ----------------------------------
     set hlsearch                                " Highlight search results
@@ -59,6 +61,14 @@
     set wildignore+=*vendor/*
     set wildignore+=*venv/*
 
+
+"----------------------------------- Grep -------------------------------------
+    if executable('ag')
+        set grepprg=ag\ --vimgrep\ $*
+        set grepformat=%f:%l:%c:%m
+    else
+        set grepprg=grep\ -n\ --exclude='*.swp'\ --exclude='.tags'\ $*\ /dev/null
+    endif
 
 "---------------------------------- Folding -----------------------------------
     set foldmethod=indent                       " Fold by indent
@@ -148,3 +158,8 @@
         au FileType python nnoremap <buffer> _bp oimport pdb; pdb.set_trace()<Esc>
         au FileType python nnoremap <buffer> _BP Oimport pdb; pdb.set_trace()<Esc>
     augroup END
+
+
+
+"------------------------------- Error Format ---------------------------------
+    set errorformat+=%f\|%l\ col\ %c\|%m    " Allow reading error lists from buffers
