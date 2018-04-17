@@ -63,11 +63,13 @@
 
 
 "----------------------------------- Grep -------------------------------------
+    " Use external 'grep' tool to search for patterns recursively
     if executable('ag')
         set grepprg=ag\ --vimgrep\ $*
         set grepformat=%f:%l:%c:%m
     else
-        set grepprg=grep\ -n\ --exclude='*.swp'\ --exclude='.tags'\ $*\ /dev/null
+        set grepprg=grep\ -n\ -r\ --exclude='*.swp'\ --exclude='.tags'\ $*\ /dev/null
+        set grepformat&
     endif
 
 "---------------------------------- Folding -----------------------------------
@@ -127,12 +129,42 @@
     nnoremap <silent> <Down> :resize -1<CR>
 
     "--- Searching ---
-
     " Search for the name under the cursor in all files with the same extension
     nnoremap <leader>* *:vimgrep //j **/*%:e \| bo copen<CR>
 
     " Search for the last search pattern in all files with the same extension
     nnoremap <leader>/ :vimgrep //j **/*%:e \| bo copen<CR>
+
+    "--- List item navigation
+    " Argument list
+    nnoremap [a :previous<CR>
+    nnoremap ]a :next<CR>
+    nnoremap [A :first<CR>
+    nnoremap ]A :last<CR>
+
+    " Buffer list
+    nnoremap [b :bprevious<CR>
+    nnoremap ]b :bnext<CR>
+    nnoremap [B :bfirst<CR>
+    nnoremap ]B :blast<CR>
+
+    " Quickfix list
+    nnoremap [q :cprevious<CR>
+    nnoremap ]q :cnext<CR>
+    nnoremap [Q :cfirst<CR>
+    nnoremap ]Q :clast<CR>
+
+    " Location list
+    nnoremap [l :lprevious<CR>
+    nnoremap ]l :lnext<CR>
+    nnoremap [L :lfirst<CR>
+    nnoremap ]L :llast<CR>
+
+    " Tag match list
+    nnoremap [t :tprevious<CR>
+    nnoremap ]t :tnext<CR>
+    nnoremap [T :tfirst<CR>
+    nnoremap ]T :tlast<CR>
 
 
 "-------------------------------- ALE linting ---------------------------------
