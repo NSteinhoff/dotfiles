@@ -25,6 +25,19 @@
     "     autocmd WinLeave * set nocursorline
     " augroup END
 
+" Colorscheme
+    try
+        if !empty($VIM_COLORSCHEME)
+            colorscheme $VIM_COLORSCHEME
+        else
+            " Prefered default colorscheme
+            colorscheme default
+        endif
+    catch /^Vim\%((\a\+)\)\=:E185/
+        " Colorschemes not installed yet
+        " This happens when first installing bundles
+        colorscheme default
+    endtry
 
 "----------------------------- Filetype settings ------------------------------
     augroup filetype_settings
