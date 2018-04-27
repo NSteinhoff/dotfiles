@@ -126,6 +126,10 @@
 "------------------------------ Custom Commands -------------------------------
 
     "--- General ---
+    " Insert newline
+    nnoremap <leader>o mpo<esc>`p
+    nnoremap <leader>O mpO<esc>`p
+
     " Navigate splits
     nnoremap <c-j> <c-w><c-j>
     nnoremap <c-k> <c-w><c-k>
@@ -147,6 +151,11 @@
 
     " Search for the last search pattern in all files with the same extension
     nnoremap <leader>/ :vimgrep //j **/*%:e \| bo copen<CR>
+
+    " Closing parenthesis
+    inoremap {{<cr> {<cr>}<esc>O
+    inoremap [[<cr> [<cr>]<esc>O
+    inoremap ((<cr> (<cr>)<esc>O
 
     "--- List item navigation
     " Argument list
@@ -182,6 +191,7 @@
 
 "-------------------------------- ALE linting ---------------------------------
     let g:ale_open_list = 1
+    let g:ale_lint_on_text_changed = 'never'
     let g:ale_lint_delay = 1000
     let g:ale_linters = {
         \   'python': ['pylint', 'mypy'],
@@ -198,8 +208,9 @@
 
 
 "---------------------------------- Snippets ----------------------------------
-    augroup filetype_snippets
+    augroup filetype_commands
         autocmd!
+        au BufEnter *vimrc nnoremap <buffer> <cr> :source %<cr>
         au FileType python nnoremap <buffer> _bp oimport pdb; pdb.set_trace()<Esc>
         au FileType python nnoremap <buffer> _BP Oimport pdb; pdb.set_trace()<Esc>
     augroup END
