@@ -11,6 +11,7 @@
     lol     = log --graph --decorate --pretty=oneline --abbrev-commit
     lola    = log --graph --decorate --pretty=oneline --abbrev-commit --all
     d       = difftool
+    stll    = !git --no-pager stash list
 [color]
     branch = auto
     diff = auto
