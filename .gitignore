@@ -2,3 +2,4 @@
 .netrwbook
 *.swp
 .tags
+.tags.lock
