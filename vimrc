@@ -26,12 +26,13 @@
     " augroup END
 
 " Colorscheme
+    set t_Co=256
     try
         if !empty($VIM_COLORSCHEME)
             colorscheme $VIM_COLORSCHEME
         else
             " Prefered default colorscheme
-            colorscheme default
+            colorscheme plain
         endif
     catch /^Vim\%((\a\+)\)\=:E185/
         " Colorschemes not installed yet

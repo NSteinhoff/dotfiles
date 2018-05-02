@@ -24,3 +24,9 @@
 [submodule "vim/pack/plugins/start/vim-colors-plain"]
 	path = vim/pack/plugins/start/vim-colors-plain
 	url = https://github.com/andreypopp/vim-colors-plain.git
+[submodule "vim/pack/plugins/start/vim-256noir"]
+	path = vim/pack/plugins/start/vim-256noir
+	url = https://github.com/andreasvc/vim-256noir.git
+[submodule "vim/pack/plugins/start/vim-colors-paramount"]
+	path = vim/pack/plugins/start/vim-colors-paramount
+	url = https://github.com/owickstrom/vim-colors-paramount.git
