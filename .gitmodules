@@ -21,3 +21,6 @@
 [submodule "vim/pack/plugins/start/base16"]
 	path = vim/pack/plugins/start/base16
 	url = https://github.com/chriskempson/base16-vim.git
+[submodule "vim/pack/plugins/start/vim-colors-plain"]
+	path = vim/pack/plugins/start/vim-colors-plain
+	url = https://github.com/andreypopp/vim-colors-plain.git
