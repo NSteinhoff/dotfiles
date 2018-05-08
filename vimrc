@@ -32,7 +32,7 @@
             colorscheme $VIM_COLORSCHEME
         else
             " Prefered default colorscheme
-            colorscheme plain
+            colorscheme toy-blocks
         endif
     catch /^Vim\%((\a\+)\)\=:E185/
         " Colorschemes not installed yet
