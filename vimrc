@@ -1,6 +1,8 @@
 "----------------------------------- Basics -----------------------------------
-    unlet! skip_defaults_vim
-    source $VIMRUNTIME/defaults.vim
+    if !has('nvim')
+        unlet! skip_defaults_vim
+        source $VIMRUNTIME/defaults.vim
+    endif
     set ttyfast                                 " Indicate a fast terminal connection
     set lazyredraw                              " Only redraw when necessary
     set ffs=unix,dos,mac                        " Unix as standard file type
@@ -16,14 +18,16 @@
     set list                                    " Enable list mode showing 'listchars'
     set listchars=nbsp:¬,tab:»·,trail:·         " Configure which characters to show in list mode
     set foldcolumn=1                            " Show gutter that shows the foldlevel
-    " set cursorline                              " Highlight the line with the cursor
+    if has('nvim')
+        set cursorline                              " Highlight the line with the cursor
 
-    " Cursorline in active window
-    " augroup active_window_indicator
-    "     autocmd!
-    "     autocmd WinEnter * set cursorline
-    "     autocmd WinLeave * set nocursorline
-    " augroup END
+        " Cursorline in active window
+        augroup active_window_indicator
+            autocmd!
+            autocmd WinEnter * set cursorline
+            autocmd WinLeave * set nocursorline
+        augroup END
+    endif
 
 " Colorscheme
     set t_Co=256
