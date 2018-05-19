@@ -2,8 +2,9 @@
     if !has('nvim')
         unlet! skip_defaults_vim
         source $VIMRUNTIME/defaults.vim
+        set autoread
+        set ttyfast                                 " Indicate a fast terminal connection
     endif
-    set ttyfast                                 " Indicate a fast terminal connection
     set lazyredraw                              " Only redraw when necessary
     set ffs=unix,dos,mac                        " Unix as standard file type
     set encoding=utf8                           " Standard encoding
@@ -18,18 +19,9 @@
     set list                                    " Enable list mode showing 'listchars'
     set listchars=nbsp:¬,tab:»·,trail:·         " Configure which characters to show in list mode
     set foldcolumn=1                            " Show gutter that shows the foldlevel
-    if has('nvim')
-        set cursorline                              " Highlight the line with the cursor
 
-        " Cursorline in active window
-        augroup active_window_indicator
-            autocmd!
-            autocmd WinEnter * set cursorline
-            autocmd WinLeave * set nocursorline
-        augroup END
-    endif
 
-" Colorscheme
+    " Colorscheme
     set t_Co=256
     try
         if !empty($VIM_COLORSCHEME)
@@ -219,7 +211,6 @@
         au FileType python nnoremap <buffer> _bp oimport pdb; pdb.set_trace()<Esc>
         au FileType python nnoremap <buffer> _BP Oimport pdb; pdb.set_trace()<Esc>
     augroup END
-
 
 
 "------------------------------- Error Format ---------------------------------
