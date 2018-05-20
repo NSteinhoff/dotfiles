@@ -43,6 +43,7 @@
         autocmd FileType markdown set colorcolumn=100
         autocmd FileType python,haskell,scala set colorcolumn=80
         autocmd FileType python set formatprg=yapf
+        autocmd FileType json set formatprg=python\ -m\ json.tool
         autocmd FileType scala set formatprg=scalafmt\ --config\ /Users/nikosteinhoff/.scalafmt.conf\ --stdin
     augroup END
 
