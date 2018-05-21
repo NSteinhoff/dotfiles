@@ -1,5 +1,4 @@
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath = &runtimepath
+" Use same options as Vim
 source ~/.vimrc
 
 "-------------------------------- Cursorline ----------------------------------
