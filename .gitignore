@@ -2,5 +2,6 @@
 .netrwbook
 *.swp
 .tags
+tags
 .tags.lock
 .DS_STORE
