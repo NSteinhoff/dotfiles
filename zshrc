@@ -144,6 +144,9 @@ if [[ $OS == 'Linux' ]]; then
 elif [[ $OS == 'Mac' ]]; then
     alias ll='ls -lhF'
 fi
+if [[ ! -z $(command -v nvim) ]]; then
+    alias vim=nvim
+fi
 # ---------------------
 
 export XDG_CONFIG_HOME=~/.config
