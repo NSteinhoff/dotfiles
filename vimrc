@@ -5,6 +5,9 @@
         set autoread
         set ttyfast                                 " Indicate a fast terminal connection
     endif
+    set undodir=$HOME/.vim/undo
+    set undofile
+    filetype plugin indent on
     set lazyredraw                              " Only redraw when necessary
     set ffs=unix,dos,mac                        " Unix as standard file type
     set encoding=utf8                           " Standard encoding
@@ -35,18 +38,6 @@
         " This happens when first installing bundles
         colorscheme default
     endtry
-
-"----------------------------- Filetype settings ------------------------------
-    augroup filetype_settings
-        autocmd!
-        autocmd FileType gitcommit set colorcolumn=70
-        autocmd FileType markdown set colorcolumn=100
-        autocmd FileType python,haskell,scala set colorcolumn=80
-        autocmd FileType python set formatprg=yapf
-        autocmd FileType json set formatprg=python\ -m\ json.tool
-        autocmd FileType scala set formatprg=scalafmt\ --config\ /Users/nikosteinhoff/.scalafmt.conf\ --stdin
-    augroup END
-
 
 "--------------------------------- Searching ----------------------------------
     set hlsearch                                " Highlight search results
@@ -185,6 +176,19 @@
     nnoremap ]t :tnext<CR>
     nnoremap [T :tfirst<CR>
     nnoremap ]T :tlast<CR>
+
+
+"----------------------------- Filetype settings ------------------------------
+    augroup filetype_settings
+        autocmd!
+        autocmd FileType gitcommit set colorcolumn=70
+        autocmd FileType markdown set colorcolumn=100
+        autocmd FileType python,haskell,scala set colorcolumn=80
+        autocmd FileType python set formatprg=yapf
+        autocmd FileType json set formatprg=python\ -m\ json.tool
+        autocmd FileType lisp set shiftwidth=2 tabstop=2 softtabstop=2
+        autocmd FileType scala set formatprg=scalafmt\ --config\ /Users/nikosteinhoff/.scalafmt.conf\ --stdin
+    augroup END
 
 
 "-------------------------------- ALE linting ---------------------------------
