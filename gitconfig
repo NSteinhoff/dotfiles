@@ -25,4 +25,13 @@
 [core]
     editor = vim
 [difftool]
-    prompt = false
+    prompt = true
+[mergetool]
+    prompt = true
+[difftool "vimdiff"]
+    cmd = nvim -d $LOCAL $REMOTE
+[mergetool "vimdiff"]
+    # The commands move the $MERGED result window down and makes it full width
+    # -c '$wincmd w'    -> (ctrl-w) execute window command in the last window
+    # -c 'wincmd J'     -> (ctrl-J) move window down
+    cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'

@@ -144,6 +144,8 @@ if [[ $OS == 'Linux' ]]; then
 elif [[ $OS == 'Mac' ]]; then
     alias ll='ls -lhF'
 fi
+
+# Use Neovim if available
 if [[ ! -z $(command -v nvim) ]]; then
     alias vim=nvim
 fi
