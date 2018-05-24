@@ -174,4 +174,9 @@ function es_proc_id() {
 # Configure sbt memory settings to avoid OutofMemory error.
 export SBT_OPTS="-Xmx4G -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -Xss2M"
 
+# ---------- Java Version ---------
+if [[ -z $JAVA_HOME ]]; then
+    export JAVA_HOME=$(/usr/libexec/java_home -v "1.8.*")
+fi
+
 source "$HOME/.bash_functions"
