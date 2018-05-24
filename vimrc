@@ -128,6 +128,9 @@
     " Remove highlights of last search results
     nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
+    " Close Preview window
+    nnoremap <silent> <C-Space> :pclose<CR>
+
     " Make arrow keys do something useful -- resizing windows
     nnoremap <silent> <Left> :vertical resize -1<CR>
     nnoremap <silent> <Right> :vertical resize +1<CR>
