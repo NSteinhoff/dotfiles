@@ -124,16 +124,18 @@ export EDITOR='vim'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # ----- Vi mode ------
-bindkey -v
-export KEYTIMEOUT=1
-function zle-line-init zle-keymap-select {
-    VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
-    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$(git_custom_status) $EPS1"
-    zle reset-prompt
-}
-zle -N zle-line-init
-zle -N zle-keymap-select
-export KEYTIMEOUT=1
+CLI_MODE_VI="false"
+if [[ $CLI_MODE_VI == "true" ]]; then
+    bindkey -v
+    export KEYTIMEOUT=1
+    function zle-line-init zle-keymap-select {
+        VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
+        RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$(git_custom_status) $EPS1"
+        zle reset-prompt
+    }
+    zle -N zle-line-init
+    zle -N zle-keymap-select
+fi
 # --------------------
 
 # ------ Aliases ------
