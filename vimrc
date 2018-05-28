@@ -26,6 +26,7 @@
 
     " Colorscheme
     set t_Co=256
+    set background=dark
     try
         if !empty($VIM_COLORSCHEME)
             colorscheme $VIM_COLORSCHEME
@@ -43,7 +44,7 @@
     set hlsearch                                " Highlight search results
     set wildmode=longest:full,full              " Default matching, but also start wildmenu
     set tags+=./tags;,.tags;                    " Search for .tags' files upwards
-    set path=.,,**                              " Search downwards from current directory
+    " set path=.,,**                              " Search downwards from current directory
 
     " Ignore certain files when searching
     set wildignore+=*.egg-info/*
@@ -201,7 +202,7 @@
 
 
 "-------------------------------- ALE linting ---------------------------------
-    let g:ale_open_list = 1
+    let g:ale_open_list = 0
     let g:ale_lint_on_text_changed = 'never'
     let g:ale_lint_delay = 1000
     let g:ale_linters = {
