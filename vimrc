@@ -115,6 +115,12 @@
 "------------------------------ Custom Commands -------------------------------
 
     "--- General ---
+    " Switch to alternative buffer
+    nnoremap <leader>b :e #<cr>
+
+    " Escape Terminal mode
+    tnoremap <esc> <c-\><c-n>
+
     " Insert newline
     nnoremap <leader>o mpo<esc>`p
     nnoremap <leader>O mpO<esc>`p
