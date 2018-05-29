@@ -17,13 +17,15 @@ source ~/.vimrc
 
 
 "-------------------------- Language Server Client ----------------------------
-if v:false " disabled
+if v:true  " Toggle on/off
     set runtimepath+=~/.vim-plugins/LanguageClient-neovim
 
     let g:LanguageClient_autoStart = 1
     let g:LanguageClient_autoStop = 1
     let g:LanguageClient_serverCommands = {}
-    let g:LanguageClient_diagnosticsList = "Disabled"
+    let g:LanguageClient_changeThrottle = 0.5
+    let g:LanguageClient_diagnosticsEnable = 0
+    let g:LanguageClient_diagnosticsList = "Location"
 
     if executable('pyls')
         let g:LanguageClient_serverCommands.python = ['pyls']
