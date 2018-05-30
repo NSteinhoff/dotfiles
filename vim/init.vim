@@ -17,7 +17,7 @@ source ~/.vimrc
 
 
 "-------------------------- Language Server Client ----------------------------
-if v:true  " Toggle on/off
+if v:false  " Toggle on/off
     set runtimepath+=~/.vim-plugins/LanguageClient-neovim
 
     let g:LanguageClient_autoStart = 1

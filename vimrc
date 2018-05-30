@@ -202,8 +202,12 @@
 
 
 "-------------------------------- ALE linting ---------------------------------
+    nnoremap <leader>l :ALELint<cr>
+    let g:ale_enabled = 0
     let g:ale_open_list = 0
     let g:ale_lint_on_text_changed = 'never'
+    let g:ale_lint_on_enter = 0
+    let g:ale_lint_on_filetype_changed = 0
     let g:ale_lint_delay = 1000
     let g:ale_linters = {
         \   'python': ['pylint', 'mypy'],
