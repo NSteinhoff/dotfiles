@@ -202,13 +202,17 @@
 
 
 "-------------------------------- ALE linting ---------------------------------
+" There seems to be an issue where ALE starts linting a faile when it is first
+" loaded, which I haven't been able to disable.
+" This causes major slowdowns when searching through a bunch of files with `:vimgrep`.
+" Workaround for now is to toggle ALE on/off.
     nnoremap <leader>l :ALELint<cr>
     let g:ale_enabled = 1
     let g:ale_open_list = 0
 
     " When to lint
     let g:ale_lint_delay = 1000
-    let g:ale_lint_on_enter = 1
+    let g:ale_lint_on_enter = 0
     let g:ale_lint_on_text_changed = 'never'
     let g:ale_lint_on_insert_leave = 0
     let g:ale_lint_on_enter = 0
