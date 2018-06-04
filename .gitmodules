@@ -33,3 +33,6 @@
 [submodule "vim/pack/plugins/start/vim-colors-toy-blocks"]
 	path = vim/pack/plugins/start/vim-colors-toy-blocks
 	url = https://github.com/vietjtnguyen/toy-blocks.git
+[submodule "vim/pack/plugins/start/rainbow"]
+	path = vim/pack/plugins/start/rainbow
+	url = https://github.com/luochen1990/rainbow.git

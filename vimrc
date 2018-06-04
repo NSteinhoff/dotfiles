@@ -202,6 +202,9 @@
         autocmd Filetype taskpaper set noexpandtab
     augroup END
 
+"---------------------------- Rainbow Parentheses ----------------------------
+    let g:rainbow_active = 1    "0 if you want to enable it later via :RainbowToggle
+
 
 "-------------------------------- ALE linting ---------------------------------
 " There seems to be an issue where ALE starts linting a faile when it is first
