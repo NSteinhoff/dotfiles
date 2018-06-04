@@ -13,9 +13,6 @@
 [submodule "vim/pack/plugins/start/python-pep8-indent"]
 	path = vim/pack/plugins/start/python-pep8-indent
 	url = https://github.com/Vimjas/vim-python-pep8-indent.git
-[submodule "vim/pack/plugins/start/base16"]
-	path = vim/pack/plugins/start/base16
-	url = https://github.com/chriskempson/base16-vim.git
 [submodule "vim/pack/plugins/start/vim-colors-plain"]
 	path = vim/pack/plugins/start/vim-colors-plain
 	url = https://github.com/andreypopp/vim-colors-plain.git
