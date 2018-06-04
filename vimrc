@@ -16,7 +16,7 @@
 
 "------------------------------------- UI -------------------------------------
     set laststatus=2                            " Always show the statusbar
-    set number                                  " Show line numbers
+    set nonumber                                " Don't show line numbers
     set norelativenumber                        " Don't show line numbers relative to current cursor position
     set numberwidth=4                           " Width of the number gutter
     set list                                    " Enable list mode showing 'listchars'
@@ -198,6 +198,8 @@
         autocmd FileType json set formatprg=python\ -m\ json.tool
         autocmd FileType lisp set shiftwidth=2 tabstop=2 softtabstop=2
         autocmd FileType scala set formatprg=scalafmt\ --config\ /Users/nikosteinhoff/.scalafmt.conf\ --stdin
+        autocmd BufNewFile,BufRead *.taskpaper set ft=taskpaper
+        autocmd Filetype taskpaper set noexpandtab
     augroup END
 
 
