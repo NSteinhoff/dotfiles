@@ -13,6 +13,12 @@
     set encoding=utf8                           " Standard encoding
     set hidden                                  " Allow hidden buffers
 
+    " Put backups and swapfiles in '.vim-tmp'
+    set backup
+    set swapfile
+    set backupdir=~/.vim-tmp
+    set directory=~/.vim-tmp
+
 
 "------------------------------------- UI -------------------------------------
     set laststatus=2                            " Always show the statusbar
@@ -22,6 +28,7 @@
     set list                                    " Enable list mode showing 'listchars'
     set listchars=nbsp:¬,tab:»·,trail:·         " Configure which characters to show in list mode
     set foldcolumn=1                            " Show gutter that shows the foldlevel
+    set scrolloff=3
 
 
     " Colorscheme
@@ -156,6 +163,11 @@
     inoremap [[<cr> [<cr>]<esc>O
     inoremap ((<cr> (<cr>)<esc>O
 
+    " Insert current date and time as 'ctime'
+    inoremap ddc <C-R>=strftime("%c")<CR>
+    " Insert current date ctime 'YYYY-MM-DD'
+    inoremap ddd <C-R>=strftime("%Y-%m-%d")<CR>
+
     "--- List item navigation
     " Argument list
     nnoremap [a :previous<CR>
@@ -191,14 +203,15 @@
 "----------------------------- Filetype settings ------------------------------
     augroup filetype_settings
         autocmd!
+        autocmd BufNewFile,BufRead *.boot set ft=clojure
+        autocmd BufNewFile,BufRead *.taskpaper set ft=taskpaper
         autocmd FileType gitcommit set colorcolumn=70
         autocmd FileType markdown set colorcolumn=100
-        autocmd FileType python,haskell,scala set colorcolumn=80
+        autocmd FileType python,haskell,scala,lisp,clojure set colorcolumn=80
         autocmd FileType python set formatprg=yapf
         autocmd FileType json set formatprg=python\ -m\ json.tool
         autocmd FileType lisp set shiftwidth=2 tabstop=2 softtabstop=2
         autocmd FileType scala set formatprg=scalafmt\ --config\ /Users/nikosteinhoff/.scalafmt.conf\ --stdin
-        autocmd BufNewFile,BufRead *.taskpaper set ft=taskpaper
         autocmd Filetype taskpaper set noexpandtab
     augroup END
 
@@ -217,11 +230,11 @@
 
     " When to lint
     let g:ale_lint_delay = 1000
-    let g:ale_lint_on_enter = 0
-    let g:ale_lint_on_text_changed = 'never'
-    let g:ale_lint_on_insert_leave = 0
-    let g:ale_lint_on_enter = 0
-    let g:ale_lint_on_filetype_changed = 0
+    let g:ale_lint_on_enter = 0                 " When you open a new or modified buffer
+    let g:ale_lint_on_save = 0                  " When you save a buffer
+    let g:ale_lint_on_filetype_changed = 0      " When the filetype changes for a buffer
+    let g:ale_lint_on_insert_leave = 0          " When you leave insert mode
+    let g:ale_lint_on_text_changed = 'never'    " When you modify a buffer
 
     let g:ale_linters = {
         \   'python': ['pylint', 'mypy'],
