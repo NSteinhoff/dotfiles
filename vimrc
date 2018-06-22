@@ -1,3 +1,31 @@
+" ---------------------------------------------------------
+" vim-zen section
+" ---------------------------------------------------------
+    call zen#init()
+    Plugin 'w0rp/ale'
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'ludovicchabant/vim-gutentags'
+    Plugin 'vim-python/python-syntax'
+    Plugin 'Vimjas/vim-python-pep8-indent'
+    Plugin 'luochen1990/rainbow'
+
+    Plugin 'andreypopp/vim-colors-plain'
+    Plugin 'andreasvc/vim-256noir'
+    Plugin 'owickstrom/vim-colors-paramount'
+    Plugin 'vietjtnguyen/toy-blocks'
+
+    " Plugin 'junegunn/goyo.vim'
+    " Plugin 'airblade/vim-gitgutter'
+    " Plugin 'tpope/vim-surround'
+    " Plugin 'townk/vim-autoclose'
+    " Plugin 'tpope/vim-commentary'
+    " Plugin 'morhetz/gruvbox'
+    " Plugin 'junegunn/fzf'
+    " Plugin 'neomake/neomake'
+    " Plugin 'scrooloose/nerdtree'
+    " Plugin 'ervandew/supertab'
+    " Plugin 'prakashdanish/vimport'
+
 "----------------------------------- Basics -----------------------------------
     if !has('nvim')
         unlet! skip_defaults_vim
@@ -109,7 +137,7 @@
     set complete-=i                             " Don't scan included files
 
 "--------------------------------- Statusline ---------------------------------
-    set statusline=[%{&ff}]%y\ %F%m%r%h%w%=%{gutentags#statusline()}%{fugitive#statusline()}[%l:%v\|%p%%]
+    " set statusline=[%{&ff}]%y\ %F%m%r%h%w%=%{gutentags#statusline()}%{fugitive#statusline()}[%l:%v\|%p%%]
 
 
 "---------------------------------- Browsing ----------------------------------
