@@ -127,7 +127,7 @@
     nnoremap <leader>b :e #<cr>
 
     " Escape Terminal mode
-    tnoremap <esc> <c-\><c-n>
+    " tnoremap <esc> <c-\><c-n>
 
     " Insert newline
     nnoremap <leader>o mpo<esc>`p
