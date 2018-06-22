@@ -30,8 +30,8 @@
 
 "------------------------------------- UI -------------------------------------
     set laststatus=2                            " Always show the statusbar
-    set nonumber                                " Don't show line numbers
-    set norelativenumber                        " Don't show line numbers relative to current cursor position
+    set nonumber                                " Line numbers
+    set norelativenumber                        " Line numbers relative to current cursor position
     set numberwidth=4                           " Width of the number gutter
     set list                                    " Enable list mode showing 'listchars'
     set listchars=nbsp:¬,tab:»·,trail:·         " Configure which characters to show in list mode
@@ -101,7 +101,11 @@
     set complete-=i                             " Don't scan included files
 
 "--------------------------------- Statusline ---------------------------------
-    " set statusline=[%{&ff}]%y\ %F%m%r%h%w%=%{gutentags#statusline()}%{fugitive#statusline()}[%l:%v\|%p%%]
+    try
+        set statusline=[%{&ff}]%y\ %F%m%r%h%w%=%{gutentags#statusline()}%{fugitive#statusline()}[%l:%v\|%p%%]
+    catch
+        " No problem...
+    endtry
 
 
 "----------------------------- Filetype settings ------------------------------
@@ -127,6 +131,14 @@
 "-------------------------------- Colorscheme ---------------------------------
     try
         source ~/.vim/colorscheme.vim
+    catch
+        "No problem...
+    endtry
+
+
+"-------------------------------- Focus Mode ----------------------------------
+    try
+        source ~/.vim/focus.vim
     catch
         "No problem...
     endtry

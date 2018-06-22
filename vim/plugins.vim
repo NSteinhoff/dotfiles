@@ -15,6 +15,7 @@
     Plug 'tpope/vim-fugitive'
     Plug 'ludovicchabant/vim-gutentags'
     Plug 'luochen1990/rainbow'
+    Plug 'junegunn/goyo.vim'
 
     "--- Colors
     Plug 'andreypopp/vim-colors-plain'
@@ -25,18 +26,6 @@
     "--- Python
     Plug 'vim-python/python-syntax'
     Plug 'Vimjas/vim-python-pep8-indent'
-
-    " Plugin 'junegunn/goyo.vim'
-    " Plugin 'airblade/vim-gitgutter'
-    " Plugin 'tpope/vim-surround'
-    " Plugin 'townk/vim-autoclose'
-    " Plugin 'tpope/vim-commentary'
-    " Plugin 'morhetz/gruvbox'
-    " Plugin 'junegunn/fzf'
-    " Plugin 'neomake/neomake'
-    " Plugin 'scrooloose/nerdtree'
-    " Plugin 'ervandew/supertab'
-    " Plugin 'prakashdanish/vimport'
     call plug#end()
 
 
