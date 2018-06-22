@@ -1,18 +1,24 @@
 " ---------------------------------------------------------
 " vim-zen section
 " ---------------------------------------------------------
-    call zen#init()
-    Plugin 'w0rp/ale'
-    Plugin 'tpope/vim-fugitive'
-    Plugin 'ludovicchabant/vim-gutentags'
-    Plugin 'vim-python/python-syntax'
-    Plugin 'Vimjas/vim-python-pep8-indent'
-    Plugin 'luochen1990/rainbow'
+    if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
 
-    Plugin 'andreypopp/vim-colors-plain'
-    Plugin 'andreasvc/vim-256noir'
-    Plugin 'owickstrom/vim-colors-paramount'
-    Plugin 'vietjtnguyen/toy-blocks'
+    call plug#begin('~/.vim/plugged')
+    Plug 'w0rp/ale'
+    Plug 'tpope/vim-fugitive'
+    Plug 'ludovicchabant/vim-gutentags'
+    Plug 'vim-python/python-syntax'
+    Plug 'Vimjas/vim-python-pep8-indent'
+    Plug 'luochen1990/rainbow'
+
+    Plug 'andreypopp/vim-colors-plain'
+    Plug 'andreasvc/vim-256noir'
+    Plug 'owickstrom/vim-colors-paramount'
+    Plug 'vietjtnguyen/toy-blocks'
 
     " Plugin 'junegunn/goyo.vim'
     " Plugin 'airblade/vim-gitgutter'
@@ -25,6 +31,7 @@
     " Plugin 'scrooloose/nerdtree'
     " Plugin 'ervandew/supertab'
     " Plugin 'prakashdanish/vimport'
+    call plug#end()
 
 "----------------------------------- Basics -----------------------------------
     if !has('nvim')
