@@ -5,7 +5,6 @@
     " Escaping modes
     inoremap jk <c-\><c-n>
     tnoremap jk <c-\><c-n>
-    vnoremap jk <c-\><c-n>
 
     " Switch to alternative buffer
     nnoremap <leader>b :e #<cr>

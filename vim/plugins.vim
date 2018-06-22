@@ -52,15 +52,15 @@
         let g:ale_open_list = 1
 
         " When to lint
-        let g:ale_lint_delay = 1000
         let g:ale_lint_on_enter = 1                 " When you open a new or modified buffer
         let g:ale_lint_on_save = 1                  " When you save a buffer
         let g:ale_lint_on_filetype_changed = 1      " When the filetype changes for a buffer
         let g:ale_lint_on_insert_leave = 1          " When you leave insert mode
-        let g:ale_lint_on_text_changed = 'never'    " When you modify a buffer
+        let g:ale_lint_on_text_changed = 'always'   " When you modify a buffer
+        let g:ale_lint_delay = 200                  " ... lint after x ms
 
         let g:ale_linters = {
-            \   'python': ['flake8', 'pycodestyle'],
+            \   'python': ['flake8'],
             \   'haskell': ['stack-ghc'],
             \}
 
