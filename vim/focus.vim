@@ -11,7 +11,8 @@ hi clear SignColumn
 hi SignColumn ctermbg=235
 hi EndOfBuffer ctermfg=237 ctermbg=235
 
-set statusline=%L%=%P\ %f\ %m
+set statusline=%l%=%P\ %f\ %m
 set fillchars=vert:\ ,stl:\ ,stlnc:\ 
 set laststatus=2
 set noshowmode
+set foldcolumn=0
