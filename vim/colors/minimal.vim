@@ -11,6 +11,7 @@ hi  LightlyContrasted   cterm=underline          ctermfg=none       ctermbg=none
 hi  Contrasted          cterm=inverse            ctermfg=none       ctermbg=none
 hi  StronglyContrasted  cterm=underline,inverse  ctermfg=none       ctermbg=none
 hi  Faded               cterm=none               ctermfg=DarkGrey   ctermbg=none
+hi  FadedBar            cterm=underline          ctermfg=DarkGrey   ctermbg=none
 hi  Hidden              cterm=none               ctermfg=bg         ctermbg=none
 hi  Linked              cterm=underline          ctermfg=none       ctermbg=none
 hi  SubtlePop           cterm=none               ctermfg=LightGrey  ctermbg=none
@@ -20,16 +21,24 @@ hi  StrongPop           cterm=bold               ctermfg=White      ctermbg=none
 hi  ExtremePop          cterm=bold,underline     ctermfg=White      ctermbg=none
 
 " Colored
-hi  Hostile            cterm=none  ctermfg=DarkRed      ctermbg=none
-hi  VeryHostile        cterm=bold  ctermfg=DarkRed      ctermbg=none
-hi  Friendly           cterm=none  ctermfg=LightGreen   ctermbg=none
-hi  VeryFriendly       cterm=bold  ctermfg=LightGreen   ctermbg=none
-hi  MildlyInteresting  cterm=none  ctermfg=LightBlue    ctermbg=none
-hi  Interesting        cterm=bold  ctermfg=LightBlue    ctermbg=none
-hi  VeryInteresting    cterm=bold  ctermfg=Blue         ctermbg=none
-hi  Forceful           cterm=none  ctermfg=Red          ctermbg=none
-hi  VeryForceful       cterm=bold  ctermfg=Red          ctermbg=none
-hi  Shy                cterm=none  ctermfg=DarkMagenta  ctermbg=none
+hi  Hostile            cterm=none       ctermfg=DarkRed      ctermbg=none
+hi  VeryHostile        cterm=bold       ctermfg=DarkRed      ctermbg=none
+hi  Friendly           cterm=none       ctermfg=LightGreen   ctermbg=none
+hi  VeryFriendly       cterm=bold       ctermfg=LightGreen   ctermbg=none
+hi  Happy              cterm=none       ctermfg=Yellow       ctermbg=none
+hi  VeryHappy          cterm=bold       ctermfg=Yellow       ctermbg=none
+hi  MildlyInteresting  cterm=none       ctermfg=LightBlue    ctermbg=none
+hi  Interesting        cterm=bold       ctermfg=LightBlue    ctermbg=none
+hi  VeryInteresting    cterm=bold       ctermfg=Blue         ctermbg=none
+hi  Forceful           cterm=none       ctermfg=Red          ctermbg=none
+hi  VeryForceful       cterm=bold       ctermfg=Red          ctermbg=none
+hi  Shy                cterm=none       ctermfg=DarkMagenta  ctermbg=none
+hi  ShyBar             cterm=underline  ctermfg=DarkMagenta  ctermbg=none
+
+hi  HighlightFriendly  cterm=none       ctermfg=Black        ctermbg=LightGreen
+hi  HighlightHappy     cterm=none       ctermfg=Black        ctermbg=LightYellow
+hi  HighlightShy       cterm=none       ctermfg=Black        ctermbg=Magenta
+hi  HighlightForceful  cterm=none       ctermfg=Black        ctermbg=Red
 
 
 " Basic Settings
@@ -65,9 +74,9 @@ hi!     link  Pmenu              Contrasted
 hi!     link  PmenuSbar          Contrasted
 hi!     link  PmenuSel           Normal
 hi!     link  PmenuThumb         Normal
-hi!     link  SignColumn         Contrasted
-hi!     link  StatusLine         Shy
-hi!     link  StatusLineNC       Faded
+hi!     link  SignColumn         Faded
+hi!     link  StatusLine         ShyBar
+hi!     link  StatusLineNC       FadedBar
 hi!     link  TabLine            LightlyContrasted
 hi!     link  TabLineFill        LightlyContrasted
 hi!     link  TabLineSel         ExtremePop
@@ -77,10 +86,10 @@ hi!     link  WildMenu           Normal
 " Other
 hi!     link  Conceal            Normal
 hi!     link  Directory          Normal
-hi!     link  DiffAdd            Normal
-hi!     link  DiffChange         Normal
-hi!     link  DiffDelete         Normal
-hi!     link  DiffText           Normal
+hi!     link  DiffAdd            HighlightFriendly
+hi!     link  DiffChange         HighlightHappy
+hi!     link  DiffDelete         HighlightForceful
+hi!     link  DiffText           HighlightShy
 hi!     link  ErrorMsg           VeryHostile
 hi!     link  ModeMsg            Normal
 hi!     link  MsgSeparator       Normal
