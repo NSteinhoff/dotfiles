@@ -4,12 +4,14 @@ let g:colors_name="minimal"
 
 hi  Normal       cterm=none     ctermfg=Grey  ctermbg=Black
 
-"Templates
+" Templates
+"----------
+hi  Nothing             cterm=none               ctermfg=none       ctermbg=none
 hi  LightlyContrasted   cterm=underline          ctermfg=none       ctermbg=none
 hi  Contrasted          cterm=inverse            ctermfg=none       ctermbg=none
 hi  StronglyContrasted  cterm=underline,inverse  ctermfg=none       ctermbg=none
-hi  Faded               cterm=none               ctermfg=DarkGrey   ctermbg=bg
-hi  Hidden              cterm=none               ctermfg=bg         ctermbg=bg
+hi  Faded               cterm=none               ctermfg=DarkGrey   ctermbg=none
+hi  Hidden              cterm=none               ctermfg=bg         ctermbg=none
 hi  Linked              cterm=underline          ctermfg=none       ctermbg=none
 hi  SubtlePop           cterm=none               ctermfg=LightGrey  ctermbg=none
 hi  LightPop            cterm=bold               ctermfg=LightGrey  ctermbg=none
@@ -18,38 +20,39 @@ hi  StrongPop           cterm=bold               ctermfg=White      ctermbg=none
 hi  ExtremePop          cterm=bold,underline     ctermfg=White      ctermbg=none
 
 " Colored
-hi  Hostile            cterm=none  ctermfg=DarkRed     ctermbg=none
-hi  VeryHostile        cterm=bold  ctermfg=DarkRed     ctermbg=none
-hi  Friendly           cterm=none  ctermfg=LightGreen  ctermbg=none
-hi  VeryFriendly       cterm=bold  ctermfg=LightGreen  ctermbg=none
-hi  MildlyInteresting  cterm=none  ctermfg=LightBlue   ctermbg=none
-hi  Interesting        cterm=bold  ctermfg=LightBlue   ctermbg=none
-hi  VeryInteresting    cterm=bold  ctermfg=Blue        ctermbg=none
-hi  Forceful           cterm=none  ctermfg=Red         ctermbg=none
-hi  VeryForceful       cterm=bold  ctermfg=Red         ctermbg=none
+hi  Hostile            cterm=none  ctermfg=DarkRed      ctermbg=none
+hi  VeryHostile        cterm=bold  ctermfg=DarkRed      ctermbg=none
+hi  Friendly           cterm=none  ctermfg=LightGreen   ctermbg=none
+hi  VeryFriendly       cterm=bold  ctermfg=LightGreen   ctermbg=none
+hi  MildlyInteresting  cterm=none  ctermfg=LightBlue    ctermbg=none
+hi  Interesting        cterm=bold  ctermfg=LightBlue    ctermbg=none
+hi  VeryInteresting    cterm=bold  ctermfg=Blue         ctermbg=none
+hi  Forceful           cterm=none  ctermfg=Red          ctermbg=none
+hi  VeryForceful       cterm=bold  ctermfg=Red          ctermbg=none
+hi  Shy                cterm=none  ctermfg=DarkMagenta  ctermbg=none
 
 
-"Basic Settings
+" Basic Settings
 hi!  link  NormalNC     Normal
 hi!  link  NonText      Hostile
 hi!  link  Visual       Contrasted
 hi!  link  EndOfBuffer  Hidden
 
 
-"Searching
+" Searching
 hi!  link Search      Contrasted
 hi!  link IncSearch   Contrasted
 hi!  link Substitute  Contrasted
 
 
-"Cursor
+" Cursor
 hi!  link Cursor        Contrasted
 hi!  link CursorIM      Contrasted
 hi!  link TermCursor    Contrasted
 hi!  link TermCursorNC  Contrasted
 
 
-"UI Elements
+" UI Elements
 hi!     link  ColorColumn        Contrasted
 hi!     link  CursorColumn       Contrasted
 hi!     link  CursorLine         LightlyContrasted
@@ -63,15 +66,15 @@ hi!     link  PmenuSbar          Contrasted
 hi!     link  PmenuSel           Normal
 hi!     link  PmenuThumb         Normal
 hi!     link  SignColumn         Contrasted
-hi!     link  StatusLine         Faded
-hi!     link  StatusLineNC       Hidden
+hi!     link  StatusLine         Shy
+hi!     link  StatusLineNC       Faded
 hi!     link  TabLine            LightlyContrasted
 hi!     link  TabLineFill        LightlyContrasted
 hi!     link  TabLineSel         ExtremePop
 hi!     link  VertSplit          Faded
 hi!     link  WildMenu           Normal
 
-"Other
+" Other
 hi!     link  Conceal            Normal
 hi!     link  Directory          Normal
 hi!     link  DiffAdd            Normal
