@@ -7,7 +7,7 @@ try
         colorscheme $VIM_COLORSCHEME
     else
         " Prefered default colorscheme
-        colorscheme toy-blocks
+        colorscheme minimal  " $HOME/dotfiles/vim/colors/minimal.vim
     endif
 catch /^Vim\%((\a\+)\)\=:E185/
     " Colorschemes not installed yet

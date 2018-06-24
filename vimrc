@@ -35,8 +35,10 @@
     set numberwidth=4                           " Width of the number gutter
     set list                                    " Enable list mode showing 'listchars'
     set listchars=nbsp:¬,tab:»·,trail:·         " Configure which characters to show in list mode
-    set foldcolumn=1                            " Show gutter that shows the foldlevel
+    set fillchars=vert:\|,stl:\ ,stlnc:\ 
+    set foldcolumn=0                            " Show gutter that shows the foldlevel
     set scrolloff=3
+    set noshowmode
 
 
 "--------------------------------- Searching ----------------------------------
@@ -101,8 +103,9 @@
     set complete-=i                             " Don't scan included files
 
 "--------------------------------- Statusline ---------------------------------
+    set statusline=%l%=%P\ %f\ %m
     try
-        set statusline=[%{&ff}]%y\ %F%m%r%h%w%=%{gutentags#statusline()}%{fugitive#statusline()}[%l:%v\|%p%%]
+        " set statusline=[%{&ff}]%y\ %F%m%r%h%w%=%{gutentags#statusline()}%{fugitive#statusline()}[%l:%v\|%p%%]
     catch
         " No problem...
     endtry
@@ -131,14 +134,6 @@
 "-------------------------------- Colorscheme ---------------------------------
     try
         source ~/.vim/colorscheme.vim
-    catch
-        "No problem...
-    endtry
-
-
-"-------------------------------- Focus Mode ----------------------------------
-    try
-        source ~/.vim/focus.vim
     catch
         "No problem...
     endtry

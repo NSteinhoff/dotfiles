@@ -92,3 +92,7 @@
         au FileType python nnoremap <buffer> _bp oimport pdb; pdb.set_trace()<Esc>
         au FileType python nnoremap <buffer> _BP Oimport pdb; pdb.set_trace()<Esc>
     augroup END
+
+
+"--- Show syntax highlight groups
+    command! Highlighs :so $VIMRUNTIME/syntax/hitest.vim
