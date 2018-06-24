@@ -5,28 +5,28 @@ let g:colors_name="minimal"
 hi  Normal       cterm=none     ctermfg=Grey  ctermbg=Black
 
 "Templates
-hi  LightlyContrasted   cterm=underline              ctermfg=none       ctermbg=none
-hi  Contrasted          cterm=inverse                ctermfg=none       ctermbg=none
-hi  StronglyContrasted  cterm=underline,inverse      ctermfg=none       ctermbg=none
-hi  Faded               cterm=none                   ctermfg=DarkGrey   ctermbg=bg
-hi  Hidden              cterm=none                   ctermfg=bg         ctermbg=bg
-hi  Linked              cterm=italic                 ctermfg=none       ctermbg=none
-hi  SubtlePop           cterm=none                   ctermfg=LightGrey  ctermbg=none
-hi  LightPop            cterm=none                   ctermfg=White      ctermbg=none
-hi  Pop                 cterm=bold                   ctermfg=White      ctermbg=none
-hi  StrongPop           cterm=bold,italic            ctermfg=White      ctermbg=none
-hi  ExtremePop          cterm=bold,italic,underline  ctermfg=White      ctermbg=none
+hi  LightlyContrasted   cterm=underline          ctermfg=none       ctermbg=none
+hi  Contrasted          cterm=inverse            ctermfg=none       ctermbg=none
+hi  StronglyContrasted  cterm=underline,inverse  ctermfg=none       ctermbg=none
+hi  Faded               cterm=none               ctermfg=DarkGrey   ctermbg=bg
+hi  Hidden              cterm=none               ctermfg=bg         ctermbg=bg
+hi  Linked              cterm=underline          ctermfg=none       ctermbg=none
+hi  SubtlePop           cterm=none               ctermfg=LightGrey  ctermbg=none
+hi  LightPop            cterm=bold               ctermfg=LightGrey  ctermbg=none
+hi  Pop                 cterm=none               ctermfg=White      ctermbg=none
+hi  StrongPop           cterm=bold               ctermfg=White      ctermbg=none
+hi  ExtremePop          cterm=bold,underline     ctermfg=White      ctermbg=none
 
 " Colored
-hi  Hostile            cterm=none    ctermfg=DarkRed     ctermbg=none
-hi  VeryHostile        cterm=bold    ctermfg=DarkRed     ctermbg=none
-hi  Friendly           cterm=none    ctermfg=LightGreen  ctermbg=none
-hi  VeryFriendly       cterm=bold    ctermfg=LightGreen  ctermbg=none
-hi  MildlyInteresting  cterm=none    ctermfg=LightBlue   ctermbg=none
-hi  Interesting        cterm=italic  ctermfg=LightBlue   ctermbg=none
-hi  VeryInteresting    cterm=bold    ctermfg=LightBlue   ctermbg=none
-hi  Forceful           cterm=none    ctermfg=Red         ctermbg=none
-hi  VeryForceful       cterm=bold    ctermfg=Red         ctermbg=none
+hi  Hostile            cterm=none  ctermfg=DarkRed     ctermbg=none
+hi  VeryHostile        cterm=bold  ctermfg=DarkRed     ctermbg=none
+hi  Friendly           cterm=none  ctermfg=LightGreen  ctermbg=none
+hi  VeryFriendly       cterm=bold  ctermfg=LightGreen  ctermbg=none
+hi  MildlyInteresting  cterm=none  ctermfg=LightBlue   ctermbg=none
+hi  Interesting        cterm=bold  ctermfg=LightBlue   ctermbg=none
+hi  VeryInteresting    cterm=bold  ctermfg=Blue        ctermbg=none
+hi  Forceful           cterm=none  ctermfg=Red         ctermbg=none
+hi  VeryForceful       cterm=bold  ctermfg=Red         ctermbg=none
 
 
 "Basic Settings
