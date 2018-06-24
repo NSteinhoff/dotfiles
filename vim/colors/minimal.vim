@@ -81,7 +81,7 @@ hi!     link  TabLine            LightlyContrasted
 hi!     link  TabLineFill        LightlyContrasted
 hi!     link  TabLineSel         ExtremePop
 hi!     link  VertSplit          Faded
-hi!     link  WildMenu           Normal
+hi!     link  WildMenu           HighlightHappy
 
 " Other
 hi!     link  Conceal            Normal
@@ -133,7 +133,11 @@ hi!  link  Scrollbar  Normal
 hi!  link  Tooltip    Normal
 
 " Neovim
-hi!     link  NvimInternalError  VeryHostile
+hi!  link  NvimInternalError  VeryHostile
+
+" Markdown
+hi!  link  markdownCode       MildlyInteresting
+hi!  link  markdownCodeBlock  MildlyInteresting
 
 syntax enable
 
