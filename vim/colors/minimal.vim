@@ -60,10 +60,12 @@ hi  FadedBar  cterm=underline  ctermfg=DarkGrey     ctermbg=none
 hi  ShyBar    cterm=underline  ctermfg=DarkMagenta  ctermbg=none
 
 " Highlights
-hi  HighlightFriendly  cterm=none       ctermfg=Black        ctermbg=Cyan
-hi  HighlightForceful  cterm=none       ctermfg=Black        ctermbg=Red
-hi  HighlightShy       cterm=none       ctermfg=Black        ctermbg=Magenta
-hi  HighlightHappy     cterm=none       ctermfg=Black        ctermbg=Yellow
+hi  HighlightFaded     cterm=none  ctermfg=Grey   ctermbg=DarkGrey
+hi  HighlightFriendly  cterm=none  ctermfg=Black  ctermbg=Cyan
+hi  HighlightForceful  cterm=none  ctermfg=Black  ctermbg=Red
+hi  HighlightShy       cterm=none  ctermfg=Black  ctermbg=Magenta
+hi  HighlightVeryShy   cterm=none  ctermfg=Black  ctermbg=DarkMagenta
+hi  HighlightHappy     cterm=none  ctermfg=Black  ctermbg=Yellow
 
 
 " Basic Settings
@@ -87,8 +89,8 @@ hi!  link TermCursorNC  Cursor
 
 
 " UI Elements
-hi!     link  ColorColumn        Contrasted
-hi!     link  CursorColumn       Contrasted
+hi!     link  ColorColumn        HighlightFaded
+hi!     link  CursorColumn       HighlightFaded
 hi!     link  CursorLine         LightlyContrasted
 hi!     link  CursorLineNr       Normal
 hi!     link  FoldColumn         Faded
