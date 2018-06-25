@@ -5,7 +5,7 @@ let g:colors_name="minimal"
 set t_Co=256
 set background=dark
 
-" Templates
+" Templates {{{
 "----------
 "        NR-16   NR-8    COLOR NAME
 "        0       0       Black
@@ -27,6 +27,7 @@ set background=dark
 
 hi  Normal       cterm=none     ctermfg=Grey  ctermbg=Black
 
+" Hues {{{
 hi  Nothing             cterm=none               ctermfg=none      ctermbg=none
 hi  LightlyContrasted   cterm=underline          ctermfg=none      ctermbg=none
 hi  Contrasted          cterm=inverse            ctermfg=none      ctermbg=none
@@ -38,16 +39,19 @@ hi  LightPop            cterm=bold               ctermfg=none      ctermbg=none
 hi  Pop                 cterm=none               ctermfg=White     ctermbg=none
 hi  StrongPop           cterm=bold               ctermfg=White     ctermbg=none
 hi  UltraPop            cterm=bold,underline     ctermfg=White     ctermbg=none
+"}}}
 
-" Colored
-"
-""" Dark
+"" Colors {{{
 hi  Hostile          cterm=none  ctermfg=Red          ctermbg=none
 hi  VeryHostile      cterm=bold  ctermfg=Red          ctermbg=none
 hi  Friendly         cterm=none  ctermfg=DarkCyan     ctermbg=none
 hi  VeryFriendly     cterm=bold  ctermfg=DarkCyan     ctermbg=none
+hi  Calm             cterm=none  ctermfg=DarkGreen    ctermbg=none
+hi  VeryCalm         cterm=bold  ctermfg=DarkGreen    ctermbg=none
 hi  Happy            cterm=none  ctermfg=DarkYellow   ctermbg=none
 hi  VeryHappy        cterm=bold  ctermfg=DarkYellow   ctermbg=none
+hi  Excited          cterm=none  ctermfg=Yellow       ctermbg=none
+hi  VeryExcited      cterm=bold  ctermfg=Yellow       ctermbg=none
 hi  Interesting      cterm=none  ctermfg=DarkBlue     ctermbg=none
 hi  VeryInteresting  cterm=bold  ctermfg=DarkBlue     ctermbg=none
 hi  Forceful         cterm=none  ctermfg=DarkRed      ctermbg=none
@@ -55,40 +59,43 @@ hi  VeryForceful     cterm=bold  ctermfg=DarkRed      ctermbg=none
 hi  Shy              cterm=none  ctermfg=DarkMagenta  ctermbg=none
 hi  NotSoShy         cterm=bold  ctermfg=DarkMagenta  ctermbg=none
 
-" Bars
+""" Bars {{{
 hi  FadedBar  cterm=underline  ctermfg=DarkGrey     ctermbg=none
 hi  ShyBar    cterm=underline  ctermfg=DarkMagenta  ctermbg=none
+"}}}
 
-" Highlights
+""" Highlights {{{
 hi  HighlightFaded     cterm=none  ctermfg=Grey   ctermbg=DarkGrey
 hi  HighlightFriendly  cterm=none  ctermfg=Black  ctermbg=Cyan
+hi  HighlightCalm      cterm=none  ctermfg=Black  ctermbg=Green
 hi  HighlightForceful  cterm=none  ctermfg=Black  ctermbg=Red
 hi  HighlightShy       cterm=none  ctermfg=Black  ctermbg=Magenta
-hi  HighlightVeryShy   cterm=none  ctermfg=Black  ctermbg=DarkMagenta
 hi  HighlightHappy     cterm=none  ctermfg=Black  ctermbg=Yellow
+"}}}
+"}}}
+"}}}
 
-
-" Basic Settings
+" Basic Settings {{{
 hi!  link  NormalNC     Normal
 hi!  link  NonText      Hostile
 hi!  link  Visual       Contrasted
 hi!  link  EndOfBuffer  Hidden
+"}}}
 
-
-" Searching
+" Searching {{{
 hi!  link Search      HighlightHappy
 hi!  link IncSearch   Search
 hi!  link Substitute  Search
+"}}}
 
-
-" Cursor
+" Cursor {{{
 hi!  link Cursor        Contrasted
 hi!  link CursorIM      Cursor
 hi!  link TermCursor    Cursor
 hi!  link TermCursorNC  Cursor
+"}}}
 
-
-" UI Elements
+" UI Elements {{{
 hi!     link  ColorColumn        HighlightFaded
 hi!     link  CursorColumn       HighlightFaded
 hi!     link  CursorLine         LightlyContrasted
@@ -109,13 +116,14 @@ hi!     link  TabLineFill        LightlyContrasted
 hi!     link  TabLineSel         UltraPop
 hi!     link  VertSplit          Faded
 hi!     link  WildMenu           HighlightHappy
+"}}}
 
-" Other
+" Other {{{
 hi!     link  Conceal            Normal
 hi!     link  Directory          Normal
-hi!     link  DiffAdd            HighlightFriendly
-hi!     link  DiffChange         HighlightHappy
-hi!     link  DiffDelete         HighlightForceful
+hi!     link  DiffAdd            Calm
+hi!     link  DiffChange         Excited
+hi!     link  DiffDelete         Forceful
 hi!     link  DiffText           HighlightShy
 hi!     link  ErrorMsg           Hostile
 hi!     link  ModeMsg            Normal
@@ -146,25 +154,35 @@ hi!     link  Constant           Interesting
 hi!     link  String             Interesting
 hi!     link  Number             VeryInteresting
 hi!     link  Special            Shy
-hi!     link  Statement          LightPop
+hi!     link  Statement          Pop
+hi!     link  Function           Pop
 hi!     link  Operator           StrongPop
 hi!     link  Keyword            Pop
-hi!     link  PreProc            Normal
+hi!     link  PreProc            Pop
 hi!     link  Underlined         Linked
 hi!     link  Ignore             Normal
 hi!     link  Todo               Forceful
+"}}}
 
-" GUI
+" GUI {{{
 hi!  link  Menu       Normal
 hi!  link  Scrollbar  Normal
 hi!  link  Tooltip    Normal
+"}}}
 
-" Neovim
+" Neovim {{{
 hi!  link  NvimInternalError  VeryHostile
+"}}}
 
-" Markdown
+" Netrw {{{
+hi!  link  netrwDir      Interesting
+hi!  link  netrwSymLink  Shy
+"}}}
+
+" Markdown {{{
 hi!  link  markdownCode       Interesting
 hi!  link  markdownCodeBlock  Interesting
+"}}}
 
 syntax enable
 
