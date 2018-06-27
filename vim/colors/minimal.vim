@@ -34,8 +34,8 @@ hi  Contrasted          cterm=inverse            ctermfg=none      ctermbg=none
 hi  StronglyContrasted  cterm=underline,inverse  ctermfg=none      ctermbg=none
 hi  Faded               cterm=none               ctermfg=DarkGrey  ctermbg=none
 hi  Hidden              cterm=none               ctermfg=bg        ctermbg=bg
-hi  Linked              cterm=underline          ctermfg=none      ctermbg=none
-hi  LightPop            cterm=bold               ctermfg=none      ctermbg=none
+hi  Linked              cterm=underline          ctermfg=fg        ctermbg=none
+hi  Bold                cterm=bold               ctermfg=fg        ctermbg=none
 hi  Pop                 cterm=none               ctermfg=White     ctermbg=none
 hi  StrongPop           cterm=bold               ctermfg=White     ctermbg=none
 hi  UltraPop            cterm=bold,underline     ctermfg=White     ctermbg=none
@@ -145,20 +145,20 @@ hi!     link  For                Normal
 hi!     link  scrollbars         Normal
 hi!     link  Win32              Normal
 hi!     link  and                Normal
-hi!     link  Type               StrongPop
+hi!     link  Type               Pop
 hi!     link  Error              Hostile
 hi!     link  Identifier         Normal
-hi!     link  Function           LightPop
+hi!     link  Function           Pop
 hi!     link  Comment            Friendly
 hi!     link  Constant           Interesting
 hi!     link  String             Interesting
-hi!     link  Number             VeryInteresting
+hi!     link  Number             Interesting
 hi!     link  Special            Shy
 hi!     link  Statement          Pop
 hi!     link  Function           Pop
-hi!     link  Operator           StrongPop
+hi!     link  Operator           Pop
 hi!     link  Keyword            Pop
-hi!     link  PreProc            Pop
+hi!     link  PreProc            StrongPop
 hi!     link  Underlined         Linked
 hi!     link  Ignore             Normal
 hi!     link  Todo               Forceful
