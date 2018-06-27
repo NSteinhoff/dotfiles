@@ -25,7 +25,7 @@ set background=dark
 "        14      3*      Yellow, LightYellow
 "        15      7*      White
 
-hi  Normal       cterm=none     ctermfg=Grey  ctermbg=Black
+hi  Normal       cterm=none     ctermfg=Grey  ctermbg=none
 
 " Hues {{{
 hi  Nothing             cterm=none               ctermfg=none      ctermbg=none
@@ -33,7 +33,7 @@ hi  LightlyContrasted   cterm=underline          ctermfg=none      ctermbg=none
 hi  Contrasted          cterm=inverse            ctermfg=none      ctermbg=none
 hi  StronglyContrasted  cterm=underline,inverse  ctermfg=none      ctermbg=none
 hi  Faded               cterm=none               ctermfg=DarkGrey  ctermbg=none
-hi  Hidden              cterm=none               ctermfg=bg        ctermbg=none
+hi  Hidden              cterm=none               ctermfg=none      ctermbg=none
 hi  Linked              cterm=underline          ctermfg=none      ctermbg=none
 hi  LightPop            cterm=bold               ctermfg=none      ctermbg=none
 hi  Pop                 cterm=none               ctermfg=White     ctermbg=none
