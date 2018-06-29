@@ -84,7 +84,7 @@ hi!  link  EndOfBuffer  Hidden
 
 " Searching {{{
 hi!  link Search      HighlightHappy
-hi!  link IncSearch   Search
+hi!  link IncSearch   HighlightShy
 hi!  link Substitute  Search
 "}}}
 
