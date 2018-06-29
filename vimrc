@@ -116,9 +116,9 @@
         autocmd!
         autocmd BufNewFile,BufRead *.boot set ft=clojure
         autocmd BufNewFile,BufRead *.taskpaper set ft=taskpaper
-        autocmd FileType gitcommit set colorcolumn=70
-        autocmd FileType markdown set colorcolumn=100
-        autocmd FileType python,haskell,scala,lisp,clojure set colorcolumn=80
+        autocmd FileType gitcommit let b:m2=matchadd('ErrorMsg', '\%>70v.\+', -1)
+        autocmd FileType markdown let b:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
+        autocmd FileType vim,python,haskell,scala,lisp,clojure let b:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
         autocmd FileType python set formatprg=yapf
         autocmd FileType json set formatprg=python\ -m\ json.tool
         autocmd FileType lisp set shiftwidth=2 tabstop=2 softtabstop=2
