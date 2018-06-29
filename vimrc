@@ -103,7 +103,7 @@
     set complete-=i                             " Don't scan included files
 
 "--------------------------------- Statusline ---------------------------------
-    set statusline=%l%=%P\ %f\ %m
+    set statusline=%l\|%c%=%P\ %f\ %m
     try
         " set statusline=[%{&ff}]%y\ %F%m%r%h%w%=%{gutentags#statusline()}%{fugitive#statusline()}[%l:%v\|%p%%]
     catch
