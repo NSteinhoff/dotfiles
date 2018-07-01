@@ -20,6 +20,7 @@
     set ffs=unix,dos,mac                        " Unix as standard file type
     set encoding=utf8                           " Standard encoding
     set hidden                                  " Allow hidden buffers
+    set clipboard=unnamedplus                   " Yank into '+' register by default
 
     " Put backups and swapfiles in '.vim-tmp'
     set backup
@@ -35,17 +36,22 @@
     set numberwidth=4                           " Width of the number gutter
     set list                                    " Enable list mode showing 'listchars'
     set listchars=nbsp:¬,tab:»·,trail:·         " Configure which characters to show in list mode
-    set fillchars=vert:\|,stl:\ ,stlnc:\ 
+    set fillchars=vert:\|,stl:\ ,stlnc:\ ,fold:\ 
     set foldcolumn=0                            " Show gutter that shows the foldlevel
     set scrolloff=3
     set noshowmode
+    set nocursorcolumn
+    set nocursorline
 
 
 "--------------------------------- Searching ----------------------------------
     set hlsearch                                " Highlight search results
     set wildmode=longest:full,full              " Default matching, but also start wildmenu
     set tags+=./tags;,.tags;                    " Search for .tags' files upwards
-    " set path=.,,**                              " Search downwards from current directory
+    set path-=/usr/include
+    " set path=,,                                 " Search the current directory
+    " set path+=.                                 " Search relative to the current file
+    " set path+=**                                " Search downwards from current directory
 
     " Ignore certain files when searching
     set wildignore+=*.egg-info/*
@@ -80,7 +86,6 @@
     set foldmethod=indent                       " Fold by indent
     set foldignore=                             " Fold everything
     set foldnestmax=8                           " Set the maximum number of folds
-
 
 "---------------------------------- Editing -----------------------------------
     " Indenting
@@ -145,3 +150,5 @@
     catch
         "No problem...
     endtry
+
+" vim:cole=2:cocu=nc:fcl=all:fdl=0

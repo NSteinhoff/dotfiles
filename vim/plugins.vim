@@ -59,10 +59,9 @@
         let g:ale_lint_on_text_changed = 'never'    " When you modify a buffer
         let g:ale_lint_delay = 200                  " ... lint after x ms
 
-        let g:ale_linters = {
-            \   'python': ['flake8'],
-            \   'haskell': ['stack-ghc'],
-            \}
+        let g:ale_linters = {}
+        let g:ale_linters.python = ['flake8']
+        let g:ale_linters.haskell = ['stack-ghc']
 
 
     "--- Gutentags
