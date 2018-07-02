@@ -182,3 +182,8 @@ if [[ -z $JAVA_HOME ]]; then
 fi
 
 source "$HOME/.bash_functions"
+
+# Initialize pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+fi
