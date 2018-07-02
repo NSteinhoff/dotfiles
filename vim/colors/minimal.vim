@@ -60,8 +60,9 @@ hi  Shy              cterm=none  ctermfg=DarkMagenta  ctermbg=none
 hi  NotSoShy         cterm=bold  ctermfg=DarkMagenta  ctermbg=none
 
 """ Bars {{{
-hi  FadedBar  cterm=underline  ctermfg=DarkGrey     ctermbg=none
-hi  ShyBar    cterm=underline  ctermfg=DarkMagenta  ctermbg=none
+hi  FadedBar        cterm=underline  ctermfg=DarkGrey     ctermbg=none
+hi  ShyBar          cterm=underline  ctermfg=DarkMagenta  ctermbg=none
+hi  InterestingBar  cterm=underline  ctermfg=Blue         ctermbg=none
 "}}}
 
 """ Highlights {{{
@@ -111,6 +112,8 @@ hi!     link  PmenuThumb         Normal
 hi!     link  SignColumn         Faded
 hi!     link  StatusLine         ShyBar
 hi!     link  StatusLineNC       FadedBar
+hi!     link  StatusLineTerm     InterestingBar
+hi!     link  StatusLineTermNC   FadedBar
 hi!     link  TabLine            LightlyContrasted
 hi!     link  TabLineFill        LightlyContrasted
 hi!     link  TabLineSel         UltraPop

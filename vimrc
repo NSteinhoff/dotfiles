@@ -20,7 +20,7 @@
     set ffs=unix,dos,mac                        " Unix as standard file type
     set encoding=utf8                           " Standard encoding
     set hidden                                  " Allow hidden buffers
-    set clipboard=unnamedplus                   " Yank into '+' register by default
+    set clipboard=unnamed                       " Yank into '*' register
 
     " Put backups and swapfiles in '.vim-tmp'
     set backup
@@ -150,5 +150,3 @@
     catch
         "No problem...
     endtry
-
-" vim:cole=2:cocu=nc:fcl=all:fdl=0

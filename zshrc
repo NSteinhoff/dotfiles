@@ -148,9 +148,9 @@ elif [[ $OS == 'Mac' ]]; then
 fi
 
 # Use Neovim if available
-if [[ ! -z $(command -v nvim) ]]; then
-    alias vim=nvim
-fi
+# if [[ ! -z $(command -v nvim) ]]; then
+#     alias vim=nvim
+# fi
 # ---------------------
 
 export XDG_CONFIG_HOME=~/.config
