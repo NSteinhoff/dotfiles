@@ -36,6 +36,7 @@ hi  Faded               cterm=none               ctermfg=DarkGrey  ctermbg=none
 hi  Hidden              cterm=none               ctermfg=bg        ctermbg=bg
 hi  Linked              cterm=underline          ctermfg=fg        ctermbg=none
 hi  Bold                cterm=bold               ctermfg=fg        ctermbg=none
+hi  Italic              cterm=italic             ctermfg=fg        ctermbg=none
 hi  Pop                 cterm=none               ctermfg=White     ctermbg=none
 hi  StrongPop           cterm=bold               ctermfg=White     ctermbg=none
 hi  UltraPop            cterm=bold,underline     ctermfg=White     ctermbg=none
@@ -184,6 +185,8 @@ hi!  link  netrwSymLink  Shy
 
 " Markdown {{{
 hi!  link  markdownCode       Interesting
+hi!  link  markdownItalic     Pop
+hi!  link  markdownBold       Pop
 hi!  link  markdownCodeBlock  Interesting
 "}}}
 
