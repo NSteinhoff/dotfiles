@@ -26,6 +26,10 @@
     "--- Python
     Plug 'vim-python/python-syntax'
     Plug 'Vimjas/vim-python-pep8-indent'
+
+    "--- Clojure
+    Plug 'jpalardy/vim-slime'
+
     call plug#end()
 
 
@@ -70,3 +74,6 @@
 
     "--- Python-Vim
         let g:python_highlight_all = 1
+
+    "--- SLIME
+        let g:slime_target = "tmux"
