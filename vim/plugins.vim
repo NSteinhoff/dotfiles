@@ -16,6 +16,7 @@
     Plug 'ludovicchabant/vim-gutentags'
     Plug 'luochen1990/rainbow'
     Plug 'junegunn/goyo.vim'
+    Plug 'jpalardy/vim-slime'
 
     "--- Colors
     Plug 'andreypopp/vim-colors-plain'
@@ -28,7 +29,9 @@
     Plug 'Vimjas/vim-python-pep8-indent'
 
     "--- Clojure
-    Plug 'jpalardy/vim-slime'
+
+    "--- Scala
+    " Plug 'derekwyatt/vim-scala'
 
     call plug#end()
 
@@ -64,7 +67,7 @@
         let g:ale_lint_delay = 200                  " ... lint after x ms
 
         let g:ale_linters = {}
-        let g:ale_linters.python = ['flake8']
+        let g:ale_linters.python = ['pylint']
         let g:ale_linters.haskell = ['stack-ghc']
 
 

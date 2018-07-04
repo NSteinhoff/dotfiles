@@ -63,7 +63,11 @@ hi  NotSoShy         cterm=bold  ctermfg=DarkMagenta  ctermbg=none
 """ Bars {{{
 hi  FadedBar        cterm=underline  ctermfg=DarkGrey     ctermbg=none
 hi  ShyBar          cterm=underline  ctermfg=DarkMagenta  ctermbg=none
+hi  CalmBar         cterm=underline  ctermfg=DarkGreen    ctermbg=none
+hi  HappyBar        cterm=underline  ctermfg=DarkYellow   ctermbg=none
+hi  ExcitedBar      cterm=underline  ctermfg=Yellow       ctermbg=none
 hi  InterestingBar  cterm=underline  ctermfg=Blue         ctermbg=none
+hi  FriendlyBar     cterm=underline  ctermfg=DarkCyan     ctermbg=none
 "}}}
 
 """ Highlights {{{
@@ -111,7 +115,7 @@ hi!     link  PmenuSbar          Contrasted
 hi!     link  PmenuSel           Normal
 hi!     link  PmenuThumb         Normal
 hi!     link  SignColumn         Faded
-hi!     link  StatusLine         ShyBar
+hi!     link  StatusLine         FriendlyBar
 hi!     link  StatusLineNC       FadedBar
 hi!     link  StatusLineTerm     InterestingBar
 hi!     link  StatusLineTermNC   FadedBar
@@ -149,19 +153,19 @@ hi!     link  For                Normal
 hi!     link  scrollbars         Normal
 hi!     link  Win32              Normal
 hi!     link  and                Normal
-hi!     link  Type               Pop
+hi!     link  Type               StrongPop
 hi!     link  Error              Hostile
 hi!     link  Identifier         Normal
 hi!     link  Function           Pop
-hi!     link  Comment            Friendly
+hi!     link  Comment            Calm
 hi!     link  Constant           Interesting
 hi!     link  String             Interesting
 hi!     link  Number             Interesting
-hi!     link  Special            Shy
-hi!     link  Statement          Pop
+hi!     link  Special            Pop
+hi!     link  Statement          Normal
 hi!     link  Function           Pop
 hi!     link  Operator           Pop
-hi!     link  Keyword            Pop
+hi!     link  Keyword            Friendly
 hi!     link  PreProc            StrongPop
 hi!     link  Underlined         Linked
 hi!     link  Ignore             Normal

@@ -21,6 +21,7 @@
     set encoding=utf8                           " Standard encoding
     set hidden                                  " Allow hidden buffers
     set clipboard=unnamed                       " Yank into '*' register
+    set mouse=                                  " Mouse? PFUII!!
 
     " Put backups and swapfiles in '.vim-tmp'
     set backup
