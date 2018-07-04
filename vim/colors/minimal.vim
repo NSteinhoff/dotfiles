@@ -157,12 +157,12 @@ hi!     link  Type               StrongPop
 hi!     link  Error              Hostile
 hi!     link  Identifier         Normal
 hi!     link  Function           Pop
-hi!     link  Comment            Calm
+hi!     link  Comment            Faded
 hi!     link  Constant           Interesting
 hi!     link  String             Interesting
 hi!     link  Number             Interesting
 hi!     link  Special            Pop
-hi!     link  Statement          Normal
+hi!     link  Statement          Pop
 hi!     link  Function           Pop
 hi!     link  Operator           Pop
 hi!     link  Keyword            Friendly
