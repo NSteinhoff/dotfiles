@@ -112,7 +112,7 @@ hi!     link  LineNr             Faded
 hi!     link  MatchParen         Contrasted
 hi!     link  Pmenu              Contrasted
 hi!     link  PmenuSbar          Contrasted
-hi!     link  PmenuSel           Normal
+hi!     link  PmenuSel           HighlightShy
 hi!     link  PmenuThumb         Normal
 hi!     link  SignColumn         Faded
 hi!     link  StatusLine         FriendlyBar
