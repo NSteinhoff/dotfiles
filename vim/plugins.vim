@@ -31,7 +31,7 @@
     "--- Clojure
 
     "--- Scala
-    " Plug 'derekwyatt/vim-scala'
+    Plug 'derekwyatt/vim-scala'
 
     call plug#end()
 
@@ -80,3 +80,7 @@
 
     "--- SLIME
         let g:slime_target = "tmux"
+
+    "--- Vim-Scala
+        let g:scala_scaladoc_indent = 1
+        let g:scala_use_default_keymappings = 0

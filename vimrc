@@ -109,13 +109,13 @@
     set complete-=i                             " Don't scan included files
 
 "--------------------------------- Statusline ---------------------------------
-    set statusline=%l\|%c%=%P\ %f\ %m
     try
+        set statusline=%l\|%c\ %{gutentags#statusline('[',\ ']')}%=\ %f\ %P\ %m
         " set statusline=[%{&ff}]%y\ %F%m%r%h%w%=%{gutentags#statusline()}%{fugitive#statusline()}[%l:%v\|%p%%]
     catch
         " No problem...
+        set statusline=%l\|%c%=%f\ %P\ %m
     endtry
-
 
 "----------------------------- Filetype settings ------------------------------
     augroup filetype_settings
