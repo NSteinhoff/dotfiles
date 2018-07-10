@@ -61,13 +61,17 @@ hi  Shy              cterm=none  ctermfg=DarkMagenta  ctermbg=none
 hi  NotSoShy         cterm=bold  ctermfg=DarkMagenta  ctermbg=none
 
 """ Bars {{{
-hi  FadedBar        cterm=underline  ctermfg=DarkGrey     ctermbg=none
-hi  ShyBar          cterm=underline  ctermfg=DarkMagenta  ctermbg=none
-hi  CalmBar         cterm=underline  ctermfg=DarkGreen    ctermbg=none
-hi  HappyBar        cterm=underline  ctermfg=DarkYellow   ctermbg=none
-hi  ExcitedBar      cterm=underline  ctermfg=Yellow       ctermbg=none
-hi  InterestingBar  cterm=underline  ctermfg=Blue         ctermbg=none
-hi  FriendlyBar     cterm=underline  ctermfg=DarkCyan     ctermbg=none
+hi  FadedBar             cterm=underline  ctermfg=DarkGrey     ctermbg=none
+hi  ShyBar               cterm=underline  ctermfg=DarkMagenta  ctermbg=none
+hi  CalmBar              cterm=underline  ctermfg=DarkGreen    ctermbg=none
+hi  HappyBar             cterm=underline  ctermfg=DarkYellow   ctermbg=none
+hi  ExcitedBar           cterm=underline  ctermfg=Yellow       ctermbg=none
+hi  InterestingBar       cterm=underline  ctermfg=Blue         ctermbg=none
+hi  FriendlyBar          cterm=underline  ctermfg=DarkCyan     ctermbg=none
+
+hi  FadedBlockBar        cterm=none       ctermfg=Grey         ctermbg=DarkGrey
+hi  InterestingBlockBar  cterm=none       ctermfg=White        ctermbg=Blue
+hi  FriendlyBlockBar     cterm=none       ctermfg=White        ctermbg=DarkCyan
 "}}}
 
 """ Highlights {{{
@@ -115,10 +119,10 @@ hi!     link  PmenuSbar          Contrasted
 hi!     link  PmenuSel           HighlightShy
 hi!     link  PmenuThumb         Normal
 hi!     link  SignColumn         Faded
-hi!     link  StatusLine         FriendlyBar
-hi!     link  StatusLineNC       FadedBar
-hi!     link  StatusLineTerm     InterestingBar
-hi!     link  StatusLineTermNC   FadedBar
+hi!     link  StatusLine         FriendlyBlockBar
+hi!     link  StatusLineNC       FadedBlockBar
+hi!     link  StatusLineTerm     InterestingBlockBar
+hi!     link  StatusLineTermNC   FadedBlockBar
 hi!     link  TabLine            LightlyContrasted
 hi!     link  TabLineFill        LightlyContrasted
 hi!     link  TabLineSel         UltraPop
