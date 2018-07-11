@@ -88,14 +88,18 @@
 "--- Filetype specific commands
     augroup filetype_commands
         autocmd!
+        au FileType * :let b:overview_pattern='^#\+'
         au BufEnter *vimrc nnoremap <buffer> <cr> :source %<cr>
-        au FileType python nnoremap <buffer> _bp oimport pdb; pdb.set_trace()<Esc>
-        au FileType python nnoremap <buffer> _BP Oimport pdb; pdb.set_trace()<Esc>
-        au FileType python command! -buffer Overview g/\v^\s*(class\s\u|(async\s)?def\s\U)\w+/p
-        au FileType scala command! -buffer Overview g/\v^\s*((case\s)?(class|object)\s\u|def\s\U)\w+/p
+        au FileType python :let b:overview_pattern='\v^\s*(class\s\u|(async\s)?def\s\U)\w+'
+        au FileType scala :let b:overview_pattern='\v^\s*((case\s)?(class|object)\s\u|def\s\U)\w+'
         au FileType scala command! -buffer Format execute '!scalafmt %' | e
     augroup END
 
 
 "--- Show syntax highlight groups
     command! Highlighs :so $VIMRUNTIME/syntax/hitest.vim
+
+
+"--- Show file overview
+    command! Overview execute 'g/' . b:overview_pattern . '/p'
+    command! Loverview execute 'lvimgrep /' . b:overview_pattern . '/j %' | lopen
