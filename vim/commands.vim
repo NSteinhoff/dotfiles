@@ -91,6 +91,9 @@
         au BufEnter *vimrc nnoremap <buffer> <cr> :source %<cr>
         au FileType python nnoremap <buffer> _bp oimport pdb; pdb.set_trace()<Esc>
         au FileType python nnoremap <buffer> _BP Oimport pdb; pdb.set_trace()<Esc>
+        au FileType python command! -buffer Overview g/\v^\s*(class\s\u|(async\s)?def\s\U)\w+/p
+        au FileType scala command! -buffer Overview g/\v^\s*((case\s)?(class|object)\s\u|def\s\U)\w+/p
+        au FileType scala command! -buffer Format execute '!scalafmt %' | e
     augroup END
 
 
