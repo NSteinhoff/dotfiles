@@ -90,6 +90,7 @@
         autocmd!
         au FileType * :let b:overview_pattern='^#\+'
         au BufEnter *vimrc nnoremap <buffer> <cr> :source %<cr>
+        au FileType clojure :let b:overview_pattern='^\s*(\(defn\?\|ns\)\s\w\+'
         au FileType python :let b:overview_pattern='\v^\s*(class\s\u|(async\s)?def\s\U)\w+'
         au FileType scala :let b:overview_pattern='\v^\s*((case\s)?(class|object)\s\u|def\s\U)\w+'
         au FileType scala command! -buffer Format execute '!scalafmt %' | e
@@ -101,5 +102,5 @@
 
 
 "--- Show file overview
-    command! Overview execute 'g/' . b:overview_pattern . '/p'
+    command! Overview execute 'g/' . b:overview_pattern . '/p' | nohlsearch
     command! Loverview execute 'lvimgrep /' . b:overview_pattern . '/j %' | lopen
