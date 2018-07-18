@@ -102,5 +102,5 @@
 
 
 "--- Show file overview
-    command! Overview execute 'g/' . b:overview_pattern . '/p' | nohlsearch
+    command! Overview set number | execute 'g/' . b:overview_pattern . '/p' | nohlsearch | set nonumber
     command! Loverview execute 'lvimgrep /' . b:overview_pattern . '/j %' | lopen
