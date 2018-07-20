@@ -19,10 +19,11 @@
     Plug 'jpalardy/vim-slime'
 
     "--- Colors
-    Plug 'andreypopp/vim-colors-plain'
-    Plug 'andreasvc/vim-256noir'
-    Plug 'owickstrom/vim-colors-paramount'
-    Plug 'vietjtnguyen/toy-blocks'
+    Plug 'trevordmiller/nova-vim'
+    " Plug 'andreypopp/vim-colors-plain'
+    " Plug 'andreasvc/vim-256noir'
+    " Plug 'owickstrom/vim-colors-paramount'
+    " Plug 'vietjtnguyen/toy-blocks'
 
     "--- Languages
     Plug 'sheerun/vim-polyglot'
