@@ -24,14 +24,17 @@
     Plug 'owickstrom/vim-colors-paramount'
     Plug 'vietjtnguyen/toy-blocks'
 
+    "--- Languages
+    Plug 'sheerun/vim-polyglot'
+
     "--- Python
-    Plug 'vim-python/python-syntax'
-    Plug 'Vimjas/vim-python-pep8-indent'
+    " Plug 'vim-python/python-syntax'
+    " Plug 'Vimjas/vim-python-pep8-indent'
 
     "--- Clojure
 
     "--- Scala
-    Plug 'derekwyatt/vim-scala'
+    " Plug 'derekwyatt/vim-scala'
 
     call plug#end()
 
