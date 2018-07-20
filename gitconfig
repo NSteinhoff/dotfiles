@@ -4,8 +4,8 @@
 [push]
     default = simple
 [alias]
-    lo      = log --graph --decorate --format='%C(auto)%h%d %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
-    loa     = log --graph --decorate --all --format='%C(auto)%h%d %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+    lo      = log --graph --decorate --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'
+    loa     = log --graph --decorate --all --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'
     lf      = log --graph --decorate --date=short --format='%C(auto)%h%d %s %C(green)(%cd) %C(blue)<%an>%Creset'
     lfa     = log --graph --decorate --all --date=short --format='%C(auto)%h%d %s %C(green)(%cd) %C(blue)<%an>%Creset'
     lol     = log --graph --decorate --pretty=oneline --abbrev-commit
@@ -29,7 +29,7 @@
 [mergetool]
     prompt = true
 
-# Colors
+# Nova Colors
 [color]
   pager = true
   ui = auto
