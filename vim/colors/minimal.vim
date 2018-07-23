@@ -25,6 +25,61 @@ set background=dark
 "        14      3*      Yellow, LightYellow
 "        15      7*      White
 
+let s:syntax_groups = [
+\ "error",
+\ "constant",
+\ "identifier",
+\ "statement",
+\ "operator",
+\ "type",
+\ "global",
+\ "trivial",
+\ "special",
+\ "emphasis"
+\]
+
+let s:syntax_group_colors = {
+\ "error": "Normal",
+\ "constant": "Normal",
+\ "identifier": "Normal",
+\ "statement": "Normal",
+\ "operator": "Normal",
+\ "type": "Normal",
+\ "global": "Normal",
+\ "trivial": "Normal",
+\ "special": "Normal",
+\ "emphasis": "Normal"
+\}
+
+let s:syntax_group_members = {
+\ "error": [],
+\ "constant": [],
+\ "identifier": [],
+\ "statement": [],
+\ "operator": [],
+\ "type": [],
+\ "global": [],
+\ "trivial": [],
+\ "special": [],
+\ "emphasis": []
+\}
+
+function! s:highlight_groups()
+  for l:group in s:syntax_groups
+    let l:members = s:syntax_group_members[l:group]
+    let l:color = s:syntax_group_colors[l:group]
+    echo "Highlighting group " . l:group . " with color " . l:color
+    call s:highlight_members(l:members, l:color)
+  endfor
+endfunction
+
+function! s:highlight_members(members, colour)
+  for l:member in a:members
+    echo "highlight! link " . l:member . " " . a:colour
+  endfor
+endfunction
+
+
 hi  Normal       cterm=none     ctermfg=Grey  ctermbg=Black
 
 " Hues {{{
@@ -198,6 +253,7 @@ hi!  link  markdownBold       Pop
 hi!  link  markdownCodeBlock  Interesting
 "}}}
 
+call s:highlight_groups()
 syntax enable
 
 " vim: fdm=marker:sw=2:sts=2:et
