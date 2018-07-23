@@ -1,4 +1,4 @@
-hi  clear
+highlight  clear
 syntax reset
 let g:colors_name="minimal"
 
@@ -25,131 +25,58 @@ set background=dark
 "        14      3*      Yellow, LightYellow
 "        15      7*      White
 
-let s:syntax_groups = [
-\ "error",
-\ "constant",
-\ "identifier",
-\ "statement",
-\ "operator",
-\ "type",
-\ "global",
-\ "trivial",
-\ "special",
-\ "emphasis"
-\]
 
-let s:syntax_group_colors = {
-\ "error": "Normal",
-\ "constant": "Normal",
-\ "identifier": "Normal",
-\ "statement": "Normal",
-\ "operator": "Normal",
-\ "type": "Normal",
-\ "global": "Normal",
-\ "trivial": "Normal",
-\ "special": "Normal",
-\ "emphasis": "Normal"
-\}
-
-let s:syntax_group_members = {
-\ "error": [],
-\ "constant": [],
-\ "identifier": [],
-\ "statement": [],
-\ "operator": [],
-\ "type": [],
-\ "global": [],
-\ "trivial": [],
-\ "special": [],
-\ "emphasis": []
-\}
-
-function! s:highlight_groups()
-  for l:group in s:syntax_groups
-    let l:members = s:syntax_group_members[l:group]
-    let l:color = s:syntax_group_colors[l:group]
-    echo "Highlighting group " . l:group . " with color " . l:color
-    call s:highlight_members(l:members, l:color)
-  endfor
-endfunction
-
-function! s:highlight_members(members, colour)
-  for l:member in a:members
-    echo "highlight! link " . l:member . " " . a:colour
-  endfor
-endfunction
-
-
-hi  Normal       cterm=none     ctermfg=Grey  ctermbg=Black
+highlight  Normal       cterm=none     ctermfg=Grey  ctermbg=Black
 
 " Hues {{{
-hi  Nothing             cterm=none               ctermfg=none      ctermbg=none
-hi  LightlyContrasted   cterm=underline          ctermfg=none      ctermbg=none
-hi  Contrasted          cterm=inverse            ctermfg=none      ctermbg=none
-hi  StronglyContrasted  cterm=underline,inverse  ctermfg=none      ctermbg=none
-hi  Faded               cterm=none               ctermfg=DarkGrey  ctermbg=none
-hi  Hidden              cterm=none               ctermfg=bg        ctermbg=bg
-hi  Linked              cterm=underline          ctermfg=fg        ctermbg=none
-hi  Bold                cterm=bold               ctermfg=fg        ctermbg=none
-hi  Italic              cterm=italic             ctermfg=fg        ctermbg=none
-hi  Pop                 cterm=none               ctermfg=White     ctermbg=none
-hi  StrongPop           cterm=bold               ctermfg=White     ctermbg=none
-hi  UltraPop            cterm=bold,underline     ctermfg=White     ctermbg=none
+highlight  Nothing             cterm=none               ctermfg=none      ctermbg=none
+highlight  LightlyContrasted   cterm=underline          ctermfg=none      ctermbg=none
+highlight  Contrasted          cterm=inverse            ctermfg=none      ctermbg=none
+highlight  StronglyContrasted  cterm=underline,inverse  ctermfg=none      ctermbg=none
+highlight  Faded               cterm=none               ctermfg=DarkGrey  ctermbg=none
+highlight  Hidden              cterm=none               ctermfg=bg        ctermbg=bg
+highlight  Linked              cterm=underline          ctermfg=fg        ctermbg=none
+highlight  Bold                cterm=bold               ctermfg=fg        ctermbg=none
+highlight  Italic              cterm=italic             ctermfg=fg        ctermbg=none
+highlight  Pop                 cterm=none               ctermfg=White     ctermbg=none
+highlight  StrongPop           cterm=bold               ctermfg=White     ctermbg=none
+highlight  UltraPop            cterm=bold,underline     ctermfg=White     ctermbg=none
 "}}}
 
-"" Colors {{{
-hi  Hostile          cterm=none  ctermfg=Red          ctermbg=none
-hi  VeryHostile      cterm=bold  ctermfg=Red          ctermbg=none
-hi  Friendly         cterm=none  ctermfg=DarkCyan     ctermbg=none
-hi  VeryFriendly     cterm=bold  ctermfg=DarkCyan     ctermbg=none
-hi  Calm             cterm=none  ctermfg=DarkGreen    ctermbg=none
-hi  VeryCalm         cterm=bold  ctermfg=DarkGreen    ctermbg=none
-hi  Happy            cterm=none  ctermfg=DarkYellow   ctermbg=none
-hi  VeryHappy        cterm=bold  ctermfg=DarkYellow   ctermbg=none
-hi  Excited          cterm=none  ctermfg=Yellow       ctermbg=none
-hi  VeryExcited      cterm=bold  ctermfg=Yellow       ctermbg=none
-hi  Interesting      cterm=none  ctermfg=DarkBlue     ctermbg=none
-hi  VeryInteresting  cterm=bold  ctermfg=DarkBlue     ctermbg=none
-hi  Forceful         cterm=none  ctermfg=DarkRed      ctermbg=none
-hi  VeryForceful     cterm=bold  ctermfg=DarkRed      ctermbg=none
-hi  Shy              cterm=none  ctermfg=DarkMagenta  ctermbg=none
-hi  NotSoShy         cterm=bold  ctermfg=DarkMagenta  ctermbg=none
-
-""" Bars {{{
-hi  FadedBar             cterm=underline  ctermfg=DarkGrey     ctermbg=none
-hi  ShyBar               cterm=underline  ctermfg=DarkMagenta  ctermbg=none
-hi  CalmBar              cterm=underline  ctermfg=DarkGreen    ctermbg=none
-hi  HappyBar             cterm=underline  ctermfg=DarkYellow   ctermbg=none
-hi  ExcitedBar           cterm=underline  ctermfg=Yellow       ctermbg=none
-hi  InterestingBar       cterm=underline  ctermfg=Blue         ctermbg=none
-hi  FriendlyBar          cterm=underline  ctermfg=DarkCyan     ctermbg=none
-
-hi  FadedBlockBar        cterm=none       ctermfg=Grey         ctermbg=DarkGrey
-hi  InterestingBlockBar  cterm=none       ctermfg=White        ctermbg=Blue
-hi  FriendlyBlockBar     cterm=none       ctermfg=White        ctermbg=DarkCyan
-"}}}
+"" Moods {{{
+highlight  Proud      cterm=none  ctermfg=DarkBlue     ctermbg=none
+highlight  Calm       cterm=none  ctermfg=DarkGreen    ctermbg=none
+highlight  Peaceful   cterm=none  ctermfg=DarkCyan     ctermbg=none
+highlight  Forceful   cterm=none  ctermfg=DarkRed      ctermbg=none
+highlight  Happy      cterm=none  ctermfg=DarkMagenta  ctermbg=none
+highlight  Busy       cterm=none  ctermfg=DarkYellow   ctermbg=none
+highlight  Satisfied  cterm=none  ctermfg=Blue         ctermbg=none
+highlight  Relaxed    cterm=none  ctermfg=Green        ctermbg=none
+highlight  Fresh      cterm=none  ctermfg=Cyan         ctermbg=none
+highlight  Intense    cterm=none  ctermfg=Red          ctermbg=none
+highlight  Excited    cterm=none  ctermfg=Magenta      ctermbg=none
+highlight  Lively     cterm=none  ctermfg=Yellow       ctermbg=none
 
 """ Highlights {{{
-hi  HighlightFaded     cterm=none  ctermfg=Grey   ctermbg=DarkGrey
-hi  HighlightFriendly  cterm=none  ctermfg=Black  ctermbg=Cyan
-hi  HighlightCalm      cterm=none  ctermfg=Black  ctermbg=Green
-hi  HighlightForceful  cterm=none  ctermfg=Black  ctermbg=Red
-hi  HighlightShy       cterm=none  ctermfg=Black  ctermbg=Magenta
-hi  HighlightHappy     cterm=none  ctermfg=Black  ctermbg=Yellow
+hi  HighlightFaded      cterm=none  ctermfg=Grey   ctermbg=DarkGrey
+hi  HighlightExcited    cterm=none  ctermfg=Black  ctermbg=Magenta
+hi  HighlightSatisfied  cterm=none  ctermfg=White  ctermbg=Blue
+hi  HighlightLively     cterm=none  ctermfg=Black  ctermbg=Yellow
+hi  HighlightPeaceful   cterm=none  ctermfg=White  ctermbg=DarkCyan
 "}}}
 "}}}
 "}}}
 
 " Basic Settings {{{
 hi!  link  NormalNC     Normal
-hi!  link  NonText      Hostile
+hi!  link  NonText      Forceful
 hi!  link  Visual       Contrasted
 hi!  link  EndOfBuffer  Hidden
 "}}}
 
 " Searching {{{
-hi!  link Search      HighlightHappy
-hi!  link IncSearch   HighlightShy
+hi!  link Search      HighlightLively
+hi!  link IncSearch   HighlightExcited
 hi!  link Substitute  Search
 "}}}
 
@@ -161,99 +88,125 @@ hi!  link TermCursorNC  Cursor
 "}}}
 
 " UI Elements {{{
-hi!     link  ColorColumn        HighlightFaded
-hi!     link  CursorColumn       HighlightFaded
-hi!     link  CursorLine         LightlyContrasted
-hi!     link  CursorLineNr       Normal
-hi!     link  FoldColumn         Faded
-hi!     link  Folded             Faded
-hi!     link  LineNr             Faded
-hi!     link  MatchParen         Contrasted
-hi!     link  Pmenu              Contrasted
-hi!     link  PmenuSbar          Contrasted
-hi!     link  PmenuSel           HighlightShy
-hi!     link  PmenuThumb         Normal
-hi!     link  SignColumn         Faded
-hi!     link  StatusLine         FriendlyBlockBar
-hi!     link  StatusLineNC       FadedBlockBar
-hi!     link  StatusLineTerm     InterestingBlockBar
-hi!     link  StatusLineTermNC   FadedBlockBar
-hi!     link  TabLine            LightlyContrasted
-hi!     link  TabLineFill        LightlyContrasted
-hi!     link  TabLineSel         UltraPop
-hi!     link  VertSplit          Faded
-hi!     link  WildMenu           HighlightHappy
+hi!  link  ColorColumn       HighlightFaded
+hi!  link  CursorColumn      HighlightFaded
+hi!  link  CursorLine        LightlyContrasted
+hi!  link  CursorLineNr      Normal
+hi!  link  FoldColumn        Faded
+hi!  link  Folded            Faded
+hi!  link  LineNr            Faded
+hi!  link  MatchParen        Contrasted
+hi!  link  Menu              Normal
+hi!  link  Pmenu             Contrasted
+hi!  link  PmenuSbar         Contrasted
+hi!  link  PmenuSel          HighlightExcited
+hi!  link  PmenuThumb        Normal
+hi!  link  Scrollbar         Normal
+hi!  link  SignColumn        Faded
+hi!  link  StatusLine        HighlightPeaceful
+hi!  link  StatusLineNC      HighlightFaded
+hi!  link  StatusLineTerm    HighlightSatisfied
+hi!  link  StatusLineTermNC  HighlightFaded
+hi!  link  TabLine           LightlyContrasted
+hi!  link  TabLineFill       LightlyContrasted
+hi!  link  TabLineSel        UltraPop
+hi!  link  Tooltip           Normal
+hi!  link  VertSplit         Faded
+hi!  link  WildMenu          HighlightLively
 "}}}
 
-" Other {{{
-hi!     link  Conceal            Normal
-hi!     link  Directory          Normal
+" Diffs {{{
 hi!     link  DiffAdd            Calm
 hi!     link  DiffChange         Excited
 hi!     link  DiffDelete         Forceful
-hi!     link  DiffText           HighlightShy
-hi!     link  ErrorMsg           Hostile
-hi!     link  ModeMsg            Normal
-hi!     link  MsgSeparator       Normal
-hi!     link  MoreMsg            Normal
-hi!     link  Question           Normal
-hi!     link  QuickFixLine       Normal
-hi!     link  SpecialKey         Normal
-hi!     link  SpellBad           Hostile
-hi!     link  SpellCap           Normal
-hi!     link  SpellLocal         Normal
-hi!     link  SpellRare          Normal
-hi!     link  Title              StrongPop
-hi!     link  VisualNOS          Normal
-hi!     link  WarningMsg         Normal
-hi!     link  Whitespace         Hostile
-hi!     link  The                Normal
-hi!     link  For                Normal
-hi!     link  scrollbars         Normal
-hi!     link  Win32              Normal
-hi!     link  and                Normal
-hi!     link  Type               StrongPop
-hi!     link  Error              Hostile
-hi!     link  Identifier         Normal
-hi!     link  Function           Pop
-hi!     link  Comment            Faded
-hi!     link  Constant           Interesting
-hi!     link  String             Interesting
-hi!     link  Number             Interesting
-hi!     link  Special            Pop
-hi!     link  Statement          Pop
-hi!     link  Function           Pop
-hi!     link  Operator           Pop
-hi!     link  Keyword            Friendly
-hi!     link  PreProc            StrongPop
-hi!     link  Underlined         Linked
-hi!     link  Ignore             Normal
-hi!     link  Todo               Forceful
+hi!     link  DiffText           HighlightExcited
 "}}}
 
-" GUI {{{
-hi!  link  Menu       Normal
-hi!  link  Scrollbar  Normal
-hi!  link  Tooltip    Normal
-"}}}
+let s:syntax_groups = {
+\ "error":       "Forceful",
+\ "constant":    "Proud",
+\ "identifier":  "Normal",
+\ "statement":   "Pop",
+\ "operator":    "Pop",
+\ "type":        "Peaceful",
+\ "global":      "Calm",
+\ "trivial":     "Faded",
+\ "special":     "Happy",
+\ "emphasis":    "Pop"
+\}
 
-" Neovim {{{
-hi!  link  NvimInternalError  VeryHostile
-"}}}
+let s:syntax_items = {
+\ "error": [
+\   "Error",
+\   "ErrorMsg",
+\   "SpellBad",
+\   "NvimInternalError",
+\   ],
+\ "constant": [
+\   "Constant",
+\   "Number",
+\   "String",
+\   "Directory",
+\   "markdownCode",
+\   "markdownCodeBlock",
+\   ],
+\ "identifier": [
+\   "Identifier",
+\   ],
+\ "statement": [
+\   "Statement",
+\   ],
+\ "operator": [
+\   "Operator",
+\   "Function",
+\   ],
+\ "type": [
+\   "Type",
+\   ],
+\ "global": [
+\   "PreProc",
+\   "Keyword",
+\   ],
+\ "trivial": [
+\   "Comment",
+\   "Ignore",
+\   "Conceal",
+\   "Noise",
+\   ],
+\ "special": [
+\   "Special",
+\   "SpecialKey",
+\   "SpellCap",
+\   "SpellLocal",
+\   "SpellRare",
+\   "Title",
+\   "Todo",
+\   "netrwSymLink",
+\   ],
+\ "emphasis": [
+\   "Underlined",
+\   "markdownItalic",
+\   "markdownBold",
+\   "markdownBoldItalic",
+\   ],
+\}
 
-" Netrw {{{
-hi!  link  netrwDir      Interesting
-hi!  link  netrwSymLink  Shy
-"}}}
+function! s:highlight_groups()
+  for [l:group, l:color] in items(s:syntax_groups)
+    let l:items = s:syntax_items[l:group]
+    " echo "Highlighting group " . l:group . " with color " . l:color
+    call s:highlight_items(l:items, l:color)
+  endfor
+endfunction
 
-" Markdown {{{
-hi!  link  markdownCode       Interesting
-hi!  link  markdownItalic     Pop
-hi!  link  markdownBold       Pop
-hi!  link  markdownCodeBlock  Interesting
-"}}}
+function! s:highlight_items(items, color)
+  for l:item in a:items
+    exec "highlight! link " . l:item . " " . a:color
+  endfor
+endfunction
 
 call s:highlight_groups()
+
 syntax enable
 
 " vim: fdm=marker:sw=2:sts=2:et
