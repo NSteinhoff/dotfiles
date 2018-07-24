@@ -93,7 +93,7 @@
         au FileType clojure :let b:overview_pattern='^\s*(\(defn\?\|ns\)\s\w\+'
         au FileType python :let b:overview_pattern='\v^\s*(class\s\u|(async\s)?def\s\U)\w+'
         au FileType scala :let b:overview_pattern='\v^\s*((case\s)?(class|object)\s\u|def\s\U)\w+'
-        au FileType scala command! -buffer Format execute '!scalafmt %' | e
+        au FileType scala command! -buffer Format execute '!scalafmt % -c ' . expand('~') . '/.scalafmt.conf' | e
     augroup END
 
 
