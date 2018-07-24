@@ -1,212 +1,291 @@
-highlight  clear
-syntax reset
-let g:colors_name="minimal"
+" Helper functions {{{
+function! s:get_or_else(dict, key, default)
+  if has_key(a:dict, a:key)
+    return a:dict[a:key]
+  else
+    return a:default
+  endif
+endfunction
 
-set t_Co=256
-set background=dark
+function! s:apply_style(name, options)
+  let n = a:name
+  let lig = s:get_or_else(a:options, 'lig', 'none')
+  let fg = s:get_or_else(a:options, 'fg', 'none')
+  let bg = s:get_or_else(a:options, 'bg', 'none')
+  exec "highlight " . n . " cterm=" . lig . " ctermfg=" . fg . " ctermbg=" . bg
+endfunction
 
-" Templates {{{
-"----------
-"        NR-16   NR-8    COLOR NAME
-"        0       0       Black
-"        1       4       DarkBlue
-"        2       2       DarkGreen
-"        3       6       DarkCyan
-"        4       1       DarkRed
-"        5       5       DarkMagenta
-"        6       3       Brown, DarkYellow
-"        7       7       LightGray, LightGrey, Gray, Grey
-"        8       0*      DarkGray, DarkGrey
-"        9       4*      Blue, LightBlue
-"        10      2*      Green, LightGreen
-"        11      6*      Cyan, LightCyan
-"        12      1*      Red, LightRed
-"        13      5*      Magenta, LightMagenta
-"        14      3*      Yellow, LightYellow
-"        15      7*      White
+function! s:set_styles(styles)
+  for [name, options] in items(a:styles)
+    call s:apply_style(name, options)
+  endfor
+endfunction
 
+function! s:highlight_groups(groups, styles)
+  for [l:group, l:style] in items(a:styles)
+    let l:items = a:groups[l:group]
+    call s:highlight_items(l:items, l:style)
+  endfor
+endfunction
 
-highlight  Normal       cterm=none     ctermfg=Grey  ctermbg=Black
+function! s:highlight_items(items, style)
+  for l:item in a:items
+    exec "highlight! link " . l:item . " " . a:style
+  endfor
+endfunction
 
-" Hues {{{
-highlight  Nothing             cterm=none               ctermfg=none      ctermbg=none
-highlight  LightlyContrasted   cterm=underline          ctermfg=none      ctermbg=none
-highlight  Contrasted          cterm=inverse            ctermfg=none      ctermbg=none
-highlight  StronglyContrasted  cterm=underline,inverse  ctermfg=none      ctermbg=none
-highlight  Faded               cterm=none               ctermfg=DarkGrey  ctermbg=none
-highlight  Hidden              cterm=none               ctermfg=bg        ctermbg=bg
-highlight  Linked              cterm=underline          ctermfg=fg        ctermbg=none
-highlight  Bold                cterm=bold               ctermfg=fg        ctermbg=none
-highlight  Italic              cterm=italic             ctermfg=fg        ctermbg=none
-highlight  Pop                 cterm=none               ctermfg=White     ctermbg=none
-highlight  StrongPop           cterm=bold               ctermfg=White     ctermbg=none
-highlight  UltraPop            cterm=bold,underline     ctermfg=White     ctermbg=none
-"}}}
+function! s:apply_theme(groups, dark, light)
+  if &background == "dark"
+    call s:highlight_groups(a:groups, a:dark)
+  else
+    /** No light theme! Applying dark theme ;) */
+    call s:highlight_groups(a:groups, a:dark)
+  endif
+endfunction
+" }}}
+
+" Styles {{{
+"" Hues {{{
+let  s:hues             =  {}
+let  s:hues.Nothing     =  {'lig':  'none',            'fg':  'none',      'bg':  'none'}
+let  s:hues.Underlined  =  {'lig':  'underline',       'fg':  'none',      'bg':  'none'}
+let  s:hues.Contrasted  =  {'lig':  'inverse',         'fg':  'none',      'bg':  'none'}
+let  s:hues.Faded       =  {'lig':  'none',            'fg':  'DarkGrey',  'bg':  'none'}
+let  s:hues.Hidden      =  {'lig':  'none',            'fg':  'bg',        'bg':  'bg'}
+let  s:hues.Bold        =  {'lig':  'bold',            'fg':  'fg',        'bg':  'none'}
+let  s:hues.Italic      =  {'lig':  'italic',          'fg':  'fg',        'bg':  'none'}
+let  s:hues.Pop         =  {'lig':  'none',            'fg':  'White',     'bg':  'none'}
+let  s:hues.StrongPop   =  {'lig':  'bold,underline',  'fg':  'White',     'bg':  'none'}
+"" }}}
 
 "" Moods {{{
-highlight  Proud      cterm=none  ctermfg=DarkBlue     ctermbg=none
-highlight  Calm       cterm=none  ctermfg=DarkGreen    ctermbg=none
-highlight  Peaceful   cterm=none  ctermfg=DarkCyan     ctermbg=none
-highlight  Forceful   cterm=none  ctermfg=DarkRed      ctermbg=none
-highlight  Happy      cterm=none  ctermfg=DarkMagenta  ctermbg=none
-highlight  Busy       cterm=none  ctermfg=DarkYellow   ctermbg=none
-highlight  Satisfied  cterm=none  ctermfg=Blue         ctermbg=none
-highlight  Relaxed    cterm=none  ctermfg=Green        ctermbg=none
-highlight  Fresh      cterm=none  ctermfg=Cyan         ctermbg=none
-highlight  Intense    cterm=none  ctermfg=Red          ctermbg=none
-highlight  Excited    cterm=none  ctermfg=Magenta      ctermbg=none
-highlight  Lively     cterm=none  ctermfg=Yellow       ctermbg=none
+let  s:moods            =  {}
+let  s:moods.Proud      =  {'lig':  'none',  'fg':  'DarkBlue',     'bg':  'none'}
+let  s:moods.Calm       =  {'lig':  'none',  'fg':  'DarkGreen',    'bg':  'none'}
+let  s:moods.Peaceful   =  {'lig':  'none',  'fg':  'DarkCyan',     'bg':  'none'}
+let  s:moods.Forceful   =  {'lig':  'none',  'fg':  'DarkRed',      'bg':  'none'}
+let  s:moods.Happy      =  {'lig':  'none',  'fg':  'DarkMagenta',  'bg':  'none'}
+let  s:moods.Busy       =  {'lig':  'none',  'fg':  'DarkYellow',   'bg':  'none'}
+let  s:moods.Satisfied  =  {'lig':  'none',  'fg':  'Blue',         'bg':  'none'}
+let  s:moods.Relaxed    =  {'lig':  'none',  'fg':  'Green',        'bg':  'none'}
+let  s:moods.Fresh      =  {'lig':  'none',  'fg':  'Cyan',         'bg':  'none'}
+let  s:moods.Intense    =  {'lig':  'none',  'fg':  'Red',          'bg':  'none'}
+let  s:moods.Excited    =  {'lig':  'none',  'fg':  'Magenta',      'bg':  'none'}
+let  s:moods.Lively     =  {'lig':  'none',  'fg':  'Yellow',       'bg':  'none'}
+"" }}}
 
-""" Highlights {{{
-hi  HighlightFaded      cterm=none  ctermfg=Grey   ctermbg=DarkGrey
-hi  HighlightExcited    cterm=none  ctermfg=Black  ctermbg=Magenta
-hi  HighlightSatisfied  cterm=none  ctermfg=White  ctermbg=Blue
-hi  HighlightLively     cterm=none  ctermfg=Black  ctermbg=Yellow
-hi  HighlightPeaceful   cterm=none  ctermfg=White  ctermbg=DarkCyan
-"}}}
-"}}}
-"}}}
+"" Highlights {{{
+let  s:highlights             =  {}
+let  s:highlights.HFaded      =  {'lig':  'none',  'fg':  'Grey',   'bg':  'DarkGrey'}
+let  s:highlights.HExcited    =  {'lig':  'none',  'fg':  'Black',  'bg':  'Magenta'}
+let  s:highlights.HSatisfied  =  {'lig':  'none',  'fg':  'White',  'bg':  'Blue'}
+let  s:highlights.HLively     =  {'lig':  'none',  'fg':  'Black',  'bg':  'Yellow'}
+let  s:highlights.HPeaceful   =  {'lig':  'none',  'fg':  'White',  'bg':  'DarkCyan'}
+"" }}}
+" }}}
 
-" Basic Settings {{{
-hi!  link  NormalNC     Normal
-hi!  link  NonText      Forceful
-hi!  link  Visual       Contrasted
-hi!  link  EndOfBuffer  Hidden
-"}}}
+" Element Styles {{{
+let s:ui_styles = {}
+let s:diff_styles = {}
+let s:syntax_styles = {}
 
-" Searching {{{
-hi!  link Search      HighlightLively
-hi!  link IncSearch   HighlightExcited
-hi!  link Substitute  Search
-"}}}
+"" UI Styles {{{{
+let  s:ui_styles.normal           =  "Normal"
+let  s:ui_styles.line             =  "Underlined"
+let  s:ui_styles.notice           =  "Forceful"
+let  s:ui_styles.cursor           =  "Contrasted"
+let  s:ui_styles.selection        =  "Contrasted"
+let  s:ui_styles.match            =  "HExcited"
+let  s:ui_styles.highlight        =  "HLively"
+let  s:ui_styles.hidden           =  "Hidden"
+let  s:ui_styles.ignore           =  "Faded"
+let  s:ui_styles.status_inactive  =  "HFaded"
+let  s:ui_styles.status_active    =  "HPeaceful"
+let  s:ui_styles.status_term      =  "HSatisfied"
+let  s:ui_styles.title            =  "StrongPop"
+""}}}
 
-" Cursor {{{
-hi!  link Cursor        Contrasted
-hi!  link CursorIM      Cursor
-hi!  link TermCursor    Cursor
-hi!  link TermCursorNC  Cursor
-"}}}
+"" Diff Styles {{{{
+let  s:diff_styles.add     =  "Calm"
+let  s:diff_styles.delete  =  "Forceful"
+let  s:diff_styles.change  =  "Excited"
+let  s:diff_styles.text    =  "HExcited"
+""}}}
 
-" UI Elements {{{
-hi!  link  ColorColumn       HighlightFaded
-hi!  link  CursorColumn      HighlightFaded
-hi!  link  CursorLine        LightlyContrasted
-hi!  link  CursorLineNr      Normal
-hi!  link  FoldColumn        Faded
-hi!  link  Folded            Faded
-hi!  link  LineNr            Faded
-hi!  link  MatchParen        Contrasted
-hi!  link  Menu              Normal
-hi!  link  Pmenu             Contrasted
-hi!  link  PmenuSbar         Contrasted
-hi!  link  PmenuSel          HighlightExcited
-hi!  link  PmenuThumb        Normal
-hi!  link  Scrollbar         Normal
-hi!  link  SignColumn        Faded
-hi!  link  StatusLine        HighlightPeaceful
-hi!  link  StatusLineNC      HighlightFaded
-hi!  link  StatusLineTerm    HighlightSatisfied
-hi!  link  StatusLineTermNC  HighlightFaded
-hi!  link  TabLine           LightlyContrasted
-hi!  link  TabLineFill       LightlyContrasted
-hi!  link  TabLineSel        UltraPop
-hi!  link  Tooltip           Normal
-hi!  link  VertSplit         Faded
-hi!  link  WildMenu          HighlightLively
+"" Syntax Styles {{{{
+let  s:syntax_styles.error       =  "Forceful"
+let  s:syntax_styles.constant    =  "Proud"
+let  s:syntax_styles.identifier  =  "Normal"
+let  s:syntax_styles.statement   =  "Pop"
+let  s:syntax_styles.operator    =  "Pop"
+let  s:syntax_styles.type        =  "Peaceful"
+let  s:syntax_styles.global      =  "Calm"
+let  s:syntax_styles.trivial     =  "Faded"
+let  s:syntax_styles.special     =  "Happy"
+let  s:syntax_styles.emphasis    =  "Pop"
+""}}}
 "}}}
 
-" Diffs {{{
-hi!     link  DiffAdd            Calm
-hi!     link  DiffChange         Excited
-hi!     link  DiffDelete         Forceful
-hi!     link  DiffText           HighlightExcited
+" Element Groups {{{
+let s:ui_groups = {}
+let s:diff_groups = {}
+let s:syntax_groups = {}
+
+"" UI {{{
+let s:ui_groups.normal = [
+\ "NormalNc",
+\ "CursorLineNr",
+\ "Menu",
+\ "PmenuThumb",
+\ "Scrollbar",
+\ "Tooltip",
+\ ]
+let s:ui_groups.notice = [
+\ "NonText",
+\ ]
+let s:ui_groups.cursor = [
+\ "Cursor",
+\ "CursorIM",
+\ "TermCursor",
+\ "TermCursorNC",
+\ ]
+let s:ui_groups.hidden = [
+\ "EndOfBuffer",
+\ ]
+let s:ui_groups.selection = [
+\ "Visual",
+\ "MatchParen",
+\ "Pmenu",
+\ "PmenuSbar",
+\ ]
+let s:ui_groups.highlight = [
+\ "Search",
+\ "Substitute",
+\ ]
+let s:ui_groups.match = [
+\ "IncSearch",
+\ "PmenuSel",
+\ "WildMenu",
+\ ]
+let s:ui_groups.ignore = [
+\ "FoldColum",
+\ "Folded",
+\ "LineNr",
+\ "SignColumn",
+\ "VertSplit",
+\ ]
+let s:ui_groups.status_active = [
+\ "StatusLine",
+\ ]
+let s:ui_groups.status_inactive = [
+\ "ColorColumn",
+\ "CursorColumn",
+\ "StatusLineNC",
+\ "StatusLineTermNC",
+\ ]
+let s:ui_groups.line = [
+\ "CursorLine",
+\ "TabLine",
+\ "TabLineFill",
+\ ]
+let s:ui_groups.title = [
+\ "TabLineSel",
+\ ]
+let s:ui_groups.status_term = [
+\ "StatusLineTerm",
+\ ]
+""}}}
+
+"" Diff {{{
+let s:diff_groups.add = [
+\ "DiffAdd",
+\ ]
+let s:diff_groups.change = [
+\ "DiffChange",
+\ ]
+let s:diff_groups.delete = [
+\ "DiffDelete",
+\ ]
+let s:diff_groups.text = [
+\ "DiffText",
+\ ]
+""}}}
+
+"" Syntax {{{
+let s:syntax_groups.error = [
+\ "Error",
+\ "ErrorMsg",
+\ "SpellBad",
+\ "NvimInternalError",
+\ ]
+let s:syntax_groups.constant = [
+\ "Constant",
+\ "Number",
+\ "String",
+\ "Directory",
+\ "markdownCode",
+\ "markdownCodeBlock",
+\ ]
+let s:syntax_groups.identifier = [
+\ "Identifier",
+\ ]
+let s:syntax_groups.statement = [
+\ "Statement",
+\ ]
+let s:syntax_groups.operator = [
+\ "Operator",
+\ "Function",
+\ ]
+let s:syntax_groups.type = [
+\ "Type",
+\ ]
+let s:syntax_groups.global = [
+\ "PreProc",
+\ "Keyword",
+\ ]
+let s:syntax_groups.trivial = [
+\ "Comment",
+\ "Ignore",
+\ "Conceal",
+\ "Noise",
+\ ]
+let s:syntax_groups.special = [
+\ "Special",
+\ "SpecialKey",
+\ "SpellCap",
+\ "SpellLocal",
+\ "SpellRare",
+\ "Title",
+\ "Todo",
+\ "netrwSymLink",
+\ ]
+let s:syntax_groups.emphasis = [
+\ "Underlined",
+\ "markdownItalic",
+\ "markdownBold",
+\ "markdownBoldItalic",
+\ ]
+""}}}
 "}}}
 
-let s:syntax_groups = {
-\ "error":       "Forceful",
-\ "constant":    "Proud",
-\ "identifier":  "Normal",
-\ "statement":   "Pop",
-\ "operator":    "Pop",
-\ "type":        "Peaceful",
-\ "global":      "Calm",
-\ "trivial":     "Faded",
-\ "special":     "Happy",
-\ "emphasis":    "Pop"
-\}
+" Theme Activation {{{
+highlight clear
+syntax reset
+set t_Co=16
 
-let s:syntax_items = {
-\ "error": [
-\   "Error",
-\   "ErrorMsg",
-\   "SpellBad",
-\   "NvimInternalError",
-\   ],
-\ "constant": [
-\   "Constant",
-\   "Number",
-\   "String",
-\   "Directory",
-\   "markdownCode",
-\   "markdownCodeBlock",
-\   ],
-\ "identifier": [
-\   "Identifier",
-\   ],
-\ "statement": [
-\   "Statement",
-\   ],
-\ "operator": [
-\   "Operator",
-\   "Function",
-\   ],
-\ "type": [
-\   "Type",
-\   ],
-\ "global": [
-\   "PreProc",
-\   "Keyword",
-\   ],
-\ "trivial": [
-\   "Comment",
-\   "Ignore",
-\   "Conceal",
-\   "Noise",
-\   ],
-\ "special": [
-\   "Special",
-\   "SpecialKey",
-\   "SpellCap",
-\   "SpellLocal",
-\   "SpellRare",
-\   "Title",
-\   "Todo",
-\   "netrwSymLink",
-\   ],
-\ "emphasis": [
-\   "Underlined",
-\   "markdownItalic",
-\   "markdownBold",
-\   "markdownBoldItalic",
-\   ],
-\}
+let g:colors_name="minimal"
 
-function! s:highlight_groups()
-  for [l:group, l:color] in items(s:syntax_groups)
-    let l:items = s:syntax_items[l:group]
-    " echo "Highlighting group " . l:group . " with color " . l:color
-    call s:highlight_items(l:items, l:color)
-  endfor
-endfunction
+highlight Normal cterm=none ctermfg=Grey ctermbg=Black
 
-function! s:highlight_items(items, color)
-  for l:item in a:items
-    exec "highlight! link " . l:item . " " . a:color
-  endfor
-endfunction
+call s:set_styles(s:hues)
+call s:set_styles(s:moods)
+call s:set_styles(s:highlights)
 
-call s:highlight_groups()
+call s:apply_theme(s:ui_groups, s:ui_styles, '')
+call s:apply_theme(s:diff_groups, s:diff_styles, '')
+call s:apply_theme(s:syntax_groups, s:syntax_styles, '')
 
 syntax enable
+"}}}
 
 " vim: fdm=marker:sw=2:sts=2:et
