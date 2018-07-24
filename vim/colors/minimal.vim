@@ -60,7 +60,7 @@ let  s:hues.Contrasted  = {'lig': 'inverse',        'fg': 'none',     'bg': 'non
 let  s:hues.Faded       = {'lig': 'none',           'fg': 'DarkGrey', 'bg': 'none'}
 let  s:hues.Hidden      = {'lig': 'none',           'fg': 'bg',       'bg': 'bg'}
 let  s:hues.Bold        = {'lig': 'bold',           'fg': 'fg',       'bg': 'none'}
-let  s:hues.Italic      = {'lig': 'italic',         'fg': 'fg',       'bg': 'none'}
+let  s:hues.Italic      = {'lig': 'bold',           'fg': 'fg',       'bg': 'none'}
 let  s:hues.Pop         = {'lig': 'none',           'fg': 'White',    'bg': 'none'}
 let  s:hues.StrongPop   = {'lig': 'bold,underline', 'fg': 'White',    'bg': 'none'}
 "" }}}
@@ -129,7 +129,9 @@ let  s:syntax_styles.type        = "Peaceful"
 let  s:syntax_styles.global      = "Calm"
 let  s:syntax_styles.trivial     = "Faded"
 let  s:syntax_styles.special     = "Happy"
-let  s:syntax_styles.emphasis    = "Pop"
+let  s:syntax_styles.emphasis    = "Bold"
+let  s:syntax_styles.strong      = "Pop"
+let  s:syntax_styles.heavy       = "StrongPop"
 ""}}}
 "}}}
 
@@ -269,8 +271,22 @@ let s:syntax_groups.special = [
 let s:syntax_groups.emphasis = [
 \ "Underlined",
 \ "markdownItalic",
+\ "mkdItalic",
+\ "mkdLineBreak",
+\ "htmlItalic",
+\ "htmlUnderlineItalic",
+\ ]
+let s:syntax_groups.strong = [
 \ "markdownBold",
 \ "markdownBoldItalic",
+\ "mkdBold",
+\ "mkdBoldItalic",
+\ "htmlBold",
+\ "htmlBoldItalic",
+\ ]
+let s:syntax_groups.heavy = [
+\ "htmlUnderlineBold",
+\ "htmlBoldUnderlineItalic",
 \ ]
 ""}}}
 "}}}

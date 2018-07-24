@@ -98,7 +98,7 @@
 
 
 "--- Show syntax highlight groups
-    command! Highlighs :so $VIMRUNTIME/syntax/hitest.vim
+    command! Highlights :so $VIMRUNTIME/syntax/hitest.vim
 
 
 "--- Show file overview
