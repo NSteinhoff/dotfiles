@@ -123,7 +123,7 @@ let  s:ui_styles.highlight        = "HLively"
 "" Diff Styles {{{{
 let  s:diff_styles.add     = "Calm"
 let  s:diff_styles.delete  = "Forceful"
-let  s:diff_styles.change  = "Excited"
+let  s:diff_styles.change  = "Busy"
 let  s:diff_styles.text    = "HExcited"
 ""}}}
 
