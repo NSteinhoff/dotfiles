@@ -51,6 +51,8 @@
     inoremap ddc <C-R>=strftime("%c")<CR>
     " Insert current date ctime 'YYYY-MM-DD'
     inoremap ddd <C-R>=strftime("%Y-%m-%d")<CR>
+    " Insert current date with weekday 'Weekday, YYYY-MM-DD'
+    inoremap ddw <C-R>=strftime("%A, %Y-%m-%d")<CR>
 
 
 "--- List item navigation
