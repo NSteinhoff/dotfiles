@@ -28,6 +28,9 @@
     "--- Languages
     Plug 'sheerun/vim-polyglot'
 
+    "--- Vimscript
+    Plug 'junegunn/vader.vim'
+
     "--- Python
     " Plug 'vim-python/python-syntax'
     " Plug 'Vimjas/vim-python-pep8-indent'
