@@ -8,6 +8,7 @@ try
     else
         " Prefered default colorscheme
         colorscheme minimal  " $HOME/dotfiles/vim/colors/minimal.vim
+        let $MYCOLORSCHEME = $HOME . '/dotfiles/vim/colors/minimal.vim'
     endif
 catch /^Vim\%((\a\+)\)\=:E185/
     " Colorschemes not installed yet

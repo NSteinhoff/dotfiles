@@ -32,7 +32,7 @@
 
 "------------------------------------- UI -------------------------------------
     set laststatus=2                            " Always show the statusbar
-    set nonumber                                " Line numbers
+    set number                                  " Line numbers
     set norelativenumber                        " Line numbers relative to current cursor position
     set numberwidth=4                           " Width of the number gutter
     set list                                    " Enable list mode showing 'listchars'
