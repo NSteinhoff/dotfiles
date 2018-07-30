@@ -47,13 +47,6 @@
     inoremap [[<cr> [<cr>]<esc>O
     inoremap ((<cr> (<cr>)<esc>O
 
-    " Insert current date and time as 'ctime'
-    inoremap ddc <C-R>=strftime("%c")<CR>
-    " Insert current date ctime 'YYYY-MM-DD'
-    inoremap ddd <C-R>=strftime("%Y-%m-%d")<CR>
-    " Insert current date with weekday 'Weekday, YYYY-MM-DD'
-    inoremap ddw <C-R>=strftime("%A, %Y-%m-%d")<CR>
-
 
 "--- List item navigation
     " Argument list
@@ -106,3 +99,12 @@
 "--- Show file overview
     command! Overview set number | execute 'g/' . b:overview_pattern . '/p' | nohlsearch | set nonumber
     command! Loverview execute 'lvimgrep /' . b:overview_pattern . '/j %' | lopen
+
+
+"--- Snippets ---
+    " Insert current date and time as 'ctime'
+    inoremap ddc <C-R>=strftime("%c")<CR>
+    " Insert current date ctime 'YYYY-MM-DD'
+    inoremap ddd <C-R>=strftime("%Y-%m-%d")<CR>
+    " Insert current date with weekday 'Weekday, YYYY-MM-DD'
+    inoremap ddw <C-R>=strftime("%a, %Y-%m-%d")<CR>
