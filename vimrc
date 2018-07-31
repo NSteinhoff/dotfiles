@@ -24,6 +24,11 @@
     set mouse=                                  " Mouse? PFUII!!
 
     " Put backups and swapfiles in '.vim-tmp'
+    let s:tmpdir = $HOME . '/.vim-tmp'
+    if !isdirectory(s:tmpdir)
+        echom 'Creating directory ' . s:tmpdir
+        call mkdir(s:tmpdir)
+    endif
     set backup
     set swapfile
     set backupdir=~/.vim-tmp
