@@ -101,6 +101,11 @@
     command! Loverview execute 'lvimgrep /' . b:overview_pattern . '/j %' | lopen
 
 
+"--- Populate/extend arglist from external command
+    command! -nargs=1 Args args `=systemlist(<q-args>)`
+    command! -nargs=1 Argadd argadd `=systemlist(<q-args>)`
+
+
 "--- Snippets ---
     " Insert current date and time as 'ctime'
     inoremap ddc <C-R>=strftime("%c")<CR>
