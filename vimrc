@@ -98,16 +98,17 @@
     set shiftwidth=4                            " Number of spaces to indent
     set shiftround                              " When indenting, always round to the nearest 'shiftwidth'
     set autoindent                              " Automatically indent new lines
-    " set smartindent                             " Be smart about indenting new lines
+    set smartindent                             " Be smart about indenting new lines
 
     " Wrapping
     set textwidth=0                             " Do not break long lines
     set nowrap                                  " Do not wrap long lines
 
     " Tabbing
-    set tabstop=4                               " Number of spaces for each <Tab>
-    set softtabstop=4                           " Make <Tab>s feel like tabs while using spaces when inserting
+    set tabstop=8                               " Number of spaces for each <Tab>
+    set softtabstop=-1                          " Make <Tab>s feel like tabs while using spaces when inserting
     set expandtab                               " Expand <Tab> into spaces
+    set smarttab                                " Be smart about inserting and deleting tabs
 
     " Autocompletion
     set complete-=t                             " Don't scan tags
@@ -130,7 +131,7 @@
         " autocmd FileType vim,python,haskell,scala,lisp,clojure set cc=80
         autocmd FileType python set formatprg=yapf
         autocmd FileType json set formatprg=python\ -m\ json.tool
-        autocmd FileType lisp,scala set shiftwidth=2 tabstop=2 softtabstop=2
+        autocmd FileType lisp,scala,markdown set shiftwidth=2 softtabstop=2
         autocmd Filetype taskpaper set noexpandtab
         " autocmd FileType gitcommit let b:m2=matchadd('ErrorMsg', '\%>70v.\+', -1)
         " autocmd FileType markdown let b:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
