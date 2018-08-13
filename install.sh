@@ -28,6 +28,10 @@ cd $dir
 
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
 for file in ${files[*]}; do
+    if [ -L ~/.$file ]; then
+        echo -n "Removing old symlink: "
+        rm ~/.$file
+    fi
     if [ -f ~/.$file ] || [ -d ~/.$file ]; then
         echo -n "Moving: "
         mv -v ~/.$file $bkpdir/.$file
