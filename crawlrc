@@ -100,11 +100,29 @@ show_travel_trail = true
 
 # Messages
 show_more = false
-# force_more_message += .* comes? into view.
-# force_more_message += You (kill|destroy) .*
 force_more_message += You feel you are being watched by something.
 force_more_message += You feel unstable.
+# force_more_message += .* comes? into view.
+# force_more_message += You (kill|destroy) .*
 
 # Quality of life:
 confirm_butcher = never
 default_manual_training = true
+auto_butcher = satiated
+auto_hide_spells = true
+
+# Autoinscriptions
+ai := autoinscribe
+ai += ^rations?:@e1
+
+ai += potions? of curing:@q1
+ai += potions? of heal wounds:@q2
+
+ai += scrolls? of identify:@r1
+ai += scrolls? of teleportation:@r2
+
+ai += throwing nets?:!f
+
+# Tiles
+tile_web_mouse_control = false
+tile_cell_pixels = 42
