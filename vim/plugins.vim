@@ -17,6 +17,7 @@
     Plug 'luochen1990/rainbow'
     Plug 'junegunn/goyo.vim'
     Plug 'jpalardy/vim-slime'
+    Plug 'dhruvasagar/vim-table-mode'
 
     "--- Colors
     Plug 'trevordmiller/nova-vim'
@@ -91,3 +92,6 @@
     "--- Vim-Scala
         let g:scala_scaladoc_indent = 1
         let g:scala_use_default_keymappings = 0
+
+    "--- Table Mode
+        let g:table_mode_corner='|'
