@@ -132,7 +132,9 @@
         autocmd FileType python set formatprg=yapf
         autocmd FileType json set formatprg=python\ -m\ json.tool
         autocmd FileType lisp,scala,markdown set shiftwidth=2 softtabstop=2
-        autocmd Filetype taskpaper set noexpandtab
+        autocmd FileType taskpaper set noexpandtab
+        autocmd FileType markdown let g:table_mode_corner_corner='|'
+        autocmd FileType rst let g:table_mode_corner_corner='+' | let g:table_mode_header_fillchar='='
         " autocmd FileType gitcommit let b:m2=matchadd('ErrorMsg', '\%>70v.\+', -1)
         " autocmd FileType markdown let b:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
         " autocmd FileType let b:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
