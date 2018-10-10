@@ -178,7 +178,13 @@ export SBT_OPTS="-Xmx4G -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -X
 
 # ---------- Java Version ---------
 if [[ -z $JAVA_HOME ]]; then
-    export JAVA_HOME=$(/usr/libexec/java_home -v "1.8.*")
+    if [[ -x /usr/libexec/java_home ]]; then
+        export JAVA_HOME=$(/usr/libexec/java_home -v "1.8.*")
+        echo "Seting JAVA_HOME to $JAVA_HOME"
+    else
+        echo "Cannot set JAVA_HOME"
+        echo '"/usr/libexec/java_home" not found!'
+    fi
 fi
 
 source "$HOME/.bash_functions"
