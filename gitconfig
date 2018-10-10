@@ -10,9 +10,9 @@
     lfa     = log --graph --decorate --all --date=short --format='%C(auto)%h%d %s %C(green)(%cd) %C(blue)<%an>%Creset'
     lol     = log --graph --decorate --pretty=oneline --abbrev-commit
     lola    = log --graph --decorate --pretty=oneline --abbrev-commit --all
-    d       = difftool
-    stl    = !git --no-pager stash list
-    brl    = !git --no-pager branch --list
+    diffw   = diff --color-words
+    stl     = !git --no-pager stash list
+    brl     = !git --no-pager branch --list
 [color]
     pager = true
     ui = auto
