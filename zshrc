@@ -181,6 +181,10 @@ if [[ -z $JAVA_HOME ]]; then
     if [[ -x /usr/libexec/java_home ]]; then
         export JAVA_HOME=$(/usr/libexec/java_home -v "1.8.*")
         echo "Seting JAVA_HOME to $JAVA_HOME"
+    elif [[ -x $(which java) ]]; then
+        export JAVA_HOME=$(readlink -f $(which java) | sed "s:/bin/java::")
+        echo "Seting JAVA_HOME to $JAVA_HOME"
+
     else
         echo "Cannot set JAVA_HOME"
         echo '"/usr/libexec/java_home" not found!'

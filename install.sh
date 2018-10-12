@@ -8,15 +8,17 @@
 
 dir=~/dotfiles                    # dotfiles directory
 bkpdir=~/dotfiles_bkp             # old dotfiles backup directory
-files=(vimrc vim screenrc gitconfig tmux.conf zshrc crawlrc ctags ctags.d scalafmt.conf bash_functions)
+files=(vimrc vim screenrc gitconfig tmux.conf zshrc crawlrc ctags ctags.d scalafmt.conf)
 
 ##########
 
 # install zsh
-echo "Making Zsh default shell"
-sudo chsh -s `which zsh`
-echo "Installing oh-my-zsh"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+if false; then
+    echo "Making Zsh default shell"
+    sudo chsh -s `which zsh`
+    echo "Installing oh-my-zsh"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+fi
 
 # create dotfiles_old in homedir
 echo "Creating $bkpdir for backup of any existing dotfiles in ~ ..."
@@ -42,3 +44,15 @@ done
 
 # Init and update the plugins tracked as submodules
 git submodule update --init --recursive
+
+# Append to .bashrc
+mybashrc="$HOME/.bashrc"
+bash_append=(bashrc functions)
+
+for file in ${bash_append[*]}; do
+    sourcecmd=". $dir/$file"
+    if ! $(grep "$sourcecmd" "$mybashrc"); then
+        echo "# Source additional file:" >> "$mybashrc"
+        echo "$sourcecmd" >> "$mybashrc"
+    fi
+done
