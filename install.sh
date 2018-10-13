@@ -8,7 +8,7 @@
 
 dir=~/dotfiles                    # dotfiles directory
 bkpdir=~/dotfiles_bkp             # old dotfiles backup directory
-files=(vimrc vim screenrc gitconfig tmux.conf zshrc crawlrc ctags ctags.d scalafmt.conf)
+files=(vimrc vim screenrc gitconfig tmux.conf zshrc bash_aliases crawlrc ctags ctags.d scalafmt.conf)
 
 ##########
 
@@ -44,15 +44,3 @@ done
 
 # Init and update the plugins tracked as submodules
 git submodule update --init --recursive
-
-# Append to .bashrc
-mybashrc="$HOME/.bashrc"
-bash_append=(bashrc functions)
-
-for file in ${bash_append[*]}; do
-    sourcecmd=". $dir/$file"
-    if ! $(grep "$sourcecmd" "$mybashrc"); then
-        echo "# Source additional file:" >> "$mybashrc"
-        echo "$sourcecmd" >> "$mybashrc"
-    fi
-done
