@@ -34,6 +34,9 @@
     nnoremap <silent> <Up> :resize +1<CR>
     nnoremap <silent> <Down> :resize -1<CR>
 
+    " Execute current file
+    nnoremap <space><space> :!%:p<cr>
+
 
 "--- Searching ---
     " Search for the name under the cursor in all files with the same extension
