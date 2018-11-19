@@ -1,3 +1,5 @@
+alias ls='ls --color=auto --group-directories-first'
+
 # Make 'rm' ask for confirmation every time
 # Use '\rm' if you know what you are doing
 alias rm='rm -i'
