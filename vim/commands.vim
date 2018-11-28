@@ -3,14 +3,12 @@
 
 "--- General ---
     " Escaping modes
-    " inoremap jk <c-\><c-n>
-    " tnoremap jk <c-\><c-n>
+    inoremap jk <c-\><c-n>
+    tnoremap jk <c-\><c-n>
+    vnoremap jk <c-\><c-n>
 
     " Switch to alternative buffer
     nnoremap <leader>b :e #<cr>
-
-    " Escape Terminal mode
-    " tnoremap <esc> <c-\><c-n>
 
     " Insert newline
     nnoremap <leader>o mpo<esc>`p
@@ -23,7 +21,7 @@
     nnoremap <c-h> <c-w><c-h>
 
     " Remove highlights of last search results
-    nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+    nnoremap <silent> <space> :nohlsearch<Bar>:echo<CR>
 
     " Close Preview window
     nnoremap <silent> <C-Space> :pclose<CR>
@@ -35,7 +33,10 @@
     nnoremap <silent> <Down> :resize -1<CR>
 
     " Execute current file
-    nnoremap <space><space> :!%:p<cr>
+    nnoremap <leader><space> :!%:p<cr>
+
+    " Execute current line
+    nnoremap <leader><leader> :y x<cr>:@x<cr>
 
 
 "--- Searching ---
@@ -86,11 +87,7 @@
 "--- Filetype specific commands
     augroup filetype_commands
         autocmd!
-        au FileType * :let b:overview_pattern='^#\+'
         au BufEnter *vimrc nnoremap <buffer> <cr> :source %<cr>
-        au FileType clojure :let b:overview_pattern='^\s*(\(defn\?\|ns\)\s\w\+'
-        au FileType python :let b:overview_pattern='\v^\s*(class\s\u|(async\s)?def\s\U)\w+'
-        au FileType scala :let b:overview_pattern='\v^\s*((case\s)?(class|object)\s\u|def\s\U)\w+'
         au FileType scala command! -buffer Format execute '!scalafmt % -c ' . expand('~') . '/.scalafmt.conf' | e
     augroup END
 
@@ -100,6 +97,14 @@
 
 
 "--- Show file overview
+    augroup overview
+        autocmd!
+        au FileType * :let b:overview_pattern='^#\+'
+        au FileType vim :let b:overview_pattern='^\s*"-\+\s\w\+'
+        au FileType clojure :let b:overview_pattern='^\s*(\(defn\?\|ns\)\s\w\+'
+        au FileType python :let b:overview_pattern='\v^\s*(class\s\u|(async\s)?def\s\U)\w+'
+        au FileType scala :let b:overview_pattern='\v^\s*((case\s)?(class|object)\s\u|def\s\U)\w+'
+    augroup END
     command! Overview execute 'g/' . b:overview_pattern . '/p' | nohlsearch
     command! Loverview execute 'lvimgrep /' . b:overview_pattern . '/j %' | lopen
 
@@ -107,7 +112,6 @@
 "--- Populate/extend arglist from external command
     command! -nargs=1 Args args `=systemlist(<q-args>)`
     command! -nargs=1 Argadd argadd `=systemlist(<q-args>)`
-
 
 "--- Snippets ---
     " Insert current date and time as 'ctime'
