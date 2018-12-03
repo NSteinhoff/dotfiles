@@ -1,115 +1,38 @@
 ##### Crawl Init file ###############################################
-# For descriptions of all options, as well as some more in-depth information
-# on setting them, consult the file
-#    options_guide.txt
-# in your /docs directory. If you can't find it, the file is also available
-# online at:
-# https://github.com/crawl/crawl/blob/master/crawl-ref/docs/options_guide.txt
-#
-# Crawl uses the first file of the following list as its option file:
-#  * init.txt in the -rcdir directory (if specified)
-#  * .crawlrc in the -rcdir directory (if specified)
-#  * init.txt (in the Crawl directory)
-#  * ~/.crawl/init.txt (Unix only)
-#  * ~/.crawlrc (Unix only)
-#  * ~/init.txt (Unix only)
-#  * settings/init.txt (in the Crawl directory)
-
-##### Some basic explanation of option syntax #######################
-# Lines beginning with '#' are comments. The basic syntax is:
-#
-# field = value         or      field.subfield = value
-#
-# Only one specification is allowed per line.
-#
-# The terms are typically case-insensitive except in the fairly obvious
-# cases (the character's name and specifying files or directories when
-# on a system that has case-sensitive filenames).
-#
-# White space is stripped from the beginning and end of the line, as
-# well as immediately before and after the '='. If the option allows
-# multiple comma/semicolon-separated terms (such as
-# autopickup_exceptions), all whitespace around the separator is also
-# trimmed. All other whitespace is left intact.
-#
-# There are three broad types of Crawl options: true/false values (booleans),
-# arbitrary values, and lists of values. The first two types use only the
-# simple =, with later options - which includes your options that are different
-# from the defaults - overriding earlier ones. List options allow using +=, ^=,
-# -=, and = to append, prepend, remove, and reset, respectively. Usually you will
-# want to use += to add to a list option. Lastly, there is := which you can use
-# to create an alias, like so:
-#   ae := autopickup_exceptions
-# From there on, 'ae' will be treated as if it you typed autopickup_exceptions,
-# so you can save time typing it.
-#
-
-##### Other files ###################################################
-# You can include other files from your options file using the 'include'
-# option. Crawl will treat it as if you copied the whole text of that file
-# into your options file in that spot. You can uncomment some of the following
-# lines by removing the beginning '#' to include some of the other files in
-# this folder.
-
-# Some useful, more advanced options, implemented in LUA.
-# include = advanced_optioneering.txt
-
-# Alternative vi bindings for Dvorak users.
-# include = dvorak_command_keys.txt
-
-# Alternative vi bindings for Colemak users.
-# include = colemak_command_keys.txt
-
-# Override the vi movement keys with a non-command.
-# include = no_vi_command_keys.txt
-
-# Turn the shift-vi keys into safe move, instead of run.
-# include = safe_move_shift.txt
-
-##### Ancient versions ##############################################
-# If you're used to the interface of ancient versions of Crawl, you may
-# get back parts of it by uncommenting the following options:
-
-# include                 = 034_command_keys.txt
-
-# And to revert monster glyph and colouring changes:
-
-# include                 = 052_monster_glyphs.txt
-# include                 = 060_monster_glyphs.txt
-# include                 = 071_monster_glyphs.txt
-# include                 = 080_monster_glyphs.txt
-# include                 = 0.9_monster_glyphs.txt
-# include                 = 0.12_monster_glyphs.txt
-# include                 = 0.13_monster_glyphs.txt
-# include                 = 0.14_monster_glyphs.txt
+# Quality of life:
+bindkey = [space] CMD_REST
+confirm_butcher = never
+default_manual_training = true
+auto_butcher = satiated
+auto_hide_spells = true
 
 # Viewport
 view_max_width = 40
 view_max_height = 40
 
+# Tiles
+tile_web_mouse_control = false
+tile_cell_pixels = 42
+
 # HP Colors/Warnings
 hp_warning = 50
 hp_colour = 95:yellow, 75:brown, 50:magenta, 25:red
-# language = dwarven
 
 # Travel
-travel_avoid_terrain = deep water  # don't auto-explore over deep water
-travel_delay = 10
+travel_avoid_terrain = deep water
+# travel_delay = 5
 explore_wall_bias = 5
 show_travel_trail = true
 
 # Messages
 show_more = false
-force_more_message += You feel you are being watched by something.
-force_more_message += You feel unstable.
-# force_more_message += .* comes? into view.
-# force_more_message += You (kill|destroy) .*
+fm := force_more_message
 
-# Quality of life:
-confirm_butcher = never
-default_manual_training = true
-auto_butcher = satiated
-auto_hide_spells = true
+fm += You feel unstable.
+fm += You feel you are being watched by something.
+
+# fm += .* (barks|howls|shouts|screeches)!
+fm += .*into view.*wielding .*(distortion|chaos|electrocution).
 
 # Autoinscriptions
 ai := autoinscribe
@@ -122,7 +45,152 @@ ai += scrolls? of identify:@r1
 ai += scrolls? of teleportation:@r2
 
 ai += throwing nets?:!f
+{
+    ---------------------------
+    ---- Begin force_mores ----
+    ---------------------------
 
-# Tiles
-tile_web_mouse_control = false
-tile_cell_pixels = 42
+    -- See README.md for documentation.
+
+    last_turn = you.turns()
+
+    -- Each entry must have a name field with a descriptive name, a pattern field
+    -- giving the regexp matching the appropriate monster(s), a cond field giving
+    -- the condition type, and a cutoff field giving the max value where the
+    -- force-more is active. Possible values for cond are xl and maxhp. Note that
+    -- the final force_more pattern will be "(PATTERN).*into view" where PATTERN is
+    -- the value from the pattern field if that is a string, or if pattern is an
+    -- array, a string made from joining the entries in pattern with '|'.
+
+    fm_patterns = {
+        -- Fast, early game Dungeon problems for chars with low mhp.
+        {name = "30mhp", cond = "maxhp", cutoff = 30,
+         pattern = "adder|hound"},
+        -- Dungeon monsters that can damage you for close to 50% of your mhp with a
+        -- ranged attack.
+        {name = "40mhp", cond = "maxhp", cutoff = 40,
+         pattern = "orc priest|electric eel"},
+        {name = "60mhp", cond = "maxhp", cutoff = 60,
+         pattern = "acid dragon|steam dragon|manticore"},
+        {name = "70mhp", cond = "maxhp", cutoff = 70,
+         pattern = "centaur|meliai|yaktaur"},
+        {name = "80mhp", cond = "maxhp", cutoff = 80,
+         pattern = "gargoyle|orc (warlord|knight)"},
+        {name = "90mhp", cond = "maxhp", cutoff = 90,
+         pattern = "centaur warrior|efreet|molten gargoyle|tengu conjurer"},
+        {name = "110mhp", cond = "maxhp", cutoff = 110,
+         pattern = {"centaur warrior", "deep elf", "cyclops", "efreet",
+                    "molten gargoyle", "tengu conjurer", "yaktaur captain",
+                    "necromancer", "deep troll earth mage", "hell knight",
+                    "stone giant"} },
+        {name = "160mhp", cond = "maxhp", cutoff = 160,
+         pattern = {"(fire|ice|quicksilver|shadow|storm) dragon",
+                    "(fire|frost) giant", "war gargoyle"} },
+    } -- end fm_patterns
+
+    active_fm = {}
+
+    -- Set to true to get a message when the fm change
+    notify_fm = true
+
+    -- Wrapper of crawl.mpr() that prints text in white by default.
+    if not mpr then
+        mpr = function (msg, color)
+            if not color then
+                color = "white"
+            end
+            crawl.mpr("<" .. color .. ">" .. msg .. "</" .. color .. ">")
+        end
+    end
+
+    function init_force_mores()
+        for i,v in ipairs(fm_patterns) do
+            active_fm[#active_fm + 1] = false
+        end
+    end
+
+    function update_force_mores()
+        local activated = {}
+        local deactivated = {}
+        local hp, maxhp = you.hp()
+        for i,v in ipairs(fm_patterns) do
+            local msg = nil
+
+            if type(v.pattern) == "table" then
+                for j, p in ipairs(v.pattern) do
+                    if msg == nil then
+                        msg = p
+                    else
+                        msg = msg .. "|" .. p
+                    end
+                end
+            else
+                msg = v.pattern
+            end
+
+            msg = "(" .. msg .. ").*into view"
+            local action = nil
+            local fm_name = v.pattern
+
+            if v.name then
+                fm_name = v.name
+            end
+
+            if not v.cond and not active_fm[i] then
+                action = "+"
+            elseif v.cond == "xl" then
+                if active_fm[i] and you.xl() >= v.cutoff then
+                    action = "-"
+                elseif not active_fm[i] and you.xl() < v.cutoff then
+                    action = "+"
+                end
+            elseif v.cond == "maxhp" then
+                if active_fm[i] and maxhp >= v.cutoff then
+                    action = "-"
+                elseif not active_fm[i] and maxhp < v.cutoff then
+                    action = "+"
+                end
+            end
+
+            if action == "+" then
+                activated[#activated + 1] = fm_name
+            elseif action == "-" then
+                deactivated[#deactivated + 1] = fm_name
+            end
+
+            if action ~= nil then
+                local opt = "force_more_message " .. action .. "= " .. msg
+                crawl.setopt(opt)
+                active_fm[i] = not active_fm[i]
+            end
+        end
+        if #activated > 0 and notify_fm then
+            mpr("Activating force_mores: " .. table.concat(activated, ", "))
+        end
+        if #deactivated > 0 and notify_fm then
+            mpr("Deactivating force_mores: " .. table.concat(deactivated, ", "))
+        end
+    end
+
+    local last_turn = nil
+
+    function force_mores()
+        if last_turn ~= you.turns() then
+            update_force_mores()
+            last_turn = you.turns()
+        end
+    end
+
+    init_force_mores()
+
+    -------------------------
+    ---- End force_mores ----
+    -------------------------
+}
+
+{
+  function ready()
+    -- Enable force_mores
+    force_mores()
+  end
+}
