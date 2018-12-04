@@ -13,6 +13,7 @@
     diffw   = diff --color-words
     stl     = !git --no-pager stash list
     brl     = !git --no-pager branch --list
+    ctags   = !.git/hooks/ctags
 [color]
     pager = true
     ui = auto
@@ -41,3 +42,5 @@
 #     # -c '$wincmd w'    -> (ctrl-w) execute window command in the last window
 #     # -c 'wincmd J'     -> (ctrl-J) move window down
 #     cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[init]
+    templatedir = ~/.git_template

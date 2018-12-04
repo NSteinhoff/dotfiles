@@ -53,7 +53,9 @@
 "--------------------------------- Searching ----------------------------------
     set hlsearch                                " Highlight search results
     set wildmode=longest:full,full              " Default matching, but also start wildmenu
-    set tags+=./tags;,.tags;                    " Search for .tags' files upwards
+    set tags+=./tags;,tags;
+    set tags+=./.tags;,.tags;
+    set tags+=./.git/tags;,.git/tags;
     set path-=/usr/include
     " set path=,,                                 " Search the current directory
     " set path+=.                                 " Search relative to the current file
@@ -61,7 +63,6 @@
 
     " Ignore certain files when searching
     set wildignore+=*.egg-info/*
-    set wildignore+=*.git/*
     set wildignore+=*.pyc
     set wildignore+=*.swp
     set wildignore+=*.tox/*
@@ -116,8 +117,8 @@
 
 "--------------------------------- Statusline ---------------------------------
     try
-        set statusline=%l\|%c\ %{gutentags#statusline('[',\ ']')}%=\ %f\ %P\ %m
-        " set statusline=[%{&ff}]%y\ %F%m%r%h%w%=%{gutentags#statusline()}%{fugitive#statusline()}[%l:%v\|%p%%]
+        set statusline=%l\|%c\ %=\ %f\ %P\ %m
+        " set statusline=[%{&ff}]%y\ %F%m%r%h%w%=%{fugitive#statusline()}[%l:%v\|%p%%]
     catch
         " No problem...
         set statusline=%l\|%c%=%f\ %P\ %m

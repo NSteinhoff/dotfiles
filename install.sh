@@ -8,7 +8,7 @@
 
 dir=~/dotfiles                    # dotfiles directory
 bkpdir=~/dotfiles_bkp             # old dotfiles backup directory
-files=(inputrc vimrc vim screenrc gitconfig tmux.conf zshrc bash_aliases crawlrc ctags ctags.d scalafmt.conf)
+files=(inputrc vimrc vim git_template screenrc gitconfig tmux.conf zshrc bash_aliases crawlrc ctags ctags.d scalafmt.conf)
 
 ##########
 
