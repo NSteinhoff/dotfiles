@@ -38,6 +38,9 @@
     " Execute current line
     nnoremap <leader><leader> :y x<cr>:@x<cr>
 
+    " Insert directory of current file in command mode
+    cnoremap %% <c-r>=fnameescape(expand('%:h')).'/'<cr>
+
 
 "--- Searching ---
     " Search for the name under the cursor in all files with the same extension
