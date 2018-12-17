@@ -21,6 +21,7 @@
 
     "--- Colors
     Plug 'trevordmiller/nova-vim'
+    Plug 'patstockwell/vim-monokai-tasty'
     " Plug 'andreypopp/vim-colors-plain'
     " Plug 'andreasvc/vim-256noir'
     " Plug 'owickstrom/vim-colors-paramount'
