@@ -29,10 +29,14 @@
     tool = vimdiff
 [core]
     editor = vim
+[commit]
+    verbose = true
 [difftool]
     prompt = true
+    trustExitCode = true
 [mergetool]
     prompt = true
+    trustExitCode = true
 
 # Uncomment if you want to use Neovim as 'vimdiff'
 # [difftool "vimdiff"]
