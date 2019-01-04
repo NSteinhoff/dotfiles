@@ -3,9 +3,9 @@
 
 "--- General ---
     " Escaping modes
-    inoremap jk <c-\><c-n>
-    tnoremap jk <c-\><c-n>
-    vnoremap jk <c-\><c-n>
+    " inoremap jk <c-\><c-n>
+    " tnoremap jk <c-\><c-n>
+    " vnoremap jk <c-\><c-n>
 
     " Switch to alternative buffer
     nnoremap <leader>b :e #<cr>
@@ -15,10 +15,10 @@
     nnoremap <leader>O mpO<esc>`p
 
     " Navigate splits
-    nnoremap <c-j> <c-w><c-j>
-    nnoremap <c-k> <c-w><c-k>
-    nnoremap <c-l> <c-w><c-l>
-    nnoremap <c-h> <c-w><c-h>
+    " nnoremap <c-j> <c-w><c-j>
+    " nnoremap <c-k> <c-w><c-k>
+    " nnoremap <c-l> <c-w><c-l>
+    " nnoremap <c-h> <c-w><c-h>
 
     " Remove highlights of last search results
     nnoremap <silent> <space> :nohlsearch<Bar>:echo<CR>
@@ -33,10 +33,10 @@
     nnoremap <silent> <Down> :resize -1<CR>
 
     " Execute current file
-    nnoremap <leader><space> :!%:p<cr>
+    nnoremap <silent> <leader><space> :!%:p<cr>
 
     " Execute current line
-    nnoremap <leader><leader> :y x<cr>:@x<cr>
+    nnoremap <silent> <leader><leader> :y x<cr>:@x<cr>
 
     " Insert directory of current file in command mode
     cnoremap %% <c-r>=fnameescape(expand('%:h')).'/'<cr>
