@@ -1,3 +1,6 @@
+# Disable <ctrl-s> suspending (reactivated with <ctrl-q>)
+stty -ixon
+
 alias ls='ls --color=auto --group-directories-first'
 
 # Make 'rm' ask for confirmation every time
