@@ -59,7 +59,7 @@
 
 
     "--- ALE
-        " There seems to be an issue where ALE starts linting a faile when it is first
+        " There seems to be an issue where ALE starts linting a file when it is first
         " loaded, which I haven't been able to disable.
         " This causes major slowdowns when searching through a bunch of files with `:vimgrep`.
         " Workaround for now is to toggle ALE on/off.
