@@ -117,7 +117,7 @@
 
 "--------------------------------- Statusline ---------------------------------
     try
-        set statusline=%l\|%c\ %=\ %f\ %P\ %m
+        set statusline=[%{mode()}]\ %l\|%c\ %=\ %f\ %P\ %m
         " set statusline=[%{&ff}]%y\ %F%m%r%h%w%=%{fugitive#statusline()}[%l:%v\|%p%%]
     catch
         " No problem...
