@@ -20,3 +20,13 @@ fi
 if [ -f ~/.config/exercism/exercism_completion.bash ]; then
     source ~/.config/exercism/exercism_completion.bash
 fi
+
+# --------- Pyenv ----------
+if [[ -d ~/.pyenv && -d ~/.pyenv/bin ]]; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    source "$PYENV_ROOT/completions/pyenv.bash"
+    if command -v pyenv 1>/dev/null 2>&1; then
+        eval "$(pyenv init -)"
+    fi
+fi
