@@ -1,6 +1,9 @@
 # Disable <ctrl-s> suspending (reactivated with <ctrl-q>)
 stty -ixon
 
+# Set Vim as default editor
+export EDITOR=vim
+
 alias ls='ls --color=auto --group-directories-first'
 
 # Make 'rm' ask for confirmation every time
