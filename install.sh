@@ -14,10 +14,12 @@ files=(inputrc vimrc vim git_template screenrc gitconfig tmux.conf zshrc bash_al
 
 # install zsh
 if false; then
+    tput setaf 3
     echo "Making Zsh default shell"
     sudo chsh -s `which zsh`
     echo "Installing oh-my-zsh"
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    tput sgr0
 fi
 
 # create dotfiles_old in homedir
@@ -31,14 +33,20 @@ cd $dir
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
 for file in ${files[*]}; do
     if [ -L ~/.$file ]; then
-        echo -n "Removing old symlink: "
+        tput setaf 3
+        echo -n "Removing old symlink; "
         rm ~/.$file
+        tput sgr0
     fi
     if [ -f ~/.$file ] || [ -d ~/.$file ]; then
-        echo -n "Moving: "
+        tput setaf 3
+        echo -n "Moving existing file; "
         mv -v ~/.$file $bkpdir/.$file
+        tput sgr0
     fi
+    tput setaf 2
     echo -n "Creating symlink: "
+    tput sgr0
     ln -v -s $dir/$file ~/.$file
 done
 
