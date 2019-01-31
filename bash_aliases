@@ -10,6 +10,11 @@ alias ls='ls --color=auto --group-directories-first'
 # Use '\rm' if you know what you are doing
 alias rm='rm -i'
 
+# Add personal scripts to the path
+if [[ -d ~/dotfiles/bin ]]; then
+    export PATH="$HOME/dotfiles/bin:$PATH"
+fi
+
 # ---------- Java Version ---------
 if [[ -z $JAVA_HOME ]]; then
     if [[ -x $(which java) ]]; then
@@ -23,6 +28,7 @@ fi
 
 # --------- Pyenv ----------
 if [[ -d ~/.pyenv && -d ~/.pyenv/bin ]]; then
+    export PATH="$(python -m site --user-base)/bin:$PATH"
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
     source "$PYENV_ROOT/completions/pyenv.bash"

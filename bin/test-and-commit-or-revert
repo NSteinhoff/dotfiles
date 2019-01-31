@@ -1,0 +1,19 @@
+#!/bin/sh
+if [ $# -gt 1 ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+    cat <<END
+usage: test-and-commit-or-revert [command]
+
+Runs tests when a file tracked by git is changed and commits
+the change when the tests pass. Otherwise reverts to the last
+passing state.
+
+    command         Test command.
+                    default: "make test"
+
+    -h, --help      Show this help.
+END
+else
+    cmd="${1:-make test}"
+    echo "Test command: $cmd"
+    git ls-files | entr sh -c "$cmd && git commit -am 'passing' || git reset --hard"
+fi
