@@ -10,6 +10,12 @@ alias ls='ls --color=auto --group-directories-first'
 # Use '\rm' if you know what you are doing
 alias rm='rm -i'
 
+
+parse_git_branch() {
+ git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1]/'
+}
+export PS1="${PS1:0:((${#PS1} - 3))}"'$(parse_git_branch)\$ '
+
 # Add personal scripts to the path
 if [[ -d ~/dotfiles/bin ]]; then
     export PATH="$HOME/dotfiles/bin:$PATH"
