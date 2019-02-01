@@ -142,6 +142,13 @@
         " autocmd FileType let b:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
     augroup END
 
+"------------------------------- Autoread -------------------------------------
+    set autoread
+    set updatetime=500                    " Fire CursorHold event after 500ms
+    augroup autoread_settings
+        autocmd!
+        autocmd CursorHold,CursorHoldI * checktime
+    augroup END
 
 "------------------------------- Error Format ---------------------------------
     set errorformat+=%f\|%l\ col\ %c\|%m    " Allow reading error lists from buffers
