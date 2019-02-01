@@ -143,11 +143,10 @@
     augroup END
 
 "------------------------------- Autoread -------------------------------------
-    set autoread
-    set updatetime=500                    " Fire CursorHold event after 500ms
+    set updatetime=100                          " Fire CursorHold event after X milliseconds
     augroup autoread_settings
         autocmd!
-        autocmd CursorHold,CursorHoldI * checktime
+        autocmd CursorHold * silent! checktime  " Ingore errors when in command window
     augroup END
 
 "------------------------------- Error Format ---------------------------------
