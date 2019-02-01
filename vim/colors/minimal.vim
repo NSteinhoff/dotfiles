@@ -82,20 +82,21 @@ let  s:moods.Lively     = {'lig': 'none',  'fg': 'Yellow',       'bg': 'none'}
 "" }}}
 
 "" Highlights {{{
-let  s:highlights             = {}
-let  s:highlights.HFaded      = {'lig': 'none',  'fg': 'Grey',   'bg': 'DarkGrey'}
-let  s:highlights.HPeaceful   = {'lig': 'none',  'fg': 'White',  'bg': 'DarkCyan'}
-let  s:highlights.HProud      = {'lig': 'none',  'fg': 'White',  'bg': 'DarkBlue'}
-let  s:highlights.HCalm       = {'lig': 'none',  'fg': 'White',  'bg': 'DarkGreen'}
-let  s:highlights.HForceful   = {'lig': 'none',  'fg': 'White',  'bg': 'DarkRed'}
-let  s:highlights.HHappy      = {'lig': 'none',  'fg': 'White',  'bg': 'DarkMagenta'}
-let  s:highlights.HBusy       = {'lig': 'none',  'fg': 'Black',  'bg': 'DarkYellow'}
-let  s:highlights.HExcited    = {'lig': 'none',  'fg': 'Black',  'bg': 'Magenta'}
-let  s:highlights.HSatisfied  = {'lig': 'none',  'fg': 'Black',  'bg': 'Blue'}
-let  s:highlights.HLively     = {'lig': 'none',  'fg': 'Black',  'bg': 'Yellow'}
-let  s:highlights.HRelaxed    = {'lig': 'none',  'fg': 'Black',  'bg': 'Green'}
-let  s:highlights.HFresh      = {'lig': 'none',  'fg': 'Black',  'bg': 'Cyan'}
-let  s:highlights.HIntense    = {'lig': 'none',  'fg': 'Black',  'bg': 'Red'}
+let  s:highlights                     = {}
+let  s:highlights.HFaded              = {'lig': 'none',  'fg': 'Grey',   'bg': 'DarkGrey'}
+let  s:highlights.HPeaceful           = {'lig': 'none',  'fg': 'White',  'bg': 'DarkCyan'}
+let  s:highlights.HProud              = {'lig': 'none',  'fg': 'White',  'bg': 'DarkBlue'}
+let  s:highlights.HCalm               = {'lig': 'none',  'fg': 'White',  'bg': 'DarkGreen'}
+let  s:highlights.HForceful           = {'lig': 'none',  'fg': 'White',  'bg': 'DarkRed'}
+let  s:highlights.HHappy              = {'lig': 'none',  'fg': 'White',  'bg': 'DarkMagenta'}
+let  s:highlights.HBusy               = {'lig': 'none',  'fg': 'Black',  'bg': 'DarkYellow'}
+let  s:highlights.HExcited            = {'lig': 'none',  'fg': 'Black',  'bg': 'Magenta'}
+let  s:highlights.HSatisfied          = {'lig': 'none',  'fg': 'Black',  'bg': 'Blue'}
+let  s:highlights.HLively             = {'lig': 'none',  'fg': 'Black',  'bg': 'Yellow'}
+let  s:highlights.HLivelyInvert       = {'lig': 'inverse',  'fg': 'Black',  'bg': 'Yellow'}
+let  s:highlights.HRelaxed            = {'lig': 'none',  'fg': 'Black',  'bg': 'Green'}
+let  s:highlights.HFresh              = {'lig': 'none',  'fg': 'Black',  'bg': 'Cyan'}
+let  s:highlights.HIntense            = {'lig': 'none',  'fg': 'Black',  'bg': 'Red'}
 "" }}}
 " }}}
 
@@ -105,19 +106,20 @@ let s:diff_styles = {}
 let s:syntax_styles = {}
 
 "" UI Styles {{{{
-let  s:ui_styles.normal           = "Normal"
-let  s:ui_styles.title            = "StrongPop"
-let  s:ui_styles.line             = "Underlined"
-let  s:ui_styles.notice           = "Forceful"
-let  s:ui_styles.cursor           = "Contrasted"
-let  s:ui_styles.selection        = "Contrasted"
-let  s:ui_styles.hidden           = "Hidden"
-let  s:ui_styles.ignore           = "Faded"
-let  s:ui_styles.status_inactive  = "HFaded"
-let  s:ui_styles.status_active    = "HFresh"
-let  s:ui_styles.status_term      = "HRelaxed"
-let  s:ui_styles.match            = "HExcited"
-let  s:ui_styles.highlight        = "HLively"
+let  s:ui_styles.normal               = "Normal"
+let  s:ui_styles.title                = "StrongPop"
+let  s:ui_styles.line                 = "Underlined"
+let  s:ui_styles.notice               = "Forceful"
+let  s:ui_styles.cursor               = "Contrasted"
+let  s:ui_styles.selection            = "Contrasted"
+let  s:ui_styles.hidden               = "Hidden"
+let  s:ui_styles.ignore               = "Faded"
+let  s:ui_styles.status_inactive      = "HFaded"
+let  s:ui_styles.status_active        = "HFresh"
+let  s:ui_styles.status_term          = "HRelaxed"
+let  s:ui_styles.match                = "HExcited"
+let  s:ui_styles.highlight            = "HLively"
+let  s:ui_styles.highlight_inverted   = "HLivelyInvert"
 ""}}}
 
 "" Diff Styles {{{{
@@ -171,9 +173,11 @@ let s:ui_groups.hidden = [
 \ ]
 let s:ui_groups.selection = [
 \ "Visual",
-\ "MatchParen",
 \ "Pmenu",
 \ "PmenuSbar",
+\ ]
+let s:ui_groups.highlight_inverted = [
+\ "MatchParen",
 \ ]
 let s:ui_groups.highlight = [
 \ "Search",
