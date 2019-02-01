@@ -15,18 +15,14 @@ END
 
 else
     test_cmd="${1:-make test}"
-
-    tput setaf 3
     echo "Testing: $test_cmd\n---"
-    tput sgr0
 
     # Assemble the command string
     test="$test_cmd"
     commit="(git commit -am 'passing' || true)"  # ignore exit code when nothing to commit
     revert="git reset --hard"
-    tell_succes="tput setaf 2; echo Tests passed! Commit!; tput sgr0"
-    tell_failure="tput setaf 1; echo Tests failed! Revert!; tput sgr0"
-    full_cmd="($test && ($tell_succes; $commit)) || ($tell_failure; $revert)"
+    touch="(git ls-files | xargs touch)"         # touch the files to make vim 'autoread' work
+    full_cmd="($test && $commit) || ($revert && $touch)"
 
     git ls-files | entr sh -c "$full_cmd"
 fi
