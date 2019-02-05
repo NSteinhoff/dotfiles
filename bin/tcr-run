@@ -17,7 +17,7 @@ fi
 # Parse args
 test_cmd="${1:-make test}"
 
-my_echo () {
+echo_diff () {
     line=$1
     if [[ $line == +* ]]; then
         tput setaf 2
@@ -39,7 +39,7 @@ check_changes () {
 
     echo "Changes to be tested:"
     echo -e "\n>>>>>"
-    echo "$DIFF" | while read line; do my_echo "$line"; done
+    echo "$DIFF" | while read line; do echo_diff "$line"; done
     tput sgr0
     echo -e "<<<<<\n"
 }
