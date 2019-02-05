@@ -11,11 +11,38 @@ Otherwise reverts to the last passing state.
 
     -h, --help      Show this help.
 END
+    exit 0
+fi
 
-else
-    test_cmd="${1:-make test}"
+# Parse args
+test_cmd="${1:-make test}"
+
+check_changes () {
+    DIFF="$(git diff --no-color)"
+    if [ "$DIFF" = "" ]; then
+        echo No changes!
+        exit 0
+    fi
+
+    echo "Changes to be tested:"
+    tput setaf 3
+    echo "\n>>>>>"
+    echo "$DIFF"
+    echo "<<<<<\n"
+    tput sgr0
+}
+
+confirm () {
     echo "Testing: $test_cmd\n---"
+    read -p "Continue (y/n)? " CONFIRM
 
+    if [ $CONFIRM = "n" ]; then
+        echo "OK then."
+        exit 0
+    fi
+}
+
+run_tcr () {
     # Assemble the command string
     test="$test_cmd"
     commit="(git commit -am 'passing' || true)"  # ignore exit code when nothing to commit
@@ -24,4 +51,8 @@ else
     full_cmd="($test && $commit) || ($revert && $touch)"
 
     sh -c "$full_cmd"
-fi
+}
+
+check_changes
+confirm
+run_tcr
