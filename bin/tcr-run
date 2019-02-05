@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if [ $# -gt 1 ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     cat <<END
 usage: test-and-commit-or-revert [command]
@@ -17,6 +17,19 @@ fi
 # Parse args
 test_cmd="${1:-make test}"
 
+my_echo () {
+    line=$1
+    if [[ $line == +* ]]; then
+        tput setaf 2
+    elif [[ $line == -* ]]; then
+        tput setaf 1
+    else
+        tput sgr0
+    fi
+    echo "   $line"
+    tput sgr0
+}
+
 check_changes () {
     DIFF="$(git diff --no-color)"
     if [ "$DIFF" = "" ]; then
@@ -25,15 +38,14 @@ check_changes () {
     fi
 
     echo "Changes to be tested:"
-    tput setaf 3
-    echo "\n>>>>>"
-    echo "$DIFF"
-    echo "<<<<<\n"
+    echo -e "\n>>>>>"
+    echo "$DIFF" | while read line; do my_echo "$line"; done
     tput sgr0
+    echo -e "<<<<<\n"
 }
 
 confirm () {
-    echo "Testing: $test_cmd\n---"
+    echo -e "Testing: $test_cmd\n---"
     read -p "Continue (y/n)? " CONFIRM
 
     if [ $CONFIRM = "n" ]; then
