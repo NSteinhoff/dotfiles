@@ -12,17 +12,20 @@ passing state.
 
     -h, --help      Show this help.
 END
-
-else
-    test_cmd="${1:-make test}"
-    echo "Testing: $test_cmd\n---"
-
-    # Assemble the command string
-    test="$test_cmd"
-    commit="(git commit -am 'passing' || true)"  # ignore exit code when nothing to commit
-    revert="git reset --hard"
-    touch="(git ls-files | xargs touch)"         # touch the files to make vim 'autoread' work
-    full_cmd="($test && $commit) || ($revert && $touch)"
-
-    git ls-files | entr sh -c "$full_cmd"
+    exit 0
 fi
+
+
+stamp='.tcr-stamp'
+
+test_cmd="${1:-make test}"
+echo "Testing: $test_cmd\n---"
+
+# Assemble the command string
+test="$test_cmd"
+commit="(git commit -am 'passing' || true)"  # ignore exit code when nothing to commit
+revert="git reset --hard"
+touch="(git ls-files | xargs touch)"         # touch the files to make vim 'autoread' work
+full_cmd="($test && $commit) || ($revert && $touch)"
+
+git ls-files | entr sh -c "$full_cmd; touch $stamp"

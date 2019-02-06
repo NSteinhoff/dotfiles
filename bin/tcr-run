@@ -14,6 +14,8 @@ END
     exit 0
 fi
 
+stamp='.tcr-stamp'
+
 # Parse args
 test_cmd="${1:-make test}"
 
@@ -49,8 +51,9 @@ confirm () {
     read -p "Continue (y/n)? " CONFIRM
 
     if [ $CONFIRM = "n" ]; then
-        echo "OK then."
-        exit 0
+        confirmed=false
+    else
+        confirmed=true
     fi
 }
 
@@ -67,4 +70,6 @@ run_tcr () {
 
 check_changes
 confirm
-run_tcr
+($confirmed && echo run_tcr) || echo "OK then."
+
+touch "$stamp"
