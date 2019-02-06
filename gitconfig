@@ -29,6 +29,7 @@
     tool = vimdiff
 [core]
     editor = vim
+    excludesfile = ~/.gitignore
 [commit]
     verbose = true
 [difftool]
