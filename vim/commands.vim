@@ -23,9 +23,6 @@
     " Remove highlights of last search results
     nnoremap <silent> <space> :nohlsearch<Bar>:echo<CR>
 
-    " Close Preview window
-    nnoremap <silent> <C-Space> :pclose<CR>
-
     " Make arrow keys do something useful -- resizing windows
     nnoremap <silent> <Left> :vertical resize -1<CR>
     nnoremap <silent> <Right> :vertical resize +1<CR>
@@ -33,10 +30,10 @@
     nnoremap <silent> <Down> :resize -1<CR>
 
     " Execute current file
-    nnoremap <silent> <leader><space> :!%:p<cr>
+    nnoremap <silent> <leader>ef :!%:p<cr>
 
     " Execute current line
-    nnoremap <silent> <leader><leader> :y x<cr>:@x<cr>
+    nnoremap <silent> <leader>el :y x<cr>:@x<cr>
 
     " Insert directory of current file in command mode
     cnoremap %% <c-r>=fnameescape(expand('%:h')).'/'<cr>
