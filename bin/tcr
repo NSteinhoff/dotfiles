@@ -14,7 +14,7 @@ END
     exit 0
 fi
 
-stamp="$(git rev-parse --show-toplevel).tcr-stamp"
+stamp="$(git rev-parse --show-toplevel)/.tcr-stamp"
 
 # Parse args
 test_cmd="${1:-make test}"

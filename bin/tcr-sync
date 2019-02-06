@@ -1,7 +1,8 @@
 #!/bin/sh
-stamp="$(git rev-parse --show-toplevel).tcr-stamp"
+stamp="$(git rev-parse --show-toplevel)/.tcr-stamp"
+echo $stamp
 
 if [ ! -f $stamp ]; then
     touch "$stamp"
 fi
-echo "$stamp" | entr -s "git pull --rebase || git rebase --continue; git push; touch $stamp"
+echo "$stamp" | entr -s "git pull --rebase || git rebase --continue; git push"
