@@ -16,7 +16,7 @@ END
 fi
 
 
-stamp='.tcr-stamp'
+stamp="$(git rev-parse --show-toplevel).tcr-stamp"
 
 test_cmd="${1:-make test}"
 echo "Testing: $test_cmd\n---"
