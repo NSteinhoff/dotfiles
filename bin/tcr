@@ -26,7 +26,7 @@ check_changes () {
     else
         echo "Changes to be tested:"
         echo -e "\n>>>>>"
-        git diff
+        git --no-pager diff
         echo -e "<<<<<\n"
     fi
 }

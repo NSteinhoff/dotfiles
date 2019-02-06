@@ -63,7 +63,8 @@
         " loaded, which I haven't been able to disable.
         " This causes major slowdowns when searching through a bunch of files with `:vimgrep`.
         " Workaround for now is to toggle ALE on/off.
-        nnoremap <leader>l :ALELint<cr>
+        nnoremap <leader>al :ALELint<cr>
+        nnoremap <leader>af :ALEFix<cr>
         let g:ale_enabled = 1
         let g:ale_open_list = 1
 
@@ -78,6 +79,10 @@
         let g:ale_linters = {}
         let g:ale_linters.python = ['pylint']
         let g:ale_linters.haskell = ['stack-ghc']
+
+        let g:ale_fixers = {
+        \  'scala': ['scalafmt']
+        \}
 
 
     "--- Gutentags

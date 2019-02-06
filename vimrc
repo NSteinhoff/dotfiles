@@ -66,6 +66,7 @@
     set wildignore+=*.pyc
     set wildignore+=*.swp
     set wildignore+=*.tox/*
+    set wildignore+=*out/*
     set wildignore+=*.zip
     set wildignore+=*__pycache__/*
     set wildignore+=*db/*
