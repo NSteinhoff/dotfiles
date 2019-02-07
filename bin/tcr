@@ -60,4 +60,4 @@ check_changes
 confirm
 $confirmed && run_tcr
 
-touch "$stamp"
+echo 'done' > "$stamp"

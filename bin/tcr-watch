@@ -28,4 +28,4 @@ revert="git reset --hard"
 touch="(git ls-files | xargs touch)"         # touch the files to make vim 'autoread' work
 full_cmd="($test && $commit) || ($revert && $touch)"
 
-git ls-files | entr -s "$full_cmd; touch $stamp"
+git ls-files | entr -s "$full_cmd; echo 'done' > $stamp"
