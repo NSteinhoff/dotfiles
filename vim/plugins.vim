@@ -12,7 +12,7 @@
 "--- Plugin List ---
     call plug#begin('~/.vim/plugged')
     Plug 'w0rp/ale'
-    Plug 'tpope/vim-fugitive'
+    " Plug 'tpope/vim-fugitive'
     " Plug 'ludovicchabant/vim-gutentags'
     Plug 'luochen1990/rainbow'
     Plug 'junegunn/goyo.vim'
