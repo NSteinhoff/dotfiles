@@ -42,3 +42,7 @@ if [[ -d ~/.pyenv && -d ~/.pyenv/bin ]]; then
         eval "$(pyenv init -)"
     fi
 fi
+
+# --------- Open files with vim -------
+alias vimfind='_() { find $1 -name $2 -exec vim {} +; }; _'
+alias vimrefind='_() { find $1 -regex $2 -exec vim {} +; }; _'
