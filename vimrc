@@ -128,8 +128,10 @@
 "----------------------------- Filetype settings ------------------------------
     augroup filetype_settings
         autocmd!
-        autocmd BufNewFile,BufRead *.boot set ft=clojure
-        autocmd BufNewFile,BufRead *.taskpaper set ft=taskpaper
+        autocmd BufNewFile,BufRead *.boot setfiletype clojure
+        autocmd BufNewFile,BufRead *.taskpaper setfiletype taskpaper
+        autocmd BufNewFile,BufRead *.dvc setfiletype yaml
+        autocmd BufNewFile,BufRead application.conf setfiletype hocon
         " autocmd FileType vim,python,haskell,scala,lisp,clojure set cc=80
         autocmd FileType python set formatprg=yapf
         autocmd FileType json set formatprg=python\ -m\ json.tool
