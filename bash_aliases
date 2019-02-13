@@ -11,8 +11,13 @@ alias ls='ls --color=auto --group-directories-first'
 alias rm='rm -i'
 
 
+# Returns "*" if the current git branch is dirty.
+function evil_git_dirty {
+  [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && echo "*"
+}
+
 parse_git_branch() {
- git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1]/'
+ git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1'"$(evil_git_dirty)"']/'
 }
 export PS1="${PS1:0:((${#PS1} - 3))}"'$(parse_git_branch)\$ '
 
