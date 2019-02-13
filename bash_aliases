@@ -11,13 +11,26 @@ alias ls='ls --color=auto --group-directories-first'
 alias rm='rm -i'
 
 
+# PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 # Returns "*" if the current git branch is dirty.
+NC='\033[0m' # No Color
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+
 function evil_git_dirty {
-  [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && echo "*"
+  [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && echo -e "${RED}*${NC}"
 }
 
 parse_git_branch() {
- git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1'"$(evil_git_dirty)"']/'
+    branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+    dirty="$(evil_git_dirty)"
+    if [[ $dirty = "" ]]; then
+        COLOR="${GREEN}"
+    else
+        COLOR="${ORANGE}"
+    fi
+    echo -e "[${COLOR}${branch}${NC}]"
 }
 export PS1="${PS1:0:((${#PS1} - 3))}"'$(parse_git_branch)\$ '
 
