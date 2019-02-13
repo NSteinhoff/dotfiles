@@ -30,7 +30,9 @@ parse_git_branch() {
     else
         COLOR="${ORANGE}"
     fi
-    echo -e "[${COLOR}${branch}${NC}]"
+    if [[ $branch != "" ]]; then
+        echo -e "[${COLOR}${branch}${NC}]"
+    fi
 }
 export PS1="${PS1:0:((${#PS1} - 3))}"'$(parse_git_branch)\$ '
 
