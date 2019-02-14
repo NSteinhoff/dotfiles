@@ -24,9 +24,23 @@ function git_uncommitted_changes {
     [ -n "$(git diff --shortstat --staged 2> /dev/null | tail -n1)" ]
 }
 
+function branch_name {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+
+function remote_branch {
+    remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u}) && exit 0 || exit 1
+}
+
 git_branch_indicator() {
-    branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+    branch=$(branch_name)
     [ -n "$branch" ] || exit 0
+
+    if $(remote_branch); then
+        remote_indicator='->'
+    else
+        remote_indicator=''
+    fi
 
     if $(git_unstaged_changes); then
         COLOR="${RED}"
@@ -36,7 +50,7 @@ git_branch_indicator() {
         COLOR="${GREEN}"
     fi
 
-    echo -e "[${COLOR}${branch}${NC}]"
+    echo -e "[${COLOR}${branch}${NC}${remote_indicator}]"
 }
 
 export PS1="${PS1:0:((${#PS1} - 3))}"'$(git_branch_indicator)\$ '
