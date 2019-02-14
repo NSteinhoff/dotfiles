@@ -10,31 +10,36 @@ alias ls='ls --color=auto --group-directories-first'
 # Use '\rm' if you know what you are doing
 alias rm='rm -i'
 
-
-# PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-# Returns "*" if the current git branch is dirty.
+# Git branch indicator with colors
 NC='\033[0m' # No Color
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 ORANGE='\033[0;33m'
 
-function evil_git_dirty {
-  [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && echo -e "${RED}*${NC}"
+function git_unstaged_changes {
+    [ -n "$(git diff --shortstat 2> /dev/null | tail -n1)" ]
 }
 
-parse_git_branch() {
-    branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
-    dirty="$(evil_git_dirty)"
-    if [[ $dirty = "" ]]; then
-        COLOR="${GREEN}"
-    else
-        COLOR="${ORANGE}"
-    fi
-    if [[ $branch != "" ]]; then
-        echo -e "[${COLOR}${branch}${NC}]"
-    fi
+function git_uncommitted_changes {
+    [ -n "$(git diff --shortstat --staged 2> /dev/null | tail -n1)" ]
 }
-export PS1="${PS1:0:((${#PS1} - 3))}"'$(parse_git_branch)\$ '
+
+git_branch_indicator() {
+    branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+    [ -n "$branch" ] || exit 0
+
+    if $(git_unstaged_changes); then
+        COLOR="${RED}"
+    elif $(git_uncommitted_changes); then
+        COLOR="${ORANGE}"
+    else
+        COLOR="${GREEN}"
+    fi
+
+    echo -e "[${COLOR}${branch}${NC}]"
+}
+
+export PS1="${PS1:0:((${#PS1} - 3))}"'$(git_branch_indicator)\$ '
 
 # Add personal scripts to the path
 if [[ -d ~/dotfiles/bin ]]; then
