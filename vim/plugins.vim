@@ -77,11 +77,12 @@
         let g:ale_lint_delay = 200                  " ... lint after x ms
 
         let g:ale_linters = {}
-        let g:ale_linters.python = ['pylint']
+        let g:ale_linters.python = ['flake8']
         let g:ale_linters.haskell = ['stack-ghc']
 
         let g:ale_fixers = {
-        \  'scala': ['scalafmt']
+        \  'scala': ['scalafmt'],
+        \  'python': ['yapf']
         \}
 
 
