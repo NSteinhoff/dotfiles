@@ -29,15 +29,21 @@ function branch_name {
 }
 
 function remote_branch {
-    remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u}) && exit 0 || exit 1
+    remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u}) && echo "$remote" || echo ""
 }
 
 git_branch_indicator() {
     branch=$(branch_name)
     [ -n "$branch" ] || exit 0
 
-    if $(remote_branch); then
-        remote_indicator='->'
+    remote=$(remote_branch)
+    if [ -n $remote ]; then
+        remote_name="${remote#*/}"
+        if [ "$remote_name" = "$branch" ]; then
+            remote_indicator="->*"
+        else
+            remote_indicator="->$remote"
+        fi
     else
         remote_indicator=''
     fi
