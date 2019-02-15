@@ -45,19 +45,30 @@ confirm () {
     fi
 }
 
+notify () {
+    status=$?
+    [ -n "$which notify-send" ] || exit
+
+    if [ $status != 0 ]; then
+        notify-send -i "error" "TCR FAILED"
+    fi
+}
+
 run_tcr () {
     # Assemble the command string
     test="$test_cmd"
     commit="(git commit -am 'passing' || true)"  # ignore exit code when nothing to commit
     revert="git reset --hard"
     touch="(git ls-files | xargs touch)"         # touch the files to make vim 'autoread' work
-    full_cmd="($test && $commit) || ($revert && $touch)"
+    full_cmd="($test && $commit && exit 0) || ($revert && $touch && exit 1)"
 
     sh -c "$full_cmd"
+
+    notify
 }
 
 check_changes
 confirm
-$confirmed && run_tcr
+$confirmed && run_tcr || [ -n $(which notify-send)alert "TCR tests failed"
 
 echo 'done' > "$stamp"

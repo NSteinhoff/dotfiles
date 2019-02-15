@@ -122,4 +122,4 @@
     inoremap ddw <C-R>=strftime("%a, %Y-%m-%d")<CR>
 
 "--- TCR ---
-    nnoremap <bs> :!tcr<cr>
+    nnoremap <space><space> :!tcr<cr>
