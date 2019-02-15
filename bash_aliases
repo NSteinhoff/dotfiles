@@ -3,8 +3,13 @@ stty -ixon
 
 # Set Vim as default editor
 export EDITOR=vim
+alias ls='ls --color=auto --group-directories-first'
 
 alias ls='ls --color=auto --group-directories-first'
+
+# --------- Open files with vim -------
+alias vimfind='_() { find $1 -name $2 -exec vim {} +; }; _'
+alias vimrefind='_() { find $1 -regex $2 -exec vim {} +; }; _'
 
 # Make 'rm' ask for confirmation every time
 # Use '\rm' if you know what you are doing
@@ -16,6 +21,11 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 ORANGE='\033[0;33m'
 
+# ------------   PATH   -------------
+# ------------ Add Snaps to PATH ----------
+[ -n $(which snap) ] && export PATH="/snap/bin/:$PATH"
+
+
 function git_unstaged_changes {
     [ -n "$(git diff --shortstat 2> /dev/null | tail -n1)" ]
 }
@@ -24,6 +34,7 @@ function git_uncommitted_changes {
     [ -n "$(git diff --shortstat --staged 2> /dev/null | tail -n1)" ]
 }
 
+# ------------   PROMPT   -----------
 function branch_name {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
@@ -90,9 +101,6 @@ if [[ -z $JAVA_HOME ]]; then
     fi
 fi
 
-if [ -f ~/.config/exercism/exercism_completion.bash ]; then
-    source ~/.config/exercism/exercism_completion.bash
-fi
 
 # --------- Pyenv ----------
 if [[ -d ~/.pyenv && -d ~/.pyenv/bin ]]; then
@@ -105,6 +113,12 @@ if [[ -d ~/.pyenv && -d ~/.pyenv/bin ]]; then
     fi
 fi
 
-# --------- Open files with vim -------
-alias vimfind='_() { find $1 -name $2 -exec vim {} +; }; _'
-alias vimrefind='_() { find $1 -regex $2 -exec vim {} +; }; _'
+# -----------   COMPLETIONS   --------------
+# ----------- Kubectl && Minikube completion ----------
+[ -n $(which kubectl) ] && source <(kubectl completion bash)
+[ -n $(which minikube) ] && source <(minikube completion bash)
+#
+# ------------ Exercism ----------
+if [ -f ~/.config/exercism/exercism_completion.bash ]; then
+    source ~/.config/exercism/exercism_completion.bash
+fi
