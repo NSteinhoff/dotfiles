@@ -32,6 +32,22 @@ function remote_branch {
     remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u}) && echo "$remote" || echo ""
 }
 
+function branch_status {
+    ahead=$(git status | sed '/ahead/!d')
+    behind=$(git status | sed '/behind/!d')
+    diverged=$(git status | sed '/diverged/!d')
+
+    if [ -n "$diverged" ]; then
+        echo "Y"
+    elif [ -n "$ahead" ]; then
+        echo "+"
+    elif [ -n "$behind" ]; then
+        echo "-"
+    else
+        echo "*"
+    fi
+}
+
 git_branch_indicator() {
     branch=$(branch_name)
     [ -n "$branch" ] || exit 0
@@ -39,10 +55,11 @@ git_branch_indicator() {
     remote=$(remote_branch)
     if [ -n $remote ]; then
         remote_name="${remote#*/}"
+        status="$(branch_status)"
         if [ "$remote_name" = "$branch" ]; then
-            remote_indicator="->*"
+            remote_indicator="->$status"
         else
-            remote_indicator="->$remote"
+            remote_indicator="->$remote$status"
         fi
     else
         remote_indicator=''
