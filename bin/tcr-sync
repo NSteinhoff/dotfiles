@@ -5,4 +5,4 @@ echo $stamp
 if [ ! -f $stamp ]; then
     touch "$stamp"
 fi
-echo "$stamp" | entr -s "git pull --rebase || git rebase --continue; git push"
+echo "$stamp" | entr -s "git pull --rebase || git rebase --continue; git push -o ci.skip"
