@@ -115,11 +115,11 @@
 
 "--- Snippets ---
     " Insert current date and time as 'ctime'
-    inoremap ddc <C-R>=strftime("%c")<CR>
+    iabbrev ddc <C-R>=strftime("%c")<CR>
     " Insert current date ctime 'YYYY-MM-DD'
-    inoremap ddd <C-R>=strftime("%Y-%m-%d")<CR>
+    iabbrev ddd <C-R>=strftime("%Y-%m-%d")<CR>
     " Insert current date with weekday 'Weekday, YYYY-MM-DD'
-    inoremap ddw <C-R>=strftime("%a, %Y-%m-%d")<CR>
+    iabbrev ddw <C-R>=strftime("%a, %Y-%m-%d")<CR>
 
 "--- TCR ---
     nnoremap <space><space> :!tcr<cr>
