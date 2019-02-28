@@ -56,6 +56,7 @@
     set tags+=./tags;,tags;
     set tags+=./.tags;,.tags;
     set tags+=./.git/tags;,.git/tags;
+    set tags+=$HOME/lib/tags
     set path-=/usr/include
     " set path=,,                                 " Search the current directory
     " set path+=.                                 " Search relative to the current file
