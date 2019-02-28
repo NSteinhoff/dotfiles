@@ -130,18 +130,19 @@ let  s:diff_styles.text    = "HExcited"
 ""}}}
 
 "" Syntax Styles {{{{
-let  s:syntax_styles.error       = "Forceful"
-let  s:syntax_styles.constant    = "Proud"
-let  s:syntax_styles.identifier  = "Normal"
-let  s:syntax_styles.statement   = "Pop"
-let  s:syntax_styles.operator    = "Pop"
-let  s:syntax_styles.type        = "Peaceful"
-let  s:syntax_styles.global      = "Calm"
-let  s:syntax_styles.trivial     = "Faded"
-let  s:syntax_styles.special     = "Happy"
-let  s:syntax_styles.emphasis    = "Bold"
-let  s:syntax_styles.strong      = "Pop"
-let  s:syntax_styles.heavy       = "StrongPop"
+let  s:syntax_styles.error            = "Forceful"
+let  s:syntax_styles.constant         = "Proud"
+let  s:syntax_styles.identifier       = "Normal"
+let  s:syntax_styles.statement        = "Pop"
+let  s:syntax_styles.operator         = "Pop"
+let  s:syntax_styles.type             = "Busy"
+let  s:syntax_styles.global           = "Calm"
+let  s:syntax_styles.trivial          = "Faded"
+let  s:syntax_styles.informative      = "Peaceful"
+let  s:syntax_styles.special          = "Happy"
+let  s:syntax_styles.emphasis         = "Bold"
+let  s:syntax_styles.strong           = "Pop"
+let  s:syntax_styles.heavy            = "StrongPop"
 ""}}}
 "}}}
 
@@ -264,8 +265,10 @@ let s:syntax_groups.global = [
 \ "PreProc",
 \ "Keyword",
 \ ]
-let s:syntax_groups.trivial = [
+let s:syntax_groups.informative = [
 \ "Comment",
+\ ]
+let s:syntax_groups.trivial = [
 \ "Ignore",
 \ "Conceal",
 \ "Noise",
