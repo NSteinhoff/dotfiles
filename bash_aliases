@@ -81,7 +81,7 @@ function branch_name {
 }
 
 function remote_branch {
-    remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u}) && echo "$remote" || echo ""
+    remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u}) && echo -n "$remote" || echo -n ""
 }
 
 function branch_status {
@@ -90,13 +90,13 @@ function branch_status {
     diverged=$(git status | sed '/diverged/!d')
 
     if [ -n "$diverged" ]; then
-        echo "Y"
+        echo -n "Y"
     elif [ -n "$ahead" ]; then
-        echo "+"
+        echo -n "+"
     elif [ -n "$behind" ]; then
-        echo "-"
+        echo -n "-"
     else
-        echo "*"
+        echo -n "*"
     fi
 }
 
@@ -125,8 +125,7 @@ git_branch_indicator() {
         COLOR="${GREEN}"
     fi
 
-    echo -e "[${COLOR}${branch}${NC}${remote_indicator}]"
+    echo -en "[\001${COLOR}\002${branch}\001${NC}\002${remote_indicator}]"
 }
 
 export PS1="${PS1:0:((${#PS1} - 3))}"'$(git_branch_indicator)\$ '
-
