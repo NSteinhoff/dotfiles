@@ -81,7 +81,7 @@ function branch_name {
 }
 
 function remote_branch {
-    remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u}) && echo -n "$remote" || echo -n ""
+    remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null) && echo -n "$remote" || echo -n ""
 }
 
 function branch_status {
