@@ -105,7 +105,7 @@ git_branch_indicator() {
     [ -n "$branch" ] || exit 0
 
     remote=$(remote_branch)
-    if [ -n $remote ]; then
+    if [ -n "$remote" ]; then
         remote_name="${remote#*/}"
         status="$(branch_status)"
         if [ "$remote_name" = "$branch" ]; then
