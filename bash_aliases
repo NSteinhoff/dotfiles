@@ -58,8 +58,8 @@ fi
 # -----------   COMPLETIONS   --------------
 
 # ----------- Kubectl && Minikube completion ----------
-[ -n $(which kubectl) ] && source <(kubectl completion bash)
-[ -n $(which minikube) ] && source <(minikube completion bash)
+[ -n "$(which kubectl)" ] && source <(kubectl completion bash)
+[ -n "$(which minikube)" ] && source <(minikube completion bash)
 
 # ------------ Exercism ----------
 if [ -f ~/.config/exercism/exercism_completion.bash ]; then
