@@ -11,6 +11,9 @@ alias ls='ls --color=auto --group-directories-first'
 alias vimfind='_() { find $1 -name $2 -exec vim {} +; }; _'
 alias vimrefind='_() { find $1 -regex $2 -exec vim {} +; }; _'
 
+# --------- Read Man pages with Vim -------
+alias vman='_() { vim -c "r !man $1"; }; _'
+
 # Make 'rm' ask for confirmation every time
 # Use '\rm' if you know what you are doing
 alias rm='rm -i'
