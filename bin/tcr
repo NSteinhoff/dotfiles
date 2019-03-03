@@ -68,7 +68,8 @@ run_tcr () {
 }
 
 check_changes
-confirm
-$confirmed && run_tcr || [ -n $(which notify-send)alert "TCR tests failed"
+# confirm
+# $confirmed && run_tcr || [ -n $(which notify-send)alert "TCR tests failed"
+run_tcr || [ -n $(which notify-send)alert "TCR tests failed"
 
 echo 'done' > "$stamp"

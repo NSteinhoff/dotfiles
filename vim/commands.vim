@@ -113,6 +113,9 @@
     command! -nargs=1 Args args `=systemlist(<q-args>)`
     command! -nargs=1 Argadd argadd `=systemlist(<q-args>)`
 
+"--- Run command as a job and write to buffer
+    command! -nargs=1 Run echo job_start(<q-args>, {"out_io": "buffer", "out_name": <q-args>})
+
 "--- Snippets ---
     " Insert current date and time as 'ctime'
     iabbrev ddc <C-R>=strftime("%c")<CR>
