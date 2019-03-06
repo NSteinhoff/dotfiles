@@ -24,9 +24,10 @@
     interactive = auto
     grep = auto
 [diff]
-    tool = vimdiff
+	tool = vimdiff
 [merge]
-    tool = vimdiff
+	tool = vimdiff2
+	conflictStyle = diff3
 [core]
     editor = vim
     excludesfile = ~/.gitignore
