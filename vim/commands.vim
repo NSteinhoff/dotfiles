@@ -124,5 +124,7 @@
     " Insert current date with weekday 'Weekday, YYYY-MM-DD'
     iabbrev ddw <C-R>=strftime("%a, %Y-%m-%d")<CR>
 
+    nnoremap <F9> :Dispatch<CR>
+
 "--- TCR ---
     nnoremap <space><space> :!tcr<cr>

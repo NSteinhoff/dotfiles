@@ -13,6 +13,7 @@
     call plug#begin('~/.vim/plugged')
 
     Plug 'w0rp/ale'
+    Plug 'tpope/vim-dispatch'
     Plug 'luochen1990/rainbow'
     Plug 'junegunn/goyo.vim'
     Plug 'jpalardy/vim-slime'
