@@ -29,6 +29,8 @@
     "--- Vimscript
     Plug 'junegunn/vader.vim'
 
+    "--- Compilers
+    Plug 'nsteinhoff/pytest-vim-compiler'
 
     call plug#end()
 

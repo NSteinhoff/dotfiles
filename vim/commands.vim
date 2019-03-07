@@ -124,7 +124,12 @@
     " Insert current date with weekday 'Weekday, YYYY-MM-DD'
     iabbrev ddw <C-R>=strftime("%a, %Y-%m-%d")<CR>
 
+"--- Builds / Make / Dispatch
+    augroup my_dispatch_defaults
+        autocmd!
+        autocmd FileType python let b:dispatch = 'pytest --tb=short -q %'
+    augroup END
     nnoremap <F9> :Dispatch<CR>
 
 "--- TCR ---
-    nnoremap <space><space> :!tcr<cr>
+    nnoremap <F5> :!tcr<CR>
