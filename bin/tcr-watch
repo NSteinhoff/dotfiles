@@ -23,7 +23,7 @@ echo "Testing: $test_cmd\n---"
 
 # Assemble the command string
 test="$test_cmd"
-commit="(git commit -am 'passing' || true)"  # ignore exit code when nothing to commit
+commit="(git commit -am 'test(tcr): passing' || true)"  # ignore exit code when nothing to commit
 revert="git reset --hard"
 touch="(git ls-files | xargs touch)"         # touch the files to make vim 'autoread' work
 full_cmd="($test && $commit) || ($revert && $touch)"
