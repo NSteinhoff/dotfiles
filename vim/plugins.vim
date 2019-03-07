@@ -11,9 +11,8 @@
 
 "--- Plugin List ---
     call plug#begin('~/.vim/plugged')
+
     Plug 'w0rp/ale'
-    " Plug 'tpope/vim-fugitive'
-    " Plug 'ludovicchabant/vim-gutentags'
     Plug 'luochen1990/rainbow'
     Plug 'junegunn/goyo.vim'
     Plug 'jpalardy/vim-slime'
@@ -22,10 +21,6 @@
     "--- Colors
     Plug 'trevordmiller/nova-vim'
     Plug 'patstockwell/vim-monokai-tasty'
-    " Plug 'andreypopp/vim-colors-plain'
-    " Plug 'andreasvc/vim-256noir'
-    " Plug 'owickstrom/vim-colors-paramount'
-    " Plug 'vietjtnguyen/toy-blocks'
 
     "--- Languages
     Plug 'sheerun/vim-polyglot'
@@ -33,14 +28,6 @@
     "--- Vimscript
     Plug 'junegunn/vader.vim'
 
-    "--- Python
-    " Plug 'vim-python/python-syntax'
-    " Plug 'Vimjas/vim-python-pep8-indent'
-
-    "--- Clojure
-
-    "--- Scala
-    " Plug 'derekwyatt/vim-scala'
 
     call plug#end()
 
