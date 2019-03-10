@@ -58,7 +58,7 @@
         " Workaround for now is to toggle ALE on/off.
         nnoremap <leader>al :ALELint<cr>
         nnoremap <leader>af :ALEFix<cr>
-        let g:ale_enabled = 0
+        let g:ale_enabled = 1
         let g:ale_open_list = 1
 
         " When to lint
