@@ -12,25 +12,28 @@
 "--- Plugin List ---
     call plug#begin('~/.vim/plugged')
 
-    Plug 'w0rp/ale'
-    Plug 'tpope/vim-dispatch'
-    Plug 'luochen1990/rainbow'
-    Plug 'junegunn/goyo.vim'
-    Plug 'jpalardy/vim-slime'
-    Plug 'dhruvasagar/vim-table-mode'
+    "--- General
+    Plug 'luochen1990/rainbow'                      " Rainbow parentheses
+    Plug 'junegunn/goyo.vim'                        " Minimal UI for focused writing
+    Plug 'jpalardy/vim-slime'                       " Send selection to tmux pane
+    Plug 'tpope/vim-dispatch'                       " Run jobs in the background
 
-    "--- Colors
+    "--- IDE features
+    Plug 'w0rp/ale'                                 " Asynchronous linting engine
+
+    "--- Colorschemes
     Plug 'trevordmiller/nova-vim'
     Plug 'patstockwell/vim-monokai-tasty'
 
     "--- Languages
-    Plug 'sheerun/vim-polyglot'
-
-    "--- Vimscript
-    Plug 'junegunn/vader.vim'
+    Plug 'sheerun/vim-polyglot'                     " Collection of language plugins
+    Plug 'junegunn/vader.vim'                       " Vimscript testing
 
     "--- Compilers
-    Plug 'nsteinhoff/pytest-vim-compiler'
+    Plug 'nsteinhoff/pytest-vim-compiler'           " Pytest compiler
+
+    "--- Markdown
+    Plug 'dhruvasagar/vim-table-mode'               " Table mode for markdown documents
 
     call plug#end()
 
