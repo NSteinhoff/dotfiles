@@ -58,9 +58,6 @@
     set tags+=./.git/tags;,.git/tags;
     set tags+=$HOME/lib/tags
     set path-=/usr/include
-    " set path=,,                                 " Search the current directory
-    " set path+=.                                 " Search relative to the current file
-    " set path+=**                                " Search downwards from current directory
 
     " Ignore certain files when searching
     set wildignore+=*.egg-info/*
@@ -123,7 +120,7 @@
         " set statusline=[%{&ff}]%y\ %F%m%r%h%w%=%{fugitive#statusline()}[%l:%v\|%p%%]
     catch
         " No problem...
-        set statusline=%l\|%c%=%f\ %P\ %m
+        set statusline=%l\|%c\ %=\ %f\ %P\ %m
     endtry
 
 "----------------------------- Filetype settings ------------------------------

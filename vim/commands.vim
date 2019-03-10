@@ -114,7 +114,8 @@
     command! -nargs=1 Argadd argadd `=systemlist(<q-args>)`
 
 "--- Run command as a job and write to buffer
-    command! -nargs=1 Run echo job_start(<q-args>, {"out_io": "buffer", "out_name": <q-args>})
+    " Superseded by the 'Dispatch' plugin
+    " command! -nargs=1 Run echo job_start(<q-args>, {"out_io": "buffer", "out_name": <q-args>})
 
 "--- Snippets ---
     " Insert current date and time as 'ctime'
@@ -127,7 +128,7 @@
 "--- Builds / Make / Dispatch
     nnoremap <F9> :Dispatch<CR>
     nnoremap <F10> :Dispatch!<CR>
-    augroup my_dispatch_defaults
+    augroup filetype_dispatch_defaults
         autocmd!
         autocmd FileType python let b:dispatch = 'pytest --tb=short -q %'
     augroup END

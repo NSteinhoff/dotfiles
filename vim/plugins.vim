@@ -55,7 +55,7 @@
         " Workaround for now is to toggle ALE on/off.
         nnoremap <leader>al :ALELint<cr>
         nnoremap <leader>af :ALEFix<cr>
-        let g:ale_enabled = 1
+        let g:ale_enabled = 0
         let g:ale_open_list = 1
 
         " When to lint
@@ -76,15 +76,13 @@
         \}
 
 
-    "--- Gutentags
-        let g:gutentags_ctags_tagfile='.tags'
+    "--- SLIME
+        let g:slime_target = "tmux"
 
 
     "--- Python-Vim
         let g:python_highlight_all = 1
 
-    "--- SLIME
-        let g:slime_target = "tmux"
 
     "--- Vim-Scala
         let g:scala_scaladoc_indent = 1
