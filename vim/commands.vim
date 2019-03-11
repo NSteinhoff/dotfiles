@@ -126,12 +126,11 @@
     iabbrev ddw <C-R>=strftime("%a, %Y-%m-%d")<CR>
 
 "--- Builds / Make / Dispatch
+    nnoremap <F5> :Make<CR>
+    nnoremap <F6> :Make!<CR>
     nnoremap <F9> :Dispatch<CR>
     nnoremap <F10> :Dispatch!<CR>
     augroup filetype_dispatch_defaults
         autocmd!
-        autocmd FileType python let b:dispatch = 'pytest --tb=short -q %'
+        autocmd FileType python let b:dispatch = 'python %'
     augroup END
-
-"--- TCR ---
-    nnoremap <F5> :Dispatch! tcr<CR>
