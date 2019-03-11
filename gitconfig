@@ -42,11 +42,17 @@
 
 # Uncomment if you want to use Neovim as 'vimdiff'
 # [difftool "vimdiff"]
+#     prompt = true
+#     trustExitCode = true
 #     cmd = nvim -d $LOCAL $REMOTE
 # [mergetool "vimdiff"]
+#     prompt = true
+#     trustExitCode = true
 #     # The commands move the $MERGED result window down and makes it full width
 #     # -c '$wincmd w'    -> (ctrl-w) execute window command in the last window
 #     # -c 'wincmd J'     -> (ctrl-J) move window down
 #     cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [init]
     templatedir = ~/.git_template
+[rerere]
+	enabled = true
