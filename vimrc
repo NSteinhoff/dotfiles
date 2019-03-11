@@ -130,7 +130,6 @@
         autocmd BufNewFile,BufRead *.taskpaper setfiletype taskpaper
         autocmd BufNewFile,BufRead *.dvc setfiletype yaml
         autocmd BufNewFile,BufRead application.conf setfiletype hocon
-        " autocmd FileType vim,python,haskell,scala,lisp,clojure set cc=80
         autocmd FileType python set formatprg=yapf
         autocmd FileType json set formatprg=python\ -m\ json.tool
         autocmd FileType lisp,scala,markdown,Jenkinsfile set shiftwidth=2 softtabstop=2
@@ -138,9 +137,6 @@
         autocmd FileType markdown let g:table_mode_corner='|'
         autocmd FileType rst let g:table_mode_corner='+' | let g:table_mode_header_fillchar='='
         autocmd FileType markdown set suffixesadd+=.md
-        " autocmd FileType gitcommit let b:m2=matchadd('ErrorMsg', '\%>70v.\+', -1)
-        " autocmd FileType markdown let b:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
-        " autocmd FileType let b:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
     augroup END
 
 "------------------------------- Autoread -------------------------------------
