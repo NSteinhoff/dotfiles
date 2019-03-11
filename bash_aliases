@@ -129,7 +129,12 @@ git_branch_indicator() {
         COLOR="${GREEN}"
     fi
 
-    echo -en "[\001${COLOR}\002${branch}\001${NC}\002${remote_indicator}]"
+    echo -n "["
+    echo -en "\001${COLOR}\002"
+    echo -n "${branch}"
+    echo -en "\001${NC}\002"
+    echo -n "${remote_indicator}"
+    echo -n "]"
 }
 
 export PS1="${PS1:0:((${#PS1} - 3))}"'$(git_branch_indicator)\$ '
