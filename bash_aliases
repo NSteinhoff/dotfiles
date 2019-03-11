@@ -3,9 +3,10 @@ stty -ixon
 
 # Set Vim as default editor
 export EDITOR=vim
-alias ls='ls --color=auto --group-directories-first'
 
+# --------- Listing files ------------
 alias ls='ls --color=auto --group-directories-first'
+alias tree='tree --dirsfirst'
 
 # --------- Open files with vim -------
 alias vimfind='_() { find $1 -name $2 -exec vim {} +; }; _'
