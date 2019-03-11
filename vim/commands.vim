@@ -87,7 +87,7 @@
 "--- Filetype specific commands
     augroup filetype_commands
         autocmd!
-        au BufEnter *vimrc nnoremap <buffer> <cr> :source %<cr>
+        au BufEnter *vimrc,*.vim nnoremap <buffer> <cr> :silent source %<cr>
         au FileType scala command! -buffer Format execute '!scalafmt % -c ' . expand('~') . '/.scalafmt.conf' | e
     augroup END
 
