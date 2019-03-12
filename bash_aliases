@@ -9,6 +9,7 @@ alias ls='ls --color=auto --group-directories-first'
 alias tree='tree --dirsfirst'
 
 # --------- Open files with vim -------
+alias Vim='_() { if [ $# -gt 0 ]; then vim --servername VIM --remote-silent "$@"; else vim --servername VIM; fi }; _'
 alias vimfind='_() { find $1 -name $2 -exec vim {} +; }; _'
 alias vimrefind='_() { find $1 -regex $2 -exec vim {} +; }; _'
 
