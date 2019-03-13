@@ -19,35 +19,9 @@ stamp="$(git rev-parse --show-toplevel)/.tcr-stamp"
 # Parse args
 test_cmd="${1:-make test}"
 
-check_changes () {
-    DIFF="$(git diff --no-color)"
-    if [ "$DIFF" = "" ]; then
-        echo -e  "\n>>>>> No changes! <<<<<\n"
-    else
-        echo "Changes to be tested:"
-        echo -e "\n>>>>>"
-        git --no-pager diff
-        echo -e "<<<<<\n"
-    fi
-}
-
-confirm () {
-    echo -e "Testing: $test_cmd\n---"
-    read -p "Press any key to continue. ESC to cancel! " -s -N 1 KEY
-    echo
-
-    if [ "$KEY" = $'\e' ]; then
-        confirmed=false
-        echo -e "\nOK then :(\n"
-    else
-        confirmed=true
-        echo -e "\nLet's go! :)\n"
-    fi
-}
-
 notify () {
     status=$?
-    [ -n "$which notify-send" ] || exit
+    [ -n "$(which notify-send)" ] || exit
 
     if [ $status != 0 ]; then
         notify-send -i "error" "TCR FAILED"
@@ -59,7 +33,7 @@ run_tcr () {
     test="$test_cmd"
     commit="(git commit -am 'test(tcr): passing' || true)"  # ignore exit code when nothing to commit
     revert="git reset --hard"
-    touch="(git ls-files | xargs touch)"         # touch the files to make vim 'autoread' work
+    touch="(git ls-files | xargs touch)"                    # touch the files to make vim 'autoread' work
     full_cmd="($test && $commit && exit 0) || ($revert && $touch && exit 1)"
 
     sh -c "$full_cmd"
@@ -67,9 +41,6 @@ run_tcr () {
     notify
 }
 
-check_changes
-# confirm
-# $confirmed && run_tcr || [ -n $(which notify-send)alert "TCR tests failed"
-run_tcr || [ -n $(which notify-send)alert "TCR tests failed"
+run_tcr
 
 echo 'done' > "$stamp"

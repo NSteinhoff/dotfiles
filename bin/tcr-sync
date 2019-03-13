@@ -1,6 +1,6 @@
 #!/bin/sh
 stamp="$(git rev-parse --show-toplevel)/.tcr-stamp"
-echo $stamp
+echo "Watching $stamp for changes."
 
 if [ ! -f $stamp ]; then
     touch "$stamp"
