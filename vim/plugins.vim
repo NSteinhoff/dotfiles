@@ -21,6 +21,17 @@
     "--- Colorschemes
     Plug 'trevordmiller/nova-vim'
     Plug 'patstockwell/vim-monokai-tasty'
+    Plug 'tobleron/putty-vim-production-defaults'
+    Plug 'dikiaap/minimalist'
+    Plug 'jdsimcoe/abstract.vim'
+    Plug 'romainl/Apprentice'
+    Plug 'nightsense/carbonized'
+    Plug 'romainl/flattened'
+    Plug 'keith/parsec.vim'
+    Plug 'zeis/vim-kolor'
+    Plug 'lifepillar/vim-solarized8'
+    Plug 'joshdick/onedark.vim'
+
 
     "--- Languages
     Plug 'sheerun/vim-polyglot'                     " Collection of language plugins
