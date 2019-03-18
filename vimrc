@@ -156,7 +156,7 @@
     catch
         "No problem...
     endtry
-    colorscheme minimalist
+    colorscheme onedark
 
 
 "------------------------------ Custom Commands -------------------------------
