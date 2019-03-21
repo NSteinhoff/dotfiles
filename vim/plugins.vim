@@ -14,18 +14,14 @@
 
     "--- General
     Plug 'luochen1990/rainbow'                      " Rainbow parentheses
-    Plug 'junegunn/goyo.vim'                        " Minimal UI for focused writing
     Plug 'jpalardy/vim-slime'                       " Send selection to tmux pane
     Plug 'tpope/vim-dispatch'                       " Run jobs in the background
 
     "--- Colorschemes
-    Plug 'trevordmiller/nova-vim'
     Plug 'patstockwell/vim-monokai-tasty'
-    Plug 'tobleron/putty-vim-production-defaults'
     Plug 'dikiaap/minimalist'
     Plug 'jdsimcoe/abstract.vim'
     Plug 'romainl/Apprentice'
-    Plug 'nightsense/carbonized'
     Plug 'romainl/flattened'
     Plug 'keith/parsec.vim'
     Plug 'zeis/vim-kolor'
@@ -43,16 +39,21 @@
     "--- Markdown
     Plug 'dhruvasagar/vim-table-mode'               " Table mode for markdown documents
 
+    "--- Language Server Protocol
+    Plug 'prabirshrestha/async.vim'
+    Plug 'prabirshrestha/vim-lsp'
+
     call plug#end()
 
 
 "--- Configuration ---
     "--- Netrw Browser
     let g:netrw_liststyle=0                     " Set default view style [thin|long|wide|tree]
-    let g:netrw_banner=0                        " Show banner no/yes [0|1]
+    let g:netrw_banner=1                        " Show banner no/yes [0|1]
     let g:netrw_altv=1                          " Open vertical splits on the right, not left
     let g:netrw_preview=1                       " Open previews in a vertical split, not horizontal
     let g:netrw_list_hide= '.*\.swp$,.*\.pyc'   " File patterns to hide from the list
+    let g:netrw_fastbrowse=0
 
 
     "--- Rainbow Parentheses
