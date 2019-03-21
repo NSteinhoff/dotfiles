@@ -6,6 +6,8 @@ export EDITOR=vim
 
 # --------- Listing files ------------
 alias ls='ls --color=auto --group-directories-first'
+alias ll='ls -lF'
+alias lla='ll -a'
 alias tree='tree --dirsfirst'
 
 # --------- Open files with vim -------
@@ -65,6 +67,7 @@ fi
 # ----------- Kubectl && Minikube completion ----------
 [ -n "$(which kubectl)" ] && source <(kubectl completion bash)
 [ -n "$(which minikube)" ] && source <(minikube completion bash)
+[ -n "$(which helm)" ] && source <(helm completion bash)
 
 # ------------ Exercism ----------
 if [ -f ~/.config/exercism/exercism_completion.bash ]; then
