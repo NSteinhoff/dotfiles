@@ -74,4 +74,16 @@ let g:netrw_list_hide= '.*\.swp$,.*\.pyc'   " File patterns to hide from the lis
 let g:netrw_fastbrowse=0
 "}}}
 
+"--- Snippets
+" Track the engine.
+Plug 'SirVer/ultisnips'
+
+" " Snippets are separated from the engine. Add this if you want them:
+" Plugin 'honza/vim-snippets'
+"
+" " Trigger configuration. Do not use <tab> if you use
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
 call plug#end()
