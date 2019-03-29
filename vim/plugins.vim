@@ -62,8 +62,8 @@ Plug 'dhruvasagar/vim-table-mode'               " Table mode for markdown docume
 "}}}
 
 "--- Language Server Protocol{{{
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
+" Plug 'prabirshrestha/async.vim'
+" Plug 'prabirshrestha/vim-lsp'
 "}}}
 
 "--- Netrw Browser{{{
