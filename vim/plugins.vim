@@ -25,6 +25,7 @@ let g:rainbow_active = 1
 Plug 'jpalardy/vim-slime'
 let g:slime_target = "tmux"
 
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
 "}}}
 
@@ -66,10 +67,11 @@ Plug 'prabirshrestha/vim-lsp'
 "}}}
 
 "--- Netrw Browser{{{
-let g:netrw_liststyle=3                     " Set default view style [thin|long|wide|tree]
-let g:netrw_banner=1                        " Show banner no/yes [0|1]
+let g:netrw_liststyle=0                     " Set default view style [thin|long|wide|tree]
+let g:netrw_banner=0                        " Show banner no/yes [0|1]
 let g:netrw_altv=1                          " Open vertical split left/right [0|1]
 let g:netrw_alto=0                          " Open vertical split left/right [0|1]
+let g:netrw_altfile=0                       " CTRL-^ returns you to the last directory listing or edited file [0|1]
 let g:netrw_preview=0                       " Open preview split type horizontal/vertical [0|1]
 let g:netrw_list_hide='.*\.swp$,.*\.pyc'    " File patterns to hide from the list
 let g:netrw_fastbrowse=0                    " Always refresh the listing
