@@ -91,6 +91,7 @@ augroup filetype_commands
     autocmd!
     au BufEnter *vimrc,*.vim nnoremap <buffer> <cr> :silent source %<cr>
     au FileType scala command! -buffer Format execute '!scalafmt % -c ' . expand('~') . '/.scalafmt.conf' | e
+    au FileType python command! -buffer Format execute '!yapf -i %' | e
 augroup END
 "}}}
 
