@@ -9,8 +9,8 @@
 " tnoremap jk <c-\><c-n>
 " vnoremap jk <c-\><c-n>
 
-" Switch to alternative buffer
-nnoremap <leader>b :e #<cr>
+" Show buffer list and ask for number
+nnoremap <leader>b :ls<cr>:b<Space>
 
 " Insert newline
 nnoremap <leader>o mpo<esc>`p

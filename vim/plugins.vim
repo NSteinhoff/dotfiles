@@ -27,6 +27,11 @@ let g:slime_target = "tmux"
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
+let g:dispatch_compilers = {
+        \ 'pytest': 'pytest',
+        \ 'pipenv run pytest': 'pytest',
+        \ 'pipenv run pytest --tb=short -q': 'pytest'
+    \ }
 "}}}
 
 "--- Colorschemes{{{

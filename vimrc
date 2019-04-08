@@ -123,7 +123,7 @@ set complete-=i                             " Don't scan included files
 "--------------------------------- Statusline ---------------------------------{{{
 try
     " set statusline=[%{mode()}]%y%r\ %l\|%c\ %w%q%h\ %=\ %f\ %P\ %m
-    set statusline=[%{mode()}]%y\ %l\|%c\ %w%q\ %{fugitive#statusline()}%=\ %f\ %P\ %m
+    set statusline=[%{mode()}]%y\ %l\|%c\ %w%q\ %{fugitive#statusline()}%=\ %f\ %P\ %m[%n]
 catch
     " No problem...
     set statusline=%y\ %l\|%c\ %w%q\ %=\ %f\ %P\ %m
