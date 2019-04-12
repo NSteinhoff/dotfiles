@@ -45,6 +45,11 @@ let g:mucomplete#chains = {}
 let g:mucomplete#chains.vim = ['path', 'cmd', 'keyn', 'tags']
 let g:mucomplete#chains.default = ['path', 'omni', 'keyn', 'tags', 'dict', 'uspl']
 "}}}
+augroup dispatch_settings
+    autocmd!
+    autocmd FileType python silent FocusDispatch! mypy --strict '%'
+    autocmd BufWrite *.py Dispatch! flake8 '%'
+augroup END
 
 "--- Colorschemes{{{
 Plug 'patstockwell/vim-monokai-tasty'
