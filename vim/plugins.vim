@@ -25,6 +25,8 @@ let g:rainbow_active = 1
 Plug 'jpalardy/vim-slime'
 let g:slime_target = "tmux"
 
+" Run compilers or other external commands in the
+" background.
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
 let g:dispatch_compilers = {
@@ -33,6 +35,15 @@ let g:dispatch_compilers = {
         \ 'pipenv run pytest --tb=short -q': 'pytest',
         \ 'pipenv run mypy': 'mypy'
     \ }
+
+" Chained completion with <Tab> / <S-Tab>
+Plug 'lifepillar/vim-mucomplete'
+set completeopt+=menuone
+set shortmess+=c
+set belloff+=ctrlg
+let g:mucomplete#chains = {}
+let g:mucomplete#chains.vim = ['path', 'cmd', 'keyn', 'tags']
+let g:mucomplete#chains.default = ['path', 'omni', 'keyn', 'tags', 'dict', 'uspl']
 "}}}
 
 "--- Colorschemes{{{
@@ -85,7 +96,7 @@ let g:netrw_fastbrowse=0                    " Always refresh the listing
 
 "--- Snippets{{{
 " Track the engine.
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 
 " Snippets are separated from the engine. Add this if you want them:
 " Plugin 'honza/vim-snippets'
