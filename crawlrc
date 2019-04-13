@@ -1,6 +1,5 @@
-##### Crawl Init file ###############################################
 # Quality of life:
-bindkey = [space] CMD_REST
+# bindkey = [space] CMD_REST
 confirm_butcher = never
 default_manual_training = true
 auto_butcher = satiated
