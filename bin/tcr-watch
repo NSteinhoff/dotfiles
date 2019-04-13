@@ -3,9 +3,7 @@ if [ $# -gt 1 ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     cat <<END
 usage: tcr-watch [command]
 
-Runs tests when a file tracked by git is changed and commits
-the change when the tests pass. Otherwise reverts to the last
-passing state.
+Runs 'tcr' when a file tracked by git is changed.
 
     command         Test command.
                     default: "make test"
@@ -15,17 +13,4 @@ END
     exit 0
 fi
 
-
-stamp="$(git rev-parse --show-toplevel)/.tcr-stamp"
-
-test_cmd="${1:-make test}"
-echo "Testing: $test_cmd\n---"
-
-# Assemble the command string
-test="$test_cmd"
-commit="(git commit -am 'test(tcr): passing' || true)"  # ignore exit code when nothing to commit
-revert="git reset --hard"
-touch="(git ls-files | xargs touch)"         # touch the files to make vim 'autoread' work
-full_cmd="($test && $commit) || ($revert && $touch)"
-
-git ls-files | entr -s "$full_cmd; echo 'done' > $stamp"
+git ls-files | entr tcr $@

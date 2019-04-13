@@ -3,7 +3,7 @@ if [ $# -gt 1 ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     cat <<END
 usage: tcr [command]
 
-Runs tests and commits the change when the tests pass.
+Run a test command and commit the change when the command passes.
 Otherwise reverts to the last passing state.
 
     command         Test command.
@@ -14,7 +14,7 @@ END
     exit 0
 fi
 
-stamp="$(git rev-parse --show-toplevel)/.tcr-stamp"
+stamp="$(git rev-parse --show-toplevel)/.git/.tcr-stamp"
 
 # Parse args
 test_cmd="${1:-make test}"
@@ -43,4 +43,7 @@ run_tcr () {
 
 run_tcr
 
+# On Mac OSX `entr` does not seem to recognize a file as changed.
+# `entr` is used by the `tcr-watch` script to run on every change
+# to a tracked file.
 echo 'done' > "$stamp"
