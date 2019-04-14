@@ -9,12 +9,20 @@
 " tnoremap jk <c-\><c-n>
 " vnoremap jk <c-\><c-n>
 
+" Open tag in preview window
+nnoremap <leader><leader> <c-w>g}
+
 " Show buffer list and ask for number
 nnoremap <leader>b :ls<cr>:b<Space>
 
 " Insert newline
 nnoremap <leader>o mpo<esc>`p
 nnoremap <leader>O mpO<esc>`p
+
+" Closing parenthesis
+inoremap {{<cr> {<cr>}<esc>O
+inoremap [[<cr> [<cr>]<esc>O
+inoremap ((<cr> (<cr>)<esc>O
 
 " Navigate splits
 nnoremap <c-j> <c-w><c-j>
@@ -47,11 +55,6 @@ nnoremap <leader>* *:vimgrep //j **/*%:e \| bo copen<CR>
 
 " Search for the last search pattern in all files with the same extension
 nnoremap <leader>/ :vimgrep //j **/*%:e \| bo copen<CR>
-
-" Closing parenthesis
-inoremap {{<cr> {<cr>}<esc>O
-inoremap [[<cr> [<cr>]<esc>O
-inoremap ((<cr> (<cr>)<esc>O
 "}}}
 
 "--- List item navigation{{{

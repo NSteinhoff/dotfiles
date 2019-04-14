@@ -79,6 +79,7 @@ Plug 'dhruvasagar/vim-table-mode'               " Table mode for markdown docume
 "}}}
 
 "--- Language Server Protocol{{{
+Plug 'w0rp/ale'
 " Plug 'prabirshrestha/async.vim'
 " Plug 'prabirshrestha/vim-lsp'
 "}}}
@@ -102,9 +103,9 @@ let g:netrw_fastbrowse=0                    " Always refresh the listing
 " Plugin 'honza/vim-snippets'
 "
 " Trigger configuration. Do not use <tab> if you use
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 "}}}
 
 call plug#end()
