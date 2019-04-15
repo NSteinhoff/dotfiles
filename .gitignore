@@ -6,3 +6,4 @@ tags
 .tags.lock
 .DS_STORE
 vim/plugged
+vim/autoload/plug.vim.old
