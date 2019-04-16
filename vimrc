@@ -59,7 +59,7 @@ set wildmode=longest:full,full              " Default matching, but also start w
 set tags+=./tags;,tags;
 set tags+=./.tags;,.tags;
 set tags+=./.git/tags;,.git/tags;
-set tags+=$HOME/lib/**/tags
+" set tags+=$HOME/lib/**/tags               " Use all tags under ~/libs
 set path-=/usr/include
 
 " Ignore certain files when searching

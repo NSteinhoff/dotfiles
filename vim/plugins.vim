@@ -35,6 +35,11 @@ let g:dispatch_compilers = {
         \ 'pipenv run pytest --tb=short -q': 'pytest',
         \ 'pipenv run mypy': 'mypy'
     \ }
+augroup dispatch_settings
+    autocmd!
+    autocmd FileType python silent FocusDispatch! mypy --strict %
+    autocmd BufWrite *.py Dispatch! flake8 %
+augroup END
 
 " Chained completion with <Tab> / <S-Tab>
 Plug 'lifepillar/vim-mucomplete'
@@ -45,11 +50,6 @@ let g:mucomplete#chains = {}
 let g:mucomplete#chains.vim = ['path', 'cmd', 'keyn', 'tags']
 let g:mucomplete#chains.default = ['path', 'omni', 'keyn', 'tags', 'dict', 'uspl']
 "}}}
-augroup dispatch_settings
-    autocmd!
-    autocmd FileType python silent FocusDispatch! mypy --strict '%'
-    autocmd BufWrite *.py Dispatch! flake8 '%'
-augroup END
 
 "--- Colorschemes{{{
 Plug 'patstockwell/vim-monokai-tasty'
@@ -84,7 +84,7 @@ Plug 'dhruvasagar/vim-table-mode'               " Table mode for markdown docume
 "}}}
 
 "--- Language Server Protocol{{{
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 " Plug 'prabirshrestha/async.vim'
 " Plug 'prabirshrestha/vim-lsp'
 "}}}

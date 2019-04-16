@@ -9,9 +9,6 @@
 " tnoremap jk <c-\><c-n>
 " vnoremap jk <c-\><c-n>
 
-" Open tag in preview window
-nnoremap <leader><leader> <c-w>g}
-
 " Show buffer list and ask for number
 nnoremap <leader>b :ls<cr>:b<Space>
 
