@@ -37,7 +37,6 @@ let g:dispatch_compilers = {
     \ }
 augroup dispatch_settings
     autocmd!
-    autocmd FileType python silent FocusDispatch! mypy --strict %
     autocmd BufWrite *.py Dispatch! flake8 %
 augroup END
 
