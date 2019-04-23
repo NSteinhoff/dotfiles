@@ -1,4 +1,5 @@
 " vim:foldmethod=marker
+" source ~/dotfiles/hardcore.vim
 
 "---------------------------------- Plugins -----------------------------------{{{
 try
@@ -60,7 +61,7 @@ set tags+=./tags;,tags;
 set tags+=./.tags;,.tags;
 set tags+=./.git/tags;,.git/tags;
 " set tags+=$HOME/lib/**/tags               " Use all tags under ~/libs
-set path-=/usr/include
+set path=,,                                 " The base path only includes the working directory
 
 " Ignore certain files when searching
 set wildignore+=*.egg-info/*
