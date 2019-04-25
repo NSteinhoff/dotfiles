@@ -120,6 +120,12 @@ set complete-=t                             " Don't scan tags
 set complete-=i                             " Don't scan included files
 "}}}
 
+"---------------------------------- Diff -----------------------------------{{{
+set diffopt+=internal
+set diffopt+=iwhiteall
+set diffopt+=hiddenoff
+set diffopt+=algorithm:patience
+"}}}
 "--------------------------------- Statusline ---------------------------------{{{
 try
     " set statusline=[%{mode()}]%y%r\ %l\|%c\ %w%q%h\ %=\ %f\ %P\ %m
