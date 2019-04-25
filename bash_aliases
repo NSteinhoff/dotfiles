@@ -10,6 +10,9 @@ alias ll='ls -lF'
 alias lla='ll -a'
 alias tree='tree --dirsfirst'
 
+# --------- Listing dirs ------------
+alias dirs='dirs -v'
+
 # --------- Open files with vim -------
 alias Vim='_() { if [ $# -gt 0 ]; then vim --servername VIM --remote-silent "$@"; else vim --servername VIM; fi }; _'
 alias vimfind='_() { find $1 -name $2 -exec vim {} +; }; _'
