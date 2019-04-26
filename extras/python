@@ -1,0 +1,40 @@
+#!/bin/bash
+if [[ ! -d ~/.pyenv ]]; then
+    echo "Installing Pyenv to ~/.pyenv"
+    git clone https://github.com/pyenv/pyenv.git "$HOME/.pyenv"
+fi
+
+echo "Installing Python dependencies"
+sudo apt-get build-dep python3.7
+
+version=3.7.3
+echo "Installing Python $version"
+pyenv install $version
+pyenv global $version
+pip install --upgrade pip
+
+echo "Setting up environment"
+rc_file=~/.bashrc
+if grep '### Pyenv environment' $rc_file; then
+    echo "Environment already set up"
+else
+    echo "Setting up pyenv environment in your $rc_file"
+    cat<<'EOF' >> $rc_file
+
+### Pyenv environment
+if [[ -d ~/.pyenv && -d ~/.pyenv/bin ]]; then
+    export PATH="$(python -m site --user-base)/bin:$PATH"
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    source "$PYENV_ROOT/completions/pyenv.bash"
+    if command -v pyenv 1>/dev/null 2>&1; then
+        eval "$(pyenv init -)"
+    fi
+fi
+EOF
+fi
+
+source $rc_file
+
+echo "Installing python packages"
+pip install pipenv flake8 yapf mypy pytest coverage jupyter

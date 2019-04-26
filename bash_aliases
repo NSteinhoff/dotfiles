@@ -53,18 +53,6 @@ if [[ -z $JAVA_HOME ]]; then
     fi
 fi
 
-# --------- Pyenv ----------
-if [[ -d ~/.pyenv && -d ~/.pyenv/bin ]]; then
-    export PATH="$(python -m site --user-base)/bin:$PATH"
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    source "$PYENV_ROOT/completions/pyenv.bash"
-    if command -v pyenv 1>/dev/null 2>&1; then
-        eval "$(pyenv init -)"
-    fi
-fi
-
-
 # -----------   COMPLETIONS   --------------
 
 # ----------- Kubectl && Minikube completion ----------

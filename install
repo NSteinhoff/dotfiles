@@ -1,13 +1,29 @@
 #!/bin/bash
 ############################
-# .install.sh
+# install
 # This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
 ############################
+dir=$(pwd)
+
+########## Installing system packages
+echo -e "\n\n"
+echo ">>>>>>>>>>>>>>>"
+echo "Installing system packages..."
+
+sudo apt install $(cat $dir/extras/packages)
+
+
+##### Installing Python
+echo -e "\n\n"
+echo ">>>>>>>>>>>>>>>"
+echo "Installing python..."
+
+$dir/extras/python
+
 
 ########## ZSH
-
-# install zsh
-if false; then
+install_zsh=false
+if $install_zsh; then
     tput setaf 3
     echo "Making Zsh default shell"
     sudo chsh -s `which zsh`
@@ -17,8 +33,9 @@ if false; then
 fi
 
 ########## Dotfiles in HOME
-
-dir=~/dotfiles                    # dotfiles directory
+echo -e "\n\n"
+echo ">>>>>>>>>>>>>>>"
+echo "Installing dotfiles..."
 bkpdir=~/.dotfiles_bkp
 files=(inputrc vimrc vim git_template screenrc gitconfig gitignore tmux.conf zshrc bash_aliases crawlrc ctags ctags.d scalafmt.conf)
 
@@ -51,6 +68,9 @@ for file in ${files[*]}; do
 done
 
 ########## Configurations in ~/.config
+echo -e "\n\n"
+echo ">>>>>>>>>>>>>>>"
+echo "Installing config files..."
 
 cfgdir=$dir/config
 cfgbkpdir=~/.config/backup_$(date +%F-%T)
