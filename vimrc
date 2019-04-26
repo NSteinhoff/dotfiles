@@ -1,5 +1,5 @@
 " vim:foldmethod=marker
-" source ~/dotfiles/hardcore.vim
+source ~/dotfiles/hardcore.vim
 
 "---------------------------------- Plugins -----------------------------------{{{
 try
