@@ -4,15 +4,6 @@ if [[ ! -d ~/.pyenv ]]; then
     git clone https://github.com/pyenv/pyenv.git "$HOME/.pyenv"
 fi
 
-echo "Installing Python dependencies"
-sudo apt-get build-dep python3.7
-
-version=3.7.3
-echo "Installing Python $version"
-pyenv install $version
-pyenv global $version
-pip install --upgrade pip
-
 echo "Setting up environment"
 rc_file=~/.bashrc
 if grep '### Pyenv environment' $rc_file; then
@@ -35,6 +26,15 @@ EOF
 fi
 
 source $rc_file
+
+echo "Installing Python dependencies"
+sudo apt-get build-dep python3.7
+
+version=3.7.3
+echo "Installing Python $version"
+pyenv install $version
+pyenv global $version
+pip install --upgrade pip
 
 echo "Installing python packages"
 pip install pipenv flake8 yapf mypy pytest coverage jupyter
