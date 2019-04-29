@@ -1,0 +1,37 @@
+#!/bin/bash
+
+apt update
+
+apt install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+echo $(apt-key fingerprint 0EBFCD88)
+
+repo="deb [arch=amd64] https://download.docker.com/linux/ubuntu cosmic stable"
+if (grep -F "$repo" /etc/apt/sources.list > /dev/null) ; then
+    echo "Repository already setup"
+else
+    apt-add-repository "$repo"
+    apt update
+fi
+
+apt install \
+    docker-ce \
+    docker-ce-cli \
+    containerd.io
+
+echo -n "Add username to docker group: (Empty skip) "
+read user
+if [ $user ]; then
+    echo "Adding $user to group 'docker'"
+    grep docker /etc/group || groupadd docker
+    grep docker <(groups $user) || usermod -aG docker $user
+else
+    echo "No user added to group 'docker'"
+fi
