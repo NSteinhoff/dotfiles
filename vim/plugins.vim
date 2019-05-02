@@ -27,7 +27,7 @@ let g:slime_target = "tmux"
 
 " Run compilers or other external commands in the
 " background.
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
 let g:dispatch_compilers = {
         \ 'pytest': 'pytest',
