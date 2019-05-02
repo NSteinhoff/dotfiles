@@ -117,9 +117,10 @@ command! Overview execute 'g/' . b:overview_pattern . '/p' | nohlsearch
 command! Loverview execute 'lvimgrep /' . b:overview_pattern . '/j %' | lopen
 "}}}
 
-"--- Populate/extend arglist from external command{{{
-command! -nargs=1 Args args `=systemlist(<q-args>)`
-command! -nargs=1 Argadd argadd `=systemlist(<q-args>)`
+"--- Populate/extend arg / buffer lists from external command{{{
+command! -nargs=1 -complete=shellcmd Args args `=systemlist(<q-args>)`
+command! -nargs=1 -complete=shellcmd Argadd argadd `=systemlist(<q-args>)`
+command! -nargs=1 -complete=shellcmd Badd badd `=systemlist(<q-args>)`
 "}}}
 
 "--- Run command as a job and write to buffer{{{
