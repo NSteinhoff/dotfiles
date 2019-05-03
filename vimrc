@@ -1,5 +1,5 @@
 " vim:foldmethod=marker
-source ~/dotfiles/hardcore.vim
+" source ~/dotfiles/hardcore.vim
 
 "---------------------------------- Plugins -----------------------------------{{{
 try
@@ -14,11 +14,15 @@ if !has('nvim')
     unlet! skip_defaults_vim
     source $VIMRUNTIME/defaults.vim
     set autoread
-    set ttyfast                                 " Indicate a fast terminal connection
 endif
-set undodir=$HOME/.vim/undo
+
+set undodir=$HOME/.vim/undo                 " Persistent undo
 set undofile
-filetype plugin indent on
+
+filetype plugin indent on                   " Filetype detection and indentation
+syntax on                                   " Syntax highlighting
+
+set ttyfast                                 " Indicate a fast terminal connection
 set lazyredraw                              " Only redraw when necessary
 set ffs=unix,dos,mac                        " Unix as standard file type
 set encoding=utf8                           " Standard encoding
