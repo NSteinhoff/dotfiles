@@ -12,10 +12,6 @@
 " Show buffer list and ask for number
 nnoremap <leader>b :ls<cr>:b<Space>
 
-" Insert newline
-nnoremap <leader>o mpo<esc>`p
-nnoremap <leader>O mpO<esc>`p
-
 " Closing parenthesis
 inoremap {{<cr> {<cr>}<esc>O
 inoremap [[<cr> [<cr>]<esc>O
@@ -104,28 +100,10 @@ augroup END
 command! Highlights :so $VIMRUNTIME/syntax/hitest.vim
 "}}}
 
-"--- Show file overview{{{
-augroup overview
-    autocmd!
-    au FileType * :let b:overview_pattern='^#\+'
-    au FileType vim :let b:overview_pattern='^\s*"-\+\s\w\+'
-    au FileType clojure :let b:overview_pattern='^\s*(\(defn\?\|ns\)\s\w\+'
-    au FileType python :let b:overview_pattern='\v^\s*(class\s\u|(async\s)?def\s\U)\w+'
-    au FileType scala :let b:overview_pattern='\v^\s*((case\s)?(class|object)\s\u|def\s\U)\w+'
-augroup END
-command! Overview execute 'g/' . b:overview_pattern . '/p' | nohlsearch
-command! Loverview execute 'lvimgrep /' . b:overview_pattern . '/j %' | lopen
-"}}}
-
 "--- Populate/extend arg / buffer lists from external command{{{
 command! -nargs=1 -complete=shellcmd Args args `=systemlist(<q-args>)`
 command! -nargs=1 -complete=shellcmd Argadd argadd `=systemlist(<q-args>)`
 command! -nargs=1 -complete=shellcmd Badd badd `=systemlist(<q-args>)`
-"}}}
-
-"--- Run command as a job and write to buffer{{{
-" Superseded by the 'Dispatch' plugin
-" command! -nargs=1 Run echo job_start(<q-args>, {"out_io": "buffer", "out_name": <q-args>})
 "}}}
 
 "--- Snippets ---{{{
@@ -144,6 +122,6 @@ nnoremap <F9> :Dispatch<CR>
 nnoremap <F10> :Dispatch!<CR>
 augroup filetype_dispatch_defaults
     autocmd!
-    autocmd FileType python let b:dispatch = 'python %'
+    autocmd FileType python let b:dispatch = 'mypy --strict %'
 augroup END
 "}}}
