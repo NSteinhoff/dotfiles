@@ -40,16 +40,6 @@ augroup dispatch_settings
     autocmd BufWrite *.py Dispatch! flake8 %
 augroup END
 
-" Chained completion with <Tab> / <S-Tab>
-Plug 'lifepillar/vim-mucomplete'
-set completeopt+=menuone
-set shortmess+=c
-set belloff+=ctrlg
-let g:mucomplete#chains = {}
-let g:mucomplete#chains.vim = ['path', 'cmd', 'keyn', 'tags']
-let g:mucomplete#chains.default = ['path', 'omni', 'keyn', 'tags', 'dict', 'uspl']
-"}}}
-
 "--- Colorschemes{{{
 Plug 'patstockwell/vim-monokai-tasty'
 Plug 'dikiaap/minimalist'
@@ -78,10 +68,6 @@ Plug 'junegunn/vader.vim'
 Plug 'nsteinhoff/vim-compilers'                 " Collection of compilers
 "}}}
 
-"--- Markdown{{{
-Plug 'dhruvasagar/vim-table-mode'               " Table mode for markdown documents
-"}}}
-
 "--- Language Server Protocol{{{
 " Plug 'w0rp/ale'
 " Plug 'prabirshrestha/async.vim'
@@ -97,19 +83,6 @@ let g:netrw_altfile=0                       " CTRL-^ returns you to the last dir
 let g:netrw_preview=0                       " Open preview split type horizontal/vertical [0|1]
 let g:netrw_list_hide='.*\.swp$,.*\.pyc'    " File patterns to hide from the list
 let g:netrw_fastbrowse=0                    " Always refresh the listing
-"}}}
-
-"--- Snippets{{{
-" Track the engine.
-" Plug 'SirVer/ultisnips'
-
-" Snippets are separated from the engine. Add this if you want them:
-" Plugin 'honza/vim-snippets'
-"
-" Trigger configuration. Do not use <tab> if you use
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<tab>"
-" let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 "}}}
 
 call plug#end()
