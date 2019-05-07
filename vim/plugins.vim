@@ -20,6 +20,14 @@ call plug#begin('~/.vim/plugged')
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
 
+" Ranger file browser
+if !empty(system('which ranger'))
+    Plug 'francoiscabrol/ranger.vim'
+    let g:ranger_map_keys = 0
+    map <leader>r = :Ranger<CR>
+    map <leader>R = :RangerWorkingDirectory<CR>
+endif
+
 " Send selected text to tmux pane
 " Very useful for REPL based development (Clojure)
 Plug 'jpalardy/vim-slime'
