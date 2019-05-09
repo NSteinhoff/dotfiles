@@ -135,4 +135,9 @@ git_branch_indicator() {
     echo -n "]"
 }
 
-export PS1="${PS1:0:((${#PS1} - 3))}"'$(git_branch_indicator)\$ '
+PS1="${PS1:0:((${#PS1} - 3))}"'$(git_branch_indicator)\$ '
+
+# Indicate ranger subshell
+[ -n "$RANGER_LEVEL" ] && PS1="$PS1"'(in ranger) '
+
+export PS1
