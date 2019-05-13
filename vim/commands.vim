@@ -103,6 +103,7 @@ command! Highlights :so $VIMRUNTIME/syntax/hitest.vim
 "--- Populate/extend arg / buffer lists from external command{{{
 command! -nargs=1 -complete=shellcmd Args args `=systemlist(<q-args>)`
 command! -nargs=1 -complete=shellcmd Argadd argadd `=systemlist(<q-args>)`
+command! -nargs=1 -complete=shellcmd Argl argl `=systemlist(<q-args>)`
 command! -nargs=1 -complete=shellcmd Badd badd `=systemlist(<q-args>)`
 "}}}
 
