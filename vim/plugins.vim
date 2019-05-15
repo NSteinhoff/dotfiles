@@ -77,6 +77,15 @@ Plug 'nsteinhoff/vim-compilers'                 " Collection of compilers
 "}}}
 
 "--- Language Server Protocol{{{
+let s:use_coc = v:false
+if s:use_coc
+    source ~/dotfiles/vim/coc-setup.vim
+    let g:coc_global_extensions = [
+        \ 'coc-json',
+        \ 'coc-yaml',
+        \ 'coc-python',
+        \ ]
+endif
 " Plug 'w0rp/ale'
 " Plug 'prabirshrestha/async.vim'
 " Plug 'prabirshrestha/vim-lsp'
