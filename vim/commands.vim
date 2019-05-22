@@ -116,13 +116,7 @@ iabbrev ddd <C-R>=strftime("%Y-%m-%d")<CR>
 iabbrev ddw <C-R>=strftime("%a, %Y-%m-%d")<CR>
 "}}}
 
-"--- Builds / Make / Dispatch{{{
-nnoremap <F5> :Make<CR>
-nnoremap <F6> :Make!<CR>
-nnoremap <F9> :Dispatch<CR>
-nnoremap <F10> :Dispatch!<CR>
-augroup filetype_dispatch_defaults
-    autocmd!
-    autocmd FileType python let b:dispatch = 'mypy --strict %'
-augroup END
+"--- Make / Compile ---{{{
+nnoremap <F5> :make<cr>
+nnoremap <F6> :make 
 "}}}

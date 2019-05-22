@@ -33,20 +33,31 @@ endif
 Plug 'jpalardy/vim-slime'
 let g:slime_target = "tmux"
 
-" Run compilers or other external commands in the
-" background.
-" Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-dispatch'
-let g:dispatch_compilers = {
-        \ 'pytest': 'pytest',
-        \ 'pipenv run pytest': 'pytest',
-        \ 'pipenv run pytest --tb=short -q': 'pytest',
-        \ 'pipenv run mypy': 'mypy'
-    \ }
-augroup dispatch_settings
-    autocmd!
-    autocmd BufWrite *.py Dispatch! flake8 %
-augroup END
+"--- Builds / Make / Dispatch{{{
+let s:enable_dispatch = v:false
+if s:enable_dispatch
+    " Run compilers or other external commands in the
+    " background.
+    " Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-dispatch'
+    let g:dispatch_compilers = {
+            \ 'pytest': 'pytest',
+            \ 'pipenv run pytest': 'pytest',
+            \ 'pipenv run pytest --tb=short -q': 'pytest',
+            \ 'pipenv run mypy': 'mypy'
+        \ }
+
+    nnoremap <F5> :Make<CR>
+    nnoremap <F6> :Make!<CR>
+    nnoremap <F9> :Dispatch<CR>
+    nnoremap <F10> :Dispatch!<CR>
+
+    augroup filetype_dispatch_defaults
+        autocmd!
+        autocmd FileType python let b:dispatch = 'mypy --strict %'
+    augroup END
+endif
+"}}}
 
 "--- Colorschemes{{{
 Plug 'patstockwell/vim-monokai-tasty'
