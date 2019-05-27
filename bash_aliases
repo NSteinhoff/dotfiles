@@ -19,7 +19,7 @@ alias vimfind='_() { find $1 -name $2 -exec vim {} +; }; _'
 alias vimrefind='_() { find $1 -regex $2 -exec vim {} +; }; _'
 
 # --------- Read Man pages with Vim -------
-alias vman='_() { vim -c "r !man $1"; }; _'
+alias vman='_() { vim -c "r !man $1" -c "setlocal buftype=nofile bufhidden=hide noswapfile"; }; _'
 
 # --------- Take a new new with Vim -------
 alias vnote="vim -c 'r!date' -c 'normal i# ' -c 'normal o' ~/notes.md"
