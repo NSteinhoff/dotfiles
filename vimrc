@@ -65,7 +65,7 @@ set tags+=./tags;,tags;
 set tags+=./.tags;,.tags;
 set tags+=./.git/tags;,.git/tags;
 " set tags+=$HOME/lib/**/tags               " Use all tags under ~/libs
-set path=,,                                 " The base path only includes the working directory
+set path=,,.                                " Set base 'path'
 
 " Ignore certain files when searching
 set wildignore+=*.egg-info/*
