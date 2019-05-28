@@ -79,7 +79,7 @@ function git_uncommitted_changes {
 }
 
 function branch_name {
-    git rev-parse --abbrev-ref HEAD
+    git rev-parse --abbrev-ref HEAD 2> /dev/null
 }
 
 function remote_branch {

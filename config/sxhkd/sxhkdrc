@@ -1,0 +1,2 @@
+super + alt + v
+    gvim -S ~/.vim/any.vim

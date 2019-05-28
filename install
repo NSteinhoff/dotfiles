@@ -74,7 +74,7 @@ echo "Installing config files..."
 
 cfgdir=$dir/config
 cfgbkpdir=~/.config/backup_$(date +%F-%T)
-files=(alacritty/alacritty.yml)
+files=(alacritty/alacritty.yml sxhkd/sxhkdrc)
 
 # create dotfiles_old in homedir
 
