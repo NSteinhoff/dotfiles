@@ -79,7 +79,8 @@ function git_uncommitted_changes {
 }
 
 function branch_name {
-    git rev-parse --abbrev-ref HEAD 2> /dev/null
+    # git rev-parse --abbrev-ref HEAD 2> /dev/null
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
 
 function remote_branch {
