@@ -1,2 +1,8 @@
 super + alt + v
     gvim -S ~/.vim/any.vim
+
+super + f
+    x-terminal-emulator -e ranger
+
+super + b
+    sensible-browser
