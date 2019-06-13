@@ -16,6 +16,12 @@ if !has('nvim')
     set autoread
 endif
 
+if has("gui_running")
+    set guioptions-=m
+    set guioptions-=T
+    set guioptions-=r
+endif
+
 set undodir=$HOME/.vim/undo                 " Persistent undo
 set undofile
 
