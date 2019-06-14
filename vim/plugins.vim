@@ -97,7 +97,15 @@ if s:use_coc
         \ 'coc-python',
         \ ]
 endif
-" Plug 'w0rp/ale'
+
+let s:use_ale = v:true
+if s:use_ale
+    Plug 'w0rp/ale'
+    let g:ale_python_auto_pipenv=1
+    let g:ale_linters = {
+    \ 'python': ['flake8', 'mypy']
+    \ }
+endif
 " Plug 'prabirshrestha/async.vim'
 " Plug 'prabirshrestha/vim-lsp'
 "}}}
