@@ -152,8 +152,9 @@ augroup filetype_settings
     autocmd BufNewFile,BufRead *.boot setfiletype clojure
     autocmd BufNewFile,BufRead *.taskpaper setfiletype taskpaper
     autocmd BufNewFile,BufRead *.dvc setfiletype yaml
+    autocmd BufNewFile,BufRead *.pyi setfiletype python
     autocmd BufNewFile,BufRead application.conf setfiletype hocon
-    autocmd FileType python set formatprg=yapf | compiler flake8
+    autocmd FileType python set formatprg=yapf | compiler flake8 | set makeprg=flake8\ %
     autocmd FileType json set formatprg=python\ -m\ json.tool
     autocmd FileType lisp,scala,markdown,Jenkinsfile set shiftwidth=2 softtabstop=2
     autocmd FileType taskpaper set noexpandtab

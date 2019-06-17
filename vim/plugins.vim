@@ -98,13 +98,18 @@ if s:use_coc
         \ ]
 endif
 
-let s:use_ale = v:true
+let s:use_ale = v:false
 if s:use_ale
     Plug 'w0rp/ale'
-    let g:ale_python_auto_pipenv=1
+    let g:ale_python_auto_pipenv = 1
     let g:ale_linters = {
     \ 'python': ['flake8', 'mypy']
     \ }
+    let g:ale_fixers = {
+    \ 'python': ['yapf']
+    \ }
+    nnoremap <leader>af :ALEFix<cr>
+    nnoremap <leader>al :ALELint<cr>
 endif
 " Plug 'prabirshrestha/async.vim'
 " Plug 'prabirshrestha/vim-lsp'
