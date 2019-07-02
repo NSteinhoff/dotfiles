@@ -1,6 +1,10 @@
 # Disable <ctrl-s> suspending (reactivated with <ctrl-q>)
 stty -ixon
 
+# History
+HISTSIZE=100000
+HISTFILESIZE=200000
+
 # Set Vim as default editor
 export EDITOR=vim
 
