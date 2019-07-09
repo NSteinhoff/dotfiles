@@ -24,6 +24,11 @@ if [ -z "$(which xsel)" ]; then
     exit 1
 fi
 
+if [ "$1" = "-l" ]; then
+    list
+    exit 0
+fi
+
 if [ -z "$1" ]; then
     read -p "Abbreviation: " abbrev
 else
