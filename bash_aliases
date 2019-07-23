@@ -8,6 +8,9 @@ HISTFILESIZE=200000
 # Set Vim as default editor
 export EDITOR=vim
 
+# Set Vim as man pager
+export MANPAGER="vim -M +MANPAGER -"
+
 # --------- Listing files ------------
 alias ls='ls --color=auto --group-directories-first'
 alias ll='ls -lF'
@@ -21,9 +24,6 @@ alias dirs='dirs -v'
 alias Vim='_() { if [ $# -gt 0 ]; then vim --servername VIM --remote-silent "$@"; else vim --servername VIM; fi }; _'
 alias vimfind='_() { find $1 -name $2 -exec vim {} +; }; _'
 alias vimrefind='_() { find $1 -regex $2 -exec vim {} +; }; _'
-
-# --------- Read Man pages with Vim -------
-alias vman='_() { vim -c "r !man $1" -c "setlocal buftype=nofile bufhidden=hide noswapfile"; }; _'
 
 # --------- Take a new new with Vim -------
 alias vnote="vim -c 'r!date' -c 'normal i# ' -c 'normal o' ~/notes.md"
@@ -141,6 +141,9 @@ git_branch_indicator() {
 }
 
 PS1="${PS1:0:((${#PS1} - 3))}"'$(git_branch_indicator)\$ '
+# PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\\\$ "'
+# GIT_PS1_SHOWDIRTYSTATE="yes"
+# GIT_PS1_SHOWUPSTREAM="auto"
 
 # Indicate ranger subshell
 [ -n "$RANGER_LEVEL" ] && PS1="$PS1"'(in ranger) '

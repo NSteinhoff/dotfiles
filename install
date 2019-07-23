@@ -106,3 +106,7 @@ done
 
 # Init and update the plugins tracked as submodules
 git submodule update --init --recursive
+
+
+### Download git prompt script
+# curl -XGET "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh" > ~/.git-prompt.sh
