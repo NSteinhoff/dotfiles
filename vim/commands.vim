@@ -1,4 +1,8 @@
 " vim:foldmethod=marker
+"
+
+" Activate :Man command
+runtime ftplugin/man.vim
 
 " CUSTOM COMMANDS
 " ---------------
