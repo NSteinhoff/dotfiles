@@ -192,3 +192,24 @@ catch
     "No problem...
 endtry
 "}}}
+
+"------------------------------- Abbreviations --------------------------------{{{
+abbrev &oops; (」ﾟヘﾟ)」
+abbrev &woo; ＼(◎o◎)／
+abbrev &facepalm; (>ლ)
+abbrev &flex; ᕙ(⇀‸↼‶)ᕗ
+abbrev &happy; ＼(^o^)／
+abbrev &rage; (╯°□°）╯︵ ┻━┻
+abbrev &scared; ヽ(ﾟДﾟ)ﾉ
+abbrev &shrug; ¯\_(ツ)_/¯
+abbrev &strut; ᕕ( ᐛ )ᕗ
+abbrev &zoidberg; (V) (°,,,,°) (V)
+abbrev &huh; (⊙.☉)7
+abbrev &confused; ¯\_(⊙︿⊙)_/¯
+abbrev &dunno; ¯\(°_o)/¯
+abbrev &sad; (ಥ_ಥ)
+abbrev &cry; (ಥ﹏ಥ)
+abbrev &wat; (ÒДÓױ)
+abbrev &smile; ʘ‿ʘ
+abbrev &brb; Be right back.
+"}}}
