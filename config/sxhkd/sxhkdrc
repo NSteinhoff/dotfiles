@@ -1,5 +1,5 @@
 super + alt + v
-    gvim -S ~/.vim/any.vim
+    gvim -S ~/.vim/any.vim +start
 
 super + f
     x-terminal-emulator -e ranger
