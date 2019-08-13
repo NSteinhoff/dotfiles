@@ -68,9 +68,10 @@ fi
 [ -n "$(which helm)" ] && source <(helm completion bash)
 
 # ------------ Exercism ----------
-if [ -f ~/.config/exercism/exercism_completion.bash ]; then
-    source ~/.config/exercism/exercism_completion.bash
-fi
+[ -f ~/.config/exercism/exercism_completion.bash ] && source ~/.config/exercism/exercism_completion.bash
+
+# ------------- Bloop --------------
+[ -d "$HOME/.bloop" ] && source "$HOME/.bloop/bash/bloop"
 
 
 # ------------   PROMPT   -----------
