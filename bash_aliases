@@ -150,3 +150,10 @@ PS1="${PS1:0:((${#PS1} - 3))}"'$(git_branch_indicator)\$ '
 [ -n "$RANGER_LEVEL" ] && PS1="$PS1"'(in ranger) '
 
 export PS1
+
+# Launch tmux automatically
+if which tmux > /dev/null; then
+    if [ -z $TMUX ]; then
+        (tmux ls > /dev/null 2>&1 && tmux attach) || tmux
+    fi
+fi
