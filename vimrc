@@ -20,6 +20,7 @@ if has("gui_running")
     set guioptions-=m
     set guioptions-=T
     set guioptions-=r
+    set guifont=Monospace\ 14
 endif
 
 set undodir=$HOME/.vim/undo                 " Persistent undo
@@ -66,12 +67,12 @@ set nocursorline
 
 "--------------------------------- Searching ----------------------------------{{{
 set hlsearch                                " Highlight search results
-set wildmode=longest:full,full              " Default matching, but also start wildmenu
+set wildmode=list:longest,full              " Default matching, but also start wildmenu
 set tags+=./tags;,tags;
 set tags+=./.tags;,.tags;
 set tags+=./.git/tags;,.git/tags;
 " set tags+=$HOME/lib/**/tags               " Use all tags under ~/libs
-set path=,,.                                " Set base 'path'
+set path=,,                                 " Set base 'path'
 
 " Ignore certain files when searching
 set wildignore+=*.egg-info/*
@@ -153,6 +154,7 @@ augroup filetype_settings
     autocmd BufNewFile,BufRead *.taskpaper setfiletype taskpaper
     autocmd BufNewFile,BufRead *.dvc setfiletype yaml
     autocmd BufNewFile,BufRead *.pyi setfiletype python
+    autocmd BufNewFile,BufRead *.drl setfiletype scala
     autocmd BufNewFile,BufRead application.conf setfiletype hocon
     autocmd FileType python set formatprg=yapf | compiler flake8
     autocmd FileType json set formatprg=python\ -m\ json.tool
