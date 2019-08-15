@@ -21,9 +21,23 @@ alias tree='tree --dirsfirst'
 alias dirs='dirs -v'
 
 # --------- Open files with vim -------
-alias Vim='_() { if [ $# -gt 0 ]; then vim --servername VIM --remote-silent "$@"; else vim --servername VIM; fi }; _'
-alias vimfind='_() { find $1 -name $2 -exec vim {} +; }; _'
-alias vimrefind='_() { find $1 -regex $2 -exec vim {} +; }; _'
+onevim() {
+    running=$(vim --serverlist | grep GVIM)
+    if [[ $# -gt 0 ]]; then
+        gvim --servername GVIM --remote-silent $@
+    elif [[ -z "$running" ]]; then
+        gvim --servername GVIM
+    else
+        echo "Server 'GVIM' already running."
+    fi
+}
+alias v=onevim
+alias vim-find='_() { find $1 -name $2 -exec vim {} +; }; _'
+alias vim-find-re='_() { find $1 -regex $2 -exec vim {} +; }; _'
+
+# --------- Open files with Zathura
+alias zathura-find='_() { find $1 -name $2 | xargs zathura &}; _'
+alias zathura-find-re='_() { find $1 -regex $2 | xargs zathura & }; _'
 
 # --------- Take a new new with Vim -------
 alias vnote="vim -c 'r!date' -c 'normal i# ' -c 'normal o' ~/notes.md"
@@ -153,7 +167,7 @@ export PS1
 
 # Launch tmux automatically
 if which tmux > /dev/null; then
-    if [ -z $TMUX ]; then
+    if [ -z $TMUX ] && [ -z $VIM_TERMINAL ] ; then
         (tmux ls > /dev/null 2>&1 && tmux attach) || tmux
     fi
 fi
