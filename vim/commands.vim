@@ -100,6 +100,55 @@ augroup filetype_commands
 augroup END
 "}}}
 
+"--- Diffing files{{{
+function! RefOrHead(refname)
+  if a:refname != ""
+    return a:refname
+  else
+    return "HEAD"
+  endif
+endfun
+
+function! LoadDiff(fname,refname,ft)
+  let ref = RefOrHead(a:refname)
+  execute 'vnew ' . a:fname . '_DIFF_' . ref
+  execute 'r !git show ' . ref . ':' . a:fname | 1delete
+  setlocal buftype=nofile bufhidden=wipe noswapfile | let &l:ft = a:ft
+  diffthis | wincmd p | diffthis
+endfun
+
+function! LoadPatch(fname,refname)
+  let ref = RefOrHead(a:refname)
+  execute 'new ' . a:fname . '_PATCH_' . ref
+  execute 'r !git diff ' . ref . ' -- ' . a:fname
+  setlocal buftype=nofile bufhidden=wipe noswapfile ft=diff
+  wincmd K | resize 9 | wincmd p
+endfun
+
+function! LoadDiffPatch(fname,refname,ft)
+  call LoadPatch(a:fname, a:refname)
+  call LoadDiff(a:fname, a:refname, a:ft)
+endfun
+
+function! ToggleDiff()
+    if &diff == 0
+        Diff
+    else
+        Diffoff
+    endif
+endfun
+
+function! ListRefs(A,L,P)
+    return system("git branch -a --format '%(refname:short)'")
+endfun
+
+command! -complete=custom,ListRefs -nargs=? Diff call LoadDiff(expand('%'), <q-args>, &ft)
+command! -complete=custom,ListRefs -nargs=? Patch call LoadPatch(expand('%'), <q-args>)
+command! -complete=custom,ListRefs -nargs=? DDiff call LoadDiffPatch(expand('%'), <q-args>, &ft)
+command! Diffoff wincmd o | diffoff
+nnoremap <leader>d :call ToggleDiff()<cr>
+"}}}
+
 "--- Show syntax highlight groups{{{
 command! Highlights :so $VIMRUNTIME/syntax/hitest.vim
 "}}}
