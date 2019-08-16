@@ -9,7 +9,7 @@ HISTFILESIZE=200000
 export EDITOR=vim
 
 # Set Vim as man pager
-export MANPAGER="vim -M +MANPAGER -"
+# export MANPAGER="vim -M +MANPAGER -"
 
 # --------- Listing files ------------
 alias ls='ls --color=auto --group-directories-first'
@@ -21,17 +21,17 @@ alias tree='tree --dirsfirst'
 alias dirs='dirs -v'
 
 # --------- Open files with vim -------
-onevim() {
+gvim_() {
     running=$(vim --serverlist | grep GVIM)
     if [[ $# -gt 0 ]]; then
-        gvim --servername GVIM --remote-silent $@
+        gvim --remote-silent $@
     elif [[ -z "$running" ]]; then
-        gvim --servername GVIM
+        gvim
     else
         echo "Server 'GVIM' already running."
     fi
 }
-alias v=onevim
+alias gvim=gvim_
 alias vim-find='_() { find $1 -name $2 -exec vim {} +; }; _'
 alias vim-find-re='_() { find $1 -regex $2 -exec vim {} +; }; _'
 
