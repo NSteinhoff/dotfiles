@@ -10,5 +10,5 @@ function! s:src_or_root(root)
 endfunction
 
 let s:projects = map(findfile('setup.py', '**', -1), {key, val -> fnamemodify(val, ":h")})
-let s:sources = map(projects, {key, val -> s:src_or_root(val)})
+let s:sources = map(s:projects, {key, val -> s:src_or_root(val)})
 let &l:path .= ',' . join(s:sources, ',')
