@@ -109,20 +109,42 @@ function! RefOrHead(refname)
   endif
 endfun
 
+function! RefRemoteOrHead(refname)
+  if a:refname != ""
+    return a:refname
+  elseif exists("g:remote") == 1 && g:remote != ""
+    return g:remote
+  else
+    return "HEAD"
+  endif
+endfun
+
+function! LoadChangedFiles(refname)
+  let ref = RefRemoteOrHead(a:refname)
+  return systemlist('git diff --name-only ' . ref)
+endfun
+
 function! LoadDiff(fname,refname,ft)
-  let ref = RefOrHead(a:refname)
-  execute 'vnew ' . a:fname . '_DIFF_' . ref
+  let ref = RefRemoteOrHead(a:refname)
+  execute 'vnew ' . a:fname . '__DIFF__' . ref
   execute 'r !git show ' . ref . ':' . a:fname | 1delete
   setlocal buftype=nofile bufhidden=wipe noswapfile | let &l:ft = a:ft
   diffthis | wincmd p | diffthis
 endfun
 
 function! LoadPatch(fname,refname)
-  let ref = RefOrHead(a:refname)
-  execute 'new ' . a:fname . '_PATCH_' . ref
-  execute 'r !git diff ' . ref . ' -- ' . a:fname
+  let ref = RefRemoteOrHead(a:refname)
+  execute 'new ' . a:fname . '__PATCH__' . ref
+  execute 'r !git diff ' . ref . ' -- ' . a:fname | 1delte
   setlocal buftype=nofile bufhidden=wipe noswapfile ft=diff
   wincmd K | resize 9 | wincmd p
+endfun
+
+function! LoadPatchAll(refname)
+  let ref = RefRemoteOrHead(a:refname)
+  execute 'tabnew PATCH__' . ref
+  execute 'r !git diff ' . ref | 1delete
+  setlocal buftype=nofile bufhidden=wipe noswapfile ft=diff
 endfun
 
 function! LoadDiffPatch(fname,refname,ft)
@@ -139,14 +161,22 @@ function! ToggleDiff()
 endfun
 
 function! ListRefs(A,L,P)
-    return system("git branch -a --format '%(refname:short)'")
+    let refs = systemlist("git branch -a --format '%(refname:short)'")
+    let merge_base = trim(system("git merge-base HEAD origin/master"))
+    let all = insert(refs, merge_base)
+    return all
 endfun
 
-command! -complete=custom,ListRefs -nargs=? Diff call LoadDiff(expand('%'), <q-args>, &ft)
-command! -complete=custom,ListRefs -nargs=? Patch call LoadPatch(expand('%'), <q-args>)
-command! -complete=custom,ListRefs -nargs=? DDiff call LoadDiffPatch(expand('%'), <q-args>, &ft)
+command! -complete=customlist,ListRefs -nargs=? Diff call LoadDiff(expand('%'), <q-args>, &ft)
+command! -complete=customlist,ListRefs -nargs=? DiffPatch call LoadPatch(expand('%'), <q-args>)
+command! -complete=customlist,ListRefs -nargs=? DiffPatchAll call LoadPatchAll(<q-args>)
+command! -complete=customlist,ListRefs -nargs=? DiffPlus call LoadDiffPatch(expand('%'), <q-args>, &ft)
+command! -complete=customlist,ListRefs -nargs=? DiffChanges args `=LoadChangedFiles(<q-args>)`
+command! -complete=customlist,ListRefs -nargs=? DiffRemote let g:remote = <q-args>
+command! -complete=customlist,ListRefs -nargs=? DiffRemoteWipe unlet g:remote
 command! Diffoff wincmd o | diffoff
 nnoremap <leader>d :call ToggleDiff()<cr>
+nnoremap <leader>p :DiffPatchAll<cr>
 "}}}
 
 "--- Show syntax highlight groups{{{
