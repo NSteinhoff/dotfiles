@@ -111,8 +111,14 @@ if s:use_ale
     nnoremap <leader>af :ALEFix<cr>
     nnoremap <leader>al :ALELint<cr>
 endif
-" Plug 'prabirshrestha/async.vim'
-" Plug 'prabirshrestha/vim-lsp'
+
+let s:use_lsp = v:true
+if s:use_lsp
+    Plug 'autozimu/LanguageClient-neovim', {
+        \ 'branch': 'next',
+        \ 'do': 'bash install.sh',
+        \ }
+endif
 "}}}
 
 "--- Netrw Browser{{{
