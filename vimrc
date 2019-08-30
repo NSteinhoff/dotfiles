@@ -181,11 +181,11 @@ set errorformat+=%f\|%l\ col\ %c\|%m    " Allow reading error lists from buffers
 
 "-------------------------------- Colorscheme ---------------------------------{{{
 try
-    source ~/.vim/colorscheme.vim
+    " source ~/.vim/colorscheme.vim
+    colorscheme apprentice
 catch
     "No problem...
 endtry
-colorscheme onedark
 "}}}
 
 "------------------------------ Custom Commands -------------------------------{{{

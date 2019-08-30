@@ -27,17 +27,17 @@ endfunction
 
 " Create styles that can be used to link groups to
 function! s:SetStyles(styles)
-  for [name, options] in items(a:styles)
-    call s:ApplyStyle(name, options)
+  for [name, opts] in items(a:styles)
+    call s:ApplyStyle(name, opts)
   endfor
 endfunction
 
 " Apply a syntax highlight style based on a dicationary of options.
-function! s:ApplyStyle(name, options)
+function! s:ApplyStyle(name, opts)
   let n = a:name
-  let lig = s:get_or_else(a:options, 'lig', 'none')
-  let fg = s:get_or_else(a:options, 'fg', 'none')
-  let bg = s:get_or_else(a:options, 'bg', 'none')
+  let lig = s:get_or_else(a:opts, 'lig', 'none')
+  let fg = s:get_or_else(a:opts, 'fg', 'none')
+  let bg = s:get_or_else(a:opts, 'bg', 'none')
   exec "highlight " . n . " cterm=" . lig . " ctermfg=" . fg . " ctermbg=" . bg
 endfunction
 
@@ -54,31 +54,31 @@ endfunction
 " Styles {{{
 "" Hues {{{
 let  s:hues             = {}
-let  s:hues.nothing     = {'lig': 'none',           'fg': 'none',     'bg': 'none'}
-let  s:hues.Underlined  = {'lig': 'underline',      'fg': 'none',     'bg': 'none'}
-let  s:hues.Contrasted  = {'lig': 'inverse',        'fg': 'none',     'bg': 'none'}
-let  s:hues.Faded       = {'lig': 'none',           'fg': 'DarkGrey', 'bg': 'none'}
+let  s:hues.nothing     = {'lig': 'none',           'fg': 'none',     'bg': 'bg'}
+let  s:hues.Underlined  = {'lig': 'underline',      'fg': 'none',     'bg': 'bg'}
+let  s:hues.Contrasted  = {'lig': 'inverse',        'fg': 'none',     'bg': 'bg'}
+let  s:hues.Faded       = {'lig': 'none',           'fg': 'DarkGrey', 'bg': 'bg'}
 let  s:hues.Hidden      = {'lig': 'none',           'fg': 'bg',       'bg': 'bg'}
-let  s:hues.Bold        = {'lig': 'bold',           'fg': 'fg',       'bg': 'none'}
-let  s:hues.Italic      = {'lig': 'bold',           'fg': 'fg',       'bg': 'none'}
-let  s:hues.Pop         = {'lig': 'none',           'fg': 'White',    'bg': 'none'}
-let  s:hues.StrongPop   = {'lig': 'bold,underline', 'fg': 'White',    'bg': 'none'}
+let  s:hues.Bold        = {'lig': 'bold',           'fg': 'fg',       'bg': 'bg'}
+let  s:hues.Italic      = {'lig': 'bold',           'fg': 'fg',       'bg': 'bg'}
+let  s:hues.Pop         = {'lig': 'none',           'fg': 'White',    'bg': 'bg'}
+let  s:hues.StrongPop   = {'lig': 'bold,underline', 'fg': 'White',    'bg': 'bg'}
 "" }}}
 
 "" Moods {{{
 let  s:moods            = {}
-let  s:moods.Proud      = {'lig': 'none',  'fg': 'DarkBlue',     'bg': 'none'}
-let  s:moods.Calm       = {'lig': 'none',  'fg': 'DarkGreen',    'bg': 'none'}
-let  s:moods.Peaceful   = {'lig': 'none',  'fg': 'DarkCyan',     'bg': 'none'}
-let  s:moods.Forceful   = {'lig': 'none',  'fg': 'DarkRed',      'bg': 'none'}
-let  s:moods.Happy      = {'lig': 'none',  'fg': 'DarkMagenta',  'bg': 'none'}
-let  s:moods.Busy       = {'lig': 'none',  'fg': 'DarkYellow',   'bg': 'none'}
-let  s:moods.Satisfied  = {'lig': 'none',  'fg': 'Blue',         'bg': 'none'}
-let  s:moods.Relaxed    = {'lig': 'none',  'fg': 'Green',        'bg': 'none'}
-let  s:moods.Fresh      = {'lig': 'none',  'fg': 'Cyan',         'bg': 'none'}
-let  s:moods.Intense    = {'lig': 'none',  'fg': 'Red',          'bg': 'none'}
-let  s:moods.Excited    = {'lig': 'none',  'fg': 'Magenta',      'bg': 'none'}
-let  s:moods.Lively     = {'lig': 'none',  'fg': 'Yellow',       'bg': 'none'}
+let  s:moods.Proud      = {'lig': 'none',  'fg': 'DarkBlue',     'bg': 'bg'}
+let  s:moods.Calm       = {'lig': 'none',  'fg': 'DarkGreen',    'bg': 'bg'}
+let  s:moods.Peaceful   = {'lig': 'none',  'fg': 'DarkCyan',     'bg': 'bg'}
+let  s:moods.Forceful   = {'lig': 'none',  'fg': 'DarkRed',      'bg': 'bg'}
+let  s:moods.Happy      = {'lig': 'none',  'fg': 'DarkMagenta',  'bg': 'bg'}
+let  s:moods.Busy       = {'lig': 'none',  'fg': 'DarkYellow',   'bg': 'bg'}
+let  s:moods.Satisfied  = {'lig': 'none',  'fg': 'Blue',         'bg': 'bg'}
+let  s:moods.Relaxed    = {'lig': 'none',  'fg': 'Green',        'bg': 'bg'}
+let  s:moods.Fresh      = {'lig': 'none',  'fg': 'Cyan',         'bg': 'bg'}
+let  s:moods.Intense    = {'lig': 'none',  'fg': 'Red',          'bg': 'bg'}
+let  s:moods.Excited    = {'lig': 'none',  'fg': 'Magenta',      'bg': 'bg'}
+let  s:moods.Lively     = {'lig': 'none',  'fg': 'Yellow',       'bg': 'bg'}
 "" }}}
 
 "" Highlights {{{

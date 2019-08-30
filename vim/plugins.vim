@@ -20,14 +20,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
 
-" Ranger file browser
-if !empty(system('which ranger'))
-    Plug 'francoiscabrol/ranger.vim'
-    let g:ranger_map_keys = 0
-    map <leader>r = :Ranger<CR>
-    map <leader>R = :RangerWorkingDirectory<CR>
-endif
-
 " Send selected text to tmux pane
 " Very useful for REPL based development (Clojure)
 Plug 'jpalardy/vim-slime'
@@ -57,6 +49,7 @@ if s:enable_dispatch
         autocmd FileType python let b:dispatch = 'mypy --strict %'
     augroup END
 endif
+unlet s:enable_dispatch
 "}}}
 
 "--- Colorschemes{{{
@@ -64,7 +57,6 @@ Plug 'patstockwell/vim-monokai-tasty'
 Plug 'dikiaap/minimalist'
 Plug 'jdsimcoe/abstract.vim'
 Plug 'romainl/Apprentice'
-Plug 'romainl/flattened'
 Plug 'keith/parsec.vim'
 Plug 'zeis/vim-kolor'
 Plug 'lifepillar/vim-solarized8'
@@ -85,40 +77,6 @@ Plug 'junegunn/vader.vim'
 
 "--- Compilers{{{
 Plug 'nsteinhoff/vim-compilers'                 " Collection of compilers
-"}}}
-
-"--- Language Server Protocol{{{
-let s:use_coc = v:false
-if s:use_coc
-    source ~/dotfiles/vim/coc-setup.vim
-    let g:coc_global_extensions = [
-        \ 'coc-json',
-        \ 'coc-yaml',
-        \ 'coc-python',
-        \ ]
-endif
-
-let s:use_ale = v:false
-if s:use_ale
-    Plug 'w0rp/ale'
-    let g:ale_python_auto_pipenv = 1
-    let g:ale_linters = {
-    \ 'python': ['flake8', 'mypy']
-    \ }
-    let g:ale_fixers = {
-    \ 'python': ['yapf']
-    \ }
-    nnoremap <leader>af :ALEFix<cr>
-    nnoremap <leader>al :ALELint<cr>
-endif
-
-let s:use_lsp = v:true
-if s:use_lsp
-    Plug 'autozimu/LanguageClient-neovim', {
-        \ 'branch': 'next',
-        \ 'do': 'bash install.sh',
-        \ }
-endif
 "}}}
 
 "--- Netrw Browser{{{
