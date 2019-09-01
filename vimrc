@@ -29,7 +29,7 @@ set undofile
 
 filetype plugin indent on                   " Filetype detection and indentation
 syntax on                                   " Syntax highlighting
-
+let mapleader = '\'
 set ttyfast                                 " Indicate a fast terminal connection
 set lazyredraw                              " Only redraw when necessary
 set ffs=unix,dos,mac                        " Unix as standard file type

@@ -21,6 +21,12 @@ call plug#begin('~/.vim/plugged')
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
 
+" Paredit mode
+" Automatically keep parentheses matched
+Plug 'vim-scripts/paredit.vim'
+let g:paredit_smartjump = 1
+
+
 " Send selected text to tmux pane
 " Very useful for REPL based development (Clojure)
 Plug 'jpalardy/vim-slime'
@@ -74,6 +80,8 @@ let g:scala_use_default_keymappings = 0
 
 " Testing framework for Vimscript
 Plug 'junegunn/vader.vim'
+
+" Clojure nRepl integration
 Plug 'tpope/vim-fireplace'
 "}}}
 
