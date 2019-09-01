@@ -6,6 +6,7 @@ runtime ftplugin/man.vim
 
 " CUSTOM COMMANDS
 " ---------------
+let $MYCOMMANDS=expand('<sfile>:p')
 
 "--- General ---{{{
 " Escaping modes

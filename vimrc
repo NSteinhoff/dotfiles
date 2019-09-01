@@ -80,7 +80,7 @@ set wildignore+=*.egg-info/*
 set wildignore+=*.pyc
 set wildignore+=*.swp
 set wildignore+=*.tox/*
-set wildignore+=*out/*
+set wildignore+=*/out/*
 set wildignore+=*.zip
 set wildignore+=*__pycache__/*
 set wildignore+=*db/*
@@ -129,8 +129,8 @@ set expandtab                               " Expand <Tab> into spaces
 set smarttab                                " Be smart about inserting and deleting tabs
 
 " Autocompletion
-set complete-=t                             " Don't scan tags
-set complete-=i                             " Don't scan included files
+" set complete-=t                             " Don't scan tags
+" set complete-=i                             " Don't scan included files
 "}}}
 
 "---------------------------------- Diff -----------------------------------{{{
@@ -181,8 +181,7 @@ set errorformat+=%f\|%l\ col\ %c\|%m    " Allow reading error lists from buffers
 
 "-------------------------------- Colorscheme ---------------------------------{{{
 try
-    " source ~/.vim/colorscheme.vim
-    colorscheme apprentice
+    source ~/.vim/colorscheme.vim
 catch
     "No problem...
 endtry

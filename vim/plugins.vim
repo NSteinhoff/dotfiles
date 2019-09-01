@@ -2,6 +2,7 @@
 
 " PLUGINS
 " -------
+let $MYPLUGINS=expand('<sfile>:p')
 
 "--- Install Plug ---
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -73,6 +74,7 @@ let g:scala_use_default_keymappings = 0
 
 " Testing framework for Vimscript
 Plug 'junegunn/vader.vim'
+Plug 'tpope/vim-fireplace'
 "}}}
 
 "--- Compilers{{{
