@@ -75,6 +75,12 @@ if [[ -z $JAVA_HOME ]]; then
 fi
 
 # -----------   COMPLETIONS   --------------
+if [ -z "$(which cht.sh)" ]; then
+    echo "Installing cht.sh"
+    curl https://cht.sh/:cht.sh > ~/.local/bin/cht.sh
+    chmod +x ~/.local/bin/cht.sh
+fi
+[ -n "$(which cht.sh)" ] && source <(cht.sh :bash_completion)
 
 # ----------- Kubectl && Minikube completion ----------
 [ -n "$(which kubectl)" ] && source <(kubectl completion bash)

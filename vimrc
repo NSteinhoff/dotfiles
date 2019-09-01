@@ -94,6 +94,11 @@ set wildignore+=*vendor/*
 set wildignore+=*venv/*
 "}}}
 
+"---------------------------- Documentation / Man --------------------------{{{
+if executable('cht.sh') && &keywordprg == 'man'
+    set keywordprg=cht.sh
+endif
+"}}}
 "----------------------------------- Grep -------------------------------------{{{
 " Use external 'grep' tool to search for patterns recursively
 if executable('ag')
