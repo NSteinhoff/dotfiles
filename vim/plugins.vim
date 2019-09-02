@@ -25,6 +25,7 @@ let g:rainbow_active = 1
 " Automatically keep parentheses matched
 Plug 'vim-scripts/paredit.vim'
 let g:paredit_smartjump = 1
+let g:paredit_mode = 0
 
 
 " Send selected text to tmux pane
@@ -89,15 +90,23 @@ Plug 'tpope/vim-fireplace'
 Plug 'nsteinhoff/vim-compilers'                 " Collection of compilers
 "}}}
 
+"--- NerdTree{{{
+" Plug 'scrooloose/nerdtree'
+"}}}
+
 "--- Netrw Browser{{{
 let g:netrw_liststyle=0                     " Set default view style [thin|long|wide|tree]
-let g:netrw_banner=0                        " Show banner no/yes [0|1]
+let g:netrw_banner=1                        " Show banner no/yes [0|1]
 let g:netrw_altv=1                          " Open vertical split left/right [0|1]
 let g:netrw_alto=0                          " Open vertical split left/right [0|1]
 let g:netrw_altfile=0                       " CTRL-^ returns you to the last directory listing or edited file [0|1]
 let g:netrw_preview=1                       " Open preview split type horizontal/vertical [0|1]
 let g:netrw_list_hide='.*\.swp$,.*\.pyc'    " File patterns to hide from the list
 let g:netrw_fastbrowse=0                    " Always refresh the listing
+augroup netrw
+    au!
+    au FileType netrw setlocal nolist
+augroup END
 "}}}
 
 call plug#end()

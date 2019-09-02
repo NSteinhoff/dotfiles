@@ -95,8 +95,12 @@ set wildignore+=*venv/*
 "}}}
 
 "---------------------------- Documentation / Man --------------------------{{{
+function! s:cheatSheet(topic)
+    echo system('cht.sh ' . a:topic .'?Tq')
+endfun
+command! -nargs=+ Cht call s:cheatSheet(<q-args>)
 if executable('cht.sh') && &keywordprg == 'man'
-    set keywordprg=cht.sh
+    set keywordprg=:Cht
 endif
 "}}}
 "----------------------------------- Grep -------------------------------------{{{
@@ -162,13 +166,14 @@ augroup filetype_settings
     autocmd BufNewFile,BufRead *.pyi setfiletype python
     autocmd BufNewFile,BufRead *.drl setfiletype scala
     autocmd BufNewFile,BufRead application.conf setfiletype hocon
-    autocmd FileType python set formatprg=yapf | compiler flake8
-    autocmd FileType json set formatprg=python\ -m\ json.tool
-    autocmd FileType lisp,scala,markdown,Jenkinsfile set shiftwidth=2 softtabstop=2
-    autocmd FileType taskpaper set noexpandtab
+    autocmd FileType python setlocal formatprg=yapf | compiler flake8
+    autocmd FileType json setlocal formatprg=python\ -m\ json.tool
+    autocmd FileType lisp,scala,markdown,Jenkinsfile setlocal shiftwidth=2 softtabstop=2
+    autocmd FileType scala setlocal keywordprg=cht.sh\ scala
+    autocmd FileType taskpaper setlocal noexpandtab
     autocmd FileType markdown let g:table_mode_corner='|'
     autocmd FileType rst let g:table_mode_corner='+' | let g:table_mode_header_fillchar='='
-    autocmd FileType markdown set suffixesadd+=.md
+    autocmd FileType markdown setlocal suffixesadd+=.md
 augroup END
 "}}}
 
