@@ -1,6 +1,9 @@
 super + alt + v
     gvim -S ~/.vim/any.vim +start
 
+super + alt + n
+    gvim -c 'r!date' -c 'normal i# ' -c 'normal o' ~/notes.md
+
 super + f
     x-terminal-emulator -e ranger
 
