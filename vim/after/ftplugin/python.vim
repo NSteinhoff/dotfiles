@@ -9,7 +9,7 @@ function! s:src_or_root(root)
     endif
 endfunction
 
-let s:projects = map(findfile('setup.py', '**', -1), {key, val -> fnamemodify(val, ":h")})
+let s:projects = map(findfile('setup.py', '**', -1), {key, val -> fnamemodify(val, ":p:h")})
 let s:sources = map(s:projects, {key, val -> s:src_or_root(val)})
 let &l:path = ','
 let &l:path .= ',' . join(s:sources, ',')
