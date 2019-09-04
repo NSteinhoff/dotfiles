@@ -75,17 +75,30 @@ if [[ -z $JAVA_HOME ]]; then
 fi
 
 # -----------   COMPLETIONS   --------------
+[ -d ~/.config/bash-completion ] || mkdir -p ~/.config/bash-completion
 if [ -z "$(which cht.sh)" ]; then
     echo "Installing cht.sh"
     curl https://cht.sh/:cht.sh > ~/.local/bin/cht.sh
     chmod +x ~/.local/bin/cht.sh
 fi
-[ -n "$(which cht.sh)" ] && source <(cht.sh :bash_completion)
 
+if [ -n "$(which cht.sh)" ]; then
+    [ -f ~/.config/bash-completion/cht.sh ] || cht.sh :bash_completion > ~/.config/bash-completion/cht.sh
+    source ~/.config/bash-completion/cht.sh
+fi
 # ----------- Kubectl && Minikube completion ----------
-[ -n "$(which kubectl)" ] && source <(kubectl completion bash)
-[ -n "$(which minikube)" ] && source <(minikube completion bash)
-[ -n "$(which helm)" ] && source <(helm completion bash)
+if [ -n "$(which kubectl)" ]; then
+    [ -f ~/.config/bash-completion/kubectl ] || kubectl completion bash > ~/.config/bash-completion/kubectl
+    source ~/.config/bash-completion/kubectl
+fi
+if [ -n "$(which minikube)" ]; then
+    [ -f ~/.config/bash-completion/minikube ] || minikube completion bash > ~/.config/bash-completion/minikube
+    source ~/.config/bash-completion/minikube
+fi
+if [ -n "$(which helm)" ]; then
+    [ -f ~/.config/bash-completion/helm ] || helm completion bash > ~/.config/bash-completion/helm
+    source ~/.config/bash-completion/helm
+fi
 
 # ------------ Exercism ----------
 [ -f ~/.config/exercism/exercism_completion.bash ] && source ~/.config/exercism/exercism_completion.bash
@@ -172,7 +185,7 @@ PS1="${PS1:0:((${#PS1} - 3))}"'$(git_branch_indicator)\$ '
 export PS1
 
 # Launch tmux automatically
-if which tmux > /dev/null; then
+if [ -z $TMUX ] && which tmux > /dev/null; then
     if [ -z $TMUX ] && [ -z $VIM_TERMINAL ] ; then
         (tmux ls > /dev/null 2>&1 && tmux attach) || tmux
     fi
