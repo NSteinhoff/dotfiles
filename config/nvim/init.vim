@@ -1,6 +1,8 @@
 " vim:foldmethod=marker
 
 " Use same options as Vim
+set runtimepath^=~/.vim runtimepath+=~/.vim/after
+let &packpath = &runtimepath
 source ~/.vimrc
 
 "-------------------------------- Cursorline ----------------------------------{{{
@@ -13,8 +15,9 @@ augroup active_window_indicator
 augroup END
 "}}}
 
-"---------------------------------- Python ------------------------------------{{{
+"---------------------------------- Provider ------------------------------------{{{
 :autocmd TermOpen * setlocal statusline=%{b:term_title}
-" let g:python_host_prog  = expand('~').'/.virtualenvs/nvim2/bin/python'
-" let g:python3_host_prog  = expand('~').'/.virtualenvs/nvim3/bin/python'
+let g:python_host_prog  = '/usr/bin/python2'
+let g:python3_host_prog  = expand('~').'/.pyenv/versions/py3nvim/bin/python'
+let g:node_host_prog = expand('~').'/.nvm/versions/node/v12.10.0/bin/neovim-node-host'
 " }}}

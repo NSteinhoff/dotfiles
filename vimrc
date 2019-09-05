@@ -103,6 +103,7 @@ if executable('cht.sh') && &keywordprg == 'man'
     set keywordprg=:Cht
 endif
 "}}}
+
 "----------------------------------- Grep -------------------------------------{{{
 " Use external 'grep' tool to search for patterns recursively
 if executable('ag')
@@ -138,8 +139,8 @@ set expandtab                               " Expand <Tab> into spaces
 set smarttab                                " Be smart about inserting and deleting tabs
 
 " Autocompletion
-" set complete-=t                             " Don't scan tags
-" set complete-=i                             " Don't scan included files
+set complete-=t                             " Don't scan tags
+set complete-=i                             " Don't scan included files
 "}}}
 
 "---------------------------------- Diff -----------------------------------{{{
