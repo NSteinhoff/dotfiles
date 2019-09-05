@@ -14,11 +14,14 @@ sudo apt install $(cat $dir/extras/packages)
 
 
 ##### Installing Python
-echo -e "\n\n"
-echo ">>>>>>>>>>>>>>>"
-echo "Installing python..."
+install_python=false
+if $install_python; then
+    echo -e "\n\n"
+    echo ">>>>>>>>>>>>>>>"
+    echo "Installing python..."
 
-$dir/extras/python
+    $dir/extras/python
+fi
 
 
 ########## ZSH
@@ -74,7 +77,7 @@ echo "Installing config files..."
 
 cfgdir=$dir/config
 cfgbkpdir=~/.config/backup_$(date +%F-%T)
-files=(alacritty/alacritty.yml sxhkd/sxhkdrc)
+files=(alacritty/alacritty.yml sxhkd/sxhkdrc nvim/init.vim)
 
 # create dotfiles_old in homedir
 
@@ -84,23 +87,27 @@ cd $cfgdir
 
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
 for file in ${files[*]}; do
-    if [ -L ~/.config/$file ]; then
+    target="$cfgdir/$file"
+    linkname="$HOME/.config/$file"
+    linkdir="${linkname%/*}"
+    if [ -L "$linkname" ]; then
         tput setaf 3
         echo -n "Removing old symlink; "
-        rm ~/.config/$file
+        rm "$linkname"
         tput sgr0
     fi
-    if [ -f ~/.config/$file ] || [ -d ~/.config/$file ]; then
+    if [ -f "$linkname" ] || [ -d "$linkname" ]; then
         tput setaf 3
         echo -n "Backing-up existing file; "
-        mkdir -p $cfgbkpdir/${file%/*}
-        mv -v ~/.config/$file $cfgbkpdir/$file
+        mkdir -p "$cfgbkpdir/${file%/*}"
+        mv -v "$linkname" "$cfgbkpdir/$file"
         tput sgr0
     fi
     tput setaf 2
     echo -n "Creating symlink: "
     tput sgr0
-    ln -v -s $cfgdir/$file ~/.config/$file
+    [ -f "$linkdir" ] || mkdir -p "$linkdir"
+    ln -v -s "$target" "$linkname"
 done
 
 
