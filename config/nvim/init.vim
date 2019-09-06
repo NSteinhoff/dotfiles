@@ -26,6 +26,15 @@ set expandtab
 set tags-=./tags tags-=./tags; tags^=./tags;
 " }}}
 
+"------------------------------- Autoread -------------------------------------{{{
+set updatetime=100                          " Fire CursorHold event after X milliseconds
+augroup autoread_settings
+    autocmd!
+    autocmd CursorHold * silent! checktime
+augroup END
+"}}}
+"
+
 "--------------------------------- Display ----------------------------------{{{
 set scrolloff=1
 set sidescrolloff=5
