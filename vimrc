@@ -3,6 +3,7 @@ if has("gui_running")
     set guioptions-=m
     set guioptions-=T
     set guifont=Monospace\ 14
+    colorscheme desert
 endif
 
 filetype plugin indent on                   " Filetype detection and indentation
@@ -18,6 +19,7 @@ set mouse=                                  " Mouse? PFUII!!
 set modeline                                " Respect modeline options
 
 "------------------------------------- UI -------------------------------------{{{
+set background=dark
 set laststatus=2                            " Always show the statusbar
 set number                                  " Line numbers
 set norelativenumber                        " Line numbers relative to current cursor position
