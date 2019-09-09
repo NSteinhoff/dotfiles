@@ -57,7 +57,11 @@ augroup terminal_statusline
     autocmd TermOpen * setlocal statusline=%{b:term_title}
 augroup END
 
-colorscheme abstract
+try
+    colorscheme abstract
+catch E185
+    echo "Colorscheme not installed."
+endtry
 "}}}
 
 "-------------------------------- Providers ---------------------------------{{{
