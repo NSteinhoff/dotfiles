@@ -8,6 +8,7 @@ augroup END
 "--------------------------------- Behavior ---------------------------------{{{
 set hidden
 set updatetime=100
+set wildmode=list:longest,full
 "}}}
 
 "--------------------------------- Editing ----------------------------------{{{
@@ -58,7 +59,7 @@ augroup terminal_statusline
 augroup END
 
 try
-    colorscheme abstract
+    colorscheme minimalist
 catch E185
     echo "Colorscheme not installed."
 endtry
@@ -99,6 +100,8 @@ if exists('*minpac#init')
 
     call minpac#add('dikiaap/minimalist')
     call minpac#add('jdsimcoe/abstract.vim')
+
+    call minpac#add('sheerun/vim-polyglot')
 endif
 
 command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('', {'do': 'call minpac#status()'})
