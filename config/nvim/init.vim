@@ -39,7 +39,7 @@ augroup END
 "--------------------------------- Display ----------------------------------{{{
 set foldmethod=indent
 
-set scrolloff=1
+set scrolloff=10
 set sidescrolloff=5
 set nowrap
 
