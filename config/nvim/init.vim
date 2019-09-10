@@ -9,6 +9,7 @@ augroup END
 set hidden
 set updatetime=100
 set wildmode=list:longest,full
+set path=,,.
 "}}}
 
 "--------------------------------- Editing ----------------------------------{{{
@@ -37,6 +38,8 @@ augroup END
 "}}}
 
 "--------------------------------- Display ----------------------------------{{{
+set number
+
 set foldmethod=indent
 
 set scrolloff=10
