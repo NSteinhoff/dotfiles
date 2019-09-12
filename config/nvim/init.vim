@@ -47,7 +47,7 @@ set sidescrolloff=5
 set nowrap
 
 set list
-set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:+
 
 set cursorline
 augroup active_window_indicator
@@ -62,7 +62,7 @@ augroup terminal_statusline
 augroup END
 
 try
-    colorscheme minimalist
+    colorscheme minimal
 catch E185
     echo "Colorscheme not installed."
 endtry

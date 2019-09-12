@@ -1,7 +1,12 @@
+" Cool help screens:
+" - group-name
+" - highlight-groups
+" - cterm-colors
+
 " Helper functions {{{
 
 " Activate the colorscheme
-function! s:ApplyTheme(groups, dark, light)
+function! s:ApplyStyles(groups, dark, light)
   if &background == "dark"
     call s:HighlightGroups(a:groups, a:dark)
   else
@@ -12,21 +17,21 @@ endfunction
 
 " Highligh all items in a group with the configured style
 function! s:HighlightGroups(groups, styles)
-  for [l:group, l:style] in items(a:styles)
-    let l:items = a:groups[l:group]
-    call s:HighlightItems(l:items, l:style)
+  for [group, style] in items(a:styles)
+    let items = a:groups[group]
+    call s:HighlightItems(items, style)
   endfor
 endfunction
 
 " Highlight items as a certain style by linking
 function! s:HighlightItems(items, style)
-  for l:item in a:items
-    exec "highlight! link " . l:item . " " . a:style
+  for item in a:items
+    exec "highlight! link " . item . " " . a:style
   endfor
 endfunction
 
 " Create styles that can be used to link groups to
-function! s:SetStyles(styles)
+function! s:InitStyles(styles)
   for [name, opts] in items(a:styles)
     call s:ApplyStyle(name, opts)
   endfor
@@ -35,68 +40,60 @@ endfunction
 " Apply a syntax highlight style based on a dicationary of options.
 function! s:ApplyStyle(name, opts)
   let n = a:name
-  let lig = s:get_or_else(a:opts, 'lig', 'none')
-  let fg = s:get_or_else(a:opts, 'fg', 'none')
-  let bg = s:get_or_else(a:opts, 'bg', 'none')
+  let lig = get(a:opts, 'lig', 'none')
+  let fg = get(a:opts, 'fg', 'none')
+  let bg = get(a:opts, 'bg', 'none')
   exec "highlight " . n . " cterm=" . lig . " ctermfg=" . fg . " ctermbg=" . bg
 endfunction
 
-" Get key from dictionary or fall back to default.
-function! s:get_or_else(dict, key, default)
-  if has_key(a:dict, a:key)
-    return a:dict[a:key]
-  else
-    return a:default
-  endif
-endfunction
 " }}}
 
 " Styles {{{
 "" Hues {{{
-let  s:hues             = {}
-let  s:hues.nothing     = {'lig': 'none',           'fg': 'none',     'bg': 'bg'}
-let  s:hues.Underlined  = {'lig': 'underline',      'fg': 'none',     'bg': 'bg'}
-let  s:hues.Contrasted  = {'lig': 'inverse',        'fg': 'none',     'bg': 'bg'}
-let  s:hues.Faded       = {'lig': 'none',           'fg': 'DarkGrey', 'bg': 'bg'}
-let  s:hues.Hidden      = {'lig': 'none',           'fg': 'bg',       'bg': 'bg'}
-let  s:hues.Bold        = {'lig': 'bold',           'fg': 'fg',       'bg': 'bg'}
-let  s:hues.Italic      = {'lig': 'bold',           'fg': 'fg',       'bg': 'bg'}
-let  s:hues.Pop         = {'lig': 'none',           'fg': 'White',    'bg': 'bg'}
-let  s:hues.StrongPop   = {'lig': 'bold,underline', 'fg': 'White',    'bg': 'bg'}
+let  s:hues                           = {}
+let  s:hues.nothing                   = {'lig': 'none',             'fg': 'none',         'bg': 'none'}
+let  s:hues.Underlined                = {'lig': 'underline',        'fg': 'none',         'bg': 'none'}
+let  s:hues.Contrasted                = {'lig': 'inverse',          'fg': 'none',         'bg': 'none'}
+let  s:hues.Faded                     = {'lig': 'none',             'fg': 'DarkGrey',     'bg': 'none'}
+let  s:hues.Hidden                    = {'lig': 'none',             'fg': 'none',         'bg': 'none'}
+let  s:hues.Bold                      = {'lig': 'bold',             'fg': 'fg',           'bg': 'none'}
+let  s:hues.Italic                    = {'lig': 'bold',             'fg': 'fg',           'bg': 'none'}
+let  s:hues.Pop                       = {'lig': 'none',             'fg': 'White',        'bg': 'none'}
+let  s:hues.StrongPop                 = {'lig': 'bold,underline',   'fg': 'White',        'bg': 'none'}
 "" }}}
 
 "" Moods {{{
-let  s:moods            = {}
-let  s:moods.Proud      = {'lig': 'none',  'fg': 'DarkBlue',     'bg': 'bg'}
-let  s:moods.Calm       = {'lig': 'none',  'fg': 'DarkGreen',    'bg': 'bg'}
-let  s:moods.Peaceful   = {'lig': 'none',  'fg': 'DarkCyan',     'bg': 'bg'}
-let  s:moods.Forceful   = {'lig': 'none',  'fg': 'DarkRed',      'bg': 'bg'}
-let  s:moods.Happy      = {'lig': 'none',  'fg': 'DarkMagenta',  'bg': 'bg'}
-let  s:moods.Busy       = {'lig': 'none',  'fg': 'DarkYellow',   'bg': 'bg'}
-let  s:moods.Satisfied  = {'lig': 'none',  'fg': 'Blue',         'bg': 'bg'}
-let  s:moods.Relaxed    = {'lig': 'none',  'fg': 'Green',        'bg': 'bg'}
-let  s:moods.Fresh      = {'lig': 'none',  'fg': 'Cyan',         'bg': 'bg'}
-let  s:moods.Intense    = {'lig': 'none',  'fg': 'Red',          'bg': 'bg'}
-let  s:moods.Excited    = {'lig': 'none',  'fg': 'Magenta',      'bg': 'bg'}
-let  s:moods.Lively     = {'lig': 'none',  'fg': 'Yellow',       'bg': 'bg'}
+let  s:moods                          = {}
+let  s:moods.Proud                    = {'lig': 'none',             'fg': 'DarkBlue',     'bg': 'none'}
+let  s:moods.Calm                     = {'lig': 'none',             'fg': 'DarkGreen',    'bg': 'none'}
+let  s:moods.Peaceful                 = {'lig': 'none',             'fg': 'DarkCyan',     'bg': 'none'}
+let  s:moods.Forceful                 = {'lig': 'none',             'fg': 'DarkRed',      'bg': 'none'}
+let  s:moods.Happy                    = {'lig': 'none',             'fg': 'DarkMagenta',  'bg': 'none'}
+let  s:moods.Busy                     = {'lig': 'none',             'fg': 'DarkYellow',   'bg': 'none'}
+let  s:moods.Satisfied                = {'lig': 'none',             'fg': 'Blue',         'bg': 'none'}
+let  s:moods.Relaxed                  = {'lig': 'none',             'fg': 'Green',        'bg': 'none'}
+let  s:moods.Fresh                    = {'lig': 'none',             'fg': 'Cyan',         'bg': 'none'}
+let  s:moods.Intense                  = {'lig': 'none',             'fg': 'Red',          'bg': 'none'}
+let  s:moods.Excited                  = {'lig': 'none',             'fg': 'Magenta',      'bg': 'none'}
+let  s:moods.Lively                   = {'lig': 'none',             'fg': 'Yellow',       'bg': 'none'}
 "" }}}
 
 "" Highlights {{{
 let  s:highlights                     = {}
-let  s:highlights.HFaded              = {'lig': 'none',  'fg': 'Grey',   'bg': 'DarkGrey'}
-let  s:highlights.HPeaceful           = {'lig': 'none',  'fg': 'White',  'bg': 'DarkCyan'}
-let  s:highlights.HProud              = {'lig': 'none',  'fg': 'White',  'bg': 'DarkBlue'}
-let  s:highlights.HCalm               = {'lig': 'none',  'fg': 'White',  'bg': 'DarkGreen'}
-let  s:highlights.HForceful           = {'lig': 'none',  'fg': 'White',  'bg': 'DarkRed'}
-let  s:highlights.HHappy              = {'lig': 'none',  'fg': 'White',  'bg': 'DarkMagenta'}
-let  s:highlights.HBusy               = {'lig': 'none',  'fg': 'Black',  'bg': 'DarkYellow'}
-let  s:highlights.HExcited            = {'lig': 'none',  'fg': 'Black',  'bg': 'Magenta'}
-let  s:highlights.HSatisfied          = {'lig': 'none',  'fg': 'Black',  'bg': 'Blue'}
-let  s:highlights.HLively             = {'lig': 'none',  'fg': 'Black',  'bg': 'Yellow'}
-let  s:highlights.HLivelyInvert       = {'lig': 'inverse',  'fg': 'Black',  'bg': 'Yellow'}
-let  s:highlights.HRelaxed            = {'lig': 'none',  'fg': 'Black',  'bg': 'Green'}
-let  s:highlights.HFresh              = {'lig': 'none',  'fg': 'Black',  'bg': 'Cyan'}
-let  s:highlights.HIntense            = {'lig': 'none',  'fg': 'Black',  'bg': 'Red'}
+let  s:highlights.HFaded              = {'lig': 'none',             'fg': 'Grey',         'bg': 'DarkGrey'}
+let  s:highlights.HPeaceful           = {'lig': 'none',             'fg': 'White',        'bg': 'DarkCyan'}
+let  s:highlights.HProud              = {'lig': 'none',             'fg': 'White',        'bg': 'DarkBlue'}
+let  s:highlights.HCalm               = {'lig': 'none',             'fg': 'White',        'bg': 'DarkGreen'}
+let  s:highlights.HForceful           = {'lig': 'none',             'fg': 'White',        'bg': 'DarkRed'}
+let  s:highlights.HHappy              = {'lig': 'none',             'fg': 'White',        'bg': 'DarkMagenta'}
+let  s:highlights.HBusy               = {'lig': 'none',             'fg': 'Black',        'bg': 'DarkYellow'}
+let  s:highlights.HExcited            = {'lig': 'none',             'fg': 'Black',        'bg': 'Magenta'}
+let  s:highlights.HSatisfied          = {'lig': 'none',             'fg': 'Black',        'bg': 'Blue'}
+let  s:highlights.HLively             = {'lig': 'none',             'fg': 'Black',        'bg': 'Yellow'}
+let  s:highlights.HLivelyInvert       = {'lig': 'inverse',          'fg': 'Black',        'bg': 'Yellow'}
+let  s:highlights.HRelaxed            = {'lig': 'none',             'fg': 'Black',        'bg': 'Green'}
+let  s:highlights.HFresh              = {'lig': 'none',             'fg': 'Black',        'bg': 'Cyan'}
+let  s:highlights.HIntense            = {'lig': 'none',             'fg': 'Black',        'bg': 'Red'}
 "" }}}
 " }}}
 
@@ -123,10 +120,10 @@ let  s:ui_styles.highlight_inverted   = "HLivelyInvert"
 ""}}}
 
 "" Diff Styles {{{{
-let  s:diff_styles.add     = "Calm"
-let  s:diff_styles.delete  = "Forceful"
-let  s:diff_styles.change  = "Busy"
-let  s:diff_styles.text    = "HExcited"
+let  s:diff_styles.add                = "Calm"
+let  s:diff_styles.delete             = "Forceful"
+let  s:diff_styles.change             = "Busy"
+let  s:diff_styles.text               = "HExcited"
 ""}}}
 
 "" Syntax Styles {{{{
@@ -306,24 +303,30 @@ let s:syntax_groups.heavy = [
 ""}}}
 "}}}
 
-" Theme Activation {{{
 highlight clear
-syntax reset
+if exists("syntax_on")
+    syntax reset
+endif
 set t_Co=16
 
 let g:colors_name="minimal"
 
-highlight Normal cterm=none ctermfg=Grey ctermbg=Black
+highlight Normal cterm=none ctermfg=Grey ctermbg=none
 
-call s:SetStyles(s:hues)
-call s:SetStyles(s:moods)
-call s:SetStyles(s:highlights)
+call s:InitStyles(s:hues)
+call s:InitStyles(s:moods)
+call s:InitStyles(s:highlights)
 
-call s:ApplyTheme(s:ui_groups, s:ui_styles, '')
-call s:ApplyTheme(s:diff_groups, s:diff_styles, '')
-call s:ApplyTheme(s:syntax_groups, s:syntax_styles, '')
+call s:ApplyStyles(s:ui_groups, s:ui_styles, '')
+call s:ApplyStyles(s:diff_groups, s:diff_styles, '')
+call s:ApplyStyles(s:syntax_groups, s:syntax_styles, '')
 
 syntax enable
+
+augroup HI_minimal
+  autocmd!
+  autocmd BufWritePost <buffer> source <afile>
+augroup END
 "}}}
 
-" vim: fdm=marker:sw=2:sts=2:et
+" vim: foldmethod=marker shiftwidth=2 foldlevel=0
