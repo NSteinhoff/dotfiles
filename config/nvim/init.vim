@@ -39,6 +39,7 @@ augroup END
 
 "--------------------------------- Display ----------------------------------{{{
 set number
+set inccommand=split
 
 set foldmethod=indent
 

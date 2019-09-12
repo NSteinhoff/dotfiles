@@ -8,3 +8,4 @@ tags
 vim/plugged
 vim/autoload/plug.vim
 vim/autoload/plug.vim.old
+config/nvim/pack
