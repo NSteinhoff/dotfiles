@@ -321,11 +321,6 @@ call s:ApplyStyles(s:diff_groups, s:diff_styles, '')
 call s:ApplyStyles(s:syntax_groups, s:syntax_styles, '')
 
 syntax enable
-
-augroup HI_minimal
-  autocmd!
-  autocmd BufWritePost <buffer> source <afile>
-augroup END
 "}}}
 
 " vim: foldmethod=marker shiftwidth=2 foldlevel=0
