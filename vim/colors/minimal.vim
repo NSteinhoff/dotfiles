@@ -203,7 +203,6 @@ let s:ui_groups.status_inactive = [
 \ "StatusLineTermNC",
 \ ]
 let s:ui_groups.line = [
-\ "CursorLine",
 \ "TabLine",
 \ "TabLineFill",
 \ ]
