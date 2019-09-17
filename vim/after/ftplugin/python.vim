@@ -1,7 +1,8 @@
 set define=^\\s*\\(def\\\|class\\)
 
 function! s:src_or_root(root)
-    let src = finddir('src', fnamemodify(a:root, ":p"))
+    echo a:root
+    let src = finddir('src', a:root)
     if src != ""
         return l:src
     else
@@ -9,7 +10,6 @@ function! s:src_or_root(root)
     endif
 endfunction
 
-let s:projects = map(findfile('setup.py', '**', -1), {key, val -> fnamemodify(val, ":p:h")})
-let s:sources = map(s:projects, {key, val -> s:src_or_root(val)})
-let &l:path = ','
-let &l:path .= ',' . join(s:sources, ',')
+let s:project_root = fnamemodify(findfile('setup.py', expand('%').';'), ':p:h')
+let s:source_path = s:src_or_root(s:project_root)
+let &l:path = ',,' . fnamemodify(s:source_path, ':.')
