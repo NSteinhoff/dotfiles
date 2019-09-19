@@ -98,10 +98,6 @@ if exists('*minpac#init')
     " Add plugins below:
 
     call minpac#add('neomake/neomake')
-    call minpac#add('nsteinhoff/vim-compilers')
-    call minpac#add('nsteinhoff/vim-differ')
-    call minpac#add('nsteinhoff/vim-pomodoro')
-
     call minpac#add('dikiaap/minimalist')
     call minpac#add('jdsimcoe/abstract.vim')
 
