@@ -11,6 +11,7 @@ export EDITOR=vim
 # Set Vim as man pager
 # export MANPAGER="vim -M +MANPAGER -"
 
+alias cider='clj -Sdeps "$(cat ~/.cider.edn)" -A:cider'
 # --------- Listing files ------------
 alias ls='ls --color=auto --group-directories-first'
 alias ll='ls -lF'
@@ -44,7 +45,7 @@ alias vnote="vim -c 'r!date' -c 'normal i# ' -c 'normal o' ~/notes.md"
 
 # Make 'rm' ask for confirmation every time
 # Use '\rm' if you know what you are doing
-alias rm='rm -i'
+# alias rm='rm -i'
 
 # Git branch indicator with colors
 NC='\033[0m' # No Color

@@ -40,7 +40,7 @@ echo -e "\n\n"
 echo ">>>>>>>>>>>>>>>"
 echo "Installing dotfiles..."
 bkpdir=~/.dotfiles_bkp
-files=(inputrc vimrc vim git_template screenrc gitconfig gitignore tmux.conf zshrc bash_aliases crawlrc ctags ctags.d scalafmt.conf)
+files=(inputrc vimrc vim git_template screenrc gitconfig gitignore tmux.conf zshrc bash_aliases crawlrc ctags ctags.d scalafmt.conf cider.edn)
 
 # create dotfiles_old in homedir
 echo "Creating $bkpdir for backup of any existing dotfiles in ~ ..."
