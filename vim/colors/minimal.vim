@@ -152,6 +152,7 @@ let s:syntax_styles.preproc           = "Calm"
 let s:syntax_styles.trivial           = "Faded"
 let s:syntax_styles.informative       = "Peaceful"
 let s:syntax_styles.special           = "Happy"
+let s:syntax_styles.underlined        = "Underlined"
 let s:syntax_styles.emphasis          = "Bold"
 let s:syntax_styles.strong            = "Pop"
 let s:syntax_styles.heavy             = "StrongPop"
@@ -294,8 +295,10 @@ let s:syntax_groups.special = [
 \ "Todo",
 \ "netrwSymLink",
 \ ]
-let s:syntax_groups.emphasis = [
+let s:syntax_groups.underlined = [
 \ "Underlined",
+\ ]
+let s:syntax_groups.emphasis = [
 \ "markdownItalic",
 \ "mkdItalic",
 \ "mkdLineBreak",

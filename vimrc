@@ -17,6 +17,9 @@ set hidden                                  " Allow hidden buffers
 set clipboard=unnamed                       " Yank into '*' register
 set mouse=                                  " Mouse? PFUII!!
 set modeline                                " Respect modeline options
+set wildmenu                                " Enable the wildmenu for tab completion
+set wildmode=longest:full,full
+"}}}
 
 "------------------------------------- UI -------------------------------------{{{
 set background=dark
@@ -25,8 +28,9 @@ set number                                  " Line numbers
 set norelativenumber                        " Line numbers relative to current cursor position
 set numberwidth=4                           " Width of the number gutter
 set list                                    " Enable list mode showing 'listchars'
-set listchars=nbsp:¬,tab:»·,trail:·         " Configure which characters to show in list mode
-set fillchars=vert:\|,stl:\ ,stlnc:\ ,fold:\ 
+" Configure which characters to show in list mode
+set listchars=tab:>-,trail:-,nbsp:+
+set listchars+=extends:>,precedes:<
 set foldcolumn=0                            " Show gutter that shows the foldlevel
 set scrolloff=3
 set noshowmode
