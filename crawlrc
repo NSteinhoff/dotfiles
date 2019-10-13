@@ -5,6 +5,11 @@ default_manual_training = true
 auto_butcher = satiated
 auto_hide_spells = true
 
+# Stop using dark blue for unseen tiles
+# by telling the game that the terminal
+# can render dark grey
+bold_brightens_foreground = true
+
 # Viewport
 view_max_width = 40
 view_max_height = 40

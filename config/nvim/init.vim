@@ -188,6 +188,7 @@ if exists('*minpac#init')
     call minpac#add('dikiaap/minimalist')
     call minpac#add('jdsimcoe/abstract.vim')
     call minpac#add('sainnhe/gruvbox-material')
+    call minpac#add('chriskempson/base16-vim')
 
     " Ftplugings:
     call minpac#add('sheerun/vim-polyglot')
