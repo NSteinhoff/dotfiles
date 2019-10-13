@@ -54,9 +54,9 @@ if &background == 'dark'
   let s:hues.Faded                      = {'lig': 'none',             'fg': 'DarkGrey',     'bg': 'none'}
   let s:hues.Hidden                     = {'lig': 'none',             'fg': 'none',         'bg': 'none'}
   let s:hues.Bold                       = {'lig': 'bold',             'fg': 'fg',           'bg': 'none'}
-  let s:hues.Italic                     = {'lig': 'bold',             'fg': 'fg',           'bg': 'none'}
+  let s:hues.Italic                     = {'lig': 'italic',           'fg': 'fg',           'bg': 'none'}
   let s:hues.Pop                        = {'lig': 'none',             'fg': 'White',        'bg': 'none'}
-  let s:hues.StrongPop                  = {'lig': 'bold,underline',   'fg': 'White',        'bg': 'none'}
+  let s:hues.StrongPop                  = {'lig': 'bold',             'fg': 'White',        'bg': 'none'}
   "" }}}
 else
   "" Hues {{{
@@ -147,11 +147,11 @@ let s:syntax_styles.constant          = "Proud"
 let s:syntax_styles.identifier        = "Normal"
 let s:syntax_styles.statement         = "Pop"
 let s:syntax_styles.operator          = "Pop"
-let s:syntax_styles.type              = "Busy"
-let s:syntax_styles.preproc           = "Calm"
+let s:syntax_styles.type              = "Fresh"
+let s:syntax_styles.preproc           = "Pop"
 let s:syntax_styles.trivial           = "Faded"
-let s:syntax_styles.informative       = "Peaceful"
-let s:syntax_styles.special           = "Happy"
+let s:syntax_styles.informative       = "Calm"
+let s:syntax_styles.special           = "Pop"
 let s:syntax_styles.underlined        = "Underlined"
 let s:syntax_styles.emphasis          = "Bold"
 let s:syntax_styles.strong            = "Pop"
@@ -263,6 +263,7 @@ let s:syntax_groups.constant = [
 let s:syntax_groups.identifier = [
 \ "Identifier",
 \ "Function",
+\ "Delimiter",
 \ ]
 let s:syntax_groups.statement = [
 \ "Statement",
@@ -329,7 +330,7 @@ set t_Co=16
 let g:colors_name="minimal"
 
 if &background == 'dark'
-  highlight Normal cterm=none ctermfg=Grey ctermbg=Black
+  highlight Normal cterm=none ctermfg=Grey ctermbg=none
 else
   highlight Normal cterm=none ctermfg=DarkGrey ctermbg=White
 endif
