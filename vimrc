@@ -1,4 +1,7 @@
 "----------------------------------- Basics -----------------------------------{{{
+source $VIMRUNTIME/defaults.vim
+set nocompatible
+
 if has("gui_running")
     set guioptions-=m
     set guioptions-=T
