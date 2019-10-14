@@ -92,9 +92,11 @@ let s:moods.Lively                    = {'lig': 'none',             'fg': 'Yello
 "" Highlights {{{
 let s:highlights                      = {}
 if &background == 'dark'
-  let s:highlights.HFaded               = {'lig': 'none',             'fg': 'LightGrey',    'bg': 'DarkGrey'}
+  let s:highlights.HPop               = {'lig': 'none',             'fg': 'White',        'bg': 'Black'}
+  let s:highlights.HFaded             = {'lig': 'none',             'fg': 'Grey',         'bg': 'Black'}
 else
-  let s:highlights.HFaded               = {'lig': 'none',             'fg': 'White',        'bg': 'Grey'}
+  let s:highlights.HPop               = {'lig': 'none',             'fg': 'Black',        'bg': 'White'}
+  let s:highlights.HFaded             = {'lig': 'none',             'fg': 'Grey',         'bg': 'White'}
 endif
 let s:highlights.HPeaceful            = {'lig': 'none',             'fg': 'White',        'bg': 'DarkCyan'}
 let s:highlights.HProud               = {'lig': 'none',             'fg': 'White',        'bg': 'DarkBlue'}
@@ -127,7 +129,7 @@ let s:ui_styles.selection             = "Contrasted"
 let s:ui_styles.hidden                = "Hidden"
 let s:ui_styles.ignore                = "Faded"
 let s:ui_styles.status_inactive       = "HFaded"
-let s:ui_styles.status_active         = "HFresh"
+let s:ui_styles.status_active         = "HPop"
 let s:ui_styles.status_term           = "HRelaxed"
 let s:ui_styles.match                 = "HExcited"
 let s:ui_styles.highlight             = "HLively"
