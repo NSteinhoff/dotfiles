@@ -142,15 +142,15 @@ let s:diff_styles.text                = "HExcited"
 ""}}}
 
 "" Syntax Styles {{{{
-let s:syntax_styles.error             = "Forceful"
-let s:syntax_styles.constant          = "Proud"
+let s:syntax_styles.error             = "Instense"    " <- Colored
+let s:syntax_styles.constant          = "Peaceful"    " <- Colored
 let s:syntax_styles.identifier        = "Normal"
 let s:syntax_styles.statement         = "Pop"
 let s:syntax_styles.operator          = "Pop"
-let s:syntax_styles.type              = "Fresh"
+let s:syntax_styles.type              = "StrongPop"
 let s:syntax_styles.preproc           = "Pop"
 let s:syntax_styles.trivial           = "Faded"
-let s:syntax_styles.informative       = "Calm"
+let s:syntax_styles.informative       = "Bold"
 let s:syntax_styles.special           = "Pop"
 let s:syntax_styles.underlined        = "Underlined"
 let s:syntax_styles.emphasis          = "Bold"
@@ -263,7 +263,6 @@ let s:syntax_groups.constant = [
 let s:syntax_groups.identifier = [
 \ "Identifier",
 \ "Function",
-\ "Delimiter",
 \ ]
 let s:syntax_groups.statement = [
 \ "Statement",
@@ -287,6 +286,7 @@ let s:syntax_groups.trivial = [
 \ "Noise",
 \ ]
 let s:syntax_groups.special = [
+\ "Delimiter",
 \ "Special",
 \ "SpecialKey",
 \ "SpellCap",
