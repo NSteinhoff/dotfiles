@@ -58,6 +58,11 @@ set path=,,.
 set shiftwidth=4
 set softtabstop=-1
 set expandtab
+
+" Set 'formatoptions' to break comment lines but not other lines,
+" and insert the comment leader when hitting <CR> or using "o".
+set formatoptions-=t
+set formatoptions+=croql
 "}}}
 
 "----------------------------------- Tags -----------------------------------{{{
