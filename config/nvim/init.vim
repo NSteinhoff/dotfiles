@@ -140,7 +140,7 @@ augroup END
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
 let mapleader = '\'
 
-" Clear search highlighting
+" Clear search highlighting with <ESC>
 if maparg('<ESC>', 'n') ==# ''
     nnoremap <silent> <ESC> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR>
 endif
@@ -175,7 +175,7 @@ if exists('*minpac#init')
     " 'neomake' seems simpler, and I'm not yet a heavy user.
     " One compiler / maker is usually enough.
     " 'neomake' also has the nice concept of local and global makers.
-    call minpac#add('neomake/neomake')
+    " call minpac#add('neomake/neomake')
 
     " REPL:
     " Tmux based REPL integration using 'tslime'
@@ -185,12 +185,13 @@ if exists('*minpac#init')
     call minpac#add('tpope/vim-fireplace')
 
     " Colorschemes:
-    call minpac#add('dikiaap/minimalist')
-    call minpac#add('jdsimcoe/abstract.vim')
-    call minpac#add('sainnhe/gruvbox-material')
-    call minpac#add('chriskempson/base16-vim')
+    " Try to stick to the defaults
+    " call minpac#add('dikiaap/minimalist')
+    " call minpac#add('jdsimcoe/abstract.vim')
+    " call minpac#add('sainnhe/gruvbox-material')
+    " call minpac#add('chriskempson/base16-vim')
 
-    " Ftplugings:
+    " FTPlugings:
     call minpac#add('sheerun/vim-polyglot')
 endif
 
@@ -212,11 +213,18 @@ nmap <C-c>r <Plug>SetTmuxVars
 "}}}
 
 "---------------------------------- Compiler ----------------------------------{{{
-" Configure Neomake automake functionality
+" <F5> is always set to make the project
 nnoremap <F5> :make<cr>
-if v:false
+
+" We might have Neomake installed
+if exists("*neomake#Make")
     nnoremap <C-space> :Neomake!<cr>
-else
+endif
+
+" <C-Space> is intended for quick tasks and might be mapped to an asynchronous
+" maker such as Neomake or Dispatch.
+" If it's not already set, fall back to make
+if maparg('<C-space>', 'n') ==# ''
     nnoremap <C-space> :make<cr>
 endif
 "}}}
