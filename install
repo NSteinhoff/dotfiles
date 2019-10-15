@@ -3,7 +3,7 @@
 # install
 # This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
 ############################
-dir=$(pwd)
+dir="$HOME/dotfiles"
 
 ########## Installing system packages
 echo -e "\n\n"
@@ -14,106 +14,79 @@ sudo apt install $(cat $dir/extras/packages)
 
 
 ##### Installing Python
-install_python=false
-if $install_python; then
+install_python () {
     echo -e "\n\n"
     echo ">>>>>>>>>>>>>>>"
     echo "Installing python..."
 
     $dir/extras/python
-fi
+}
+# install_python
 
 
 ########## ZSH
-install_zsh=false
-if $install_zsh; then
-    tput setaf 3
+install_zsh() {
     echo "Making Zsh default shell"
     sudo chsh -s `which zsh`
     echo "Installing oh-my-zsh"
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    tput sgr0
-fi
+}
+# install_zsh
+
 
 ########## Dotfiles in HOME
 echo -e "\n\n"
 echo ">>>>>>>>>>>>>>>"
 echo "Installing dotfiles..."
-bkpdir=~/.dotfiles_bkp
-files=(inputrc vimrc vim git_template screenrc gitconfig gitignore tmux.conf zshrc bash_aliases crawlrc ctags ctags.d scalafmt.conf cider.edn)
+bkpdir="$HOME/.dotfiles_bkp"
+files=(\
+    bash_aliases \
+    cider.edn \
+    config/alacritty/alacritty.yml \
+    config/nvim \
+    config/sxhkd/sxhkdrc \
+    clojure/deps.edn \
+    crawlrc \
+    ctags \
+    ctags.d \
+    git_template \
+    gitconfig \
+    gitignore \
+    inputrc \
+    scalafmt.conf \
+    screenrc \
+    tmux.conf \
+    vim \
+    vimrc \
+    zshrc \
+)
 
-# create dotfiles_old in homedir
-echo "Creating $bkpdir for backup of any existing dotfiles in ~ ..."
-mkdir -p $bkpdir
 
-# change to the dotfiles directory
-echo "Changing to the $dir directory ..."
-cd $dir
-
-# move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
+# move any existing dotfiles in homedir to dotfiles_old directory,
+# then create symlinks from the homedir to any files in the
+# ~/dotfiles directory specified in $files
 for file in ${files[*]}; do
-    if [ -L ~/.$file ]; then
-        tput setaf 3
-        echo -n "Removing old symlink; "
-        rm ~/.$file
-        tput sgr0
-    fi
-    if [ -f ~/.$file ] || [ -d ~/.$file ]; then
-        tput setaf 3
-        echo -n "Moving existing file; "
-        mv -v ~/.$file $bkpdir/$file
-        tput sgr0
-    fi
-    tput setaf 2
-    echo -n "Creating symlink: "
-    tput sgr0
-    ln -v -s $dir/$file ~/.$file
-done
-
-########## Configurations in ~/.config
-echo -e "\n\n"
-echo ">>>>>>>>>>>>>>>"
-echo "Installing config files..."
-
-cfgdir=$dir/config
-cfgbkpdir=~/.config/backup_$(date +%F-%T)
-files=(alacritty/alacritty.yml sxhkd/sxhkdrc nvim)
-
-# create dotfiles_old in homedir
-
-# change to the dotfiles directory
-echo "Changing to the $cfgdir directory ..."
-cd $cfgdir
-
-# move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
-for file in ${files[*]}; do
-    target="$cfgdir/$file"
-    linkname="$HOME/.config/$file"
+    target="$dir/$file"
+    linkname="$HOME/.$file"
     linkdir="${linkname%/*}"
+    echo "$file:"
     if [ -L "$linkname" ]; then
-        tput setaf 3
-        echo -n "Removing old symlink; "
+        echo -e "\tRemoving old symlink."
         rm "$linkname"
-        tput sgr0
     fi
     if [ -f "$linkname" ] || [ -d "$linkname" ]; then
-        tput setaf 3
-        echo -n "Backing-up existing file; "
-        mkdir -p "$cfgbkpdir/${file%/*}"
-        mv -v "$linkname" "$cfgbkpdir/$file"
-        tput sgr0
+        echo -e "\tBacking-up existing file."
+        mkdir -p "$bkpdir/${file%/*}"
+        mv -v "$linkname" "$bkpdir/$file"
     fi
-    tput setaf 2
-    echo -n "Creating symlink: "
-    tput sgr0
-    [ -f "$linkdir" ] || mkdir -p "$linkdir"
-    ln -v -s "$target" "$linkname"
+    [ -d "$linkdir" ] || mkdir -p "$linkdir"
+    echo -e "\tCreating symlink: $(ln -v -s $target $linkname)"
 done
 
-
 # Init and update the plugins tracked as submodules
+pushd "$dir"
 git submodule update --init --recursive
-
+popd
 
 ### Download git prompt script
 # curl -XGET "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh" > ~/.git-prompt.sh

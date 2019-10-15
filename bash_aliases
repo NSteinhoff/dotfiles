@@ -11,8 +11,8 @@ export EDITOR=vim
 # Set Vim as man pager
 # export MANPAGER="vim -M +MANPAGER -"
 
-alias nrepl='clj -Sdeps "$(cat ~/.cider.edn)" -A:nrepl'
-alias cider='clj -Sdeps "$(cat ~/.cider.edn)" -A:cider'
+alias cider='clj -A:local:cider'
+
 # --------- Listing files ------------
 alias ls='ls --color=auto --group-directories-first'
 alias ll='ls -lF'
