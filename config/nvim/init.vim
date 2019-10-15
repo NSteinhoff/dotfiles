@@ -1,4 +1,5 @@
 "--------------------------------- Helpers ----------------------------------{{{
+
 augroup settings
     autocmd!
     " Source this file on write
@@ -9,7 +10,7 @@ augroup END
 " The header text can be passed as an arguments or left blank to use the word
 " under the cursor. With no argument or word under cursor, will simply draw
 " the separator line.
-function s:header(words)
+function! s:header(words)
     " Some constants
     let prefix = '"'
     let sep = '-'
@@ -46,14 +47,19 @@ command! -nargs=? Header call s:header(<q-args>)
 
 "}}}
 
+
 "--------------------------------- Behavior ---------------------------------{{{
+
 set hidden
 set updatetime=100
 set wildmode=longest:full,full
 set path=,,.
+
 "}}}
 
+
 "--------------------------------- Editing ----------------------------------{{{
+
 " Tabs -> Spaces
 set shiftwidth=4
 set softtabstop=-1
@@ -63,9 +69,12 @@ set expandtab
 " and insert the comment leader when hitting <CR> or using "o".
 set formatoptions-=t
 set formatoptions+=croql
+
 "}}}
 
+
 "----------------------------------- Tags -----------------------------------{{{
+
 " Upward search from current file, then 'tags' in the working directory
 " -> files dir (./xyz)
 " -> upwards from file (./xyz;)
@@ -78,16 +87,24 @@ set tags=./tags,./tags;,tags,tags;
 " tags files on git actions that change the index (commits, checkouts, merges, etc.).
 " This file lives in the .git/ directory.
 set tags+=./.git/tags,./.git/tags;,.git/tags,.git/tags;
+
 "}}}
+
 
 "------------------------------- Autoread -------------------------------------{{{
+
+set autoread
 augroup autoread_settings
     autocmd!
+    " check for file modification and trigger realoading
     autocmd CursorHold * silent! checktime
 augroup END
+
 "}}}
 
+
 "--------------------------------- Display ----------------------------------{{{
+
 set number
 set inccommand=nosplit
 
@@ -100,42 +117,38 @@ set nowrap
 set list
 set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:+
 
-" I've disabled the cursorline for now because i find it
-" distracting, especially when reading man pages.
-" Most colorschemes use statusline highlighting to indicate
-" the active window. That is usually enough.
-if v:false
-    set cursorline
-    augroup cursorline_in_active_window_only
-        autocmd!
-        autocmd WinEnter * set cursorline
-        autocmd WinLeave * set nocursorline
-    augroup END
-endif
-
 " Gracefully handle unavailable colorscheme.
 " The desired colorscheme might not be installed yet. This happens
 " after cloning and installing the dotfiles for the first time.
 " Otherwise you'd have to click through the error messages manually.
 try
     colorscheme minimal
-    " colorscheme gruvbox-material
     set background=dark
 catch E185
     echo "Colorscheme not installed. Using the default colorscheme."
+    colorscheme default
+    set background=dark
 endtry
+
 "}}}
 
+
 "-------------------------------- Providers ---------------------------------{{{
+
 let g:python_host_prog  = '/usr/bin/python2'
 let g:python3_host_prog  = expand('~').'/.pyenv/versions/py3nvim/bin/python'
 let g:node_host_prog = expand('~').'/.nvm/versions/node/v12.10.0/bin/neovim-node-host'
+
 "}}}
+
 
 "---------------------------------- Commands --------------------------------{{{
+
 "}}}
 
+
 "--------------------------------- Mappings ---------------------------------{{{
+
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
 let mapleader = '\'
 
@@ -144,10 +157,16 @@ if maparg('<ESC>', 'n') ==# ''
     nnoremap <silent> <ESC> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR>
 endif
 
+""" Mappings that only apply for different file types.
 augroup custom_filetype_specific_commands
     autocmd!
+
+    " <SPACE> is used for the "most commonly triggered action" for each filetype.
     " Send the top-level form to the REPL
     autocmd FileType clojure nnoremap <buffer> <space> :Eval<cr>
+    " Default mapping for all other filetypes
+    autocmd FileType * if maparg('<space>', 'n') ==# '' | nnoremap <buffer> <space> :echo 'SPACE!'<cr> | endif
+
 augroup END
 
 " <F5> is always set to make the project
@@ -164,9 +183,12 @@ endif
 if maparg('<C-space>', 'n') ==# ''
     nnoremap <C-space> :make<cr>
 endif
+
 "}}}
 
+
 "--------------------------------- Plugins ----------------------------------{{{
+
 " Install minpac as an optional package if it's not already installed.
 if empty(glob('~/.config/nvim/pack/minpac/opt/minpac'))
     silent !git clone https://github.com/k-takata/minpac.git
@@ -202,6 +224,7 @@ if exists('*minpac#init')
     call minpac#add('jgdavey/tslime.vim')
 
     " Clojure:
+    " nRepl integration
     call minpac#add('tpope/vim-fireplace')
 
     " Colorschemes:
@@ -223,23 +246,30 @@ packloadall
 command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('', {'do': 'call minpac#status()'})
 command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
 command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
+
 "}}}
 
+
 "------------------------------------ REPL ------------------------------------{{{
+
 " Send text block to tmux pane
 vmap <C-c><C-c> <Plug>SendSelectionToTmux
 nmap <C-c><C-c> <Plug>NormalModeSendToTmux
 nmap <C-c>r <Plug>SetTmuxVars
+
 "}}}
 
+
 "-------------------------------- Abbreviations --------------------------------{{{
-"" Insert dates:
+
+" Insert dates:
 " Last modification date of the current file
-abbreviate <expr> ddf strftime("%c", getftime(expand('%')))
+iabbrev <expr> ddf strftime("%c", getftime(expand('%')))
 " Local date-time
-abbreviate <expr> ddc strftime("%c")
+iabbrev <expr> ddc strftime("%c")
 " Local date
-abbreviate <expr> ddd strftime("%Y-%m-%d")
+iabbrev <expr> ddd strftime("%Y-%m-%d")
+
 "}}}
 
 " vim:foldmethod=marker textwidth=0
