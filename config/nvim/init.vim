@@ -133,12 +133,6 @@ let g:node_host_prog = expand('~').'/.nvm/versions/node/v12.10.0/bin/neovim-node
 "}}}
 
 "---------------------------------- Commands --------------------------------{{{
-" Send current S-Expression to repl FIFO file.
-" nnoremap <c-c><c-c> vap:w >> ~/repl<cr>
-augroup user
-    autocmd!
-    autocmd FileType clojure nnoremap <buffer> <space> :Eval<cr>
-augroup END
 "}}}
 
 "--------------------------------- Mappings ---------------------------------{{{
@@ -148,6 +142,27 @@ let mapleader = '\'
 " Clear search highlighting with <ESC>
 if maparg('<ESC>', 'n') ==# ''
     nnoremap <silent> <ESC> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR>
+endif
+
+augroup custom_filetype_specific_commands
+    autocmd!
+    " Send the top-level form to the REPL
+    autocmd FileType clojure nnoremap <buffer> <space> :Eval<cr>
+augroup END
+
+" <F5> is always set to make the project
+nnoremap <F5> :make<cr>
+
+" We might have Neomake installed
+if exists("*neomake#Make")
+    nnoremap <C-space> :Neomake!<cr>
+endif
+
+" <C-Space> is intended for quick tasks and might be mapped to an asynchronous
+" maker such as Neomake or Dispatch.
+" If it's not already set, fall back to make
+if maparg('<C-space>', 'n') ==# ''
+    nnoremap <C-space> :make<cr>
 endif
 "}}}
 
@@ -217,21 +232,14 @@ nmap <C-c><C-c> <Plug>NormalModeSendToTmux
 nmap <C-c>r <Plug>SetTmuxVars
 "}}}
 
-"---------------------------------- Compiler ----------------------------------{{{
-" <F5> is always set to make the project
-nnoremap <F5> :make<cr>
-
-" We might have Neomake installed
-if exists("*neomake#Make")
-    nnoremap <C-space> :Neomake!<cr>
-endif
-
-" <C-Space> is intended for quick tasks and might be mapped to an asynchronous
-" maker such as Neomake or Dispatch.
-" If it's not already set, fall back to make
-if maparg('<C-space>', 'n') ==# ''
-    nnoremap <C-space> :make<cr>
-endif
+"-------------------------------- Abbreviations --------------------------------{{{
+"" Insert dates:
+" Last modification date of the current file
+abbreviate <expr> ddf strftime("%c", getftime(expand('%')))
+" Local date-time
+abbreviate <expr> ddc strftime("%c")
+" Local date
+abbreviate <expr> ddd strftime("%Y-%m-%d")
 "}}}
 
 " vim:foldmethod=marker textwidth=0
