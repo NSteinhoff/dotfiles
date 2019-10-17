@@ -264,7 +264,9 @@ if exists('*minpac#init')
     " call minpac#add('chriskempson/base16-vim')
 
     " FTPlugings:
-    call minpac#add('sheerun/vim-polyglot')
+    " call minpac#add('sheerun/vim-polyglot')
+    call minpac#add('vim-python/python-syntax')
+    call minpac#add('Vimjas/vim-python-pep8-indent')
 endif
 
 " Load all packages in 'start/'
@@ -275,6 +277,10 @@ packloadall
 command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('', {'do': 'call minpac#status()'})
 command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
 command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
+
+
+" Plugin Configuration:
+let g:python_highlight_all = 1
 
 "}}}
 
