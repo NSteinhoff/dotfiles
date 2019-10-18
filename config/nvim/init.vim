@@ -226,10 +226,6 @@ endif
 " Minpac is only needed when doing changes to the plugins such as updating
 " or deleting.
 "
-" Therefore, we don't need to always load it with
-"
-"   packadd minpac
-"
 " Instead the commands below add the package on demand.
 if exists('*minpac#init')
     call minpac#init()

@@ -1,9 +1,0 @@
-[submodule "config/nvim/pack/my-packs/start/vim-pomodoro"]
-	path = config/nvim/pack/my-packs/start/vim-pomodoro
-	url = git@github.com:NSteinhoff/vim-pomodoro.git
-[submodule "config/nvim/pack/my-packs/start/vim-differ"]
-	path = config/nvim/pack/my-packs/start/vim-differ
-	url = git@github.com:NSteinhoff/vim-differ.git
-[submodule "config/nvim/pack/my-packs/start/vim-compilers"]
-	path = config/nvim/pack/my-packs/start/vim-compilers
-	url = git@github.com:NSteinhoff/vim-compilers.git
