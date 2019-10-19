@@ -217,6 +217,9 @@ endif
 
 "--------------------------------- Plugins ----------------------------------{{{
 
+" Personal plugins
+packadd pomodoro
+
 " Install minpac as an optional package if it's not already installed.
 if empty(glob('~/.config/nvim/pack/minpac/opt/minpac'))
     silent !git clone https://github.com/k-takata/minpac.git
