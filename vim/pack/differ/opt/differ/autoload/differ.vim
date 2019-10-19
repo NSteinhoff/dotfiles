@@ -94,35 +94,50 @@ endfunction
 function! s:select_ref()
     let candidates = {}
     let items = ["Pick a ref to diff against:"]
+    let max_len_name = 50
 
     for ref in s:git_branches()
-        let name = '-@ '.ref.' ('.s:git_chash(ref).')'
+        let pref = '-@ '
+        let name = ref
         let desc = s:git_ctitle(ref)
-        let item = {'ref': ref, 'name': name, 'desc': desc}
+        let item = {'ref': ref, 'name': name, 'desc': desc, 'pref': pref}
         let candidates[len(candidates)+1] = item
     endfor
 
     for [branch, ref] in items(s:git_mergebases())
-        let name = '-< '.branch.' ('.s:git_chash(ref).')'
+        let pref = '-< '
+        let name = branch.' ('.s:git_chash(ref).')'
         let desc = s:git_ctitle(ref)
-        let item = {'ref': ref, 'name': name, 'desc': desc}
+        let item = {'ref': ref, 'name': name, 'desc': desc, 'pref': pref}
         let candidates[len(candidates)+1] = item
     endfor
 
-    let n_commits = &lines - len(items) - 10
+    let n_commits = 9
+    let i = 0
     for ref in s:git_commits(n_commits)
-        let name = '-- '.strcharpart(ref, 0, 7)
+        let i += 1
+        let pref = '~'.i.' '
+        let name = strcharpart(ref, 0, 7)
         let desc = s:git_ctitle(ref)
-        let item = {'ref': ref, 'name': name, 'desc': desc}
+        let item = {'ref': ref, 'name': name, 'desc': desc, 'pref': pref}
         let candidates[len(candidates)+1] = item
     endfor
+    unlet i
 
     for [i, candidate] in items(candidates)
+        let pref = candidate['pref']
         let name = candidate['name']
-        let shift = repeat(' ', 30 - strwidth(name))
+        if strchars(name) > max_len_name
+            let start = strchars(name) - max_len_name + 2
+            let display_name = '..'.strcharpart(name, start, max_len_name)
+        else
+            let display_name = name
+        endif
+        let shift = repeat(' ', max_len_name + 2 - strwidth(display_name))
         let desc = candidate['desc']
         let num = repeat(' ', strchars(len(candidates)) - strchars(i)).i
-        call add(items, ' '.num.') '.name.shift.desc)
+        let entry = ' '.num.') '.pref.display_name.shift.desc
+        call add(items, entry)
     endfor
     let choice = inputlist(sort(items)) | echo "\n"
 
@@ -141,8 +156,8 @@ endfunction
 function! s:target_ref(target)
     if a:target != ""
         return a:target
-    elseif exists('s:target_ref') && s:target_ref
-        return s:target_ref
+    elseif exists('s:diff_remote') && s:diff_remote != ""
+        return s:diff_remote
     else
         return 'HEAD'
 endfunction
@@ -172,6 +187,23 @@ function! s:load_patch_all(ref)
     call append(0, patch)
 endfun
 
+function! s:patch_this(target)
+    if !s:git_check() | return | endif
+    let ref = s:target_ref(a:target)
+    let fname = expand('%')
+    let bname = '[PATCH:'.ref.'] '.fname.': '. s:git_ctitle(ref)
+    execute 'new '.bname
+    wincmd K | resize 15
+    call s:load_patch(fname, ref)
+endfunction
+
+function! s:patch_all(target)
+    if !s:git_check() | return | endif
+    let ref = s:target_ref(a:target)
+    execute 'tabnew __PATCH__' . ref
+    call s:load_patch_all(ref)
+endfunction
+
 
 " -------------------------------------------------------------
 " Section: Public
@@ -186,20 +218,12 @@ function! differ#diff(target)
     call s:load_original(fname, ref, ft)
 endfunction
 
-function! differ#patch(target)
-    if !s:git_check() | return | endif
-    let ref = s:target_ref(a:target)
-    let fname = expand('%')
-    execute 'new [PATCH:'.ref.'] '.fname.': '. s:git_ctitle(ref)
-    wincmd K | resize 9
-    call s:load_patch(fname, ref)
-endfunction
-
-function! differ#patch_all(target)
-    if !s:git_check() | return | endif
-    let ref = s:target_ref(a:target)
-    execute 'tabnew __PATCH__' . ref
-    call s:load_patch_all(ref)
+function! differ#patch(target, bang)
+    if a:bang == ''
+        call s:patch_this(a:target)
+    else
+        call s:patch_all(a:target)
+    endif
 endfunction
 
 function! differ#list_refs(A,L,P)
@@ -208,13 +232,17 @@ function! differ#list_refs(A,L,P)
     return refs
 endfun
 
-function! differ#set_target(target)
+function! differ#set_target(target, bang)
     if !s:git_check() | return | endif
-    let s:target_ref = a:target == "" ? s:select_ref() : a:target
-    if s:target_ref != ""
-        echo "Setting diff target ref to '".s:target_ref."'."
+    if a:bang == ''
+        let s:diff_remote = a:target == "" ? s:select_ref() : a:target
+        if s:diff_remote != ""
+            echo "Setting diff target ref to '".s:diff_remote."'."
+        else
+            echo "Using default target ref."
+        endif
     else
-        echo "Using default target ref."
+        echo "Pass"
     endif
 endfunction
 
