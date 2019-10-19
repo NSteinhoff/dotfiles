@@ -69,7 +69,7 @@ else
   let s:hues.Bold                       = {'lig': 'bold',             'fg': 'fg',           'bg': 'none'}
   let s:hues.Italic                     = {'lig': 'bold',             'fg': 'fg',           'bg': 'none'}
   let s:hues.Pop                        = {'lig': 'none',             'fg': 'Black',        'bg': 'none'}
-  let s:hues.StrongPop                  = {'lig': 'bold,underline',   'fg': 'Black',        'bg': 'none'}
+  let s:hues.StrongPop                  = {'lig': 'bold',             'fg': 'Black',        'bg': 'none'}
   "" }}}
 endif
 
@@ -95,8 +95,8 @@ if &background == 'dark'
   let s:highlights.HPop               = {'lig': 'none',             'fg': 'White',        'bg': 'Black'}
   let s:highlights.HFaded             = {'lig': 'none',             'fg': 'Grey',         'bg': 'Black'}
 else
-  let s:highlights.HPop               = {'lig': 'none',             'fg': 'Black',        'bg': 'White'}
-  let s:highlights.HFaded             = {'lig': 'none',             'fg': 'Grey',         'bg': 'White'}
+  let s:highlights.HPop               = {'lig': 'none',             'fg': 'Black',        'bg': 'Grey'}
+  let s:highlights.HFaded             = {'lig': 'none',             'fg': 'DarkGrey',     'bg': 'Grey'}
 endif
 let s:highlights.HPeaceful            = {'lig': 'none',             'fg': 'White',        'bg': 'DarkCyan'}
 let s:highlights.HProud               = {'lig': 'none',             'fg': 'White',        'bg': 'DarkBlue'}
