@@ -8,6 +8,17 @@ if !executable('git')
     finish
 endif
 
+
+let s:comments = []
+let s:qfid = 0
+let s:debug = 1
+
+function! s:log_debug(text)
+    if s:debug
+        echo a:text
+    endif
+endfunction
+
 function! s:git_check()
     let out = trim(system('git status'))
     if v:shell_error == 0
@@ -204,6 +215,50 @@ function! s:patch_all(target)
     call s:load_patch_all(ref)
 endfunction
 
+function! s:get_comment(filename, lnum)
+    for item in s:comments
+        if item.filename == a:filename && item.lnum == a:lnum
+            return item.lines
+        endif
+    endfor
+    return []
+endfunction
+
+function! s:update_comment(filename, lnum, lines)
+    for item in s:comments
+        if item.filename == a:filename && item.lnum == a:lnum
+            let item.lines = a:lines
+            return
+        endif
+    endfor
+    let item = {'lnum': a:lnum, 'filename': a:filename, 'lines': a:lines}
+    call add(s:comments, item)
+endfunction
+
+function! s:edit_comment(fname, lnum, lines)
+    let bname = '[COMMENT:'.a:fname.':'.a:lnum.']'
+    execute 'new '.bname
+    setlocal buftype=nofile bufhidden=wipe noswapfile ft=markdown
+    wincmd K | resize 15
+
+    let b:fname = a:fname
+    let b:lnum = a:lnum
+
+    au BufUnload <buffer> call s:update_comment(b:fname, b:lnum, getline(0, '$')) | call s:set_quickfix_comments()
+
+    let previous = s:get_comment(a:fname, a:lnum)
+    call append(0, previous + a:lines) | normal dd
+endfunction
+
+function! s:set_quickfix_comments()
+    let items = []
+    for c in s:comments
+        let nlines = len(c.lines)
+        call add(items, {'filename': c.filename, 'lnum': c.lnum, 'text': '('.nlines.') '.c.lines[0]})
+    endfor
+    call setqflist([], 'r', {'id': s:qfid, 'items': items})
+endfunction
+
 
 " -------------------------------------------------------------
 " Section: Public
@@ -249,9 +304,54 @@ endfunction
 function! differ#status()
     if !s:git_check() | return | endif
     echo s:git_status()
-    let local = "HEAD"
-    let remote = s:target_ref("")
+    let local = 'HEAD'
+    let remote = s:target_ref('')
     echo "\n---\n"
-    echo "LOCAL: ".s:git_csummary(local)
-    echo "REMOTE: ".remote.' - '.s:git_csummary(remote)
+    echo 'LOCAL: '.s:git_csummary(local)
+    echo 'REMOTE: '.remote.' - '.s:git_csummary(remote)
+    echo "\n---\n"
+    echo 'Comments: '.len(s:comments)
+    if len(s:comments) > 0
+        echo 'Read your comments with :DShowComments or check the quickfix list.'
+    endif
+endfunction
+
+function! differ#show_comments()
+    let bname = '[COMMENTS]'
+    execute 'tabnew '.bname
+    setlocal buftype=nofile bufhidden=wipe noswapfile ft=markdown
+
+    call append(0, ['WARNING: changes will not be saved!!!', '', '---'])
+
+    for c in s:comments
+        let header = '# '.c.filename.':'.c.lnum
+        call append('$', ['', header, ''] + c.lines)
+    endfor
+endfunction
+
+function! differ#comment(text, bang)
+    " We don't want to keep creating new quickfix lists with
+    " every new comment. Instead, we keep overwriting the same one.
+    if s:qfid == 0
+        " Create a new quickfix list
+        call setqflist([], ' ', {'title': 'Diff Comments'})
+
+        let s:qfid = getqflist({'id': 0}).id
+    endif
+
+    let lnum = line('.')
+    let fname = expand('%:.')
+    let lines = a:text == ''?[]:[a:text]
+
+    if a:bang == ''
+        call s:edit_comment(fname, lnum, lines)
+    else
+        if input('Do you really want to wipe all comments? yes/no': ) == 'yes'
+            let s:comments = []
+            call s:set_quickfix_comments()
+            echo 'Comments wiped!'
+        else
+            echo 'Ok then.'
+        endif
+    endif
 endfunction

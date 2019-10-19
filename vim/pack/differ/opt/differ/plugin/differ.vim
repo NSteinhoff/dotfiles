@@ -4,6 +4,8 @@
 " License:          This file is placed in the public domain.
 
 command! DStatus call differ#status()
+command! -nargs=? -bang DComment call differ#comment(<q-args>, "<bang>")
+command! DShowComments call differ#show_comments()
 
 command! -complete=customlist,differ#list_refs -nargs=? DThis call differ#diff(<q-args>)
 command! -complete=customlist,differ#list_refs -nargs=? -bang DPatch call differ#patch(<q-args>, "<bang>")
@@ -11,3 +13,5 @@ command! -complete=customlist,differ#list_refs -nargs=? -bang DRemote call diffe
 
 nnoremap <leader>dt :DThis<cr>
 nnoremap <leader>ds :DStatus<cr>
+nnoremap <leader>dc :DComment<cr>
+nnoremap <leader>dC :DShowComments<cr>
