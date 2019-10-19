@@ -2,13 +2,6 @@
 source $VIMRUNTIME/defaults.vim
 set nocompatible
 
-if has("gui_running")
-    set guioptions-=m
-    set guioptions-=T
-    set guifont=Monospace\ 14
-    colorscheme desert
-endif
-
 filetype plugin indent on                   " Filetype detection and indentation
 syntax on                                   " Syntax highlighting
 let mapleader = '\'

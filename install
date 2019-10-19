@@ -58,6 +58,7 @@ files=(\
     tmux.conf \
     vim \
     vimrc \
+    gvimrc \
     zshrc \
 )
 
