@@ -144,7 +144,7 @@ let s:diff_styles.text                = "HExcited"
 ""}}}
 
 "" Syntax Styles {{{{
-let s:syntax_styles.error             = "Instense"    " <- Colored
+let s:syntax_styles.error             = "Intense"     " <- Colored
 let s:syntax_styles.constant          = "Peaceful"    " <- Colored
 let s:syntax_styles.identifier        = "Normal"
 let s:syntax_styles.statement         = "Pop"

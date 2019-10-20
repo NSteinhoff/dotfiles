@@ -8,10 +8,39 @@ if !executable('git')
     finish
 endif
 
-
-let s:comments = []
+sign define comment text=?? texthl=Error
 let s:qfid = 0
 let s:debug = 1
+let s:comments = {}
+
+function! s:list_comments()
+    let comments = []
+    for [fname, lnums] in items(s:comments)
+        for [lnum, comment] in items(lnums)
+            call add(comments, comment)
+        endfor
+    endfor
+    return comments
+endfunction
+
+function! s:place_signs()
+    sign unplace * group=comments
+    for c in s:list_comments()
+        let nlines = len(c.lines)
+        call sign_place(0, 'comments', 'comment', c.filename, {'lnum': c.lnum})
+    endfor
+endfunction
+
+function! s:is_empty(comment)
+    let nlines = len(a:comment.lines)
+    if nlines == 0
+        return 1
+    elseif nlines == 1
+        return a:comment.lines[0] == ''
+    else
+        return 0
+    endif
+endfunction
 
 function! s:log_debug(text)
     if s:debug
@@ -216,7 +245,7 @@ function! s:patch_all(target)
 endfunction
 
 function! s:get_comment(filename, lnum)
-    for item in s:comments
+    for item in s:list_comments()
         if item.filename == a:filename && item.lnum == a:lnum
             return item.lines
         endif
@@ -224,15 +253,25 @@ function! s:get_comment(filename, lnum)
     return []
 endfunction
 
+function! s:get_comment_dict(fname, lnum)
+    return get(get(s:comments, a:fname, {}), a:lnum, {})
+endfunction
+
 function! s:update_comment(filename, lnum, lines)
-    for item in s:comments
-        if item.filename == a:filename && item.lnum == a:lnum
-            let item.lines = a:lines
-            return
+    let c = {'lnum': a:lnum, 'filename': a:filename, 'lines': a:lines, 'updated_at': localtime()}
+    if !has_key(s:comments, c.filename)
+        let s:comments[c.filename] = {}
+    endif
+
+    if s:is_empty(c)
+        if has_key(s:comments[c.filename], c.lnum)
+            unlet s:comments[c.filename][c.lnum]
         endif
-    endfor
-    let item = {'lnum': a:lnum, 'filename': a:filename, 'lines': a:lines}
-    call add(s:comments, item)
+    else
+        let s:comments[c.filename][c.lnum] = c
+    endif
+
+    call s:refresh()
 endfunction
 
 function! s:edit_comment(fname, lnum, lines)
@@ -244,19 +283,25 @@ function! s:edit_comment(fname, lnum, lines)
     let b:fname = a:fname
     let b:lnum = a:lnum
 
-    au BufUnload <buffer> call s:update_comment(b:fname, b:lnum, getline(0, '$')) | call s:set_quickfix_comments()
+    au BufUnload <buffer> call s:update_comment(b:fname, b:lnum, getline(0, '$'))
 
-    let previous = s:get_comment(a:fname, a:lnum)
-    call append(0, previous + a:lines) | normal dd
+    let previous = s:get_comment_dict(a:fname, a:lnum)
+    let lines = empty(previous) ? a:lines : previous.lines + a:lines
+    call append(0, lines) | normal dd
 endfunction
 
 function! s:set_quickfix_comments()
     let items = []
-    for c in s:comments
+    for c in s:list_comments()
         let nlines = len(c.lines)
         call add(items, {'filename': c.filename, 'lnum': c.lnum, 'text': '('.nlines.') '.c.lines[0]})
     endfor
     call setqflist([], 'r', {'id': s:qfid, 'items': items})
+endfunction
+
+function! s:refresh()
+    call s:place_signs()
+    call s:set_quickfix_comments()
 endfunction
 
 
@@ -310,8 +355,8 @@ function! differ#status()
     echo 'LOCAL: '.s:git_csummary(local)
     echo 'REMOTE: '.remote.' - '.s:git_csummary(remote)
     echo "\n---\n"
-    echo 'Comments: '.len(s:comments)
-    if len(s:comments) > 0
+    echo 'Comments: '.len(s:list_comments())
+    if len(s:list_comments()) > 0
         echo 'Read your comments with :DShowComments or check the quickfix list.'
     endif
 endfunction
@@ -323,8 +368,8 @@ function! differ#show_comments()
 
     call append(0, ['WARNING: changes will not be saved!!!', '', '---'])
 
-    for c in s:comments
-        let header = '# '.c.filename.':'.c.lnum
+    for c in s:list_comments()
+        let header = '# '.c.filename.':'.c.lnum.' - '.strftime('%c', c.updated_at)
         call append('$', ['', header, ''] + c.lines)
     endfor
 endfunction
@@ -346,9 +391,9 @@ function! differ#comment(text, bang)
     if a:bang == ''
         call s:edit_comment(fname, lnum, lines)
     else
-        if input('Do you really want to wipe all comments? yes/no': ) == 'yes'
-            let s:comments = []
-            call s:set_quickfix_comments()
+        if input('Do you really want to wipe all comments? yes/no: ' ) == 'yes'
+            let s:comments = {}
+            call s:refresh()
             echo 'Comments wiped!'
         else
             echo 'Ok then.'
