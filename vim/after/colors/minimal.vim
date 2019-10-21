@@ -235,12 +235,15 @@ let s:ui_groups.status_term = [
 "" Diff {{{
 let s:diff_groups.add = [
 \ "DiffAdd",
+\ "diffAdded",
 \ ]
 let s:diff_groups.change = [
 \ "DiffChange",
+\ "diffChanged",
 \ ]
 let s:diff_groups.delete = [
 \ "DiffDelete",
+\ "diffRemoved",
 \ ]
 let s:diff_groups.text = [
 \ "DiffText",

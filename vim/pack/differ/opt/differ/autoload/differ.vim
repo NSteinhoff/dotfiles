@@ -207,6 +207,7 @@ function! s:load_original(filename, ref, ft)
 
     let original = s:git_original(a:filename, a:ref)
     call append(0, original)
+    $delete
 
     diffthis | wincmd p | diffthis
 endfun
@@ -216,6 +217,7 @@ function! s:load_patch(filename, ref)
 
     let patch = s:git_patch(a:filename, a:ref)
     call append(0, patch)
+    $delete
     wincmd p
 endfun
 
