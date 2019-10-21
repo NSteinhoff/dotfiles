@@ -12,6 +12,7 @@ command! -complete=customlist,differ#list_refs -nargs=? -bang DPatch call differ
 command! -complete=customlist,differ#list_refs -nargs=? -bang DRemote call differ#set_target(<q-args>, "<bang>")
 
 nnoremap <leader>dt :DThis<cr>
+nnoremap <leader>dp :DPatch<cr>
 nnoremap <leader>ds :DStatus<cr>
 nnoremap <leader>dc :DComment<cr>
 nnoremap <leader>dC :DShowComments<cr>

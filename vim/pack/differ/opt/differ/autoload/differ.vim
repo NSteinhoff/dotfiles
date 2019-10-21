@@ -26,7 +26,6 @@ endfunction
 function! s:place_signs()
     sign unplace * group=comments
     for c in s:list_comments()
-        let nlines = len(c.lines)
         call sign_place(0, 'comments', 'comment', c.filename, {'lnum': c.lnum})
     endfor
 endfunction
@@ -103,8 +102,8 @@ function! s:git_cfiles(ref)
     return systemlist("git diff --name-only ".a:ref)
 endfunction
 
-function! s:git_has_changed(fname, ref)
-    return count(s:git_cfiles(a:ref), a:fname) > 0
+function! s:git_has_changed(filename, ref)
+    return count(s:git_cfiles(a:ref), a:filename) > 0
 endfunction
 
 function! s:git_chash(ref)
@@ -119,12 +118,12 @@ function! s:git_csummary(ref)
     return trim(system("git log -n1 --format='%h - %s (%cr)' ".a:ref))
 endfunction
 
-function! s:git_original(fname, ref)
-    return systemlist('git show '.a:ref.':'.a:fname)
+function! s:git_original(filename, ref)
+    return systemlist('git show '.a:ref.':./'.a:filename)
 endfunction
 
-function! s:git_patch(fname, ref)
-    return systemlist('git diff '.a:ref.' -- '.a:fname)
+function! s:git_patch(filename, ref)
+    return systemlist('git diff '.a:ref.' -- '.a:filename)
 endfunction
 
 function! s:git_patch_all(ref)
@@ -202,20 +201,20 @@ function! s:target_ref(target)
         return 'HEAD'
 endfunction
 
-function! s:load_original(fname, ref, ft)
+function! s:load_original(filename, ref, ft)
     setlocal buftype=nofile bufhidden=wipe noswapfile | let &l:ft = a:ft
     au BufUnload,BufWinLeave <buffer> diffoff!
 
-    let original = s:git_original(a:fname, a:ref)
+    let original = s:git_original(a:filename, a:ref)
     call append(0, original)
 
     diffthis | wincmd p | diffthis
 endfun
 
-function! s:load_patch(fname, ref)
+function! s:load_patch(filename, ref)
     setlocal buftype=nofile bufhidden=wipe noswapfile ft=diff
 
-    let patch = s:git_patch(a:fname, a:ref)
+    let patch = s:git_patch(a:filename, a:ref)
     call append(0, patch)
     wincmd p
 endfun
@@ -230,11 +229,11 @@ endfun
 function! s:patch_this(target)
     if !s:git_check() | return | endif
     let ref = s:target_ref(a:target)
-    let fname = expand('%')
-    let bname = '[PATCH:'.ref.'] '.fname.': '. s:git_ctitle(ref)
+    let filename = expand('%')
+    let bname = '[PATCH:'.ref.'] '.filename.': '. s:git_ctitle(ref)
     execute 'new '.bname
     wincmd K | resize 15
-    call s:load_patch(fname, ref)
+    call s:load_patch(filename, ref)
 endfunction
 
 function! s:patch_all(target)
@@ -253,12 +252,12 @@ function! s:get_comment(filename, lnum)
     return []
 endfunction
 
-function! s:get_comment_dict(fname, lnum)
-    return get(get(s:comments, a:fname, {}), a:lnum, {})
+function! s:get_comment_dict(filename, lnum)
+    return get(get(s:comments, a:filename, {}), a:lnum, {})
 endfunction
 
 function! s:update_comment(filename, lnum, lines)
-    let c = {'lnum': a:lnum, 'filename': a:filename, 'lines': a:lines, 'updated_at': localtime()}
+    let c = {'lnum': a:lnum, 'filename': a:filename, 'lines': a:lines}
     if !has_key(s:comments, c.filename)
         let s:comments[c.filename] = {}
     endif
@@ -274,18 +273,18 @@ function! s:update_comment(filename, lnum, lines)
     call s:refresh()
 endfunction
 
-function! s:edit_comment(fname, lnum, lines)
-    let bname = '[COMMENT:'.a:fname.':'.a:lnum.']'
+function! s:edit_comment(filename, lnum, lines)
+    let bname = '[COMMENT:'.a:filename.':'.a:lnum.']'
     execute 'new '.bname
     setlocal buftype=nofile bufhidden=wipe noswapfile ft=markdown
     wincmd K | resize 15
 
-    let b:fname = a:fname
+    let b:filename = a:filename
     let b:lnum = a:lnum
 
-    au BufUnload <buffer> call s:update_comment(b:fname, b:lnum, getline(0, '$'))
+    au BufUnload <buffer> call s:update_comment(b:filename, b:lnum, getline(0, '$'))
 
-    let previous = s:get_comment_dict(a:fname, a:lnum)
+    let previous = s:get_comment_dict(a:filename, a:lnum)
     let lines = empty(previous) ? a:lines : previous.lines + a:lines
     call append(0, lines) | normal dd
 endfunction
@@ -293,14 +292,15 @@ endfunction
 function! s:set_quickfix_comments()
     let items = []
     for c in s:list_comments()
-        let nlines = len(c.lines)
-        call add(items, {'filename': c.filename, 'lnum': c.lnum, 'text': '('.nlines.') '.c.lines[0]})
+        call add(items, {'filename': c.filename, 'lnum': c.lnum, 'text': join(c.lines, "\n")})
     endfor
     call setqflist([], 'r', {'id': s:qfid, 'items': items})
 endfunction
 
 function! s:refresh()
-    call s:place_signs()
+    if exists('*sign_place')
+        call s:place_signs()
+    endif
     call s:set_quickfix_comments()
 endfunction
 
@@ -313,9 +313,9 @@ function! differ#diff(target)
     if !s:git_check() | return | endif
     let ref = s:target_ref(a:target)
     let ft = &ft
-    let fname = expand('%')
-    execute 'vnew [DIFF:'.ref.'] '.fname.': '. s:git_ctitle(ref)
-    call s:load_original(fname, ref, ft)
+    let filename = expand('%')
+    execute 'vnew [DIFF:'.ref.'] '.filename.': '. s:git_ctitle(ref)
+    call s:load_original(filename, ref, ft)
 endfunction
 
 function! differ#patch(target, bang)
@@ -369,7 +369,7 @@ function! differ#show_comments()
     call append(0, ['WARNING: changes will not be saved!!!', '', '---'])
 
     for c in s:list_comments()
-        let header = '# '.c.filename.':'.c.lnum.' - '.strftime('%c', c.updated_at)
+        let header = '# '.c.filename.':'.c.lnum
         call append('$', ['', header, ''] + c.lines)
     endfor
 endfunction
@@ -385,11 +385,11 @@ function! differ#comment(text, bang)
     endif
 
     let lnum = line('.')
-    let fname = expand('%:.')
+    let filename = expand('%:.')
     let lines = a:text == ''?[]:[a:text]
 
     if a:bang == ''
-        call s:edit_comment(fname, lnum, lines)
+        call s:edit_comment(filename, lnum, lines)
     else
         if input('Do you really want to wipe all comments? yes/no: ' ) == 'yes'
             let s:comments = {}
