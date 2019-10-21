@@ -86,6 +86,16 @@ tabspaces: 8
 
 # Font configuration (changes require restart)
 font:
+  normal:
+    family: Iosevka Term
+    style: Regular
+  bold:
+    family: Iosevka Term
+    style: Bold
+  italic:
+    family: Iosevka Term
+    style: Italic
+
   # Normal (roman) font face
   #normal:
     # Font family
