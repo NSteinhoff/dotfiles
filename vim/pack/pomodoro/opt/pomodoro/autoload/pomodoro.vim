@@ -55,7 +55,7 @@ endfunction
 function! s:flash_statusline(msg)
     if !exists('s:statusline_set') || !s:statusline_set
         let s:statusline = &statusline
-        let &statusline = '%=%#ErrorMsg# '.a:msg.' %#StatusLine#%='
+        let &statusline = '%#ErrorMsg#   '.a:msg.'%='.a:msg.'   '
         let s:statusline_set = 1
         call timer_start(1000, 'pomodoro#restore_statusline')
     endif
