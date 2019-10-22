@@ -2,6 +2,10 @@ function! s:cfiles(ref)
     return systemlist("git diff --name-only ".a:ref)
 endfunction
 
+function! git#root()
+    return fnamemodify(finddir('.git', ";~"), ':h').'/'
+endfunction
+
 function! s:has_changed(filename, ref)
     return count(s:cfiles(a:ref), a:filename) > 0
 endfunction
@@ -41,6 +45,13 @@ function! git#refs()
     let branches = git#branches()
     let commits = s:commits_short(50)
     return branches + commits
+endfunction
+
+function! git#files(ref)
+    let paths = s:cfiles(a:ref)
+    let fullpaths = map(copy(paths), {_, val -> git#root().val})
+    let relpaths = map(copy(fullpaths), {_, val -> fnamemodify(val, ':.')})
+    return relpaths
 endfunction
 
 function! git#mergebase(this, that)

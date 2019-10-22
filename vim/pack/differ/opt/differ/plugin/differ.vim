@@ -7,9 +7,9 @@ command! DStatus call differ#status()
 command! -nargs=? -bang DComment call differ#comment(<q-args>, "<bang>")
 command! DShowComments call differ#show_comments()
 
-command! -complete=customlist,differ#list_refs -nargs=? DThis call differ#diff(<q-args>)
-command! -complete=customlist,differ#list_refs -nargs=? -bang DPatch call differ#patch(<q-args>, "<bang>")
-command! -complete=customlist,differ#list_refs -nargs=? -bang DRemote call differ#set_target(<q-args>, "<bang>")
+command! DThis call differ#diff('')
+command! -bang DPatch call differ#patch('', "<bang>")
+command! -complete=customlist,differ#remote_types -nargs=? -bang DRemote call differ#set_target(<q-args>, "<bang>")
 
 nnoremap <leader>dt :DThis<cr>
 nnoremap <leader>dp :DPatch<cr>

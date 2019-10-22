@@ -16,38 +16,49 @@ function! s:log_debug(text)
     endif
 endfunction
 
-function! s:select_ref()
+function! s:select_ref(what)
     let candidates = {}
     let items = ["Pick a ref to diff against:"]
     let max_len_name = 50
 
-    for ref in git#branches()
-        let pref = '-@ '
-        let name = ref
-        let desc = git#ctitle(ref)
-        let item = {'ref': ref, 'name': name, 'desc': desc, 'pref': pref}
-        let candidates[len(candidates)+1] = item
-    endfor
+    if get(a:what, 'auto', 0)
+        let a:what['branches'] = 1
+        let a:what['commits'] = 1
+    endif
 
-    for [branch, ref] in items(git#mergebases())
-        let pref = '-< '
-        let name = branch.' ('.git#chash(ref).')'
-        let desc = git#ctitle(ref)
-        let item = {'ref': ref, 'name': name, 'desc': desc, 'pref': pref}
-        let candidates[len(candidates)+1] = item
-    endfor
+    if get(a:what, 'branches', 0)
+        for ref in git#branches()
+            let pref = '-@ '
+            let name = ref
+            let desc = git#ctitle(ref)
+            let item = {'ref': ref, 'name': name, 'desc': desc, 'pref': pref}
+            let candidates[len(candidates)+1] = item
+        endfor
+    endif
 
-    let n_commits = 9
-    let i = 0
-    for ref in git#commits(n_commits)
-        let i += 1
-        let pref = '~'.i.' '
-        let name = strcharpart(ref, 0, 7)
-        let desc = git#ctitle(ref)
-        let item = {'ref': ref, 'name': name, 'desc': desc, 'pref': pref}
-        let candidates[len(candidates)+1] = item
-    endfor
-    unlet i
+    if get(a:what, 'mergebases', 0)
+        for [branch, ref] in items(git#mergebases())
+            let pref = '-< '
+            let name = branch.' ('.git#chash(ref).')'
+            let desc = git#ctitle(ref)
+            let item = {'ref': ref, 'name': name, 'desc': desc, 'pref': pref}
+            let candidates[len(candidates)+1] = item
+        endfor
+    endif
+
+    if get(a:what, 'commits', 0)
+        let n_commits = 9
+        let i = 0
+        for ref in git#commits(n_commits)
+            let i += 1
+            let pref = '~'.i.' '
+            let name = strcharpart(ref, 0, 7)
+            let desc = git#ctitle(ref)
+            let item = {'ref': ref, 'name': name, 'desc': desc, 'pref': pref}
+            let candidates[len(candidates)+1] = item
+        endfor
+        unlet i
+    endif
 
     for [i, candidate] in items(candidates)
         let pref = candidate['pref']
@@ -151,6 +162,16 @@ endfunction
 " Section: Public
 " -------------------------------------------------------------
 
+function! differ#remote_types(A,L,P)
+    return ['branches', 'commits', 'mergebases']
+endfunction
+
+function! differ#list_refs(A,L,P)
+    if !git#check() | return | endif
+    let refs = git#refs()
+    return refs
+endfun
+
 function! differ#diff(target)
     if !git#check() | return | endif
     let ref = s:target_ref(a:target)
@@ -168,33 +189,42 @@ function! differ#patch(target, bang)
     endif
 endfunction
 
-function! differ#list_refs(A,L,P)
+function! differ#set_target(type, bang)
     if !git#check() | return | endif
-    let refs = git#refs()
-    return refs
-endfun
 
-function! differ#set_target(target, bang)
-    if !git#check() | return | endif
-    if a:bang == ''
-        let s:diff_remote = a:target == "" ? s:select_ref() : a:target
+    if a:bang == '!'
+        let what = {}
+
+        if a:type == ''
+            let what['auto'] = 1
+        else
+            let what[a:type] = 1
+        endif
+
+        let s:diff_remote = s:select_ref(what)
         if s:diff_remote != ""
             echo "Setting diff target ref to '".s:diff_remote."'."
+            if argc(-1) > 0
+                argd *
+            endif
+            for fname in git#files(s:diff_remote)
+                echo fname
+                exe 'argadd '.fname
+            endfor
         else
-            echo "Using default target ref."
+            echo "Using previous target remote: ".s:target_ref('')
         endif
     else
-        echo "Pass"
+        echo "REMOTE: ".s:target_ref('')
     endif
 endfunction
 
 function! differ#status()
     if !git#check() | return | endif
     echo git#status()
-    let local = 'HEAD'
     let remote = s:target_ref('')
     echo "\n---\n"
-    echo 'LOCAL: '.git#csummary(local)
+    echo 'LOCAL: '.git#csummary('HEAD')
     echo 'REMOTE: '.remote.' - '.git#csummary(remote)
     echo "\n---\n"
     echo 'Comments: '.len(comment#list())
