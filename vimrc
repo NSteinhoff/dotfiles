@@ -85,7 +85,6 @@ endif
 
 "--------------------------------- Behavior ---------------------------------{{{
 
-set nocompatible
 set hidden
 set updatetime=100
 set wildmode=longest:full,full
@@ -219,7 +218,7 @@ packadd differ
 packadd pomodoro
 
 " Install minpac as an optional package if it's not already installed.
-let minpac_path = '~/.vim/pack/minpac/opt/minpac' ? !has('nvim') : '~/.config/nvim/pack/minpac/opt/minpac'
+let minpac_path = has('nvim') ? '~/.config/nvim/pack/minpac/opt/minpac' : '~/.vim/pack/minpac/opt/minpac'
 let minpac_source = 'https://github.com/k-takata/minpac.git'
 if empty(glob(minpac_path)) | exe 'silent !git clone '.minpac_source.' '.minpac_path | endif
 
@@ -275,8 +274,7 @@ let g:python_highlight_all = 1
 
 
 "------------------------------------ REPL ------------------------------------{{{
-let g:slime_target = "tmux"
-"
+
 " Send text block to tmux pane
 vmap <C-c><C-c> <Plug>SendSelectionToTmux
 nmap <C-c><C-c> <Plug>NormalModeSendToTmux

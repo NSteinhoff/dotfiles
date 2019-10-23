@@ -24,9 +24,9 @@
     interactive = auto
     grep = auto
 [diff]
-    tool = nvimdiff
+    tool = vimdiff
 [merge]
-    tool = nvimdiff
+    tool = vimdiff
 [core]
     editor = vim
     excludesfile = ~/.gitignore
@@ -39,7 +39,6 @@
     prompt = true
     trustExitCode = true
 
-# Uncomment if you want to use Neovim as 'vimdiff'
 [difftool "nvimdiff"]
     cmd = nvim -d $LOCAL $REMOTE
 [mergetool "nvimdiff"]
