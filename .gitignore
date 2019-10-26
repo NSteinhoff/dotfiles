@@ -10,3 +10,4 @@ vim/autoload/plug.vim
 vim/autoload/plug.vim.old
 vim/pack/minpac/
 config/nvim/pack/minpac/
+Session.vim

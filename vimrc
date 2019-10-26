@@ -75,6 +75,7 @@ command! -nargs=? Header call s:header(<q-args>)
 
 "}}}
 
+
 "-------------------------------- Defaults ----------------------------------{{{
 
 if !has('nvim')
@@ -83,8 +84,10 @@ endif
 
 "}}}
 
+
 "--------------------------------- Behavior ---------------------------------{{{
 
+set modeline
 set hidden
 set updatetime=100
 set wildmode=longest:full,full
@@ -155,7 +158,7 @@ set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:+
 " after cloning and installing the dotfiles for the first time.
 " Otherwise you'd have to click through the error messages manually.
 try
-    colorscheme minimal
+    colorscheme noctu
     set background=dark
 catch E185
     echo "Colorscheme not installed. Using the default colorscheme."
@@ -255,6 +258,7 @@ if exists('*minpac#init')
     " call minpac#add('sheerun/vim-polyglot')
     call minpac#add('vim-python/python-syntax')
     call minpac#add('Vimjas/vim-python-pep8-indent')
+
 endif
 
 " Load all packages in 'start/'
