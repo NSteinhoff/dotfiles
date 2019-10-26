@@ -5,40 +5,35 @@
 
 " Helper functions {{{
 
-" Activate the colorscheme
-function! s:ApplyStyles(groups, styles)
-  call s:HighlightGroups(a:groups, a:styles)
-endfunction
-
-" Highligh all items in a group with the configured style
-function! s:HighlightGroups(groups, styles)
-  for [group, style] in items(a:styles)
-    let items = a:groups[group]
-    call s:HighlightItems(items, style)
-  endfor
-endfunction
-
-" Highlight items as a certain style by linking
-function! s:HighlightItems(items, style)
-  for item in a:items
-    exec "highlight! link " . item . " " . a:style
-  endfor
-endfunction
-
 " Create styles that can be used to link groups to
-function! s:InitStyles(styles)
+function! s:init_styles(styles)
   for [name, opts] in items(a:styles)
-    call s:ApplyStyle(name, opts)
+    call s:create_group(name, opts)
   endfor
 endfunction
 
 " Apply a syntax highlight style based on a dicationary of options.
-function! s:ApplyStyle(name, opts)
+function! s:create_group(name, opts)
   let n = a:name
   let lig = get(a:opts, 'lig', 'none')
   let fg = get(a:opts, 'fg', 'none')
   let bg = get(a:opts, 'bg', 'none')
   exec "highlight " . n . " cterm=" . lig . " ctermfg=" . fg . " ctermbg=" . bg
+endfunction
+
+" Highligh all items in a group with the configured style
+function! s:link_groups(groups, styles)
+  for [group, style] in items(a:styles)
+    let items = a:groups[group]
+    call s:link_items_to_style(items, style)
+  endfor
+endfunction
+
+" Highlight items as a certain style by linking
+function! s:link_items_to_style(items, style)
+  for item in a:items
+    exec "highlight! link " . item . " " . a:style
+  endfor
 endfunction
 
 " }}}
@@ -340,13 +335,13 @@ else
   highlight Normal cterm=none ctermfg=DarkGrey ctermbg=White
 endif
 
-call s:InitStyles(s:hues)
-call s:InitStyles(s:moods)
-call s:InitStyles(s:highlights)
+call s:init_styles(s:hues)
+call s:init_styles(s:moods)
+call s:init_styles(s:highlights)
 
-call s:ApplyStyles(s:ui_groups, s:ui_styles)
-call s:ApplyStyles(s:diff_groups, s:diff_styles)
-call s:ApplyStyles(s:syntax_groups, s:syntax_styles)
+call s:link_groups(s:ui_groups, s:ui_styles)
+call s:link_groups(s:diff_groups, s:diff_styles)
+call s:link_groups(s:syntax_groups, s:syntax_styles)
 
 syntax enable
 "}}}

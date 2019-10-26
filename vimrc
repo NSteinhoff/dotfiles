@@ -158,7 +158,7 @@ set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:+
 " after cloning and installing the dotfiles for the first time.
 " Otherwise you'd have to click through the error messages manually.
 try
-    colorscheme noctu
+    colorscheme minimal
     set background=dark
 catch E185
     echo "Colorscheme not installed. Using the default colorscheme."
