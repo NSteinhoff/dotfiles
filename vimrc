@@ -193,22 +193,27 @@ augroup custom_filetype_specific_commands
     nnoremap <buffer> <space> :echo 'I have SPACE! Map me!'<cr>
     autocmd FileType clojure nnoremap <buffer> <space> :Eval<cr>
     " Default mapping for all other filetypes
-
 augroup END
 
 " <F5> is always set to make the project
 nnoremap <F5> :make<cr>
 
+" Mapping CTRL-SPACE
+" I use <C-Space> to run makers (make, dispatch, neomake).
+" Mapping <C-Space> seems to be tricky (Neovim seems to do fine).
+" Typing <C-v><C-Space> prints ^@, but the resulting mapping
+" is listed under <Nul>. So I'm mapping <Nul> directly for now.
+
 " We might have Neomake installed
 if exists("*neomake#Make")
-    nnoremap <C-space> :Neomake!<cr>
+    nnoremap <Nul> :Neomake!<cr>
 endif
 
 " <C-Space> is intended for quick tasks and might be mapped to an asynchronous
 " maker such as Neomake or Dispatch.
 " If it's not already set, fall back to make
-if maparg('<C-space>', 'n') ==# ''
-    nnoremap <C-space> :make<cr>
+if maparg('<Nul>', 'n') ==# ''
+    nnoremap <Nul> :make<cr>
 endif
 
 "}}}
@@ -258,7 +263,6 @@ if exists('*minpac#init')
     " call minpac#add('sheerun/vim-polyglot')
     call minpac#add('vim-python/python-syntax')
     call minpac#add('Vimjas/vim-python-pep8-indent')
-
 endif
 
 " Load all packages in 'start/'
