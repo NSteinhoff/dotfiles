@@ -305,4 +305,49 @@ iabbrev <expr> ddd strftime("%Y-%m-%d")
 
 "}}}
 
+
+"--------------------------------- Statusline ---------------------------------{{{
+function! StatuslineErrors()
+    let nqf = len(getqflist())
+    let nloc = len(getloclist(0))
+    if nloc || nqf
+        return ' ['.nqf.'|'.nloc.'] '
+    else
+        return ''
+    endif
+endfunction
+
+function! StatuslineMode()
+    let mode=mode(1)
+    if mode ==# 'i'
+        return 'INSERT'
+    elseif mode ==# 'c'
+        return 'COMMAND'
+    elseif mode ==# 'v'
+        return 'VISUAL'
+    elseif mode ==# 'V'
+        return 'V-LINE'
+    elseif mode ==# "\<C-V>"
+        return 'V-BLOCK'
+    elseif mode ==? 'R' || mode ==? 'Rv'
+        return 'REPLACE'
+    elseif mode ==? 't'
+        return 'TERMINAL'
+    else
+        return 'NORMAL'
+    endif
+endfunction
+
+function! MyStatusline()
+    let file ='%y %f '
+    let tags ='%#Question# %m %h %w %q'
+    let sep ='%#Normal#%='
+    let errors ='%#Question#%{StatuslineErrors()}%#Statusline#'
+    let position =' ☰ %l:%c | %p%% '
+    return file.tags.sep.errors.position
+endfunction
+
+set statusline=%!MyStatusline()
+"}}}
+
 " vim:foldmethod=marker textwidth=0

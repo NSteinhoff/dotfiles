@@ -278,6 +278,7 @@ let s:syntax_groups.preproc = [
 \ ]
 let s:syntax_groups.informative = [
 \    "Comment",
+\    "Question",
 \ ]
 let s:syntax_groups.trivial = [
 \    "Ignore",
