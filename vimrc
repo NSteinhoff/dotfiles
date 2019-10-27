@@ -228,10 +228,10 @@ nnoremap <leader>? :DescribeCompiler<cr>
 
 " [ and ] mappings to navigate lists
 nnoremap [a :previous<cr>
-nnoremap [a :next<cr>
+nnoremap ]a :next<cr>
 
 nnoremap [b :bprevious<cr>
-nnoremap [b :bnext<cr>
+nnoremap ]b :bnext<cr>
 
 nnoremap [q :cprevious<cr>
 nnoremap ]q :cnext<cr>
@@ -341,14 +341,25 @@ function! StatuslineErrors()
     endif
 endfunction
 
+function! StatuslineArgs()
+    let nargs = argc()
+    let idx = argidx() + 1
+    if nargs > 1
+        return ' ['.idx.'/'.nargs.'] '
+    else
+        return ''
+    endif
+endfunction
+
 function! MyStatusline()
     let file ='%y %f '
-    let tags ='%#Question# %m %h %w %q'
+    let args ='%#Question#%{StatuslineArgs()}%#Statusline#'
+    let tags ='%#Question#%m %h %w %q'
     let sep ='%#Normal#%='
     let compiler = '%#Question#%{WhichCompiler()}%#Statusline#'
     let errors ='%#Question#%{StatuslineErrors()}%#Statusline#'
     let position =' ☰ %l:%c | %p%% '
-    return file.tags.sep.errors.compiler.position
+    return file.args.tags.sep.errors.compiler.position
 endfunction
 
 set laststatus=2
