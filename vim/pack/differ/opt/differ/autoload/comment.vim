@@ -6,75 +6,87 @@ sign define comment text=?? texthl=Error
 call setqflist([], ' ', {'title': 'Diff Comments'})
 let s:qfid = getqflist({'id': 0}).id
 
-let s:comments = {}
+function! s:q_to_c(q)
+    return {'filename': bufname(a:q.bufnr), 'lnum': a:q.lnum, 'lines': split(a:q.text, "\n", 1)}
+endfunction
+
+function! s:c_to_q(c)
+    return {'filename': a:c.filename, 'lnum': a:c.lnum, 'text': join(a:c.lines, "\n")}
+endfunction
+
+function! s:same(this, that)
+    return a:this.filename == a:that.filename && a:this.lnum == a:that.lnum
+endfunction
+
+function! s:at(c, filename, lnum)
+    return a:c.filename == a:filename && a:c.lnum == a:lnum
+endfunction
 
 function! s:place_signs()
+    if !exists('*sign_place')
+        return
+    endif
+
     sign unplace * group=comments
     for c in comment#list()
         call sign_place(0, 'comments', 'comment', c.filename, {'lnum': c.lnum})
     endfor
 endfunction
 
-function! s:is_empty(comment)
-    let nlines = len(a:comment.lines)
+function! s:empty(lines)
+    let nlines = len(a:lines)
     if nlines == 0
         return 1
     elseif nlines == 1
-        return a:comment.lines[0] == ''
+        return a:lines[0] == ''
     else
         return 0
     endif
 endfunction
 
-function! s:set_quickfix_comments()
-    let items = []
-    for c in comment#list()
-        call add(items, {'filename': c.filename, 'lnum': c.lnum, 'text': join(c.lines, "\n")})
-    endfor
-    call setqflist([], 'r', {'id': s:qfid, 'items': items})
-endfunction
-
-function! s:refresh()
-    if exists('*sign_place')
-        call s:place_signs()
-    endif
-    call s:set_quickfix_comments()
-endfunction
-
-" ---------------------------------------------
+"-------------------------------------------------------------------------------
+" Public
+"-------------------------------------------------------------------------------
 
 function! comment#get(filename, lnum)
-    return get(get(s:comments, a:filename, {}), a:lnum, {})
-endfunction
-
-function! comment#write(filename, lnum, lines)
-    let c = {'lnum': a:lnum, 'filename': a:filename, 'lines': a:lines}
-    if !has_key(s:comments, c.filename)
-        let s:comments[c.filename] = {}
-    endif
-
-    if s:is_empty(c)
-        if has_key(s:comments[c.filename], c.lnum)
-            unlet s:comments[c.filename][c.lnum]
+    for c in comment#list()
+        if s:at(c, a:filename, a:lnum)
+            return c
         endif
-    else
-        let s:comments[c.filename][c.lnum] = c
-    endif
-
-    call s:refresh()
-endfunction
-
-function! comment#wipe()
-    let s:comments = {}
-    call s:refresh()
+    endfor
+    return {}
 endfunction
 
 function! comment#list()
+    let items = getqflist({'id': s:qfid, 'items': 0}).items
     let comments = []
-    for [fname, lnums] in items(s:comments)
-        for [lnum, comment] in items(lnums)
-            call add(comments, comment)
-        endfor
+    for q in items
+        call add(comments, s:q_to_c(q))
     endfor
     return comments
+endfunction
+
+function! comment#write(filename, lnum, lines)
+    let this = {'lnum': a:lnum, 'filename': a:filename, 'lines': a:lines}
+
+    let items = []
+    for c in comment#list()
+        if s:same(this, c)
+            continue
+        else
+            call add(items, s:c_to_q(c))
+        endif
+    endfor
+
+    if !s:empty(this.lines)
+        call add(items, s:c_to_q(this))
+    endif
+
+    call setqflist([], 'r', {'id': s:qfid, 'items': items})
+    call s:place_signs()
+endfunction
+
+function! comment#wipe()
+    call setqflist([], 'r', {'id': s:qfid, 'items': []})
+    call s:place_signs()
 endfunction
