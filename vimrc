@@ -153,6 +153,8 @@ set nowrap
 set list
 set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:+
 
+set laststatus=2
+
 " Gracefully handle unavailable colorscheme.
 " The desired colorscheme might not be installed yet. This happens
 " after cloning and installing the dotfiles for the first time.
