@@ -79,7 +79,7 @@ command! -nargs=? Header call s:header(<q-args>)
 "-------------------------------- Defaults ----------------------------------{{{
 
 if !has('nvim')
-    source $VIMRUNTIME/defaults.vim
+    silent source $VIMRUNTIME/defaults.vim
 endif
 
 "}}}
@@ -153,8 +153,6 @@ set nowrap
 set list
 set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:+
 
-set laststatus=2
-
 " Gracefully handle unavailable colorscheme.
 " The desired colorscheme might not be installed yet. This happens
 " after cloning and installing the dotfiles for the first time.
@@ -181,9 +179,16 @@ endtry
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
 let mapleader = '\'
 
-" Clear search highlighting with <ESC>
-if maparg('<ESC>', 'n') ==# ''
-    nnoremap <silent> <ESC> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR>
+" Mapping CTRL-SPACE
+" I use <C-Space> to run makers (make, dispatch, neomake).
+" Mapping <C-Space> seems to be tricky (Neovim seems to do fine).
+" Typing <C-v><C-Space> prints ^@, but the resulting mapping
+" is listed under <Nul>. So I'm mapping <Nul> directly for now.
+"
+" Clear search highlighting with <CTRL-SPACE> and <SPACE>
+if maparg('<Nul>', 'n') ==# ''
+    nnoremap <silent> <Nul> :nohlsearch<CR>
+    nnoremap <silent> <Space> :nohlsearch<CR>
 endif
 
 """ Mappings that only apply for different file types.
@@ -192,7 +197,6 @@ augroup custom_filetype_specific_commands
 
     " <SPACE> is used for the "most commonly triggered action" for each filetype.
     " Send the top-level form to the REPL
-    nnoremap <buffer> <space> :echo 'I have SPACE! Map me!'<cr>
     autocmd FileType clojure nnoremap <buffer> <space> :Eval<cr>
     " Default mapping for all other filetypes
 augroup END
@@ -200,22 +204,14 @@ augroup END
 " <F5> is always set to make the project
 nnoremap <F5> :make<cr>
 
-" Mapping CTRL-SPACE
-" I use <C-Space> to run makers (make, dispatch, neomake).
-" Mapping <C-Space> seems to be tricky (Neovim seems to do fine).
-" Typing <C-v><C-Space> prints ^@, but the resulting mapping
-" is listed under <Nul>. So I'm mapping <Nul> directly for now.
 
 " We might have Neomake installed
 if exists("*neomake#Make")
-    nnoremap <Nul> :Neomake!<cr>
+    nnoremap <F5> :Neomake!<cr>
 endif
 
-" <C-Space> is intended for quick tasks and might be mapped to an asynchronous
-" maker such as Neomake or Dispatch.
-" If it's not already set, fall back to make
-if maparg('<Nul>', 'n') ==# ''
-    nnoremap <Nul> :make<cr>
+if maparg('<F5>', 'n') ==# ''
+    nnoremap <F5> :make<cr>
 endif
 
 "}}}
@@ -262,7 +258,7 @@ if exists('*minpac#init')
     call minpac#add('tpope/vim-fireplace')
 
     " FTPlugings:
-    " call minpac#add('sheerun/vim-polyglot')
+    call minpac#add('sheerun/vim-polyglot')
     call minpac#add('vim-python/python-syntax')
     call minpac#add('Vimjas/vim-python-pep8-indent')
 endif
@@ -347,6 +343,7 @@ function! MyStatusline()
     return file.tags.sep.errors.position
 endfunction
 
+set laststatus=2
 set statusline=%!MyStatusline()
 "}}}
 

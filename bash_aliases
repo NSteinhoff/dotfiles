@@ -187,7 +187,7 @@ PS1="${PS1:0:((${#PS1} - 3))}"'$(git_branch_indicator)\$ '
 export PS1
 
 # Launch tmux automatically
-if [ -z $TMUX ] && which tmux > /dev/null; then
+if false && [ -z $TMUX ] && which tmux > /dev/null; then
     if [ -z $TMUX ] && [ -z $VIM_TERMINAL ] ; then
         (tmux ls > /dev/null 2>&1 && tmux attach) || tmux
     fi
