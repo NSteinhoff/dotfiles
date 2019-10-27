@@ -170,7 +170,28 @@ endtry
 
 
 "---------------------------------- Commands --------------------------------{{{
+" What's the current compiler?
+function! WhichCompiler()
+    if exists('b:current_compiler')
+        return ' [@'.b:current_compiler.'] '
+    elseif exists('g:current_compiler')
+        return ' ['.g:current_compiler.'] '
+    else
+        return ''
+    endif
+endfunction
+command! WhichCompiler echo WhichCompiler()
 
+function! DescribeCompiler()
+    if !exists('b:current_compiler')
+        echo 'No compiler set.'
+    else
+        echo 'Compiler: '.b:current_compiler
+        verbose set mp?
+        verbose set ef?
+    endif
+endfunction
+command! DescribeCompiler call DescribeCompiler()
 "}}}
 
 
@@ -202,16 +223,8 @@ augroup END
 
 " <F5> is always set to make the project
 nnoremap <F5> :make<cr>
-
-
-" We might have Neomake installed
-if exists("*neomake#Make")
-    nnoremap <F5> :Neomake!<cr>
-endif
-
-if maparg('<F5>', 'n') ==# ''
-    nnoremap <F5> :make<cr>
-endif
+nnoremap <leader><F5> :DescribeCompiler<cr>
+nnoremap <leader>? :DescribeCompiler<cr>
 
 " [ and ] mappings to navigate lists
 nnoremap [a :previous<cr>
@@ -332,9 +345,10 @@ function! MyStatusline()
     let file ='%y %f '
     let tags ='%#Question# %m %h %w %q'
     let sep ='%#Normal#%='
+    let compiler = '%#Question#%{WhichCompiler()}%#Statusline#'
     let errors ='%#Question#%{StatuslineErrors()}%#Statusline#'
     let position =' ☰ %l:%c | %p%% '
-    return file.tags.sep.errors.position
+    return file.tags.sep.errors.compiler.position
 endfunction
 
 set laststatus=2
