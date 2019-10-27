@@ -175,7 +175,6 @@ endtry
 
 
 "--------------------------------- Mappings ---------------------------------{{{
-
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
 let mapleader = '\'
 
@@ -213,6 +212,22 @@ endif
 if maparg('<F5>', 'n') ==# ''
     nnoremap <F5> :make<cr>
 endif
+
+" [ and ] mappings to navigate lists
+nnoremap [a :previous<cr>
+nnoremap [a :next<cr>
+
+nnoremap [b :bprevious<cr>
+nnoremap [b :bnext<cr>
+
+nnoremap [q :cprevious<cr>
+nnoremap ]q :cnext<cr>
+
+nnoremap [l :lprevious<cr>
+nnoremap ]l :lnext<cr>
+
+nnoremap [t :tprevious<cr>
+nnoremap ]t :tnext<cr>
 
 "}}}
 
@@ -310,27 +325,6 @@ function! StatuslineErrors()
         return ' ['.nqf.'|'.nloc.'] '
     else
         return ''
-    endif
-endfunction
-
-function! StatuslineMode()
-    let mode=mode(1)
-    if mode ==# 'i'
-        return 'INSERT'
-    elseif mode ==# 'c'
-        return 'COMMAND'
-    elseif mode ==# 'v'
-        return 'VISUAL'
-    elseif mode ==# 'V'
-        return 'V-LINE'
-    elseif mode ==# "\<C-V>"
-        return 'V-BLOCK'
-    elseif mode ==? 'R' || mode ==? 'Rv'
-        return 'REPLACE'
-    elseif mode ==? 't'
-        return 'TERMINAL'
-    else
-        return 'NORMAL'
     endif
 endfunction
 
