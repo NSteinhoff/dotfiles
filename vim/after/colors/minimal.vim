@@ -3,6 +3,23 @@
 " - highlight-groups
 " - cterm-colors
 
+highlight clear
+if exists("syntax_on")
+    syntax reset
+endif
+set t_Co=16
+
+let g:colors_name="minimal"
+if &background == 'dark'
+    let bg='NONE'
+    let fg=7
+else
+    let bg=15
+    let fg=8
+endif
+
+execute 'highlight Normal cterm=none ctermfg='.fg.' ctermbg='.bg
+
 " Helper functions {{{
 
 " Create styles that can be used to link groups to
@@ -42,45 +59,45 @@ endfunction
 if &background == 'dark'
     "" Hues {{{
     let  s:hues             =  {}
-    let  s:hues.nothing     =  {'lig':  'none',       'fg':  0,     'bg':  'bg'}
-    let  s:hues.Underlined  =  {'lig':  'underline',  'fg':  'fg',  'bg':  'bg'}
-    let  s:hues.Contrasted  =  {'lig':  'inverse',    'fg':  'fg',  'bg':  'bg'}
-    let  s:hues.Faded       =  {'lig':  'none',       'fg':  8,     'bg':  'bg'}
-    let  s:hues.Hidden      =  {'lig':  'none',       'fg':  'fg',  'bg':  'bg'}
-    let  s:hues.Bold        =  {'lig':  'bold',       'fg':  'fg',  'bg':  'bg'}
-    let  s:hues.Italic      =  {'lig':  'italic',     'fg':  'fg',  'bg':  'bg'}
-    let  s:hues.Pop         =  {'lig':  'none',       'fg':  15,    'bg':  'bg'}
-    let  s:hues.StrongPop   =  {'lig':  'bold',       'fg':  15,    'bg':  'bg'}
+    let  s:hues.nothing     =  {'lig':  'none',       'fg':  0,     'bg':  bg}
+    let  s:hues.Underlined  =  {'lig':  'underline',  'fg':  'fg',  'bg':  bg}
+    let  s:hues.Contrasted  =  {'lig':  'inverse',    'fg':  'fg',  'bg':  bg}
+    let  s:hues.Faded       =  {'lig':  'none',       'fg':  8,     'bg':  bg}
+    let  s:hues.Hidden      =  {'lig':  'none',       'fg':  'fg',  'bg':  bg}
+    let  s:hues.Bold        =  {'lig':  'bold',       'fg':  'fg',  'bg':  bg}
+    let  s:hues.Italic      =  {'lig':  'italic',     'fg':  'fg',  'bg':  bg}
+    let  s:hues.Pop         =  {'lig':  'none',       'fg':  15,    'bg':  bg}
+    let  s:hues.StrongPop   =  {'lig':  'bold',       'fg':  15,    'bg':  bg}
     "" }}}
 else
     "" Hues {{{
     let  s:hues             =  {}
-    let  s:hues.nothing     =  {'lig':  'none',       'fg':  'fg',  'bg':  'bg'}
-    let  s:hues.Underlined  =  {'lig':  'underline',  'fg':  'fg',  'bg':  'bg'}
-    let  s:hues.Contrasted  =  {'lig':  'inverse',    'fg':  'fg',  'bg':  'bg'}
-    let  s:hues.Faded       =  {'lig':  'none',       'fg':  7,     'bg':  'bg'}
-    let  s:hues.Hidden      =  {'lig':  'none',       'fg':  'fg',  'bg':  'bg'}
-    let  s:hues.Bold        =  {'lig':  'bold',       'fg':  'fg',  'bg':  'bg'}
-    let  s:hues.Italic      =  {'lig':  'bold',       'fg':  'fg',  'bg':  'bg'}
-    let  s:hues.Pop         =  {'lig':  'none',       'fg':  0,     'bg':  'bg'}
-    let  s:hues.StrongPop   =  {'lig':  'bold',       'fg':  0,     'bg':  'bg'}
+    let  s:hues.nothing     =  {'lig':  'none',       'fg':  'fg',  'bg':  bg}
+    let  s:hues.Underlined  =  {'lig':  'underline',  'fg':  'fg',  'bg':  bg}
+    let  s:hues.Contrasted  =  {'lig':  'inverse',    'fg':  'fg',  'bg':  bg}
+    let  s:hues.Faded       =  {'lig':  'none',       'fg':  7,     'bg':  bg}
+    let  s:hues.Hidden      =  {'lig':  'none',       'fg':  'fg',  'bg':  bg}
+    let  s:hues.Bold        =  {'lig':  'bold',       'fg':  'fg',  'bg':  bg}
+    let  s:hues.Italic      =  {'lig':  'bold',       'fg':  'fg',  'bg':  bg}
+    let  s:hues.Pop         =  {'lig':  'none',       'fg':  0,     'bg':  bg}
+    let  s:hues.StrongPop   =  {'lig':  'bold',       'fg':  0,     'bg':  bg}
     "" }}}
 endif
 
 "" Moods {{{
     let  s:moods            =  {}
-    let  s:moods.Proud      =  {'lig':  'none',  'fg':  4,   'bg':  'bg'}
-    let  s:moods.Calm       =  {'lig':  'none',  'fg':  2,   'bg':  'bg'}
-    let  s:moods.Peaceful   =  {'lig':  'none',  'fg':  6,   'bg':  'bg'}
-    let  s:moods.Forceful   =  {'lig':  'none',  'fg':  1,   'bg':  'bg'}
-    let  s:moods.Happy      =  {'lig':  'none',  'fg':  5,   'bg':  'bg'}
-    let  s:moods.Busy       =  {'lig':  'none',  'fg':  3,   'bg':  'bg'}
-    let  s:moods.Satisfied  =  {'lig':  'none',  'fg':  12,  'bg':  'bg'}
-    let  s:moods.Relaxed    =  {'lig':  'none',  'fg':  10,  'bg':  'bg'}
-    let  s:moods.Fresh      =  {'lig':  'none',  'fg':  14,  'bg':  'bg'}
-    let  s:moods.Intense    =  {'lig':  'none',  'fg':  9,   'bg':  'bg'}
-    let  s:moods.Excited    =  {'lig':  'none',  'fg':  13,  'bg':  'bg'}
-    let  s:moods.Lively     =  {'lig':  'none',  'fg':  11,  'bg':  'bg'}
+    let  s:moods.Proud      =  {'lig':  'none',  'fg':  4,   'bg':  bg}
+    let  s:moods.Calm       =  {'lig':  'none',  'fg':  2,   'bg':  bg}
+    let  s:moods.Peaceful   =  {'lig':  'none',  'fg':  6,   'bg':  bg}
+    let  s:moods.Forceful   =  {'lig':  'none',  'fg':  1,   'bg':  bg}
+    let  s:moods.Happy      =  {'lig':  'none',  'fg':  5,   'bg':  bg}
+    let  s:moods.Busy       =  {'lig':  'none',  'fg':  3,   'bg':  bg}
+    let  s:moods.Satisfied  =  {'lig':  'none',  'fg':  12,  'bg':  bg}
+    let  s:moods.Relaxed    =  {'lig':  'none',  'fg':  10,  'bg':  bg}
+    let  s:moods.Fresh      =  {'lig':  'none',  'fg':  14,  'bg':  bg}
+    let  s:moods.Intense    =  {'lig':  'none',  'fg':  9,   'bg':  bg}
+    let  s:moods.Excited    =  {'lig':  'none',  'fg':  13,  'bg':  bg}
+    let  s:moods.Lively     =  {'lig':  'none',  'fg':  11,  'bg':  bg}
 "" }}}
 
 "" Highlights {{{
@@ -320,20 +337,6 @@ let s:syntax_groups.heavy = [
 \ ]
 ""}}}
 "}}}
-
-highlight clear
-if exists("syntax_on")
-    syntax reset
-endif
-set t_Co=16
-
-let g:colors_name="minimal"
-
-if &background == 'dark'
-    highlight Normal cterm=none ctermfg=7 ctermbg=0
-else
-    highlight Normal cterm=none ctermfg=8 ctermbg=15
-endif
 
 " First we create the new highlight groups that everything
 " else links to.
