@@ -80,6 +80,7 @@ command! -nargs=? Header call s:header(<q-args>)
 
 if !has('nvim')
     silent source $VIMRUNTIME/defaults.vim
+    runtime ftplugin/man.vim
 endif
 
 "}}}
@@ -364,6 +365,14 @@ endfunction
 
 set laststatus=2
 set statusline=%!MyStatusline()
+
+"------------------------------ Filetype Options ------------------------------{{{
+
+augroup filetype_specifict_options
+    autocmd!
+    autocmd FileType man setlocal nolist
+augroup END
+
 "}}}
 
 " vim:foldmethod=marker textwidth=0
