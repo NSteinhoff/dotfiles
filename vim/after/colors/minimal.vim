@@ -12,13 +12,14 @@ set t_Co=16
 let g:colors_name="minimal"
 if &background == 'dark'
     let bg='NONE'
-    let fg=7
+    let fg='NONE'
 else
     let bg=15
     let fg=8
 endif
 
-execute 'highlight Normal cterm=none ctermfg='.fg.' ctermbg='.bg
+" execute 'highlight Normal cterm=none ctermfg='.fg.' ctermbg='.bg
+highlight clear Normal
 
 " Helper functions {{{
 
@@ -60,25 +61,25 @@ if &background == 'dark'
     "" Hues {{{
     let  s:hues             =  {}
     let  s:hues.nothing     =  {'lig':  'none',       'fg':  0,     'bg':  bg}
-    let  s:hues.Underlined  =  {'lig':  'underline',  'fg':  'fg',  'bg':  bg}
-    let  s:hues.Contrasted  =  {'lig':  'inverse',    'fg':  'fg',  'bg':  bg}
+    let  s:hues.Underlined  =  {'lig':  'underline',  'fg':  fg,  'bg':  bg}
+    let  s:hues.Contrasted  =  {'lig':  'inverse',    'fg':  fg,  'bg':  bg}
     let  s:hues.Faded       =  {'lig':  'none',       'fg':  8,     'bg':  bg}
-    let  s:hues.Hidden      =  {'lig':  'none',       'fg':  'fg',  'bg':  bg}
-    let  s:hues.Bold        =  {'lig':  'bold',       'fg':  'fg',  'bg':  bg}
-    let  s:hues.Italic      =  {'lig':  'italic',     'fg':  'fg',  'bg':  bg}
+    let  s:hues.Hidden      =  {'lig':  'none',       'fg':  fg,  'bg':  bg}
+    let  s:hues.Bold        =  {'lig':  'bold',       'fg':  fg,  'bg':  bg}
+    let  s:hues.Italic      =  {'lig':  'italic',     'fg':  fg,  'bg':  bg}
     let  s:hues.Pop         =  {'lig':  'none',       'fg':  15,    'bg':  bg}
     let  s:hues.StrongPop   =  {'lig':  'bold',       'fg':  15,    'bg':  bg}
     "" }}}
 else
     "" Hues {{{
     let  s:hues             =  {}
-    let  s:hues.nothing     =  {'lig':  'none',       'fg':  'fg',  'bg':  bg}
-    let  s:hues.Underlined  =  {'lig':  'underline',  'fg':  'fg',  'bg':  bg}
-    let  s:hues.Contrasted  =  {'lig':  'inverse',    'fg':  'fg',  'bg':  bg}
+    let  s:hues.nothing     =  {'lig':  'none',       'fg':  fg,  'bg':  bg}
+    let  s:hues.Underlined  =  {'lig':  'underline',  'fg':  fg,  'bg':  bg}
+    let  s:hues.Contrasted  =  {'lig':  'inverse',    'fg':  fg,  'bg':  bg}
     let  s:hues.Faded       =  {'lig':  'none',       'fg':  7,     'bg':  bg}
-    let  s:hues.Hidden      =  {'lig':  'none',       'fg':  'fg',  'bg':  bg}
-    let  s:hues.Bold        =  {'lig':  'bold',       'fg':  'fg',  'bg':  bg}
-    let  s:hues.Italic      =  {'lig':  'bold',       'fg':  'fg',  'bg':  bg}
+    let  s:hues.Hidden      =  {'lig':  'none',       'fg':  fg,  'bg':  bg}
+    let  s:hues.Bold        =  {'lig':  'bold',       'fg':  fg,  'bg':  bg}
+    let  s:hues.Italic      =  {'lig':  'bold',       'fg':  fg,  'bg':  bg}
     let  s:hues.Pop         =  {'lig':  'none',       'fg':  0,     'bg':  bg}
     let  s:hues.StrongPop   =  {'lig':  'bold',       'fg':  0,     'bg':  bg}
     "" }}}
