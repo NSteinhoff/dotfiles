@@ -159,7 +159,7 @@ set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:+
 " after cloning and installing the dotfiles for the first time.
 " Otherwise you'd have to click through the error messages manually.
 try
-    colorscheme minimal
+    colorscheme dim
     set background=dark
 catch E185
     echo "Colorscheme not installed. Using the default colorscheme."
@@ -173,24 +173,32 @@ endtry
 "---------------------------------- Commands --------------------------------{{{
 " What's the current compiler?
 function! WhichCompiler()
-    if exists('b:current_compiler')
-        return ' [@'.b:current_compiler.'] '
-    elseif exists('g:current_compiler')
-        return ' ['.g:current_compiler.'] '
-    else
-        return ''
-    endif
+    return ' ['.&makeprg.'] '
 endfunction
 command! WhichCompiler echo WhichCompiler()
 
 function! DescribeCompiler()
-    if !exists('b:current_compiler')
-        echo 'No compiler set.'
+    if exists('g:current_compiler')
+        let gcompiler = g:current_compiler
     else
-        echo 'Compiler: '.b:current_compiler
-        verbose set mp?
-        verbose set ef?
+        let gcompiler = 'NONE'
     endif
+    if exists('b:current_compiler')
+        let bcompiler = b:current_compiler
+    else
+        let bcompiler = 'NONE'
+    endif
+    if exists('current_compiler')
+        let compiler = current_compiler
+    else
+        let compiler = 'NONE'
+    endif
+
+    echo "Compiler: ".compiler
+    echo "\tGlobal: ".gcompiler
+    echo "\tLocal: ".gcompiler
+    verbose set mp?
+    verbose set ef?
 endfunction
 command! DescribeCompiler call DescribeCompiler()
 "}}}
@@ -287,7 +295,7 @@ if exists('*minpac#init')
     call minpac#add('tpope/vim-fireplace')
 
     " FTPlugings:
-    call minpac#add('sheerun/vim-polyglot')
+    "call minpac#add('sheerun/vim-polyglot')
     call minpac#add('vim-python/python-syntax')
     call minpac#add('Vimjas/vim-python-pep8-indent')
 endif
@@ -354,8 +362,8 @@ endfunction
 
 function! MyStatusline()
     let file ='%y %f '
-    let args ='%#Question#%{StatuslineArgs()}%#Statusline#'
-    let tags ='%#Question#%m %h %w %q'
+    let args ='%#Question#%{StatuslineArgs()} %#Statusline#'
+    let tags ='%#Question#%m %h %w %q '
     let sep ='%#Normal#%='
     let compiler = '%#Question#%{WhichCompiler()}%#Statusline#'
     let errors ='%#Question#%{StatuslineErrors()}%#Statusline#'
