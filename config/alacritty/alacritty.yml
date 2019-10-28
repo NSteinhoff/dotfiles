@@ -180,8 +180,8 @@ schemes:
       foreground: '0xEBEBEB'
 
     cursor:
-      text: '0xFF261E'
-      cursor: '0xFF261E'
+      text:     '0x292C3E'
+      cursor:   '0xEBEBEB'
 
     normal:
       black:   '0x0d0d0d'
@@ -981,8 +981,8 @@ schemes:
       foreground: '0xf0f0f0'
 
     cursor:
-      background: '0xf0f0f0'
-      foreground: '0x26282a'
+      text:     '0xf0f0f0'
+      cursor:   '0x26282a'
 
     normal:
       black:   '0x26282a'
