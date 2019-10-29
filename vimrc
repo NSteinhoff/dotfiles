@@ -172,12 +172,17 @@ endtry
 
 "---------------------------------- Commands --------------------------------{{{
 " What's the current compiler?
-function! WhichCompiler()
-    return ' ['.&makeprg.'] '
+function! s:which_compiler()
+    if exists('b:current_compiler')
+        return b:current_compiler
+    elseif exists('g:current_compiler')
+        return g:current_compiler
+    else
+        return 'NONE'
 endfunction
-command! WhichCompiler echo WhichCompiler()
+command! WhichCompiler echo s:which_compiler()
 
-function! DescribeCompiler()
+function! s:describe_compiler()
     if exists('g:current_compiler')
         let gcompiler = g:current_compiler
     else
@@ -188,19 +193,14 @@ function! DescribeCompiler()
     else
         let bcompiler = 'NONE'
     endif
-    if exists('current_compiler')
-        let compiler = current_compiler
-    else
-        let compiler = 'NONE'
-    endif
 
-    echo "Compiler: ".compiler
+    echo "Compiler: "
     echo "\tGlobal: ".gcompiler
-    echo "\tLocal: ".gcompiler
+    echo "\tLocal: ".bcompiler
     verbose set mp?
     verbose set ef?
 endfunction
-command! DescribeCompiler call DescribeCompiler()
+command! DescribeCompiler call s:describe_compiler()
 "}}}
 
 
@@ -360,15 +360,28 @@ function! StatuslineArgs()
     endif
 endfunction
 
+function! StatuslineCompiler()
+    let compiler = s:which_compiler()
+    if compiler == 'NONE'
+        return ''
+    else
+        return ' ['.compiler.'] '
+    endif
+endfunction
+
 function! MyStatusline()
-    let file ='%y %f '
-    let args ='%#Question#%{StatuslineArgs()} %#Statusline#'
-    let tags ='%#Question#%m %h %w %q '
-    let sep ='%#Normal#%='
-    let compiler = '%#Question#%{WhichCompiler()}%#Statusline#'
-    let errors ='%#Question#%{StatuslineErrors()}%#Statusline#'
-    let position =' ☰ %l:%c | %p%% '
-    return file.args.tags.sep.errors.compiler.position
+    let BAR         = '%*'
+    let OPT         = '%#Question#'
+    let SEP         = '%='
+
+    let file        = '%y %f '
+    let args        = '%{StatuslineArgs()} '
+    let tags        = '%m %h %w %q '
+    let compiler    = '%{StatuslineCompiler()}'
+    let errors      = '%{StatuslineErrors()}'
+    let position    = ' ☰ %l:%c | %p%% '
+
+    return file.OPT.args.tags.SEP.errors.compiler.BAR.position
 endfunction
 
 set laststatus=2
