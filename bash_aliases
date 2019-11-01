@@ -175,8 +175,15 @@ git_branch_indicator() {
     echo -n "${remote_indicator}"
     echo -n "]"
 }
+prompt_tail='\$ '
+prompt_head="${PS1%'\$ '}"
+if false && [ -n $TMUX ]; then
+    prompt_tmux='(tmux)'
+else
+    prompt_tmux=''
+fi
 
-PS1="${PS1:0:((${#PS1} - 3))}"'$(git_branch_indicator)\$ '
+PS1="$prompt_head$prompt_tmux"'$(git_branch_indicator)'"$prompt_tail"
 # PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\\\$ "'
 # GIT_PS1_SHOWDIRTYSTATE="yes"
 # GIT_PS1_SHOWUPSTREAM="auto"
