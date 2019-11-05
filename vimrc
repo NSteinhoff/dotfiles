@@ -1,4 +1,4 @@
-"--------------------------------- Helpers ----------------------------------{{{
+" --------------------------------- Helpers ----------------------------------{{{
 augroup settings
     autocmd!
     " Source this file on write
@@ -6,9 +6,9 @@ augroup settings
 augroup END
 
 function! s:header(words)
-    let prefix = matchstr(&commentstring, '\S*\(\s*%s\)\@=')
+    let prefix = matchstr(&commentstring, '\S*\(\s*%s\)\@=').' '
     let fillchar = '-'
-    let ncols = 80
+    let ncols = 79
 
     " Set the text that goes in-between the separators
     if a:words != ''
@@ -33,15 +33,15 @@ function! s:header(words)
     call cursor(line('.')+1, col('$'))
 endfunction
 
-" Create an 80 column wide header starting at the current cursor position.
-" The header text can be passed as an arguments or left blank to use the word
-" under the cursor. With no argument or word under cursor, will simply draw
-" the separator line.
+" Create an 80 column wide header starting at the current cursor
+" position. The header text can be passed as an arguments or left blank
+" to use the word under the cursor. With no argument or word under
+" cursor, will simply draw the separator line.
 function! s:center(words)
-    let prefix = matchstr(&commentstring, '\S*\(\s*%s\)\@=')
+    let prefix = matchstr(&commentstring, '\S*\(\s*%s\)\@=').' '
     let fillchar = '-'
-    let ncols = 80
-
+    let ncols = 79
+    "
     " Set the text that goes in-between the separators
     if a:words != ''
         let text = ' '.a:words.' '
@@ -55,7 +55,7 @@ function! s:center(words)
     " parts and fit the text in-between
     let cstart = col('.')
     let width = ncols - cstart
-    let sepwidth = (width - strlen(text)) / 2
+    let sepwidth = (width - strlen(text) - strlen(prefix)) / 2
 
     " Build the header line
     let header =
@@ -63,10 +63,14 @@ function! s:center(words)
         \ .prefix
         \ .repeat(fillchar, sepwidth)
         \ .text
-        \ .repeat(fillchar, sepwidth)
+
+    " Because of odd column numbers, this might not be the same width as the
+    " fill before the header text. This ensures that we always hit the desired
+    " total width
+    let fill_after = repeat(fillchar, ncols - strlen(header))
 
     " Set the current line to the header and position the cursor at the end.
-    call setline(line('.'), header)
+    call setline(line('.'), header.fill_after)
     call cursor(line('.'), col('$'))
 endfunction
 
@@ -76,7 +80,7 @@ command! -nargs=? Header call s:header(<q-args>)
 "}}}
 
 
-"-------------------------------- Defaults ----------------------------------{{{
+" -------------------------------- Defaults ----------------------------------{{{
 
 if !has('nvim')
     silent source $VIMRUNTIME/defaults.vim
@@ -86,7 +90,7 @@ endif
 "}}}
 
 
-"--------------------------------- Behavior ---------------------------------{{{
+" --------------------------------- Behavior ---------------------------------{{{
 
 set modeline
 set hidden
@@ -97,22 +101,27 @@ set path=,,.
 "}}}
 
 
-"--------------------------------- Editing ----------------------------------{{{
+" --------------------------------- Editing ----------------------------------{{{
 
 " Tabs -> Spaces
 set shiftwidth=4
 set softtabstop=-1
 set expandtab
 
-" Set 'formatoptions' to break comment lines but not other lines,
-" and insert the comment leader when hitting <CR> or using "o".
+" Set 'formatoptions'  to break comment  lines but not other  lines, and
+" insert the comment leader when hitting <CR> or using "o".
 set formatoptions-=t
 set formatoptions+=croql
+
+" Use 'par' for gq / Q formatting when it's available
+if executable('par')
+    set formatprg=par
+endif
 
 "}}}
 
 
-"----------------------------------- Tags -----------------------------------{{{
+" ----------------------------------- Tags -----------------------------------{{{
 
 " Upward search from current file, then 'tags' in the working directory
 " -> files dir (./xyz)
@@ -122,15 +131,15 @@ set formatoptions+=croql
 " plain tags -> .git/tags
 set tags=./tags,./tags;,tags,tags;
 
-" I've set up a git hook that get's installed for all repositories that creates
-" tags files on git actions that change the index (commits, checkouts, merges, etc.).
-" This file lives in the .git/ directory.
+" I've set up a git hook that get's installed for all repositories that
+" creates tags files on git actions that change the index (commits,
+" checkouts, merges, etc.). This file lives in the .git/ directory.
 set tags+=./.git/tags,./.git/tags;,.git/tags,.git/tags;
 
 "}}}
 
 
-"------------------------------- Autoread -------------------------------------{{{
+" ------------------------------- Autoread -------------------------------------{{{
 
 set autoread
 augroup autoread_settings
@@ -142,7 +151,7 @@ augroup END
 "}}}
 
 
-"--------------------------------- Display ----------------------------------{{{
+" --------------------------------- Display ----------------------------------{{{
 
 set number
 set foldmethod=indent
@@ -154,10 +163,10 @@ set nowrap
 set list
 set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:+
 
-" Gracefully handle unavailable colorscheme.
-" The desired colorscheme might not be installed yet. This happens
-" after cloning and installing the dotfiles for the first time.
-" Otherwise you'd have to click through the error messages manually.
+" Gracefully handle unavailable colorscheme. The desired colorscheme
+" might not be installed yet. This happens after cloning and installing
+" the dotfiles for the first time. Otherwise you'd have to click through
+" the error messages manually.
 try
     colorscheme dim
     set background=dark
@@ -170,7 +179,7 @@ endtry
 "}}}
 
 
-"---------------------------------- Commands --------------------------------{{{
+" ---------------------------------- Commands --------------------------------{{{
 " What's the current compiler?
 function! s:which_compiler()
     if exists('b:current_compiler')
@@ -204,7 +213,7 @@ command! DescribeCompiler call s:describe_compiler()
 "}}}
 
 
-"--------------------------------- Mappings ---------------------------------{{{
+" --------------------------------- Mappings ---------------------------------{{{
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
 let mapleader = '\'
 
@@ -254,7 +263,7 @@ nnoremap ]t :tnext<cr>
 "}}}
 
 
-"--------------------------------- Plugins ----------------------------------{{{
+" --------------------------------- Plugins ----------------------------------{{{
 
 " Personal plugins
 packadd differ
@@ -316,7 +325,7 @@ let g:python_highlight_all = 1
 "}}}
 
 
-"------------------------------------ REPL ------------------------------------{{{
+" ------------------------------------ REPL ------------------------------------{{{
 
 " Send text block to tmux pane
 vmap <C-c><C-c> <Plug>SendSelectionToTmux
@@ -326,7 +335,7 @@ nmap <C-c>r <Plug>SetTmuxVars
 "}}}
 
 
-"-------------------------------- Abbreviations --------------------------------{{{
+" -------------------------------- Abbreviations --------------------------------{{{
 
 " Insert dates:
 " Last modification date of the current file
@@ -339,7 +348,7 @@ iabbrev <expr> ddd strftime("%Y-%m-%d")
 "}}}
 
 
-"--------------------------------- Statusline ---------------------------------{{{
+" --------------------------------- Statusline ---------------------------------{{{
 function! StatuslineErrors()
     let nqf = len(getqflist())
     let nloc = len(getloclist(0))
@@ -386,11 +395,13 @@ endfunction
 
 set laststatus=2
 set statusline=%!MyStatusline()
+"}}}
 
-"------------------------------ Filetype Options ------------------------------{{{
+" ------------------------------ Filetype Options ------------------------------{{{
 
-augroup filetype_specifict_options
+augroup filetype_specific_options
     autocmd!
+    autocmd BufNewFile,BufRead *.pyi set ft=python
     autocmd FileType man setlocal nolist
 augroup END
 

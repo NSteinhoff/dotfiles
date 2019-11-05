@@ -199,3 +199,6 @@ if false && [ -z $TMUX ] && which tmux > /dev/null; then
         (tmux ls > /dev/null 2>&1 && tmux attach) || tmux
     fi
 fi
+
+# ----------------------- Paragraph formatting with 'par' -----------------------
+export PARINIT='rTbgqR B=.,?_A_a Q=_s>|'
