@@ -402,11 +402,13 @@ set laststatus=2
 set statusline=%!MyStatusline()
 "}}}
 
+
 " ------------------------------ Filetype Options ------------------------------{{{
 
 augroup filetype_specific_options
     autocmd!
     autocmd BufNewFile,BufRead *.pyi set ft=python
+    autocmd FileType markdown setlocal spell
     autocmd FileType man setlocal nolist
 augroup END
 
