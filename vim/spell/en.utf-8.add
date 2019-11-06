@@ -15,3 +15,8 @@ config
 kubectl
 cpu
 timestamp
+OpenAPI
+typechecker
+linter
+openapi
+yaml
