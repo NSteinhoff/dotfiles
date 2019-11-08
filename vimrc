@@ -240,7 +240,7 @@ augroup custom_filetype_specific_commands
 augroup END
 
 " <F5> is always set to make the project
-nnoremap <F5> :make<cr>
+nnoremap <F5> :make!<cr>
 nnoremap <leader><F5> :DescribeCompiler<cr>
 nnoremap <leader>? :DescribeCompiler<cr>
 
@@ -407,9 +407,10 @@ set statusline=%!MyStatusline()
 
 augroup filetype_specific_options
     autocmd!
-    autocmd BufNewFile,BufRead *.pyi set ft=python
+    autocmd BufNewFile,BufRead Dockerfile.* set ft=dockerfile
     autocmd FileType markdown setlocal spell
     autocmd FileType man setlocal nolist
+    autocmd FileType python map <buffer> <F6> :!black %<cr>
 augroup END
 
 "}}}
