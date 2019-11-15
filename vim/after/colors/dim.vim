@@ -40,7 +40,7 @@ else
   highlight LineNr       ctermfg=8
   highlight Comment      ctermfg=8
   highlight ColorColumn  ctermfg=7    ctermbg=8
-  highlight Folded       ctermfg=7    ctermbg=8
+  highlight Folded       ctermfg=8    ctermbg=0
   highlight FoldColumn   ctermfg=7    ctermbg=8
   highlight Pmenu        ctermfg=15   ctermbg=8
   highlight PmenuSel     ctermfg=8    ctermbg=15
