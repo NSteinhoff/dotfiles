@@ -168,7 +168,7 @@ set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:+
 " the dotfiles for the first time. Otherwise you'd have to click through
 " the error messages manually.
 try
-    colorscheme dim
+    colorscheme minimal
     set background=dark
 catch E185
     echo "Colorscheme not installed. Using the default colorscheme."
@@ -411,6 +411,7 @@ augroup filetype_specific_options
     autocmd FileType markdown setlocal spell
     autocmd FileType man setlocal nolist
     autocmd FileType python map <buffer> <F6> :!black %<cr>
+    autocmd FileType python compiler mypy
 augroup END
 
 "}}}
