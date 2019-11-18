@@ -94,3 +94,11 @@ popd
 
 ### Download git prompt script
 # curl -XGET "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh" > ~/.git-prompt.sh
+
+# -----------------------------------------------------------------------------
+#  Crawl
+# -----------------------------------------------------------------------------
+crawl="$HOME/.crawl"
+[ -d "$crawl" ] || mkdir "$crawl"
+[ -f "$crawl/icon.png" ] || ln -s "$HOME/dotfiles/crawl/stone_soup_icon-512x512.png" "$crawl/icon.png"
+[ -f /usr/share/applications/crawl-online.desktop ] || sudo cp "$HOME/dotfiles/crawl/crawl-online.desktop" "/usr/share/applications/crawl-online.desktop"

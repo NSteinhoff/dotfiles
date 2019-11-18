@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+
+Name=Online: Dungeon Crawl
+Exec=ssh crawl
+Terminal=true
+Icon=/home/niko/.crawl/icon.png
+Categories=Game;AdventureGame;
