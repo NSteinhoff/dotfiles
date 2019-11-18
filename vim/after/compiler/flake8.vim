@@ -28,7 +28,7 @@ else
     let s:pipenv = ''
 endif
 
-let s:command = s:pipenv.'flake8 $* %'
+let s:command = s:pipenv.'flake8 $*'
 
 exec 'CompilerSet makeprg=' . escape(s:command, ' ')
 

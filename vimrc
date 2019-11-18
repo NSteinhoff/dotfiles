@@ -416,4 +416,9 @@ augroup END
 
 "}}}
 
+" ---------------------------------- Netrw ------------------------------------{{{
+" Hide files that are ignored by git
+let g:netrw_list_hide= netrw_gitignore#Hide()
+"}}}
+
 " vim:foldmethod=marker textwidth=0
