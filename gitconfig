@@ -24,9 +24,9 @@
     interactive = auto
     grep = auto
 [diff]
-    tool = vimdiff
+    tool = nvimdiff
 [merge]
-    tool = vimdiff
+    tool = nvimdiff
 [core]
     editor = vim
     excludesfile = ~/.gitignore
