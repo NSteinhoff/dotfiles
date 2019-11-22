@@ -202,3 +202,12 @@ fi
 
 # ----------------------- Paragraph formatting with 'par' -----------------------
 export PARINIT='rTbgqR B=.,?_A_a Q=_s>|'
+
+
+# ----------------------------------- fff -------------------------------------
+if [ -n $(which fff) ]; then
+    f() {
+        fff "$@"
+        cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"
+    }
+fi
