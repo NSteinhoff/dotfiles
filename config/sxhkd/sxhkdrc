@@ -1,5 +1,5 @@
 super + alt + v
-    gvim -S ~/.vim/any.vim +start
+    gvim -S ~/.vim/any.vim
 
 super + alt + n
     gvim -c 'r!date' -c 'normal i# ' -c 'normal o' ~/notes.md
