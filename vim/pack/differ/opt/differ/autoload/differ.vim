@@ -172,12 +172,12 @@ function! differ#list_refs(A,L,P)
     return refs
 endfun
 
-function! differ#diff(target)
+function! differ#diff(target) abort
     if !git#check() | return | endif
     let ref = s:target_ref(a:target)
     let ft = &ft
     let filename = expand('%')
-    execute 'vnew [DIFF:'.ref.'] '.filename.': '. git#ctitle(ref)
+    execute 'vnew '.filename.'@'.ref
     call s:load_original(filename, ref, ft)
 endfunction
 

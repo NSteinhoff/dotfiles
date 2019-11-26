@@ -1,3 +1,9 @@
+function s:fpath(path) abort
+    let fullpath = fnamemodify(a:path, ':p')
+    let fullroot = fnamemodify(git#root(), ':p')
+    return substitute(fullpath, fullroot, '', '')
+endfunction
+
 function! s:cfiles(ref)
     return systemlist("git diff --name-only ".a:ref)
 endfunction
@@ -79,8 +85,9 @@ function! git#csummary(ref)
     return trim(system("git log -n1 --format='%h - %s (%cr)' ".a:ref))
 endfunction
 
-function! git#original(filename, ref)
-    return systemlist('git show '.a:ref.':./'.fnamemodify(a:filename, ":."))
+function! git#original(filename, ref) abort
+    let fpath = s:fpath(a:filename)
+    return systemlist('git show '.a:ref.':'.fpath)
 endfunction
 
 function! git#patch(filename, ref)
