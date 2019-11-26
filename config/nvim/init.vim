@@ -94,12 +94,16 @@ command! DescribeCompiler call s:describe_compiler()
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
 let mapleader = '\'
 
-" Mapping CTRL-SPACE
-" I use <C-Space> to run makers (make, dispatch, neomake).
-" Mapping <C-Space> seems to be tricky (Neovim seems to do fine).
-" Typing <C-v><C-Space> prints ^@, but the resulting mapping
-" is listed under <Nul>. So I'm mapping <Nul> directly for now.
-"
+" Fuzzy file finding within the working directory
+nnoremap <leader>e :edit **/*
+nnoremap <leader>s :split **/*
+nnoremap <leader>v :vsplit **/*
+nnoremap <leader>t :tabedit **/*
+
+" Quick buffer switching
+set wildcharm=<C-Z>
+nnoremap <leader>b :buffer <C-Z>
+
 " Clear search highlighting with <CTRL-SPACE> and <SPACE>
 if maparg('<Nul>', 'n') ==# ''
     nnoremap <silent> <Nul> :nohlsearch<CR>
@@ -113,7 +117,7 @@ augroup custom_filetype_specific_commands
     " <SPACE> is used for the "most commonly triggered action" for each filetype.
     " Send the top-level form to the REPL
     autocmd FileType clojure nnoremap <buffer> <space> :Eval<cr>
-    " Default mapping for all other filetypes
+
 augroup END
 
 " <F5> is always set to make the project
