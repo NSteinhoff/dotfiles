@@ -221,6 +221,7 @@ augroup filetype_specific_options
     autocmd FileType man setlocal nolist
     autocmd FileType python map <buffer> <F6> :!black %<cr>
     autocmd FileType python compiler mypy
+    autocmd FileType scala map <buffer> <F6> :!scalafmt %<cr>
 augroup END
 
 "}}}
