@@ -16,49 +16,38 @@ function! s:log_debug(text)
     endif
 endfunction
 
-function! s:select_ref(what)
+function! s:select_ref()
     let candidates = {}
     let items = ["Pick a ref to diff against:"]
     let max_len_name = 50
 
-    if get(a:what, 'auto', 0)
-        let a:what['branches'] = 1
-        let a:what['commits'] = 1
-    endif
+    for ref in git#branches()
+        let pref = '-@ '
+        let name = ref
+        let desc = git#ctitle(ref)
+        let item = {'ref': ref, 'name': name, 'desc': desc, 'pref': pref}
+        let candidates[len(candidates)+1] = item
+    endfor
 
-    if get(a:what, 'branches', 0)
-        for ref in git#branches()
-            let pref = '-@ '
-            let name = ref
-            let desc = git#ctitle(ref)
-            let item = {'ref': ref, 'name': name, 'desc': desc, 'pref': pref}
-            let candidates[len(candidates)+1] = item
-        endfor
-    endif
+    for [branch, ref] in items(git#mergebases())
+        let pref = '-< '
+        let name = branch.' ('.git#chash(ref).')'
+        let desc = git#ctitle(ref)
+        let item = {'ref': ref, 'name': name, 'desc': desc, 'pref': pref}
+        let candidates[len(candidates)+1] = item
+    endfor
 
-    if get(a:what, 'mergebases', 0)
-        for [branch, ref] in items(git#mergebases())
-            let pref = '-< '
-            let name = branch.' ('.git#chash(ref).')'
-            let desc = git#ctitle(ref)
-            let item = {'ref': ref, 'name': name, 'desc': desc, 'pref': pref}
-            let candidates[len(candidates)+1] = item
-        endfor
-    endif
-
-    if get(a:what, 'commits', 0)
-        let n_commits = 9
-        let i = 0
-        for ref in git#commits(n_commits)
-            let i += 1
-            let pref = '~'.i.' '
-            let name = strcharpart(ref, 0, 7)
-            let desc = git#ctitle(ref)
-            let item = {'ref': ref, 'name': name, 'desc': desc, 'pref': pref}
-            let candidates[len(candidates)+1] = item
-        endfor
-        unlet i
-    endif
+    let n_commits = 9
+    let i = 0
+    for ref in git#commits(n_commits)
+        let i += 1
+        let pref = '~'.i.' '
+        let name = strcharpart(ref, 0, 7)
+        let desc = git#ctitle(ref)
+        let item = {'ref': ref, 'name': name, 'desc': desc, 'pref': pref}
+        let candidates[len(candidates)+1] = item
+    endfor
+    unlet i
 
     for [i, candidate] in items(candidates)
         let pref = candidate['pref']
@@ -189,19 +178,11 @@ function! differ#patch(target, bang)
     endif
 endfunction
 
-function! differ#set_target(type, bang)
+function! differ#set_target(bang)
     if !git#check() | return | endif
 
     if a:bang == '!'
-        let what = {}
-
-        if a:type == ''
-            let what['auto'] = 1
-        else
-            let what[a:type] = 1
-        endif
-
-        let s:diff_remote = s:select_ref(what)
+        let s:diff_remote = s:select_ref()
         if s:diff_remote != ""
             echo "Setting diff target ref to '".s:diff_remote."'."
             if argc(-1) > 0

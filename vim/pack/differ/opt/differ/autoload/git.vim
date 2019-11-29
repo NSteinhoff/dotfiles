@@ -40,7 +40,7 @@ function! git#status()
 endfunction
 
 function! git#branches()
-    return systemlist("git branch -a --format '%(refname:short)'")
+    return systemlist("git branch --format '%(refname:short)'")
 endfunction
 
 function! git#commits(n)

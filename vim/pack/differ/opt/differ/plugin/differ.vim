@@ -9,7 +9,7 @@ command! DShowComments call differ#show_comments()
 
 command! DThis call differ#diff('')
 command! -bang DPatch call differ#patch('', "<bang>")
-command! -complete=customlist,differ#remote_types -nargs=? -bang DRemote call differ#set_target(<q-args>, "<bang>")
+command! -bang DRemote call differ#set_target("<bang>")
 
 nnoremap <leader>dt :DThis<cr>
 nnoremap <leader>dp :DPatch<cr>
