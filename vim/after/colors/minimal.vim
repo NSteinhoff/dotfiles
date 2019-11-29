@@ -156,16 +156,16 @@ let s:diff_styles.text                = "HExcited"
 ""}}}
 
 "" Syntax Styles {{{{
-let s:syntax_styles.error             = "Intense"     " <- Colored
-let s:syntax_styles.constant          = "Peaceful"    " <- Colored
+let s:syntax_styles.error             = "Intense"
+let s:syntax_styles.constant          = "Peaceful"
 let s:syntax_styles.identifier        = "Normal"
-let s:syntax_styles.statement         = "Pop"
-let s:syntax_styles.operator          = "Pop"
+let s:syntax_styles.statement         = "Calm"
+let s:syntax_styles.operator          = "Lively"
 let s:syntax_styles.type              = "StrongPop"
-let s:syntax_styles.preproc           = "Pop"
+let s:syntax_styles.preproc           = "Lively"
 let s:syntax_styles.trivial           = "Faded"
 let s:syntax_styles.informative       = "Bold"
-let s:syntax_styles.special           = "Pop"
+let s:syntax_styles.special           = "Proud"
 let s:syntax_styles.underlined        = "Underlined"
 let s:syntax_styles.emphasis          = "Bold"
 let s:syntax_styles.strong            = "Pop"
