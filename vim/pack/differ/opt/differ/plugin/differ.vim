@@ -11,8 +11,11 @@ command! DThis call differ#diff('')
 command! -bang DPatch call differ#patch('', "<bang>")
 command! -bang DRemote call differ#set_target("<bang>")
 
+nnoremap <leader>dr :DRemote<cr>
+nnoremap <leader>dR :DRemote!<cr>
 nnoremap <leader>dt :DThis<cr>
 nnoremap <leader>dp :DPatch<cr>
+nnoremap <leader>dP :DPatch!<cr>
 nnoremap <leader>ds :DStatus<cr>
 nnoremap <leader>dc :DComment<cr>
 nnoremap <leader>dC :DShowComments<cr>

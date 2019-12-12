@@ -96,13 +96,13 @@ let mapleader = '\'
 
 " Fuzzy file finding within the working directory
 nnoremap <leader>e :edit **/*
-nnoremap <leader>s :split **/*
-nnoremap <leader>v :vsplit **/*
+nnoremap <leader>s :vsplit **/*
 nnoremap <leader>t :tabedit **/*
 
 " Quick buffer switching
 set wildcharm=<C-Z>
 nnoremap <leader>b :buffer <C-Z>
+nnoremap <leader>v :vert sbuffer <C-Z>
 
 " Clear search highlighting with <CTRL-SPACE> and <SPACE>
 if maparg('<Nul>', 'n') ==# ''
