@@ -244,8 +244,10 @@ let g:netrw_list_hide= netrw_gitignore#Hide()
 " --------------------------------- Plugins ----------------------------------{{{
 
 " Personal plugins
-packadd differ
-packadd pomodoro
+if 1
+    packadd! differ
+    packadd! pomodoro
+endif
 
 " Install minpac as an optional package if it's not already installed.
 let minpac_path = has('nvim') ? '~/.config/nvim/pack/minpac/opt/minpac' : '~/.vim/pack/minpac/opt/minpac'
