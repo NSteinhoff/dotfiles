@@ -9,7 +9,7 @@ HISTFILESIZE=200000
 export EDITOR=vim
 
 # Set Vim as man pager
-# export MANPAGER="vim -M +MANPAGER -"
+export MANPAGER="vim -M +MANPAGER -"
 
 alias cider='clj -A:local:cider'
 
