@@ -218,6 +218,7 @@ augroup filetype_specific_options
     autocmd!
     autocmd BufNewFile,BufRead Dockerfile.* set ft=dockerfile
     autocmd FileType markdown setlocal spell
+    autocmd FileType yaml setlocal shiftwidth=2
     autocmd FileType man setlocal nolist
     autocmd FileType python map <buffer> <F6> :!black %<cr>
     autocmd FileType python compiler mypy
@@ -244,10 +245,9 @@ let g:netrw_list_hide= netrw_gitignore#Hide()
 " --------------------------------- Plugins ----------------------------------{{{
 
 " Personal plugins
-if 1
-    packadd! differ
-    packadd! pomodoro
-endif
+let g:pomodoro_autostart = 0            " Set to 1 to start timer immediately
+packadd! pomodoro
+packadd! differ
 
 " Install minpac as an optional package if it's not already installed.
 let minpac_path = has('nvim') ? '~/.config/nvim/pack/minpac/opt/minpac' : '~/.vim/pack/minpac/opt/minpac'

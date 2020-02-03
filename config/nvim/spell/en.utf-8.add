@@ -7,3 +7,9 @@ yaml
 app
 Kubernetes
 MongoDB
+MLflow
+Minikube
+Conda
+Pipenv
+symlink
+symlinked

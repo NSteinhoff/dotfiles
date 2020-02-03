@@ -9,7 +9,7 @@ HISTFILESIZE=200000
 export EDITOR=vim
 
 # Set Vim as man pager
-export MANPAGER="vim -M +MANPAGER -"
+# export MANPAGER="vim -M +MANPAGER -"
 
 alias cider='clj -A:local:cider'
 
@@ -101,6 +101,7 @@ if [ -n "$(which helm)" ]; then
     [ -f ~/.config/bash-completion/helm ] || helm completion bash > ~/.config/bash-completion/helm
     source ~/.config/bash-completion/helm
 fi
+
 
 # ------------ Exercism ----------
 [ -f ~/.config/exercism/exercism_completion.bash ] && source ~/.config/exercism/exercism_completion.bash

@@ -6,4 +6,6 @@
 command! PomodoroToggle call pomodoro#toggle()
 command! PomodoroStatus call pomodoro#settings()
 
-call pomodoro#enable()
+if exists('g:pomodoro_autostart') && g:pomodoro_autostart
+    call pomodoro#enable()
+endif
