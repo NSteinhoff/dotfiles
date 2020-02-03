@@ -13,8 +13,14 @@ export EDITOR=vim
 
 alias cider='clj -A:local:cider'
 
+case $OSTYPE in
+    linux*) os="linux";;
+    darwin*) os="mac";;
+esac
+
 # --------- Listing files ------------
-alias ls='ls --color=auto --group-directories-first'
+[ $os = "linux" ] && alias ls='ls --color=auto --group-directories-first'
+[ $os = "mac" ] && alias ls='ls -G'
 alias ll='ls -lF'
 alias lla='ll -a'
 alias tree='tree --dirsfirst'
@@ -55,6 +61,7 @@ GREEN='\033[0;32m'
 ORANGE='\033[0;33m'
 
 # ------------   PATHS   -------------
+export PATH="$HOME/.local/bin:$PATH"
 
 # ------------ Brew ----------
 test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
@@ -71,7 +78,7 @@ fi
 
 # ---------- Java Version ---------
 if [[ -z $JAVA_HOME ]]; then
-    if [[ -x $(which java) ]]; then
+    if [[ "$os" == linux && -x $(which java) ]]; then
         export JAVA_HOME=$(readlink -f $(which java) | sed "s:/bin/java::")
     fi
 fi
@@ -212,3 +219,7 @@ if [ -n $(which fff) ]; then
         cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"
     }
 fi
+
+
+# ---------------------------------- Pyenv ------------------------------------
+[ -n "$(which pyenv)" ] && eval "$(pyenv init -)"

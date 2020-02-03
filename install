@@ -4,13 +4,20 @@
 # This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
 ############################
 dir="$HOME/dotfiles"
+lbin="$HOME/.local/bin"
+[ -d "$lbin" ] || mkdir -p "$lbin"
+
+case "$OSTYPE" in
+    linux*) os="linux";;
+    darwin*) os="mac";;
+esac
 
 ########## Installing system packages
 echo -e "\n\n"
 echo ">>>>>>>>>>>>>>>"
 echo "Installing system packages..."
 
-sudo apt install $(cat $dir/extras/packages)
+[ $os = "linux" ] && sudo apt install $(cat $dir/extras/packages)
 
 
 ##### Installing Python
@@ -64,6 +71,7 @@ files=(\
     local/share/fonts/InputMono \
     local/share/fonts/Monoid \
 )
+[ $os = "mac" ] && files+=(bash_profile bashrc)
 
 
 # move any existing dotfiles in homedir to dotfiles_old directory,
@@ -101,4 +109,4 @@ popd
 crawl="$HOME/.crawl"
 [ -d "$crawl" ] || mkdir "$crawl"
 [ -f "$crawl/icon.png" ] || ln -s "$HOME/dotfiles/crawl/stone_soup_icon-512x512.png" "$crawl/icon.png"
-[ -f /usr/share/applications/crawl-online.desktop ] || sudo cp "$HOME/dotfiles/crawl/crawl-online.desktop" "/usr/share/applications/crawl-online.desktop"
+[ $os = "linux" ] && ( [ -f /usr/share/applications/crawl-online.desktop ] || sudo cp "$HOME/dotfiles/crawl/crawl-online.desktop" "/usr/share/applications/crawl-online.desktop" )
