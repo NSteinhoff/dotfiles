@@ -8,6 +8,13 @@ set inccommand=split
 "}}}
 
 
+" -------------------------------- Searching ----------------------------------{{{
+if executable('ag')
+    set grepprg=ag\ --vimgrep\ --smart-case
+endif
+" }}}
+
+
 " ---------------------------------- Colors -----------------------------------{{{
 
 " Gracefully handle unavailable colorscheme. The desired colorscheme
