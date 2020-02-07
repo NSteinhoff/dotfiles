@@ -147,6 +147,16 @@ function! s:edit_comment(filename, lnum, lines)
     call append(0, lines) | normal dd
 endfunction
 
+function! s:set_args(remote)
+    if argc(-1) > 0
+        argd *
+    endif
+    for fname in git#files(a:remote)
+        echo fname
+        exe 'argadd '.fname
+    endfor
+endfunction
+
 " -------------------------------------------------------------
 " Section: Public
 " -------------------------------------------------------------
@@ -185,19 +195,17 @@ function! differ#set_target(bang)
         let s:diff_remote = s:select_ref()
         if s:diff_remote != ""
             echo "Setting diff target ref to '".s:diff_remote."'."
-            if argc(-1) > 0
-                argd *
-            endif
-            for fname in git#files(s:diff_remote)
-                echo fname
-                exe 'argadd '.fname
-            endfor
         else
             echo "Using previous target remote: ".s:target_ref('')
         endif
     else
         echo "REMOTE: ".s:target_ref('')
     endif
+    call differ#update()
+endfunction
+
+function! differ#update()
+    call s:set_args(s:target_ref(""))
 endfunction
 
 function! differ#status()
