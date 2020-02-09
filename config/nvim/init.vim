@@ -91,7 +91,7 @@ function! s:describe_compiler()
     echo "\tGlobal: ".gcompiler
     echo "\tLocal: ".bcompiler
     verbose set mp?
-    verbose set ef?
+    verbose set efm?
 endfunction
 command! DescribeCompiler call s:describe_compiler()
 "}}}
@@ -230,6 +230,7 @@ augroup filetype_specific_options
     autocmd FileType python map <buffer> <F6> :!black %<cr>
     autocmd FileType python compiler mypy
     autocmd FileType scala compiler bloop
+    autocmd FileType rust compiler cargo
     autocmd FileType scala map <buffer> <F6> :!scalafmt %<cr>
 augroup END
 

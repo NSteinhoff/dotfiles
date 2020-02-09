@@ -70,6 +70,7 @@ files=(\
     local/share/fonts/iosevka \
     local/share/fonts/InputMono \
     local/share/fonts/Monoid \
+    sbt/1.0/plugins/build.sbt \
 )
 [ $os = "mac" ] && files+=(bash_profile bashrc)
 
