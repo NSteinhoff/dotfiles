@@ -71,6 +71,7 @@ files=(\
     local/share/fonts/InputMono \
     local/share/fonts/Monoid \
     sbt/1.0/plugins/build.sbt \
+    stack/config.yaml \
 )
 [ $os = "mac" ] && files+=(bash_profile bashrc)
 

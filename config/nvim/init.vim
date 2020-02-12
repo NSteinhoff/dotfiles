@@ -125,6 +125,9 @@ augroup custom_filetype_specific_commands
     " Send the top-level form to the REPL
     autocmd FileType clojure nnoremap <buffer> <space> :Eval<cr>
 
+    autocmd FileType python map <buffer> <F6> :!black %<cr>
+    autocmd FileType rust map <buffer> <F6> :!rustfmt %<cr>
+    autocmd FileType scala map <buffer> <F6> :!scalafmt %<cr>
 augroup END
 
 " <F5> is always set to make the project
@@ -227,11 +230,10 @@ augroup filetype_specific_options
     autocmd FileType markdown setlocal spell
     autocmd FileType yaml setlocal shiftwidth=2
     autocmd FileType man setlocal nolist
-    autocmd FileType python map <buffer> <F6> :!black %<cr>
     autocmd FileType python compiler mypy
+    autocmd FileType clojure setlocal lisp
     autocmd FileType scala compiler bloop
     autocmd FileType rust compiler cargo
-    autocmd FileType scala map <buffer> <F6> :!scalafmt %<cr>
 augroup END
 
 "}}}
