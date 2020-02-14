@@ -164,6 +164,9 @@ augroup custom_filetype_specific_commands
 
     " Linting
     autocmd FileType python map <buffer> <F7> :CompileWith flake8<cr>
+
+    " Testing
+    autocmd FileType python map <buffer> <F8> :CompileWith pytest<cr>
 augroup END
 "}}}
 
