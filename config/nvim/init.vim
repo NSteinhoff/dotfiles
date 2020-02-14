@@ -75,6 +75,16 @@ function! s:which_compiler()
 endfunction
 command! WhichCompiler echo s:which_compiler()
 
+function! s:compile_with(name)
+    let old = s:which_compiler()
+    execute 'compiler! '.a:name
+    make
+    if old != 'NONE'
+        execute 'compiler '.old
+    endif
+endfunction
+command! -nargs=1 -complete=compiler CompileWith call s:compile_with(<f-args>)
+
 function! s:describe_compiler()
     if exists('g:current_compiler')
         let gcompiler = g:current_compiler
@@ -117,19 +127,6 @@ if maparg('<Nul>', 'n') ==# ''
     nnoremap <silent> <Space> :nohlsearch<CR>
 endif
 
-""" Mappings that only apply for different file types.
-augroup custom_filetype_specific_commands
-    autocmd!
-
-    " <SPACE> is used for the "most commonly triggered action" for each filetype.
-    " Send the top-level form to the REPL
-    autocmd FileType clojure nnoremap <buffer> <space> :Eval<cr>
-
-    autocmd FileType python map <buffer> <F6> :!black %<cr>
-    autocmd FileType rust map <buffer> <F6> :!rustfmt %<cr>
-    autocmd FileType scala map <buffer> <F6> :!scalafmt %<cr>
-augroup END
-
 " <F5> is always set to make the project
 nnoremap <F5> :make!<cr>
 nnoremap <leader><F5> :DescribeCompiler<cr>
@@ -151,6 +148,23 @@ nnoremap ]l :lnext<cr>
 nnoremap [t :tprevious<cr>
 nnoremap ]t :tnext<cr>
 
+
+""" Mappings that only apply for specific file types.
+augroup custom_filetype_specific_commands
+    autocmd!
+
+    " <SPACE> is used for the "most commonly triggered action" for each filetype.
+    " Send the top-level form to the REPL
+    autocmd FileType clojure nnoremap <buffer> <space> :Eval<cr>
+
+    " Formatting
+    autocmd FileType python map <buffer> <F6> :!black %<cr>
+    autocmd FileType rust map <buffer> <F6> :!rustfmt %<cr>
+    autocmd FileType scala map <buffer> <F6> :!scalafmt %<cr>
+
+    " Linting
+    autocmd FileType python map <buffer> <F7> :CompileWith flake8<cr>
+augroup END
 "}}}
 
 
