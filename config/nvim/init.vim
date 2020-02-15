@@ -64,6 +64,11 @@ set tags+=./.git/tags,./.git/tags;,.git/tags,.git/tags;
 
 
 " ---------------------------------- Commands --------------------------------{{{
+" Align text
+" Using 'sed' and 'column' external tools
+command! -range Align <line1>,<line2>!sed 's/\s\+/~/g' | column -s'~' -t
+command! -nargs=1 -range AlignOn <line1>,<line2>!sed 's/\s\+<args>/ ~<args>/g' | column -s'~' -t
+
 " What's the current compiler?
 function! s:which_compiler()
     if exists('b:current_compiler')
@@ -122,8 +127,7 @@ nnoremap <leader>b :buffer <C-Z>
 nnoremap <leader>v :vert sbuffer <C-Z>
 
 " Clear search highlighting with <CTRL-SPACE> and <SPACE>
-if maparg('<Nul>', 'n') ==# ''
-    nnoremap <silent> <Nul> :nohlsearch<CR>
+if maparg('<Space>', 'n') ==# ''
     nnoremap <silent> <Space> :nohlsearch<CR>
 endif
 
@@ -155,7 +159,7 @@ augroup custom_filetype_specific_commands
 
     " <SPACE> is used for the "most commonly triggered action" for each filetype.
     " Send the top-level form to the REPL
-    autocmd FileType clojure nnoremap <buffer> <space> :Eval<cr>
+    autocmd FileType clojure nnoremap <buffer> <BS> :Eval<cr>
 
     " Formatting
     autocmd FileType python map <buffer> <F6> :!black %<cr>
