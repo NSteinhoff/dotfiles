@@ -263,6 +263,9 @@ augroup END
 " ---------------------------------- Netrw ------------------------------------{{{
 " Hide files that are ignored by git
 let g:netrw_list_hide= netrw_gitignore#Hide()
+let g:netrw_preview = 1
+let g:netrw_altv = 1
+let g:netrw_alto = 0
 "}}}
 
 
