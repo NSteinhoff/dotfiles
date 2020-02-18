@@ -1,9 +1,19 @@
 #!/bin/bash
 ############################
 # install
-# This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
+#
+# Install dotfiles and other configurations files.
+# Check if certain basic tools are installed, and install them if they aren't.
+#
 ############################
+
+
+# -----------------------------------------------------------------------------
+#  SETUP
+# -----------------------------------------------------------------------------
+# {{{
 dir="$HOME/dotfiles"
+bkpdir="$HOME/.dotfiles_bkp"
 lbin="$HOME/.local/bin"
 [ -d "$lbin" ] || mkdir -p "$lbin"
 
@@ -12,26 +22,59 @@ case "$OSTYPE" in
     darwin*) os="mac";;
 esac
 
-########## Installing system packages
-echo -e "\n\n"
-echo ">>>>>>>>>>>>>>>"
-echo "Installing system packages..."
-
-[ $os = "linux" ] && sudo apt install $(cat $dir/extras/packages)
-
-
-##### Installing Python
-install_python () {
+# Install the dotfiles passed as arguments
+#
+# Move any existing dotfiles in homedir to dotfiles_old directory,
+# then create symlinks from the homedir to any files in the
+# ~/dotfiles directory specified in $files
+install_dotfiles () {
+    files="$@"
     echo -e "\n\n"
     echo ">>>>>>>>>>>>>>>"
-    echo "Installing python..."
-
-    $dir/extras/python
+    echo "Installing dotfiles: ${files[@]}"
+    for file in "${files[@]}"; do
+        echo $file
+        continue
+        target="$dir/$file"
+        linkname="$HOME/.$file"
+        linkdir="${linkname%/*}"
+        echo "$file:"
+        if [ -L "$linkname" ]; then
+            echo -e "\tRemoving old symlink."
+            rm "$linkname"
+        fi
+        if [ -f "$linkname" ] || [ -d "$linkname" ]; then
+            echo -e "\tBacking-up existing file."
+            mkdir -p "$bkpdir/${file%/*}"
+            mv -v "$linkname" "$bkpdir/$file"
+        fi
+        [ -d "$linkdir" ] || mkdir -p "$linkdir"
+        echo -e "\tCreating symlink: $(ln -v -s $target $linkname)"
+    done
 }
-# install_python
+
+# }}}
 
 
-########## ZSH
+# -----------------------------------------------------------------------------
+#  SHELL & TERMINAL
+# -----------------------------------------------------------------------------
+# {{{
+
+# BASH
+# ====
+install_dotfiles bash_aliases inputrc
+[ $os = "mac" ] && install_dotfiles bash_profile bashrc
+
+# TMUX & SCREEN
+# ====
+install_dotfiles tmux.conf screenrc
+# Install Tmux Plugin Manager
+tpm="$HOME/.tmux/plugins/tpm"
+[ -d $tpm ] || git clone https://github.com/tmux-plugins/tpm "$tpm"
+
+# ZSH
+# ===
 install_zsh() {
     echo "Making Zsh default shell"
     sudo chsh -s `which zsh`
@@ -39,76 +82,140 @@ install_zsh() {
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 }
 # install_zsh
+install_dotfiles zshrc
+
+# ALACRITTY
+# =========
+install_dotfiles config/alacritty/alacritty.yml
+
+# }}}
 
 
-########## Dotfiles in HOME
-echo -e "\n\n"
-echo ">>>>>>>>>>>>>>>"
-echo "Installing dotfiles..."
-bkpdir="$HOME/.dotfiles_bkp"
-files=(\
-    bash_aliases \
-    cider.edn \
-    config/alacritty/alacritty.yml \
-    config/nvim \
-    config/sxhkd/sxhkdrc \
-    clojure/deps.edn \
-    crawlrc \
-    ctags \
-    ctags.d \
+# -----------------------------------------------------------------------------
+#  GIT
+# -----------------------------------------------------------------------------
+# {{{
+install_dotfiles \
     git_template \
     gitconfig \
-    gitignore \
-    inputrc \
-    scalafmt.conf \
-    screenrc \
-    tmux.conf \
-    vim \
-    vimrc \
-    gvimrc \
-    zshrc \
-    local/share/fonts/iosevka \
-    local/share/fonts/InputMono \
-    local/share/fonts/Monoid \
-    sbt/1.0/plugins/build.sbt \
-    stack/config.yaml \
-)
-[ $os = "mac" ] && files+=(bash_profile bashrc)
-
-
-# move any existing dotfiles in homedir to dotfiles_old directory,
-# then create symlinks from the homedir to any files in the
-# ~/dotfiles directory specified in $files
-for file in ${files[*]}; do
-    target="$dir/$file"
-    linkname="$HOME/.$file"
-    linkdir="${linkname%/*}"
-    echo "$file:"
-    if [ -L "$linkname" ]; then
-        echo -e "\tRemoving old symlink."
-        rm "$linkname"
-    fi
-    if [ -f "$linkname" ] || [ -d "$linkname" ]; then
-        echo -e "\tBacking-up existing file."
-        mkdir -p "$bkpdir/${file%/*}"
-        mv -v "$linkname" "$bkpdir/$file"
-    fi
-    [ -d "$linkdir" ] || mkdir -p "$linkdir"
-    echo -e "\tCreating symlink: $(ln -v -s $target $linkname)"
-done
-
-# Init and update the plugins tracked as submodules
-pushd "$dir"
-git submodule update --init --recursive
-popd
+    gitignore
 
 ### Download git prompt script
 # curl -XGET "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh" > ~/.git-prompt.sh
 
+# }}}
+
 # -----------------------------------------------------------------------------
-#  Crawl
+#  VIM
 # -----------------------------------------------------------------------------
-crawl="$HOME/.crawl"
-[ -d "$crawl" ] || mkdir "$crawl"
-[ -f "$crawl/icon.png" ] || ln -s "$HOME/dotfiles/crawl/stone_soup_icon-512x512.png" "$crawl/icon.png"
-[ $os = "linux" ] && ( [ -f /usr/share/applications/crawl-online.desktop ] || sudo cp "$HOME/dotfiles/crawl/crawl-online.desktop" "/usr/share/applications/crawl-online.desktop" )
+# {{{
+install_dotfiles \
+    vim \
+    vimrc \
+    gvimrc \
+    config/nvim
+
+# }}}
+
+
+# -----------------------------------------------------------------------------
+#  CTAGS
+# -----------------------------------------------------------------------------
+# {{{
+install_dotfiles \
+    ctags \
+    ctags.d
+
+# }}}
+
+
+# -----------------------------------------------------------------------------
+#  FONTS
+# -----------------------------------------------------------------------------
+# {{{
+install_dotfiles \
+    local/share/fonts/iosevka \
+    local/share/fonts/InputMono \
+    local/share/fonts/Monoid
+
+# }}}
+
+
+# -----------------------------------------------------------------------------
+#  PYTHON
+# -----------------------------------------------------------------------------
+# {{{
+install_python () {
+    echo -e "\n\n"
+    echo ">>>>>>>>>>>>>>>"
+    echo "Installing python..."
+
+    $dir/extras/python
+}
+# [ $os == "linux"] && install_python
+
+# }}}
+
+
+# -----------------------------------------------------------------------------
+#  CLOJURE
+# -----------------------------------------------------------------------------
+# {{{
+install_dotfiles \
+    clojure/deps.edn \
+    cider.edn
+
+# }}}
+
+
+# -----------------------------------------------------------------------------
+#  HASKELL
+# -----------------------------------------------------------------------------
+# {{{
+install_dotfiles stack/config.yaml
+
+# }}}
+
+
+# -----------------------------------------------------------------------------
+#  SCALA
+# -----------------------------------------------------------------------------
+# {{{
+install_dotfiles \
+    scalafmt.conf \
+    sbt/1.0/plugins/build.sbt
+
+# }}}
+
+
+# -----------------------------------------------------------------------------
+# UBUNTU
+# -----------------------------------------------------------------------------
+# {{{
+if [ $os = "linux" ]; then
+    echo -e "\n\n"
+    echo ">>>>>>>>>>>>>>>"
+    echo "Installing system packages..."
+    sudo apt install $(cat $dir/extras/packages)
+    install_dotfiles config/sxhkd/sxhkdrc
+fi
+
+# }}}
+
+
+# -----------------------------------------------------------------------------
+#  CRAWL
+# -----------------------------------------------------------------------------
+# {{{
+install_dotfiles crawlrc
+if [ $os = "linux" ]; then
+    crawl="$HOME/.crawl"
+    [ -d "$crawl" ] || mkdir "$crawl"
+    [ -f "$crawl/icon.png" ] || ln -s "$HOME/dotfiles/crawl/stone_soup_icon-512x512.png" "$crawl/icon.png"
+    [ -f /usr/share/applications/crawl-online.desktop ] || sudo cp "$HOME/dotfiles/crawl/crawl-online.desktop" "/usr/share/applications/crawl-online.desktop"
+fi
+
+# }}}
+
+
+# vim:foldmethod=marker textwidth=0
