@@ -9,6 +9,7 @@ if exists("syntax_on")
 endif
 set t_Co=16
 
+set bg=dark
 let g:colors_name="minimal"
 if &background == 'dark'
     let bg='NONE'
