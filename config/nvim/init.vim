@@ -116,6 +116,13 @@ command! DescribeCompiler call s:describe_compiler()
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
 let mapleader = '\'
 
+" Window resizing with the arrow keys
+nnoremap <right> <c-w>>   " increase width
+nnoremap <left> <c-w><    " decrease width
+nnoremap <up> <c-w>+      " increase height
+nnoremap <down> <c-w>-    " decrease height
+
+
 " Fuzzy file finding within the working directory
 nnoremap <leader>e :edit **/*
 nnoremap <leader>s :vsplit **/*
