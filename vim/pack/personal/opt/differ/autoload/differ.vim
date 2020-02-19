@@ -89,6 +89,10 @@ endfunction
 
 function! s:load_original(filename, ref, ft)
     setlocal buftype=nofile bufhidden=wipe noswapfile | let &l:ft = a:ft
+    nnoremap <buffer> q :close<cr>
+    command! -buffer Dnext close <bar> next <bar> Dthis
+    command! -buffer Dprevious close <bar> previous <bar> Dthis
+
     au BufUnload,BufWinLeave <buffer> diffoff!
 
     let original = git#original(a:filename, a:ref)
@@ -201,7 +205,13 @@ function! differ#set_target(bang)
     else
         echo "REMOTE: ".s:target_ref('')
     endif
+
     call differ#update()
+
+    if a:bang == '!'
+        first
+        call differ#diff('')
+    endif
 endfunction
 
 function! differ#update()
