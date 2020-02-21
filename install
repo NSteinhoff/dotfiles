@@ -32,9 +32,11 @@ install_dotfiles () {
     echo -e "\n\n"
     echo ">>>>>>>>>>>>>>>"
     echo "Installing dotfiles: ${files[@]}"
-    for file in "${files[@]}"; do
-        echo $file
-        continue
+    for file in ${files[@]}; do
+        if [ ! -f "$file" ] && [ ! -d "$file" ]; then
+            echo "WARNING: Source file '$file' does not exist. Skipping."
+            continue
+        fi
         target="$dir/$file"
         linkname="$HOME/.$file"
         linkdir="${linkname%/*}"
@@ -161,9 +163,7 @@ install_python () {
 #  CLOJURE
 # -----------------------------------------------------------------------------
 # {{{
-install_dotfiles \
-    clojure/deps.edn \
-    cider.edn
+install_dotfiles clojure/deps.edn
 
 # }}}
 
