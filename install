@@ -7,6 +7,19 @@
 #
 ############################
 
+installp() {
+    local answer
+    local p
+    echo ""
+    while [[ ! $answer =~ Y(es)?|No? ]]; do
+        p="Do you wish to install '$@'? Y(es)/N(o)"
+        read -p "$p" answer
+    done
+    case $answer in
+        Y*) echo Yes; true;;
+        N*) echo No; false;;
+    esac
+}
 
 # -----------------------------------------------------------------------------
 #  SETUP
@@ -83,8 +96,7 @@ install_zsh() {
     echo "Installing oh-my-zsh"
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 }
-# install_zsh
-install_dotfiles zshrc
+installp "zsh" && install_zsh && install_dotfiles zshrc
 
 # ALACRITTY
 # =========
@@ -154,7 +166,7 @@ install_python () {
 
     $dir/extras/python
 }
-# [ $os == "linux"] && install_python
+[ $os == "linux"] && installp python && install_python
 
 # }}}
 
@@ -193,11 +205,8 @@ install_dotfiles \
 # -----------------------------------------------------------------------------
 # {{{
 if [ $os = "linux" ]; then
-    echo -e "\n\n"
-    echo ">>>>>>>>>>>>>>>"
-    echo "Installing system packages..."
-    sudo apt install $(cat $dir/extras/packages)
     install_dotfiles config/sxhkd/sxhkdrc
+    installp "System packages" && sudo apt install $(cat $dir/extras/packages)
 fi
 
 # }}}
