@@ -10,6 +10,11 @@ endif
 
 " --------------------------------- Behavior ---------------------------------{{{
 
+map <left> <Nop>
+map <right> <Nop>
+map <up> <Nop>
+map <down> <Nop>
+
 set modeline
 set hidden
 set updatetime=100

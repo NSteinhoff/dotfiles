@@ -117,10 +117,10 @@ command! DescribeCompiler call s:describe_compiler()
 let mapleader = '\'
 
 " Window resizing with the arrow keys
-nnoremap <right> <c-w>>   " increase width
-nnoremap <left> <c-w><    " decrease width
-nnoremap <up> <c-w>+      " increase height
-nnoremap <down> <c-w>-    " decrease height
+map <right> 10<c-w>>   " increase width
+map <left> 10<c-w><    " decrease width
+map <up> 10<c-w>+      " increase height
+map <down> 10<c-w>-    " decrease height
 
 
 " Fuzzy file finding within the working directory
