@@ -346,22 +346,26 @@ command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
 " Plugin Configuration:
 let g:python_highlight_all = 1
 
-" ---------------------------- LSP Configuration ------------------------------
+"}}}
+
+
+" ----------------------- LSP Configuration (Example) -------------------------{{{
+
 lua << EOF
 vim.cmd('packadd nvim-lsp')
 require'nvim_lsp'.metals.setup{}
 EOF
 
-autocmd Filetype scala setlocal omnifunc=v:lua.vim.lsp.omnifunc
-
-autocmd FileType scala nnoremap <buffer> <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-autocmd FileType scala nnoremap <buffer> <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-autocmd FileType scala nnoremap <buffer> <silent> [<c-d> <cmd>lua vim.lsp.buf.definition()<CR>
-" autocmd FileType scala nnoremap <buffer> <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-autocmd FileType scala nnoremap <buffer> <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-autocmd FileType scala nnoremap <buffer> <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-autocmd FileType scala nnoremap <buffer> <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-autocmd FileType scala nnoremap <buffer> <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+" autocmd Filetype scala setlocal omnifunc=v:lua.vim.lsp.omnifunc
+"
+" autocmd FileType scala nnoremap <buffer> <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+" autocmd FileType scala nnoremap <buffer> <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+" autocmd FileType scala nnoremap <buffer> <silent> [<c-d> <cmd>lua vim.lsp.buf.definition()<CR>
+" " autocmd FileType scala nnoremap <buffer> <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+" autocmd FileType scala nnoremap <buffer> <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+" autocmd FileType scala nnoremap <buffer> <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+" autocmd FileType scala nnoremap <buffer> <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+" autocmd FileType scala nnoremap <buffer> <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
 
 "}}}
 
