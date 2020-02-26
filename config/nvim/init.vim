@@ -308,6 +308,11 @@ if exists('*minpac#init')
     " ||| Add plugins below |||
     " vvv                   vvv
 
+    " File Exlorer:
+    " call minpac#add('preservim/nerdtree')
+    call minpac#add('justinmk/vim-dirvish')
+    call minpac#add('kristijanhusak/vim-dirvish-git')
+
     " Runners:
     " Unsure whether to use 'neomake' or tpope's 'dispatch'.
     " 'neomake' seems simpler, and I'm not yet a heavy user.
@@ -345,27 +350,30 @@ command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
 
 " Plugin Configuration:
 let g:python_highlight_all = 1
+let g:dirvish_mode = ':sort ,^.*[\/],'
 
 "}}}
 
 
 " ----------------------- LSP Configuration (Example) -------------------------{{{
+command! LspShowClients lua print(vim.inspect(vim.lsp.buf_get_clients()))
+
 
 lua << EOF
 vim.cmd('packadd nvim-lsp')
 require'nvim_lsp'.metals.setup{}
 EOF
 
-" autocmd Filetype scala setlocal omnifunc=v:lua.vim.lsp.omnifunc
-"
-" autocmd FileType scala nnoremap <buffer> <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-" autocmd FileType scala nnoremap <buffer> <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-" autocmd FileType scala nnoremap <buffer> <silent> [<c-d> <cmd>lua vim.lsp.buf.definition()<CR>
-" " autocmd FileType scala nnoremap <buffer> <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-" autocmd FileType scala nnoremap <buffer> <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-" autocmd FileType scala nnoremap <buffer> <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-" autocmd FileType scala nnoremap <buffer> <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-" autocmd FileType scala nnoremap <buffer> <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+autocmd Filetype scala setlocal omnifunc=v:lua.vim.lsp.omnifunc
+
+autocmd FileType scala nnoremap <buffer> <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+autocmd FileType scala nnoremap <buffer> <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+autocmd FileType scala nnoremap <buffer> <silent> [<c-d> <cmd>lua vim.lsp.buf.definition()<CR>
+" autocmd FileType scala nnoremap <buffer> <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+autocmd FileType scala nnoremap <buffer> <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+autocmd FileType scala nnoremap <buffer> <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+autocmd FileType scala nnoremap <buffer> <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+autocmd FileType scala nnoremap <buffer> <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
 
 "}}}
 

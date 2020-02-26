@@ -269,15 +269,6 @@ let s:syntax_groups.error = [
 \    "ErrorMsg",
 \    "SpellBad",
 \    "NvimInternalError",
-\    "LspDiagnosticsError",
-\    "LspDiagnosticsHint",
-\    "LspDiagnosticsInformation",
-\    "LspDiagnosticsUnderline",
-\    "LspDiagnosticsUnderlineError",
-\    "LspDiagnosticsUnderlineHint",
-\    "LspDiagnosticsUnderlineInformation",
-\    "LspDiagnosticsUnderlineWarning",
-\    "LspDiagnosticsWarning",
 \ ]
 let s:syntax_groups.constant = [
 \    "Constant",
@@ -312,6 +303,15 @@ let s:syntax_groups.trivial = [
 \    "Ignore",
 \    "Conceal",
 \    "Noise",
+\    "LspDiagnosticsError",
+\    "LspDiagnosticsHint",
+\    "LspDiagnosticsInformation",
+\    "LspDiagnosticsUnderline",
+\    "LspDiagnosticsUnderlineError",
+\    "LspDiagnosticsUnderlineHint",
+\    "LspDiagnosticsUnderlineInformation",
+\    "LspDiagnosticsUnderlineWarning",
+\    "LspDiagnosticsWarning",
 \ ]
 let s:syntax_groups.special = [
 \    "Delimiter",
