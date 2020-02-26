@@ -277,7 +277,8 @@ let g:netrw_alto = 0
 
 
 "-------------------------------- Providers ---------------------------------{{{
-    let g:python_host_prog  = '/usr/bin/python2'
+"
+    let g:python_host_prog  = expand('~').'/.pyenv/versions/py2nvim/bin/python'
     let g:python3_host_prog  = expand('~').'/.pyenv/versions/py3nvim/bin/python'
     let g:node_host_prog = expand('~').'/.nvm/versions/node/v12.10.0/bin/neovim-node-host'
 "}}}
@@ -359,10 +360,11 @@ let g:dirvish_mode = ':sort ,^.*[\/],'
 command! LspShowClients lua print(vim.inspect(vim.lsp.buf_get_clients()))
 
 
-lua << EOF
-vim.cmd('packadd nvim-lsp')
-require'nvim_lsp'.metals.setup{}
-EOF
+" lua << EOF
+" vim.cmd('packadd nvim-lsp')
+" require'nvim_lsp'.metals.setup()
+" EOF
+
 
 autocmd Filetype scala setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
