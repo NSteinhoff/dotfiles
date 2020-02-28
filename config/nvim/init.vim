@@ -1,8 +1,13 @@
 source ~/.vimrc
 
+augroup settings
+    autocmd!
+    " Source this file on write
+    autocmd! BufWritePost .vimrc,vimrc,init.vim source % "
+augroup END
+
 
 " --------------------------------- Editing -----------------------------------{{{
-
 set inccommand=split
 
 "}}}
@@ -69,50 +74,18 @@ set tags+=./.git/tags,./.git/tags;,.git/tags,.git/tags;
 command! -range Align <line1>,<line2>!sed 's/\s\+/~/g' | column -s'~' -t
 command! -nargs=1 -range AlignOn <line1>,<line2>!sed 's/\s\+<args>/ ~<args>/g' | column -s'~' -t
 
-" What's the current compiler?
-function! s:which_compiler()
-    if exists('b:current_compiler')
-        return b:current_compiler
-    elseif exists('g:current_compiler')
-        return g:current_compiler
-    else
-        return 'NONE'
-endfunction
-command! WhichCompiler echo s:which_compiler()
+" Headers
+command! -nargs=? Center call myfuncs#center(<q-args>)
+command! -nargs=? Header call myfuncs#header(<q-args>)
 
-function! s:compile_with(name)
-    let old = s:which_compiler()
-    execute 'compiler! '.a:name
-    make
-    if old != 'NONE'
-        execute 'compiler '.old
-    endif
-endfunction
-command! -nargs=1 -complete=compiler CompileWith call s:compile_with(<f-args>)
-
-function! s:describe_compiler()
-    if exists('g:current_compiler')
-        let gcompiler = g:current_compiler
-    else
-        let gcompiler = 'NONE'
-    endif
-    if exists('b:current_compiler')
-        let bcompiler = b:current_compiler
-    else
-        let bcompiler = 'NONE'
-    endif
-
-    echo "Compiler: "
-    echo "\tGlobal: ".gcompiler
-    echo "\tLocal: ".bcompiler
-    verbose set mp?
-    verbose set efm?
-endfunction
-command! DescribeCompiler call s:describe_compiler()
+command! WhichCompiler echo compiler#which()
+command! -nargs=1 -complete=compiler CompileWith call compiler#with(<f-args>)
+command! DescribeCompiler call compiler#describe()
 "}}}
 
 
 " --------------------------------- Mappings ---------------------------------{{{
+
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
 let mapleader = '\'
 
@@ -179,6 +152,7 @@ augroup custom_filetype_specific_commands
     " Testing
     autocmd FileType python map <buffer> <F8> :CompileWith pytest<cr>
 augroup END
+
 "}}}
 
 
@@ -196,57 +170,10 @@ iabbrev <expr> ddd strftime("%Y-%m-%d")
 
 
 " --------------------------------- Statusline ---------------------------------{{{
-function! StatuslineErrors()
-    let nqf = len(getqflist())
-    let nloc = len(getloclist(0))
-    if nloc || nqf
-        return '['.nqf.'|'.nloc.'] '
-    else
-        return ''
-    endif
-endfunction
-
-function! StatuslineArgs()
-    let nargs = argc()
-    let idx = argidx() + 1
-    if nargs > 1
-        return '['.idx.'/'.nargs.'] '
-    else
-        return ''
-    endif
-endfunction
-
-function! StatuslineCompiler()
-    let compiler = s:which_compiler()
-    if compiler == 'NONE'
-        return ''
-    else
-        return '['.compiler.'] '
-    endif
-endfunction
-
-function! StatuslineSpell()
-    return &spell ? '[spell] ' : ''
-endfunction
-
-function! MyStatusline()
-    let BAR         = '%*'
-    let OPT         = '%#Question#'
-    let SEP         = '%='
-
-    let file        = '%y %f '
-    let args        = '%{StatuslineArgs()} '
-    let tags        = '%m %h %w %q '
-    let spell       = '%{StatuslineSpell()}'
-    let compiler    = '%{StatuslineCompiler()}'
-    let errors      = '%{StatuslineErrors()}'
-    let position    = ' ☰ %l:%c | %p%% '
-
-    return file.OPT.args.tags.SEP.errors.compiler.spell.BAR.position
-endfunction
 
 set laststatus=2
-set statusline=%!MyStatusline()
+set statusline=%!statusline#Statusline()
+
 "}}}
 
 
@@ -277,10 +204,11 @@ let g:netrw_alto = 0
 
 
 "-------------------------------- Providers ---------------------------------{{{
-"
+
     let g:python_host_prog  = expand('~').'/.pyenv/versions/py2nvim/bin/python'
     let g:python3_host_prog  = expand('~').'/.pyenv/versions/py3nvim/bin/python'
     let g:node_host_prog = expand('~').'/.nvm/versions/node/v12.10.0/bin/neovim-node-host'
+
 "}}}
 
 
@@ -311,8 +239,6 @@ if exists('*minpac#init')
 
     " File Exlorer:
     " call minpac#add('preservim/nerdtree')
-    call minpac#add('justinmk/vim-dirvish')
-    call minpac#add('kristijanhusak/vim-dirvish-git')
 
     " Runners:
     " Unsure whether to use 'neomake' or tpope's 'dispatch'.
@@ -337,6 +263,9 @@ if exists('*minpac#init')
 
     " Language Server:
     call minpac#add('neovim/nvim-lsp')
+
+    " Devdocs as helpprg
+    call minpac#add('romainl/vim-devdocs')
 endif
 
 " Load all packages in 'start/'
@@ -357,25 +286,14 @@ let g:dirvish_mode = ':sort ,^.*[\/],'
 
 
 " ----------------------- LSP Configuration (Example) -------------------------{{{
+
 command! LspShowClients lua print(vim.inspect(vim.lsp.buf_get_clients()))
 
-
-" lua << EOF
-" vim.cmd('packadd nvim-lsp')
-" require'nvim_lsp'.metals.setup()
-" EOF
-
-
-autocmd Filetype scala setlocal omnifunc=v:lua.vim.lsp.omnifunc
-
-autocmd FileType scala nnoremap <buffer> <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-autocmd FileType scala nnoremap <buffer> <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-autocmd FileType scala nnoremap <buffer> <silent> [<c-d> <cmd>lua vim.lsp.buf.definition()<CR>
-" autocmd FileType scala nnoremap <buffer> <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-autocmd FileType scala nnoremap <buffer> <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-autocmd FileType scala nnoremap <buffer> <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-autocmd FileType scala nnoremap <buffer> <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-autocmd FileType scala nnoremap <buffer> <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+lua << EOF
+vim.cmd('packadd nvim-lsp')
+require'nvim_lsp'.metals.setup{}
+--- require'nvim_lsp'.rls.setup{}
+EOF
 
 "}}}
 
@@ -386,89 +304,6 @@ autocmd FileType scala nnoremap <buffer> <silent> 1gD   <cmd>lua vim.lsp.buf.typ
 vmap <C-c><C-c> <Plug>SendSelectionToTmux
 nmap <C-c><C-c> <Plug>NormalModeSendToTmux
 nmap <C-c>r <Plug>SetTmuxVars
-
-"}}}
-
-
-" --------------------------------- Helpers ----------------------------------{{{
-
-augroup settings
-    autocmd!
-    " Source this file on write
-    autocmd! BufWritePost .vimrc,vimrc,init.vim source % "
-augroup END
-
-function! s:header(words)
-    let prefix = matchstr(&commentstring, '\S*\(\s*%s\)\@=').' '
-    let fillchar = '-'
-    let ncols = 79
-
-    " Set the text that goes in-between the separators
-    if a:words != ''
-        let text = ' '.a:words
-    elseif expand('<cword>') != ''
-        let text = ' '.expand('<cword>')
-    else
-        let text = ''
-    endif
-
-    " Build the rulers line
-    let ruler = prefix.repeat(fillchar, ncols - strlen(prefix))
-
-    " Build the title line
-    let title = prefix.text
-
-    " Set the current line to the header and position the cursor at the end.
-    call setline(line('.'), title)
-    call append(line('.')-1, ruler)
-    call append(line('.'), ruler)
-
-    call cursor(line('.')+1, col('$'))
-endfunction
-
-" Create an 80 column wide header starting at the current cursor
-" position. The header text can be passed as an arguments or left blank
-" to use the word under the cursor. With no argument or word under
-" cursor, will simply draw the separator line.
-function! s:center(words)
-    let prefix = matchstr(&commentstring, '\S*\(\s*%s\)\@=').' '
-    let fillchar = '-'
-    let ncols = 79
-    "
-    " Set the text that goes in-between the separators
-    if a:words != ''
-        let text = ' '.a:words.' '
-    elseif expand('<cword>') != ''
-        let text = ' '.expand('<cword>').' '
-    else
-        let text = ''
-    endif
-
-    " We start at the current cursor column, divide the rule into two
-    " parts and fit the text in-between
-    let cstart = col('.')
-    let width = ncols - cstart
-    let sepwidth = (width - strlen(text) - strlen(prefix)) / 2
-
-    " Build the header line
-    let header =
-        \ repeat(' ', cstart-1)
-        \ .prefix
-        \ .repeat(fillchar, sepwidth)
-        \ .text
-
-    " Because of odd column numbers, this might not be the same width as the
-    " fill before the header text. This ensures that we always hit the desired
-    " total width
-    let fill_after = repeat(fillchar, ncols - strlen(header))
-
-    " Set the current line to the header and position the cursor at the end.
-    call setline(line('.'), header.fill_after)
-    call cursor(line('.'), col('$'))
-endfunction
-
-command! -nargs=? Center call s:center(<q-args>)
-command! -nargs=? Header call s:header(<q-args>)
 
 "}}}
 
