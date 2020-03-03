@@ -64,6 +64,8 @@ set tags=./tags,./tags;,tags,tags;
 " creates tags files on git actions that change the index (commits,
 " checkouts, merges, etc.). This file lives in the .git/ directory.
 set tags+=./.git/tags,./.git/tags;,.git/tags,.git/tags;
+set tagfunc=myfuncs#fttags
+
 
 "}}}
 
@@ -131,6 +133,9 @@ nnoremap ]l :lnext<cr>
 
 nnoremap [t :tprevious<cr>
 nnoremap ]t :tnext<cr>
+
+nnoremap [p :ptprevious<cr>
+nnoremap ]p :ptnext<cr>
 
 
 """ Mappings that only apply for specific file types.

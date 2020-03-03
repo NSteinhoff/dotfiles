@@ -66,3 +66,11 @@ function! myfuncs#center(words)
     call setline(line('.'), header.fill_after)
     call cursor(line('.'), col('$'))
 endfunction
+
+function! myfuncs#fttags(pattern, flags, info)
+    let buf = a:info['buf_ffname']
+    let ext = fnamemodify(buf, ':e')
+    let result = taglist(a:pattern, buf)
+    call filter(result, {idx, val -> fnamemodify(val['filename'], ':e') == ext})
+    return result
+endfunction
