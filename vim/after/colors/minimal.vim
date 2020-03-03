@@ -306,11 +306,6 @@ let s:syntax_groups.trivial = [
 \    "LspDiagnosticsError",
 \    "LspDiagnosticsHint",
 \    "LspDiagnosticsInformation",
-\    "LspDiagnosticsUnderline",
-\    "LspDiagnosticsUnderlineError",
-\    "LspDiagnosticsUnderlineHint",
-\    "LspDiagnosticsUnderlineInformation",
-\    "LspDiagnosticsUnderlineWarning",
 \    "LspDiagnosticsWarning",
 \ ]
 let s:syntax_groups.special = [
@@ -326,6 +321,11 @@ let s:syntax_groups.special = [
 \ ]
 let s:syntax_groups.underlined = [
 \    "Underlined",
+\    "LspDiagnosticsUnderline",
+\    "LspDiagnosticsUnderlineError",
+\    "LspDiagnosticsUnderlineHint",
+\    "LspDiagnosticsUnderlineInformation",
+\    "LspDiagnosticsUnderlineWarning",
 \ ]
 let s:syntax_groups.emphasis = [
 \    "markdownItalic",
