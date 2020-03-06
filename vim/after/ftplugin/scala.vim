@@ -1,6 +1,7 @@
 let &l:define = '^\s*\(abstract \|implicit \|protected \|sealed \|final \)*\(trait\|class\|case class\|object\|case object\|def\)'
 setlocal path-=src/main/scala,src/test/scala
 
+setlocal signcolumn=yes
 setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
 nnoremap <buffer> <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>

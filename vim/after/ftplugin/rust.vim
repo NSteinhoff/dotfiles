@@ -3,6 +3,7 @@ let g:cargo_makeprg_params='check'
 compiler cargo
 " setlocal keywordprg=:DD
 
+setlocal signcolumn=yes
 setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
 nnoremap <buffer> <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
