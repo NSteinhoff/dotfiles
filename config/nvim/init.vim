@@ -14,7 +14,9 @@ set inccommand=split
 
 
 " -------------------------------- Searching ----------------------------------{{{
-if executable('ag')
+if executable('rg')
+    set grepprg=rg\ --vimgrep\ --smart-case
+elseif executable('ag')
     set grepprg=ag\ --vimgrep\ --smart-case
 endif
 " }}}
