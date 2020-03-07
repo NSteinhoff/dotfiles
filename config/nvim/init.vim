@@ -66,7 +66,7 @@ set tags=./tags,./tags;,tags,tags;
 " creates tags files on git actions that change the index (commits,
 " checkouts, merges, etc.). This file lives in the .git/ directory.
 set tags+=./.git/tags,./.git/tags;,.git/tags,.git/tags;
-set tagfunc=myfuncs#fttags
+" set tagfunc=myfuncs#fttags
 
 
 "}}}
