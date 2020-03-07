@@ -292,15 +292,19 @@ let g:dirvish_mode = ':sort ,^.*[\/],'
 "}}}
 
 
-" ----------------------- LSP Configuration (Example) -------------------------{{{
+" ----------------------------------- LSP -------------------------------------{{{
 
-command! LspShowClients lua print(vim.inspect(vim.lsp.buf_get_clients()))
+let g:use_lsp = v:false
+if g:use_lsp
+    command! LspShowClients lua print(vim.inspect(vim.lsp.buf_get_clients()))
 
-lua << EOF
+    lua << EOF
 vim.cmd('packadd nvim-lsp')
 require'nvim_lsp'.metals.setup{}
 require'nvim_lsp'.rls.setup{}
 EOF
+
+end
 
 "}}}
 
