@@ -254,7 +254,7 @@ if exists('*minpac#init')
     " 'neomake' seems simpler, and I'm not yet a heavy user.
     " One compiler / maker is usually enough.
     " 'neomake' also has the nice concept of local and global makers.
-    call minpac#add('neomake/neomake')
+    " call minpac#add('neomake/neomake')
 
     " REPL:
     " Tmux based REPL integration using 'tslime'
@@ -290,8 +290,6 @@ command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
 " Plugin Configuration:
 let g:python_highlight_all = 1
 let g:dirvish_mode = ':sort ,^.*[\/],'
-call neomake#configure#automake('rw', 1000)
-set signcolumn=auto
 
 "}}}
 
