@@ -113,9 +113,9 @@ set wildcharm=<C-Z>
 nnoremap <leader>b :buffer <C-Z>
 nnoremap <leader>v :vert sbuffer <C-Z>
 
-" Clear search highlighting with <CTRL-SPACE> and <SPACE>
-if maparg('<Space>', 'n') ==# ''
-    nnoremap <silent> <Space> :nohlsearch<CR>
+" Clear search highlights
+if maparg('<ESC>', 'n') ==# ''
+    nnoremap <silent> <ESC> :nohlsearch<CR>
 endif
 
 " <F5> is always set to make the project
