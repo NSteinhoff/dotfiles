@@ -46,3 +46,7 @@ function! statusline#Statusline()
 
     return file.OPT.args.tags.SEP.errors.compiler.spell.BAR.position
 endfunction
+
+
+set laststatus=2
+set statusline=%!statusline#Statusline()

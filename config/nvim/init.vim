@@ -66,7 +66,10 @@ set tags=./tags,./tags;,tags,tags;
 " creates tags files on git actions that change the index (commits,
 " checkouts, merges, etc.). This file lives in the .git/ directory.
 set tags+=./.git/tags,./.git/tags;,.git/tags,.git/tags;
-" set tagfunc=myfuncs#fttags
+augroup tags
+    autocmd!
+    autocmd FileType scala,rust,python set tagfunc=myfuncs#fttags  " FileType specific tags
+augroup END
 
 
 "}}}
@@ -140,66 +143,6 @@ nnoremap [p :ptprevious<cr>
 nnoremap ]p :ptnext<cr>
 
 
-""" Mappings that only apply for specific file types.
-augroup custom_filetype_specific_commands
-    autocmd!
-
-    " <SPACE> is used for the "most commonly triggered action" for each filetype.
-    " Send the top-level form to the REPL
-    autocmd FileType clojure nnoremap <buffer> <BS> :Eval<cr>
-
-    " Formatting
-    autocmd FileType python map <buffer> <F6> :!black %<cr>
-    autocmd FileType rust map <buffer> <F6> :!rustfmt %<cr>
-    autocmd FileType scala map <buffer> <F6> :!scalafmt %<cr>
-
-    " Linting
-    autocmd FileType python map <buffer> <F7> :CompileWith flake8<cr>
-
-    " Testing
-    autocmd FileType python map <buffer> <F8> :CompileWith pytest<cr>
-augroup END
-
-"}}}
-
-
-" -------------------------------- Abbreviations --------------------------------{{{
-
-" Insert dates:
-" Last modification date of the current file
-iabbrev <expr> ddf strftime("%c", getftime(expand('%')))
-" Local date-time
-iabbrev <expr> ddc strftime("%c")
-" Local date
-iabbrev <expr> ddd strftime("%Y-%m-%d")
-
-"}}}
-
-
-" --------------------------------- Statusline ---------------------------------{{{
-
-set laststatus=2
-set statusline=%!statusline#Statusline()
-
-"}}}
-
-
-" ------------------------------ Filetype Options ------------------------------{{{
-
-augroup filetype_specific_options
-    autocmd!
-    autocmd BufNewFile,BufRead Dockerfile.* set ft=dockerfile
-    autocmd FileType markdown setlocal spell
-    autocmd FileType yaml setlocal shiftwidth=2
-    autocmd FileType man setlocal nolist
-    autocmd FileType python compiler mypy
-    autocmd FileType clojure setlocal lisp
-    autocmd FileType scala compiler bloop
-    autocmd FileType rust compiler cargo
-augroup END
-
-"}}}
-
 
 " ---------------------------------- Netrw ------------------------------------{{{
 " Hide files that are ignored by git
@@ -210,19 +153,12 @@ let g:netrw_alto = 0
 "}}}
 
 
-"-------------------------------- Providers ---------------------------------{{{
-
-    let g:python_host_prog  = expand('~').'/.pyenv/versions/py2nvim/bin/python'
-    let g:python3_host_prog  = expand('~').'/.pyenv/versions/py3nvim/bin/python'
-    let g:node_host_prog = expand('~').'/.nvm/versions/node/v12.10.0/bin/neovim-node-host'
-
-"}}}
-
-
 " --------------------------------- Plugins ----------------------------------{{{
 
 " Personal plugins
-let g:pomodoro_autostart = 0            " Set to 1 to start timer immediately
+packadd! abbreviations
+packadd! providers
+packadd! statusline
 packadd! pomodoro
 packadd! differ
 
@@ -246,15 +182,6 @@ if exists('*minpac#init')
 
     " File Exlorer:
     " call minpac#add('preservim/nerdtree')
-    call minpac#add('justinmk/vim-dirvish')
-    call minpac#add('kristijanhusak/vim-dirvish-git')
-
-    " Runners:
-    " Unsure whether to use 'neomake' or tpope's 'dispatch'.
-    " 'neomake' seems simpler, and I'm not yet a heavy user.
-    " One compiler / maker is usually enough.
-    " 'neomake' also has the nice concept of local and global makers.
-    " call minpac#add('neomake/neomake')
 
     " REPL:
     " Tmux based REPL integration using 'tslime'
@@ -266,14 +193,14 @@ if exists('*minpac#init')
     call minpac#add('tpope/vim-fireplace')
 
     " FTPlugings:
-    "call minpac#add('sheerun/vim-polyglot')
+    " call minpac#add('sheerun/vim-polyglot')
     call minpac#add('vim-python/python-syntax')
     call minpac#add('Vimjas/vim-python-pep8-indent')
 
     " Language Server:
     call minpac#add('neovim/nvim-lsp')
 
-    " Devdocs as helpprg
+    " Devdocs as helpprg:
     call minpac#add('romainl/vim-devdocs')
 endif
 
@@ -288,37 +215,17 @@ command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
 
 
 " Plugin Configuration:
+
+" vim-python
 let g:python_highlight_all = 1
-let g:dirvish_mode = ':sort ,^.*[\/],'
 
-"}}}
-
-
-" ----------------------------------- LSP -------------------------------------{{{
-
-let g:use_lsp = v:false
-if g:use_lsp
-    command! LspShowClients lua print(vim.inspect(vim.lsp.buf_get_clients()))
-
-    lua << EOF
-vim.cmd('packadd nvim-lsp')
-require'nvim_lsp'.metals.setup{}
-require'nvim_lsp'.rls.setup{}
-EOF
-
-end
-
-"}}}
-
-
-" ------------------------------------ REPL ------------------------------------{{{
-
-" Send text block to tmux pane
+" tslime
 vmap <C-c><C-c> <Plug>SendSelectionToTmux
 nmap <C-c><C-c> <Plug>NormalModeSendToTmux
 nmap <C-c>r <Plug>SetTmuxVars
 
 "}}}
+
 
 
 
