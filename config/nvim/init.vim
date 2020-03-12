@@ -94,24 +94,14 @@ command! DescribeCompiler call compiler#describe()
 " --------------------------------- Mappings ---------------------------------{{{
 
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
-let mapleader = '\'
+let mapleader = ' '
+set wildcharm=<C-Z>
 
 " Window resizing with the arrow keys
-map <right> 10<c-w>>   " increase width
-map <left> 10<c-w><    " decrease width
-map <up> 10<c-w>+      " increase height
-map <down> 10<c-w>-    " decrease height
-
-
-" Fuzzy file finding within the working directory
-nnoremap <leader>e :edit **/*
-nnoremap <leader>s :vsplit **/*
-nnoremap <leader>t :tabedit **/*
-
-" Quick buffer switching
-set wildcharm=<C-Z>
-nnoremap <leader>b :buffer <C-Z>
-nnoremap <leader>v :vert sbuffer <C-Z>
+map  <right>  10<c-w>>  "  increase  width
+map  <left>   10<c-w><  "  decrease  width
+map  <up>     10<c-w>+  "  increase  height
+map  <down>   10<c-w>-  "  decrease  height
 
 " Clear search highlights
 if maparg('<ESC>', 'n') ==# ''
@@ -120,10 +110,8 @@ endif
 
 " <F5> is always set to make the project
 nnoremap <F5> :make!<cr>
-nnoremap <leader><F5> :DescribeCompiler<cr>
-nnoremap <leader>? :DescribeCompiler<cr>
 
-" [ and ] mappings to navigate lists
+" ------------------------ Cycling lists with ] and [ -------------------------
 nnoremap [a :previous<cr>
 nnoremap ]a :next<cr>
 
@@ -142,14 +130,80 @@ nnoremap ]t :tnext<cr>
 nnoremap [p :ptprevious<cr>
 nnoremap ]p :ptnext<cr>
 
+" --------------------------------- <LEADER> ----------------------------------
+"
+" SpaceVim inspired without the baggage
+" ===
+"
+" - Mappings for the most used commands
+" - Don't replace builtin mappings except for the preview tags (those are terrible)
+"
+
+" Compiler
+nnoremap <leader><space> :make!<cr>
+
+" Quick Keys [bdefqstv]
+vnoremap <leader>a :Align<cr>
+
+nnoremap <leader>b :buffer <C-Z>
+nnoremap <leader>w :bwipe<cr>
+nnoremap <leader>q :close<cr>
+nnoremap <leader>e :edit **/*<C-Z>
+nnoremap <leader>f :find **/*<C-Z>
+nnoremap <leader>s :vsplit **/*<C-Z>
+nnoremap <leader>t :tab sbuffer <C-Z>
+nnoremap <leader>v :vert sbuffer <C-Z>
+
+" Explore
+nnoremap <leader>E :Explore<cr>
+nnoremap <leader>V :Vexplore<cr>
+nnoremap <leader>T :Texplore<cr>
+
+" (?) Help / Info
+nnoremap <leader>?c :DescribeCompiler<cr>
+
+" (l) Lists
+nnoremap <leader>la :args<cr>
+nnoremap <leader>lb :ls<cr>
+nnoremap <leader>lc :changes<cr>
+nnoremap <leader>lj :jumps<cr>
+nnoremap <leader>ll :llist<cr>
+nnoremap <leader>lm :marks<cr>
+nnoremap <leader>lq :clist<cr>
+nnoremap <leader>lr :registers<cr>
+nnoremap <leader>lt :tags<cr>
+
+" (c) Quickfix Go to first error
+nnoremap <leader>cc :cc<cr>
+
+" (p) Preview window
+nnoremap <leader>pc :pclose<cr>
+nnoremap <leader>pe :edit **/*<C-Z>
+nnoremap <leader>pl :ptselect<cr>
+nnoremap <leader>pp :exe 'silent! ptjump '.expand('<cword>')<cr>
+nnoremap <leader>ps :exe 'silent! psearch '.expand('<cword>')<cr>
+nnoremap <leader>pt :exe 'silent! ptag '.expand('<cword>')<cr>
+
+" (d) Differ
+nnoremap <leader>dr :Dremote<cr>
+nnoremap <leader>dR :Dremote!<cr>
+nnoremap <leader>du :Dupdate<cr>
+nnoremap <leader>dt :Dthis<cr>
+nnoremap <leader>dp :Dpatch<cr>
+nnoremap <leader>dP :Dpatch!<cr>
+nnoremap <leader>ds :Dstatus<cr>
+nnoremap <leader>dc :Dcomment<cr>
+nnoremap <leader>dC :DshowComments<cr>
+nnoremap <leader>]d :Dnext<cr>
+nnoremap <leader>[d :Dprevious<cr>
 
 
 " ---------------------------------- Netrw ------------------------------------{{{
 " Hide files that are ignored by git
-let g:netrw_list_hide= netrw_gitignore#Hide()
-let g:netrw_preview = 1
-let g:netrw_altv = 1
-let g:netrw_alto = 0
+let  g:netrw_list_hide  =  netrw_gitignore#Hide()
+let  g:netrw_preview    =  1
+let  g:netrw_altv       =  1
+let  g:netrw_alto       =  0
 "}}}
 
 
@@ -220,12 +274,11 @@ command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
 let g:python_highlight_all = 1
 
 " tslime
-vmap <C-c><C-c> <Plug>SendSelectionToTmux
-nmap <C-c><C-c> <Plug>NormalModeSendToTmux
-nmap <C-c>r <Plug>SetTmuxVars
+vmap  <C-c><C-c>  <Plug>SendSelectionToTmux
+nmap  <C-c><C-c>  <Plug>NormalModeSendToTmux
+nmap  <C-c>r      <Plug>SetTmuxVars
 
 "}}}
-
 
 
 
