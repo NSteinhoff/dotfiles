@@ -13,15 +13,3 @@ command! -bang Dremote call differ#set_target("<bang>")
 command! Dupdate call differ#update()
 command! Dnext only <bar> next <bar> Dthis
 command! Dprevious only <bar> previous <bar> Dthis
-
-nnoremap <leader>dr :Dremote<cr>
-nnoremap <leader>dR :Dremote!<cr>
-nnoremap <leader>du :Dupdate<cr>
-nnoremap <leader>dt :Dthis<cr>
-nnoremap <leader>dp :Dpatch<cr>
-nnoremap <leader>dP :Dpatch!<cr>
-nnoremap <leader>ds :Dstatus<cr>
-nnoremap <leader>dc :Dcomment<cr>
-nnoremap <leader>dC :DshowComments<cr>
-nnoremap <leader>]d :Dnext<cr>
-nnoremap <leader>[d :Dprevious<cr>
