@@ -42,9 +42,10 @@ function! statusline#Statusline()
     let spell       = '%{StatuslineSpell()}'
     let compiler    = '%{StatuslineCompiler()}'
     let errors      = '%{StatuslineErrors()}'
+    let lsp         = '%{lsp#Indicator()}'
     let position    = ' ☰ %l:%c | %p%% '
 
-    return file.OPT.args.tags.SEP.errors.compiler.spell.BAR.position
+    return file.OPT.args.tags.SEP.errors.lsp.compiler.spell.BAR.position
 endfunction
 
 
