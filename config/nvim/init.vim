@@ -186,6 +186,11 @@ nnoremap <leader>lq :clist<cr>
 nnoremap <leader>lr :registers<cr>
 nnoremap <leader>lt :tags<cr>
 
+" (n) Note taking
+nnoremap <leader>nn :edit $HOME/Dropbox/Documents/Notes/notes.md<cr>
+nnoremap <leader>nj :edit $HOME/Dropbox/Documents/Notes/journal.md<cr>
+nnoremap <leader>nt :edit $HOME/Dropbox/Documents/Notes/todo.taskpaper<cr>
+
 " (c) Configuration
 nnoremap <leader>cv :e $MYVIMRC<cr>
 nnoremap <leader>cf :EditFileTypePlugin<cr>
@@ -213,6 +218,8 @@ nnoremap <leader>dc :Dcomment<cr>
 nnoremap <leader>dC :DshowComments<cr>
 nnoremap <leader>]d :Dnext<cr>
 nnoremap <leader>[d :Dprevious<cr>
+
+"}}}
 
 
 " ---------------------------------- Netrw ------------------------------------{{{
