@@ -88,6 +88,19 @@ command! -nargs=? Header call myfuncs#header(<q-args>)
 command! WhichCompiler echo compiler#which()
 command! -nargs=1 -complete=compiler CompileWith call compiler#with(<f-args>)
 command! DescribeCompiler call compiler#describe()
+
+" Edit my filetype/syntax plugin files for current filetype.
+command! -nargs=? -complete=compiler EditCompilerPlugin
+            \ exe 'keepj edit $HOME/.vim/after/compiler/' . (empty(<q-args>) ? compiler#which() : <q-args>) . '.vim'
+command! -nargs=? -complete=compiler Eco EditCompilerPlugin <args>
+
+command! -nargs=? -complete=filetype EditFileTypePlugin
+            \ exe 'keepj edit $HOME/.vim/after/ftplugin/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
+command! -nargs=? -complete=filetype Eft EditFileTypePlugin <args>
+
+command! -nargs=? -complete=filetype EditSyntaxPlugin
+            \ exe 'keepj edit $HOME/.vim/after/syntax/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
+command! -nargs=? -complete=filetype Esy EditSyntaxPlugin <args>
 "}}}
 
 
@@ -173,8 +186,12 @@ nnoremap <leader>lq :clist<cr>
 nnoremap <leader>lr :registers<cr>
 nnoremap <leader>lt :tags<cr>
 
-" (c) Quickfix Go to first error
-nnoremap <leader>cc :cc<cr>
+" (c) Configuration
+nnoremap <leader>cv :e $MYVIMRC<cr>
+nnoremap <leader>cf :EditFileTypePlugin<cr>
+nnoremap <leader>cs :EditSyntaxPlugin<cr>
+nnoremap <leader>cc :EditCompilerPlugin<cr>
+nnoremap <leader>co :execute 'edit $HOME/.vim/after/colors/'.g:colors_name.'.vim'<cr>
 
 " (p) Preview window
 nnoremap <leader>pc :pclose<cr>
@@ -279,7 +296,6 @@ nmap  <C-c><C-c>  <Plug>NormalModeSendToTmux
 nmap  <C-c>r      <Plug>SetTmuxVars
 
 "}}}
-
 
 
 " vim:foldmethod=marker textwidth=0
