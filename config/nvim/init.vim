@@ -147,9 +147,12 @@ nnoremap ]t :tnext<cr>
 nnoremap [p :ptprevious<cr>
 nnoremap ]p :ptnext<cr>
 
+nnoremap [u :earlier<cr>
+nnoremap ]u :later<cr>
+
 " --------------------------------- <LEADER> ----------------------------------
 "
-" SpaceVim inspired without the baggage
+" SpaceVim inspired mappings without the baggage
 " ===
 "
 " - Mappings for the most used commands
@@ -162,12 +165,12 @@ nnoremap <leader><leader> :make!<cr>
 " Quick Keys [bdefqstv]
 vnoremap <leader>a :Align<cr>
 
+nnoremap <leader>x :close<cr>
 nnoremap <leader>b :buffer <C-Z>
 nnoremap <leader>w :bwipe<cr>
-nnoremap <leader>x :close<cr>
-nnoremap <leader>e :edit **/*<C-Z>
-nnoremap <leader>f :find **/*<C-Z>
-nnoremap <leader>s :vsplit **/*<C-Z>
+nnoremap <leader>e :edit **/*
+nnoremap <leader>f :find **/*
+nnoremap <leader>s :vsplit **/*
 nnoremap <leader>t :tab sbuffer <C-Z>
 nnoremap <leader>v :vert sbuffer <C-Z>
 
@@ -189,6 +192,7 @@ nnoremap <leader>lm :marks<cr>
 nnoremap <leader>lq :clist<cr>
 nnoremap <leader>lr :registers<cr>
 nnoremap <leader>lt :tags<cr>
+nnoremap <leader>lu :undolist<cr>
 
 " (n) Note taking
 nnoremap <leader>nn :edit $HOME/Dropbox/Documents/Notes/notes.md<cr>
@@ -205,7 +209,7 @@ nnoremap <leader>ct :e ~/.config/alacritty/alacritty.yml<cr>
 
 " (p) Preview window
 nnoremap <leader>pc :pclose<cr>
-nnoremap <leader>pe :edit **/*<C-Z>
+nnoremap <leader>pe :pedit **/*
 nnoremap <leader>pl :ptselect<cr>
 nnoremap <leader>pp :exe 'silent! ptjump '.expand('<cword>')<cr>
 nnoremap <leader>ps :exe 'silent! psearch '.expand('<cword>')<cr>
