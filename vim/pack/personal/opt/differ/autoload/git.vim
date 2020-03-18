@@ -1,3 +1,11 @@
+function s:gitlist(cmd)
+    return systemlist("git -C ".git#root()." ".a:cmd)
+endfunction
+
+function s:git(cmd)
+    return trim(system("git -C ".git#root()." ".a:cmd))
+endfunction
+
 function s:fpath(path) abort
     let fullpath = fnamemodify(a:path, ':p')
     let fullroot = fnamemodify(git#root(), ':p')
@@ -5,11 +13,11 @@ function s:fpath(path) abort
 endfunction
 
 function! s:cfiles(ref)
-    return systemlist("git diff --name-only ".a:ref)
+    return s:gitlist("diff --name-only ".a:ref)
 endfunction
 
 function! git#root()
-    return fnamemodify(finddir('.git', ";~"), ':h').'/'
+    return fnamemodify(finddir('.git', expand("%:p:h").";~"), ':h').'/'
 endfunction
 
 function! s:has_changed(filename, ref)
@@ -17,15 +25,15 @@ function! s:has_changed(filename, ref)
 endfunction
 
 function! s:commits_short(n)
-    return systemlist("git log -n ".a:n." --pretty='%h'")
+    return s:gitlist("log -n ".a:n." --pretty='%h'")
 endfunction
 
 function! s:current_branch()
-    return trim(system("git rev-parse --abbrev-ref HEAD"))
+    return s:git("rev-parse --abbrev-ref HEAD")
 endfunction
 
 function! git#check()
-    let out = trim(system('git status'))
+    let out = s:git("status")
     if v:shell_error == 0
         return 1
     else
@@ -34,17 +42,18 @@ function! git#check()
 endfunction
 
 function! git#status()
-    let status = system('git status')
-    let stat = system('git diff --stat')
+    echo "Repository: ".git#root()
+    let status = system("git -C ".git#root()." status")
+    let stat = system("git -C ".git#root()." diff --stat")
     return status."\n".stat
 endfunction
 
 function! git#branches()
-    return systemlist("git branch --format '%(refname:short)'")
+    return s:gitlist("branch --format '%(refname:short)'")
 endfunction
 
 function! git#commits(n)
-    return systemlist("git log -n ".a:n." --pretty='%H'")
+    return s:gitlist("log -n ".a:n." --pretty='%H'")
 endfunction
 
 function! git#refs()
@@ -61,7 +70,7 @@ function! git#files(ref)
 endfunction
 
 function! git#mergebase(this, that)
-    return trim(system("git merge-base ".a:this." ".a:that))
+    return s:git("merge-base ".a:this." ".a:that)
 endfunction
 
 function! git#mergebases()
@@ -74,26 +83,26 @@ function! git#mergebases()
 endfunction
 
 function! git#chash(ref)
-    return trim(system("git log -n1 --format='%h' ".a:ref))
+    return s:git("log -n1 --format='%h' ".a:ref)
 endfunction
 
 function! git#ctitle(ref)
-    return trim(system("git log -n1 --format='%s (%cr)' ".a:ref))
+    return s:git("log -n1 --format='%s (%cr)' ".a:ref)
 endfunction
 
 function! git#csummary(ref)
-    return trim(system("git log -n1 --format='%h - %s (%cr)' ".a:ref))
+    return s:git("log -n1 --format='%h - %s (%cr)' ".a:ref)
 endfunction
 
-function! git#original(filename, ref) abort
+function! git#original(filename, ref, n) abort
     let fpath = s:fpath(a:filename)
-    return systemlist('git show '.a:ref.':'.fpath)
+    return s:gitlist("show ".a:ref."~".a:n.":".fpath)
 endfunction
 
 function! git#patch(filename, ref)
-    return systemlist('git diff '.a:ref.' -- '.a:filename)
+    return s:gitlist("diff ".a:ref." -- ".a:filename)
 endfunction
 
 function! git#patch_all(ref)
-    return systemlist('git diff '.a:ref)
+    return s:gitlist("diff ".a:ref)
 endfunction

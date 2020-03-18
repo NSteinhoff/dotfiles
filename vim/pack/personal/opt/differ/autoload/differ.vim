@@ -87,19 +87,31 @@ function! s:target_ref(target)
         return 'HEAD'
 endfunction
 
-function! s:load_original(filename, ref, ft)
+function! differ#load_original(filename, ref, ft, n)
+    if a:n < 0
+        echo "No more commits"
+        return
+    endif
+    execute 'file '.a:filename.'@'.a:ref.'~'.a:n
+    let b:filename = a:filename
+    let b:ref = a:ref
+    let b:ft = a:ft
+    let b:n = a:n
+
+    %delete
     setlocal buftype=nofile bufhidden=wipe noswapfile | let &l:ft = a:ft
+
     nnoremap <buffer> q :close<cr>
     command! -buffer Dnext close <bar> next <bar> Dthis
     command! -buffer Dprevious close <bar> previous <bar> Dthis
+    nnoremap <buffer> ]c :call differ#load_original(b:filename, b:ref, b:ft, b:n-1)<cr>
+    nnoremap <buffer> [c :call differ#load_original(b:filename, b:ref, b:ft, b:n+1)<cr>
 
     au BufUnload,BufWinLeave <buffer> diffoff!
 
-    let original = git#original(a:filename, a:ref)
+    let original = git#original(a:filename, a:ref, a:n)
     call append(0, original)
     $delete
-
-    diffthis | wincmd p | diffthis
 endfun
 
 function! s:load_patch(filename, ref)
@@ -181,7 +193,8 @@ function! differ#diff(target) abort
     let ft = &ft
     let filename = expand('%')
     execute 'vnew '.filename.'@'.ref
-    call s:load_original(filename, ref, ft)
+    call differ#load_original(filename, ref, ft, 0)
+    diffthis | wincmd p | diffthis
 endfunction
 
 function! differ#patch(target, bang)
