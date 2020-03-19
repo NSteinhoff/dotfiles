@@ -90,24 +90,21 @@ command! -nargs=1 -complete=compiler CompileWith call compiler#with(<f-args>)
 command! DescribeCompiler call compiler#describe()
 
 " Edit my filetype/syntax plugin files for current filetype.
-command! -nargs=? -complete=compiler EditCompilerPlugin
+command! -nargs=? -complete=compiler CompilerPlugin
             \ exe 'keepj edit $HOME/.vim/after/compiler/' . (empty(<q-args>) ? compiler#which() : <q-args>) . '.vim'
-command! -nargs=? -complete=compiler Eco EditCompilerPlugin <args>
 
-command! -nargs=? -complete=filetype EditFileTypePlugin
+command! -nargs=? -complete=filetype FiletypePlugin
             \ exe 'keepj edit $HOME/.vim/after/ftplugin/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
-command! -nargs=? -complete=filetype Eft EditFileTypePlugin <args>
 
-command! -nargs=? -complete=filetype EditSyntaxPlugin
+command! -nargs=? -complete=filetype SyntaxPlugin
             \ exe 'keepj edit $HOME/.vim/after/syntax/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
-command! -nargs=? -complete=filetype Esy EditSyntaxPlugin <args>
 "}}}
 
 
 " --------------------------------- Mappings ---------------------------------{{{
 
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
-let mapleader = ' '
+let mapleader = '\'
 set wildcharm=<C-Z>
 
 " Window resizing with the arrow keys
@@ -119,6 +116,9 @@ map  <down>   10<c-w>-  "  decrease  height
 " Clear search highlights
 if maparg('<ESC>', 'n') ==# ''
     nnoremap <silent> <ESC> :nohlsearch<CR>
+endif
+if maparg('<SPACE>', 'n') ==# ''
+    nnoremap <silent> <SPACE> :nohlsearch<CR>
 endif
 
 " <F5> is always set to make the project
@@ -153,14 +153,14 @@ nnoremap ]p :ptnext<cr>
 "
 
 " Compiler
-nnoremap <leader><space> :make!<cr>
+nnoremap <leader><leader> :make!<cr>
 
 " Quick Keys [bdefqstv]
 vnoremap <leader>a :Align<cr>
 
 nnoremap <leader>b :buffer <C-Z>
 nnoremap <leader>w :bwipe<cr>
-nnoremap <leader>q :close<cr>
+nnoremap <leader>x :close<cr>
 nnoremap <leader>e :edit **/*<C-Z>
 nnoremap <leader>f :find **/*<C-Z>
 nnoremap <leader>s :vsplit **/*<C-Z>
@@ -193,9 +193,9 @@ nnoremap <leader>nt :edit $HOME/Dropbox/Documents/Notes/todo.taskpaper<cr>
 
 " (c) Configuration
 nnoremap <leader>cv :e $MYVIMRC<cr>
-nnoremap <leader>cf :EditFileTypePlugin<cr>
-nnoremap <leader>cs :EditSyntaxPlugin<cr>
-nnoremap <leader>cc :EditCompilerPlugin<cr>
+nnoremap <leader>cf :FiletypePlugin<cr>
+nnoremap <leader>cs :SyntaxPlugin<cr>
+nnoremap <leader>cc :CompilerPlugin<cr>
 nnoremap <leader>co :execute 'edit $HOME/.vim/after/colors/'.g:colors_name.'.vim'<cr>
 
 " (p) Preview window
