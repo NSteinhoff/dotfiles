@@ -2,7 +2,7 @@
 Type=Application
 
 Name=Online: Dungeon Crawl
-Exec=ssh crawl
+Exec=ssh terminal@underhound.eu -p 23
 Terminal=true
 Icon=/home/niko/.crawl/icon.png
 Categories=Game;AdventureGame;
