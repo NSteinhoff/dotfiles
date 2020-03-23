@@ -197,6 +197,7 @@ nnoremap <leader>cf :FiletypePlugin<cr>
 nnoremap <leader>cs :SyntaxPlugin<cr>
 nnoremap <leader>cc :CompilerPlugin<cr>
 nnoremap <leader>co :execute 'edit $HOME/.vim/after/colors/'.g:colors_name.'.vim'<cr>
+nnoremap <leader>ct :e ~/.config/alacritty/alacritty.yml<cr>
 
 " (p) Preview window
 nnoremap <leader>pc :pclose<cr>
