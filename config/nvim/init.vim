@@ -113,6 +113,10 @@ map  <left>   10<c-w><  "  decrease  width
 map  <up>     10<c-w>+  "  increase  height
 map  <down>   10<c-w>-  "  decrease  height
 
+" Faster scrolling
+nnoremap <c-e> 3<c-e>
+nnoremap <c-y> 3<c-y>
+
 " Clear search highlights
 if maparg('<ESC>', 'n') ==# ''
     nnoremap <silent> <ESC> :nohlsearch<CR>
