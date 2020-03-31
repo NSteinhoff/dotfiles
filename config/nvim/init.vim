@@ -205,6 +205,7 @@ nnoremap <leader>nt :edit $HOME/Dropbox/Documents/Notes/todo.taskpaper<cr>
 
 " (c) Configuration
 nnoremap <leader>cv :e $MYVIMRC<cr>
+nnoremap <leader>ca :e ~/.vim/any.vim<cr>
 nnoremap <leader>cf :FiletypePlugin<cr>
 nnoremap <leader>cs :SyntaxPlugin<cr>
 nnoremap <leader>cc :CompilerPlugin<cr>

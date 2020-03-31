@@ -1,3 +1,3 @@
 setlocal spell
-set textwidth=100
-set wrap
+setlocal textwidth=100
+setlocal wrap
