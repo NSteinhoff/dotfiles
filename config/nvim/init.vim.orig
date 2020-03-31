@@ -103,10 +103,6 @@ command! -nargs=? -complete=filetype SyntaxPlugin
 
 " --------------------------------- Mappings ---------------------------------{{{
 
-" Move over visual lines unless a count is given
-nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
-nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
-
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
 let mapleader = '\'
 set wildcharm=<C-Z>
@@ -169,12 +165,19 @@ nnoremap <leader><leader> :make!<cr>
 " Quick Keys [bdefqstv]
 vnoremap <leader>a :Align<cr>
 
-nnoremap <leader>x :close<cr>
 nnoremap <leader>b :buffer <C-Z>
 nnoremap <leader>w :bwipe<cr>
+<<<<<<< HEAD
+nnoremap <leader>x :close<cr>
+nnoremap <leader>e :edit **/*<C-Z>
+nnoremap <leader>f :find **/*<C-Z>
+nnoremap <leader>s :vsplit **/*<C-Z>
+=======
+nnoremap <leader>q :close<cr>
 nnoremap <leader>e :edit **/*
 nnoremap <leader>f :find **/*
 nnoremap <leader>s :vsplit **/*
+>>>>>>> Tweak some mappings
 nnoremap <leader>t :tab sbuffer <C-Z>
 nnoremap <leader>v :vert sbuffer <C-Z>
 
@@ -213,7 +216,7 @@ nnoremap <leader>ct :e ~/.config/alacritty/alacritty.yml<cr>
 
 " (p) Preview window
 nnoremap <leader>pc :pclose<cr>
-nnoremap <leader>pe :pedit **/*
+nnoremap <leader>pe :edit **/*
 nnoremap <leader>pl :ptselect<cr>
 nnoremap <leader>pp :exe 'silent! ptjump '.expand('<cword>')<cr>
 nnoremap <leader>ps :exe 'silent! psearch '.expand('<cword>')<cr>
