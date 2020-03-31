@@ -36,11 +36,6 @@ set expandtab
 set formatoptions-=t
 set formatoptions+=croql
 
-" Use 'par' for gq / Q formatting when it's available
-if executable('par')
-    set formatprg=par
-endif
-
 "}}}
 
 
