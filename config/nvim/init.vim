@@ -93,13 +93,13 @@ command! DescribeCompiler call compiler#describe()
 
 " Edit my filetype/syntax plugin files for current filetype.
 command! -nargs=? -complete=compiler CompilerPlugin
-            \ exe 'keepj edit $HOME/.vim/after/compiler/' . (empty(<q-args>) ? compiler#which() : <q-args>) . '.vim'
+            \ exe 'keepj tabedit $HOME/.vim/after/compiler/' . (empty(<q-args>) ? compiler#which() : <q-args>) . '.vim'
 
 command! -nargs=? -complete=filetype FiletypePlugin
-            \ exe 'keepj edit $HOME/.vim/after/ftplugin/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
+            \ exe 'keepj tabedit $HOME/.vim/after/ftplugin/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
 
 command! -nargs=? -complete=filetype SyntaxPlugin
-            \ exe 'keepj edit $HOME/.vim/after/syntax/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
+            \ exe 'keepj tabedit $HOME/.vim/after/syntax/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
 "}}}
 
 
@@ -108,6 +108,12 @@ command! -nargs=? -complete=filetype SyntaxPlugin
 " Move over visual lines unless a count is given
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+
+" Navigate Windows
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
 
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
 let mapleader = '\'
@@ -204,18 +210,18 @@ nnoremap <leader>lt :tags<cr>
 nnoremap <leader>lu :undolist<cr>
 
 " (n) Note taking
-nnoremap <leader>nn :edit $HOME/Dropbox/Documents/Notes/notes.md<cr>
-nnoremap <leader>nj :edit $HOME/Dropbox/Documents/Notes/journal.md<cr>
-nnoremap <leader>nt :edit $HOME/Dropbox/Documents/Notes/todo.taskpaper<cr>
+nnoremap <leader>nn :tabedit $HOME/Dropbox/Documents/Notes/notes.md<cr>
+nnoremap <leader>nj :tabedit $HOME/Dropbox/Documents/Notes/journal.md<cr>
+nnoremap <leader>nt :tabedit $HOME/Dropbox/Documents/Notes/todo.taskpaper<cr>
 
 " (c) Configuration
-nnoremap <leader>cv :e $MYVIMRC<cr>
-nnoremap <leader>ca :e ~/.vim/any.vim<cr>
+nnoremap <leader>cv :tabedit $MYVIMRC<cr>
+nnoremap <leader>ca :tabedit ~/.vim/any.vim<cr>
 nnoremap <leader>cf :FiletypePlugin<cr>
 nnoremap <leader>cs :SyntaxPlugin<cr>
 nnoremap <leader>cc :CompilerPlugin<cr>
-nnoremap <leader>co :execute 'edit $HOME/.vim/after/colors/'.g:colors_name.'.vim'<cr>
-nnoremap <leader>ct :e ~/.config/alacritty/alacritty.yml<cr>
+nnoremap <leader>co :execute 'tabedit $HOME/.vim/after/colors/'.g:colors_name.'.vim'<cr>
+nnoremap <leader>ct :tabedit ~/.config/alacritty/alacritty.yml<cr>
 
 " (p) Preview window
 nnoremap <leader>pc :pclose<cr>
