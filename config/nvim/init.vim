@@ -14,6 +14,8 @@ set inccommand=split
 
 
 " -------------------------------- Searching ----------------------------------{{{
+set wildignore+=*/target/*
+
 if executable('rg')
     set grepprg=rg\ --vimgrep\ --smart-case
 elseif executable('ag')
@@ -131,6 +133,9 @@ endif
 
 " <F5> is always set to make the project
 nnoremap <F5> :make!<cr>
+
+" Display Quickfix items
+nnoremap Q :clist<cr>
 
 " ------------------------ Cycling lists with ] and [ -------------------------
 nnoremap [a :previous<cr>
