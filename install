@@ -9,11 +9,10 @@
 
 installp() {
     local answer
-    local p
+    local prompt="Do you wish to install '$@'? Y(es)/N(o)"
     echo ""
     while [[ ! $answer =~ Y(es)?|No? ]]; do
-        p="Do you wish to install '$@'? Y(es)/N(o)"
-        read -p "$p" answer
+        read -p "$prompt" answer
     done
     case $answer in
         Y*) echo Yes; true;;

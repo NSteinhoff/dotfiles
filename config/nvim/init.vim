@@ -149,6 +149,8 @@ nnoremap ]a :next<cr>
 
 nnoremap [b :bprevious<cr>
 nnoremap ]b :bnext<cr>
+nnoremap <c-p> :bprevious<cr>
+nnoremap <c-n> :bnext<cr>
 
 nnoremap [q :cprevious<cr>
 nnoremap ]q :cnext<cr>
