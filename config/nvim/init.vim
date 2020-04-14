@@ -140,6 +140,9 @@ endif
 " <F5> is always set to make the project
 nnoremap <F5> :make!<cr>
 
+" Display buffer list
+" nnoremap <space> :buffers<cr>
+
 " Display Quickfix items
 nnoremap Q :clist<cr>
 
