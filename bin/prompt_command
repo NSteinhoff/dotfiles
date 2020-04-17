@@ -1,0 +1,56 @@
+# vim: ft=sh
+
+LAST=$(fc -ln -1 | xargs)
+
+RE_CD='cd.*'
+RE_DEV="$HOME/dev"
+RE_HOME="$HOME"
+
+post_cd() {
+    case $PWD in
+        $RE_HOME) post_cd_home;;
+        $RE_DEV) post_cd_dev;;
+    esac
+    [[ -d '.git' ]] && post_cd_repo
+}
+
+post_cd_dev() {
+    repos=$(find . -path '*/.git')
+    for repo in $repos; do
+        r=${repo%/.git}
+        r=${r#./}
+        pushd $r > /dev/null
+        last_commit=$(git log -n 1 --pretty=format:'%an %ar')
+        echo "$(printf %-30s $r) $last_commit"
+        [[ -n $(git status --short) ]] && git status --short
+        popd > /dev/null
+    done
+}
+
+post_cd_repo() {
+    git log -n 1
+    [[ -n $(git status --short) ]] && echo && git status --short
+    [[ -n $(git diff) ]] && echo && git diff --stat
+}
+
+post_cd_home() {
+    repos=$(find . -maxdepth 3 -path '*/.git')
+    for repo in $repos; do
+        r=${repo%/.git}
+        r=${r#./}
+        pushd $r > /dev/null
+
+        if [[ -n $(git log --since="two weeks ago") ]]; then
+            author=$(git log -n 1 --pretty=format:'%an')
+            if [[ "$author" == "Niko Steinhoff" ]]; then
+                last_commit=$(git log -n 1 --pretty=format:'%ar')
+                echo "$(printf %-30s $r) $last_commit"
+                [[ -n $(git status --short) ]] && git status --short
+            fi
+        fi
+
+        popd > /dev/null
+    done
+}
+
+[[ $LAST =~ $RE_CD ]] && post_cd

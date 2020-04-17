@@ -117,6 +117,10 @@ fi
 [ -d "$HOME/.bloop" ] && source "$HOME/.bloop/bash/bloop"
 
 
+# ------------------------------ PROMPT COMMAND -------------------------------
+export PROMPT_COMMAND='~/dotfiles/bin/prompt_command'
+
+
 # ------------   PROMPT   -----------
 function git_unstaged_changes {
     [ -n "$(git diff --shortstat 2> /dev/null | tail -n1)" ]
