@@ -2,9 +2,17 @@
 
 LAST=$(fc -ln -1 | xargs)
 
+# Colors
+NC='\033[0m' # No Color
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+
 RE_CD='cd.*'
 RE_DEV="$HOME/dev"
 RE_HOME="$HOME"
+
+TASK_LIST="$HOME/tasks.md"
 
 post_cd() {
     case $PWD in
@@ -35,7 +43,10 @@ post_cd_repo() {
 }
 
 post_cd_home() {
+    [[ -f "$TASK_LIST" ]] && list_tasks
+
     repos=$(find . -maxdepth 3 -path '*/.git')
+    [[ -n "$repos" ]] && echo "Recent Activity:"
     for repo in $repos; do
         r=${repo%/.git}
         r=${r#./}
@@ -52,6 +63,28 @@ post_cd_home() {
 
         popd > /dev/null
     done
+}
+
+list_tasks() {
+    tasks=$(grep -e '^\[ \] .*' "$TASK_LIST")
+    notes=$(grep -e '^!!  .*' "$TASK_LIST")
+
+    if [[ -n "$tasks" ]] || [[ -n "$notes" ]]; then
+        echo "Tasks and Notes:"
+
+        if [[ -n "$tasks" ]]; then
+            echo -en "$RED"
+            echo -e "$tasks"
+            echo -en "$NC"
+        fi
+
+        if [[ -n "$notes" ]]; then
+            echo -en "$ORANGE"
+            echo -e "$notes"
+            echo -en "$NC"
+        fi
+        echo
+    fi
 }
 
 [[ $LAST =~ $RE_CD ]] && post_cd
