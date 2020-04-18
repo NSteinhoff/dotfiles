@@ -12,9 +12,10 @@ RE_CD='cd.*'
 RE_DEV="$HOME/dev"
 RE_HOME="$HOME"
 
-TASK_LIST="$HOME/tasks.md"
+TASK_LIST=tasks
 
 post_cd() {
+    [[ -f "$TASK_LIST" ]] && list_tasks
     case $PWD in
         $RE_HOME) post_cd_home;;
         $RE_DEV) post_cd_dev;;
@@ -43,10 +44,8 @@ post_cd_repo() {
 }
 
 post_cd_home() {
-    [[ -f "$TASK_LIST" ]] && list_tasks
-
     repos=$(find . -maxdepth 3 -path '*/.git')
-    [[ -n "$repos" ]] && echo "Recent Activity:"
+    [[ -n "$repos" ]] && echo "Activity:"
     for repo in $repos; do
         r=${repo%/.git}
         r=${r#./}
@@ -67,10 +66,11 @@ post_cd_home() {
 
 list_tasks() {
     tasks=$(grep -e '^\[ \] .*' "$TASK_LIST")
-    notes=$(grep -e '^!!  .*' "$TASK_LIST")
+    notes=$(grep -e '^!!! .*' "$TASK_LIST")
+    questions=$(grep -e '^??? .*' "$TASK_LIST")
 
     if [[ -n "$tasks" ]] || [[ -n "$notes" ]]; then
-        echo "Tasks and Notes:"
+        echo "---"
 
         if [[ -n "$tasks" ]]; then
             echo -en "$RED"
@@ -83,7 +83,13 @@ list_tasks() {
             echo -e "$notes"
             echo -en "$NC"
         fi
-        echo
+
+        if [[ -n "$questions" ]]; then
+            echo -en "$GREEN"
+            echo -e "$questions"
+            echo -en "$NC"
+        fi
+        echo "---"
     fi
 }
 
