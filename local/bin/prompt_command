@@ -20,8 +20,9 @@ post_cd_dev() {
         r=${repo%/.git}
         r=${r#./}
         pushd $r > /dev/null
+        branch_name=$(git rev-parse --abbrev-ref HEAD)
         last_commit=$(git log -n 1 --pretty=format:'%an %ar')
-        echo "$(printf %-30s $r) $last_commit"
+        echo "$(printf %-30s $r) [$branch_name] $last_commit"
         [[ -n $(git status --short) ]] && git status --short
         popd > /dev/null
     done
