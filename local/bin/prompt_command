@@ -15,7 +15,7 @@ post_cd() {
 }
 
 post_cd_dev() {
-    repos=$(find . -path '*/.git')
+    repos=$(find . -maxdepth 2 -path '*/.git')
     for repo in $repos; do
         r=${repo%/.git}
         r=${r#./}

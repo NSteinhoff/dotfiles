@@ -71,10 +71,6 @@ test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew
 
 # ------------ Snap ----------
 [ -n $(which snap) ] && export PATH="/snap/bin/:$PATH"
-# Add personal scripts to the path
-if [[ -d ~/dotfiles/bin ]]; then
-    export PATH="$HOME/dotfiles/bin:$PATH"
-fi
 
 # ---------- Java Version ---------
 if [[ -z $JAVA_HOME ]]; then
@@ -118,7 +114,7 @@ fi
 
 
 # ------------------------------ PROMPT COMMAND -------------------------------
-export PROMPT_COMMAND='~/dotfiles/bin/prompt_command'
+export PROMPT_COMMAND="$HOME/.local/bin/prompt_command"
 
 
 # ------------   PROMPT   -----------
