@@ -222,17 +222,27 @@ fi
 #  CRAWL
 # -----------------------------------------------------------------------------
 # {{{
-install_dotfiles crawlrc
 if [ $os = "linux" ]; then
+    install_dotfiles crawlrc
+
     crawl="$HOME/.crawl"
     [ -d "$crawl" ] || mkdir "$crawl"
-    [ -f "$crawl/icon.png" ] || ln -s "$HOME/dotfiles/crawl/stone_soup_icon-512x512.png" "$crawl/icon.png"
-    [ -f /usr/share/applications/crawl-online.desktop ] \
-        || sudo cp "$HOME/dotfiles/crawl/crawl-online.desktop" "/usr/share/applications/crawl-online.desktop"
-    [ -f /usr/share/applications/crawl-trunk.desktop ] \
-        || [ -x /usr/local/bin/crawl ] \
-        && sudo cp "$HOME/dotfiles/crawl/crawl-trunk.desktop" "/usr/share/applications/crawl-trunk.desktop"
-    [ -f "$crawl"/cao_key ] || (curl https://crawl.develz.org/cao_key 2>/dev/null > "$crawl/cao_key" && chmod 600 "$crawl/cao_key")
+    if [ ! -f "$crawl/icon.png" ]; then
+        echo "  Installing Crawl icon"
+        ln -s "$HOME/dotfiles/crawl/stone_soup_icon-512x512.png" "$crawl/icon.png"
+    fi
+    if [ ! -f /usr/share/applications/crawl-online.desktop ]; then
+        echo "  Installing desktop app for Crawl Online"
+        sudo cp "$HOME/dotfiles/crawl/crawl-online.desktop" "/usr/share/applications/crawl-online.desktop"
+    fi
+    if [ ! -f /usr/share/applications/crawl-trunk.desktop ] && [ -x /usr/local/bin/crawl ]; then
+        echo "  Installing desktop app for Crawl Trunk"
+        sudo cp "$HOME/dotfiles/crawl/crawl-trunk.desktop" "/usr/share/applications/crawl-trunk.desktop"
+    fi
+    if [ ! -f "$crawl"/cao_key ]; then
+        echo "  Downloading Crawl CAO Key for online play"
+        curl https://crawl.develz.org/cao_key 2>/dev/null > "$crawl/cao_key" && chmod 600 "$crawl/cao_key"
+    fi
 fi
 
 # }}}
