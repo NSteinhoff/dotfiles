@@ -227,7 +227,11 @@ if [ $os = "linux" ]; then
     crawl="$HOME/.crawl"
     [ -d "$crawl" ] || mkdir "$crawl"
     [ -f "$crawl/icon.png" ] || ln -s "$HOME/dotfiles/crawl/stone_soup_icon-512x512.png" "$crawl/icon.png"
-    [ -f /usr/share/applications/crawl-online.desktop ] || sudo cp "$HOME/dotfiles/crawl/crawl-online.desktop" "/usr/share/applications/crawl-online.desktop"
+    [ -f /usr/share/applications/crawl-online.desktop ] \
+        || sudo cp "$HOME/dotfiles/crawl/crawl-online.desktop" "/usr/share/applications/crawl-online.desktop"
+    [ -f /usr/share/applications/crawl-trunk.desktop ] \
+        || [ -x /usr/local/bin/crawl ] \
+        && sudo cp "$HOME/dotfiles/crawl/crawl-trunk.desktop" "/usr/share/applications/crawl-trunk.desktop"
     [ -f "$crawl"/cao_key ] || (curl https://crawl.develz.org/cao_key 2>/dev/null > "$crawl/cao_key" && chmod 600 "$crawl/cao_key")
 fi
 
