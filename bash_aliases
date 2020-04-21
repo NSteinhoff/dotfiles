@@ -24,6 +24,7 @@ esac
 alias ll='ls -lF'
 alias lla='ll -a'
 alias tree='tree --dirsfirst'
+alias gtree='git ls-files | tree --fromfile --dirsfirst'
 
 # --------- Listing dirs ------------
 alias dirs='dirs -v'
