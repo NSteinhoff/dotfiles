@@ -1,0 +1,8 @@
+{
+    "breadcrumbs.enabled": true,
+    "keyboard.dispatch": "keyCode",
+    "liveshare.sharedTerminalHeight": 120,
+    "peacock.vslsJoinColor": "#f9e64f",
+    "vim.useSystemClipboard": true,
+    "window.menuBarVisibility": "toggle"
+}
