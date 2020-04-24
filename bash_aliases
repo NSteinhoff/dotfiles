@@ -192,7 +192,7 @@ else
     prompt_tmux=''
 fi
 
-PS1="$prompt_head$prompt_tmux"'$(git_branch_indicator)'"$prompt_tail"
+PS1="$prompt_head$prompt_tmux"'$(git_branch_indicator)'"\n$prompt_tail"
 # PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\\\$ "'
 # GIT_PS1_SHOWDIRTYSTATE="yes"
 # GIT_PS1_SHOWUPSTREAM="auto"
