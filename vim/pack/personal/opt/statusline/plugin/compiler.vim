@@ -10,7 +10,7 @@ endfunction
 
 
 function! compiler#with(name)
-    let old = compiler#which_compiler()
+    let old = compiler#which()
     execute 'compiler! '.a:name
     make
     if old != 'NONE'
