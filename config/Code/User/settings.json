@@ -4,5 +4,10 @@
     "liveshare.sharedTerminalHeight": 120,
     "peacock.vslsJoinColor": "#f9e64f",
     "vim.useSystemClipboard": true,
-    "window.menuBarVisibility": "toggle"
+    "window.menuBarVisibility": "toggle",
+    "files.associations": {
+        "vimrc": "viml",
+        "gvimrc": "viml",
+        "*.vim": "viml",
+    }
 }
