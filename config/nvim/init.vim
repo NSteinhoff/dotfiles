@@ -3,7 +3,7 @@ source ~/.vimrc
 augroup settings
     autocmd!
     " Source this file on write
-    autocmd! BufWritePost .vimrc,vimrc,init.vim source % "
+    autocmd BufWritePost .vimrc,vimrc,init.vim source <sfile>
 augroup END
 
 
@@ -172,9 +172,6 @@ nnoremap ]u :later<cr>
 
 " --------------------------------- <LEADER> ----------------------------------
 "
-" SpaceVim inspired mappings without the baggage
-" ===
-"
 " - Mappings for the most used commands
 " - Don't replace builtin mappings except for the preview tags (those are terrible)
 "
@@ -198,6 +195,7 @@ nnoremap <leader>v :vert sbuffer <C-Z>
 nnoremap <leader>E :Explore<cr>
 nnoremap <leader>V :Vexplore<cr>
 nnoremap <leader>T :Texplore<cr>
+nnoremap <leader>L :Lexplore<cr>
 
 " (?) Help / Info
 nnoremap <leader>?c :DescribeCompiler<cr>
