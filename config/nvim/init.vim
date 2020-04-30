@@ -116,7 +116,7 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
-let mapleader = '\'
+let mapleader = ' '
 set wildcharm=<C-Z>
 
 " Window resizing with the arrow keys
@@ -133,18 +133,18 @@ nnoremap <c-y> 3<c-y>
 if maparg('<ESC>', 'n') ==# ''
     nnoremap <silent> <ESC> :nohlsearch<CR>
 endif
-if maparg('<SPACE>', 'n') ==# ''
-    nnoremap <silent> <SPACE> :nohlsearch<CR>
-endif
 
 " <F5> is always set to make the project
 nnoremap <F5> :make!<cr>
 
-" Display buffer list
-" nnoremap <space> :buffers<cr>
-
 " Display Quickfix items
 nnoremap Q :clist<cr>
+
+" Show word under cursor in preview window
+nnoremap <C-Space> <c-w>}
+
+" Close the preview window
+nnoremap <backspace> <c-w>z
 
 " ------------------------ Cycling lists with ] and [ -------------------------
 nnoremap [a :previous<cr>
@@ -166,6 +166,8 @@ nnoremap ]t :tnext<cr>
 
 nnoremap [p :ptprevious<cr>
 nnoremap ]p :ptnext<cr>
+nnoremap [<leader> :ptprevious<cr>
+nnoremap ]<leader> :ptnext<cr>
 
 nnoremap [u :earlier<cr>
 nnoremap ]u :later<cr>
@@ -176,28 +178,29 @@ nnoremap ]u :later<cr>
 " - Don't replace builtin mappings except for the preview tags (those are terrible)
 "
 
-" Bufferlist
-nnoremap <leader><space> :ls<cr>
-
-" Compiler
-nnoremap <leader><leader> :make!<cr>
-
-" Quick Keys [bdefqstv]
+" Quick Keys
+nnoremap <leader><leader> :buffers<cr>
+" [a]lign
 vnoremap <leader>a :Align<cr>
+" e[x]it
 nnoremap <leader>x :xit<cr>
+" switch [b]uffer
 nnoremap <leader>b :buffer <C-Z>
+" [w]ipe buffer
 nnoremap <leader>w :bwipe<cr>
-nnoremap <leader>e :edit **/*
-nnoremap <leader>f :find **/*
-nnoremap <leader>s :vsplit **/*
-nnoremap <leader>t :tab sbuffer <C-Z>
+" open buffer in [v]ertical split
 nnoremap <leader>v :vert sbuffer <C-Z>
+" open buffer in [t]ab
+nnoremap <leader>t :tab sbuffer <C-Z>
+" [e]dit file
+nnoremap <leader>e :edit **/*
+" [f]ind file in path
+nnoremap <leader>f :find **/*
 
 " Explore
 nnoremap <leader>E :Explore<cr>
 nnoremap <leader>V :Vexplore<cr>
 nnoremap <leader>T :Texplore<cr>
-nnoremap <leader>L :Lexplore<cr>
 
 " (?) Help / Info
 nnoremap <leader>? :map <leader><cr>
@@ -215,11 +218,6 @@ nnoremap <leader>lr :registers<cr>
 nnoremap <leader>lt :tags<cr>
 nnoremap <leader>lu :undolist<cr>
 
-" (n) Note taking
-nnoremap <leader>nn :tabedit $HOME/Dropbox/Documents/Notes/notes.md<cr>
-nnoremap <leader>nj :tabedit $HOME/Dropbox/Documents/Notes/journal.md<cr>
-nnoremap <leader>nt :tabedit $HOME/Dropbox/Documents/Notes/todo.taskpaper<cr>
-
 " (c) Configuration
 nnoremap <leader>cv :tabedit $MYVIMRC<cr>
 nnoremap <leader>ca :tabedit ~/.vim/any.vim<cr>
@@ -228,14 +226,6 @@ nnoremap <leader>cs :SyntaxPlugin<cr>
 nnoremap <leader>cc :CompilerPlugin<cr>
 nnoremap <leader>co :execute 'tabedit $HOME/.vim/after/colors/'.g:colors_name.'.vim'<cr>
 nnoremap <leader>ct :tabedit ~/.config/alacritty/alacritty.yml<cr>
-
-" (p) Preview window
-nnoremap <leader>pc :pclose<cr>
-nnoremap <leader>pe :pedit **/*
-nnoremap <leader>pl :ptselect<cr>
-nnoremap <leader>pp :exe 'silent! ptjump '.expand('<cword>')<cr>
-nnoremap <leader>ps :exe 'silent! psearch '.expand('<cword>')<cr>
-nnoremap <leader>pt :exe 'silent! ptag '.expand('<cword>')<cr>
 
 " (d) Differ
 nnoremap <leader>dr :Dremote<cr>
@@ -247,8 +237,6 @@ nnoremap <leader>dP :Dpatch!<cr>
 nnoremap <leader>ds :Dstatus<cr>
 nnoremap <leader>dc :Dcomment<cr>
 nnoremap <leader>dC :DshowComments<cr>
-nnoremap <leader>]d :Dnext<cr>
-nnoremap <leader>[d :Dprevious<cr>
 
 "}}}
 
