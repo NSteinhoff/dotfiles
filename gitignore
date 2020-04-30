@@ -1,5 +1,16 @@
+# Python caches
 __pycache__/
 .mypy_cache/
+
+# Exercism metadata
 .exercism/
+
+# Vim utility files
 *.swp
+*.session
+
+# VSCode utility files
 *.code-workspace
+
+# Error files (compiler errors)
+*.err
