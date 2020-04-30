@@ -120,10 +120,10 @@ let mapleader = '\'
 set wildcharm=<C-Z>
 
 " Window resizing with the arrow keys
-map  <right>  10<c-w>>  "  increase  width
-map  <left>   10<c-w><  "  decrease  width
-map  <up>     10<c-w>+  "  increase  height
-map  <down>   10<c-w>-  "  decrease  height
+map  <right>  5<c-w>>  "  increase  width
+map  <left>   5<c-w><  "  decrease  width
+map  <up>     5<c-w>+  "  increase  height
+map  <down>   5<c-w>-  "  decrease  height
 
 " Faster scrolling
 nnoremap <c-e> 3<c-e>
@@ -176,13 +176,15 @@ nnoremap ]u :later<cr>
 " - Don't replace builtin mappings except for the preview tags (those are terrible)
 "
 
+" Bufferlist
+nnoremap <leader><space> :ls<cr>
+
 " Compiler
 nnoremap <leader><leader> :make!<cr>
 
 " Quick Keys [bdefqstv]
 vnoremap <leader>a :Align<cr>
-
-nnoremap <leader>x :close<cr>
+nnoremap <leader>x :xit<cr>
 nnoremap <leader>b :buffer <C-Z>
 nnoremap <leader>w :bwipe<cr>
 nnoremap <leader>e :edit **/*
@@ -198,7 +200,8 @@ nnoremap <leader>T :Texplore<cr>
 nnoremap <leader>L :Lexplore<cr>
 
 " (?) Help / Info
-nnoremap <leader>?c :DescribeCompiler<cr>
+nnoremap <leader>? :map <leader><cr>
+nnoremap <leader>/ :DescribeCompiler<cr>
 
 " (l) Lists
 nnoremap <leader>la :args<cr>
