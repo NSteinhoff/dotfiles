@@ -147,6 +147,11 @@ nnoremap <C-Space> <c-w>}
 " Close the preview window
 nnoremap <backspace> <c-w>z
 
+" Toggle Tagbar
+if exists(':TagbarToggle')
+    nnoremap <leader><backspace> :silent TagbarToggle<cr>
+endif
+
 " ------------------------ Cycling lists with ] and [ -------------------------
 nnoremap [a :previous<cr>
 nnoremap ]a :next<cr>
@@ -297,6 +302,9 @@ if exists('*minpac#init')
 
     " Devdocs as helpprg:
     " call minpac#add('romainl/vim-devdocs')
+
+    " Tagbar
+    call minpac#add('majutsushi/tagbar')
 endif
 
 " Load all packages in 'start/'
@@ -314,12 +322,11 @@ command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
 " vim-python
 let g:python_highlight_all = 1
 
-" tslime
+" Tslime
 vmap  <C-c><C-c>  <Plug>SendSelectionToTmux
 nmap  <C-c><C-c>  <Plug>NormalModeSendToTmux
 nmap  <C-c>r      <Plug>SetTmuxVars
 
 "}}}
-
 
 " vim:foldmethod=marker textwidth=0
