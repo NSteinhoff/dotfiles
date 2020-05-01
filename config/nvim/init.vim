@@ -70,7 +70,8 @@ set tags=./tags,./tags;,tags,tags;
 set tags+=./.git/tags,./.git/tags;,.git/tags,.git/tags;
 augroup tags
     autocmd!
-    autocmd FileType scala,rust,python set tagfunc=myfuncs#fttags  " FileType specific tags
+    " FileType specific tags
+    autocmd FileType scala,rust,python if exists('&tagfunc') | set tagfunc=myfuncs#fttags  | endif
 augroup END
 
 
