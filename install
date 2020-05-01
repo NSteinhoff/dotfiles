@@ -87,22 +87,9 @@ install_dotfiles local/bin/prompt_command
 install_dotfiles bash_aliases inputrc
 [ $os = "mac" ] && install_dotfiles bash_profile bashrc
 
-# TMUX & SCREEN
+# TMUX
 # ====
-install_dotfiles tmux.conf screenrc
-# Install Tmux Plugin Manager
-tpm="$HOME/.tmux/plugins/tpm"
-[ -d $tpm ] || git clone https://github.com/tmux-plugins/tpm "$tpm"
-
-# ZSH
-# ===
-install_zsh() {
-    echo "Making Zsh default shell"
-    sudo chsh -s `which zsh`
-    echo "Installing oh-my-zsh"
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-}
-installp "zsh" && install_zsh && install_dotfiles zshrc
+install_dotfiles tmux.conf
 
 # ALACRITTY
 # =========
@@ -128,9 +115,6 @@ install_dotfiles \
     git_template \
     gitconfig \
     gitignore
-
-### Download git prompt script
-# curl -XGET "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh" > ~/.git-prompt.sh
 
 # }}}
 
@@ -171,57 +155,11 @@ install_dotfiles \
 
 
 # -----------------------------------------------------------------------------
-#  PYTHON
-# -----------------------------------------------------------------------------
-# {{{
-install_python () {
-    echo -e "\n\n"
-    echo ">>>>>>>>>>>>>>>"
-    echo "Installing python..."
-
-    $dir/extras/python
-}
-[ $os == "linux"] && installp python && install_python
-
-# }}}
-
-
-# -----------------------------------------------------------------------------
-#  CLOJURE
-# -----------------------------------------------------------------------------
-# {{{
-install_dotfiles clojure/deps.edn
-
-# }}}
-
-
-# -----------------------------------------------------------------------------
-#  HASKELL
-# -----------------------------------------------------------------------------
-# {{{
-install_dotfiles stack/config.yaml
-
-# }}}
-
-
-# -----------------------------------------------------------------------------
-#  SCALA
-# -----------------------------------------------------------------------------
-# {{{
-install_dotfiles \
-    scalafmt.conf \
-    sbt/1.0/plugins/build.sbt
-
-# }}}
-
-
-# -----------------------------------------------------------------------------
-# UBUNTU
+# LINUX / UBUNTU
 # -----------------------------------------------------------------------------
 # {{{
 if [ $os = "linux" ]; then
-    install_dotfiles config/sxhkd/sxhkdrc
-    installp "System packages" && sudo apt install $(cat $dir/extras/packages)
+    installp "System packages" && sudo apt install $(cat $dir/packages)
 fi
 
 # }}}

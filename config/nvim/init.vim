@@ -253,11 +253,11 @@ let  g:netrw_alto       =  0
 " --------------------------------- Plugins ----------------------------------{{{
 
 " Personal plugins
-packadd! abbreviations
-packadd! providers
+" packadd! abbreviations
+" packadd! providers
 packadd! statusline
-packadd! pomodoro
-packadd! differ
+" packadd! pomodoro
+" packadd! differ
 
 " Install minpac as an optional package if it's not already installed.
 let minpac_path = has('nvim') ? '~/.config/nvim/pack/minpac/opt/minpac' : '~/.vim/pack/minpac/opt/minpac'
@@ -277,17 +277,14 @@ if exists('*minpac#init')
     " ||| Add plugins below |||
     " vvv                   vvv
 
-    " File Exlorer:
-    " call minpac#add('preservim/nerdtree')
-
     " REPL:
     " Tmux based REPL integration using 'tslime'
     call minpac#add('jgdavey/tslime.vim')
 
     " Clojure:
     " nRepl integration
-    call minpac#add('bhurlow/vim-parinfer')
-    call minpac#add('tpope/vim-fireplace')
+    " call minpac#add('bhurlow/vim-parinfer')
+    " call minpac#add('tpope/vim-fireplace')
 
     " FTPlugings:
     " call minpac#add('sheerun/vim-polyglot')
@@ -295,10 +292,10 @@ if exists('*minpac#init')
     call minpac#add('Vimjas/vim-python-pep8-indent')
 
     " Language Server:
-    call minpac#add('neovim/nvim-lsp')
+    " call minpac#add('neovim/nvim-lsp')
 
     " Devdocs as helpprg:
-    call minpac#add('romainl/vim-devdocs')
+    " call minpac#add('romainl/vim-devdocs')
 endif
 
 " Load all packages in 'start/'

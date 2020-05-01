@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-echo "Installing bloop:"
-curl -L https://github.com/scalacenter/bloop/releases/download/v1.3.2/install.py | python
-ln -s "$HOME/.bloop/bloop" "$HOME/.local/bin/bloop"
-
-# vim:ft=sh
