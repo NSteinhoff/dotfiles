@@ -287,9 +287,6 @@ if exists('*minpac#init')
     " Language Server:
     " call minpac#add('neovim/nvim-lsp')
 
-    " Devdocs as helpprg:
-    " call minpac#add('romainl/vim-devdocs')
-
     " Tagbar
     call minpac#add('majutsushi/tagbar')
 endif
