@@ -61,9 +61,6 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 ORANGE='\033[0;33m'
 
-# ------------   PATHS   -------------
-export PATH="$HOME/.local/bin:$PATH"
-
 # ------------ Brew ----------
 test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
 test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
