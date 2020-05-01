@@ -2,3 +2,4 @@
 [ ] Indicator for upstream changes
 [X] Recent activity
 [X] Overview of git repos
+[ ] Build a faster prompt command in Rust?
