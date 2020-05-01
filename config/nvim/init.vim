@@ -111,17 +111,17 @@ nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 
 " Hard Mode
-nnoremap h <NOP>
-nnoremap j <NOP>
-nnoremap k <NOP>
-nnoremap l <NOP>
-vnoremap h <NOP>
-vnoremap j <NOP>
-vnoremap k <NOP>
-vnoremap l <NOP>
-nnoremap <BS> <NOP>
-vnoremap <BS> <NOP>
-inoremap <BS> <NOP>
+" nnoremap h <NOP>
+" nnoremap j <NOP>
+" nnoremap k <NOP>
+" nnoremap l <NOP>
+" vnoremap h <NOP>
+" vnoremap j <NOP>
+" vnoremap k <NOP>
+" vnoremap l <NOP>
+" nnoremap <BS> <NOP>
+" vnoremap <BS> <NOP>
+" inoremap <BS> <NOP>
 
 " Navigate Windows
 nnoremap <c-j> <c-w>j
@@ -159,11 +159,6 @@ nnoremap <C-Space> <c-w>}
 
 " Close the preview window
 nnoremap <backspace> <c-w>z
-
-" Toggle Tagbar
-if exists(':TagbarToggle')
-    nnoremap <leader><backspace> :silent TagbarToggle<cr>
-endif
 
 " ------------------------ Cycling lists with ] and [ -------------------------
 nnoremap [a :previous<cr>
@@ -318,6 +313,11 @@ let g:python_highlight_all = 1
 vmap  <C-c><C-c>  <Plug>SendSelectionToTmux
 nmap  <C-c><C-c>  <Plug>NormalModeSendToTmux
 nmap  <C-c>r      <Plug>SetTmuxVars
+
+" Tagbar
+if exists(':TagbarToggle')
+    nnoremap <leader><backspace> :silent TagbarToggle<cr>
+endif
 
 "}}}
 
