@@ -10,6 +10,7 @@ ORANGE='\033[0;33m'
 
 RE_CD='cd.*'
 RE_DEV="$HOME/dev"
+RE_DEVELOPMENT="$HOME/Development"
 RE_HOME="$HOME"
 
 TASK_LIST=tasks
@@ -19,6 +20,7 @@ post_cd() {
     case $PWD in
         $RE_HOME) post_cd_home;;
         $RE_DEV) post_cd_dev;;
+        $RE_DEVELOPMENT) post_cd_dev;;
     esac
     [[ -d '.git' ]] && post_cd_repo
 }
