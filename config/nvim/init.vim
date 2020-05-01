@@ -94,13 +94,13 @@ command! DescribeCompiler call compiler#describe()
 
 " Edit my filetype/syntax plugin files for current filetype.
 command! -nargs=? -complete=compiler CompilerPlugin
-            \ exe 'keepj tabedit $HOME/.vim/after/compiler/' . (empty(<q-args>) ? compiler#which() : <q-args>) . '.vim'
+            \ exe 'keepj edit $HOME/.vim/after/compiler/' . (empty(<q-args>) ? compiler#which() : <q-args>) . '.vim'
 
 command! -nargs=? -complete=filetype FiletypePlugin
-            \ exe 'keepj tabedit $HOME/.vim/after/ftplugin/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
+            \ exe 'keepj edit $HOME/.vim/after/ftplugin/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
 
 command! -nargs=? -complete=filetype SyntaxPlugin
-            \ exe 'keepj tabedit $HOME/.vim/after/syntax/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
+            \ exe 'keepj edit $HOME/.vim/after/syntax/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
 "}}}
 
 
@@ -109,6 +109,19 @@ command! -nargs=? -complete=filetype SyntaxPlugin
 " Move over visual lines unless a count is given
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+
+" Hard Mode
+nnoremap h <NOP>
+nnoremap j <NOP>
+nnoremap k <NOP>
+nnoremap l <NOP>
+vnoremap h <NOP>
+vnoremap j <NOP>
+vnoremap k <NOP>
+vnoremap l <NOP>
+nnoremap <BS> <NOP>
+vnoremap <BS> <NOP>
+inoremap <BS> <NOP>
 
 " Navigate Windows
 nnoremap <c-j> <c-w>j
@@ -186,21 +199,13 @@ nnoremap ]u :later<cr>
 
 " Quick Keys
 nnoremap <leader><leader> :buffers<cr>
-" [a]lign
 vnoremap <leader>a :Align<cr>
-" e[x]it
 nnoremap <leader>x :xit<cr>
-" switch [b]uffer
 nnoremap <leader>b :buffer <C-Z>
-" [w]ipe buffer
 nnoremap <leader>w :bwipe<cr>
-" open buffer in [v]ertical split
 nnoremap <leader>v :vert sbuffer <C-Z>
-" open buffer in [t]ab
 nnoremap <leader>t :tab sbuffer <C-Z>
-" [e]dit file
 nnoremap <leader>e :edit **/*
-" [f]ind file in path
 nnoremap <leader>f :find **/*
 
 " Explore
@@ -225,24 +230,13 @@ nnoremap <leader>lt :tags<cr>
 nnoremap <leader>lu :undolist<cr>
 
 " (c) Configuration
-nnoremap <leader>cv :tabedit $MYVIMRC<cr>
-nnoremap <leader>ca :tabedit ~/.vim/any.vim<cr>
+nnoremap <leader>cv :edit $MYVIMRC<cr>
+nnoremap <leader>ca :edit ~/.vim/any.vim<cr>
 nnoremap <leader>cf :FiletypePlugin<cr>
 nnoremap <leader>cs :SyntaxPlugin<cr>
 nnoremap <leader>cc :CompilerPlugin<cr>
-nnoremap <leader>co :execute 'tabedit $HOME/.vim/after/colors/'.g:colors_name.'.vim'<cr>
-nnoremap <leader>ct :tabedit ~/.config/alacritty/alacritty.yml<cr>
-
-" (d) Differ
-nnoremap <leader>dr :Dremote<cr>
-nnoremap <leader>dR :Dremote!<cr>
-nnoremap <leader>du :Dupdate<cr>
-nnoremap <leader>dt :Dthis<cr>
-nnoremap <leader>dp :Dpatch<cr>
-nnoremap <leader>dP :Dpatch!<cr>
-nnoremap <leader>ds :Dstatus<cr>
-nnoremap <leader>dc :Dcomment<cr>
-nnoremap <leader>dC :DshowComments<cr>
+nnoremap <leader>co :execute 'edit $HOME/.vim/after/colors/'.g:colors_name.'.vim'<cr>
+nnoremap <leader>ct :edit ~/.config/alacritty/alacritty.yml<cr>
 
 "}}}
 
@@ -259,11 +253,9 @@ let  g:netrw_alto       =  0
 " --------------------------------- Plugins ----------------------------------{{{
 
 " Personal plugins
-" packadd! abbreviations
-" packadd! providers
 packadd! statusline
-" packadd! pomodoro
-" packadd! differ
+packadd! differ
+packadd! pomodoro
 
 " Install minpac as an optional package if it's not already installed.
 let minpac_path = has('nvim') ? '~/.config/nvim/pack/minpac/opt/minpac' : '~/.vim/pack/minpac/opt/minpac'
@@ -328,5 +320,16 @@ nmap  <C-c><C-c>  <Plug>NormalModeSendToTmux
 nmap  <C-c>r      <Plug>SetTmuxVars
 
 "}}}
+
+
+" ------------------------------ Abbreviations -------------------------------- {{{
+" Last modification date of the current file
+iabbrev <expr> ddf strftime("%c", getftime(expand('%')))
+" Local date-time
+iabbrev <expr> ddc strftime("%c")
+" Local date
+iabbrev <expr> ddd strftime("%Y-%m-%d")
+"}}}
+
 
 " vim:foldmethod=marker textwidth=0
