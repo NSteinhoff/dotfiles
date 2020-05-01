@@ -1,12 +1,9 @@
 xsel
-vim-gtk3
-alacritty
 tmux
 htop
-python3-gpg
-entr
-jq
 tree
-zathura
-ranger
 universal-ctags
+alacritty
+python3-gpg
+jq
+entr
