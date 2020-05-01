@@ -34,7 +34,7 @@ post_cd_dev() {
         branch_name=$(git rev-parse --abbrev-ref HEAD)
         last_commit=$(git log -n 1 --pretty=format:'%an %ar')
         echo "$(printf %-30s $r) [$branch_name] $last_commit"
-        [[ -n $(git status --short) ]] && git status --short
+        git status --short
         popd > /dev/null
     done
 }
@@ -57,8 +57,9 @@ post_cd_home() {
             author=$(git log -n 1 --pretty=format:'%an')
             if [[ "$author" == "Niko Steinhoff" ]]; then
                 last_commit=$(git log -n 1 --pretty=format:'%ar')
-                echo "$(printf %-30s $r) $last_commit"
-                [[ -n $(git status --short) ]] && git status --short
+                echo "$(printf '  %-30s' $r) $last_commit"
+                status=$(git status --short)
+                [[ -n "$status" ]] && echo -e "   $status"
             fi
         fi
 
@@ -75,15 +76,13 @@ list_tasks() {
         echo "---"
 
         if [[ -n "$tasks" ]]; then
-            echo -en "$RED"
+            echo -en "$ORANGE"
             echo -e "$tasks"
             echo -en "$NC"
         fi
 
         if [[ -n "$notes" ]]; then
-            echo -en "$ORANGE"
             echo -e "$notes"
-            echo -en "$NC"
         fi
 
         if [[ -n "$questions" ]]; then
