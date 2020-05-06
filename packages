@@ -1,4 +1,6 @@
 xsel
+highlight
+parallel
 tmux
 htop
 tree
