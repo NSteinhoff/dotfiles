@@ -16,5 +16,6 @@
         "<C-k>": false,
         "<C-f>": false,
         "<C-b>": false
-    }
+    },
+    "editor.fontSize": 16
 }
