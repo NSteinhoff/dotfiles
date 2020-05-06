@@ -9,5 +9,12 @@
         "vimrc": "viml",
         "gvimrc": "viml",
         "*.vim": "viml",
+    },
+    "editor.minimap.enabled": false,
+    "vim.handleKeys": {
+        "<C-j>": false,
+        "<C-k>": false,
+        "<C-f>": false,
+        "<C-b>": false
     }
 }
