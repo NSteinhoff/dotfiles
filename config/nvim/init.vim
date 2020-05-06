@@ -194,6 +194,7 @@ nnoremap ]u :later<cr>
 nnoremap <leader><leader> :buffers<cr>
 vnoremap <leader>a :Align<cr>
 nnoremap <leader>x :!%<cr>
+vnoremap <leader>x :w !bash<cr>
 nnoremap <leader>b :buffer <C-Z>
 nnoremap <leader>w :bwipe<cr>
 nnoremap <leader>v :vert sbuffer <C-Z>
