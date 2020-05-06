@@ -1,3 +1,4 @@
+# vim: ft=sh
 # Disable <ctrl-s> suspending (reactivated with <ctrl-q>)
 stty -ixon
 
@@ -11,12 +12,16 @@ export EDITOR=vim
 # Set Vim as man pager
 [ -n "$(which nvim)" ] && export MANPAGER='nvim +Man!'
 
-alias cider='clj -A:local:cider'
-
 case $OSTYPE in
     linux*) os="linux";;
     darwin*) os="mac";;
 esac
+
+# ----------------------------- Helper Functions ------------------------------
+function_lib="$HOME/.local/lib/bash_functions"
+if [ -f "$function_lib" ]; then
+    source "$function_lib"
+fi
 
 # --------- Listing files ------------
 [ $os = "linux" ] && alias ls='ls --color=auto --group-directories-first'
@@ -28,47 +33,6 @@ alias gtree='git ls-files | tree --fromfile --dirsfirst'
 
 # --------- Listing dirs ------------
 alias dirs='dirs -v'
-
-# --------- Open files with vim -------
-gvim_() {
-    running=$(vim --serverlist | grep GVIM)
-    if [[ $# -gt 0 ]]; then
-        gvim --remote-silent $@
-    elif [[ -z "$running" ]]; then
-        gvim
-    else
-        echo "Server 'GVIM' already running."
-    fi
-}
-alias gvim=gvim_
-alias vim-find='_() { find $1 -name $2 -exec vim {} +; }; _'
-alias vim-find-re='_() { find $1 -regex $2 -exec vim {} +; }; _'
-
-# --------- Open files with Zathura
-alias zathura-find='_() { find $1 -name $2 | xargs zathura &}; _'
-alias zathura-find-re='_() { find $1 -regex $2 | xargs zathura & }; _'
-
-# --------- Take a new new with Vim -------
-alias vnote="vim -c 'r!date' -c 'normal i# ' -c 'normal o' ~/notes.md"
-
-# Make 'rm' ask for confirmation every time
-# Use '\rm' if you know what you are doing
-# alias rm='rm -i'
-
-# Git branch indicator with colors
-NC='\033[0m' # No Color
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-ORANGE='\033[0;33m'
-
-# ------------ Brew ----------
-test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
-test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-# eval $($(brew --prefix)/bin/brew shellenv)
-
-
-# ------------ Snap ----------
-[ -n $(which snap) ] && export PATH="/snap/bin/:$PATH"
 
 # ---------- Java Version ---------
 if [[ -z $JAVA_HOME ]]; then
@@ -84,11 +48,11 @@ if [ -z "$(which cht.sh)" ]; then
     curl https://cht.sh/:cht.sh > ~/.local/bin/cht.sh
     chmod +x ~/.local/bin/cht.sh
 fi
-
 if [ -n "$(which cht.sh)" ]; then
     [ -f ~/.config/bash-completion/cht.sh ] || cht.sh :bash_completion > ~/.config/bash-completion/cht.sh
     source ~/.config/bash-completion/cht.sh
 fi
+
 # ----------- Kubectl && Minikube completion ----------
 if [ -n "$(which kubectl)" ]; then
     [ -f ~/.config/bash-completion/kubectl ] || kubectl completion bash > ~/.config/bash-completion/kubectl
@@ -103,129 +67,27 @@ if [ -n "$(which helm)" ]; then
     source ~/.config/bash-completion/helm
 fi
 
-
-# ------------ Exercism ----------
-[ -f ~/.config/exercism/exercism_completion.bash ] && source ~/.config/exercism/exercism_completion.bash
-
 # ------------- Bloop --------------
 [ -d "$HOME/.bloop" ] && source "$HOME/.bloop/bash/bloop"
 
+# ---------------------------------- Pyenv ------------------------------------
+[ -n "$(which pyenv)" ] && eval "$(pyenv init -)"
 
-# ------------------------------ PROMPT COMMAND -------------------------------
+
+
+# ---------------------------------- PROMPT -----------------------------------
+case "$TERM" in
+xterm*|rxvt*)
+    PS1_tail='\$ '
+    PS1_head="${PS1%'\$ '} "
+    export PS1="$PS1_head"'$(git_branch_indicator)[\j]'"\n$PS1_tail"
+    ;;
+*)
+    ;;
+esac
+
 export PROMPT_COMMAND="$HOME/.local/bin/prompt_command"
 
 
-# ------------   PROMPT   -----------
-function git_unstaged_changes {
-    [ -n "$(git diff --shortstat 2> /dev/null | tail -n1)" ]
-}
-
-function git_uncommitted_changes {
-    [ -n "$(git diff --shortstat --staged 2> /dev/null | tail -n1)" ]
-}
-
-function branch_name {
-    # git rev-parse --abbrev-ref HEAD 2> /dev/null
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
-}
-
-function remote_branch {
-    remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null) && echo -n "$remote" || echo -n ""
-}
-
-function branch_status {
-    ahead=$(git status | sed '/ahead/!d')
-    behind=$(git status | sed '/behind/!d')
-    diverged=$(git status | sed '/diverged/!d')
-
-    if [ -n "$diverged" ]; then
-        echo -n "Y"
-    elif [ -n "$ahead" ]; then
-        echo -n "+"
-    elif [ -n "$behind" ]; then
-        echo -n "-"
-    else
-        echo -n "*"
-    fi
-}
-
-git_branch_indicator() {
-    branch=$(branch_name)
-    [ -n "$branch" ] || exit 0
-
-    remote=$(remote_branch)
-    if [ -n "$remote" ]; then
-        remote_name="${remote#*/}"
-        status="$(branch_status)"
-        if [ "$remote_name" = "$branch" ]; then
-            remote_indicator="->$status"
-        else
-            remote_indicator="->$remote$status"
-        fi
-    else
-        remote_indicator=''
-    fi
-
-    if $(git_unstaged_changes); then
-        COLOR="${RED}"
-    elif $(git_uncommitted_changes); then
-        COLOR="${ORANGE}"
-    else
-        COLOR="${GREEN}"
-    fi
-
-    echo -n "["
-    echo -en "\001${COLOR}\002"
-    echo -n "${branch}"
-    echo -en "\001${NC}\002"
-    echo -n "${remote_indicator}"
-    echo -n "]"
-}
-prompt_tail='\$ '
-prompt_head="${PS1%'\$ '}"
-if false && [ -n $TMUX ]; then
-    prompt_tmux='(tmux)'
-else
-    prompt_tmux=''
-fi
-
-function njobs() {
-    n_jobs=$(jobs | wc -l)
-    if (( n_jobs > 1 )); then
-        (( n_jobs = n_jobs - 1 ))
-        echo "($n_jobs)"
-    fi
-}
-
-PS1="$prompt_head$prompt_tmux"'$(git_branch_indicator)$(njobs)'"\n$prompt_tail"
-# PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\\\$ "'
-# GIT_PS1_SHOWDIRTYSTATE="yes"
-# GIT_PS1_SHOWUPSTREAM="auto"
-
-# Indicate ranger subshell
-[ -n "$RANGER_LEVEL" ] && PS1="$PS1"'(in ranger) '
-
-export PS1
-
-# Launch tmux automatically
-if false && [ -z $TMUX ] && which tmux > /dev/null; then
-    if [ -z $TMUX ] && [ -z $VIM_TERMINAL ] ; then
-        (tmux ls > /dev/null 2>&1 && tmux attach) || tmux
-    fi
-fi
-
-# ----------------------- Paragraph formatting with 'par' -----------------------
-export PARINIT='rTbgqR B=.,?_A_a Q=_s>|'
-
-
-# ----------------------------------- fff -------------------------------------
-if [ -n $(which fff) ]; then
-    f() {
-        fff "$@"
-        cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"
-    }
-fi
-
-
-# ---------------------------------- Pyenv ------------------------------------
-[ -n "$(which pyenv)" ] && eval "$(pyenv init -)"
+# --------------------------------- GREETING ----------------------------------
+greeting

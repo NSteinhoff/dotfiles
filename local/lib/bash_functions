@@ -1,0 +1,138 @@
+# vim: ft=sh
+
+NC='\033[0m' # No Color
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+
+# Return the number of running background jobs, if any, as "(n)"
+njobs() {
+    n_jobs=$(jobs | wc -l)
+    if (( n_jobs > 1 )); then
+        (( n_jobs = n_jobs - 1 ))
+        echo "($n_jobs)"
+    fi
+}
+
+# List tasks etc. found in a 'tasks' file in the current directory
+list_tasks() {
+    [ -f tasks ] || return
+
+    tasks=$(grep -e '^\[ \] .*' tasks)
+    notes=$(grep -e '^!!! .*' tasks)
+    questions=$(grep -e '^??? .*' tasks)
+
+    if [[ -n "$tasks" ]] || [[ -n "$notes" ]]; then
+        echo "---"
+
+        if [[ -n "$tasks" ]]; then
+            echo -en "$ORANGE"
+            echo -e "$tasks"
+            echo -en "$NC"
+        fi
+
+        if [[ -n "$notes" ]]; then
+            echo -e "$notes"
+        fi
+
+        if [[ -n "$questions" ]]; then
+            echo -en "$GREEN"
+            echo -e "$questions"
+            echo -en "$NC"
+        fi
+        echo "---"
+    fi
+}
+
+# Greet the user
+#
+# This is meant to be run when starting a shell or when coming $HOME
+greeting() {
+    repos=$(find . -maxdepth 3 -path '*/.git')
+    [[ -n "$repos" ]] && echo "Activity:"
+    for repo in $repos; do
+        r=${repo%/.git}
+        r=${r#./}
+        pushd $r > /dev/null
+
+        if [[ -n $(git log --since="two weeks ago") ]]; then
+            author=$(git log -n 1 --pretty=format:'%an')
+            if [[ "$author" == "$(git config --get user.name)" ]]; then
+                last_commit=$(git log -n 1 --pretty=format:'%ar')
+                echo "$(printf '  %-30s' $r) $last_commit"
+                status=$(git status --short)
+                [[ -n "$status" ]] && echo -e "   $status"
+            fi
+        fi
+
+        popd > /dev/null
+    done
+
+    list_tasks
+}
+
+git_unstaged_changes() {
+    [ -n "$(git diff --shortstat 2> /dev/null | tail -n1)" ]
+}
+
+git_uncommitted_changes() {
+    [ -n "$(git diff --shortstat --staged 2> /dev/null | tail -n1)" ]
+}
+
+branch_name() {
+    # git rev-parse --abbrev-ref HEAD 2> /dev/null
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+
+remote_branch() {
+    remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null) && echo -n "$remote" || echo -n ""
+}
+
+branch_status() {
+    ahead=$(git status | sed '/ahead/!d')
+    behind=$(git status | sed '/behind/!d')
+    diverged=$(git status | sed '/diverged/!d')
+
+    if [ -n "$diverged" ]; then
+        echo -n "Y"
+    elif [ -n "$ahead" ]; then
+        echo -n "+"
+    elif [ -n "$behind" ]; then
+        echo -n "-"
+    else
+        echo -n "*"
+    fi
+}
+
+git_branch_indicator() {
+    branch=$(branch_name)
+    [ -n "$branch" ] || exit 0
+
+    remote=$(remote_branch)
+    if [ -n "$remote" ]; then
+        remote_name="${remote#*/}"
+        status="$(branch_status)"
+        if [ "$remote_name" = "$branch" ]; then
+            remote_indicator="->$status"
+        else
+            remote_indicator="->$remote$status"
+        fi
+    else
+        remote_indicator=''
+    fi
+
+    if $(git_unstaged_changes); then
+        COLOR="${RED}"
+    elif $(git_uncommitted_changes); then
+        COLOR="${ORANGE}"
+    else
+        COLOR="${GREEN}"
+    fi
+
+    echo -n "["
+    echo -en "\001${COLOR}\002"
+    echo -n "${branch}"
+    echo -en "\001${NC}\002"
+    echo -n "${remote_indicator}"
+    echo -n "]"
+}
