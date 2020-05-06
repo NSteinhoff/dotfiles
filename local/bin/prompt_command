@@ -16,7 +16,8 @@ RE_HOME="$HOME"
 TASK_LIST=tasks
 
 post_cd() {
-    [[ -f "$TASK_LIST" ]] && list_tasks
+    [[ -f "$TASK_LIST" ]] && list_tasks && echo
+
     case $PWD in
         $RE_HOME) _cd_home;;
         $RE_DEV) _cd_dev;;
@@ -30,12 +31,14 @@ _cd_dev() {
 }
 
 _cd_repo() {
+    echo "===Status==="
     git log -n 1
     [[ -n $(git status --short) ]] && echo && git status --short
     [[ -n $(git diff) ]] && echo && git diff --stat
 }
 
 _cd_home() {
+    echo "===Activity==="
     find_repos 3 | parallel -k --group repo_activity
 }
 
@@ -60,12 +63,11 @@ repo_activity() {
     pushd $repo > /dev/null
 
     if [[ -n $(git log --since="$since") ]]; then
-        author=$(git log -n 1 --pretty=format:'%an')
+        IFS=',' read author time_ago <<< $(git log -n 1 --pretty=format:'%an,%ar')
         if [[ "$author" == "$(git config --get user.name)" ]]; then
-            last_commit=$(git log -n 1 --pretty=format:'%ar')
-            echo "$(printf '  %-30s' $repo) $last_commit"
-            status=$(git status --short)
-            [[ -n "$status" ]] && echo -e "$status"
+            dirty=""
+            [[ -n $(git status --short) ]] && dirty='!!!'
+            printf '%-30s%20s %s\n' "$repo" "$time_ago" "$dirty"
         fi
     fi
 
@@ -84,7 +86,7 @@ list_tasks() {
     questions=$(grep -e '^??? .*' "$TASK_LIST")
 
     if [[ -n "$tasks" ]] || [[ -n "$notes" ]]; then
-        echo "---"
+        echo "===Tasks==="
 
         if [[ -n "$tasks" ]]; then
             echo -en "$ORANGE"
@@ -101,7 +103,6 @@ list_tasks() {
             echo -e "$questions"
             echo -en "$NC"
         fi
-        echo "---"
     fi
 }
 
