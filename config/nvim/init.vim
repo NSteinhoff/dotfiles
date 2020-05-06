@@ -180,8 +180,6 @@ nnoremap ]t :tnext<cr>
 
 nnoremap [p :ptprevious<cr>
 nnoremap ]p :ptnext<cr>
-nnoremap [<leader> :ptprevious<cr>
-nnoremap ]<leader> :ptnext<cr>
 
 nnoremap [u :earlier<cr>
 nnoremap ]u :later<cr>
@@ -195,7 +193,7 @@ nnoremap ]u :later<cr>
 " Quick Keys
 nnoremap <leader><leader> :buffers<cr>
 vnoremap <leader>a :Align<cr>
-nnoremap <leader>x :xit<cr>
+nnoremap <leader>x :!%<cr>
 nnoremap <leader>b :buffer <C-Z>
 nnoremap <leader>w :bwipe<cr>
 nnoremap <leader>v :vert sbuffer <C-Z>
@@ -203,7 +201,7 @@ nnoremap <leader>t :tab sbuffer <C-Z>
 nnoremap <leader>e :edit **/*
 nnoremap <leader>f :find **/*
 
-" Explore
+" File Explorer
 nnoremap <leader>E :Explore<cr>
 nnoremap <leader>V :Vexplore<cr>
 nnoremap <leader>T :Texplore<cr>

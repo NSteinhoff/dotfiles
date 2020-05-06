@@ -148,8 +148,7 @@ install_dotfiles \
 # {{{
 install_dotfiles \
     local/share/fonts/iosevka \
-    local/share/fonts/InputMono \
-    local/share/fonts/Monoid
+    local/share/fonts/monoid
 
 # }}}
 

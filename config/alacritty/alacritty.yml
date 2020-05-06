@@ -94,7 +94,7 @@ free-mono: &free-mono
     y: 0
   use_thin_strokes: true
 
-iosefka: &iosefka
+iosevka: &iosevka
   normal:
     family: Iosevka Term
     style: Regular
@@ -181,7 +181,7 @@ default: &default-font
   # effect.
   use_thin_strokes: true
 
-font: *iosefka
+font: *iosevka
 
 debug:
   # Display the time it takes to redraw each frame.

@@ -80,7 +80,7 @@ else
     let  s:hues.Faded       =  {'lig':  'none',       'fg':  7,     'bg':  bg}
     let  s:hues.Hidden      =  {'lig':  'none',       'fg':  fg,  'bg':  bg}
     let  s:hues.Bold        =  {'lig':  'bold',       'fg':  fg,  'bg':  bg}
-    let  s:hues.Italic      =  {'lig':  'bold',       'fg':  fg,  'bg':  bg}
+    let  s:hues.Italic      =  {'lig':  'italic',     'fg':  fg,  'bg':  bg}
     let  s:hues.Pop         =  {'lig':  'none',       'fg':  0,     'bg':  bg}
     let  s:hues.StrongPop   =  {'lig':  'bold',       'fg':  0,     'bg':  bg}
     "" }}}
@@ -168,7 +168,7 @@ let s:syntax_styles.trivial           = "Faded"
 let s:syntax_styles.informative       = "Bold"
 let s:syntax_styles.special           = "Proud"
 let s:syntax_styles.underlined        = "Underlined"
-let s:syntax_styles.emphasis          = "Bold"
+let s:syntax_styles.emphasis          = "Italic"
 let s:syntax_styles.strong            = "Pop"
 let s:syntax_styles.heavy             = "StrongPop"
 ""}}}
