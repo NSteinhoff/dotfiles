@@ -189,7 +189,15 @@ else
     prompt_tmux=''
 fi
 
-PS1="$prompt_head$prompt_tmux"'$(git_branch_indicator)'"\n$prompt_tail"
+function njobs() {
+    n_jobs=$(jobs | wc -l)
+    if (( n_jobs > 1 )); then
+        (( n_jobs = n_jobs - 1 ))
+        echo "($n_jobs)"
+    fi
+}
+
+PS1="$prompt_head$prompt_tmux"'$(git_branch_indicator)$(njobs)'"\n$prompt_tail"
 # PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\\\$ "'
 # GIT_PS1_SHOWDIRTYSTATE="yes"
 # GIT_PS1_SHOWUPSTREAM="auto"
