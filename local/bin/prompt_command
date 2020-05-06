@@ -18,53 +18,64 @@ TASK_LIST=tasks
 post_cd() {
     [[ -f "$TASK_LIST" ]] && list_tasks
     case $PWD in
-        $RE_HOME) post_cd_home;;
-        $RE_DEV) post_cd_dev;;
-        $RE_DEVELOPMENT) post_cd_dev;;
+        $RE_HOME) _cd_home;;
+        $RE_DEV) _cd_dev;;
+        $RE_DEVELOPMENT) _cd_dev;;
     esac
-    [[ -d '.git' ]] && post_cd_repo
+    [[ -d '.git' ]] && _cd_repo
 }
 
-post_cd_dev() {
-    repos=$(find . -maxdepth 2 -path '*/.git')
-    for repo in $repos; do
-        r=${repo%/.git}
-        r=${r#./}
-        pushd $r > /dev/null
-        branch_name=$(git rev-parse --abbrev-ref HEAD)
-        last_commit=$(git log -n 1 --pretty=format:'%an %ar')
-        echo "$(printf %-30s $r) [$branch_name] $last_commit"
-        git status --short
-        popd > /dev/null
-    done
+_cd_dev() {
+    summarize_repos 2
 }
 
-post_cd_repo() {
+_cd_repo() {
     git log -n 1
     [[ -n $(git status --short) ]] && echo && git status --short
     [[ -n $(git diff) ]] && echo && git diff --stat
 }
 
-post_cd_home() {
-    repos=$(find . -maxdepth 3 -path '*/.git')
-    [[ -n "$repos" ]] && echo "Activity:"
-    for repo in $repos; do
-        r=${repo%/.git}
-        r=${r#./}
-        pushd $r > /dev/null
+_cd_home() {
+    find_repos 3 | parallel -k --group repo_activity
+}
 
-        if [[ -n $(git log --since="two weeks ago") ]]; then
-            author=$(git log -n 1 --pretty=format:'%an')
-            if [[ "$author" == "$(git config --get user.name)" ]]; then
-                last_commit=$(git log -n 1 --pretty=format:'%ar')
-                echo "$(printf '  %-30s' $r) $last_commit"
-                status=$(git status --short)
-                [[ -n "$status" ]] && echo -e "   $status"
-            fi
+
+find_repos() {
+    find . -maxdepth $1 -path '*/.git' -exec dirname {} \;
+}
+
+repo_stats() {
+    pushd $1 > /dev/null
+    branch_name=$(git rev-parse --abbrev-ref HEAD)
+    last_commit=$(git log -n 1 --pretty=format:'%an %ar')
+    echo "$(printf %-30s $1) [$branch_name] $last_commit"
+    git status --short
+    popd > /dev/null
+}
+export -f repo_stats
+
+repo_activity() {
+    since="${2:-two weeks ago}"
+    repo="$1"
+    pushd $repo > /dev/null
+
+    if [[ -n $(git log --since="$since") ]]; then
+        author=$(git log -n 1 --pretty=format:'%an')
+        if [[ "$author" == "$(git config --get user.name)" ]]; then
+            last_commit=$(git log -n 1 --pretty=format:'%ar')
+            echo "$(printf '  %-30s' $repo) $last_commit"
+            status=$(git status --short)
+            [[ -n "$status" ]] && echo -e "$status"
         fi
+    fi
 
-        popd > /dev/null
-    done
+    popd > /dev/null
+}
+export -f repo_activity
+
+summarize_repos() {
+    depth="$1"
+    find_repos $depth | parallel -k --group repo_stats
 }
 
 list_tasks() {
