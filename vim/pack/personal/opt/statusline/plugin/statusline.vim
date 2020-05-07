@@ -1,14 +1,14 @@
-function! StatuslineErrors()
+function! Errors()
     let nqf = len(getqflist())
     let nloc = len(getloclist(0))
     if nloc || nqf
-        return '['.nqf.'|'.nloc.'] '
+        return '[q:'.nqf.'|l:'.nloc.'] '
     else
         return ''
     endif
 endfunction
 
-function! StatuslineArgs()
+function! Args()
     let nargs = argc()
     let idx = argidx() + 1
     if nargs > 1
@@ -18,7 +18,12 @@ function! StatuslineArgs()
     endif
 endfunction
 
-function! StatuslineCompiler()
+function! Buffers()
+    let n_buffers = len(getbufinfo({'buflisted': 1}))
+    return '[ls:'.n_buffers.']'
+endfunction
+
+function! Compiler()
     let compiler = compiler#which()
     if compiler == 'NONE'
         return ''
@@ -27,27 +32,28 @@ function! StatuslineCompiler()
     endif
 endfunction
 
-function! StatuslineSpell()
+function! Spell()
     return &spell ? '[spell] ' : ''
 endfunction
 
-function! statusline#Statusline()
+function! statusline#()
     let BAR         = '%*'
     let OPT         = '%#Question#'
     let SEP         = '%='
 
+    let buffers     = '%{Buffers()}'
     let file        = '%y %f '
-    let args        = '%{StatuslineArgs()} '
+    let args        = '%{Args()} '
     let tags        = '%m %h %w %q '
-    let spell       = '%{StatuslineSpell()}'
-    let compiler    = '%{StatuslineCompiler()}'
-    let errors      = '%{StatuslineErrors()}'
+    let spell       = '%{Spell()}'
+    let compiler    = '%{Compiler()}'
+    let errors      = '%{Errors()}'
     let lsp         = ''  " '%{lsp#Indicator()}'
     let position    = ' ☰ %l:%c | %p%% '
 
-    return file.OPT.args.tags.SEP.errors.lsp.compiler.spell.BAR.position
+    return buffers.file.OPT.args.tags.SEP.errors.lsp.compiler.spell.BAR.position
 endfunction
 
 
 set laststatus=2
-set statusline=%!statusline#Statusline()
+set statusline=%!statusline#()
