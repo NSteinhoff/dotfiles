@@ -1,3 +1,4 @@
+moreutils
 xsel
 highlight
 parallel
@@ -9,5 +10,4 @@ alacritty
 python3-gpg
 entr
 jq
-bat
 ripgrep
