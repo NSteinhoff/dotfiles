@@ -10,7 +10,7 @@ HISTFILESIZE=200000
 export EDITOR=vim
 
 # Set Vim as man pager
-[ -n "$(which nvim)" ] && export MANPAGER='nvim +Man!'
+which nvim &>/dev/null && export MANPAGER='nvim +Man!'
 
 case $OSTYPE in
     linux*) os="linux";;
@@ -19,11 +19,13 @@ esac
 
 # ----------------------------- Helper Functions ------------------------------
 function_lib="$HOME/.local/lib/bash_functions"
-if [ -f "$function_lib" ]; then
-    source "$function_lib"
-fi
+[ -f "$function_lib" ] && source "$function_lib"
 
-# --------- Listing files ------------
+# -----------------------------------------------------------------------------
+#  ALIASES
+# -----------------------------------------------------------------------------
+
+# Listing files
 [ $os = "linux" ] && alias ls='ls --color=auto --group-directories-first'
 [ $os = "mac" ] && alias ls='ls -G'
 alias ll='ls -lF'
@@ -31,48 +33,25 @@ alias lla='ll -a'
 alias tree='tree --dirsfirst'
 alias gtree='git ls-files | tree --fromfile --dirsfirst'
 
-# --------- Listing dirs ------------
+# Listing dirs
 alias dirs='dirs -v'
 
+# Syntax highlighting (no need for 'bat')
+which highlight &>/dev/null && alias hi='highlight -O ansi'
+
 # ---------- Java Version ---------
-if [[ -z $JAVA_HOME ]]; then
-    if [[ "$os" == linux && -x $(which java) ]]; then
-        export JAVA_HOME=$(readlink -f $(which java) | sed "s:/bin/java::")
-    fi
-fi
+[[ -z $JAVA_HOME && "$os" == linux && -x $(which java) ]] && JAVA_HOME=$(readlink -f $(which java) | sed "s:/bin/java::")
 
 # -----------   COMPLETIONS   --------------
+# [check for executable] && [ensure exists] && [source completions]
 [ -d ~/.config/bash-completion ] || mkdir -p ~/.config/bash-completion
-if [ -z "$(which cht.sh)" ]; then
-    echo "Installing cht.sh"
-    curl https://cht.sh/:cht.sh > ~/.local/bin/cht.sh
-    chmod +x ~/.local/bin/cht.sh
-fi
-if [ -n "$(which cht.sh)" ]; then
-    [ -f ~/.config/bash-completion/cht.sh ] || cht.sh :bash_completion > ~/.config/bash-completion/cht.sh
-    source ~/.config/bash-completion/cht.sh
-fi
-
-# ----------- Kubectl && Minikube completion ----------
-if [ -n "$(which kubectl)" ]; then
-    [ -f ~/.config/bash-completion/kubectl ] || kubectl completion bash > ~/.config/bash-completion/kubectl
-    source ~/.config/bash-completion/kubectl
-fi
-if [ -n "$(which minikube)" ]; then
-    [ -f ~/.config/bash-completion/minikube ] || minikube completion bash > ~/.config/bash-completion/minikube
-    source ~/.config/bash-completion/minikube
-fi
-if [ -n "$(which helm)" ]; then
-    [ -f ~/.config/bash-completion/helm ] || helm completion bash > ~/.config/bash-completion/helm
-    source ~/.config/bash-completion/helm
-fi
-
-# ------------- Bloop --------------
+which cht.sh &>/dev/null || (curl https://cht.sh/:cht.sh > ~/.local/bin/cht.sh && chmod +x ~/.local/bin/cht.sh)
+which cht.sh &>/dev/null && ([ -f ~/.config/bash-completion/cht.sh ] || cht.sh :bash_completion > ~/.config/bash-completion/cht.sh) && source ~/.config/bash-completion/cht.sh
+which kubectl &>/dev/null && ([ -f ~/.config/bash-completion/kubectl ] || kubectl completion bash > ~/.config/bash-completion/kubectl) && source ~/.config/bash-completion/kubectl
+which minikube &>/dev/null && ([ -f ~/.config/bash-completion/minikube ] || minikube completion bash > ~/.config/bash-completion/minikube) && source ~/.config/bash-completion/minikube
+which helm &>/dev/null && ([ -f ~/.config/bash-completion/helm ] || helm completion bash > ~/.config/bash-completion/helm) && source ~/.config/bash-completion/helm
 [ -d "$HOME/.bloop" ] && source "$HOME/.bloop/bash/bloop"
-
-# ---------------------------------- Pyenv ------------------------------------
-[ -n "$(which pyenv)" ] && eval "$(pyenv init -)"
-
+which pyenv &>/dev/null && eval "$(pyenv init -)"
 
 
 # ---------------------------------- PROMPT -----------------------------------
