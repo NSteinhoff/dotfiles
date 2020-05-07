@@ -39,7 +39,7 @@ _cd_repo() {
 
 _cd_home() {
     echo "===Activity==="
-    find_repos 3 | parallel -k --group repo_activity
+    find_repos 3 | parallel -k repo_activity
 }
 
 
@@ -77,7 +77,7 @@ export -f repo_activity
 
 summarize_repos() {
     depth="$1"
-    find_repos $depth | parallel -k --group repo_stats
+    find_repos $depth | parallel -k repo_stats
 }
 
 list_tasks() {
