@@ -17,10 +17,6 @@ case $OSTYPE in
     darwin*) os="mac";;
 esac
 
-# ----------------------------- Helper Functions ------------------------------
-function_lib="$HOME/.local/lib/bash_functions"
-[ -f "$function_lib" ] && source "$function_lib"
-
 # -----------------------------------------------------------------------------
 #  ALIASES
 # -----------------------------------------------------------------------------
@@ -66,6 +62,11 @@ xterm*|rxvt*)
 esac
 
 export PROMPT_COMMAND="$HOME/.local/bin/prompt_command"
+
+
+# ----------------------------- Helper Functions ------------------------------
+function_lib="$HOME/.local/lib/bash_functions"
+[ -f "$function_lib" ] && source "$function_lib"
 
 
 # --------------------------------- GREETING ----------------------------------

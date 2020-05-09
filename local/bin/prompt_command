@@ -1,4 +1,6 @@
 # vim: ft=sh
+lib=$HOME/.local/lib/bash_functions
+[ -f "$lib" ] || exit
 
 LAST=$(fc -ln -1 | xargs)
 
@@ -9,9 +11,9 @@ GREEN='\033[0;32m'
 ORANGE='\033[0;33m'
 
 RE_CD='cd.*'
-RE_DEV="$HOME/dev"
-RE_DEVELOPMENT="$HOME/Development"
-RE_HOME="$HOME"
+DEV="$HOME/dev"
+DEVELOPMENT="$HOME/Development"
+HOME="$HOME"
 
 TASK_LIST=tasks
 
@@ -19,91 +21,22 @@ post_cd() {
     [[ -f "$TASK_LIST" ]] && list_tasks && echo
 
     case $PWD in
-        $RE_HOME) _cd_home;;
-        $RE_DEV) _cd_dev;;
-        $RE_DEVELOPMENT) _cd_dev;;
+        $HOME) _cd_home;;
+        $DEVELOPMENT|$DEV) _cd_dev;;
     esac
     [[ -d '.git' ]] && _cd_repo
 }
 
 _cd_dev() {
-    summarize_repos 2
+    summarize_repos
 }
 
 _cd_repo() {
-    echo "===Status==="
-    git log -n 1
-    [[ -n $(git status --short) ]] && echo && git status --short
-    [[ -n $(git diff) ]] && echo && git diff --stat
+    repo_status
 }
 
 _cd_home() {
-    echo "===Activity==="
-    find_repos 3 | parallel -k repo_activity
-}
-
-
-find_repos() {
-    find . -maxdepth $1 -path '*/.git' -exec dirname {} \;
-}
-
-repo_stats() {
-    pushd $1 > /dev/null
-    branch_name=$(git rev-parse --abbrev-ref HEAD)
-    last_commit=$(git log -n 1 --pretty=format:'%an %ar')
-    echo "$(printf %-30s $1) [$branch_name] $last_commit"
-    git status --short
-    popd > /dev/null
-}
-export -f repo_stats
-
-repo_activity() {
-    since="${2:-two weeks ago}"
-    repo="$1"
-    pushd $repo > /dev/null
-
-    if [[ -n $(git log --since="$since") ]]; then
-        IFS=',' read author time_ago <<< $(git log -n 1 --pretty=format:'%an,%ar')
-        if [[ "$author" == "$(git config --get user.name)" ]]; then
-            dirty=""
-            [[ -n $(git status --short) ]] && dirty='!!!'
-            printf '%-30s%20s %s\n' "$repo" "$time_ago" "$dirty"
-        fi
-    fi
-
-    popd > /dev/null
-}
-export -f repo_activity
-
-summarize_repos() {
-    depth="$1"
-    find_repos $depth | parallel -k repo_stats
-}
-
-list_tasks() {
-    tasks=$(grep -e '^\[ \] .*' "$TASK_LIST")
-    notes=$(grep -e '^!!! .*' "$TASK_LIST")
-    questions=$(grep -e '^??? .*' "$TASK_LIST")
-
-    if [[ -n "$tasks" ]] || [[ -n "$notes" ]]; then
-        echo "===Tasks==="
-
-        if [[ -n "$tasks" ]]; then
-            echo -en "$ORANGE"
-            echo -e "$tasks"
-            echo -en "$NC"
-        fi
-
-        if [[ -n "$notes" ]]; then
-            echo -e "$notes"
-        fi
-
-        if [[ -n "$questions" ]]; then
-            echo -en "$GREEN"
-            echo -e "$questions"
-            echo -en "$NC"
-        fi
-    fi
+    recent_activity
 }
 
 [[ $LAST =~ $RE_CD ]] && post_cd

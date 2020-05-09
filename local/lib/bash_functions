@@ -5,15 +5,6 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 ORANGE='\033[0;33m'
 
-# Return the number of running background jobs, if any, as "(n)"
-njobs() {
-    n_jobs=$(jobs | wc -l)
-    if (( n_jobs > 1 )); then
-        (( n_jobs = n_jobs - 1 ))
-        echo "($n_jobs)"
-    fi
-}
-
 # List tasks etc. found in a 'tasks' file in the current directory
 list_tasks() {
     [ -f tasks ] || return
@@ -43,32 +34,66 @@ list_tasks() {
         echo "---"
     fi
 }
+export -f list_tasks
 
-# Greet the user
-#
-# This is meant to be run when starting a shell or when coming $HOME
-greeting() {
-    repos=$(find . -maxdepth 3 -path '*/.git')
-    [[ -n "$repos" ]] && echo "Activity:"
-    for repo in $repos; do
-        r=${repo%/.git}
-        r=${r#./}
-        pushd $r > /dev/null
+find_repos() {
+    find . -maxdepth $1 -path '*/.git' -exec dirname {} \;
+}
+export -f find_repos
 
-        if [[ -n $(git log --since="two weeks ago") ]]; then
-            author=$(git log -n 1 --pretty=format:'%an')
-            if [[ "$author" == "$(git config --get user.name)" ]]; then
-                last_commit=$(git log -n 1 --pretty=format:'%ar')
-                echo "$(printf '  %-30s' $r) $last_commit"
-                status=$(git status --short)
-                [[ -n "$status" ]] && echo -e "   $status"
-            fi
+repo_stats() {
+    pushd $1 > /dev/null
+    branch_name=$(git rev-parse --abbrev-ref HEAD)
+    last_commit=$(git log -n 1 --pretty=format:'%an %ar')
+    echo "$(printf %-30s $1) [$branch_name] $last_commit"
+    git status --short
+    popd > /dev/null
+}
+export -f repo_stats
+
+repo_status() {
+    echo "===Status==="
+    git log -n 1
+    [[ -n $(git status --short) ]] && echo && git status --short
+    [[ -n $(git diff) ]] && echo && git diff --stat
+}
+export -f repo_status
+
+repo_activity() {
+    since="${2:-two weeks ago}"
+    repo="$1"
+    pushd $repo > /dev/null
+
+    if [[ -n $(git log --since="$since") ]]; then
+        log=$(git log -n 1 --pretty=format:'%an	%ar')
+        author=$(echo "$log" | cut -f1)
+        time_ago=$(echo "$log" | cut -f2)
+        if [[ "$author" == "$(git config --get user.name)" ]]; then
+            dirty=""
+            [[ -n $(git status --short) ]] && dirty='!!!'
+            printf '\t%-30s%20s %s\n' "$repo" "$time_ago" "$dirty"
         fi
+    fi
 
-        popd > /dev/null
-    done
+    popd > /dev/null
+}
+export -f repo_activity
 
-    list_tasks
+summarize_repos() {
+    depth="${1:-2}"
+    find_repos $depth | parallel -k repo_stats
+}
+export -f summarize_repos
+
+recent_activity() {
+    activity=$(find_repos 3 | parallel -k repo_activity)
+    [ -z "$activity" ] || (echo "===Activity===" && echo -e "\n$activity\n")
+}
+export -f recent_activity
+
+man_page_of_the_day() {
+    echo "===Man Page of the Day==="
+    whatis -s1 -w '*' | shuf -n1 | xargs -0 printf '\n\t%s'
 }
 
 git_unstaged_changes() {
@@ -135,4 +160,13 @@ git_branch_indicator() {
     echo -en "\001${NC}\002"
     echo -n "${remote_indicator}"
     echo -n "]"
+}
+
+# Greet the user
+#
+# This is meant to be run when starting a shell or when coming $HOME
+greeting() {
+    man_page_of_the_day
+    recent_activity
+    list_tasks
 }
