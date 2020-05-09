@@ -193,7 +193,7 @@ nnoremap ]u :later<cr>
 " Quick Keys
 nnoremap <leader><leader> :buffers<cr>
 vnoremap <leader>a :Align<cr>
-nnoremap <leader>x :!%<cr>
+nnoremap <leader>x :!%:p<cr>
 vnoremap <leader>x :w !bash<cr>
 nnoremap <leader>b :buffer <C-Z>
 nnoremap <leader>w :bwipe<cr>
