@@ -20,6 +20,10 @@ installp() {
     esac
 }
 
+ensure_bin() {
+    [ -x "$1" ] || (echo "Installing $1 from $2" && curl "$2" > "$1" &>/dev/null && chmod u+x "$1")
+}
+
 
 # -----------------------------------------------------------------------------
 #  SETUP
@@ -75,6 +79,7 @@ install_dotfiles () {
 #  BIN
 # -----------------------------------------------------------------------------
 install_dotfiles local/bin/prompt_command
+ensure_bin ~/.local/bin/git-jump https://raw.githubusercontent.com/git/git/master/contrib/git-jump/git-jump
 
 # -----------------------------------------------------------------------------
 #  LIB
