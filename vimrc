@@ -51,7 +51,6 @@ set nowrap
 set list
 set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:+
 
-colorscheme desert
 set background=dark
 
 "}}}
