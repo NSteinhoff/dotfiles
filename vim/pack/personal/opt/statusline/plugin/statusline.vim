@@ -48,7 +48,7 @@ function! statusline#()
     let spell       = '%{Spell()}'
     let compiler    = '%{Compiler()}'
     let errors      = '%{Errors()}'
-    let lsp         = ''  " '%{lsp#Indicator()}'
+    let lsp         = '%{lsp#Indicator()}'
     let position    = ' ☰ %l:%c | %p%% '
 
     return buffers.file.OPT.args.tags.SEP.errors.lsp.compiler.spell.BAR.position
