@@ -69,5 +69,9 @@ function_lib="$HOME/.local/lib/bash_functions"
 [ -f "$function_lib" ] && source "$function_lib"
 
 
+# ----------------------------- Docker Aliases ------------------------------
+which sbt &> /dev/null || alias sbt='docker run --rm --tty --interactive --volume $PWD:/app marnikow/sbt'
+
+
 # --------------------------------- GREETING ----------------------------------
 greeting
