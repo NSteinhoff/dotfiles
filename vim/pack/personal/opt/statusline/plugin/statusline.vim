@@ -20,7 +20,7 @@ endfunction
 
 function! Buffers()
     let n_buffers = len(getbufinfo({'buflisted': 1}))
-    return '[ls:'.n_buffers.']'
+    return '['.n_buffers.']'
 endfunction
 
 function! Compiler()
@@ -54,6 +54,4 @@ function! statusline#()
     return buffers.file.OPT.args.tags.SEP.errors.lsp.compiler.spell.BAR.position
 endfunction
 
-
-set laststatus=2
 set statusline=%!statusline#()
