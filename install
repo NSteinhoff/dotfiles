@@ -9,14 +9,14 @@
 
 installp() {
     local answer
-    local prompt="Do you wish to install '$@'? Y(es)/N(o)"
+    local prompt="Do you wish to install '$@'? y(es)/n(o)"
     echo ""
-    while [[ ! $answer =~ Y(es)?|No? ]]; do
-        read -p "$prompt" answer
+    while [[ ! $answer =~ y(es)?|no? ]]; do
+        read -n 1 -p "$prompt" answer
     done
     case $answer in
-        Y*) echo Yes; true;;
-        N*) echo No; false;;
+        y*) echo " -> installing $@"; true;;
+        n*) echo " ... okay then"; false;;
     esac
 }
 
@@ -171,6 +171,10 @@ if [ $os = "linux" ]; then
     installp "Essentials" && sudo apt install $(cat $dir/packages/essentials)
     installp "Basic packages" && sudo apt install $(cat $dir/packages/basics)
     installp "Extra packages" && sudo apt install $(cat $dir/packages/extras)
+    installp "Neovim" &&
+        rm -f "$HOME/.local/bin/nvim" &&
+        curl -fsSL https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -o "$HOME/.local/bin/nvim" &&
+        chmod u+x "$HOME/.local/bin/nvim"
 fi
 
 # }}}
