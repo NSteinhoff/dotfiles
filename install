@@ -79,6 +79,7 @@ install_dotfiles () {
 #  BIN
 # -----------------------------------------------------------------------------
 install_dotfiles local/bin/prompt_command
+install_dotfiles local/bin/docker-do
 ensure_bin ~/.local/bin/git-jump https://raw.githubusercontent.com/git/git/master/contrib/git-jump/git-jump
 
 # -----------------------------------------------------------------------------
@@ -167,7 +168,7 @@ install_dotfiles \
 # -----------------------------------------------------------------------------
 # {{{
 if [ $os = "linux" ]; then
-    sudo apt install $(cat $dir/packages/essentials)
+    installp "Essentials" && sudo apt install $(cat $dir/packages/essentials)
     installp "Basic packages" && sudo apt install $(cat $dir/packages/basics)
     installp "Extra packages" && sudo apt install $(cat $dir/packages/extras)
 fi
