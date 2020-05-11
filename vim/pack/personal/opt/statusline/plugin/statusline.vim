@@ -1,6 +1,6 @@
 function! Errors()
-    let nqf = len(getqflist())
-    let nloc = len(getloclist(0))
+    let nqf = len(filter(getqflist(), 'v:val["valid"] == 1'))
+    let nloc = len(filter(getloclist(0), 'v:val["valid"] == 1'))
     if nloc || nqf
         return '[q:'.nqf.'|l:'.nloc.'] '
     else
