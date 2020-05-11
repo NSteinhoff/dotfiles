@@ -93,7 +93,7 @@ export -f recent_activity
 
 man_page_of_the_day() {
     echo "===Man Page of the Day==="
-    whatis -s1 -w '*' | shuf -n1 | xargs -0 printf '\n\t%s'
+    whatis -s1 -w '*' | shuf -n1 | xargs -0 printf '\n\t%s\n'
 }
 
 git_unstaged_changes() {

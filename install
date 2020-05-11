@@ -167,7 +167,9 @@ install_dotfiles \
 # -----------------------------------------------------------------------------
 # {{{
 if [ $os = "linux" ]; then
-    installp "System packages" && sudo apt install $(cat $dir/packages)
+    sudo apt install $(cat $dir/packages/essentials)
+    installp "Basic packages" && sudo apt install $(cat $dir/packages/basics)
+    installp "Extra packages" && sudo apt install $(cat $dir/packages/extras)
 fi
 
 # }}}

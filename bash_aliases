@@ -10,7 +10,7 @@ HISTFILESIZE=200000
 export EDITOR=vim
 
 # Set Vim as man pager
-which nvim &>/dev/null && export MANPAGER='nvim +Man!'
+# which nvim &>/dev/null && export MANPAGER='nvim +Man!'
 
 case $OSTYPE in
     linux*) os="linux";;

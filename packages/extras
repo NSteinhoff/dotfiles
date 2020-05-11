@@ -1,12 +1,6 @@
 moreutils
-xsel
 highlight
 parallel
-tmux
-htop
-tree
-universal-ctags
-alacritty
 python3-gpg
 entr
 jq
