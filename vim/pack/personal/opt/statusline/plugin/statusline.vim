@@ -13,7 +13,7 @@ function! Spell()
     return &spell ? '[spell] ' : ''
 endfunction
 
-function! statusline#()
+function! MyStatusline()
     let BAR         = '%*'
     let OPT         = '%#Question#'
     let SEP         = '%='
@@ -30,4 +30,4 @@ function! statusline#()
     return file.OPT.args.tags.SEP.errors.lsp.compiler.spell.BAR.position
 endfunction
 
-set statusline=%!statusline#()
+set statusline=%!MyStatusline()

@@ -1,4 +1,4 @@
-function! myfuncs#header(words)
+function! myfuncs#section(words)
     let prefix = matchstr(&commentstring, '\S*\(\s*%s\)\@=').' '
     let fillchar = '-'
     let ncols = 79
@@ -18,7 +18,7 @@ function! myfuncs#header(words)
     " Build the title line
     let title = prefix.text
 
-    " Set the current line to the header and position the cursor at the end.
+    " Set the current line to the section header and position the cursor at the end.
     call setline(line('.'), title)
     call append(line('.')-1, ruler)
     call append(line('.'), ruler)
@@ -30,7 +30,7 @@ endfunction
 " position. The header text can be passed as an arguments or left blank
 " to use the word under the cursor. With no argument or word under
 " cursor, will simply draw the separator line.
-function! myfuncs#center(words)
+function! myfuncs#header(words)
     let prefix = matchstr(&commentstring, '\S*\(\s*%s\)\@=').' '
     let fillchar = '-'
     let ncols = 79

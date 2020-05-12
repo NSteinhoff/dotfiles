@@ -8,6 +8,7 @@ augroup END
 
 
 " --------------------------------- UI -----------------------------------{{{
+set splitright
 set laststatus=2
 set inccommand=split
 
@@ -18,9 +19,10 @@ set inccommand=split
 set wildignore+=*/target/*
 
 if executable('rg')
-    set grepprg=rg\ --vimgrep\ --smart-case
-elseif executable('ag')
-    set grepprg=ag\ --vimgrep\ --smart-case
+    command! -nargs=+ Rg cexpr system('rg --vimgrep --smart-case '.<q-args>)
+endif
+if executable('ag')
+    command! -nargs=+ Ag cexpr system('ag --vimgrep --smart-case '.<q-args>)
 endif
 " }}}
 
@@ -86,22 +88,24 @@ command! -range Align <line1>,<line2>!sed 's/\s\+/~/g' | column -s'~' -t
 command! -nargs=1 -range AlignOn <line1>,<line2>!sed 's/\s\+<args>/ ~<args>/g' | column -s'~' -t
 
 " Headers
-command! -nargs=? Center call myfuncs#center(<q-args>)
+command! -nargs=? Section call myfuncs#section(<q-args>)
 command! -nargs=? Header call myfuncs#header(<q-args>)
 
-command! WhichCompiler echo compiler#which()
+command! Compiler call compiler#describe()
 command! -nargs=1 -complete=compiler CompileWith call compiler#with(<f-args>)
-command! DescribeCompiler call compiler#describe()
 
 " Edit my filetype/syntax plugin files for current filetype.
-command! -nargs=? -complete=compiler CompilerPlugin
-            \ exe 'keepj edit $HOME/.vim/after/compiler/' . (empty(<q-args>) ? compiler#which() : <q-args>) . '.vim'
+command! -nargs=? -complete=compiler EditCompiler
+    \ exe 'keepj edit $HOME/.vim/after/compiler/' . (empty(<q-args>) ? compiler#which() : <q-args>) . '.vim'
 
-command! -nargs=? -complete=filetype FiletypePlugin
-            \ exe 'keepj edit $HOME/.vim/after/ftplugin/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
+command! -nargs=? -complete=filetype EditFiletype
+    \ exe 'keepj edit $HOME/.vim/after/ftplugin/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
 
-command! -nargs=? -complete=filetype SyntaxPlugin
-            \ exe 'keepj edit $HOME/.vim/after/syntax/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
+command! -nargs=? -complete=filetype EditSyntax
+    \ exe 'keepj edit $HOME/.vim/after/syntax/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
+
+command! -nargs=? -complete=color EditColorscheme
+    \ execute 'keepj edit $HOME/.vim/after/colors/' . (empty(<q-args>) ? g:colors_name : <q-args>) . '.vim'
 "}}}
 
 
@@ -131,7 +135,7 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
-let mapleader = ' '
+let mapleader = '\'
 set wildcharm=<C-Z>
 
 " Window resizing with the arrow keys
@@ -148,6 +152,9 @@ nnoremap <c-y> 3<c-y>
 if maparg('<ESC>', 'n') ==# ''
     nnoremap <silent> <ESC> :nohlsearch<CR>
 endif
+if maparg('<SPACE>', 'n') ==# ''
+    nnoremap <silent> <SPACE> :nohlsearch<CR>
+endif
 
 " <F5> is always set to make the project
 nnoremap <F5> :make!<cr>
@@ -155,9 +162,10 @@ nnoremap <F5> :make!<cr>
 " Display Quickfix items
 nnoremap Q :clist<cr>
 
-" Show word under cursor in preview window
+" Preview word under cursor
 nnoremap <C-Space> <c-w>}
-
+" Preview selection
+vnoremap <C-Space> y:ptag<C-r>"<cr>
 " Close the preview window
 nnoremap <backspace> <c-w>z
 
@@ -192,47 +200,20 @@ nnoremap ]u :later<cr>
 "
 
 " Quick Keys
-nnoremap <leader><leader> :buffers<cr>
 vnoremap <leader>a :Align<cr>
 nnoremap <leader>x :!%:p<cr>
 vnoremap <leader>x :w !bash<cr>
 nnoremap <leader>b :buffer <C-Z>
-nnoremap <leader>w :bwipe<cr>
 nnoremap <leader>v :vert sbuffer <C-Z>
 nnoremap <leader>t :tab sbuffer <C-Z>
 nnoremap <leader>e :edit **/*
 nnoremap <leader>f :find **/*
+nnoremap <leader>c :edit $MYVIMRC<cr>
 
 " File Explorer
 nnoremap <leader>E :Explore<cr>
 nnoremap <leader>V :Vexplore<cr>
 nnoremap <leader>T :Texplore<cr>
-
-" (?) Help / Info
-nnoremap <leader>? :map <leader><cr>
-nnoremap <leader>/ :DescribeCompiler<cr>
-
-" (l) Lists
-nnoremap <leader>la :args<cr>
-nnoremap <leader>lb :ls<cr>
-nnoremap <leader>lc :changes<cr>
-nnoremap <leader>lj :jumps<cr>
-nnoremap <leader>ll :llist<cr>
-nnoremap <leader>lm :marks<cr>
-nnoremap <leader>lq :clist<cr>
-nnoremap <leader>lr :registers<cr>
-nnoremap <leader>lt :tags<cr>
-nnoremap <leader>lu :undolist<cr>
-
-" (c) Configuration
-nnoremap <leader>cv :edit $MYVIMRC<cr>
-nnoremap <leader>ca :edit ~/.vim/any.vim<cr>
-nnoremap <leader>cf :FiletypePlugin<cr>
-nnoremap <leader>cs :SyntaxPlugin<cr>
-nnoremap <leader>cc :CompilerPlugin<cr>
-nnoremap <leader>co :execute 'edit $HOME/.vim/after/colors/'.g:colors_name.'.vim'<cr>
-nnoremap <leader>ct :edit ~/.config/alacritty/alacritty.yml<cr>
-
 "}}}
 
 
@@ -249,8 +230,8 @@ let  g:netrw_alto       =  0
 
 " Personal plugins
 packadd! statusline
-packadd! differ
-packadd! pomodoro
+" packadd! differ
+" packadd! pomodoro
 
 " Install minpac as an optional package if it's not already installed.
 let minpac_path = has('nvim') ? '~/.config/nvim/pack/minpac/opt/minpac' : '~/.vim/pack/minpac/opt/minpac'
