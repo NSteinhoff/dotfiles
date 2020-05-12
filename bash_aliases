@@ -33,7 +33,7 @@ alias gtree='git ls-files | tree --fromfile --dirsfirst'
 alias dirs='dirs -v'
 
 # Syntax highlighting (no need for 'bat')
-which highlight &>/dev/null && alias hi='highlight -O ansi | less -RSX'
+which highlight &>/dev/null && alias hi='highlight -O ansi'
 
 # ---------- Java Version ---------
 [[ -z $JAVA_HOME && "$os" == linux && -x $(which java) ]] && JAVA_HOME=$(readlink -f $(which java) | sed "s:/bin/java::")
