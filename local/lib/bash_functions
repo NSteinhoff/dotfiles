@@ -45,7 +45,7 @@ repo_stats() {
     pushd $1 > /dev/null
     branch_name=$(git rev-parse --abbrev-ref HEAD)
     last_commit=$(git log -n 1 --pretty=format:'%an %ar')
-    echo "$(printf %-30s $1) [$branch_name] $last_commit"
+    echo "$(printf '\t%-30s' $1) [$branch_name] $last_commit"
     git status --short
     popd > /dev/null
 }
@@ -81,6 +81,7 @@ export -f repo_activity
 
 summarize_repos() {
     depth="${1:-2}"
+    echo "===Repositories==="
     find_repos $depth | parallel -k repo_stats
 }
 export -f summarize_repos
