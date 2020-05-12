@@ -566,12 +566,11 @@ window:
     x: 2
     y: 2
 key_bindings:
-  - { key: U,        mods: Alt,         action: ScrollPageUp,     mode: ~Alt       }
-  - { key: D,        mods: Alt,         action: ScrollPageDown,   mode: ~Alt       }
-  - { key: K,        mods: Alt,         action: ScrollLineUp,     mode: ~Alt       }
-  - { key: J,        mods: Alt,         action: ScrollLineDown,   mode: ~Alt       }
-  - { key: G,        mods: Alt,         action: ScrollToTop,      mode: ~Alt       }
-  - { key: G,        mods: Alt|Shift,   action: ScrollToBottom,   mode: ~Alt       }
+  - { key: U,   mods: Alt|Shift,   action: ScrollPageUp,     mode: ~Alt }
+  - { key: D,   mods: Alt|Shift,   action: ScrollPageDown,   mode: ~Alt }
+  - { key: K,   mods: Alt|Shift,   action: ScrollLineUp,     mode: ~Alt }
+  - { key: J,   mods: Alt|Shift,   action: ScrollLineDown,   mode: ~Alt }
+  - { key: G,   mods: Alt|Shift,   action: ScrollToBottom,   mode: ~Alt }
 
 font-iosevka: &iosevka
   normal:
