@@ -565,6 +565,7 @@ window:
   padding:
     x: 2
     y: 2
+
 key_bindings:
   - { key: U,   mods: Alt|Shift,   action: ScrollPageUp,     mode: ~Alt }
   - { key: D,   mods: Alt|Shift,   action: ScrollPageDown,   mode: ~Alt }
@@ -572,24 +573,25 @@ key_bindings:
   - { key: J,   mods: Alt|Shift,   action: ScrollLineDown,   mode: ~Alt }
   - { key: G,   mods: Alt|Shift,   action: ScrollToBottom,   mode: ~Alt }
 
-font-iosevka: &iosevka
-  normal:
-    family: Iosevka Term
-    style: Regular
-  bold:
-    family: Iosevka Term
-    style: Bold
-  italic:
-    family: Iosevka Term
-    style: Italic
-  size: 16
-  offset:
-    x: 0
-    y: 0
-  glyph_offset:
-    x: 0
-    y: 0
-  use_thin_strokes: true
+fonts:
+  iosevka: &iosevka
+    normal:
+      family: Iosevka Term
+      style: Regular
+    bold:
+      family: Iosevka Term
+      style: Bold
+    italic:
+      family: Iosevka Term
+      style: Italic
+    size: 16
+    offset:
+      x: 0
+      y: 0
+    glyph_offset:
+      x: 0
+      y: 0
+    use_thin_strokes: true
 
 font: *iosevka
 
