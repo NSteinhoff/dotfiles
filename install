@@ -21,7 +21,7 @@ installp() {
 }
 
 ensure_bin() {
-    [ -x "$1" ] || (echo "Installing $1 from $2" && curl "$2" > "$1" &>/dev/null && chmod u+x "$1")
+    [ -x "$1" ] || (echo "Installing $1 from $2" && curl -sSf "$2" -o "$1" && chmod u+x "$1")
 }
 
 
