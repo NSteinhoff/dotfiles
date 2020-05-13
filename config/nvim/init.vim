@@ -74,11 +74,22 @@ set tags+=./.git/tags,./.git/tags;,.git/tags,.git/tags;
 augroup tags
     autocmd!
     " FileType specific tags
-    autocmd FileType scala,rust,python if exists('&tagfunc') | set tagfunc=myfuncs#fttags  | endif
+    " autocmd FileType scala,rust,python if exists('&tagfunc') | set tagfunc=myfuncs#fttags  | endif
 augroup END
 
 
 "}}}
+
+
+" ------------------------------- Error Files ---------------------------------{{{
+augroup errorfiles
+    autocmd!
+    " Set the compiler to the root of an errorfile
+    " sbt.err -> :compiler sbt
+    " flake8.err -> :compiler flake8
+    autocmd BufReadPost *.err execute "compiler " . expand("<afile>:r") | cgetbuffer
+augroup END
+" }}}
 
 
 " ---------------------------------- Commands --------------------------------{{{
