@@ -79,7 +79,7 @@ install_dotfiles () {
 #  BIN
 # -----------------------------------------------------------------------------
 install_dotfiles local/bin/prompt_command
-install_dotfiles local/bin/docker-do
+install_dotfiles local/bin/docker-here
 ensure_bin ~/.local/bin/git-jump https://raw.githubusercontent.com/git/git/master/contrib/git-jump/git-jump
 
 # -----------------------------------------------------------------------------
