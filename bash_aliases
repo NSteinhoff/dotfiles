@@ -70,7 +70,7 @@ function_lib="$HOME/.local/lib/bash_functions"
 
 
 # ----------------------------- Docker Aliases ------------------------------
-which sbt &> /dev/null || alias sbt='docker run --rm --tty --interactive --volume $PWD:/app marnikow/sbt'
+alias docker-here='docker run -it --rm --user "$(id -u):$(id -g)" -v "$PWD:$PWD" -w "$PWD"'
 
 
 # --------------------------------- GREETING ----------------------------------
