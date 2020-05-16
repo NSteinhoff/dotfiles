@@ -167,11 +167,14 @@ if maparg('<SPACE>', 'n') ==# ''
     nnoremap <silent> <SPACE> :nohlsearch<CR>
 endif
 
-" <F5> is always set to make the project
+" CTRL-s and <F5> make the project
 nnoremap <F5> :make!<cr>
+nnoremap <c-s> :make<cr>
 
 " Display Quickfix items
 nnoremap Q :clist<cr>
+" Next error
+nnoremap <c-q> :cnext<cr>
 
 " Preview word under cursor
 nnoremap <C-Space> <c-w>}
@@ -179,6 +182,7 @@ nnoremap <C-Space> <c-w>}
 vnoremap <C-Space> y:ptag<C-r>"<cr>
 " Close the preview window
 nnoremap <backspace> <c-w>z
+
 
 " ------------------------ Cycling lists with ] and [ -------------------------
 nnoremap [a :previous<cr>
