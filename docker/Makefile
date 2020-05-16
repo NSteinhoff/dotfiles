@@ -5,10 +5,18 @@ pip:
 	docker build --build-arg from=python:latest -t pip .
 .PHONY: pip
 
-pipenv: pip
-	docker build -t pipenv -f Pipenv .
+pipenv: python-pipenv
+	docker build --build-arg from=python-pipenv -t pipenv .
 .PHONY: pipenv
 
 sbt:
 	docker build --build-arg from=marnikow/sbt -t sbt .
 .PHONY: sbt
+
+cargo:
+	docker build --build-arg from=rust -t cargo .
+.PHONY: cargo
+
+python-pipenv:
+	docker build -t python-pipenv -f Pipenv .
+.PHONY: python-pipenv

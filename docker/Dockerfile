@@ -16,4 +16,4 @@ RUN mkdir -p "$HOME/.local/bin"
 
 ENV PATH="$HOME/.local/bin:$PATH"
 
-CMD /bin/bash
+CMD ["/bin/bash"]
