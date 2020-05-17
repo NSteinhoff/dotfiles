@@ -61,7 +61,7 @@ xterm*|rxvt*)
     ;;
 esac
 
-export PROMPT_COMMAND="$HOME/.local/bin/prompt_command"
+export PROMPT_COMMAND="$HOME/.local/bin/bashbot"
 
 
 # ----------------------------- Helper Functions ------------------------------
