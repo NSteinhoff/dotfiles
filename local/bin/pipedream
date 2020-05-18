@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+set -e
+set -u
+set -o pipefail
+
+CMD_PREFIX="${1:->>>}"
+
+usage() {
+cat<<EOF
+Communicate with a running background process through pipes.
+
+Usage: "$0" [PREFIX]
+
+This script assumes that there is a process that consumes from 'pipe.in'
+and produces into 'pipe.out'.
+
+An option [PREFIX] can be provided (default is '>>>'). A line that starts
+with that prefix is printed before the result, such that you get.
+
+>>> my command
+the result
+
+This can be handy for writing documentation, especially doctests.
+
+
+Example:
+
+Create the input and output pipes
+$ mkfifo pipe.in pipe.out
+
+Abuse 'cat' to keep the input pipe open. The output pipe is kept open
+by the 'worker' unless it sends EOF after executing the commands.
+$ cat > pipe.in &
+
+Start the 'worker' process, such as a python interpreter
+$ python3 -i -u <pipe.in >pipe.out 2>err
+
+Send some commands to the interpreter
+$ echo 'a = 10; b = 20; print("a + b = ", a + b)'
+a + b = 30
+
+$ echo '>>> print("That is pretty awesome!")'
+>>> print("That is pretty awesome!")
+a + b = 30
+EOF
+}
+
+case "${1:-}" in
+    -h|--help) usage; exit 0;;
+    *) ;;
+esac
+
+if [[ ! (-p pipe.in && -p pipe.ou) ]]; then
+    echo "Error: 'pipe.in' or 'pipe.out' not found!"
+    echo ""
+    usage
+    exit 1
+fi
+
+while IFS= read -r line_in; do
+    if [[ "${line_in}" == "${CMD_PREFIX} "* ]]; then
+        echo "${line_in}"
+    fi
+    echo "${line_in#${CMD_PREFIX} }" > pipe.in &
+    while IFS= read -r -t 0.01 line_out; do
+        echo "${line_out}"
+    done < pipe.out
+done

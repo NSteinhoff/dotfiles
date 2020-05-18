@@ -95,7 +95,7 @@ install_dotfiles () {
 
 # ~/.local/bin
 # ============
-install_dotfiles local/bin/bashbot
+install_dotfiles local/bin/bashbot local/bin/pipedream
 ensure_bin ~/.local/bin/git-jump https://raw.githubusercontent.com/git/git/master/contrib/git-jump/git-jump
 
 # Helper functions
