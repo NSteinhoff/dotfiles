@@ -74,4 +74,4 @@ alias docker-here='docker run -it --rm --user "$(id -u):$(id -g)" -v "$PWD:$PWD"
 
 
 # --------------------------------- GREETING ----------------------------------
-greeting
+[[ ${PWD} == ${HOME} ]] && greeting

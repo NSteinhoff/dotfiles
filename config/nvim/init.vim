@@ -267,6 +267,9 @@ if exists('*minpac#init')
     " ||| Add plugins below |||
     " vvv                   vvv
 
+    " FFF
+    call minpac#add('dylanaraps/fff.vim')
+
     " REPL:
     " Tmux based REPL integration using 'tslime'
     call minpac#add('jgdavey/tslime.vim')

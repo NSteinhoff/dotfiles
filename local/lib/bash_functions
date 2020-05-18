@@ -163,6 +163,13 @@ git_branch_indicator() {
     echo -n "]"
 }
 
+# fff file manager with CD on exit
+f() {
+    (command -v fff &>/dev/null) || return 1
+    fff "$@"
+    cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"
+}
+
 # Greet the user
 #
 # This is meant to be run when starting a shell or when coming $HOME
