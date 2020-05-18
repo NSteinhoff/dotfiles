@@ -7,206 +7,182 @@
 #
 ############################
 
+DIR="${HOME}/dotfiles"
+BKPDIR="${HOME}/.dotfiles_bkp"
+LBIN="${HOME}/.local/bin"
+[ -d "${LBIN}" ] || mkdir -p "${LBIN}"
+
+case "${OSTYPE}" in
+    linux*) os="linux" ;;
+    darwin*) os="mac" ;;
+esac
+
+## DEFINE COLORS
+# probably don't change these
+if [ -x "$(command -v tput)" ]; then
+	bold="$(tput bold)"
+	black="$(tput setaf 0)"
+	red="$(tput setaf 1)"
+	green="$(tput setaf 2)"
+	yellow="$(tput setaf 3)"
+	blue="$(tput setaf 4)"
+	magenta="$(tput setaf 5)"
+	cyan="$(tput setaf 6)"
+	white="$(tput setaf 7)"
+	reset="$(tput sgr0)"
+fi
+
+# you can change these
+good="${reset}${bold}${green}"
+bad="${reset}${bold}${red}"
+info="${reset}"
+c1="${reset}${cyan}"
+c2="${reset}${magenta}"
+c3="${reset}${yellow}"
+
+# Confirm installation
 installp() {
     local answer
     local prompt="Do you wish to install '$@'? y(es)/n(o)"
     echo ""
-    while [[ ! $answer =~ y(es)?|no? ]]; do
-        read -n 1 -p "$prompt" answer
+    while [[ ! ${answer} =~ y(es)?|n(o)? ]]; do
+        read -n 1 -p "${prompt}" answer
     done
-    case $answer in
-        y*) echo " -> installing $@"; true;;
-        n*) echo " ... okay then"; false;;
+    case ${answer} in
+        y*) echo " -> installing $@"; true ;;
+        n*) echo " ... okay then"; false ;;
     esac
 }
 
+# Ensure that a downloadable binary is executable, else install it
 ensure_bin() {
     [ -x "$1" ] || (echo "Installing $1 from $2" && curl -sSf "$2" -o "$1" && chmod u+x "$1")
 }
 
 
-# -----------------------------------------------------------------------------
-#  SETUP
-# -----------------------------------------------------------------------------
-# {{{
-dir="$HOME/dotfiles"
-bkpdir="$HOME/.dotfiles_bkp"
-lbin="$HOME/.local/bin"
-[ -d "$lbin" ] || mkdir -p "$lbin"
-
-case "$OSTYPE" in
-    linux*) os="linux";;
-    darwin*) os="mac";;
-esac
-
 # Install the dotfiles passed as arguments
 #
 # Move any existing dotfiles in homedir to dotfiles_old directory,
 # then create symlinks from the homedir to any files in the
-# ~/dotfiles directory specified in $files
+# ~/dotfiles directory specified in ${files}
 install_dotfiles () {
-    files="$@"
     echo -e "\n\n"
     echo ">>>>>>>>>>>>>>>"
-    echo "Installing dotfiles: ${files[@]}"
-    for file in ${files[@]}; do
-        target="$dir/$file"
-        if [ ! -f "$target" ] && [ ! -d "$target" ]; then
-            echo "WARNING: File '$target' does not exist. Skipping."
+    echo "Installing dotfiles: $@"
+    for file; do
+        local target="${DIR}/${file}"
+        if [ ! -f "${target}" ] && [ ! -d "${target}" ]; then
+            echo "WARNING: File '${target}' does not exist. Skipping."
             continue
         fi
-        linkname="$HOME/.$file"
-        linkdir="${linkname%/*}"
-        echo "$file:"
-        if [ -L "$linkname" ]; then
+        local linkname="${HOME}/.${file}"
+        local linkdir="${linkname%/*}"
+        echo "${file}:"
+        if [ -L "${linkname}" ]; then
             echo -e "\tRemoving old symlink."
-            rm "$linkname"
+            rm "${linkname}"
         fi
-        if [ -f "$linkname" ] || [ -d "$linkname" ]; then
+        if [ -f "${linkname}" ] || [ -d "${linkname}" ]; then
             echo -e "\tBacking-up existing file."
-            mkdir -p "$bkpdir/${file%/*}"
-            mv -v "$linkname" "$bkpdir/$file"
+            mkdir -p "${BKPDIR}/${file%/*}"
+            mv -v "${linkname}" "${BKPDIR}/${file}"
         fi
-        [ -d "$linkdir" ] || mkdir -p "$linkdir"
-        echo -e "\tCreating symlink: $(ln -v -s $target $linkname)"
+        [ -d "${linkdir}" ] || mkdir -p "${linkdir}"
+        echo -e "\tCreating symlink: $(ln -v -s ${target} ${linkname})"
     done
 }
 
-# }}}
 
-
-# -----------------------------------------------------------------------------
-#  BIN
-# -----------------------------------------------------------------------------
+# ~/.local/bin
+# ============
 install_dotfiles local/bin/bashbot
 ensure_bin ~/.local/bin/git-jump https://raw.githubusercontent.com/git/git/master/contrib/git-jump/git-jump
 
-# -----------------------------------------------------------------------------
-#  LIB
-# -----------------------------------------------------------------------------
+# Helper functions
+# ================
 install_dotfiles local/lib/bash_functions
 
-# -----------------------------------------------------------------------------
-#  SHELL & TERMINAL
-# -----------------------------------------------------------------------------
-# {{{
-
-# BASH
+# Bash
 # ====
 install_dotfiles bash_aliases inputrc
-[ $os = "mac" ] && install_dotfiles bash_profile bashrc
+[ ${os} = "mac" ] && install_dotfiles bash_profile bashrc
 
-# TMUX
+# Tmux
 # ====
 install_dotfiles tmux.conf
 
-# ALACRITTY
+# Alacritty
 # =========
 install_dotfiles config/alacritty/alacritty.yml
 
-# }}}
-
-
-# -----------------------------------------------------------------------------
 # VSCode
-# -----------------------------------------------------------------------------
-# {{{
+# ======
 install_dotfiles config/Code/User/settings.json
 
-# }}}
-
-
-# -----------------------------------------------------------------------------
-#  GIT
-# -----------------------------------------------------------------------------
-# {{{
+# Git
+# ===
 install_dotfiles \
     git_template \
     gitconfig \
     gitignore
 
-# }}}
-
-# -----------------------------------------------------------------------------
-#  VIM
-# -----------------------------------------------------------------------------
-# {{{
+# Vim
+# ===
 install_dotfiles \
     vim \
     vimrc \
     gvimrc \
     config/nvim
 
-# }}}
-
-
-# -----------------------------------------------------------------------------
-#  CTAGS
-# -----------------------------------------------------------------------------
-# {{{
+# Ctags
+# =====
 install_dotfiles \
     ctags \
     ctags.d
 
-# }}}
-
-
-# -----------------------------------------------------------------------------
-#  FONTS
-# -----------------------------------------------------------------------------
-# {{{
+# Fonts
+# =====
 install_dotfiles \
     local/share/fonts/iosevka \
     local/share/fonts/monoid
 
-# }}}
-
-
-# -----------------------------------------------------------------------------
-# LINUX / UBUNTU
-# -----------------------------------------------------------------------------
-# {{{
-if [ $os = "linux" ]; then
-    installp "Essentials" && sudo apt install $(cat $dir/packages/essentials)
-    installp "Basic packages" && sudo apt install $(cat $dir/packages/basics)
-    installp "Extra packages" && sudo apt install $(cat $dir/packages/extras)
+# Linux / Ubuntu
+# ==============
+if [ ${os} = "linux" ]; then
+    installp "System Packages" && sudo apt install -y $(cat ${DIR}/packages/{essentials,basics,extras})
     installp "Neovim" &&
-        rm -f "$HOME/.local/bin/nvim" &&
-        curl -fsSL https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -o "$HOME/.local/bin/nvim" &&
-        chmod u+x "$HOME/.local/bin/nvim"
+        rm -f "${HOME}/.local/bin/nvim" &&
+        curl -fsSL https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -o "${HOME}/.local/bin/nvim" &&
+        chmod u+x "${HOME}/.local/bin/nvim"
 fi
 
-# }}}
-
-
-# -----------------------------------------------------------------------------
-#  CRAWL
-# -----------------------------------------------------------------------------
-# {{{
-if [ $os = "linux" ]; then
+# Crawl
+# =====
+if [ ${os} = "linux" ]; then
     install_dotfiles crawlrc
 
-    crawl="$HOME/.crawl"
-    [ -d "$crawl" ] || mkdir "$crawl"
-    if [ ! -f "$crawl/icon.png" ]; then
+    crawl="${HOME}/.crawl"
+    [ -d "${crawl}" ] || mkdir "${crawl}"
+    if [ ! -f "${crawl}/icon.png" ]; then
         echo "  Installing Crawl icon"
-        ln -s "$HOME/dotfiles/crawl/stone_soup_icon-512x512.png" "$crawl/icon.png"
+        ln -s "${HOME}/dotfiles/crawl/stone_soup_icon-512x512.png" "${crawl}/icon.png"
     fi
     if [ ! -f /usr/share/applications/crawl-online.desktop ]; then
         echo "  Installing desktop app for Crawl Online"
-        sudo cp "$HOME/dotfiles/crawl/crawl-online.desktop" "/usr/share/applications/crawl-online.desktop"
+        sudo cp "${HOME}/dotfiles/crawl/crawl-online.desktop" "/usr/share/applications/crawl-online.desktop"
     fi
     if [ ! -f /usr/share/applications/crawl-trunk.desktop ] && [ -x /usr/local/bin/crawl ]; then
         echo "  Installing desktop app for Crawl Trunk"
-        sudo cp "$HOME/dotfiles/crawl/crawl-trunk.desktop" "/usr/share/applications/crawl-trunk.desktop"
+        sudo cp "${HOME}/dotfiles/crawl/crawl-trunk.desktop" "/usr/share/applications/crawl-trunk.desktop"
     fi
-    if [ ! -f "$crawl"/cao_key ]; then
+    if [ ! -f "${crawl}"/cao_key ]; then
         echo "  Downloading Crawl CAO Key for online play"
-        curl https://crawl.develz.org/cao_key 2>/dev/null > "$crawl/cao_key" && chmod 600 "$crawl/cao_key"
+        curl https://crawl.develz.org/cao_key 2>/dev/null > "${crawl}/cao_key" && chmod 600 "${crawl}/cao_key"
     fi
+
+    echo "Happy crawling!"
 fi
 
-# }}}
-
-
-# vim:foldmethod=marker textwidth=0
+echo
+echo "${good}All done!${reset}"
+echo
