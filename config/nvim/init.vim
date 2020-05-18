@@ -216,7 +216,8 @@ nnoremap ]u :later<cr>
 
 " Quick Keys
 vnoremap <leader>a :Align<cr>
-nnoremap <leader>x :!%:p<cr>
+nnoremap <leader>! :!%:p<cr>
+nnoremap <leader>x :. w !bash<cr>
 vnoremap <leader>x :w !bash<cr>
 nnoremap <leader>b :buffer <C-Z>
 nnoremap <leader>v :vert sbuffer <C-Z>

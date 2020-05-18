@@ -1,3 +1,5 @@
+" Create an 80 column wide section header with lines above
+" and below the text
 function! myfuncs#section(words)
     let prefix = matchstr(&commentstring, '\S*\(\s*%s\)\@=').' '
     let fillchar = '-'
@@ -67,6 +69,14 @@ function! myfuncs#header(words)
     call cursor(line('.'), col('$'))
 endfunction
 
+" Filter out all tags that are not from the same filetype as the current buffer.
+"
+" This is sometimes useful in polyglot repos when you want to avoid jumping
+" across languages.
+"
+" Usage:
+"   set tagfunc=myfuncs#fttags
+"
 function! myfuncs#fttags(pattern, flags, info)
     let buf = a:info['buf_ffname']
     let ext = fnamemodify(buf, ':e')
