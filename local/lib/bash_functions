@@ -163,6 +163,12 @@ git_branch_indicator() {
     echo -n "]"
 }
 
+tmux_indicator() {
+    if [[ -n "${TMUX}" ]]; then
+        echo -en "[${GREEN}TMUX${NC}] "
+    fi
+}
+
 # fff file manager with CD on exit
 f() {
     (command -v fff &>/dev/null) || return 1

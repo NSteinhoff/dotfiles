@@ -50,7 +50,7 @@ case "${1:-}" in
     *) ;;
 esac
 
-if [[ ! (-p pipe.in && -p pipe.ou) ]]; then
+if [[ ! (-p pipe.in && -p pipe.out) ]]; then
     echo "Error: 'pipe.in' or 'pipe.out' not found!"
     echo ""
     usage
