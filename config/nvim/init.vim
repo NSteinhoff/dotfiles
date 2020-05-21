@@ -169,6 +169,7 @@ endif
 
 " CTRL-s and <F5> make the project
 nnoremap <F5> :make!<cr>
+nnoremap <c-s> :make<cr>
 
 " Display Quickfix items
 nnoremap Q :clist<cr>
