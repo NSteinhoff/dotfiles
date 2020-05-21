@@ -52,10 +52,10 @@ which pyenv &>/dev/null && eval "$(pyenv init -)"
 
 # ---------------------------------- PROMPT -----------------------------------
 case "$TERM" in
-xterm*|rxvt*)
+xterm*|rxvt*|tmux*|screen*)
     PS1_tail='\$ '
     PS1_head="${PS1%'\$ '} "
-    export PS1="$PS1_head"'$(git_branch_indicator)[\j]'"\n$PS1_tail"
+    export PS1='$(tmux_indicator)'"$PS1_head"'$(git_branch_indicator)[\j]'"\n$PS1_tail"
     ;;
 *)
     ;;
