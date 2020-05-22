@@ -6,11 +6,15 @@
 # Check if certain basic tools are installed, and install them if they aren't.
 #
 ############################
+set -euo pipefail
 
-DIR="${HOME}/dotfiles"
-BKPDIR="${HOME}/.dotfiles_bkp"
-LBIN="${HOME}/.local/bin"
-[ -d "${LBIN}" ] || mkdir -p "${LBIN}"
+DOTFILES="${HOME}/dotfiles"
+LOCAL="${HOME}/.local"
+BACKUP="${LOCAL}/share/dotfiles_backup"
+BIN="${LOCAL}/bin"
+SHARE="${LOCAL}/share"
+[ -d "${BIN}" ] || mkdir -p "${BIN}"
+[ -d "${SHARE}" ] || mkdir -p "${SHARE}"
 
 case "${OSTYPE}" in
     linux*) os="linux" ;;
@@ -42,7 +46,7 @@ c3="${reset}${yellow}"
 
 # Confirm installation
 installp() {
-    local answer
+    local answer=""
     local prompt="Do you wish to install '$@'? y(es)/n(o)"
     echo ""
     while [[ ! ${answer} =~ y(es)?|n(o)? ]]; do
@@ -70,7 +74,7 @@ install_dotfiles () {
     echo ">>>>>>>>>>>>>>>"
     echo "Installing dotfiles: $@"
     for file; do
-        local target="${DIR}/${file}"
+        local target="${DOTFILES}/${file}"
         if [ ! -f "${target}" ] && [ ! -d "${target}" ]; then
             echo "WARNING: File '${target}' does not exist. Skipping."
             continue
@@ -84,8 +88,8 @@ install_dotfiles () {
         fi
         if [ -f "${linkname}" ] || [ -d "${linkname}" ]; then
             echo -e "\tBacking-up existing file."
-            mkdir -p "${BKPDIR}/${file%/*}"
-            mv -v "${linkname}" "${BKPDIR}/${file}"
+            mkdir -p "${BACKUP}/${file%/*}"
+            mv -v "${linkname}" "${BACKUP}/${file}"
         fi
         [ -d "${linkdir}" ] || mkdir -p "${linkdir}"
         echo -e "\tCreating symlink: $(ln -v -s ${target} ${linkname})"
@@ -96,7 +100,7 @@ install_dotfiles () {
 # ~/.local/bin
 # ============
 install_dotfiles local/bin/bashbot local/bin/pipedream
-ensure_bin ~/.local/bin/git-jump https://raw.githubusercontent.com/git/git/master/contrib/git-jump/git-jump
+ensure_bin "${BIN}/git-jump" https://raw.githubusercontent.com/git/git/master/contrib/git-jump/git-jump
 
 # Helper functions
 # ================
@@ -149,11 +153,11 @@ install_dotfiles \
 # Linux / Ubuntu
 # ==============
 if [ ${os} = "linux" ]; then
-    installp "System Packages" && sudo apt install -y $(cat ${DIR}/packages/{essentials,basics,extras})
+    installp "System Packages" && sudo apt install -y $(cat ${DOTFILES}/packages/{essentials,basics,extras})
     installp "Neovim" &&
-        rm -f "${HOME}/.local/bin/nvim" &&
-        curl -fsSL https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -o "${HOME}/.local/bin/nvim" &&
-        chmod u+x "${HOME}/.local/bin/nvim"
+        rm -f "${BIN}/nvim" &&
+        curl -fsSL https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -o "${BIN}/nvim" &&
+        chmod u+x "${BIN}/nvim"
 fi
 
 # Crawl
@@ -161,26 +165,46 @@ fi
 if [ ${os} = "linux" ]; then
     install_dotfiles crawlrc
 
-    crawl="${HOME}/.crawl"
-    [ -d "${crawl}" ] || mkdir "${crawl}"
-    if [ ! -f "${crawl}/icon.png" ]; then
+    crawld="${SHARE}/crawl"
+    [ -d "${crawld}" ] || mkdir "${crawld}"
+    if [ ! -f "${crawld}/icon.png" ]; then
         echo "  Installing Crawl icon"
-        ln -s "${HOME}/dotfiles/crawl/stone_soup_icon-512x512.png" "${crawl}/icon.png"
+        ln -s "${DOTFILES}/crawl/stone_soup_icon-512x512.png" "${crawld}/icon.png"
     fi
-    if [ ! -f /usr/share/applications/crawl-online.desktop ]; then
+    if [ ! -f "${SHARE}/applications/crawl-online.desktop" ]; then
         echo "  Installing desktop app for Crawl Online"
-        sudo cp "${HOME}/dotfiles/crawl/crawl-online.desktop" "/usr/share/applications/crawl-online.desktop"
+        sudo cp "${DOTFILES}/crawl/crawl-online.desktop" "${SHARE}/applications/crawl-online.desktop"
     fi
-    if [ ! -f /usr/share/applications/crawl-trunk.desktop ] && [ -x /usr/local/bin/crawl ]; then
+    if [ ! -f "${SHARE}/applications/crawl-trunk.desktop" ] && [ -x /usr/local/bin/crawl ]; then
         echo "  Installing desktop app for Crawl Trunk"
-        sudo cp "${HOME}/dotfiles/crawl/crawl-trunk.desktop" "/usr/share/applications/crawl-trunk.desktop"
+        sudo cp "${DOTFILES}/crawl/crawl-trunk.desktop" "${SHARE}/applications/crawl-trunk.desktop"
     fi
-    if [ ! -f "${crawl}"/cao_key ]; then
+    if [ ! -f "${crawld}"/cao_key ]; then
         echo "  Downloading Crawl CAO Key for online play"
-        curl https://crawl.develz.org/cao_key 2>/dev/null > "${crawl}/cao_key" && chmod 600 "${crawl}/cao_key"
+        curl https://crawl.develz.org/cao_key 2>/dev/null > "${crawld}/cao_key" && chmod 600 "${crawld}/cao_key"
     fi
 
     echo "Happy crawling!"
+fi
+
+# Brogue
+# ======
+if [ ${os} = "linux" ]; then
+    echo "Install Brogue CE"
+    brogued="${SHARE}/brogue_ce"
+    if [ !  -d "${brogued}" ]; then
+        mkdir -p "${brogued}"
+        pushd "${brogued}"
+        curl -sSfL "https://github.com/tmewett/BrogueCE/releases/download/v1.8.3/BrogueCE-1.8.3-linux-x86_64.tar.gz" -o brogue_ce.tar.gz
+        tar -xzf brogue_ce.tar.gz
+        rm brogue_ce.tar.gz
+        popd
+    fi
+    if [ ! -f "${SHARE}/applications/brogue.desktop" ]; then
+        "${brogued}/make-link-for-desktop.sh"
+        mv "${brogued}/brogue.desktop" "${SHARE}/applications/"
+    fi
+
 fi
 
 echo
