@@ -183,6 +183,9 @@ if [ ${os} = "linux" ]; then
         echo "  Downloading Crawl CAO Key for online play"
         curl https://crawl.develz.org/cao_key 2>/dev/null > "${crawld}/cao_key" && chmod 600 "${crawld}/cao_key"
     fi
+    if [ ! -x /usr/games/crawl ]; then
+        sudo crawl/install
+    fi
 
     echo "Happy crawling!"
 fi

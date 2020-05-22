@@ -1,0 +1,16 @@
+#!/bin/bash
+
+crawl_repo='deb https://crawl.develz.org/debian crawl 0.24'
+if [ -z "$(grep "${crawl_repo}" /etc/apt/sources.list)" ]; then
+    # Install the source repository
+    echo "${crawl_repo}" | tee -a /etc/apt/sources.list
+
+    # Install the DCSS signing key
+    curl https://crawl.develz.org/debian/pubkey | apt-key add -
+
+    # update your package list
+    apt-get update
+fi
+
+# install console version
+apt-get install crawl
