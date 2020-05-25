@@ -1,3 +1,1 @@
-augroup taskpaper
-     au! BufRead,BufNewFile *.taskpaper   setfiletype taskpaper
-augroup END
+autocmd BufRead,BufNewFile *.taskpaper setf taskpaper

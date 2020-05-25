@@ -1,11 +1,9 @@
 set define=^\\s*\\(def\\\|class\\)
 
-compiler mypy
+compiler flake8
 
 iabbrev <buffer> ifmain if __name__ == "__main__":
 
-setlocal keywordprg=:DD
-
-nnoremap <buffer> <F6> :!black %<cr>
-nnoremap <buffer> <F7> :CompileWith flake8<cr>
-nnoremap <buffer> <F8> :CompileWith pytest<cr>
+if executable('black')
+    nnoremap <F6> :!black %<cr>
+endif

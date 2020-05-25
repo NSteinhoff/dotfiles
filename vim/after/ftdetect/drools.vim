@@ -1,1 +1,1 @@
-au BufNewFile,BufRead *.drl set filetype=drools
+autocmd BufNewFile,BufRead *.drl setf drools
