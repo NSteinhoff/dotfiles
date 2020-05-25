@@ -150,6 +150,12 @@ install_dotfiles \
     local/share/fonts/iosevka \
     local/share/fonts/monoid
 
+# Language Tools
+# ==============
+install_dotfiles \
+    config/flake8 \
+    darglint
+
 # Linux / Ubuntu
 # ==============
 if [ ${os} = "linux" ]; then
