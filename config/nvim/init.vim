@@ -8,7 +8,6 @@ augroup END
 
 
 " --------------------------------- UI -----------------------------------{{{
-set splitright
 set laststatus=2
 set inccommand=split
 
@@ -107,18 +106,22 @@ command! -nargs=1 -complete=compiler CompileWith call compiler#with(<f-args>)
 
 " Edit my filetype/syntax plugin files for current filetype.
 command! -nargs=? -complete=compiler EditCompiler
-    \ exe 'keepj edit $HOME/.vim/after/compiler/' . (empty(<q-args>) ? compiler#which() : <q-args>) . '.vim'
+            \ exe 'keepj edit $HOME/.vim/after/compiler/' . (empty(<q-args>) ? compiler#which() : <q-args>) . '.vim'
 
 command! -nargs=? -complete=filetype EditFiletype
-    \ exe 'keepj edit $HOME/.vim/after/ftplugin/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
+            \ exe 'keepj edit $HOME/.vim/after/ftplugin/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
 
 command! -nargs=? -complete=filetype EditSyntax
-    \ exe 'keepj edit $HOME/.vim/after/syntax/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
+            \ exe 'keepj edit $HOME/.vim/after/syntax/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
 
 command! -nargs=? -complete=color EditColorscheme
-    \ execute 'keepj edit $HOME/.vim/after/colors/' . (empty(<q-args>) ? g:colors_name : <q-args>) . '.vim'
+            \ execute 'keepj edit $HOME/.vim/after/colors/' . (empty(<q-args>) ? g:colors_name : <q-args>) . '.vim'
 
 command! -range Run echo join(map(getline(<line1>, <line2>), { k, v -> trim(system(v)) }), "\n")
+
+" Git commands
+command! -range Blame echo join(systemlist("git -C " . shellescape(expand('%:p:h')) . " blame -L <line1>,<line2> " . expand('%:t')), "\n")
+command! -bar -nargs=* Jump cexpr system('git jump ' . expand(<q-args>))
 "}}}
 
 
