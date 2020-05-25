@@ -32,6 +32,9 @@ alias gtree='git ls-files | tree --fromfile --dirsfirst'
 # Listing dirs
 alias dirs='dirs -v'
 
+# Web search
+alias q='_() { q=${1:-$(xsel -op)}; xdg-open "https://duckduckgo.com/?q=${q}"; }; _'
+
 # Syntax highlighting (no need for 'bat')
 which highlight &>/dev/null && alias hi='highlight -O ansi'
 

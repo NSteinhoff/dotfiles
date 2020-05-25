@@ -292,6 +292,9 @@ if exists('*minpac#init')
     call minpac#add('vim-python/python-syntax')
     call minpac#add('Vimjas/vim-python-pep8-indent')
     call minpac#add('vim-scripts/bats.vim')
+
+    " External Documentation Lookup
+    call minpac#add('romainl/vim-devdocs')
 endif
 
 " Load all packages in 'start/'

@@ -5,3 +5,7 @@ compiler cargo
 if executable('rustfmt')
     nnoremap <F6> :!rustfmt %<cr>
 endif
+
+if exists(':DD')
+    setlocal keywordprg=:DD
+endif
