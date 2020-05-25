@@ -117,6 +117,8 @@ command! -nargs=? -complete=filetype EditSyntax
 
 command! -nargs=? -complete=color EditColorscheme
     \ execute 'keepj edit $HOME/.vim/after/colors/' . (empty(<q-args>) ? g:colors_name : <q-args>) . '.vim'
+
+command! -range Run echo join(map(getline(<line1>, <line2>), { k, v -> trim(system(v)) }), "\n")
 "}}}
 
 
@@ -217,8 +219,8 @@ nnoremap ]u :later<cr>
 " Quick Keys
 vnoremap <leader>a :Align<cr>
 nnoremap <leader>! :!%:p<cr>
-nnoremap <leader>x :. w !bash<cr>
-vnoremap <leader>x :w !bash<cr>
+nnoremap <leader>x :Run<cr>
+vnoremap <leader>x :Run<cr>
 nnoremap <leader>b :buffer <C-Z>
 nnoremap <leader>v :vert sbuffer <C-Z>
 nnoremap <leader>t :tab sbuffer <C-Z>
@@ -279,16 +281,17 @@ if exists('*minpac#init')
     " call minpac#add('bhurlow/vim-parinfer')
     " call minpac#add('tpope/vim-fireplace')
 
-    " FTPlugings:
-    " call minpac#add('sheerun/vim-polyglot')
-    call minpac#add('vim-python/python-syntax')
-    call minpac#add('Vimjas/vim-python-pep8-indent')
-
     " Language Server:
     " call minpac#add('neovim/nvim-lsp')
 
     " Tagbar
     call minpac#add('majutsushi/tagbar')
+
+    " FTPlugings:
+    " call minpac#add('sheerun/vim-polyglot')
+    call minpac#add('vim-python/python-syntax')
+    call minpac#add('Vimjas/vim-python-pep8-indent')
+    call minpac#add('vim-scripts/bats.vim')
 endif
 
 " Load all packages in 'start/'
