@@ -41,7 +41,7 @@ set formatoptions+=croql
 
 " --------------------------------- Display ----------------------------------{{{
 set laststatus=0
-set number
+set nonumber
 set foldmethod=indent
 
 set scrolloff=10

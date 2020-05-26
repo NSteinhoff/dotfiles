@@ -8,9 +8,8 @@ augroup END
 
 
 " --------------------------------- UI -----------------------------------{{{
-set laststatus=2
 set inccommand=split
-
+set rulerformat=%25(%l,%c%V%M%=%P\ %y%)
 "}}}
 
 
@@ -27,7 +26,6 @@ endif
 
 
 " ---------------------------------- Colors -----------------------------------{{{
-
 " Gracefully handle unavailable colorscheme. The desired colorscheme
 " might not be installed yet. This happens after cloning and installing
 " the dotfiles for the first time. Otherwise you'd have to click through
@@ -40,19 +38,16 @@ catch E185
     colorscheme default
     set background=dark
 endtry
-
 "}}}
 
 
 " ------------------------------- Autoread -------------------------------------{{{
-
 set autoread
 augroup autoread_settings
     autocmd!
     " check for file modification and trigger realoading
     autocmd CursorHold * silent! checktime
 augroup END
-
 "}}}
 
 
@@ -121,42 +116,30 @@ command! -range Run echo join(map(getline(<line1>, <line2>), { k, v -> trim(syst
 
 " Git commands
 command! -range Blame echo join(systemlist("git -C " . shellescape(expand('%:p:h')) . " blame -L <line1>,<line2> " . expand('%:t')), "\n")
-command! -bar -nargs=* Jump cexpr system('git jump ' . expand(<q-args>))
+command! -bar -nargs=+ Jump cexpr system('git jump ' . expand(<q-args>))
 "}}}
 
 
 " --------------------------------- Mappings ---------------------------------{{{
+" Free:
+" <BACKSPACE>
+" <C-S>
+" <> (formatting?)
+"
+" <C-J> (forward, down)
+" <C-K> (back, up, keyword)
+" <C-L> (forward, right)
+" <C-H> (forward, left, home)
+"
+" z<SPACE> (folding?, scrolling?)
 
 " Move over visual lines unless a count is given
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 
-" Hard Mode
-" nnoremap h <NOP>
-" nnoremap j <NOP>
-" nnoremap k <NOP>
-" nnoremap l <NOP>
-" vnoremap h <NOP>
-" vnoremap j <NOP>
-" vnoremap k <NOP>
-" vnoremap l <NOP>
-" nnoremap <BS> <NOP>
-" vnoremap <BS> <NOP>
-" inoremap <BS> <NOP>
-
-" Navigate Windows
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-
-" Explicitly map the <leader> key. Otherwise some plugins use their own default.
-let mapleader = '\'
-set wildcharm=<C-Z>
-
 " Window resizing with the arrow keys
-map  <right>  5<c-w>>  "  increase  width
 map  <left>   5<c-w><  "  decrease  width
+map  <right>  5<c-w>>  "  increase  width
 map  <up>     5<c-w>+  "  increase  height
 map  <down>   5<c-w>-  "  decrease  height
 
@@ -164,7 +147,7 @@ map  <down>   5<c-w>-  "  decrease  height
 nnoremap <c-e> 3<c-e>
 nnoremap <c-y> 3<c-y>
 
-" Clear search highlights
+" --- Clear search highlights ---
 if maparg('<ESC>', 'n') ==# ''
     nnoremap <silent> <ESC> :nohlsearch<CR>
 endif
@@ -172,52 +155,40 @@ if maparg('<SPACE>', 'n') ==# ''
     nnoremap <silent> <SPACE> :nohlsearch<CR>
 endif
 
-" CTRL-s and <F5> make the project
+" --- :make ---
+" m<SPACE> and <F5> make the project
 nnoremap <F5> :make!<cr>
-nnoremap <c-s> :make<cr>
+nnoremap m<SPACE> :make<cr>
 
-" Display Quickfix items
-nnoremap Q :clist<cr>
-" Next error
-nnoremap <c-q> :cnext<cr>
+" --- Errors: Quickfix / Location Lists ---
+" Display
+nnoremap <c-q> :clist<cr>
 
+" --- Preview ---
 " Preview word under cursor
 nnoremap <C-Space> <c-w>}
 " Preview selection
 vnoremap <C-Space> y:ptag<C-r>"<cr>
 " Close the preview window
-nnoremap <backspace> <c-w>z
+nnoremap <C-W><C-SPACE> <c-w>z
 
-
-" ------------------------ Cycling lists with ] and [ -------------------------
-nnoremap [a :previous<cr>
-nnoremap ]a :next<cr>
-
-nnoremap [b :bprevious<cr>
-nnoremap ]b :bnext<cr>
+" --- Cycling ---
+" Quickly cycling a list
+" (currently Buffers)
 nnoremap <c-p> :bprevious<cr>
 nnoremap <c-n> :bnext<cr>
 
-nnoremap [q :cprevious<cr>
-nnoremap ]q :cnext<cr>
-
-nnoremap [l :lprevious<cr>
-nnoremap ]l :lnext<cr>
-
-nnoremap [t :tprevious<cr>
-nnoremap ]t :tnext<cr>
-
-nnoremap [p :ptprevious<cr>
-nnoremap ]p :ptnext<cr>
-
-nnoremap [u :earlier<cr>
-nnoremap ]u :later<cr>
+" --- Toggle Settings ---
+" Exetending 'vim-unimpaired'
+" T: s(T)atusbar
+nnoremap <silent> [ot :set ls=2<cr>
+nnoremap <silent> ]ot :set ls=0<cr>
+nnoremap <expr> <silent> yot (&laststatus == 2 ? ':set ls=0<cr>' : ':set ls=2<cr>')
 
 " --------------------------------- <LEADER> ----------------------------------
-"
-" - Mappings for the most used commands
-" - Don't replace builtin mappings except for the preview tags (those are terrible)
-"
+" Explicitly map the <leader> key. Otherwise some plugins use their own default.
+let mapleader = '\'
+set wildcharm=<C-Z>
 
 " Quick Keys
 vnoremap <leader>a :Align<cr>
@@ -235,6 +206,26 @@ nnoremap <leader>c :edit $MYVIMRC<cr>
 nnoremap <leader>E :Explore<cr>
 nnoremap <leader>V :Vexplore<cr>
 nnoremap <leader>T :Texplore<cr>
+
+" ---------------------------------- Unused -----------------------------------
+" Hard Mode
+" nnoremap h <NOP>
+" nnoremap j <NOP>
+" nnoremap k <NOP>
+" nnoremap l <NOP>
+" vnoremap h <NOP>
+" vnoremap j <NOP>
+" vnoremap k <NOP>
+" vnoremap l <NOP>
+" nnoremap <BS> <NOP>
+" vnoremap <BS> <NOP>
+" inoremap <BS> <NOP>
+
+" Navigate Windows
+" nnoremap <c-j> <c-w>j
+" nnoremap <c-k> <c-w>k
+" nnoremap <c-h> <c-w>h
+" nnoremap <c-l> <c-w>l
 "}}}
 
 
@@ -271,6 +262,8 @@ if exists('*minpac#init')
     " |||                   |||
     " ||| Add plugins below |||
     " vvv                   vvv
+    " Mappings
+    call minpac#add('tpope/vim-unimpaired')
 
     " FFF
     call minpac#add('dylanaraps/fff.vim')
@@ -322,7 +315,7 @@ nmap  <C-c>r      <Plug>SetTmuxVars
 
 " Tagbar
 if exists(':TagbarToggle')
-    nnoremap <leader><backspace> :silent TagbarToggle<cr>
+    nnoremap <c-w><backspace> :silent TagbarToggle<cr>
 endif
 
 "}}}

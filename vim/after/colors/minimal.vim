@@ -230,6 +230,7 @@ let s:ui_groups.status_active = [
 let s:ui_groups.status_inactive = [
 \    "ColorColumn",
 \    "CursorColumn",
+\    "CursorLine",
 \    "StatusLineNC",
 \    "StatusLineTermNC",
 \ ]
