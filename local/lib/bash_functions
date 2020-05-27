@@ -180,7 +180,7 @@ f() {
 #
 # This is meant to be run when starting a shell or when coming $HOME
 greeting() {
-    [ -x $(command -v ufetch) ] && ufetch
+    [ -x "$(command -v ufetch)" ] && ufetch
     man_page_of_the_day
     recent_activity
     list_tasks
