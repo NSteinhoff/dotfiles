@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+cat<<EOF | docker build -f - "${@:2}" .
+FROM $1
+
+RUN useradd --create-home --user-group --shell /bin/bash --uid "$(id -u)" "$USER"
+
+USER "$USER"
+ENV HOME="$HOME"
+
+WORKDIR "$HOME"
+EOF

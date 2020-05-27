@@ -1,22 +1,25 @@
+.ONESHELL:
+
 all: pipenv sbt
 .PHONY: all
 
 pip:
-	docker build --build-arg from=python:latest -t pip .
+	docker-inherit python:latest -t pip
 .PHONY: pip
 
-pipenv: python-pipenv
-	docker build --build-arg from=python-pipenv -t pipenv .
+pipenv:
+	@cat<<-EOF | docker build -f - -t python-pipenv .
+	    FROM python:latest
+	    RUN pip install pipenv
+	EOF
+	docker-inherit python-pipenv -t pipenv
+	@docker rmi python-pipenv
 .PHONY: pipenv
 
 sbt:
-	docker build --build-arg from=marnikow/sbt -t sbt .
+	docker-inherit marnikow/sbt -t sbt
 .PHONY: sbt
 
 cargo:
-	docker build --build-arg from=rust -t cargo .
+	docker-inherit rust -t cargo
 .PHONY: cargo
-
-python-pipenv:
-	docker build -t python-pipenv -f Pipenv .
-.PHONY: python-pipenv

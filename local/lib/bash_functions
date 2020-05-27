@@ -185,3 +185,13 @@ greeting() {
     recent_activity
     list_tasks
 }
+
+docker-start() {
+    docker run -itd --rm -v "$HOME:$HOME" -w "$PWD" --name "$1" "$1" bash &&
+    eval "$1() { dexec $1 $1 \$@ ; }" &&
+    eval "export -f $1" &&
+    eval "stop-$1() { docker stop $1 && unset -f $1 && unset -f stop-$1; }" &&
+    eval "export -f stop-$1" &&
+    echo "Use '\$ $1 [ARGS...]' to run $1 commands in your new container."
+}
+export -f docker-start

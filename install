@@ -99,11 +99,11 @@ install_dotfiles () {
 
 # ~/.local/bin
 # ============
-install_dotfiles local/bin/bashbot local/bin/pipedream local/bin/git-jump
+install_dotfiles $(find local/bin/ -perm -u=x -type f -exec realpath --relative-to ${DOTFILES} {} \;)
 
 # Helper functions
 # ================
-install_dotfiles local/lib/bash_functions
+install_dotfiles $(find local/lib/ -type f -exec realpath --relative-to ${DOTFILES} {} \;)
 
 # Bash
 # ====
