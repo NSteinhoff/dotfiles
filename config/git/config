@@ -14,7 +14,7 @@
     stl     = !git --no-pager stash list
     brl     = !git --no-pager branch --list
     ctags   = !.git/hooks/ctags
-    prull   = !git fetch --prune && git pull
+    prull   = !git fetch --prune && git pull --ff-only
 [color]
     pager = true
     ui = auto
