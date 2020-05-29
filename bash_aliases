@@ -72,9 +72,5 @@ function_lib="$HOME/.local/lib/bash_functions"
 [ -f "$function_lib" ] && source "$function_lib"
 
 
-# ----------------------------- Docker Aliases ------------------------------
-alias docker-here='docker run -it --rm --user "$(id -u):$(id -g)" -v "$PWD:$PWD" -w "$PWD"'
-
-
 # --------------------------------- GREETING ----------------------------------
 [[ ${PWD} == ${HOME} ]] && greeting

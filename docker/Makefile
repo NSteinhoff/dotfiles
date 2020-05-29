@@ -1,5 +1,6 @@
 .ONESHELL:
 
+
 all: pipenv sbt
 .PHONY: all
 
@@ -8,12 +9,12 @@ pip:
 .PHONY: pip
 
 pipenv:
-	@cat<<-EOF | docker build -f - -t python-pipenv .
+	@cat<<-EOF | docker build -f - -t pipenv:tmp . &&
 	    FROM python:latest
 	    RUN pip install pipenv
 	EOF
-	docker-inherit python-pipenv -t pipenv
-	@docker rmi python-pipenv
+	    docker-inherit pipenv:tmp -t pipenv &&
+	    docker rmi pipenv:tmp
 .PHONY: pipenv
 
 sbt:
