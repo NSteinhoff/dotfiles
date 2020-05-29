@@ -125,9 +125,9 @@ install_dotfiles config/Code/User/settings.json
 # Git
 # ===
 install_dotfiles \
-    git_template \
-    gitconfig \
-    gitignore
+    config/git/template \
+    config/git/config \
+    config/git/ignore
 
 # Vim
 # ===

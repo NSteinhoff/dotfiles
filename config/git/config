@@ -50,6 +50,6 @@
 [mergetool "nvimdiff2"]
     cmd = nvim -d $LOCAL $MERGED $REMOTE
 [init]
-    templatedir = ~/.git_template
+    templatedir = ~/.config/git/template
 [rerere]
     enabled = true
