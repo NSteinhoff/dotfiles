@@ -37,6 +37,7 @@ alias q='_() { q=${1:-$(xsel -op)}; xdg-open "https://duckduckgo.com/?q=${q}"; }
 
 # Syntax highlighting (no need for 'bat')
 which highlight &>/dev/null && alias hi='highlight -O ansi'
+which highlight &>/dev/null && alias hil='_() { highlight -O ansi $@ | less -R; }; _'
 
 # ---------- Java Version ---------
 [[ -z $JAVA_HOME && "$os" == linux && -x $(which java) ]] && JAVA_HOME=$(readlink -f $(which java) | sed "s:/bin/java::")
