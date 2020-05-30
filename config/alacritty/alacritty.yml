@@ -584,7 +584,7 @@ fonts:
     italic:
       family: Iosevka Term
       style: Italic
-    size: 16
+    size: 14
     offset:
       x: 0
       y: 0
