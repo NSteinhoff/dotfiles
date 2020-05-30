@@ -266,7 +266,7 @@ if exists('*minpac#init')
     call minpac#add('tpope/vim-unimpaired')
 
     " FFF
-    call minpac#add('dylanaraps/fff.vim')
+    " call minpac#add('dylanaraps/fff.vim')
 
     " REPL:
     " Tmux based REPL integration using 'tslime'
