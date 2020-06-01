@@ -44,10 +44,6 @@ set laststatus=0
 set nonumber
 set foldmethod=indent
 
-set scrolloff=10
-set sidescrolloff=5
-set nowrap
-
 set list
 set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:+
 

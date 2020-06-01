@@ -12,15 +12,25 @@ set inccommand=split
 set rulerformat=%25(%l,%c%V%M%=%P\ %y%)
 "}}}
 
+" --------------------------------- Editing -----------------------------------{{{
+set wrap
+set linebreak
+set breakindent
+let &showbreak = '... '
+set showmatch
+" }}}
+
 
 " -------------------------------- Searching ----------------------------------{{{
 set wildignore+=*/target/*
 
 if executable('rg')
     command! -nargs=+ Rg cexpr system('rg --vimgrep --smart-case '.<q-args>)
+    nnoremap <leader>rg :execute 'Rg '.expand('<cword>')<CR>
 endif
 if executable('ag')
     command! -nargs=+ Ag cexpr system('ag --vimgrep --smart-case '.<q-args>)
+    nnoremap <leader>ag :execute 'Ag '.expand('<cword>')<CR>
 endif
 " }}}
 
@@ -137,15 +147,21 @@ command! -bar -nargs=+ Jump cexpr system('git jump ' . expand(<q-args>))
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 
+" Scrolling the window with CTRL-HJKL
+nnoremap <C-J> 3<C-E>
+nnoremap <C-K> 3<C-Y>
+nnoremap <C-H> 3zh
+nnoremap <C-L> 3zl
+
 " Window resizing with the arrow keys
-map  <left>   5<c-w><  "  decrease  width
-map  <right>  5<c-w>>  "  increase  width
-map  <up>     5<c-w>+  "  increase  height
-map  <down>   5<c-w>-  "  decrease  height
+map  <left>   5<C-W><  "  decrease  width
+map  <right>  5<C-W>>  "  increase  width
+map  <up>     5<C-W>+  "  increase  height
+map  <down>   5<C-W>-  "  decrease  height
 
 " Faster scrolling
-nnoremap <c-e> 3<c-e>
-nnoremap <c-y> 3<c-y>
+nnoremap <C-E> 3<C-E>
+nnoremap <C-Y> 3<C-Y>
 
 " --- Clear search highlights ---
 if maparg('<ESC>', 'n') ==# ''
@@ -157,33 +173,36 @@ endif
 
 " --- :make ---
 " m<SPACE> and <F5> make the project
-nnoremap <F5> :make!<cr>
-nnoremap m<SPACE> :make<cr>
+nnoremap <F5> :make!<CR>
+nnoremap m<SPACE> :make<CR>
 
 " --- Errors: Quickfix / Location Lists ---
 " Display
-nnoremap <c-q> :clist<cr>
+nnoremap Q :clist<CR>
 
 " --- Preview ---
 " Preview word under cursor
-nnoremap <C-Space> <c-w>}
+nnoremap <C-SPACE> <C-W>}
 " Preview selection
-vnoremap <C-Space> y:ptag<C-r>"<cr>
+vnoremap <C-SPACE> y:ptag<C-R>"<CR>
 " Close the preview window
-nnoremap <C-W><C-SPACE> <c-w>z
+nnoremap <C-W><C-SPACE> <C-W>z
+" Complete tag
+inoremap <C-SPACE> <C-X><C-]>
+
 
 " --- Cycling ---
 " Quickly cycling a list
 " (currently Buffers)
-nnoremap <c-p> :bprevious<cr>
-nnoremap <c-n> :bnext<cr>
+nnoremap <C-P> :bprevious<CR>
+nnoremap <C-N> :bnext<CR>
 
 " --- Toggle Settings ---
 " Exetending 'vim-unimpaired'
 " T: s(T)atusbar
-nnoremap <silent> [ot :set ls=2<cr>
-nnoremap <silent> ]ot :set ls=0<cr>
-nnoremap <expr> <silent> yot (&laststatus == 2 ? ':set ls=0<cr>' : ':set ls=2<cr>')
+nnoremap <silent> [ot :set ls=2<CR>
+nnoremap <silent> ]ot :set ls=0<CR>
+nnoremap <expr> <silent> yot (&laststatus == 2 ? ':set ls=0<CR>' : ':set ls=2<CR>')
 
 " --------------------------------- <LEADER> ----------------------------------
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
@@ -191,21 +210,25 @@ let mapleader = '\'
 set wildcharm=<C-Z>
 
 " Quick Keys
-vnoremap <leader>a :Align<cr>
-nnoremap <leader>! :!%:p<cr>
-nnoremap <leader>x :Run<cr>
-vnoremap <leader>x :Run<cr>
+vnoremap <leader>\| :Align<CR>
+nnoremap <leader>! :!%:p<CR>
+nnoremap <leader>x :Run<CR>
+vnoremap <leader>x :Run<CR>
+nnoremap <leader>m :make<CR>
+
+nnoremap <leader>a :argadd <C-R>=fnameescape(expand('%:p:h'))<CR>/*<C-Z>
+nnoremap <leader>e :edit **/<C-Z>
+nnoremap <leader>f :find **/<C-Z>
 nnoremap <leader>b :buffer <C-Z>
 nnoremap <leader>v :vert sbuffer <C-Z>
 nnoremap <leader>t :tab sbuffer <C-Z>
-nnoremap <leader>e :edit **/*
-nnoremap <leader>f :find **/*
-nnoremap <leader>c :edit $MYVIMRC<cr>
+
+nnoremap <leader>c :edit $MYVIMRC<CR>
 
 " File Explorer
-nnoremap <leader>E :Explore<cr>
-nnoremap <leader>V :Vexplore<cr>
-nnoremap <leader>T :Texplore<cr>
+nnoremap <leader>E :Explore<CR>
+nnoremap <leader>V :Vexplore<CR>
+nnoremap <leader>T :Texplore<CR>
 
 " ---------------------------------- Unused -----------------------------------
 " Hard Mode
@@ -222,10 +245,10 @@ nnoremap <leader>T :Texplore<cr>
 " inoremap <BS> <NOP>
 
 " Navigate Windows
-" nnoremap <c-j> <c-w>j
-" nnoremap <c-k> <c-w>k
-" nnoremap <c-h> <c-w>h
-" nnoremap <c-l> <c-w>l
+" nnoremap <C-J> <C-W>j
+" nnoremap <C-K> <C-W>k
+" nnoremap <C-H> <C-W>h
+" nnoremap <C-L> <C-W>l
 "}}}
 
 
@@ -265,32 +288,13 @@ if exists('*minpac#init')
     " Mappings
     call minpac#add('tpope/vim-unimpaired')
 
-    " FFF
-    " call minpac#add('dylanaraps/fff.vim')
-
-    " REPL:
-    " Tmux based REPL integration using 'tslime'
-    call minpac#add('jgdavey/tslime.vim')
-
-    " Clojure:
-    " nRepl integration
-    " call minpac#add('bhurlow/vim-parinfer')
-    " call minpac#add('tpope/vim-fireplace')
-
-    " Language Server:
-    " call minpac#add('neovim/nvim-lsp')
-
-    " Tagbar
-    call minpac#add('majutsushi/tagbar')
+    " External Documentation Lookup:
+    call minpac#add('romainl/vim-devdocs')
 
     " FTPlugings:
-    " call minpac#add('sheerun/vim-polyglot')
     call minpac#add('vim-python/python-syntax')
     call minpac#add('Vimjas/vim-python-pep8-indent')
     call minpac#add('vim-scripts/bats.vim')
-
-    " External Documentation Lookup
-    call minpac#add('romainl/vim-devdocs')
 endif
 
 " Load all packages in 'start/'
@@ -307,16 +311,6 @@ command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
 
 " vim-python
 let g:python_highlight_all = 1
-
-" Tslime
-vmap  <C-c><C-c>  <Plug>SendSelectionToTmux
-nmap  <C-c><C-c>  <Plug>NormalModeSendToTmux
-nmap  <C-c>r      <Plug>SetTmuxVars
-
-" Tagbar
-if exists(':TagbarToggle')
-    nnoremap <c-w><backspace> :silent TagbarToggle<cr>
-endif
 
 "}}}
 
