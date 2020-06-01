@@ -12,6 +12,7 @@ set inccommand=split
 set rulerformat=%25(%l,%c%V%M%=%P\ %y%)
 "}}}
 
+
 " --------------------------------- Editing -----------------------------------{{{
 set wrap
 set linebreak
@@ -97,6 +98,13 @@ augroup END
 
 
 " ---------------------------------- Commands --------------------------------{{{
+" Format file
+command! -bar Fmt normal mfgggqG`f
+aug autoformat
+    au!
+    au BufWritePre * if exists('b:format_on_write') && b:format_on_write | Fmt | endif
+aug END
+
 " Align text
 " Using 'sed' and 'column' external tools
 command! -range Align <line1>,<line2>!sed 's/\s\+/~/g' | column -s'~' -t
@@ -215,11 +223,9 @@ nnoremap <leader>! :!%:p<CR>
 nnoremap <leader>x :Run<CR>
 vnoremap <leader>x :Run<CR>
 nnoremap <leader>m :make<CR>
+nnoremap <leader>f :Fmt<CR>
 
 nnoremap <leader>a :argadd <C-R>=fnameescape(expand('%:p:h'))<CR>/*<C-Z>
-nnoremap <leader>e :edit **/<C-Z>
-nnoremap <leader>f :find **/<C-Z>
-nnoremap <leader>b :buffer <C-Z>
 nnoremap <leader>v :vert sbuffer <C-Z>
 nnoremap <leader>t :tab sbuffer <C-Z>
 
