@@ -35,6 +35,13 @@ alias dirs='dirs -v'
 # Web search
 alias q='_() { q=${1:-$(xsel -op)}; xdg-open "https://duckduckgo.com/?q=${q}"; }; _'
 
+# Why not
+alias :q='exit'
+alias :e='nvim'
+
+# Open
+[[ $OSTYPE = linux* ]] && alias open='xdg-open'
+
 # Syntax highlighting (no need for 'bat')
 which highlight &>/dev/null && alias hi='highlight -O ansi'
 which highlight &>/dev/null && alias hil='_() { highlight -O ansi $@ | less -R; }; _'
