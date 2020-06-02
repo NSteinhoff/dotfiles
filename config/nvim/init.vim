@@ -111,21 +111,22 @@ command! -nargs=1 -range AlignOn <line1>,<line2>!sed 's/\s\+<args>/ ~<args>/g' |
 command! -nargs=? Section call myfuncs#section(<q-args>)
 command! -nargs=? Header call myfuncs#header(<q-args>)
 
+" Compiler
 command! Compiler call compiler#describe()
 command! -nargs=1 -complete=compiler CompileWith call compiler#with(<f-args>)
 
 " Edit my filetype/syntax plugin files for current filetype.
 command! -nargs=? -complete=compiler EditCompiler
-            \ exe 'keepj edit $HOME/.vim/after/compiler/' . (empty(<q-args>) ? compiler#which() : <q-args>) . '.vim'
+            \ exe 'keepj edit $HOME/.config/nvim/after/compiler/' . (empty(<q-args>) ? compiler#which() : <q-args>) . '.vim'
 
 command! -nargs=? -complete=filetype EditFiletype
-            \ exe 'keepj edit $HOME/.vim/after/ftplugin/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
+            \ exe 'keepj edit $HOME/.config/nvim/after/ftplugin/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
 
 command! -nargs=? -complete=filetype EditSyntax
-            \ exe 'keepj edit $HOME/.vim/after/syntax/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
+            \ exe 'keepj edit $HOME/.config/nvim/after/syntax/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
 
 command! -nargs=? -complete=color EditColorscheme
-            \ execute 'keepj edit $HOME/.vim/after/colors/' . (empty(<q-args>) ? g:colors_name : <q-args>) . '.vim'
+            \ execute 'keepj edit $HOME/.config/nvim/after/colors/' . (empty(<q-args>) ? g:colors_name : <q-args>) . '.vim'
 
 command! -range Run echo join(map(getline(<line1>, <line2>), { k, v -> trim(system(v)) }), "\n")
 
@@ -205,6 +206,7 @@ nnoremap m<SPACE> :make<CR>
 " --- Errors: Quickfix / Location Lists ---
 " Display
 nnoremap Q :clist<CR>
+nnoremap <C-Q> :cwindow<CR>
 
 " --- Preview ---
 " Preview word under cursor
@@ -236,18 +238,24 @@ let mapleader = '\'
 set wildcharm=<C-Z>
 
 " Quick Keys
-vnoremap <leader>\| :Align<CR>
+vnoremap <leader>= :Align<CR>
 nnoremap <leader>! :!%:p<CR>
 nnoremap <leader>x :Run<CR>
 vnoremap <leader>x :Run<CR>
 nnoremap <leader>m :Make<CR>
 nnoremap <leader>f :Format<CR>
 
-nnoremap <leader>a :argadd <C-R>=fnameescape(expand('%:p:h'))<CR>/*<C-Z>
+" Switch buffers
+nnoremap <leader>b :buffer <C-Z>
 nnoremap <leader>v :vert sbuffer <C-Z>
 nnoremap <leader>t :tab sbuffer <C-Z>
 
-nnoremap <leader>c :edit $MYVIMRC<CR>
+" Edit Settings files
+nnoremap <leader>ee :edit $MYVIMRC<CR>
+nnoremap <leader>ef :EditFiletype<CR>
+nnoremap <leader>ec :EditCompiler<CR>
+nnoremap <leader>es :EditSyntax<CR>
+nnoremap <leader>eo :EditColorscheme<CR>
 
 " File Explorer
 nnoremap <leader>E :Explore<CR>
