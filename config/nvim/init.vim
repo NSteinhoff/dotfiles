@@ -1,11 +1,5 @@
 source ~/.vimrc
 
-augroup settings
-    autocmd!
-    " Source this file on write
-    autocmd BufWritePost .vimrc,vimrc,init.vim source <sfile>
-augroup END
-
 
 " --------------------------------- UI -----------------------------------{{{
 set inccommand=split
@@ -86,24 +80,27 @@ augroup END
 "}}}
 
 
-" ------------------------------- Error Files ---------------------------------{{{
-augroup errorfiles
-    autocmd!
-    " Set the compiler to the root of an errorfile
-    " sbt.err -> :compiler sbt
-    " flake8.err -> :compiler flake8
-    autocmd BufReadPost *.err execute "compiler " . expand("<afile>:r") | cgetbuffer
-augroup END
-" }}}
-
-
 " ---------------------------------- Commands --------------------------------{{{
-" Format file
-command! -bar Fmt normal mfgggqG`f
-aug autoformat
-    au!
-    au BufWritePre * if exists('b:format_on_write') && b:format_on_write | Fmt | endif
-aug END
+" Format the current buffer
+function! Format()
+    let l:view = winsaveview()
+    normal! gggqG
+    if v:shell_error > 0
+        silent undo
+        redraw
+        echomsg 'formatprg "' . &formatprg . '" exited with status ' . v:shell_error
+    endif
+    call winrestview(l:view)
+endfunction
+command! -bar Format call Format()
+
+function! Make()
+    silent make
+    if len(getqflist()) > 0
+        clist
+    endif
+endfunction
+command! -bar Make call Make()
 
 " Align text
 " Using 'sed' and 'column' external tools
@@ -136,6 +133,27 @@ command! -range Run echo join(map(getline(<line1>, <line2>), { k, v -> trim(syst
 command! -range Blame echo join(systemlist("git -C " . shellescape(expand('%:p:h')) . " blame -L <line1>,<line2> " . expand('%:t')), "\n")
 command! -bar -nargs=+ Jump cexpr system('git jump ' . expand(<q-args>))
 "}}}
+
+
+" ------------------------------- Autocommands --------------------------------{{{
+augroup user-settings
+    autocmd!
+    " Source this file on write
+    autocmd BufWritePost .vimrc,vimrc,init.vim source <sfile>
+augroup END
+augroup user-errorfiles
+    autocmd!
+    " Set the compiler to the root of an errorfile
+    " sbt.err -> :compiler sbt
+    " flake8.err -> :compiler flake8
+    autocmd BufReadPost *.err execute "compiler " . expand("<afile>:r") | cgetbuffer
+augroup END
+augroup user-automake
+    autocmd!
+    autocmd BufWritePre * if exists('b:format_on_write') && b:format_on_write | Format | endif
+    autocmd BufWritePost * if exists('b:make_on_write') && b:make_on_write | Make | endif
+augroup END
+" }}}
 
 
 " --------------------------------- Mappings ---------------------------------{{{
@@ -222,8 +240,8 @@ vnoremap <leader>\| :Align<CR>
 nnoremap <leader>! :!%:p<CR>
 nnoremap <leader>x :Run<CR>
 vnoremap <leader>x :Run<CR>
-nnoremap <leader>m :make<CR>
-nnoremap <leader>f :Fmt<CR>
+nnoremap <leader>m :Make<CR>
+nnoremap <leader>f :Format<CR>
 
 nnoremap <leader>a :argadd <C-R>=fnameescape(expand('%:p:h'))<CR>/*<C-Z>
 nnoremap <leader>v :vert sbuffer <C-Z>
