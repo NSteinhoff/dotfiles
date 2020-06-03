@@ -9,5 +9,6 @@ if exists(':DD')
 endif
 
 if executable('black')
-    nnoremap <F6> :!black %<cr>
+    setlocal formatprg=black\ -
+    let b:format_on_write = 1
 endif

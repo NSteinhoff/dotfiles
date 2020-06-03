@@ -4,6 +4,9 @@ setlocal path-=src/main/scala,src/test/scala
 
 compiler bloop
 
-command! LspLog execute '!tail -f ' . finddir('.metals', '.;') . '/metals.log'
+command! Scalafmt !scalafmt %
+command! MetalsLog execute '!tail -f ' . finddir('.metals', '.;') . '/metals.log'
 
-nnoremap <buffer> <F6> :!scalafmt %<cr>
+if exists(':DD')
+    setlocal keywordprg=:DD
+endif

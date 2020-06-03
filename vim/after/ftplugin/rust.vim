@@ -1,7 +1,6 @@
 let g:cargo_makeprg_params='check --all-targets'
 
 compiler cargo
-nnoremap <F6> :!cargo fmt<cr>
 
 if executable('rustfmt')
     setlocal formatprg=rustfmt\ --emit=stdout
