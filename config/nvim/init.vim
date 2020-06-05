@@ -12,7 +12,7 @@ set rulerformat=%25(%l,%c%V%M%=%P\ %y%)
 
 
 " --------------------------------- Editing -----------------------------------{{{
-set wrap
+set nowrap
 set linebreak
 set breakindent
 let &showbreak = '... '
@@ -133,7 +133,13 @@ command! -nargs=? -complete=color EditColorscheme
 command! -range Run echo join(map(getline(<line1>, <line2>), { k, v -> trim(system(v)) }), "\n")
 
 " Git commands
+function! ButWhy(bang, start, end)
+    let oneline = a:bang == '!' ? ' --no-patch --oneline' : ''
+    echo join(systemlist("git -C " . shellescape(expand('%:p:h')) . " log -L " . a:start . "," . a:end . ":" . expand('%:t') . oneline), "\n")
+endfunction
+
 command! -range Blame echo join(systemlist("git -C " . shellescape(expand('%:p:h')) . " blame -L <line1>,<line2> " . expand('%:t')), "\n")
+command! -range -bang ButWhy call ButWhy("<bang>", "<line1>", "<line2>")
 command! -bar -nargs=+ Jump cexpr system('git jump ' . expand(<q-args>))
 "}}}
 
