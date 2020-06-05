@@ -145,7 +145,7 @@ let s:ui_styles.status_inactive       = "HFaded"
 let s:ui_styles.status_active         = "HPop"
 let s:ui_styles.status_term           = "HRelaxed"
 let s:ui_styles.match                 = "HExcited"
-let s:ui_styles.highlight             = "HLively"
+let s:ui_styles.highlight             = "HLivelyInvert"
 let s:ui_styles.highlight_inverted    = "HLivelyInvert"
 ""}}}
 

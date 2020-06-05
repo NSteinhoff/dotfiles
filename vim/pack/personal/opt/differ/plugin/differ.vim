@@ -4,8 +4,9 @@
 " License:          This file is placed in the public domain.
 
 command! Dstatus call differ#status()
+
 command! -nargs=? -bang Dcomment call differ#comment(<q-args>, "<bang>")
-command! Dshowcomments call differ#show_comments()
+command! -bang Dshowcomments call differ#show_comments("<bang>" == '!')
 
 command! Dthis call differ#diff('')
 command! -bang Dpatch call differ#patch('', "<bang>")

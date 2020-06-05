@@ -147,6 +147,14 @@ function! s:patch_all(target)
     call s:load_patch_all(ref)
 endfunction
 
+function! differ#write_comment(buf)
+    call comment#write(
+                \ getbufvar(a:buf, "filename"),
+                \ getbufvar(a:buf, "lnum"),
+                \ getbufline(a:buf, 0, '$')
+                \ )
+endfunction
+
 function! s:edit_comment(filename, lnum, lines)
     let bname = '[COMMENT:'.a:filename.':'.a:lnum.']'
     execute 'new '.bname
@@ -156,7 +164,9 @@ function! s:edit_comment(filename, lnum, lines)
     let b:filename = a:filename
     let b:lnum = a:lnum
 
-    au BufUnload <buffer> call comment#write(b:filename, b:lnum, getline(0, '$'))
+    aug differ
+        au BufUnload <buffer> call differ#write_comment(str2nr(expand("<abuf>")))
+    aug END
 
     let previous = comment#get(a:filename, a:lnum)
     let lines = empty(previous) ? a:lines : previous.lines + a:lines
@@ -245,7 +255,25 @@ function! differ#status()
     endif
 endfunction
 
-function! differ#show_comments()
+function! differ#echo_comments()
+    for c in comment#list()
+        let header = '# '.c.filename.':'.c.lnum
+        echo header
+        echo join(c.lines, "\n")
+    endfor
+endfunction
+
+function! differ#show_comments(bang)
+    if !a:bang
+        for c in comment#list()
+            echo '+++ ' . c.filename . ':' . c.lnum
+            for l in c.lines
+                echo '    ' . l
+            endfor
+        endfor
+        return
+    endif
+
     let bname = '[COMMENTS]'
     execute 'tabnew '.bname
     setlocal buftype=nofile bufhidden=wipe noswapfile ft=markdown
