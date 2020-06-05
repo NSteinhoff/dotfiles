@@ -2,7 +2,11 @@ source ~/.vimrc
 
 
 " --------------------------------- UI -----------------------------------{{{
+set laststatus=2
+set number
 set inccommand=split
+set scrolloff=3
+set sidescrolloff=3
 set rulerformat=%25(%l,%c%V%M%=%P\ %y%)
 "}}}
 
