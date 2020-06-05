@@ -987,4 +987,35 @@ colorschemes:
       cyan:    '0x00ffff'
       white:   '0xffffff'
 
+  tempus: &tempus
+    primary:
+      background: '0x232323' # main background
+      foreground: '0xaeadaf' # main foreground
+      # background: '0x312e30' # alternative background
+      # foreground: '0x949d9f' # alternative foreground
+
+    cursor:
+      cursor:    '0xaeadaf'  #  cursor  background
+      text:      '0x232323'  #  cursor  foreground
+
+    normal:
+      black:    '0x232323'  #  black    variant
+      red:      '0xd2813d'  #  red      variant
+      green:    '0x8c9e3d'  #  green    variant
+      yellow:   '0xb1942b'  #  yellow   variant
+      blue:     '0x6e9cb0'  #  blue     variant
+      magenta:  '0xb58d88'  #  magenta  variant
+      cyan:     '0x6da280'  #  cyan     variant
+      white:    '0x949d9f'  #  white    variant
+
+    bright:
+      black:    '0x312e30'  #  bright  black    variant
+      red:      '0xd0913d'  #  bright  red      variant
+      green:    '0x96a42d'  #  bright  green    variant
+      yellow:   '0xa8a030'  #  bright  yellow   variant
+      blue:     '0x8e9cc0'  #  bright  blue     variant
+      magenta:  '0xd58888'  #  bright  magenta  variant
+      cyan:     '0x7aa880'  #  bright  cyan     variant
+      white:    '0xaeadaf'  #  bright  white    variant
+
 colors: *taerminal
