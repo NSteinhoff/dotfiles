@@ -1,12 +1,12 @@
 [flake8]
 select =
-#     C,E,F,W,    # Base
-#     BLK,        # Black
-#     I,          # Import order
-#     B,B9,       # Bugbear
-#     S,          # Bandit
-#     D,          # Docstrings
-#     DAR,        # Darglint
+     C,E,F,W,    # Base
+     BLK,        # Black
+     I,          # Import order
+     B,B9,       # Bugbear
+     S,          # Bandit
+     D,          # Docstrings
+     DAR,        # Darglint
 ignore =
 docstring-convention = google
 max-line-length = 88
