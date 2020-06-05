@@ -306,7 +306,7 @@ let  g:netrw_alto       =  0
 
 " Personal plugins
 packadd! statusline
-" packadd! differ
+packadd! differ
 " packadd! pomodoro
 
 " Install minpac as an optional package if it's not already installed.

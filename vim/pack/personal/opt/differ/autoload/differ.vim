@@ -104,8 +104,8 @@ function! differ#load_original(filename, ref, ft, n)
     nnoremap <buffer> q :close<cr>
     command! -buffer Dnext close <bar> next <bar> Dthis
     command! -buffer Dprevious close <bar> previous <bar> Dthis
-    nnoremap <buffer> ]c :call differ#load_original(b:filename, b:ref, b:ft, b:n-1)<cr>
-    nnoremap <buffer> [c :call differ#load_original(b:filename, b:ref, b:ft, b:n+1)<cr>
+    nnoremap <buffer> <C-P> :call differ#load_original(b:filename, b:ref, b:ft, b:n-1)<cr>
+    nnoremap <buffer> <C-N> :call differ#load_original(b:filename, b:ref, b:ft, b:n+1)<cr>
 
     au BufUnload,BufWinLeave <buffer> diffoff!
 
