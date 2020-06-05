@@ -94,13 +94,11 @@ function! Format()
 endfunction
 command! -bar Format call Format()
 
-function! Make()
-    silent make
-    if len(getqflist()) > 0
-        clist
-    endif
+function! Make(bang)
+    execute 'silent make'.a:bang
+    cwindow
 endfunction
-command! -bar Make call Make()
+command! -bar -bang Make call Make("<bang>")
 
 " Align text
 " Using 'sed' and 'column' external tools
@@ -201,7 +199,7 @@ endif
 " --- :make ---
 " m<SPACE> and <F5> make the project
 nnoremap <F5> :make!<CR>
-nnoremap m<SPACE> :make<CR>
+nnoremap m<SPACE> :Make<CR>
 
 " --- Errors: Quickfix / Location Lists ---
 " Display
