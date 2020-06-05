@@ -162,8 +162,8 @@ augroup END
 " --------------------------------- Mappings ---------------------------------{{{
 " Free:
 " <BACKSPACE>
-" <C-S>
 " <> (formatting?)
+" >< (formatting?)
 "
 " <C-J> (forward, down)
 " <C-K> (back, up, keyword)
@@ -216,6 +216,7 @@ nnoremap <C-SPACE> <C-W>}
 " Preview selection
 vnoremap <C-SPACE> y:ptag<C-R>"<CR>
 " Close the preview window
+nnoremap <C-W><SPACE> <C-W>z
 nnoremap <C-W><C-SPACE> <C-W>z
 " Complete tag
 inoremap <C-SPACE> <C-X><C-]>
@@ -230,9 +231,9 @@ nnoremap <C-N> :bnext<CR>
 " --- Toggle Settings ---
 " Exetending 'vim-unimpaired'
 " T: s(T)atusbar
-nnoremap <silent> [ot :set ls=2<CR>
-nnoremap <silent> ]ot :set ls=0<CR>
-nnoremap <expr> <silent> yot (&laststatus == 2 ? ':set ls=0<CR>' : ':set ls=2<CR>')
+nnoremap <silent> [o_ :set ls=2<CR>
+nnoremap <silent> ]o_ :set ls=0<CR>
+nnoremap <expr> <silent> yo_ (&laststatus == 2 ? ':set ls=0<CR>' : ':set ls=2<CR>')
 
 " --------------------------------- <LEADER> ----------------------------------
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
