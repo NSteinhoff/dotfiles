@@ -9,6 +9,5 @@ if exists(':DD')
 endif
 
 if executable('black')
-    setlocal formatprg=black\ -
-    let b:format_on_write = 1
+    setlocal formatprg=black\ -\ 2>/dev/null
 endif
