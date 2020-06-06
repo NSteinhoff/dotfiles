@@ -1,3 +1,4 @@
+" Return the comment prefix and (optional) suffix from 'commentstring'
 function s:comment_affixes()
     let prefix = matchstr(&commentstring, '\S*\(\s*%s\)\@=')
     let suffix = matchstr(&commentstring, '\(\S*\s*%s\)\@<=\S*')
@@ -13,22 +14,18 @@ endfunction
 function myfuncs#toggle_commented()
     let [prefix, suffix] = s:comment_affixes()
     let line = getline('.')
-    let is_comment = match(line, '^\s*'.escape(prefix, '\*').'\.*') != -1
-    if is_comment
+    let commented = match(line, '^\s*'.escape(prefix, '\*').'\.*') != -1
+    if commented
         let startline = matchend(line, '^\s*'.escape(prefix, '\*').'\s\?')
         let endline = match(line, '\s\?'.escape(suffix, '\*').'$')
-        if endline != -1
-            let uncommented = strcharpart(line, startline, endline-startline)
-        else
-            let uncommented = strcharpart(line, startline)
-        endif
-        call setline('.', uncommented)
+        let endline = endline == -1 ? strlen(line) : endline - startline
+        let toggled = strcharpart(line, startline, endline)
     else
-        let commented = prefix
-        let commented.= line != '' ? ' '.line : ''
-        let commented.= suffix != '' ? ' '.suffix : ''
-        call setline('.', commented)
+        let toggled = prefix
+        let toggled.= line != '' ? ' '.line : ''
+        let toggled.= suffix != '' ? ' '.suffix : ''
     endif
+    call setline('.', toggled)
 endfunction
 
 " Create an 80 column wide section header with lines above
