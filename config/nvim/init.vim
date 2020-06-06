@@ -85,14 +85,14 @@ augroup END
 
 
 " ---------------------------------- Commands --------------------------------{{{
-" Format range
-function! Format(start, end)
+" Format the current buffer
+function! Format()
     if &formatprg == ""
-        echo "abort: 'formatprg' unset"
+        echo "Abort: 'formatprg' unset"
         return
     endif
     let l:view = winsaveview()
-    execute "normal! ".a:start."Ggq".a:end."G"
+    normal! gggqG
     if v:shell_error > 0
         silent undo
         redraw
@@ -100,7 +100,7 @@ function! Format(start, end)
     endif
     call winrestview(l:view)
 endfunction
-command! -bar -range=% Format call Format(<line1>, <line2>)
+command! -bar Format call Format()
 
 function! Make(bang)
     execute 'silent make'.a:bang
@@ -173,18 +173,118 @@ augroup END
 
 
 " --------------------------------- Mappings ---------------------------------{{{
-" Free:
+"
+" --- Mappable Keys ---
+" Some non-conflicting mappable keys and sequences.
+"
 " <BACKSPACE>
-" <> (formatting?)
-" >< (formatting?)
-" \"\" (commenting?)
+"   -> very convenient adhoc execution mapping
+"   e.g.  :nnoremap <BACKSPACE> :!python %<CR>
 "
-" <C-J> (forward, down)
-" <C-K> (back, up, keyword)
-" <C-L> (forward, right)
-" <C-H> (forward, left, home)
+" Function keys:
+"   <F2>
+"   ...
+"   <F12>
 "
-" z<SPACE> (folding?, scrolling?)
+" Non-registers:
+"  ""
+"   "'
+"   "`
+"   "~
+"   "?
+"   "[
+"   "]
+"   "{
+"   "}
+"   "<
+"   ">
+"   ",
+"   "<SPACE>
+"   "<CR>
+"   "<BACKSPACE>
+"
+" Non-marks:
+"   m<SPACE>
+"   `<SPACE>
+"   '<SPACE>
+"
+"   m<BACKSPACE>
+"   `<BACKSPACE>
+"   '<BACKSPACE>
+"
+"   m<CR>
+"   `<CR>
+"   '<CR>
+"
+"   m,
+"   ',
+"   `,
+"
+"   m.
+"   '.
+"   `.
+"
+"   ...
+"
+" 'z' mappings:
+"   z<SPACE>
+"   z<BACKSPACE>
+"   z,
+"   z'
+"   z"
+"   z>
+"   z<
+"   z`
+"   z~
+"   z!
+"   z@
+"
+" Operator to register:
+"   c"
+"   d"
+"   y"
+"   <"
+"   >"
+"   !"
+"
+" Operator to operator:
+"   cd
+"   cy
+"   c<
+"   c>
+"   c!
+"
+"   dc
+"   dy
+"   d<
+"   d>
+"   d!
+"
+"   yc
+"   yd
+"   y>
+"   y<
+"   y!
+"
+"   <c
+"   <d
+"   <y
+"   <>
+"   <!
+"
+"   >c
+"   >d
+"   >y
+"   ><
+"   >!
+"
+"   !c
+"   !d
+"   !y
+"   !>
+"   !<
+"
+" ...
 
 " Move over visual lines unless a count is given
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
@@ -206,8 +306,19 @@ map  <down>   5<C-W>-  "  decrease  height
 nnoremap <C-E> 3<C-E>
 nnoremap <C-Y> 3<C-Y>
 
-nnoremap "" :ToggleCommented<CR>
-vnoremap "" :ToggleCommented<CR>
+" Toggle line comment
+" Mnemonic:
+"   " -> Vim's comment string
+"   <CR> -> line
+"   => 'comment line'
+nnoremap "<CR> :ToggleCommented<CR>
+vnoremap "<CR> :ToggleCommented<CR>
+
+" Format whole buffer
+" Mnemonic:
+"   < and > change indentation
+"   => 'indent all'
+nnoremap <> :Format<CR>
 
 " --- Clear search highlights ---
 if maparg('<ESC>', 'n') ==# ''
@@ -218,12 +329,16 @@ if maparg('<SPACE>', 'n') ==# ''
 endif
 
 " --- :make ---
-" m<SPACE> and <F5> make the project
-nnoremap <F5> :make!<CR>
+" m<SPACE> and m<CR> make the project
+" Mnemonic:
+"   (m)ake
+"   <CR> louder than <SPACE>
+nnoremap m<CR> :make!<CR>
 nnoremap m<SPACE> :Make<CR>
 
 " --- Errors: Quickfix / Location Lists ---
-" Display
+" Mnemonic:
+"   (Q)uickfix
 nnoremap Q :clist<CR>
 nnoremap <C-Q> :cwindow<CR>
 
@@ -262,8 +377,6 @@ vnoremap <leader>= :Align<CR>
 nnoremap <leader>! :!%:p<CR>
 nnoremap <leader>x :Run<CR>
 vnoremap <leader>x :Run<CR>
-nnoremap <leader>m :Make<CR>
-nnoremap <leader>f :Format<CR>
 
 " Switch buffers
 nnoremap <leader>b :buffer <C-Z>
