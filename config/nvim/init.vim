@@ -85,10 +85,14 @@ augroup END
 
 
 " ---------------------------------- Commands --------------------------------{{{
-" Format the current buffer
-function! Format()
+" Format range
+function! Format(start, end)
+    if &formatprg == ""
+        echo "abort: 'formatprg' unset"
+        return
+    endif
     let l:view = winsaveview()
-    normal! gggqG
+    execute "normal! ".a:start."Ggq".a:end."G"
     if v:shell_error > 0
         silent undo
         redraw
@@ -96,7 +100,7 @@ function! Format()
     endif
     call winrestview(l:view)
 endfunction
-command! -bar Format call Format()
+command! -bar -range=% Format call Format(<line1>, <line2>)
 
 function! Make(bang)
     execute 'silent make'.a:bang
@@ -112,6 +116,9 @@ command! -nargs=1 -range AlignOn <line1>,<line2>!sed 's/\s\+<args>/ ~<args>/g' |
 " Headers
 command! -nargs=? Section call myfuncs#section(<q-args>)
 command! -nargs=? Header call myfuncs#header(<q-args>)
+
+" Commenting lines
+command! -range ToggleCommented <line1>,<line2> call myfuncs#toggle_commented()
 
 " Compiler
 command! Compiler call compiler#describe()
@@ -133,12 +140,12 @@ command! -nargs=? -complete=color EditColorscheme
 " Run lines as shell commands
 command! -range Run echo join(map(getline(<line1>, <line2>), { k, v -> trim(system(v)) }), "\n")
 
-" Git commands
+" ---------------------------------- Git ------------------------------------
 function! ButWhy(bang, start, end)
-    let oneline = a:bang == '!' ? ' --no-patch --oneline' : ''
+    let oneline = a:bang != '!' ? ' --no-patch --oneline' : ''
     echo join(systemlist("git -C " . shellescape(expand('%:p:h')) . " log -L " . a:start . "," . a:end . ":" . expand('%:t') . oneline), "\n")
 endfunction
-command! -range -bang ButWhy call ButWhy("<bang>", "<line1>", "<line2>")
+command! -range -bang ButWhy call ButWhy(<q-bang>, <q-line1>, <q-line2>)
 command! -range Blame echo join(systemlist("git -C " . shellescape(expand('%:p:h')) . " blame -L <line1>,<line2> " . expand('%:t')), "\n")
 command! -bar -nargs=+ Jump cexpr system('git jump ' . expand(<q-args>))
 "}}}
@@ -170,6 +177,7 @@ augroup END
 " <BACKSPACE>
 " <> (formatting?)
 " >< (formatting?)
+" \"\" (commenting?)
 "
 " <C-J> (forward, down)
 " <C-K> (back, up, keyword)
@@ -197,6 +205,9 @@ map  <down>   5<C-W>-  "  decrease  height
 " Faster scrolling
 nnoremap <C-E> 3<C-E>
 nnoremap <C-Y> 3<C-Y>
+
+nnoremap "" :ToggleCommented<CR>
+vnoremap "" :ToggleCommented<CR>
 
 " --- Clear search highlights ---
 if maparg('<ESC>', 'n') ==# ''
@@ -307,7 +318,7 @@ let  g:netrw_alto       =  0
 " Personal plugins
 packadd! statusline
 packadd! differ
-" packadd! pomodoro
+packadd! pomodoro
 
 " Install minpac as an optional package if it's not already installed.
 let minpac_path = has('nvim') ? '~/.config/nvim/pack/minpac/opt/minpac' : '~/.vim/pack/minpac/opt/minpac'
