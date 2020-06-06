@@ -477,6 +477,21 @@ command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
 " vim-python
 let g:python_highlight_all = 1
 
+" --- Differ Mappings ---
+nnoremap d; :Dstatus<CR>
+nnoremap d@ :Dremote<CR>
+nnoremap d! :Dremote!<CR>
+nnoremap du :Dupdate<CR>
+nnoremap d< :Dprevious<CR>
+nnoremap d> :Dnext<CR>
+nnoremap d. :Dthis<CR>
+nnoremap d, :Dpatch<CR>
+nnoremap d~ :Dpatch!<CR>
+nnoremap d" :Dcomment<CR>
+nnoremap d= :Dcomment!<CR>
+nnoremap dc :Dshowcomments<CR>
+nnoremap dC :Dshowcomments!<CR>
+
 "}}}
 
 

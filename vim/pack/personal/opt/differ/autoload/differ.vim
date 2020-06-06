@@ -10,13 +10,13 @@ endif
 
 let s:debug = 1
 
-function! s:log_debug(text)
+function s:log_debug(text)
     if s:debug
         echo a:text
     endif
 endfunction
 
-function! s:select_ref()
+function s:select_ref()
     let candidates = {}
     let items = ["Pick a ref to diff against:"]
     let max_len_name = 50
@@ -78,7 +78,7 @@ function! s:select_ref()
     endif
 endfunction
 
-function! s:target_ref(target)
+function s:target_ref(target)
     if a:target != ""
         return a:target
     elseif exists('s:diff_remote') && s:diff_remote != ""
@@ -87,7 +87,7 @@ function! s:target_ref(target)
         return 'HEAD'
 endfunction
 
-function! differ#load_original(filename, ref, ft, n)
+function differ#load_original(filename, ref, ft, n)
     if a:n < 0
         echo "No more commits"
         return
@@ -98,23 +98,25 @@ function! differ#load_original(filename, ref, ft, n)
     let b:ft = a:ft
     let b:n = a:n
 
-    %delete
+    let l:view = winsaveview()
+    silent %delete
     setlocal buftype=nofile bufhidden=wipe noswapfile | let &l:ft = a:ft
 
     nnoremap <buffer> q :close<cr>
     command! -buffer Dnext close <bar> next <bar> Dthis
     command! -buffer Dprevious close <bar> previous <bar> Dthis
-    nnoremap <buffer> <C-P> :call differ#load_original(b:filename, b:ref, b:ft, b:n-1)<cr>
-    nnoremap <buffer> <C-N> :call differ#load_original(b:filename, b:ref, b:ft, b:n+1)<cr>
+    nnoremap <buffer> <C-P> :silent call differ#load_original(b:filename, b:ref, b:ft, b:n-1)<cr>
+    nnoremap <buffer> <C-N> :silent call differ#load_original(b:filename, b:ref, b:ft, b:n+1)<cr>
 
     au BufUnload,BufWinLeave <buffer> diffoff!
 
     let original = git#original(a:filename, a:ref, a:n)
     call append(0, original)
     $delete
+    call winrestview(l:view)
 endfun
 
-function! s:load_patch(filename, ref)
+function s:load_patch(filename, ref)
     setlocal buftype=nofile bufhidden=wipe noswapfile ft=diff
 
     let patch = git#patch(a:filename, a:ref)
@@ -123,14 +125,14 @@ function! s:load_patch(filename, ref)
     wincmd p
 endfun
 
-function! s:load_patch_all(ref)
+function s:load_patch_all(ref)
     setlocal buftype=nofile bufhidden=wipe noswapfile ft=diff
 
     let patch = git#patch_all(a:ref)
     call append(0, patch)
 endfun
 
-function! s:patch_this(target)
+function s:patch_this(target)
     if !git#check() | return | endif
     let ref = s:target_ref(a:target)
     let filename = expand('%')
@@ -140,14 +142,14 @@ function! s:patch_this(target)
     call s:load_patch(filename, ref)
 endfunction
 
-function! s:patch_all(target)
+function s:patch_all(target)
     if !git#check() | return | endif
     let ref = s:target_ref(a:target)
     execute 'tabnew __PATCH__' . ref
     call s:load_patch_all(ref)
 endfunction
 
-function! differ#write_comment(buf)
+function differ#write_comment(buf)
     call comment#write(
                 \ getbufvar(a:buf, "filename"),
                 \ getbufvar(a:buf, "lnum"),
@@ -155,7 +157,7 @@ function! differ#write_comment(buf)
                 \ )
 endfunction
 
-function! s:edit_comment(filename, lnum, lines)
+function s:edit_comment(filename, lnum, lines)
     let bname = '[COMMENT:'.a:filename.':'.a:lnum.']'
     execute 'new '.bname
     setlocal buftype=nofile bufhidden=wipe noswapfile ft=markdown
@@ -173,7 +175,7 @@ function! s:edit_comment(filename, lnum, lines)
     call append(0, lines) | normal dd
 endfunction
 
-function! s:set_args(remote)
+function s:set_args(remote)
     if argc(-1) > 0
         argd *
     endif
@@ -187,17 +189,17 @@ endfunction
 " Section: Public
 " -------------------------------------------------------------
 
-function! differ#remote_types(A,L,P)
+function differ#remote_types(A,L,P)
     return ['branches', 'commits', 'mergebases']
 endfunction
 
-function! differ#list_refs(A,L,P)
+function differ#list_refs(A,L,P)
     if !git#check() | return | endif
     let refs = git#refs()
     return refs
 endfun
 
-function! differ#diff(target) abort
+function differ#diff(target) abort
     if !git#check() | return | endif
     let ref = s:target_ref(a:target)
     let ft = &ft
@@ -207,7 +209,7 @@ function! differ#diff(target) abort
     diffthis | wincmd p | diffthis
 endfunction
 
-function! differ#patch(target, bang)
+function differ#patch(target, bang)
     if a:bang == ''
         call s:patch_this(a:target)
     else
@@ -215,7 +217,7 @@ function! differ#patch(target, bang)
     endif
 endfunction
 
-function! differ#set_target(bang)
+function differ#set_target(bang)
     if !git#check() | return | endif
 
     if a:bang == '!'
@@ -231,17 +233,17 @@ function! differ#set_target(bang)
 
     call differ#update()
 
-    if a:bang == '!'
+    if a:bang == '!' && argc() >= 1
         first
         call differ#diff('')
     endif
 endfunction
 
-function! differ#update()
+function differ#update()
     call s:set_args(s:target_ref(""))
 endfunction
 
-function! differ#status()
+function differ#status()
     if !git#check() | return | endif
     echo git#status()
     let remote = s:target_ref('')
@@ -255,7 +257,7 @@ function! differ#status()
     endif
 endfunction
 
-function! differ#echo_comments()
+function differ#echo_comments()
     for c in comment#list()
         let header = '# '.c.filename.':'.c.lnum
         echo header
@@ -263,7 +265,7 @@ function! differ#echo_comments()
     endfor
 endfunction
 
-function! differ#show_comments(bang)
+function differ#show_comments(bang)
     if !a:bang
         for c in comment#list()
             echo '+++ ' . c.filename . ':' . c.lnum
@@ -286,7 +288,7 @@ function! differ#show_comments(bang)
     endfor
 endfunction
 
-function! differ#comment(text, bang)
+function differ#comment(text, bang)
     let lnum = line('.')
     let filename = expand('%:.')
     let lines = a:text == ''?[]:[a:text]
@@ -298,7 +300,7 @@ function! differ#comment(text, bang)
             call comment#wipe()
             echo "\nComments wiped!"
         else
-            echo 'Ok then.'
+            echo "\nOk then."
         endif
     endif
 endfunction
