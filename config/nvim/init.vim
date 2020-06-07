@@ -175,7 +175,7 @@ augroup END
 " --------------------------------- Mappings ---------------------------------{{{
 "
 " --- Mappable Keys ---
-" Some non-conflicting mappable keys and sequences.
+" Non-conflicting mappable keys and sequences. There are tons more.
 "
 " <BACKSPACE>
 "   -> very convenient adhoc execution mapping
@@ -186,105 +186,46 @@ augroup END
 "   ...
 "   <F12>
 "
-" Non-registers:
-"  ""
-"   "'
-"   "`
-"   "~
-"   "?
-"   "[
-"   "]
-"   "{
-"   "}
-"   "<
-"   ">
-"   ",
-"   "<SPACE>
-"   "<CR>
-"   "<BACKSPACE>
 "
-" Non-marks:
-"   m<SPACE>
-"   `<SPACE>
-"   '<SPACE>
+"  .            !     c    d       y         <       >        m             z             `             '             @             "             <PLACEHOLDER>
+"  ---          ---   ---  ---     ---       ---     ---      ---           ---           ---           ---           ---           ---           ---
+"  MNEMONIC     'do'  .    'diff'  'toggle'  'left'  'right'  'make'        .             .             .             'at'          'comment'     .
+"  ---          ---   ---  ---     ---       ---     ---      ---           ---           ---           ---           ---           ---           ---
+"  c            !c    .    dc      yc        <c      >c       .             .             .             .             .             .             .
+"  d            !d    cd   .       yd        <d      >d       .             .             .             .             .             .             .
+"  y            !y    cy   dy      .         <y      >y       .             .             .             .             .             .             .
+"  p            !p    cp   dp      yp        <p      >p       .             .             .             .             .             .             .
+"  u            !u    cu   du      yu        <u      >u       .             .             .             .             .             .             .
+"  C            !C    .    dC      yC        <C      >C       .             .             .             .             .             .             .
+"  D            !D    cD   .       yD        <D      >D       .             .             .             .             .             .             .
+"  Y            !Y    cY   dY      .         <Y      >Y       .             .             .             .             .             .             .
+"  P            !P    cP   dP      yP        <P      >P       .             .             .             .             .             .             .
+"  U            !U    cU   dU      yU        <U      >U       .             .             .             .             .             .             .
+"  "            !"    c"   d"      y"        <"      >"       .             z"            .             .             .             ""            .
+"  .            !.    c.   d.      y.        <.      >.       .             .             .             .             .             .             .
+"  <            !<    c<   d<      y<        .       ><       .             z<            .             .             @<            "<            .
+"  >            !>    c>   d>      y>        <>      .        .             z>            .             .             @>            ">            .
+"  !            .     c!   d!      y!        <!      >!       m!            z!            `!            '!            @!            "!            .
+"  @            !@    c@   d@      y@        <@      >@       m@            z@            `@            '@            ..            ..            .
+"  &            !&    c&   d&      y&        <&      >&       m&            z&            `&            '&            @&            "&            .
+"  =            !=    c=   d=      y=        <=      >=       m=            .             `=            '=            .             .             .
+"  ;            !;    c;   d;      y;        <;      >;       m;            z;            `;            ';            .             .             .
+"  ,            !,    c,   d,      y,        <,      >,       m,            z,            `,            ',            @,            ",            .
+"  `            .     .    .       .         .       .        .             z`            .             .             @`            "`            .
+"  .            .     .    .       .         .       .        z             .             .             .             .             .
+"  '            .     .    .       .         .       .        .             .             .             .             @'            "'            .
+"  [            .     .    .       .         .       .        .             z[            .             .             @[            "[            .
+"  ]            .     .    .       .         .       .        .             z]            .             .             @]            "]            .
+"  }            .     .    .       .         .       .        m}            z{            `}            '}            @}            "}            .
+"  {            .     .    .       .         .       .        m{            z}            `{            '{            @{            "{            .
+"  <SPACE>      .     .    .       .         .       .        m<SPACE>      z<SPACE>      `<SPACE>      '<SPACE>      @<SPACE>      "<SPACE>      .
+"  <BACKSPACE>  .     .    .       .         .       .        m<BACKSPACE>  z<BACKSPACE>  `<BACKSPACE>  '<BACKSPACE>  @<BACKSPACE>  "<BACKSPACE>  .
+"  <CR>         .     .    .       .         .       .        m<CR>         .             `<CR>         '<CR>         @<CR>         "<CR>         .
+"  ?            .     .    .       .         .       .        .             .             .             .             @?            "?            .
+"  .            .     .    .       .         .       .        .             .             .             .             .             .             .
 "
-"   m<BACKSPACE>
-"   `<BACKSPACE>
-"   '<BACKSPACE>
 "
-"   m<CR>
-"   `<CR>
-"   '<CR>
 "
-"   m,
-"   ',
-"   `,
-"
-"   m.
-"   '.
-"   `.
-"
-"   ...
-"
-" 'z' mappings:
-"   z<SPACE>
-"   z<BACKSPACE>
-"   z,
-"   z'
-"   z"
-"   z>
-"   z<
-"   z`
-"   z~
-"   z!
-"   z@
-"
-" Operator to register:
-"   c"
-"   d"
-"   y"
-"   <"
-"   >"
-"   !"
-"
-" Operator to operator:
-"   cd
-"   cy
-"   c<
-"   c>
-"   c!
-"
-"   dc
-"   dy
-"   d<
-"   d>
-"   d!
-"
-"   yc
-"   yd
-"   y>
-"   y<
-"   y!
-"
-"   <c
-"   <d
-"   <y
-"   <>
-"   <!
-"
-"   >c
-"   >d
-"   >y
-"   ><
-"   >!
-"
-"   !c
-"   !d
-"   !y
-"   !>
-"   !<
-"
-" ...
 
 " Move over visual lines unless a count is given
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
@@ -488,7 +429,7 @@ nnoremap d. :Dthis<CR>
 nnoremap d, :Dpatch<CR>
 nnoremap d~ :Dpatch!<CR>
 nnoremap d" :Dcomment<CR>
-nnoremap d= :Dcomment!<CR>
+nnoremap d& :Dcomment!<CR>
 nnoremap dc :Dshowcomments<CR>
 nnoremap dC :Dshowcomments!<CR>
 
