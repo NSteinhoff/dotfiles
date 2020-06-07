@@ -1,26 +1,24 @@
-source ~/.vimrc
-
-
-" --------------------------------- UI -----------------------------------{{{
-set laststatus=2
-set number
+" --------------------------------- Options -----------------------------------
+"{{{
+"--- UI
+"{{{
+set laststatus=0
+set nonumber
+set rulerformat=%25(%l,%c%V%M%=%P\ %y%)
 set inccommand=split
 set scrolloff=3
 set sidescrolloff=3
-set rulerformat=%25(%l,%c%V%M%=%P\ %y%)
 "}}}
-
-
-" --------------------------------- Editing -----------------------------------{{{
+"--- Editing
+"{{{
 set nowrap
 set linebreak
 set breakindent
 let &showbreak = '... '
 set showmatch
-" }}}
-
-
-" -------------------------------- Searching ----------------------------------{{{
+"}}}
+"--- Searching
+"{{{
 set wildignore+=*/target/*
 
 if executable('rg')
@@ -31,14 +29,9 @@ if executable('ag')
     command! -nargs=+ Ag cexpr system('ag --vimgrep --smart-case '.<q-args>)
     nnoremap <leader>ag :execute 'Ag '.expand('<cword>')<CR>
 endif
-" }}}
-
-
-" ---------------------------------- Colors -----------------------------------{{{
-" Gracefully handle unavailable colorscheme. The desired colorscheme
-" might not be installed yet. This happens after cloning and installing
-" the dotfiles for the first time. Otherwise you'd have to click through
-" the error messages manually.
+"}}}
+"--- Colors
+"{{{
 try
     colorscheme minimal
     set background=dark
@@ -48,9 +41,8 @@ catch E185
     set background=dark
 endtry
 "}}}
-
-
-" ------------------------------- Autoread -------------------------------------{{{
+"--- Autoread
+"{{{
 set autoread
 augroup autoread_settings
     autocmd!
@@ -58,9 +50,8 @@ augroup autoread_settings
     autocmd CursorHold * silent! checktime
 augroup END
 "}}}
-
-
-" ----------------------------------- Tags -----------------------------------{{{
+"--- Tags
+"{{{
 
 " Upward search from current file, then 'tags' in the working directory
 " -> files dir (./xyz)
@@ -68,24 +59,26 @@ augroup END
 " -> cwd (xyz)
 " -> upwards from cwd (xyz;)
 " plain tags -> .git/tags
-set tags=./tags,./tags;,tags,tags;
+set tags =./tags
+set tags+=./tags;
+set tags+=tags
+set tags+=tags;
 
 " I've set up a git hook that get's installed for all repositories that
 " creates tags files on git actions that change the index (commits,
 " checkouts, merges, etc.). This file lives in the .git/ directory.
-set tags+=./.git/tags,./.git/tags;,.git/tags,.git/tags;
-augroup tags
-    autocmd!
-    " FileType specific tags
-    " autocmd FileType scala,rust,python if exists('&tagfunc') | set tagfunc=myfuncs#fttags  | endif
-augroup END
-
+set tags+=./.git/tags
+set tags+=./.git/tags;
+set tags+=.git/tags
+set tags+=.git/tags;
 
 "}}}
+"}}}
 
-
-" ---------------------------------- Commands --------------------------------{{{
-" Format the current buffer
+" -------------------------------- Commands -----------------------------------
+"{{{
+"--- Format the current buffer
+"{{{
 function! Format()
     if &formatprg == ""
         echo "Abort: 'formatprg' unset"
@@ -96,85 +89,94 @@ function! Format()
     if v:shell_error > 0
         silent undo
         redraw
-        echomsg 'formatprg "' . &formatprg . '" exited with status ' . v:shell_error
+        echomsg 'formatprg "'.&formatprg.'" exited with status '.v:shell_error
     endif
     call winrestview(l:view)
 endfunction
 command! -bar Format call Format()
-
+"}}}
+"--- Make
+"{{{
 function! Make(bang)
     execute 'silent make'.a:bang
     cwindow
 endfunction
 command! -bar -bang Make call Make("<bang>")
-
-" Align text
+"}}}
+"--- Align text
+"{{{
 " Using 'sed' and 'column' external tools
-command! -range Align <line1>,<line2>!sed 's/\s\+/~/g' | column -s'~' -t
-command! -nargs=1 -range AlignOn <line1>,<line2>!sed 's/\s\+<args>/ ~<args>/g' | column -s'~' -t
-
-" Headers
+command! -range Align <line1>,<line2>
+            \ !sed 's/\s\+/~/g'
+            \ | column -s'~' -t
+command! -nargs=1 -range AlignOn <line1>,<line2>
+            \ !sed 's/\s\+<args>/ ~<args>/g'
+            \ | column -s'~' -t
+"}}}
+"--- Headers
+"{{{
 command! -nargs=? Section call myfuncs#section(<q-args>)
 command! -nargs=? Header call myfuncs#header(<q-args>)
-
-" Commenting lines
+"}}}
+"--- Commenting lines
+"{{{
 command! -range ToggleCommented <line1>,<line2> call myfuncs#toggle_commented()
-
-" Compiler
+"}}}
+"--- Compiler
+"{{{
 command! Compiler call compiler#describe()
 command! -nargs=1 -complete=compiler CompileWith call compiler#with(<f-args>)
-
-" Edit my filetype/syntax plugin files for current filetype.
+"}}}
+"--- Edit my filetype/syntax plugin files for current filetype.
+"{{{
 command! -nargs=? -complete=compiler EditCompiler
-            \ exe 'keepj edit $HOME/.config/nvim/after/compiler/' . (empty(<q-args>) ? compiler#which() : <q-args>) . '.vim'
+            \ exe 'keepj edit $HOME/.config/nvim/after/compiler/'
+            \ . (empty(<q-args>) ? compiler#which() : <q-args>)
+            \ . '.vim'
 
 command! -nargs=? -complete=filetype EditFiletype
-            \ exe 'keepj edit $HOME/.config/nvim/after/ftplugin/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
+            \ exe 'keepj edit $HOME/.config/nvim/after/ftplugin/'
+            \ . (empty(<q-args>) ? &filetype : <q-args>)
+            \ . '.vim'
 
 command! -nargs=? -complete=filetype EditSyntax
-            \ exe 'keepj edit $HOME/.config/nvim/after/syntax/' . (empty(<q-args>) ? &filetype : <q-args>) . '.vim'
+            \ exe 'keepj edit $HOME/.config/nvim/after/syntax/'
+            \ . (empty(<q-args>) ? &filetype : <q-args>)
+            \ . '.vim'
 
 command! -nargs=? -complete=color EditColorscheme
-            \ execute 'keepj edit $HOME/.config/nvim/after/colors/' . (empty(<q-args>) ? g:colors_name : <q-args>) . '.vim'
-
-" Run lines as shell commands
-command! -range Run echo join(map(getline(<line1>, <line2>), { k, v -> trim(system(v)) }), "\n")
-
-" ---------------------------------- Git ------------------------------------
-function! ButWhy(bang, start, end)
-    let oneline = a:bang != '!' ? ' --no-patch --oneline' : ''
-    echo join(systemlist("git -C " . shellescape(expand('%:p:h')) . " log -L " . a:start . "," . a:end . ":" . expand('%:t') . oneline), "\n")
-endfunction
-command! -range -bang ButWhy call ButWhy(<q-bang>, <q-line1>, <q-line2>)
-command! -range Blame echo join(systemlist("git -C " . shellescape(expand('%:p:h')) . " blame -L <line1>,<line2> " . expand('%:t')), "\n")
-command! -bar -nargs=+ Jump cexpr system('git jump ' . expand(<q-args>))
+            \ execute 'keepj edit $HOME/.config/nvim/after/colors/'
+            \ . (empty(<q-args>) ? g:colors_name : <q-args>) 
+            \ . '.vim'
+"}}}
+"--- Run lines as shell commands
+"{{{
+command! -range Run echo join(
+            \ map(getline(<line1>, <line2>), { k, v -> trim(system(v)) }),
+            \ "\n")
+"}}}
+"--- Git
+"{{{
+command! -range -bang ButWhy 
+	\ echo system(
+	\ "git -C " . shellescape(expand('%:p:h'))
+	\ . " log -L <line1>,<line2>:" . expand('%:t')
+	\ . (<q-bang> != '!' ? ' --no-patch --oneline' : '')
+	\ )
+command! -range Blame 
+	\ echo system(
+	\ "git -C " . shellescape(expand('%:p:h'))
+	\ . " blame -L <line1>,<line2> " . expand('%:t')
+	\ ) 
+command! -bar -nargs=+ Jump 
+	\ cexpr system('git jump ' . expand(<q-args>)) 
+"}}}
 "}}}
 
-
-" ------------------------------- Autocommands --------------------------------{{{
-augroup user-settings
-    autocmd!
-    " Source this file on write
-    autocmd BufWritePost .vimrc,vimrc,init.vim source <sfile>
-augroup END
-augroup user-errorfiles
-    autocmd!
-    " Set the compiler to the root of an errorfile
-    " sbt.err -> :compiler sbt
-    " flake8.err -> :compiler flake8
-    autocmd BufReadPost *.err execute "compiler " . expand("<afile>:r") | cgetbuffer
-augroup END
-augroup user-automake
-    autocmd!
-    autocmd BufWritePre * if exists('b:format_on_write') && b:format_on_write | Format | endif
-    autocmd BufWritePost * if exists('b:make_on_write') && b:make_on_write | Make | endif
-augroup END
-" }}}
-
-
-" --------------------------------- Mappings ---------------------------------{{{
-"
-" --- Mappable Keys ---
+" --------------------------------- Mappings ----------------------------------
+"{{{
+"--- Mappable Keys
+"{{{
 " Non-conflicting mappable keys and sequences. There are tons more.
 "
 " <BACKSPACE>
@@ -188,9 +190,9 @@ augroup END
 "
 "
 "  .            !     c    d       y         <       >        m             z             `             '             @             "             <PLACEHOLDER>
-"  ---          ---   ---  ---     ---       ---     ---      ---           ---           ---           ---           ---           ---           ---
+"  ---          ---   ---  ---     ---       ---     ---      ---           ---           ---           ---           ---           ---          
 "  MNEMONIC     'do'  .    'diff'  'toggle'  'left'  'right'  'make'        .             .             .             'at'          'comment'     .
-"  ---          ---   ---  ---     ---       ---     ---      ---           ---           ---           ---           ---           ---           ---
+"  ---          ---   ---  ---     ---       ---     ---      ---           ---           ---           ---           ---           ---          
 "  c            !c    .    dc      yc        <c      >c       .             .             .             .             .             .             .
 "  d            !d    cd   .       yd        <d      >d       .             .             .             .             .             .             .
 "  y            !y    cy   dy      .         <y      >y       .             .             .             .             .             .             .
@@ -224,66 +226,74 @@ augroup END
 "  ?            .     .    .       .         .       .        .             .             .             .             @?            "?            .
 "  .            .     .    .       .         .       .        .             .             .             .             .             .             .
 "
-"
-"
-
+"}}}
+"--- Basics
+"{{{
 " Move over visual lines unless a count is given
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
-
-" Scrolling the window with CTRL-HJKL
-nnoremap <C-J> 3<C-E>
-nnoremap <C-K> 3<C-Y>
-nnoremap <C-H> 3zh
-nnoremap <C-L> 3zl
 
 " Window resizing with the arrow keys
 map  <left>   5<C-W><  "  decrease  width
 map  <right>  5<C-W>>  "  increase  width
 map  <up>     5<C-W>+  "  increase  height
 map  <down>   5<C-W>-  "  decrease  height
+"}}}
+"--- Scrolling
+"{{{
+" Scrolling the window with CTRL-HJKL
+nnoremap <C-J> 3<C-E>
+nnoremap <C-K> 3<C-Y>
+nnoremap <C-H> 3zh
+nnoremap <C-L> 3zl
 
 " Faster scrolling
 nnoremap <C-E> 3<C-E>
 nnoremap <C-Y> 3<C-Y>
-
-" Toggle line comment
+"}}}
+"--- Comment / Uncomment
+"{{{
 " Mnemonic:
 "   " -> Vim's comment string
 "   <CR> -> line
 "   => 'comment line'
 nnoremap "<CR> :ToggleCommented<CR>
 vnoremap "<CR> :ToggleCommented<CR>
-
-" Format whole buffer
+"}}}
+"--- Format
+"{{{
 " Mnemonic:
 "   < and > change indentation
 "   => 'indent all'
 nnoremap <> :Format<CR>
-
-" --- Clear search highlights ---
+"}}}
+"--- Clear search highlights
+"{{{
 if maparg('<ESC>', 'n') ==# ''
     nnoremap <silent> <ESC> :nohlsearch<CR>
 endif
 if maparg('<SPACE>', 'n') ==# ''
     nnoremap <silent> <SPACE> :nohlsearch<CR>
 endif
-
-" --- :make ---
+"}}}
+"--- Make
+"{{{
 " m<SPACE> and m<CR> make the project
 " Mnemonic:
 "   (m)ake
 "   <CR> louder than <SPACE>
 nnoremap m<CR> :make!<CR>
 nnoremap m<SPACE> :Make<CR>
-
-" --- Errors: Quickfix / Location Lists ---
+"}}}
+"--- Errors: Quickfix / Location Lists
+"{{{
 " Mnemonic:
 "   (Q)uickfix
 nnoremap Q :clist<CR>
 nnoremap <C-Q> :cwindow<CR>
-
-" --- Preview ---
+"}}}
+"--- Preview
+"{{{
 " Preview word under cursor
 nnoremap <C-SPACE> <C-W>}
 " Preview selection
@@ -293,22 +303,24 @@ nnoremap <C-W><SPACE> <C-W>z
 nnoremap <C-W><C-SPACE> <C-W>z
 " Complete tag
 inoremap <C-SPACE> <C-X><C-]>
-
-
-" --- Cycling ---
+"}}}
+"--- Cycling
+"{{{
 " Quickly cycling a list
 " (currently Buffers)
 nnoremap <C-P> :bprevious<CR>
 nnoremap <C-N> :bnext<CR>
-
-" --- Toggle Settings ---
+"}}}
+"--- Toggle Settings
+"{{{
 " Exetending 'vim-unimpaired'
 " T: s(T)atusbar
 nnoremap <silent> [o_ :set ls=2<CR>
 nnoremap <silent> ]o_ :set ls=0<CR>
 nnoremap <expr> <silent> yo_ (&laststatus == 2 ? ':set ls=0<CR>' : ':set ls=2<CR>')
-
-" --------------------------------- <LEADER> ----------------------------------
+"}}}
+"--- <LEADER>
+"{{{
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
 let mapleader = '\'
 set wildcharm=<C-Z>
@@ -335,45 +347,19 @@ nnoremap <leader>eo :EditColorscheme<CR>
 nnoremap <leader>E :Explore<CR>
 nnoremap <leader>V :Vexplore<CR>
 nnoremap <leader>T :Texplore<CR>
-
-" ---------------------------------- Unused -----------------------------------
-" Hard Mode
-" nnoremap h <NOP>
-" nnoremap j <NOP>
-" nnoremap k <NOP>
-" nnoremap l <NOP>
-" vnoremap h <NOP>
-" vnoremap j <NOP>
-" vnoremap k <NOP>
-" vnoremap l <NOP>
-" nnoremap <BS> <NOP>
-" vnoremap <BS> <NOP>
-" inoremap <BS> <NOP>
-
-" Navigate Windows
-" nnoremap <C-J> <C-W>j
-" nnoremap <C-K> <C-W>k
-" nnoremap <C-H> <C-W>h
-" nnoremap <C-L> <C-W>l
+"}}}
 "}}}
 
-
-" ---------------------------------- Netrw ------------------------------------{{{
-" Hide files that are ignored by git
-let  g:netrw_list_hide  =  netrw_gitignore#Hide()
-let  g:netrw_preview    =  1
-let  g:netrw_altv       =  1
-let  g:netrw_alto       =  0
-"}}}
-
-
-" --------------------------------- Plugins ----------------------------------{{{
-
-" Personal plugins
+" --------------------------------- Plugins -----------------------------------
+"{{{
+"--- Personal
+"{{{
 packadd! statusline
 packadd! differ
 packadd! pomodoro
-
+"}}}
+"--- External
+"{{{
 " Install minpac as an optional package if it's not already installed.
 let minpac_path = has('nvim') ? '~/.config/nvim/pack/minpac/opt/minpac' : '~/.vim/pack/minpac/opt/minpac'
 let minpac_source = 'https://github.com/k-takata/minpac.git'
@@ -411,14 +397,19 @@ packloadall
 command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('', {'do': 'call minpac#status()'})
 command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
 command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
+"}}}
+"--- Configuration
+"{{{
+" netrw:
+let  g:netrw_list_hide  =  netrw_gitignore#Hide()
+let  g:netrw_preview    =  1
+let  g:netrw_altv       =  1
+let  g:netrw_alto       =  0
 
-
-" Plugin Configuration:
-
-" vim-python
+" vim-python:
 let g:python_highlight_all = 1
 
-" --- Differ Mappings ---
+" differ:
 nnoremap d; :Dstatus<CR>
 nnoremap d@ :Dremote<CR>
 nnoremap d! :Dremote!<CR>
@@ -432,18 +423,46 @@ nnoremap d" :Dcomment<CR>
 nnoremap d& :Dcomment!<CR>
 nnoremap dc :Dshowcomments<CR>
 nnoremap dC :Dshowcomments!<CR>
-
+"}}}
 "}}}
 
-
-" ------------------------------ Abbreviations -------------------------------- {{{
-" Last modification date of the current file
-iabbrev <expr> ddf strftime("%c", getftime(expand('%')))
-" Local date-time
-iabbrev <expr> ddc strftime("%c")
-" Local date
-iabbrev <expr> ddd strftime("%Y-%m-%d")
+" ------------------------------ Abbreviations --------------------------------
+"{{{
+" Last modification date of the current file{{{
+iabbrev <expr> ddf strftime("%c", getftime(expand('%')))}}}
+" Local date-time{{{
+iabbrev <expr> ddc strftime("%c")}}}
+" Local date{{{
+iabbrev <expr> ddd strftime("%Y-%m-%d")}}}
 "}}}
 
+" ------------------------------- Autocommands --------------------------------
+"{{{
+augroup user-settings "{{{
+    autocmd!
+    " Source this file on write
+    autocmd BufWritePost .vimrc,vimrc,init.vim source <sfile>
+augroup END "}}}
+augroup user-errorfiles "{{{
+    autocmd!
+    " Set the compiler to the root of an errorfile
+    " sbt.err -> :compiler sbt
+    " flake8.err -> :compiler flake8
+    autocmd BufReadPost *.err
+                \ execute "compiler " . expand("<afile>:r")
+                \ | cgetbuffer
+augroup END "}}}
+augroup user-automake "{{{
+    autocmd!
+    autocmd BufWritePre *
+                \ if exists('b:format_on_write') && b:format_on_write
+                \ | Format
+                \ | endif
+    autocmd BufWritePost *
+                \ if exists('b:make_on_write') && b:make_on_write
+                \ | Make
+                \ | endif
+augroup END "}}}
+"}}}
 
 " vim:foldmethod=marker textwidth=0
