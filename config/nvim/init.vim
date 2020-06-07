@@ -2,15 +2,25 @@
 "{{{
 "--- UI
 "{{{
-set laststatus=0
-set nonumber
+set wildmode=longest:full,full
+set background=dark
+set laststatus=2
+set number
 set rulerformat=%25(%l,%c%V%M%=%P\ %y%)
 set inccommand=split
 set scrolloff=3
 set sidescrolloff=3
+set list
+set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:+
 "}}}
 "--- Editing
 "{{{
+set foldmethod=indent
+set hidden
+set path=,,.
+set shiftwidth=4
+set softtabstop=-1
+set expandtab
 set nowrap
 set linebreak
 set breakindent
@@ -441,7 +451,7 @@ iabbrev <expr> ddd strftime("%Y-%m-%d")}}}
 augroup user-settings "{{{
     autocmd!
     " Source this file on write
-    autocmd BufWritePost .vimrc,vimrc,init.vim source <sfile>
+    autocmd BufWritePost init.vim source <sfile>
 augroup END "}}}
 augroup user-errorfiles "{{{
     autocmd!

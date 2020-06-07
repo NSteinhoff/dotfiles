@@ -9,6 +9,7 @@ set expandtab
 set list
 set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:+
 set background=dark
+set foldmethod=indent
 
 augroup settings
     autocmd!
