@@ -1,5 +1,5 @@
 " Vim plugin for diffing files against a chosen git ref.
-" Last Change:      Sat 19 Oct 2019 08:24:00 CEST
+" Last Change:      Mon 08 Jun 2020 08:57:26 AM
 " Maintainer:       Niko Steinhoff <niko.steinhoff@gmail.com>
 " License:          This file is placed in the public domain.
 

@@ -1,5 +1,5 @@
 " Vim plugin for diffing files against a chosen git ref.
-" Last Change:      Sat 19 Oct 2019 08:24:21 CEST
+" Last Change:      Mon 08 Jun 2020 08:58:16 AM
 " Maintainer:       Niko Steinhoff <niko.steinhoff@gmail.com>
 " License:          This file is placed in the public domain.
 
@@ -111,18 +111,13 @@ endfunction
 
 function differ#comment(text, bang)
     let lnum = line('.')
-    let filename = expand('%:.')
+    let filename = expand('%')
     let lines = a:text == ''?[]:[a:text]
 
     if a:bang == ''
         call s:edit_comment(filename, lnum, lines)
     else
-        if input('Do you really want to wipe all comments? yes/no: ' ) == 'yes'
-            call comment#wipe()
-            echo "\nComments wiped!"
-        else
-            echo "\nOk then."
-        endif
+        call comment#wipe(filename, lnum)
     endif
 endfunction
 
@@ -265,7 +260,7 @@ function s:patch_all(target)
     call s:load_patch_all(ref)
 endfunction
 
-function differ#write_comment(buf)
+function s:write_comment(buf)
     call comment#write(
                 \ getbufvar(a:buf, "filename"),
                 \ getbufvar(a:buf, "lnum"),
@@ -274,16 +269,17 @@ function differ#write_comment(buf)
 endfunction
 
 function s:edit_comment(filename, lnum, lines)
-    let bname = '[COMMENT:'.a:filename.':'.a:lnum.']'
+    let bname = 'COMMENT: '.a:filename.':'.a:lnum.' (close to save)'
     execute 'new '.bname
     setlocal buftype=nofile bufhidden=wipe noswapfile ft=markdown
+    let &l:statusline = bname
     wincmd K | resize 15
 
     let b:filename = a:filename
     let b:lnum = a:lnum
 
     aug differ
-        au BufUnload <buffer> call differ#write_comment(str2nr(expand("<abuf>")))
+        au BufUnload <buffer> call <SID>write_comment(str2nr(expand("<abuf>")))
     aug END
 
     let previous = comment#get(a:filename, a:lnum)
