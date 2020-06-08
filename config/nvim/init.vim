@@ -117,11 +117,11 @@ command! -bar -bang Make call Make("<bang>")
 "{{{
 " Using 'sed' and 'column' external tools
 command! -range Align <line1>,<line2>
-            \ !sed 's/\s\+/~/g'
-            \ | column -s'~' -t
+    \ !sed 's/\s\+/~/g'
+    \ | column -s'~' -t
 command! -nargs=1 -range AlignOn <line1>,<line2>
-            \ !sed 's/\s\+<args>/ ~<args>/g'
-            \ | column -s'~' -t
+    \ !sed 's/\s\+<args>/ ~<args>/g'
+    \ | column -s'~' -t
 "}}}
 "--- Headers
 "{{{
@@ -140,24 +140,24 @@ command! -nargs=1 -complete=compiler CompileWith call compiler#with(<f-args>)
 "--- Edit my filetype/syntax plugin files for current filetype.
 "{{{
 command! -nargs=? -complete=compiler EditCompiler
-            \ exe 'keepj edit $HOME/.config/nvim/after/compiler/'
-            \ . (empty(<q-args>) ? compiler#which() : <q-args>)
-            \ . '.vim'
+    \ exe 'keepj edit $HOME/.config/nvim/after/compiler/'
+    \ . (empty(<q-args>) ? compiler#which() : <q-args>)
+    \ . '.vim'
 
 command! -nargs=? -complete=filetype EditFiletype
-            \ exe 'keepj edit $HOME/.config/nvim/after/ftplugin/'
-            \ . (empty(<q-args>) ? &filetype : <q-args>)
-            \ . '.vim'
+    \ exe 'keepj edit $HOME/.config/nvim/after/ftplugin/'
+    \ . (empty(<q-args>) ? &filetype : <q-args>)
+    \ . '.vim'
 
 command! -nargs=? -complete=filetype EditSyntax
-            \ exe 'keepj edit $HOME/.config/nvim/after/syntax/'
-            \ . (empty(<q-args>) ? &filetype : <q-args>)
-            \ . '.vim'
+    \ exe 'keepj edit $HOME/.config/nvim/after/syntax/'
+    \ . (empty(<q-args>) ? &filetype : <q-args>)
+    \ . '.vim'
 
 command! -nargs=? -complete=color EditColorscheme
-            \ execute 'keepj edit $HOME/.config/nvim/after/colors/'
-            \ . (empty(<q-args>) ? g:colors_name : <q-args>) 
-            \ . '.vim'
+    \ execute 'keepj edit $HOME/.config/nvim/after/colors/'
+    \ . (empty(<q-args>) ? g:colors_name : <q-args>) 
+    \ . '.vim'
 "}}}
 "--- Run lines as shell commands
 "{{{
@@ -167,19 +167,19 @@ command! -range Run echo join(
 "}}}
 "--- Git
 "{{{
-command! -range -bang ButWhy 
-	\ echo system(
-	\ "git -C " . shellescape(expand('%:p:h'))
-	\ . " log -L <line1>,<line2>:" . expand('%:t')
-	\ . (<q-bang> != '!' ? ' --no-patch --oneline' : '')
-	\ )
-command! -range Blame 
-	\ echo system(
-	\ "git -C " . shellescape(expand('%:p:h'))
-	\ . " blame -L <line1>,<line2> " . expand('%:t')
-	\ ) 
-command! -bar -nargs=+ Jump 
-	\ cexpr system('git jump ' . expand(<q-args>)) 
+command! -range -bang ButWhy
+    \ echo system(
+    \ "git -C " . shellescape(expand('%:p:h'))
+    \ . " log -L <line1>,<line2>:" . expand('%:t')
+    \ . (<q-bang> != '!' ? ' --no-patch --oneline' : '')
+    \ )
+command! -range Blame
+    \ echo system(
+    \ "git -C " . shellescape(expand('%:p:h'))
+    \ . " blame -L <line1>,<line2> " . expand('%:t')
+    \ )
+command! -bar -nargs=+ Jump
+    \ cexpr system('git jump ' . expand(<q-args>)) 
 "}}}
 "}}}
 
@@ -465,19 +465,19 @@ augroup user-errorfiles "{{{
     " sbt.err -> :compiler sbt
     " flake8.err -> :compiler flake8
     autocmd BufReadPost *.err
-                \ execute "compiler " . expand("<afile>:r")
-                \ | cgetbuffer
+        \ execute "compiler " . expand("<afile>:r")
+        \ | cgetbuffer
 augroup END "}}}
 augroup user-automake "{{{
     autocmd!
     autocmd BufWritePre *
-                \ if exists('b:format_on_write') && b:format_on_write
-                \ | Format
-                \ | endif
+        \ if exists('b:format_on_write') && b:format_on_write
+        \ | Format
+        \ | endif
     autocmd BufWritePost *
-                \ if exists('b:make_on_write') && b:make_on_write
-                \ | Make
-                \ | endif
+        \ if exists('b:make_on_write') && b:make_on_write
+        \ | Make
+        \ | endif
 augroup END "}}}
 "}}}
 
