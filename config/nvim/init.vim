@@ -2,6 +2,7 @@
 "{{{
 "--- UI
 "{{{
+set mouse=nv
 set wildmode=longest:full,full
 set background=dark
 set laststatus=2
@@ -362,6 +363,10 @@ nnoremap <leader>T :Texplore<CR>
 
 " --------------------------------- Plugins -----------------------------------
 "{{{
+"--- Standard
+"{{{
+packadd! matchit
+"}}}
 "--- Personal
 "{{{
 packadd! statusline
@@ -440,7 +445,8 @@ nnoremap dC :Dshowcomments!<CR>
 "{{{
 " Last modification date of the current file
 "{{{
-iabbrev <expr> ddf strftime("%c", getftime(expand('%')))"
+iabbrev <expr> ddf strftime("%Y %b %d", getftime(expand('%')))"
+iabbrev <expr> ddF strftime("%c", getftime(expand('%')))"
 "}}}
 " Local date-time
 "{{{
