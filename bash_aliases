@@ -39,6 +39,13 @@ alias q='_() { q=${1:-$(xsel -op)}; xdg-open "https://duckduckgo.com/?q=${q}"; }
 alias :q='exit'
 alias :e='nvim'
 
+# Open notes for editing
+_complete_notes() {
+    COMPREPLY=( $(compgen -W "$(ls ~/Dropbox/Documents/Notes/)" $2) )
+}
+complete -F _complete_notes note
+alias note='_() { $EDITOR ~/Dropbox/Documents/Notes/$1 ; }; _'
+
 # Open
 [[ $OSTYPE = linux* ]] && alias open='xdg-open'
 
@@ -52,11 +59,15 @@ which highlight &>/dev/null && alias hil='_() { highlight -O ansi $@ | less -R; 
 # -----------   COMPLETIONS   --------------
 # [check for executable] && [ensure exists] && [source completions]
 [ -d ~/.config/bash-completion ] || mkdir -p ~/.config/bash-completion
+
 which cht.sh &>/dev/null || (curl https://cht.sh/:cht.sh > ~/.local/bin/cht.sh && chmod +x ~/.local/bin/cht.sh)
-which cht.sh &>/dev/null && ([ -f ~/.config/bash-completion/cht.sh ] || cht.sh :bash_completion > ~/.config/bash-completion/cht.sh) && source ~/.config/bash-completion/cht.sh
-which kubectl &>/dev/null && ([ -f ~/.config/bash-completion/kubectl ] || kubectl completion bash > ~/.config/bash-completion/kubectl) && source ~/.config/bash-completion/kubectl
-which minikube &>/dev/null && ([ -f ~/.config/bash-completion/minikube ] || minikube completion bash > ~/.config/bash-completion/minikube) && source ~/.config/bash-completion/minikube
-which helm &>/dev/null && ([ -f ~/.config/bash-completion/helm ] || helm completion bash > ~/.config/bash-completion/helm) && source ~/.config/bash-completion/helm
+which cht.sh &>/dev/null && ([ -f ~/.config/bash-completion/cht.sh ] || cht.sh :bash_completion > ~/.config/bash-completion/cht.sh)
+which kubectl &>/dev/null && ([ -f ~/.config/bash-completion/kubectl ] || kubectl completion bash > ~/.config/bash-completion/kubectl)
+which minikube &>/dev/null && ([ -f ~/.config/bash-completion/minikube ] || minikube completion bash > ~/.config/bash-completion/minikube)
+which helm &>/dev/null && ([ -f ~/.config/bash-completion/helm ] || helm completion bash > ~/.config/bash-completion/helm)
+
+for file in ~/.config/bash-completion/*; do source "$file"; done
+
 [ -d "$HOME/.bloop" ] && source "$HOME/.bloop/bash/bloop"
 which pyenv &>/dev/null && eval "$(pyenv init -)"
 
