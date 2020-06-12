@@ -88,6 +88,10 @@ set tags+=.git/tags;
 
 " -------------------------------- Commands -----------------------------------
 "{{{
+"--- Special buffers
+command! -nargs=? -complete=filetype Scratch new
+    \ | setlocal buftype=nofile bufhidden=hide noswapfile
+    \ | let &ft = <q-args>
 "--- Format the current buffer
 "{{{
 function! Format()
@@ -117,12 +121,10 @@ command! -bar -bang Make call Make("<bang>")
 "--- Align text
 "{{{
 " Using 'sed' and 'column' external tools
-command! -range Align <line1>,<line2>
-    \ !sed 's/\s\+/~/g'
-    \ | column -s'~' -t
-command! -nargs=1 -range AlignOn <line1>,<line2>
-    \ !sed 's/\s\+<args>/ ~<args>/g'
-    \ | column -s'~' -t
+command! -nargs=? -range Align execute
+    \ '<line1>,<line2>!sed '
+    \ ."'s/".(<q-args> == '' ? '\s\+' : '\s*<args>\s*').'/ ~<args> '."/g' "
+    \ .'| '."column -s'~' -t"
 "}}}
 "--- Headers
 "{{{
@@ -160,11 +162,9 @@ command! -nargs=? -complete=color EditColorscheme
     \ . (empty(<q-args>) ? g:colors_name : <q-args>) 
     \ . '.vim'
 "}}}
-"--- Run lines as shell commands
+"--- Run lines with interpreter
 "{{{
-command! -range Run echo join(
-            \ map(getline(<line1>, <line2>), { k, v -> trim(system(v)) }),
-            \ "\n")
+command! -range Run execute '<line1>,<line2>w !'.get(b:, 'interpreter', 'bash')
 "}}}
 "--- Git
 "{{{
@@ -249,6 +249,13 @@ map  <left>   5<C-W><  "  decrease  width
 map  <right>  5<C-W>>  "  increase  width
 map  <up>     5<C-W>+  "  increase  height
 map  <down>   5<C-W>-  "  decrease  height
+"}}}
+"--- Execution
+"{{{
+" Run selected lines
+vnoremap <CR> :Run<CR>
+" Run whole file
+nnoremap <BACKSPACE> :%Run<CR>
 "}}}
 "--- Scrolling
 "{{{
@@ -341,6 +348,7 @@ vnoremap <leader>= :Align<CR>
 nnoremap <leader>! :!%:p<CR>
 nnoremap <leader>x :Run<CR>
 vnoremap <leader>x :Run<CR>
+nnoremap <leader>X :%Run<CR>
 
 " Switch buffers
 nnoremap <leader>b :buffer <C-Z>
@@ -370,8 +378,12 @@ packadd! matchit
 "--- Personal
 "{{{
 packadd! statusline
-packadd! differ
+" packadd! differ
 packadd! pomodoro
+
+set runtimepath+=~/Development/vim-igitt/
+runtime! plugin/igitt.vim
+
 "}}}
 "--- External
 "{{{
@@ -470,20 +482,12 @@ augroup user-errorfiles "{{{
     " Set the compiler to the root of an errorfile
     " sbt.err -> :compiler sbt
     " flake8.err -> :compiler flake8
-    autocmd BufReadPost *.err
-        \ execute "compiler " . expand("<afile>:r")
-        \ | cgetbuffer
+    autocmd BufReadPost *.err execute "compiler ".expand("<afile>:r") | cgetbuffer
 augroup END "}}}
 augroup user-automake "{{{
     autocmd!
-    autocmd BufWritePre *
-        \ if exists('b:format_on_write') && b:format_on_write
-        \ | Format
-        \ | endif
-    autocmd BufWritePost *
-        \ if exists('b:make_on_write') && b:make_on_write
-        \ | Make
-        \ | endif
+    autocmd BufWritePre  * if get(b:, 'format_on_write', 0) | Format | endif
+    autocmd BufWritePost * if get(b:, 'make_on_write', 0)   | Make   | endif
 augroup END "}}}
 "}}}
 
