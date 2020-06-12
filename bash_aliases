@@ -7,7 +7,7 @@ HISTSIZE=100000
 HISTFILESIZE=200000
 
 # Set Vim as default editor
-export EDITOR=vim
+which nvim &>/dev/null && export EDITOR=nvim || export EDITOR=vim
 
 # Set Vim as man pager
 # which nvim &>/dev/null && export MANPAGER='nvim +Man!'
