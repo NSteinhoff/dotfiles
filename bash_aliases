@@ -1,4 +1,6 @@
 # vim: ft=sh
+[ -n "$TMUX" ] || tmux attach -t default
+
 # Disable <ctrl-s> suspending (reactivated with <ctrl-q>)
 stty -ixon
 
