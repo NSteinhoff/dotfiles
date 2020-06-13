@@ -21,6 +21,9 @@ esac
 #  ALIASES
 # -----------------------------------------------------------------------------
 
+# Safer delete
+alias rm='rm -i'
+
 # Listing files
 [ $os = "linux" ] && alias ls='ls --color=auto --group-directories-first'
 [ $os = "mac" ] && alias ls='ls -G'
