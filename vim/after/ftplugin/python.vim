@@ -8,6 +8,4 @@ if exists(':DD')
     setlocal keywordprg=:DD
 endif
 
-if executable('black')
-    setlocal formatprg=black\ -\ 2>/dev/null
-endif
+let b:interpreter = 'python -'
