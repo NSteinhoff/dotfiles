@@ -1,5 +1,7 @@
 # vim: ft=sh
-[ -n "$TMUX" ] || tmux attach -t default
+
+# Replace the current shell with one that's attached to the default tmux session
+( which tmux &>/dev/null && [ -n "$TMUX" ] ) || exec tmux new-session -A -s default
 
 # Disable <ctrl-s> suspending (reactivated with <ctrl-q>)
 stty -ixon

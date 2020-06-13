@@ -179,7 +179,8 @@ git_branch_indicator() {
 tmux_indicator() {
     if [[ -n "${TMUX}" ]]; then
         tmuxinfo="$(tmux lsw -F '#S:#I:#P #{window_active}' | grep '1$' | cut -d' ' -f1)"
-        echo -en "[${cyan}${tmuxinfo}${reset}] "
+        shortinfo="${tmuxinfo#default:}"
+        echo -en "[${cyan}${shortinfo}${reset}] "
     fi
 }
 
