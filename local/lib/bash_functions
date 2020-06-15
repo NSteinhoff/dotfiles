@@ -119,35 +119,32 @@ git_uncommitted_changes() {
 }
 
 branch_name() {
-    # git rev-parse --abbrev-ref HEAD 2> /dev/null
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+    name="$(git branch 2>/dev/null)" || return 1
+    echo "$name" | sed -e '/^[^*]/d' -e 's/^* //'
 }
 
 remote_branch() {
-    remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null) && echo -n "$remote" || echo -n ""
+    remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null) || return 1
+    echo -n "$remote"
 }
 
 branch_status() {
-    ahead=$(git status | sed '/ahead/!d')
-    behind=$(git status | sed '/behind/!d')
-    diverged=$(git status | sed '/diverged/!d')
+    status=$(git status 2>/dev/null) || return 1
+    ahead=$(echo $status | sed '/ahead/!d')
+    behind=$(echo $status | sed '/behind/!d')
+    diverged=$(echo $status | sed '/diverged/!d')
 
-    if [ -n "$diverged" ]; then
-        echo -n "Y"
-    elif [ -n "$ahead" ]; then
-        echo -n "+"
-    elif [ -n "$behind" ]; then
-        echo -n "-"
-    else
+    [ -n "$diverged" ] && echo -n "Y" ||
+        [ -n "$ahead" ] && echo -n "+" ||
+        [ -n "$behind" ] && echo -n "-" ||
         echo -n "*"
-    fi
 }
 
 git_branch_indicator() {
-    branch=$(branch_name)
-    [ -n "$branch" ] || exit 0
+    branch=$(branch_name) || return 0
+    [ -n "$branch" ] || return 1
 
-    remote=$(remote_branch)
+    remote=$(remote_branch) || return 1
     if [ -n "$remote" ]; then
         remote_name="${remote#*/}"
         status="$(branch_status)"
@@ -160,13 +157,9 @@ git_branch_indicator() {
         remote_indicator=''
     fi
 
-    if $(git_unstaged_changes); then
-        COLOR="${RED}"
-    elif $(git_uncommitted_changes); then
-        COLOR="${ORANGE}"
-    else
+    $(git_unstaged_changes) && COLOR="${RED}" ||
+        $(git_uncommitted_changes) && COLOR="${ORANGE}" ||
         COLOR="${GREEN}"
-    fi
 
     echo -n "["
     echo -en "\001${COLOR}\002"
@@ -179,7 +172,11 @@ git_branch_indicator() {
 tmux_indicator() {
     if [[ -n "${TMUX}" ]]; then
         tmuxinfo="$(tmux lsw -F '#S:#I:#P #{window_active}' | grep '1$' | cut -d' ' -f1)"
-        shortinfo="${tmuxinfo#default:}"
+        case $tmuxinfo in
+            default:*) shortinfo="*${tmuxinfo#default}" ;;
+            [0123456789]:1:1) shortinfo="T" ;;
+            *) shortinfo="${tmuxinfo}" ;;
+        esac
         echo -en "[${cyan}${shortinfo}${reset}] "
     fi
 }

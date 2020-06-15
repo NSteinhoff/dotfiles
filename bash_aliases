@@ -1,7 +1,29 @@
 # vim: ft=sh
 
-# Replace the current shell with one that's attached to the default tmux session
-( which tmux &>/dev/null && [ -n "$TMUX" ] ) || exec tmux new-session -A -s default
+if which tmux &>/dev/null; then
+    # If tmux is installed, we attach each new shell to a tmux session
+    #
+    # Single Session:
+    #   One option is to attach all terminals to the same session, in which
+    #   case tmux is used for all window / pane management.
+    #
+    # Integrated:
+    #   Another option is to attach each terminal to its own session, and
+    #   use the OS window manager for handling windows and tiling.
+    #   Here, tmux is pretty much in 'stealth' mode really only used
+    #   for the copy mode, i.e. terminal:session:window:pane 1:1:1:1
+
+    tmux_should_attach=true
+    tmux_single_session=false
+
+    $tmux_single_session &&
+        tmux_cmd="tmux new-session -A -s default" ||
+        tmux_cmd="tmux new-session"
+
+    [ -n "$TMUX" ] && $tmux_should_attach ||
+        exec $tmux_cmd
+fi
+
 
 # Disable <ctrl-s> suspending (reactivated with <ctrl-q>)
 stty -ixon
