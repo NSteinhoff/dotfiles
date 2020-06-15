@@ -7,7 +7,7 @@ managed_scala_sources="`find . -path '*/src_managed/*' -name '*.scala'`"
 trap 'rm -f "$dir/$$.tags"' EXIT
 
 git ls-files | \
-    ctags --tag-relative=yes --sort=yes -L - -f"$dir/$$.tags" --languages=-javascript,sql,css
+    ctags --tag-relative=yes --sort=yes -L - -f"$dir/$$.tags" --languages=-css
 
 if [ -n "$managed_scala_sources" ]; then
     ctags --exclude= --tag-relative=yes --sort=yes -f"$dir/$$.tags" -a $managed_scala_sources
