@@ -135,8 +135,8 @@ branch_status() {
     diverged=$(echo $status | sed '/diverged/!d')
 
     [ -n "$diverged" ] && echo -n "Y" ||
-        [ -n "$ahead" ] && echo -n "+" ||
-        [ -n "$behind" ] && echo -n "-" ||
+        ( [ -n "$ahead" ] && echo -n "+" ) ||
+        ( [ -n "$behind" ] && echo -n "-" ) ||
         echo -n "*"
 }
 
