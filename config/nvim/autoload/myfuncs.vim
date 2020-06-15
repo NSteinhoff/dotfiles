@@ -15,14 +15,18 @@ function myfuncs#toggle_commented()
     let [prefix, suffix] = s:comment_affixes()
     let line = getline('.')
     let commented = match(line, '^\s*'.escape(prefix, '\*').'\.*') != -1
+    let indent = matchstr(line, '^\s*')
     if commented
-        let startline = matchend(line, '^\s*'.escape(prefix, '\*').'\s\?')
+        let startline = matchend(line, '^'.indent.escape(prefix, '\*').'\s\?')
         let endline = match(line, '\s\?'.escape(suffix, '\*').'$')
         let endline = endline == -1 ? strlen(line) : endline - startline
-        let toggled = strcharpart(line, startline, endline)
+        let words = strcharpart(line, startline, endline)
+        let toggled = indent . words
     else
-        let toggled = prefix
-        let toggled.= line != '' ? ' '.line : ''
+        let startline = matchend(line, '^'.indent)
+        let words = strcharpart(line, startline)
+        let toggled = indent . prefix
+        let toggled.= line != '' ? ' '.words : ''
         let toggled.= suffix != '' ? ' '.suffix : ''
     endif
     call setline('.', toggled)
