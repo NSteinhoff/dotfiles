@@ -129,15 +129,18 @@ remote_branch() {
 }
 
 branch_status() {
-    status=$(git status 2>/dev/null) || return 1
-    ahead=$(echo $status | sed '/ahead/!d')
-    behind=$(echo $status | sed '/behind/!d')
-    diverged=$(echo $status | sed '/diverged/!d')
+    status=$(
+        git status 2>/dev/null |
+        grep '^Your branch is ' |
+        grep -o 'ahead\|behind\|diverged\|up to date'
+    ) || return 1
 
-    [ -n "$diverged" ] && echo -n "Y" ||
-        ( [ -n "$ahead" ] && echo -n "+" ) ||
-        ( [ -n "$behind" ] && echo -n "-" ) ||
-        echo -n "*"
+    case $status in
+        diverged) echo -n "Y" ;;
+        ahead) echo -n "+" ;;
+        behind) echo -n "-" ;;
+        'up to date') echo -n "*" ;;
+    esac
 }
 
 git_branch_indicator() {
@@ -174,7 +177,7 @@ tmux_indicator() {
         tmuxinfo="$(tmux lsw -F '#S:#I:#P #{window_active}' | grep '1$' | cut -d' ' -f1)"
         case $tmuxinfo in
             default:*) shortinfo="*${tmuxinfo#default}" ;;
-            [0123456789]:1:1) shortinfo="T" ;;
+            [0123456789]*:1:1) shortinfo="T" ;;
             *) shortinfo="${tmuxinfo}" ;;
         esac
         echo -en "[${cyan}${shortinfo}${reset}] "

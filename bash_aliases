@@ -1,30 +1,5 @@
 # vim: ft=sh
 
-if which tmux &>/dev/null; then
-    # If tmux is installed, we attach each new shell to a tmux session
-    #
-    # Single Session:
-    #   One option is to attach all terminals to the same session, in which
-    #   case tmux is used for all window / pane management.
-    #
-    # Integrated:
-    #   Another option is to attach each terminal to its own session, and
-    #   use the OS window manager for handling windows and tiling.
-    #   Here, tmux is pretty much in 'stealth' mode really only used
-    #   for the copy mode, i.e. terminal:session:window:pane 1:1:1:1
-
-    tmux_should_attach=true
-    tmux_single_session=false
-
-    $tmux_single_session &&
-        tmux_cmd="tmux new-session -A -s default" ||
-        tmux_cmd="tmux new-session"
-
-    [ -n "$TMUX" ] && $tmux_should_attach ||
-        exec $tmux_cmd
-fi
-
-
 # Disable <ctrl-s> suspending (reactivated with <ctrl-q>)
 stty -ixon
 
@@ -100,6 +75,11 @@ for file in ~/.config/bash-completion/*; do source "$file"; done
 [ -d "$HOME/.bloop" ] && source "$HOME/.bloop/bash/bloop"
 which pyenv &>/dev/null && eval "$(pyenv init -)"
 
+_complete_tmux() {
+    COMPREPLY=( $(compgen -W "$(tmux list-commands -F#{command_list_name})" $2) )
+}
+complete -F _complete_tmux tmux
+
 
 # ---------------------------------- PROMPT -----------------------------------
 case "$TERM" in
@@ -119,6 +99,39 @@ export PROMPT_COMMAND="$HOME/.local/bin/bashbot"
 function_lib="$HOME/.local/lib/bash_functions"
 [ -f "$function_lib" ] && source "$function_lib"
 
+# --------------------------------- TMUXIFY -----------------------------------
+tmuxify() {
+    # If tmux is installed, we attach each new shell to a tmux session
+    #
+    # single
+    #     One option is to attach all terminals to the same session, in which
+    #     case tmux is used for all window / pane management.
+    #
+    # integrated
+    #     Another option is to attach each terminal to its own session, and
+    #     use the OS window manager for handling windows and tiling.
+    #     Here, tmux is pretty much in 'stealth' mode really only used
+    #     for the copy mode, i.e. terminal:session:window:pane 1:1:1:1
+    [ -x $(which tmux) ] || return 1
+
+    local tmux_mode=${1:-undefined}
+    local tmux_cmd
+    case $tmux_mode in
+        integrated)
+            tmux_cmd="tmux new-session"
+            ;;
+        single)
+            tmux_cmd="tmux new-session -A -s default"
+            ;;
+        *)
+            echo invalid tmux mode \'$tmux_mode\'
+            return 1
+            ;;
+    esac
+
+    [ -n "$TMUX" ] || exec $tmux_cmd
+}
+tmuxify integrated
 
 # --------------------------------- GREETING ----------------------------------
 [[ ${PWD} == ${HOME} ]] && greeting
