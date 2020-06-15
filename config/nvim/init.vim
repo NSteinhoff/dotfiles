@@ -180,7 +180,8 @@ command! -range Blame
     \ . " blame -L <line1>,<line2> " . expand('%:t')
     \ )
 command! -bar -nargs=+ Jump
-    \ cexpr system('git jump ' . expand(<q-args>)) 
+    \ cexpr system('git jump ' . expand(<q-args>))
+command! Ctags call jobstart(['git', 'ctags'])
 "}}}
 "}}}
 
