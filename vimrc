@@ -10,6 +10,7 @@ set list
 set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:+
 set background=dark
 set foldmethod=indent
+set backspace=indent,eol,start
 
 augroup settings
     autocmd!
