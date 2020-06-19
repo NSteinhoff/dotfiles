@@ -140,7 +140,6 @@ install_dotfiles \
 # Ctags
 # =====
 install_dotfiles \
-    ctags \
     ctags.d
 
 # Fonts
@@ -178,20 +177,16 @@ if [ ${os} = "linux" ]; then
     fi
     if [ ! -f "${SHARE}/applications/crawl-online.desktop" ]; then
         echo "  Installing desktop app for Crawl Online"
-        sudo cp "${DOTFILES}/crawl/crawl-online.desktop" "${SHARE}/applications/crawl-online.desktop"
+        cp "${DOTFILES}/crawl/crawl-online.desktop" "${SHARE}/applications/crawl-online.desktop"
     fi
     if [ ! -f "${SHARE}/applications/crawl-trunk.desktop" ] && [ -x /usr/local/bin/crawl ]; then
         echo "  Installing desktop app for Crawl Trunk"
-        sudo cp "${DOTFILES}/crawl/crawl-trunk.desktop" "${SHARE}/applications/crawl-trunk.desktop"
+        cp "${DOTFILES}/crawl/crawl-trunk.desktop" "${SHARE}/applications/crawl-trunk.desktop"
     fi
     if [ ! -f "${crawld}"/cao_key ]; then
         echo "  Downloading Crawl CAO Key for online play"
         curl https://crawl.develz.org/cao_key 2>/dev/null > "${crawld}/cao_key" && chmod 600 "${crawld}/cao_key"
     fi
-    if [ ! -x /usr/games/crawl ]; then
-        sudo crawl/install
-    fi
-
     echo "Happy crawling!"
 fi
 
