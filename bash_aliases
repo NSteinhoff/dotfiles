@@ -8,10 +8,7 @@ HISTSIZE=100000
 HISTFILESIZE=200000
 
 # Set Vim as default editor
-which nvim &>/dev/null && export EDITOR=nvim || export EDITOR=vim
-
-# Set Vim as man pager
-# which nvim &>/dev/null && export MANPAGER='nvim +Man!'
+export EDITOR=vim
 
 case $OSTYPE in
     linux*) os="linux";;
@@ -41,7 +38,7 @@ alias q='_() { q=${1:-$(xsel -op)}; xdg-open "https://duckduckgo.com/?q=${q}"; }
 
 # Why not
 alias :q='exit'
-alias :e='nvim'
+alias :e='vim'
 
 # Open notes for editing
 _complete_notes() {
