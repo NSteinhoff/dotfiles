@@ -1,7 +1,6 @@
 " --------------------------------- Options -----------------------------------
 "{{{
-"--- UI
-"{{{
+"--- UI{{{
 set mouse=nv
 set wildmode=longest:full,full
 set background=dark
@@ -14,8 +13,7 @@ set sidescrolloff=3
 set list
 set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:+
 "}}}
-"--- Editing
-"{{{
+"--- Editing{{{
 set foldmethod=indent
 set hidden
 set path=,,.
@@ -28,8 +26,7 @@ set breakindent
 let &showbreak = '... '
 set showmatch
 "}}}
-"--- Searching
-"{{{
+"--- Searching{{{
 set wildignore+=*/target/*
 
 if executable('rg')
@@ -41,8 +38,7 @@ if executable('ag')
     nnoremap <leader>ag :execute 'Ag '.expand('<cword>')<CR>
 endif
 "}}}
-"--- Colors
-"{{{
+"--- Colors{{{
 try
     colorscheme minimal
     set background=dark
@@ -52,8 +48,7 @@ catch E185
     set background=dark
 endtry
 "}}}
-"--- Autoread
-"{{{
+"--- Autoread{{{
 set autoread
 augroup autoread_settings
     autocmd!
@@ -61,8 +56,7 @@ augroup autoread_settings
     autocmd CursorHold * silent! checktime
 augroup END
 "}}}
-"--- Tags
-"{{{
+"--- Tags{{{
 
 " Upward search from current file, then 'tags' in the working directory
 " -> files dir (./xyz)
@@ -88,12 +82,12 @@ set tags+=.git/tags;
 
 " -------------------------------- Commands -----------------------------------
 "{{{
-"--- Special buffers
+"--- Special buffers{{{
 command! -nargs=? -complete=filetype Scratch new
     \ | setlocal buftype=nofile bufhidden=hide noswapfile
     \ | let &ft = <q-args>
-"--- Format the current buffer
-"{{{
+"}}}
+"--- Format the current buffer{{{
 function! Format()
     if &formatprg == ""
         echo "Abort: 'formatprg' unset"
@@ -110,38 +104,32 @@ function! Format()
 endfunction
 command! -bar Format call Format()
 "}}}
-"--- Make
-"{{{
+"--- Make{{{
 function! Make(bang)
     execute 'silent make'.a:bang
     cwindow
 endfunction
 command! -bar -bang Make call Make("<bang>")
 "}}}
-"--- Align text
-"{{{
+"--- Align text{{{
 " Using 'sed' and 'column' external tools
 command! -nargs=? -range Align execute
     \ '<line1>,<line2>!sed '
     \ ."'s/".(<q-args> == '' ? '\s\+' : '\s*<args>\s*').'/ ~<args> '."/g' "
     \ .'| '."column -s'~' -t"
 "}}}
-"--- Headers
-"{{{
+"--- Headers{{{
 command! -nargs=? Section call myfuncs#section(<q-args>)
 command! -nargs=? Header call myfuncs#header(<q-args>)
 "}}}
-"--- Commenting lines
-"{{{
+"--- Commenting lines{{{
 command! -range ToggleCommented <line1>,<line2> call myfuncs#toggle_commented()
 "}}}
-"--- Compiler
-"{{{
+"--- Compiler{{{
 command! Compiler call compiler#describe()
 command! -nargs=1 -complete=compiler CompileWith call compiler#with(<f-args>)
 "}}}
-"--- Edit my filetype/syntax plugin files for current filetype.
-"{{{
+"--- Edit my filetype/syntax plugin files for current filetype.{{{
 command! -nargs=? -complete=compiler EditCompiler
     \ exe 'keepj edit $HOME/.config/nvim/after/compiler/'
     \ . (empty(<q-args>) ? compiler#which() : <q-args>)
@@ -157,17 +145,20 @@ command! -nargs=? -complete=filetype EditSyntax
     \ . (empty(<q-args>) ? &filetype : <q-args>)
     \ . '.vim'
 
+command! -nargs=? -complete=filetype EditIndent
+    \ exe 'keepj edit $HOME/.config/nvim/after/indent/'
+    \ . (empty(<q-args>) ? &filetype : <q-args>)
+    \ . '.vim'
+
 command! -nargs=? -complete=color EditColorscheme
     \ execute 'keepj edit $HOME/.config/nvim/after/colors/'
     \ . (empty(<q-args>) ? g:colors_name : <q-args>) 
     \ . '.vim'
 "}}}
-"--- Run lines with interpreter
-"{{{
+"--- Run lines with interpreter{{{
 command! -range Run execute '<line1>,<line2>w !'.get(b:, 'interpreter', 'bash')
 "}}}
-"--- Git
-"{{{
+"--- Git{{{
 command! -range -bang ButWhy
     \ echo system(
     \ "git -C " . shellescape(expand('%:p:h'))
@@ -183,12 +174,109 @@ command! -bar -nargs=+ Jump
     \ cexpr system('git jump ' . expand(<q-args>))
 command! Ctags call jobstart(['git', 'ctags'])
 "}}}
+"--- REPL{{{
+function! HasRepl()
+    return get(b:, 'repl', 'NONE') != 'NONE'
+endfunction
+
+function! ReplBuf()
+    if !HasRepl() | return [-1, 0] | endif
+    let bufname = bufname("^term*".b:repl."$")
+    if bufname == '' | return -1 | endif
+    let repl_bufs = getbufinfo(bufname)
+    return [repl_bufs[0]['bufnr'], repl_bufs[0]['hidden']]
+endfunction
+
+function! ReplStart(bang) abort
+    if !HasRepl()
+        echo "REPL command undefined. Set b:repl='cmd' to enabel a REPL for this buffer."
+        return
+    endif
+
+    let [repl_buf, repl_hidden] = ReplBuf()
+    if repl_buf != -1
+        echo 'REPL running for ft='.&ft.' in buffer #'.repl_buf.(repl_hidden ? '(hidden)': '')
+        return
+    endif
+
+    let ft = &ft
+    if a:bang
+        botright vsplit
+    else
+        botright split
+    endif
+    execute 'terminal '.b:repl
+    let b:repl_ft = ft
+    wincmd p
+endfunction
+
+function! ReplPut(buf, hidden)
+    let @@ = substitute(@@, "\n*$", "", "")
+    let @@ .= ''
+
+    let alt_save = @#
+    execute 'buffer '.a:buf
+    let start_output = line("$")
+    put
+    if a:hidden
+        sleep 100m
+        echo join(getline(start_output, "$"), "\n")
+    endif
+    buffer # | let @# = alt_save
+endfunction
+
+function! ReplSend(start, end)
+    if !HasRepl() | return | endif
+    let [repl_buf, repl_hidden] = ReplBuf()
+    if repl_buf == -1
+        echo 'No REPL running for ft='.&ft.'. Start a REPL with :ReplStart'
+        return
+    endif
+
+    let reg_save = @@
+
+    let @@ = join(getbufline('', a:start, a:end), "\n")
+
+    call ReplPut(repl_buf, repl_hidden)
+
+    let @@ = reg_save
+endfunction
+
+function! ReplSendSelection(type, ...)
+    if !HasRepl() | return | endif
+    let [repl_buf, repl_hidden] = ReplBuf()
+    if repl_buf == -1
+        echo 'No REPL running for ft='.&ft.'. Start a REPL with :ReplStart'
+        return
+    endif
+
+    let sel_save = &selection
+    let &selection = "inclusive"
+    let reg_save = @@
+
+    if a:0  " Invoked from Visual mode, use gv command.
+        silent exe "normal! gvy"
+    elseif a:type == 'line'
+        silent exe "normal! '[V']y"
+    else
+        silent exe "normal! `[v`]y"
+    endif
+
+    call ReplPut(repl_buf, repl_hidden)
+
+    let &selection = sel_save
+    " let @@ = reg_save
+endfunction
+
+command! -bang ReplStart call ReplStart(<q-bang> == '!')
+command! -range ReplSend call ReplSend(<line1>, <line2>)
+
+"}}}
 "}}}
 
 " --------------------------------- Mappings ----------------------------------
 "{{{
-"--- Mappable Keys
-"{{{
+"--- Mappable Keys{{{
 " Non-conflicting mappable keys and sequences. There are tons more.
 "
 " <BACKSPACE>
@@ -239,8 +327,7 @@ command! Ctags call jobstart(['git', 'ctags'])
 "  .            .     .    .       .         .       .        .             .             .             .             .             .             .
 "
 "}}}
-"--- Basics
-"{{{
+"--- Basics{{{
 " Move over visual lines unless a count is given
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
@@ -251,15 +338,13 @@ map  <right>  5<C-W>>  "  increase  width
 map  <up>     5<C-W>+  "  increase  height
 map  <down>   5<C-W>-  "  decrease  height
 "}}}
-"--- Execution
-"{{{
+"--- Execution{{{
 " Run selected lines
 vnoremap <CR> :Run<CR>
 " Run whole file
 nnoremap <BACKSPACE> :%Run<CR>
 "}}}
-"--- Scrolling
-"{{{
+"--- Scrolling{{{
 " Scrolling the window with CTRL-HJKL
 nnoremap <C-J> 3<C-E>
 nnoremap <C-K> 3<C-Y>
@@ -270,8 +355,7 @@ nnoremap <C-L> 3zl
 nnoremap <C-E> 3<C-E>
 nnoremap <C-Y> 3<C-Y>
 "}}}
-"--- Comment / Uncomment
-"{{{
+"--- Comment / Uncomment{{{
 " Mnemonic:
 "   " -> Vim's comment string
 "   <CR> -> line
@@ -279,15 +363,13 @@ nnoremap <C-Y> 3<C-Y>
 nnoremap "<CR> :ToggleCommented<CR>
 vnoremap "<CR> :ToggleCommented<CR>
 "}}}
-"--- Format
-"{{{
+"--- Format{{{
 " Mnemonic:
 "   < and > change indentation
 "   => 'indent all'
 nnoremap <> :Format<CR>
 "}}}
-"--- Clear search highlights
-"{{{
+"--- Clear search highlights{{{
 if maparg('<ESC>', 'n') ==# ''
     nnoremap <silent> <ESC> :nohlsearch<CR>
 endif
@@ -295,8 +377,7 @@ if maparg('<SPACE>', 'n') ==# ''
     nnoremap <silent> <SPACE> :nohlsearch<CR>
 endif
 "}}}
-"--- Make
-"{{{
+"--- Make{{{
 " m<SPACE> and m<CR> make the project
 " Mnemonic:
 "   (m)ake
@@ -304,15 +385,18 @@ endif
 nnoremap m<CR> :make!<CR>
 nnoremap m<SPACE> :Make<CR>
 "}}}
-"--- Errors: Quickfix / Location Lists
-"{{{
+"--- REPL{{{
+nnoremap <silent> s :set opfunc=ReplSendSelection<CR>g@
+vnoremap <silent> s :<C-U>call ReplSendSelection(visualmode(), 1)<CR>
+nmap ss Vs
+"}}}
+"--- Errors: Quickfix / Location Lists{{{
 " Mnemonic:
 "   (Q)uickfix
 nnoremap Q :clist<CR>
 nnoremap <C-Q> :cwindow<CR>
 "}}}
-"--- Preview
-"{{{
+"--- Preview{{{
 " Preview word under cursor
 nnoremap <C-SPACE> <C-W>}
 " Preview selection
@@ -323,23 +407,20 @@ nnoremap <C-W><C-SPACE> <C-W>z
 " Complete tag
 inoremap <C-SPACE> <C-X><C-]>
 "}}}
-"--- Cycling
-"{{{
+"--- Cycling{{{
 " Quickly cycling a list
 " (currently Buffers)
 nnoremap <C-P> :bprevious<CR>
 nnoremap <C-N> :bnext<CR>
 "}}}
-"--- Toggle Settings
-"{{{
+"--- Toggle Settings{{{
 " Exetending 'vim-unimpaired'
 " T: s(T)atusbar
 nnoremap <silent> [o_ :set ls=2<CR>
 nnoremap <silent> ]o_ :set ls=0<CR>
 nnoremap <expr> <silent> yo_ (&laststatus == 2 ? ':set ls=0<CR>' : ':set ls=2<CR>')
 "}}}
-"--- <LEADER>
-"{{{
+"--- <LEADER>{{{
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
 let mapleader = '\'
 set wildcharm=<C-Z>
@@ -361,6 +442,7 @@ nnoremap <leader>ee :edit $MYVIMRC<CR>
 nnoremap <leader>ef :EditFiletype<CR>
 nnoremap <leader>ec :EditCompiler<CR>
 nnoremap <leader>es :EditSyntax<CR>
+nnoremap <leader>ei :EditIndent<CR>
 nnoremap <leader>eo :EditColorscheme<CR>
 
 " File Explorer
@@ -372,12 +454,10 @@ nnoremap <leader>T :Texplore<CR>
 
 " --------------------------------- Plugins -----------------------------------
 "{{{
-"--- Standard
-"{{{
+"--- Standard{{{
 packadd! matchit
 "}}}
-"--- Personal
-"{{{
+"--- Personal{{{
 packadd! statusline
 " packadd! differ
 packadd! pomodoro
@@ -386,8 +466,7 @@ set runtimepath+=~/Development/vim-igitt/
 runtime! plugin/igitt.vim
 
 "}}}
-"--- External
-"{{{
+"--- External{{{
 " Install minpac as an optional package if it's not already installed.
 let minpac_path = has('nvim') ? '~/.config/nvim/pack/minpac/opt/minpac' : '~/.vim/pack/minpac/opt/minpac'
 let minpac_source = 'https://github.com/k-takata/minpac.git'
@@ -405,6 +484,7 @@ if exists('*minpac#init')
     " |||                   |||
     " ||| Add plugins below |||
     " vvv                   vvv
+
     " Mappings
     call minpac#add('tpope/vim-unimpaired')
 
@@ -415,6 +495,9 @@ if exists('*minpac#init')
     call minpac#add('vim-python/python-syntax')
     call minpac#add('Vimjas/vim-python-pep8-indent')
     call minpac#add('vim-scripts/bats.vim')
+
+    " Lisp
+    call minpac#add('bhurlow/vim-parinfer')
 endif
 
 " Load all packages in 'start/'
@@ -426,8 +509,7 @@ command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('', {'
 command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
 command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
 "}}}
-"--- Configuration
-"{{{
+"--- Configuration{{{
 " netrw:
 let  g:netrw_list_hide  =  netrw_gitignore#Hide()
 let  g:netrw_preview    =  1
@@ -451,22 +533,25 @@ nnoremap d" :Dcomment<CR>
 nnoremap d& :Dcomment!<CR>
 nnoremap dc :Dshowcomments<CR>
 nnoremap dC :Dshowcomments!<CR>
+
+" parinfer:
+let g:vim_parinfer_globs = []
+let g:vim_parinfer_filetypes = []
+let g:vim_parinfer_mode = 'indent'
+
 "}}}
 "}}}
 
 " ------------------------------ Abbreviations --------------------------------
 "{{{
-" Last modification date of the current file
-"{{{
+" Last modification date of the current file{{{
 iabbrev <expr> ddf strftime("%Y %b %d", getftime(expand('%')))"
 iabbrev <expr> ddF strftime("%c", getftime(expand('%')))"
 "}}}
-" Local date-time
-"{{{
+" Local date-time{{{
 iabbrev <expr> ddc strftime("%c")
 "}}}
-" Local date
-"{{{
+" Local date{{{
 iabbrev <expr> ddd strftime("%Y-%m-%d")
 "}}}
 "}}}

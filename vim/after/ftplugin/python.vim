@@ -8,4 +8,5 @@ if exists(':DD')
     setlocal keywordprg=:DD
 endif
 
-let b:interpreter = 'python -'
+let b:repl = 'python'
+let b:interpreter = 'python'
