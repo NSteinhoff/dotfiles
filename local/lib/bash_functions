@@ -6,16 +6,16 @@ GREEN='\033[0;32m'
 ORANGE='\033[0;33m'
 
 if [ -x "$(command -v tput)" ]; then
-	bold="$(tput bold)"
-	black="$(tput setaf 0)"
-	red="$(tput setaf 1)"
-	green="$(tput setaf 2)"
-	yellow="$(tput setaf 3)"
-	blue="$(tput setaf 4)"
-	magenta="$(tput setaf 5)"
-	cyan="$(tput setaf 6)"
-	white="$(tput setaf 7)"
-	reset="$(tput sgr0)"
+        bold="$(tput bold)"
+        black="$(tput setaf 0)"
+        red="$(tput setaf 1)"
+        green="$(tput setaf 2)"
+        yellow="$(tput setaf 3)"
+        blue="$(tput setaf 4)"
+        magenta="$(tput setaf 5)"
+        cyan="$(tput setaf 6)"
+        white="$(tput setaf 7)"
+        reset="$(tput sgr0)"
 fi
 
 # List tasks etc. found in a 'tasks' file in the current directory
@@ -59,7 +59,10 @@ repo_stats() {
     branch_name=$(git rev-parse --abbrev-ref HEAD)
     last_commit=$(git log -n 1 --pretty=format:'%an %ar')
     echo "$(printf '\t%-30s' $1) [$branch_name] $last_commit"
-    git status --short
+
+    git status --short | while IFS= read -r line; do
+        printf '\t\t%s\n' "$line"
+    done
     popd > /dev/null
 }
 export -f repo_stats
@@ -78,7 +81,7 @@ repo_activity() {
     pushd $repo > /dev/null
 
     if [[ -n $(git log --since="$since") ]]; then
-        log=$(git log -n 1 --pretty=format:'%an	%ar')
+        log=$(git log -n 1 --pretty=format:'%an %ar')
         author=$(echo "$log" | cut -f1)
         time_ago=$(echo "$log" | cut -f2)
         if [[ "$author" == "$(git config --get user.name)" ]]; then
