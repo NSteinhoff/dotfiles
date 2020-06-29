@@ -174,104 +174,6 @@ command! -bar -nargs=+ Jump
     \ cexpr system('git jump ' . expand(<q-args>))
 command! Ctags call jobstart(['git', 'ctags'])
 "}}}
-"--- REPL{{{
-function! HasRepl()
-    return get(b:, 'repl', 'NONE') != 'NONE'
-endfunction
-
-function! ReplBuf()
-    if !HasRepl() | return [-1, 0] | endif
-    let bufname = bufname("^term*".b:repl."$")
-    if bufname == '' | return -1 | endif
-    let repl_bufs = getbufinfo(bufname)
-    return [repl_bufs[0]['bufnr'], repl_bufs[0]['hidden']]
-endfunction
-
-function! ReplStart(bang) abort
-    if !HasRepl()
-        echo "REPL command undefined. Set b:repl='cmd' to enabel a REPL for this buffer."
-        return
-    endif
-
-    let [repl_buf, repl_hidden] = ReplBuf()
-    if repl_buf != -1
-        echo 'REPL running for ft='.&ft.' in buffer #'.repl_buf.(repl_hidden ? '(hidden)': '')
-        return
-    endif
-
-    let ft = &ft
-    if a:bang
-        botright vsplit
-    else
-        botright split
-    endif
-    execute 'terminal '.b:repl
-    let b:repl_ft = ft
-    wincmd p
-endfunction
-
-function! ReplPut(buf, hidden)
-    let @@ = substitute(@@, "\n*$", "", "")
-    let @@ .= ''
-
-    let alt_save = @#
-    execute 'buffer '.a:buf
-    let start_output = line("$")
-    put
-    if a:hidden
-        sleep 100m
-        echo join(getline(start_output, "$"), "\n")
-    endif
-    buffer # | let @# = alt_save
-endfunction
-
-function! ReplSend(start, end)
-    if !HasRepl() | return | endif
-    let [repl_buf, repl_hidden] = ReplBuf()
-    if repl_buf == -1
-        echo 'No REPL running for ft='.&ft.'. Start a REPL with :ReplStart'
-        return
-    endif
-
-    let reg_save = @@
-
-    let @@ = join(getbufline('', a:start, a:end), "\n")
-
-    call ReplPut(repl_buf, repl_hidden)
-
-    let @@ = reg_save
-endfunction
-
-function! ReplSendSelection(type, ...)
-    if !HasRepl() | return | endif
-    let [repl_buf, repl_hidden] = ReplBuf()
-    if repl_buf == -1
-        echo 'No REPL running for ft='.&ft.'. Start a REPL with :ReplStart'
-        return
-    endif
-
-    let sel_save = &selection
-    let &selection = "inclusive"
-    let reg_save = @@
-
-    if a:0  " Invoked from Visual mode, use gv command.
-        silent exe "normal! gvy"
-    elseif a:type == 'line'
-        silent exe "normal! '[V']y"
-    else
-        silent exe "normal! `[v`]y"
-    endif
-
-    call ReplPut(repl_buf, repl_hidden)
-
-    let &selection = sel_save
-    " let @@ = reg_save
-endfunction
-
-command! -bang ReplStart call ReplStart(<q-bang> == '!')
-command! -range ReplSend call ReplSend(<line1>, <line2>)
-
-"}}}
 "}}}
 
 " --------------------------------- Mappings ----------------------------------
@@ -386,9 +288,10 @@ nnoremap m<CR> :make!<CR>
 nnoremap m<SPACE> :Make<CR>
 "}}}
 "--- REPL{{{
-nnoremap <silent> s :set opfunc=ReplSendSelection<CR>g@
-vnoremap <silent> s :<C-U>call ReplSendSelection(visualmode(), 1)<CR>
-nmap ss Vs
+nmap s <Plug>ReplSend
+vmap s <Plug>ReplSend
+nmap ss <Plug>ReplSendLine
+nmap <C-c><C-c> sap
 "}}}
 "--- Errors: Quickfix / Location Lists{{{
 " Mnemonic:
@@ -458,6 +361,7 @@ nnoremap <leader>T :Texplore<CR>
 packadd! matchit
 "}}}
 "--- Personal{{{
+packadd! repl
 packadd! statusline
 " packadd! differ
 packadd! pomodoro
