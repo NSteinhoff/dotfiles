@@ -361,6 +361,8 @@ nnoremap <leader>T :Texplore<CR>
 packadd! matchit
 "}}}
 "--- Personal{{{
+packloadall
+
 packadd! repl
 packadd! statusline
 " packadd! differ
@@ -369,49 +371,6 @@ packadd! pomodoro
 set runtimepath+=~/Development/vim-igitt/
 runtime! plugin/igitt.vim
 
-"}}}
-"--- External{{{
-" Install minpac as an optional package if it's not already installed.
-let minpac_path = has('nvim') ? '~/.config/nvim/pack/minpac/opt/minpac' : '~/.vim/pack/minpac/opt/minpac'
-let minpac_source = 'https://github.com/k-takata/minpac.git'
-if empty(glob(minpac_path)) | exe 'silent !git clone '.minpac_source.' '.minpac_path | endif
-
-" Minpac is only needed when doing changes to the plugins such as updating
-" or deleting.
-"
-" Instead the commands below add the package on demand.
-if exists('*minpac#init')
-    call minpac#init()
-    " minpac must have {'type': 'opt'} so that it can be loaded with `packadd`.
-    call minpac#add('k-takata/minpac', {'type': 'opt'})
-
-    " |||                   |||
-    " ||| Add plugins below |||
-    " vvv                   vvv
-
-    " Mappings
-    call minpac#add('tpope/vim-unimpaired')
-
-    " External Documentation Lookup:
-    call minpac#add('romainl/vim-devdocs')
-
-    " FTPlugings:
-    call minpac#add('vim-python/python-syntax')
-    call minpac#add('Vimjas/vim-python-pep8-indent')
-    call minpac#add('vim-scripts/bats.vim')
-
-    " Lisp
-    call minpac#add('bhurlow/vim-parinfer')
-endif
-
-" Load all packages in 'start/'
-packloadall
-
-" These commands load minpac on demand and get the list of plugins by sourcing this file
-" before calling the respective minpac function for that task.
-command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('', {'do': 'call minpac#status()'})
-command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
-command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
 "}}}
 "--- Configuration{{{
 " netrw:
