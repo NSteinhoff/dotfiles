@@ -10,10 +10,6 @@ function! s:bufnr()
     return bufs[0]['bufnr']
 endfunction
 
-function! s:hidden(buf)
-    return a:buf != -1 ? getbufinfo(a:buf)[0]['hidden'] : 0
-endfunction
-
 function! s:start(bang) abort
     if !s:has_repl()
         echo "REPL command undefined. Set b:repl='cmd' to enabel a REPL for this buffer."
@@ -22,7 +18,7 @@ function! s:start(bang) abort
 
     let buf = s:bufnr()
     if buf != -1
-        echo 'REPL running for ft='.&ft.' in buffer #'.buf.(s:hidden(buf) ? '(hidden)': '')
+        echo 'REPL running for ft='.&ft.' in buffer #'.buf
         return
     endif
 
@@ -34,42 +30,41 @@ function! s:start(bang) abort
     let ft = &ft
     execute 'terminal '.b:repl
     let b:ft = ft
+    normal G
     wincmd p
 endfunction
 
-function! s:put(buf)
+function! s:put()
     let @@ = substitute(@@, "\n*$", "", "").''
     let alt_save = @#
-    execute 'buffer '.a:buf
+    execute 'buffer '.s:bufnr()
     put
     buffer #
     let @# = alt_save
 endfunction
 
-function! s:send_range(start, end)
+function! s:checkrunning()
     if !s:has_repl() | return | endif
-    let buf = s:bufnr()
-    if buf == -1
+    if s:bufnr() == -1
         echo 'No REPL running for ft='.&ft.'. Start a REPL with :ReplStart'
         return
     endif
+    return 1
+endfunction
 
+function! s:send_range(start, end)
+    if !s:checkrunning() | return | endif
     let reg_save = @@
 
     let @@ = join(getbufline('', a:start, a:end), "\n")
 
-    call s:put(buf)
+    call s:put()
 
     let @@ = reg_save
 endfunction
 
 function! s:send_selection(type, ...)
-    if !s:has_repl() | return | endif
-    let buf = s:bufnr()
-    if buf == -1
-        echo 'No REPL running for ft='.&ft.'. Start a REPL with :ReplStart'
-        return
-    endif
+    if !s:checkrunning() | return | endif
 
     let sel_save = &selection
     let &selection = "inclusive"
@@ -83,7 +78,7 @@ function! s:send_selection(type, ...)
         silent exe "normal! `[v`]y"
     endif
 
-    call s:put(buf)
+    call s:put()
 
     let &selection = sel_save
     let @@ = reg_save
