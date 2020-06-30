@@ -78,12 +78,14 @@ set tags+=.git/tags;
 " --------------------------------- Plugins ----------------------------------- {{{
 packloadall
 packadd! matchit
+
+" Open packages with :PackEdit {packname}.vim
 packadd! statusline
 packadd! automator
-" packadd! commander
-" packadd! mapper
-" packadd! abbreviations
-" packadd! repl
+packadd! commander
+packadd! mapper
+packadd! abbreviations
+packadd! repl
 " packadd! pomodoro
 " packadd! differ
 " set runtimepath+=~/Development/vim-igitt/ | runtime! plugin/igitt.vim

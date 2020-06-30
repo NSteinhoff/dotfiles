@@ -96,12 +96,7 @@ vnoremap "<CR> :ToggleCommented<CR>
 nnoremap <> :Format<CR>
 "}}}
 "--- Clear search highlights{{{
-if maparg('<ESC>', 'n') ==# ''
-    nnoremap <silent> <ESC> :nohlsearch<CR>
-endif
-if maparg('<SPACE>', 'n') ==# ''
-    nnoremap <silent> <SPACE> :nohlsearch<CR>
-endif
+nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
 "}}}
 "--- Make{{{
 " m<SPACE> and m<CR> make the project

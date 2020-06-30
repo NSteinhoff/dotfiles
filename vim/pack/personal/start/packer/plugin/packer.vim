@@ -5,7 +5,7 @@ let s:thispack = s:packdir.'/start/packer/plugin/packer.vim'
 
 " Edit personal pack files{{{
 function! s:packfiles(arglead, cmdline, cursorpos)
-    let paths = glob(s:packdir.a:arglead.'**', 0, 1)
+    let paths = uniq(sort(glob(s:packdir.'**/'.a:arglead.'**', 0, 1)))
     let Tail = { _, val -> substitute(val, expand(s:packdir), "", "") }
     return map(paths, Tail)
 endfunction
