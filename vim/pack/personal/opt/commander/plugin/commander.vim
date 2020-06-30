@@ -75,7 +75,7 @@ command! -nargs=? -complete=filetype EditIndent
 
 command! -nargs=? -complete=color EditColorscheme
     \ execute 'keepj edit $HOME/.config/nvim/after/colors/'
-    \ . (empty(<q-args>) ? g:colors_name : <q-args>) 
+    \ . (empty(<q-args>) ? g:colors_name : <q-args>)
     \ . '.vim'
 "}}}
 

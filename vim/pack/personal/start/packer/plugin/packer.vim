@@ -1,9 +1,6 @@
-" Options{{{
+" Edit personal pack files{{{
 let s:packdir = expand('~/.vim/pack/personal/')
 let s:thispack = s:packdir.'/start/packer/plugin/packer.vim'
-"}}}
-
-" Edit personal pack files{{{
 function! s:packfiles(arglead, cmdline, cursorpos)
     let paths = uniq(sort(glob(s:packdir.'**/'.a:arglead.'**', 0, 1)))
     let Tail = { _, val -> substitute(val, expand(s:packdir), "", "") }
@@ -23,6 +20,7 @@ if empty(glob(minpac_path)) | exe 'silent !git clone '.minpac_source.' '.minpac_
 
 " Managed plugins{{{
 function! s:minpac_init() abort
+    packadd minpac
     if !exists('*minpac#init') | echom "minpac not installed" | return | endif
 
     call minpac#init()
@@ -47,6 +45,11 @@ function! s:minpac_init() abort
     " Lisp
     call minpac#add('bhurlow/vim-parinfer')
 
+    " ^^^                   ^^^
+    " ||| ----------------- |||
+    " ||| Add plugins above |||
+    " ||| ----------------- |||
+
     return 1
 endfunction
 
@@ -64,8 +67,6 @@ endfunction
 "}}}
 
 " Minpac Commands{{{
-" These commands load minpac on demand and get the list of plugins by sourcing this file
-" before calling the respective minpac function for that task.
 command! PackStatus call <SID>minpac_status()
 command! PackUpdate call <SID>minpac_update()
 command! PackClean  call <SID>minpac_clean()

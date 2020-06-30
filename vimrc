@@ -11,6 +11,7 @@ set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:+
 set background=dark
 set foldmethod=indent
 set backspace=indent,eol,start
+colorscheme minimal
 
 augroup settings
     autocmd!
