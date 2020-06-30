@@ -16,6 +16,3 @@ augroup settings
     autocmd!
     autocmd! BufWritePost .vimrc,vimrc source %
 augroup END
-
-set runtimepath+=~/Development/vim-igitt/
-runtime! plugin/igitt.vim
