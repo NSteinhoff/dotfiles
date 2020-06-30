@@ -11,7 +11,7 @@ endfunction
 "
 " # some comment -> some comment -> # some comment
 "
-function myfuncs#toggle_commented()
+function commander#lib#toggle_commented()
     let [prefix, suffix] = s:comment_affixes()
     let line = getline('.')
     let commented = match(line, '^\s*'.escape(prefix, '\*').'\.*') != -1
@@ -34,7 +34,7 @@ endfunction
 
 " Create an 80 column wide section header with lines above
 " and below the text wrapped in a comment.
-function myfuncs#section(words)
+function commander#lib#section(words)
     let [prefix, suffix] = s:comment_affixes()
     let suffix = suffix == "" ? " ".prefix : " ".suffix
     let fillchar = '-'
@@ -65,7 +65,7 @@ endfunction
 " header text can be passed as an arguments or left blank to use the entire
 " line. With no argument and an empty line, will simply draw the separator
 " line.
-function myfuncs#header(words)
+function commander#lib#header(words)
     let [prefix, suffix] = s:comment_affixes()
     let suffix = suffix == "" ? "" : " ".suffix
     let prefix.=' '
@@ -97,21 +97,4 @@ function myfuncs#header(words)
     " Set the current line to the header and position the cursor at the end.
     call setline(line('.'), header.fill_after)
     call cursor(line('.'), col('$'))
-endfunction
-
-
-" Filter out all tags that are not from the same filetype as the current buffer.
-"
-" This is sometimes useful in polyglot repos when you want to avoid jumping
-" across languages.
-"
-" Usage:
-"   set tagfunc=myfuncs#fttags
-"
-function myfuncs#fttags(pattern, flags, info)
-    let buf = a:info['buf_ffname']
-    let ext = fnamemodify(buf, ':e')
-    let result = taglist(a:pattern, buf)
-    call filter(result, {idx, val -> fnamemodify(val['filename'], ':e') == ext})
-    return result
 endfunction
