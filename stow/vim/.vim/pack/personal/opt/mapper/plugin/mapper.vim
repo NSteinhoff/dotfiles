@@ -1,4 +1,4 @@
-"--- Mappable Keys{{{
+" --- Mappable Keys{{{
 " Non-conflicting mappable keys and sequences. There are tons more.
 "
 " <BACKSPACE>
@@ -49,7 +49,8 @@
 "  .            .     .    .       .         .       .        .             .             .             .             .             .             .
 "
 "}}}
-"--- Basics{{{
+
+" --- Basics{{{
 " Move over visual lines unless a count is given
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
@@ -60,17 +61,20 @@ map  <right>  5<C-W>>  "  increase  width
 map  <up>     5<C-W>+  "  increase  height
 map  <down>   5<C-W>-  "  decrease  height
 "}}}
-"--- Searching{{{
-nnoremap <leader>rg :execute 'Rg '.expand('<cword>')<CR>
-nnoremap <leader>ag :execute 'Ag '.expand('<cword>')<CR>
+
+" --- Searching{{{
+nnoremap <silent> <leader>rg :execute 'Rg '.expand('<cword>')<CR>
+nnoremap <silent> <leader>ag :execute 'Ag '.expand('<cword>')<CR>
 "}}}
-"--- Execution{{{
+
+" --- Execution{{{
 " Run selected lines
-vnoremap <CR> :Run<CR>
+vnoremap <silent> <CR> :Run<CR>
 " Run whole file
-nnoremap <BACKSPACE> :%Run<CR>
+nnoremap <silent> <BACKSPACE> :%Run<CR>
 "}}}
-"--- Scrolling{{{
+
+" --- Scrolling{{{
 " Scrolling the window with CTRL-HJKL
 nnoremap <C-J> 3<C-E>
 nnoremap <C-K> 3<C-Y>
@@ -81,70 +85,83 @@ nnoremap <C-L> 3zl
 nnoremap <C-E> 3<C-E>
 nnoremap <C-Y> 3<C-Y>
 "}}}
-"--- Comment / Uncomment{{{
+
+" --- Comment / Uncomment{{{
 " Mnemonic:
 "   " -> Vim's comment string
 "   <CR> -> line
 "   => 'comment line'
-nnoremap "<CR> :ToggleCommented<CR>
-vnoremap "<CR> :ToggleCommented<CR>
+nnoremap <silent> "<CR> :ToggleCommented<CR>
+vnoremap <silent> "<CR> :ToggleCommented<CR>
 "}}}
-"--- Format{{{
+
+" --- Format{{{
 " Mnemonic:
 "   < and > change indentation
 "   => 'indent all'
-nnoremap <> :Format<CR>
+nnoremap <silent> <> :Format<CR>
 "}}}
-"--- Clear search highlights{{{
+
+" --- Clear search highlights{{{
 nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
 "}}}
-"--- Make{{{
+
+" --- Make{{{
 " m<SPACE> and m<CR> make the project
 " Mnemonic:
 "   (m)ake
 "   <CR> louder than <SPACE>
-nnoremap m<CR> :make!<CR>
-nnoremap m<SPACE> :Make<CR>
+nnoremap <silent> m<SPACE> :Make<CR>
+nnoremap <silent> m<CR> :make!<CR>
+nnoremap <silent> <F5> :Make<CR>
+nnoremap <silent> <S-F5> :make!<CR>
 "}}}
-"--- REPL{{{
+
+" --- REPL{{{
 nmap s <Plug>ReplSend
 vmap s <Plug>ReplSend
 nmap ss <Plug>ReplSendLine
 nmap <C-c><C-c> sap
 "}}}
-"--- Errors: Quickfix / Location Lists{{{
+
+" --- Errors: Quickfix / Location Lists{{{
 " Mnemonic:
 "   (Q)uickfix
-nnoremap Q :clist<CR>
-nnoremap <C-Q> :cwindow<CR>
+nnoremap <silent> Q :clist<CR>
+nnoremap <silent> <C-Q> :cwindow<CR>
 "}}}
-"--- Preview{{{
+
+" --- Preview{{{
 " Preview word under cursor
 nnoremap <C-SPACE> <C-W>}
 " Preview selection
-vnoremap <C-SPACE> y:ptag<C-R>"<CR>
+vnoremap <silent> <C-SPACE> y:ptag<C-R>"<CR>
 " Close the preview window
 nnoremap <C-W><SPACE> <C-W>z
 nnoremap <C-W><C-SPACE> <C-W>z
 " Complete tag
 inoremap <C-SPACE> <C-X><C-]>
 "}}}
-"--- Cycling{{{
+
+" --- Cycling{{{
 " Quickly cycling a list
 " (currently Buffers)
-nnoremap <C-P> :bprevious<CR>
-nnoremap <C-N> :bnext<CR>
+nnoremap <silent> <C-P> :bprevious<CR>
+nnoremap <silent> <C-N> :bnext<CR>
 "}}}
-"--- Toggle Settings{{{
+
+" --- Toggle Settings{{{
 " Exetending 'vim-unimpaired'
 " T: s(T)atusbar
 nnoremap <silent> [o_ :set ls=2<CR>
 nnoremap <silent> ]o_ :set ls=0<CR>
 nnoremap <expr> <silent> yo_ (&laststatus == 2 ? ':set ls=0<CR>' : ':set ls=2<CR>')
 "}}}
-"--- <LEADER>{{{
+
+" --- <LEADER>{{{
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
 let mapleader = '\'
+let maplocalleader = '\'
 set wildcharm=<C-Z>
 
 " Quick Keys
@@ -172,20 +189,21 @@ nnoremap <leader>E :Explore<CR>
 nnoremap <leader>V :Vexplore<CR>
 nnoremap <leader>T :Texplore<CR>
 "}}}
+
 " --- differ/vim-igitt{{{
-nnoremap d; :Dstatus<CR>
-nnoremap d@ :Dremote<CR>
-nnoremap d! :Dremote!<CR>
-nnoremap du :Dupdate<CR>
-nnoremap d< :Dprevious<CR>
-nnoremap d> :Dnext<CR>
-nnoremap d. :Dthis<CR>
-nnoremap d, :Dpatch<CR>
-nnoremap d~ :Dpatch!<CR>
-nnoremap d" :Dcomment<CR>
-nnoremap d& :Dcomment!<CR>
-nnoremap dc :Dshowcomments<CR>
-nnoremap dC :Dshowcomments!<CR>
+nnoremap <silent> d; :Dstatus<CR>
+nnoremap <silent> d@ :Dremote<CR>
+nnoremap <silent> d! :Dremote!<CR>
+nnoremap <silent> du :Dupdate<CR>
+nnoremap <silent> d< :Dprevious<CR>
+nnoremap <silent> d> :Dnext<CR>
+nnoremap <silent> d. :Dthis<CR>
+nnoremap <silent> d, :Dpatch<CR>
+nnoremap <silent> d~ :Dpatch!<CR>
+nnoremap <silent> d" :Dcomment<CR>
+nnoremap <silent> d& :Dcomment!<CR>
+nnoremap <silent> dc :Dshowcomments<CR>
+nnoremap <silent> dC :Dshowcomments!<CR>
 "}}}
 
 " vim:foldmethod=marker textwidth=0
