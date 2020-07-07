@@ -31,3 +31,4 @@ function! MyStatusline()
 endfunction
 
 set statusline=%!MyStatusline()
+set laststatus=2
