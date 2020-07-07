@@ -1,4 +1,4 @@
-function! s:has_repl()
+function s:has_repl()
     return get(b:, 'repl', 'NONE') != 'NONE'
 endfunction
 
@@ -10,7 +10,11 @@ function! s:bufnr()
     return bufs[0]['bufnr']
 endfunction
 
-function! s:start(bang) abort
+function s:start(bang) abort
+    if !has('nvim')
+        echo "The REPL integration only works with nvim for now. Sorry!"
+        return
+    endif
     if !s:has_repl()
         echo "REPL command undefined. Set b:repl='cmd' to enabel a REPL for this buffer."
         return
@@ -34,16 +38,14 @@ function! s:start(bang) abort
     wincmd p
 endfunction
 
-function! s:put()
+function s:put()
     let @@ = substitute(@@, "\n*$", "", "").''
-    let alt_save = @#
     execute 'buffer '.s:bufnr()
     put
     buffer #
-    let @# = alt_save
 endfunction
 
-function! s:checkrunning()
+function s:checkrunning()
     if !s:has_repl() | return | endif
     if s:bufnr() == -1
         echo 'No REPL running for ft='.&ft.'. Start a REPL with :ReplStart'
@@ -52,7 +54,7 @@ function! s:checkrunning()
     return 1
 endfunction
 
-function! s:send_range(start, end)
+function s:send_range(start, end)
     if !s:checkrunning() | return | endif
     let reg_save = @@
 
@@ -63,7 +65,7 @@ function! s:send_range(start, end)
     let @@ = reg_save
 endfunction
 
-function! s:send_selection(type, ...)
+function s:send_selection(type, ...)
     if !s:checkrunning() | return | endif
 
     let sel_save = &selection
