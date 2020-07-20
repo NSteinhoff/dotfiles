@@ -84,15 +84,19 @@ packloadall
 packadd! matchit
 
 " Open packages with :PackEdit **/{pack}.vim
-packadd! statusline
-packadd! automator
-packadd! commander
-packadd! mapper
-packadd! abbreviations
-packadd! repl
-packadd! pomodoro
-" packadd! differ
+packadd! my-statusline
+packadd! my-automations
+packadd! my-commands
+packadd! my-mappings
+packadd! my-abbreviations
+" packadd! my-pomodoro
+" packadd! my-repl
+" packadd! my-differ
+
+packadd! theirs
+
 " set runtimepath+=~/Development/vim-igitt/ | runtime! plugin/igitt.vim
+
 "}}}
 
 " vim:foldmethod=marker textwidth=0

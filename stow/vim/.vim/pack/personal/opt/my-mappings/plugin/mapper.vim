@@ -121,6 +121,7 @@ nnoremap <silent> <S-F5> :make!<CR>
 nmap s <Plug>ReplSend
 vmap s <Plug>ReplSend
 nmap ss <Plug>ReplSendLine
+nmap s: :ReplSendCmd 
 nmap <C-c><C-c> sap
 "}}}
 
@@ -170,6 +171,7 @@ nnoremap <leader>! :!%:p<CR>
 nnoremap <leader>x :Run<CR>
 vnoremap <leader>x :Run<CR>
 nnoremap <leader>X :%Run<CR>
+nnoremap <leader>o :BufOnly<CR>
 
 " Switch buffers
 nnoremap <leader>b :buffer <C-Z>
@@ -204,6 +206,12 @@ nnoremap <silent> d" :Dcomment<CR>
 nnoremap <silent> d& :Dcomment!<CR>
 nnoremap <silent> dc :Dshowcomments<CR>
 nnoremap <silent> dC :Dshowcomments!<CR>
+"}}}
+
+" --- tslime{{{
+vmap <C-c><C-c> <Plug>SendSelectionToTmux
+nmap <C-c><C-c> <Plug>NormalModeSendToTmux
+nmap <C-c>r <Plug>SetTmuxVars
 "}}}
 
 " vim:foldmethod=marker textwidth=0

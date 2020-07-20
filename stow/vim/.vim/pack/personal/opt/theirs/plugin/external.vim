@@ -26,6 +26,9 @@ function! s:minpac_init() abort
     " Mappings
     call minpac#add('tpope/vim-unimpaired', {'type': 'opt'})
 
+    " Send lines to tmux pane
+    call minpac#add('jgdavey/tslime.vim', {'type': 'opt'})
+
     " External Documentation Lookup:
     call minpac#add('romainl/vim-devdocs', {'type': 'opt'})
 
@@ -70,6 +73,10 @@ let  g:netrw_list_hide  =  netrw_gitignore#Hide()
 let  g:netrw_preview    =  1
 let  g:netrw_altv       =  1
 let  g:netrw_alto       =  0
+
+" tslime:
+let g:tslime_always_current_session = 1
+let g:tslime_always_current_window = 1
 
 " vim-python:
 let g:python_highlight_all = 1

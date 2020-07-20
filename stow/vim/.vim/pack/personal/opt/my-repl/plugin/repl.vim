@@ -65,6 +65,17 @@ function s:send_range(start, end)
     let @@ = reg_save
 endfunction
 
+function s:send_string(string)
+    if !s:checkrunning() | return | endif
+    let reg_save = @@
+
+    let @@ = a:string
+
+    call s:put()
+
+    let @@ = reg_save
+endfunction
+
 function s:send_selection(type, ...)
     if !s:checkrunning() | return | endif
 
@@ -87,7 +98,8 @@ function s:send_selection(type, ...)
 endfunction
 
 command! -bang ReplStart call <SID>start(<q-bang> == '!')
-command! -range ReplSend call <SID>send_range(<line1>, <line2>)
+command! -range ReplSendRange call <SID>send_range(<line1>, <line2>)
+command! -range -nargs=* ReplSendCmd call <SID>send_string(<q-args>)
 nnoremap <silent> <Plug>ReplSend :set opfunc=<SID>send_selection<CR>g@
 vnoremap <silent> <Plug>ReplSend :<C-U>call <SID>send_selection(visualmode(), 1)<CR>
 nmap <Plug>ReplSendLine V<Plug>ReplSend

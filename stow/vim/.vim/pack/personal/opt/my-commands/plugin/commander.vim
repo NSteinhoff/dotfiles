@@ -1,4 +1,5 @@
-"--- Special buffers{{{
+"--- Buffers{{{
+command! BufOnly %bd|e#|bd#
 command! -nargs=? -complete=filetype Scratch new
     \ | setlocal buftype=nofile bufhidden=hide noswapfile
     \ | let &ft = <q-args>
@@ -58,8 +59,13 @@ command! -nargs=? -complete=compiler EditCompiler
     \ . (empty(<q-args>) ? compiler#which() : <q-args>)
     \ . '.vim'
 
-command! -nargs=? -complete=filetype EditFiletype
+command! -nargs=? -complete=filetype EditFtplugin
     \ exe 'keepj edit $HOME/.vim/after/ftplugin/'
+    \ . (empty(<q-args>) ? &filetype : <q-args>)
+    \ . '.vim'
+
+command! -nargs=? -complete=filetype EditFtdetect
+    \ exe 'keepj edit $HOME/.vim/after/ftdetect/'
     \ . (empty(<q-args>) ? &filetype : <q-args>)
     \ . '.vim'
 
