@@ -19,5 +19,3 @@ augroup settings
     autocmd!
     autocmd! BufWritePost .vimrc,vimrc source %
 augroup END
-
-packadd external                " enable external packages managed by minpac
