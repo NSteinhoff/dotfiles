@@ -1,8 +1,11 @@
+uname := $(shell uname -s)
+
 share := $(HOME)/.local/share
 bin := $(HOME)/.local/bin
 applications := $(share)/applications
 
-targets := stow crawl brogue nvim
+targets := stow crawl brogue nvim fff
+targets += pkg-tmux pkg-htop pkg-alacritty pkg-tree pkg-universal-ctags
 untargets := $(patsubst %, un%, $(targets))
 
 install: $(targets)
@@ -16,7 +19,7 @@ uninstall: $(untargets)
 stowlist := $(shell ls stow)
 stowtargets := $(filter-out %-mac, $(stowlist))
 
-ifneq (, $(findstring darwin%, $(OSTYPE)))
+ifeq ($(uname), Darwin)
     stowtargets += $(filter %-mac, $(stowlist))
 endif
 
@@ -28,6 +31,26 @@ unstow:
 	stow -D $(stowtargets)
 .PHONY: unstow
 
+
+# --------------------------------- Packages ----------------------------------
+ifeq ($(uname), Linux)
+    install := apt-get install -y
+    uninstall := apt-get remove -y
+else ifeq ($(uname), Darwin)
+    install := brew install
+    uninstall := brew uninstall
+else
+    install := echo unknown OS: trying to install
+    uninstall := echo unknown OS: trying to uninstall
+endif
+
+pkg-%:
+	$(install) $*
+.PHONY: pkg-%
+
+unpkg-%:
+	$(uninstall) $*
+.PHONY: unpkg-%
 
 # ---------------------------------- Crawl ------------------------------------
 crawld := $(share)/crawl
@@ -92,3 +115,23 @@ unnvim:
 $(nvim_bin):
 	curl -fsSL $(nvim_url) -o $@
 	chmod u+x $@
+
+
+# ----------------------------------- fff -------------------------------------
+fff_url := https://github.com/dylanaraps/fff/archive/2.1.tar.gz
+fff_tar := /tmp/fff.tar.gz
+fff_bin := $(bin)/fff
+
+fff: $(fff_bin)
+.PHONY: fff
+
+unfff:
+	rm -rf $(fff_bin)
+.PHONY: unfff
+
+$(fff_bin): $(fff_tar)
+	tar -C /tmp -xvf $<
+	install /tmp/fff-2.1/fff $@
+
+$(fff_tar):
+	curl -sSfL $(fff_url) -o $@
