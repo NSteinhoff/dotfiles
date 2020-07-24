@@ -2,6 +2,7 @@ uname := $(shell uname -s)
 
 share := $(HOME)/.local/share
 bin := $(HOME)/.local/bin
+man := /usr/share/man
 applications := $(share)/applications
 
 targets := stow crawl brogue nvim fff
@@ -120,18 +121,29 @@ $(nvim_bin):
 # ----------------------------------- fff -------------------------------------
 fff_url := https://github.com/dylanaraps/fff/archive/2.1.tar.gz
 fff_tar := /tmp/fff.tar.gz
+fff_src := /tmp/fff-2.1
 fff_bin := $(bin)/fff
+fff_man := $(man)/man1/fff.1
 
-fff: $(fff_bin)
+fff: $(fff_bin) $(fff_man)
 .PHONY: fff
 
 unfff:
 	rm -rf $(fff_bin)
+	rm -rf $(fff_man)
+	mandb
 .PHONY: unfff
 
-$(fff_bin): $(fff_tar)
+$(fff_bin): $(fff_src)
+	install $</fff $@
+
+$(fff_man): $(fff_src)
+	cp $</fff.1 $@
+	mandb
+
+$(fff_src): $(fff_tar)
 	tar -C /tmp -xvf $<
-	install /tmp/fff-2.1/fff $@
+	touch $@
 
 $(fff_tar):
 	curl -sSfL $(fff_url) -o $@
