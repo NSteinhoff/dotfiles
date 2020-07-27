@@ -80,7 +80,9 @@ set tags+=.git/tags;
 "}}}
 
 " --------------------------------- Plugins ----------------------------------- {{{
+packadd theirs
 packloadall
+
 packadd! matchit
 
 " Open packages with :PackEdit **/{pack}.vim
@@ -93,10 +95,7 @@ packadd! my-abbreviations
 " packadd! my-repl
 " packadd! my-differ
 
-packadd! theirs
-
 " set runtimepath+=~/Development/vim-igitt/ | runtime! plugin/igitt.vim
-
 "}}}
 
 " vim:foldmethod=marker textwidth=0

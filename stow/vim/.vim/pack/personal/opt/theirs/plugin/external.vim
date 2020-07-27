@@ -23,22 +23,22 @@ function! s:minpac_init() abort
     " ||| ----------------- |||
     " vvv                   vvv
 
-    " Mappings
-    call minpac#add('tpope/vim-unimpaired', {'type': 'opt'})
+    " " Mappings
+    call minpac#add('tpope/vim-unimpaired')
 
-    " Send lines to tmux pane
-    call minpac#add('jgdavey/tslime.vim', {'type': 'opt'})
+    " " Send lines to tmux pane
+    call minpac#add('jgdavey/tslime.vim')
 
-    " External Documentation Lookup:
-    call minpac#add('romainl/vim-devdocs', {'type': 'opt'})
+    " " External Documentation Lookup:
+    call minpac#add('romainl/vim-devdocs')
 
-    " FTPlugings:
-    call minpac#add('vim-python/python-syntax', {'type': 'opt'})
-    call minpac#add('Vimjas/vim-python-pep8-indent', {'type': 'opt'})
-    call minpac#add('vim-scripts/bats.vim', {'type': 'opt'})
+    " " FTPlugings:
+    call minpac#add('vim-python/python-syntax')
+    call minpac#add('Vimjas/vim-python-pep8-indent')
+    call minpac#add('vim-scripts/bats.vim')
 
-    " Lisp
-    call minpac#add('bhurlow/vim-parinfer', {'type': 'opt'})
+    " " Lisp
+    call minpac#add('bhurlow/vim-parinfer')
 
     " ^^^                   ^^^
     " ||| ----------------- |||
