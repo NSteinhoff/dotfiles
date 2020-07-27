@@ -1,0 +1,7 @@
+#!/bin/bash
+
+man-page-of-the-day
+recent-activity
+list-tasks
+
+# vim: ft=sh

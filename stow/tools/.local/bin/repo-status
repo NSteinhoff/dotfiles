@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "===Status==="
+git log -n 1
+[[ -n $(git status --short) ]] && echo && git status --short
+[[ -n $(git diff) ]] && echo && git diff --stat
+
+# vim: ft=sh

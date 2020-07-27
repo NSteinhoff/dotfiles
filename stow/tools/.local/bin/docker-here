@@ -1,0 +1,17 @@
+#!/usr/bin/bash
+if [ $# -eq 0 ]; then
+    echo "Must provide the image to run!"
+    return
+fi
+
+img="$1"
+cmd="${2:-$1}"
+name="${cmd}-${PWD##*/}"
+
+docker run -itd --rm -v "$PWD:$PWD" -w "$PWD" --name "${name}" "${img}" bash &&
+    eval "${name}() { docker exec ${name} ${cmd} \$@ ; }" &&
+    eval "stop-${name}() { docker stop ${name} && unset -f ${name} && unset -f stop-${name}; }" &&
+    eval "export -f ${name}" &&
+    eval "export -f stop-${name}" &&
+    echo "Use '\$ ${name} [ARGS...]' to run '${cmd} [ARGS...]' inside '$PWD' in the container."
+# vim: ft=sh

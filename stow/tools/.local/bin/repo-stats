@@ -1,0 +1,13 @@
+#!/bin/bash
+
+pushd $1 > /dev/null
+branch_name=$(git rev-parse --abbrev-ref HEAD)
+last_commit=$(git log -n 1 --pretty=format:'%an %ar')
+echo "$(printf '\t%-30s' $1) [$branch_name] $last_commit"
+
+git status --short | while IFS= read -r line; do
+    printf '\t\t%s\n' "$line"
+done
+popd > /dev/null
+
+# vim: ft=sh

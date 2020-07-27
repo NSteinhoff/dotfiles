@@ -15,10 +15,8 @@ DEV="$HOME/dev"
 DEVELOPMENT="$HOME/Development"
 HOME="$HOME"
 
-TASK_LIST=tasks
-
 post_cd() {
-    [[ -f "$TASK_LIST" ]] && list_tasks && echo
+    list-tasks && echo
 
     case $PWD in
         $HOME) _cd_home;;
@@ -28,15 +26,15 @@ post_cd() {
 }
 
 _cd_dev() {
-    summarize_repos
+    repo-summary
 }
 
 _cd_repo() {
-    repo_status
+    repo-status
 }
 
 _cd_home() {
-    recent_activity
+    recent-activity
 }
 
 [[ $LAST =~ $RE_CD ]] && post_cd

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+find . -maxdepth $1 -path '*/.git' -exec dirname {} \;
+
+# vim: ft=sh

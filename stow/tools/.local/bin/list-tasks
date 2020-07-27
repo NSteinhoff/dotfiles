@@ -1,0 +1,35 @@
+#!/bin/bash
+
+NC='\033[0m' # No Color
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+
+[ -f tasks ] || exit 1
+
+tasks=$(grep -e '^\[ \] .*' tasks)
+notes=$(grep -e '^!!! .*' tasks)
+questions=$(grep -e '^??? .*' tasks)
+
+if [[ -n "$tasks" ]] || [[ -n "$notes" ]]; then
+    echo "---"
+
+    if [[ -n "$tasks" ]]; then
+        echo -en "$ORANGE"
+        echo -e "$tasks"
+        echo -en "$NC"
+    fi
+
+    if [[ -n "$notes" ]]; then
+        echo -e "$notes"
+    fi
+
+    if [[ -n "$questions" ]]; then
+        echo -en "$GREEN"
+        echo -e "$questions"
+        echo -en "$NC"
+    fi
+    echo "---"
+fi
+
+# vim: ft=sh

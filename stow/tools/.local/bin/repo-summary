@@ -1,0 +1,7 @@
+#!/bin/bash
+
+depth="${1:-2}"
+echo "===Repositories==="
+find-repos $depth | xargs -n1 repo-stats
+
+# vim: ft=sh
