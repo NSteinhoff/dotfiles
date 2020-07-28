@@ -118,11 +118,11 @@ nnoremap <silent> <S-F5> :make!<CR>
 "}}}
 
 " --- REPL{{{
-nmap s <Plug>ReplSend
-vmap s <Plug>ReplSend
-nmap ss <Plug>ReplSendLine
-nmap s: :ReplSendCmd 
-nmap <C-c><C-c> sap
+map s <Plug>TreplSend
+nmap ss <Plug>TreplSendLine
+nmap s: <Plug>TreplSendCmd
+nmap s<CR> <Plug>TreplSendNewline
+nmap s<SPACE> <Plug>TreplSendBlock
 "}}}
 
 " --- Errors: Quickfix / Location Lists{{{
@@ -207,12 +207,6 @@ nnoremap <silent> d" :Dcomment<CR>
 nnoremap <silent> d& :Dcomment!<CR>
 nnoremap <silent> dc :Dshowcomments<CR>
 nnoremap <silent> dC :Dshowcomments!<CR>
-"}}}
-
-" --- tslime{{{
-vmap <C-c><C-c> <Plug>SendSelectionToTmux
-nmap <C-c><C-c> <Plug>NormalModeSendToTmux
-nmap <C-c>r <Plug>SetTmuxVars
 "}}}
 
 " vim:foldmethod=marker textwidth=0

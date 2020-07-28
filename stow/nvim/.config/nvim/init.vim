@@ -96,6 +96,14 @@ packadd! my-abbreviations
 " packadd! my-differ
 
 " set runtimepath+=~/Development/vim-igitt/ | runtime! plugin/igitt.vim
+
+" Dev packages under ~/Development/pack/*/opt/
+set packpath+=~/Development
+
+packadd trepl
+let g:trepl_always_current_session = 1
+let g:trepl_always_current_window = 1
+
 "}}}
 
 " vim:foldmethod=marker textwidth=0
