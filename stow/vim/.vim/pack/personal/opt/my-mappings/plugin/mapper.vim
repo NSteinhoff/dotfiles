@@ -172,6 +172,7 @@ nnoremap <leader>x :Run<CR>
 vnoremap <leader>x :Run<CR>
 nnoremap <leader>X :%Run<CR>
 nnoremap <leader>o :BufOnly<CR>
+nnoremap <leader>f :F<CR>
 
 " Switch buffers
 nnoremap <leader>b :buffer <C-Z>
