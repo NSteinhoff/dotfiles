@@ -38,14 +38,15 @@ alias q='_() { q=${1:-$(xsel -op)}; xdg-open "https://duckduckgo.com/?q=${q}"; }
 
 # Why not
 alias :q='exit'
-alias :e='vim'
+alias :e='$EDITOR'
 
 # Open notes for editing
 _complete_notes() {
     COMPREPLY=( $(compgen -W "$(ls ~/Dropbox/Documents/Notes/)" $2) )
 }
 complete -F _complete_notes note
-alias note='_() { $EDITOR ~/Dropbox/Documents/Notes/$1 ; }; _'
+alias note='_() { $EDITOR +"map q :wq<CR>" ~/Dropbox/Documents/Notes/$1 ; }; _'
+alias t='$EDITOR +"map q :wq<CR>" ~/Dropbox/Documents/Notes/tasks.taskpaper'
 
 # Open
 [[ $OSTYPE = linux* ]] && alias open='xdg-open'
@@ -83,7 +84,7 @@ case "$TERM" in
 xterm*|rxvt*|tmux*|screen*)
     PS1_tail='\$ '
     PS1_head="${PS1%'\$ '} "
-    export PS1='$(tmux_indicator)'"$PS1_head"'$(git_branch_indicator)[\j]'"\n$PS1_tail"
+    export PS1='$(tmux-prompt)'"$PS1_head"'$(git-prompt)[\j]'"\n$PS1_tail"
     ;;
 *)
     ;;
@@ -91,10 +92,24 @@ esac
 
 export PROMPT_COMMAND="$HOME/.local/bin/bashbot"
 
+# ----------------------------------- fff -------------------------------------
+# Favourites (Bookmarks) (keys 1-9) (dir or file)
+export FFF_FAV1=~/Development
+export FFF_FAV2=~/Dropbox
+export FFF_FAV3=~/Downloads
+export FFF_FAV4=/usr/share
+export FFF_FAV5=/etc
+export FFF_FAV6=
+export FFF_FAV7=~/.bash_aliases
+export FFF_FAV8=~/.local/bin
+export FFF_FAV9=~/dotfiles
 
-# ----------------------------- Helper Functions ------------------------------
-function_lib="$HOME/.local/lib/bash_functions"
-[ -f "$function_lib" ] && source "$function_lib"
+# cd after exit
+command -v fff &>/dev/null && alias f='_() {
+    fff $@
+    cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"
+    command -v tree &>/dev/null && tree -a --dirsfirst --filelimit 10 -L 1
+}; _'
 
 # --------------------------------- TMUXIFY -----------------------------------
 tmuxify() {

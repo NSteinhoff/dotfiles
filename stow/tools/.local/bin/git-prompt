@@ -1,4 +1,10 @@
+#!/bin/bash
 # vim: ft=sh
+
+NOCOLOR='\033[0m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
 
 git_unstaged_changes() {
     [ -n "$(git diff --shortstat 2> /dev/null | tail -n1)" ]
@@ -33,7 +39,7 @@ branch_status() {
     esac
 }
 
-git_branch_indicator() {
+main() {
     branch=$(branch_name) || return 0
     [ -n "$branch" ] || return 1
 
@@ -57,26 +63,9 @@ git_branch_indicator() {
     echo -n "["
     echo -en "\001${COLOR}\002"
     echo -n "${branch}"
-    echo -en "\001${NC}\002"
+    echo -en "\001${NOCOLOR}\002"
     echo -n "${remote_indicator}"
     echo -n "]"
 }
 
-tmux_indicator() {
-    if [[ -n "${TMUX}" ]]; then
-        tmuxinfo="$(tmux lsw -F '#S:#I:#P #{window_active}' | grep '1$' | cut -d' ' -f1)"
-        case $tmuxinfo in
-            default:*) shortinfo="*${tmuxinfo#default}" ;;
-            [0123456789]*:1:1) shortinfo="T" ;;
-            *) shortinfo="${tmuxinfo}" ;;
-        esac
-        echo -en "[${cyan}${shortinfo}${reset}] "
-    fi
-}
-
-# fff file manager with CD on exit
-f() {
-    (command -v fff &>/dev/null) || return 1
-    fff "$@"
-    cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"
-}
+main || exit 1
