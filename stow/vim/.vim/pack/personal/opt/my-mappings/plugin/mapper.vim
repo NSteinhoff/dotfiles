@@ -117,12 +117,12 @@ nnoremap <silent> <F5> :Make<CR>
 nnoremap <silent> <S-F5> :make!<CR>
 "}}}
 
-" --- REPL{{{
-map s <Plug>TreplSend
-nmap ss <Plug>TreplSendLine
-nmap s: <Plug>TreplSendCmd
-nmap s<CR> <Plug>TreplSendNewline
-nmap s<SPACE> <Plug>TreplSendBlock
+" --- SendIt{{{
+map s <Plug>SendIt
+nmap ss <Plug>SendItLine
+nmap s: <Plug>SendItCmd
+nmap s<CR> <Plug>SendItNewline
+nmap s<SPACE> <Plug>SendItBlock
 "}}}
 
 " --- Errors: Quickfix / Location Lists{{{

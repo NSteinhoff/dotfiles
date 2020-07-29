@@ -100,7 +100,7 @@ packadd! my-abbreviations
 " Dev packages under ~/Development/pack/*/opt/
 set packpath+=~/Development
 
-packadd trepl
+packadd sendit
 let g:trepl_always_current_session = 1
 let g:trepl_always_current_window = 1
 
