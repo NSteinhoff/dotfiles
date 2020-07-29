@@ -561,7 +561,7 @@
 
 window:
   decorations: none
-  startup_mode: Fullscreen
+  startup_mode: Maximized
   padding:
     x: 2
     y: 2
