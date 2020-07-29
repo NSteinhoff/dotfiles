@@ -56,20 +56,37 @@ unpkg-%:
 # ---------------------------------- Crawl ------------------------------------
 crawld := $(share)/crawl
 crawl_key := $(crawld)/crawl_key
+crawl_apt_src := deb https://crawl.develz.org/debian crawl 0.25
+crawl_apt_updated := $(crawld)/apt-updated
+crawl_bin := /usr/games/crawl
 
-crawl: $(crawl_key)
+crawl: $(crawl_key) $(crawl_bin)
 .PHONY: crawl
 
 uncrawl:
 	rm -rf $(crawld)
+	apt-get remove -y crawl
 .PHONY: uncrawl
 
 $(crawl_key): | $(crawld)
-	curl https://crawl.develz.org/crawl_key 2>/dev/null > $(crawl_key)
+	curl https://crawl.develz.org/cao_key 2>/dev/null > $(crawl_key)
 	chmod 600 $(crawl_key)
 
 $(crawld):
 	mkdir -p $(crawld)
+
+$(crawl_bin): $(crawl_apt_updated)
+	apt-get install -y crawl
+	touch $@
+
+$(crawl_apt_updated):
+	# Install source repository
+	grep "$(crawl_apt_src)" /etc/apt/sources.list &>/dev/null || (echo "$(crawl_apt_src)" | tee -a /etc/apt/sources.list)
+	# Install the DCSS signing key
+	curl https://crawl.develz.org/debian/pubkey | apt-key add -
+	# update your package list
+	apt-get update
+	touch $@
 
 
 # ---------------------------------- Brogue -----------------------------------
