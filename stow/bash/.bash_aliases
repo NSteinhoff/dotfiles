@@ -143,7 +143,7 @@ tmuxify() {
 
     [ -n "$TMUX" ] || exec $tmux_cmd
 }
-tmuxify single
+false && tmuxify single
 
 # --------------------------------- GREETING ----------------------------------
 [[ ${PWD} == ${HOME} ]] && greeting
