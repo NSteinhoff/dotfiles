@@ -1,4 +1,10 @@
 " Minpac Init{{{
+
+augroup minpac
+    autocmd!
+    autocmd BufWritePost external.vim source <sfile>
+augroup END
+
 let s:packdir = expand('~/.local/share/vim/site')
 execute 'set packpath+='.s:packdir
 if empty(glob(s:packdir)) | exe 'silent !mkdir -p '.s:packdir | endif
@@ -25,12 +31,6 @@ function! s:minpac_init() abort
 
     " Mappings
     call minpac#add('tpope/vim-unimpaired')
-
-    " fff file picker
-    call minpac#add('dylanaraps/fff.vim')
-
-    " External Documentation Lookup:
-    call minpac#add('romainl/vim-devdocs')
 
     " FTPlugings:
     call minpac#add('vim-python/python-syntax')

@@ -95,14 +95,12 @@ packadd! my-abbreviations
 " packadd! my-repl
 " packadd! my-differ
 
-" set runtimepath+=~/Development/vim-igitt/ | runtime! plugin/igitt.vim
-
 " Dev packages under ~/Development/pack/*/opt/
 set packpath+=~/Development
 
-packadd sendit
-let g:trepl_always_current_session = 1
-let g:trepl_always_current_window = 1
+packadd! sendit
+let g:sendit_always_current_session = 1
+let g:sendit_always_current_window = 1
 
 "}}}
 
