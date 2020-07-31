@@ -27,9 +27,13 @@ packadd! my-mappings
 packadd! my-abbreviations
 packadd! my-tags
 
+" --- Tpope's mappings
 packadd! vim-unimpaired
+" --- Bash
 packadd! bats.vim
+" --- Python
 packadd! python-syntax
-packadd! vim-parinfer
 packadd! vim-python-pep8-indent
+" --- Lisp/Scheme
+packadd! vim-parinfer
 packadd! vim-racket

@@ -1,14 +1,11 @@
-let s:packdir_personal = expand('~/.vim/pack/personal/')
-
-function! s:packfiles(arglead, cmdline, cursorpos)
-    let paths = glob(s:packdir_personal.'**/'.a:arglead.'**', 0, 1)
-    call filter(paths, { _, val -> val =~ '\.vim$' })
+function! s:packfiles(arglead, cmdline, cursorpos) abort
+    let paths = globpath(&packpath, 'pack/**/*.vim', 0, 1)
+    call filter(paths, { _, v -> v =~ a:arglead })
+    call map(paths, { _, v -> fnamemodify(v, ':.') })
     call uniq(paths)
     call sort(paths)
-    return map(paths, { _, val -> substitute(val, expand(s:packdir_personal), "", "") })
+    return paths
 endfunction
 
 command! -nargs=? -complete=customlist,<SID>packfiles PackEdit
-    \ execute 'edit '.s:packdir_personal.<q-args>
-
-" vim: foldmethod=marker
+    \ execute 'edit '.<q-args>
