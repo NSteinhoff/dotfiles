@@ -1,5 +1,7 @@
 silent source $VIMRUNTIME/defaults.vim
 
+colorscheme default
+
 set hidden
 set wildmode=longest:full,full
 set path=,,.
@@ -13,9 +15,21 @@ set foldmethod=indent
 set backspace=indent,eol,start
 set modeline
 
-colorscheme minimal
+set packpath+=~/Development
+packloadall
 
-augroup settings
-    autocmd!
-    autocmd! BufWritePost .vimrc,vimrc source %
-augroup END
+packadd! matchit
+
+packadd! my-statusline
+packadd! my-automations
+packadd! my-commands
+packadd! my-mappings
+packadd! my-abbreviations
+packadd! my-tags
+
+packadd! vim-unimpaired
+packadd! bats.vim
+packadd! python-syntax
+packadd! vim-parinfer
+packadd! vim-python-pep8-indent
+packadd! vim-racket
