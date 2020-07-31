@@ -15,10 +15,8 @@ set foldmethod=indent
 set backspace=indent,eol,start
 set modeline
 
-set packpath+=~/Development
+set packpath=~/.vim,~/Development
 packloadall
-
-packadd! matchit
 
 packadd! my-statusline
 packadd! my-automations

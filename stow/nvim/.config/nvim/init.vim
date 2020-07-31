@@ -1,6 +1,6 @@
 " --------------------------------- Options ----------------------------------- {{{
 set runtimepath+=~/.vim/after
-set packpath+=~/.vim
+set packpath=~/.vim,~/Development
 "---
 set mouse=nv
 set laststatus=2
