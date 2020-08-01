@@ -1,86 +1,73 @@
-function s:has_repl()
-    return get(b:, 'repl', 'NONE') != 'NONE'
+" Vim plugin for interacting with a terminal buffer from a text buffer
+" Maintainer:   Niko Steinhoff <niko.steinhoff@gmail.com>
+" License:      Public Domain
+
+if exists("g:loaded_repl") | finish | endif | let g:loaded_repl = 1
+
+function s:buffer_status() abort
+    let status = {}
+    let status.cmd = s:cmd()
+    let [bufnr, hidden] = s:bufnr()
+    let status.bufnr = bufnr
+    let status.hidden= hidden
+    return status
 endfunction
 
-function! s:bufnr()
-    if !s:has_repl() | return -1 | endif
-    let bufname = bufname("^term*".b:repl."$")
-    if bufname == '' | return -1 | endif
-    let bufs = getbufinfo(bufname)
-    return bufs[0]['bufnr']
+function s:cmd()
+    return get(b:, 'repl', 'NONE')
+endfunction
+
+function s:repl_name()
+    return 'REPL '.s:cmd()
+endfunction
+
+function s:bufnr()
+    for buf in getbufinfo(s:repl_name())
+        return [buf.bufnr, buf.hidden]
+    endfor
+    return [-1, 0]
 endfunction
 
 function s:start(bang) abort
-    if !has('nvim')
-        echo "The REPL integration only works with nvim for now. Sorry!"
-        return
-    endif
-    if !s:has_repl()
-        echo "REPL command undefined. Set b:repl='cmd' to enabel a REPL for this buffer."
+    if s:cmd() == 'NONE'
+        echomsg "REPL command undefined. Set b:repl='cmd' to enabel a REPL for this buffer."
         return
     endif
 
-    let buf = s:bufnr()
-    if buf != -1
-        echo 'REPL running for ft='.&ft.' in buffer #'.buf
-        return
-    endif
-
-    if a:bang
-        botright vsplit
+    let [buf, hidden] = s:bufnr()
+    if buf == -1
+        let cmd = s:cmd()
+        call term_start(cmd, {'vertical': a:bang, 'term_name': s:repl_name()})
+        normal G
+        wincmd p
+    elseif hidden
+        execute (a:bang?'vertical ':'').'sb '.buf
+        normal G
+        wincmd p
     else
-        botright split
+        execute bufwinnr(buf).'windo close'
     endif
-    let ft = &ft
-    execute 'terminal '.b:repl
-    let b:ft = ft
-    normal G
-    wincmd p
 endfunction
 
-function s:put()
-    let @@ = substitute(@@, "\n*$", "", "").''
-    execute 'buffer '.s:bufnr()
-    put
-    buffer #
+function s:send_string(s)
+    if s:bufnr()[0] == -1 | call s:start(0) | endif
+    let msg = trim(a:s, "\n")
+    let [buf, _] = s:bufnr()
+    call term_sendkeys(buf, msg."\n")
 endfunction
 
-function s:checkrunning()
-    if !s:has_repl() | return | endif
-    if s:bufnr() == -1
-        echo 'No REPL running for ft='.&ft.'. Start a REPL with :ReplStart'
-        return
+function s:send(start, end, ...)
+    if a:0
+        let text = join(map(copy(a:000), { _, v -> expand(v) }), " ")
+    else
+        let text = join(getline(a:start, a:end), "\n")
     endif
-    return 1
-endfunction
 
-function s:send_range(start, end)
-    if !s:checkrunning() | return | endif
-    let reg_save = @@
-
-    let @@ = join(getbufline('', a:start, a:end), "\n")
-
-    call s:put()
-
-    let @@ = reg_save
-endfunction
-
-function s:send_string(string)
-    if !s:checkrunning() | return | endif
-    let reg_save = @@
-
-    let @@ = a:string
-
-    call s:put()
-
-    let @@ = reg_save
+    call s:send_string(text)
 endfunction
 
 function s:send_selection(type, ...)
-    if !s:checkrunning() | return | endif
-
     let sel_save = &selection
-    let &selection = "inclusive"
     let reg_save = @@
 
     if a:0  " Invoked from Visual mode, use gv command.
@@ -91,15 +78,17 @@ function s:send_selection(type, ...)
         silent exe "normal! `[v`]y"
     endif
 
-    call s:put()
-
-    let &selection = sel_save
-    let @@ = reg_save
+    call s:send_string(@@)
 endfunction
 
-command! -bang ReplStart call <SID>start(<q-bang> == '!')
-command! -range ReplSendRange call <SID>send_range(<line1>, <line2>)
-command! -range -nargs=* ReplSendCmd call <SID>send_string(<q-args>)
-nnoremap <silent> <Plug>ReplSend :set opfunc=<SID>send_selection<CR>g@
-vnoremap <silent> <Plug>ReplSend :<C-U>call <SID>send_selection(visualmode(), 1)<CR>
-nmap <Plug>ReplSendLine V<Plug>ReplSend
+command ReplStatus echo <SID>buffer_status()
+command -bang ReplStart call <SID>start(<q-bang> == '!')
+command -range -nargs=* ReplSend call <SID>send(<line1>, <line2>, <f-args>)
+nnoremap <Plug>ReplStatus :ReplStatus<CR>
+nnoremap <Plug>ReplStart :ReplStart<CR>
+nnoremap <silent> <Plug>ReplSendSelection :set opfunc=<SID>send_selection<CR>g@
+vnoremap <silent> <Plug>ReplSendSelection :<C-U>call <SID>send_selection(visualmode(), 1)<CR>
+nnoremap <silent> <Plug>ReplSendNewline :call <SID>send_string('')<CR>
+nnoremap <silent> <Plug>ReplSendLine :ReplSend<CR>
+nnoremap <Plug>ReplSendCmd :<C-U>ReplSend 
+nmap <Plug>ReplSendBlock <Plug>ReplSendSelectionap

@@ -117,12 +117,14 @@ nnoremap <silent> <F5> :Make<CR>
 nnoremap <silent> <S-F5> :make!<CR>
 "}}}
 
-" --- SendIt{{{
-map s <Plug>SendIt
-nmap ss <Plug>SendItLine
-nmap s: <Plug>SendItCmd
-nmap s<CR> <Plug>SendItNewline
-nmap s<SPACE> <Plug>SendItBlock
+" --- REPL{{{
+map s <Plug>ReplSendSelection
+nmap s! <Plug>ReplStart
+nmap s? <Plug>ReplStatus
+nmap ss <Plug>ReplSendLine
+nmap s: <Plug>ReplSendCmd
+nmap s<CR> <Plug>ReplSendNewline
+nmap s<SPACE> <Plug>ReplSendBlock
 "}}}
 
 " --- Errors: Quickfix / Location Lists{{{
@@ -178,10 +180,10 @@ nnoremap <leader>f :F<CR>
 nnoremap <leader>b :buffer <C-Z>
 nnoremap <leader>v :vert sbuffer <C-Z>
 nnoremap <leader>t :tab sbuffer <C-Z>
-
 " Edit Settings files
 nnoremap <leader>ee :edit $MYVIMRC<CR>
-nnoremap <leader>ef :EditFiletype<CR>
+nnoremap <leader>ef :EditFtplugin<CR>
+nnoremap <leader>ed :EditFtdetect<CR>
 nnoremap <leader>ec :EditCompiler<CR>
 nnoremap <leader>es :EditSyntax<CR>
 nnoremap <leader>ei :EditIndent<CR>

@@ -1,7 +1,8 @@
 silent source $VIMRUNTIME/defaults.vim
 
-colorscheme default
+colorscheme minimal
 
+set mouse=a
 set hidden
 set wildmode=longest:full,full
 set path=,,.
@@ -24,6 +25,10 @@ packadd! my-commands
 packadd! my-mappings
 packadd! my-abbreviations
 packadd! my-tags
+packadd! my-repl
+
+" --- Send to tmux
+packadd! sendit
 
 " --- Tpope's mappings
 packadd! vim-unimpaired
