@@ -84,7 +84,7 @@ case "$TERM" in
 xterm*|rxvt*|tmux*|screen*)
     PS1_tail='\$ '
     PS1_head="${PS1%'\$ '} "
-    export PS1='$(tmux-prompt)'"$PS1_head"'$(git-prompt)[\j]'"\n$PS1_tail"
+    [[ $PS1 == *git-prompt* ]] || export PS1='$(tmux-prompt)'"$PS1_head"'$(git-prompt)[\j]'"\n$PS1_tail"
     ;;
 *)
     ;;
