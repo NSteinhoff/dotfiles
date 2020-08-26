@@ -52,8 +52,8 @@ alias t='$EDITOR +"map q :wq<CR>" ~/Dropbox/Documents/Notes/tasks.taskpaper'
 [[ $OSTYPE = linux* ]] && alias open='xdg-open'
 
 # Syntax highlighting (no need for 'bat')
-which highlight &>/dev/null && alias hi='highlight -O ansi'
-which highlight &>/dev/null && alias hil='_() { highlight -O ansi $@ | less -R; }; _'
+which highlight &>/dev/null && alias hi='highlight -O ansi --force'
+which highlight &>/dev/null && alias hil='_() { highlight -O ansi --force $@ | less -R; }; _'
 
 # ---------- Java Version ---------
 [[ -z $JAVA_HOME && "$os" == linux && -x $(which java) ]] && JAVA_HOME=$(readlink -f $(which java) | sed "s:/bin/java::")
