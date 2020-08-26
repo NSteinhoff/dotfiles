@@ -69,9 +69,9 @@ nnoremap <silent> <leader>ag :execute 'Ag '.expand('<cword>')<CR>
 
 " --- Execution{{{
 " Run selected lines
-vnoremap <silent> <CR> :Run<CR>
+" vnoremap <silent> <CR> :Run<CR>
 " Run whole file
-nnoremap <silent> <BACKSPACE> :%Run<CR>
+" nnoremap <silent> <BACKSPACE> :%Run<CR>
 "}}}
 
 " --- Scrolling{{{
@@ -122,6 +122,9 @@ map s <Plug>ReplSendSelection
 nmap s! <Plug>ReplStart
 nmap s? <Plug>ReplStatus
 nmap ss <Plug>ReplSendLine
+nmap sS <Plug>ReplSendFile
+nmap s< <Plug>ReplSendAbove
+nmap s> <Plug>ReplSendBelow
 nmap s: <Plug>ReplSendCmd
 nmap s<CR> <Plug>ReplSendNewline
 nmap s<SPACE> <Plug>ReplSendBlock

@@ -7,9 +7,10 @@ if exists("g:loaded_repl") | finish | endif | let g:loaded_repl = 1
 function s:buffer_status() abort
     let status = {}
     let status.cmd = s:cmd()
-    let [bufnr, hidden] = s:bufnr()
+    let [bufnr, hidden, windows] = s:bufnr()
     let status.bufnr = bufnr
-    let status.hidden= hidden
+    let status.hidden = hidden
+    let status.windows = windows
     return status
 endfunction
 
@@ -23,9 +24,9 @@ endfunction
 
 function s:bufnr()
     for buf in getbufinfo(s:repl_name())
-        return [buf.bufnr, buf.hidden]
+        return [buf.bufnr, buf.hidden, buf.windows]
     endfor
-    return [-1, 0]
+    return [-1, 0, []]
 endfunction
 
 function s:start(bang) abort
@@ -34,13 +35,13 @@ function s:start(bang) abort
         return
     endif
 
-    let [buf, hidden] = s:bufnr()
+    let [buf, hidden, windows] = s:bufnr()
     if buf == -1
         let cmd = s:cmd()
         call term_start(cmd, {'vertical': a:bang, 'term_name': s:repl_name()})
         normal G
         wincmd p
-    elseif hidden
+    elseif !len(windows)
         execute (a:bang?'vertical ':'').'sb '.buf
         normal G
         wincmd p
@@ -52,13 +53,13 @@ endfunction
 function s:send_string(s)
     if s:bufnr()[0] == -1 | call s:start(0) | endif
     let msg = trim(a:s, "\n")
-    let [buf, _] = s:bufnr()
+    let [buf, _, _] = s:bufnr()
     call term_sendkeys(buf, msg."\n")
 endfunction
 
-function s:send(start, end, ...)
-    if a:0
-        let text = join(map(copy(a:000), { _, v -> expand(v) }), " ")
+function s:send(start, end, args)
+    if a:args != ''
+        let text = a:args
     else
         let text = join(getline(a:start, a:end), "\n")
     endif
@@ -83,12 +84,15 @@ endfunction
 
 command ReplStatus echo <SID>buffer_status()
 command -bang ReplStart call <SID>start(<q-bang> == '!')
-command -range -nargs=* ReplSend call <SID>send(<line1>, <line2>, <f-args>)
+command -range -nargs=? ReplSend call <SID>send(<line1>, <line2>, <q-args>)
 nnoremap <Plug>ReplStatus :ReplStatus<CR>
 nnoremap <Plug>ReplStart :ReplStart<CR>
 nnoremap <silent> <Plug>ReplSendSelection :set opfunc=<SID>send_selection<CR>g@
 vnoremap <silent> <Plug>ReplSendSelection :<C-U>call <SID>send_selection(visualmode(), 1)<CR>
 nnoremap <silent> <Plug>ReplSendNewline :call <SID>send_string('')<CR>
 nnoremap <silent> <Plug>ReplSendLine :ReplSend<CR>
+nnoremap <silent> <Plug>ReplSendFile :%ReplSend<CR>
+nnoremap <silent> <Plug>ReplSendAbove :0,.ReplSend<CR>
+nnoremap <silent> <Plug>ReplSendBelow :.,$ReplSend<CR>
 nnoremap <Plug>ReplSendCmd :<C-U>ReplSend 
-nmap <Plug>ReplSendBlock <Plug>ReplSendSelectionap
+nmap <Plug>ReplSendBlock m`<Plug>ReplSendSelectionap``
