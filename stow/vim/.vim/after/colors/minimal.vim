@@ -124,6 +124,7 @@ let  s:highlights.HLivelyInvert  =  {'lig':  'inverse',  'fg':  0,   'bg':  11}
 let  s:highlights.HRelaxed       =  {'lig':  'none',     'fg':  0,   'bg':  10}
 let  s:highlights.HFresh         =  {'lig':  'none',     'fg':  0,   'bg':  14}
 let  s:highlights.HIntense       =  {'lig':  'none',     'fg':  0,   'bg':  9}
+let  s:highlights.HIntenseInvert =  {'lig':  'inverse',  'fg':  0,   'bg':  9}
 "" }}}
 " }}}
 
@@ -132,7 +133,7 @@ let s:ui_styles = {}
 let s:diff_styles = {}
 let s:syntax_styles = {}
 
-"" UI Styles {{{{
+"" UI Styles {{{
 let s:ui_styles.normal                = "Normal"
 let s:ui_styles.title                 = "StrongPop"
 let s:ui_styles.line                  = "Underlined"
@@ -145,18 +146,18 @@ let s:ui_styles.status_inactive       = "HFaded"
 let s:ui_styles.status_active         = "HPop"
 let s:ui_styles.status_term           = "HRelaxed"
 let s:ui_styles.match                 = "HExcited"
-let s:ui_styles.highlight             = "HLivelyInvert"
+let s:ui_styles.highlight             = "HLively"
 let s:ui_styles.highlight_inverted    = "HLivelyInvert"
 ""}}}
 
-"" Diff Styles {{{{
+"" Diff Styles {{{
 let s:diff_styles.add                 = "Calm"
 let s:diff_styles.delete              = "Forceful"
 let s:diff_styles.change              = "Busy"
 let s:diff_styles.text                = "HExcited"
 ""}}}
 
-"" Syntax Styles {{{{
+"" Syntax Styles {{{
 let s:syntax_styles.error             = "Intense"
 let s:syntax_styles.constant          = "Peaceful"
 let s:syntax_styles.identifier        = "Normal"
@@ -206,13 +207,13 @@ let s:ui_groups.selection = [
 \    "PmenuSbar",
 \ ]
 let s:ui_groups.highlight_inverted = [
-\    "MatchParen",
+\    "Search",
 \ ]
 let s:ui_groups.highlight = [
-\    "Search",
 \    "Substitute",
 \ ]
 let s:ui_groups.match = [
+\    "MatchParen",
 \    "IncSearch",
 \    "PmenuSel",
 \    "WildMenu",
