@@ -16,6 +16,7 @@ set foldmethod=indent
 set backspace=indent,eol,start
 set modeline
 set formatoptions+=j
+set nowrap
 
 set packpath=~/.vim,~/Development
 packloadall

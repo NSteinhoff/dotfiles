@@ -60,6 +60,10 @@ map  <left>   5<C-W><  "  decrease  width
 map  <right>  5<C-W>>  "  increase  width
 map  <up>     5<C-W>+  "  increase  height
 map  <down>   5<C-W>-  "  decrease  height
+
+" Terminal
+tmap <c-w>] <c-\><c-n>
+tmap <c-w><c-]> <c-\><c-n>
 "}}}
 
 " --- Searching{{{
@@ -126,8 +130,8 @@ nmap sS <Plug>ReplSendFile
 nmap s< <Plug>ReplSendAbove
 nmap s> <Plug>ReplSendBelow
 nmap s: <Plug>ReplSendCmd
-nmap s<CR> <Plug>ReplSendNewline
 nmap s<SPACE> <Plug>ReplSendBlock
+nmap s<CR> <Plug>ReplSendBlockGoToNext
 "}}}
 
 " --- Errors: Quickfix / Location Lists{{{
