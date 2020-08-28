@@ -123,7 +123,7 @@ nnoremap <silent> <S-F5> :make!<CR>
 
 " --- REPL{{{
 map s <Plug>ReplSendSelection
-nmap s! <Plug>ReplStart
+nmap s! <Plug>ReplToggle
 nmap s? <Plug>ReplStatus
 nmap ss <Plug>ReplSendLine
 nmap sS <Plug>ReplSendFile
@@ -131,7 +131,7 @@ nmap s< <Plug>ReplSendAbove
 nmap s> <Plug>ReplSendBelow
 nmap s: <Plug>ReplSendCmd
 nmap s<SPACE> <Plug>ReplSendBlock
-nmap s<CR> <Plug>ReplSendBlockGoToNext
+nmap s<CR> <Plug>ReplSendAdvanceBlock
 "}}}
 
 " --- Errors: Quickfix / Location Lists{{{

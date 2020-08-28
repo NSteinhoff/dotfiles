@@ -5,11 +5,11 @@ let b:repl = 'sbcl'
 let b:interpreter = 'sbcl'
 
 " Go all in!
-nmap <buffer> <CR> <Plug>ReplSendBlockGoToNext
-
-" Panic!
-nmap <buffer> s<c-c> <Plug>ReplInterrupt
-nmap <buffer> s<c-d> <Plug>ReplEOF
+nmap <buffer> <Plug>SendAtom  m`<Plug>ReplSendSelectioniw``
+nmap <buffer> <Plug>SendForm  m`<Plug>ReplSendSelectiona(``
+nmap <buffer> , <Plug>SendAtom
+nmap <buffer> <SPACE> <Plug>SendForm
+nmap <buffer> <CR> <Plug>ReplSendBlock
 
 " Debugging and Documentation
 command -buffer -nargs=1 Apropos ReplSend (apropos <q-args>)
@@ -26,13 +26,7 @@ command -buffer -nargs=1 Macroexpand1 ReplSend (macroexpand-1 '<args>)
 nnoremap <silent> <buffer> sM ya(:Macroexpand "<CR>
 nnoremap <silent> <buffer> sm ya(:Macroexpand1 "<CR>
 
-" Navigating menus
-let keys = '0123456789'  " General
-let keys += '?qeruhpl'   " Inspector / Debugger
-for k in split(keys, '\zs')
-    execute 'nnoremap <buffer> s'.k.' :ReplSend '.k.'<CR>'
-endfor
-
+" Debugger
 command DebuggerAbort ReplSend ABORT
 execute 'command DebuggerExit ReplSend '.(b:repl == 'sbcl' ? 'TOPLEVEL' : 'QUIT')
 nnoremap <silent> <buffer> s<BS> :DebuggerAbort<CR>
