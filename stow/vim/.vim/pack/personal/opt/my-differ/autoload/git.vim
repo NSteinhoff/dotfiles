@@ -31,13 +31,15 @@ endfunction
 
 " Run a command in the git repo containing the filepath.
 "
-" Replace the '{}' in the command with the filepath and
-" run the command in the git repo containing the file.
+" Replace the '{}' in the command with the git root
+" relative filepath and run the command in the
+" git repo containing the file.
 "
 " Return output lines
 function s:gitlist_relative(cmd, filepath)
     let [before, after] = split(a:cmd, '{}', 1)
-    let cmd = before . a:filepath . after
+    let relpath = git#relpath(a:filepath)
+    let cmd = before . relpath . after
     return systemlist("git -C ".git#root_for_file(a:filepath)." ".cmd)
 endfunction
 
@@ -127,14 +129,12 @@ endfunction
 
 " Get a version of a file relative to a ref
 function git#original(filename, ref, n) abort
-    let relpath = git#relpath(a:filename)
-    return s:gitlist_relative("show ".a:ref."~".a:n.":{}", relpath)
+    return s:gitlist_relative("show ".a:ref."~".a:n.":{}", a:filename)
 endfunction
 
 " Get a the diff for a single file against a ref
 function git#patch(filename, ref)
-    let relpath = git#relpath(a:filename)
-    return s:gitlist_relative("diff ".a:ref." -- {}", relpath)
+    return s:gitlist_relative("diff ".a:ref." -- {}", a:filename)
 endfunction
 
 " Get the full diff against a ref
