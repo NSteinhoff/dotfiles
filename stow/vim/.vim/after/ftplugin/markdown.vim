@@ -1,5 +1,5 @@
-set textwidth=78
-set shiftwidth=2
-set formatoptions=tcroqlj
-set nowrap
-set spell
+setlocal textwidth=78
+setlocal shiftwidth=2
+setlocal formatoptions=tcroqlj
+setlocal nowrap
+setlocal spell
