@@ -40,6 +40,9 @@ alias q='_() { q=${1:-$(xsel -op)}; xdg-open "https://duckduckgo.com/?q=${q}"; }
 alias :q='exit'
 alias :e='$EDITOR'
 
+# Read errors from stdin into a scratch buffer and load into quickfix list
+alias quickfix='vim +"set bt=nofile" +cbuffer -'
+
 # Open notes for editing
 _complete_notes() {
     COMPREPLY=( $(compgen -W "$(ls ~/Dropbox/Documents/Notes/)" $2) )
