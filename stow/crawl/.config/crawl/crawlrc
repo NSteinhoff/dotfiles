@@ -1,0 +1,87 @@
+##### Crawl Init file ###############################################
+
+# Stop using dark blue for unseen tiles
+# by telling the game that the terminal
+# can render dark grey
+bold_brightens_foreground = true
+
+
+# Quality of life
+# ===============
+default_manual_training = true
+auto_hide_spells = true
+
+
+# Viewport
+# ========
+view_max_width = 60
+view_max_height = 60
+
+
+# Webtiles
+# ========
+tile_display_mode = tiles
+tile_web_mouse_control = false
+tile_cell_pixels = 42
+
+
+# HP/MP Colors/Warnings
+# ==================
+hp_warning = 50
+mp_warning = 50
+hp_colour = 95:yellow, 75:brown, 50:magenta, 25:red
+
+
+# Travel
+# ======
+travel_one_unsafe_move = true
+travel_avoid_terrain = deep water
+# travel_delay = 5
+explore_wall_bias = 5
+show_travel_trail = true
+
+
+# Autofight / Automagic
+# =====================
+autofight_stop = 50
+autofight_warning = 100
+
+
+# Force More Messages
+# ===================
+show_more = false
+fm := force_more_message
+
+fm += You feel strangely unstable
+fm += You feel you are being watched by something
+fm += .*into view.*wielding .*(distortion|chaos|electrocution)
+
+fm += Sigmund.*into view
+
+fs := flash_screen_message
+fs += You feel you are being watched by something
+
+
+# Autoinscriptions
+# ================
+ai := autoinscribe
+ai += ^rations?:@e1
+
+ai += potions? of curing:@q1
+ai += potions? of heal wounds:@q2
+
+ai += scrolls? of identify:@r1
+ai += scrolls? of remove curse:@r2
+ai += scrolls? of teleportation:@r3
+
+ai += .*-tipped darts?:=f =F
+ai += throwing nets?:!f =f =F
+ai += boomerangs? of dispersal:!f =f =F
+
+
+# Spell Slots
+# ===========
+sp := spell_slot
+sp ^= Blink:B
+sp ^= Invisibility:I
+sp ^= Apportation:A

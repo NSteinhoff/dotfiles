@@ -2,7 +2,7 @@
 Type=Application
 
 Name=Dungeon Crawl Stone Soup
-Exec=/usr/games/crawl
+Exec=/usr/games/crawl -rc /home/niko/.config/crawl/crawlrc
 Terminal=true
 Icon=/home/niko/.local/share/crawl/icon.png
 Categories=Game;AdventureGame;

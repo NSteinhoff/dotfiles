@@ -2,7 +2,7 @@
 Type=Application
 
 Name=Trunk: Dungeon Crawl
-Exec=/usr/local/bin/crawl
+Exec=/usr/local/bin/crawl -rc /home/niko/.config/crawl/crawlrc
 Terminal=true
 Icon=/home/niko/.local/share/crawl/icon.png
 Categories=Game;AdventureGame;
