@@ -1,0 +1,9 @@
+FROM python:latest
+
+RUN curl https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-308.0.0-linux-x86_64.tar.gz --output /tmp/gcloud-sdk.tar.gz
+RUN tar -xvf /tmp/gcloud-sdk.tar.gz
+RUN /google-cloud-sdk/install.sh --quiet --bash-completion true --path-update true --usage-reporting false
+
+ENV PATH="/google-cloud-sdk/bin/:${PATH}"
+
+ENTRYPOINT /google-cloud-sdk/bin/gcloud
