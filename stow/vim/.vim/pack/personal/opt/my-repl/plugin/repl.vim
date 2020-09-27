@@ -86,8 +86,18 @@ endfunction
 
 function s:send_text(text)
     call s:show(0)
-    let msg = trim(a:text, "\n")
+    let lines = split(a:text, "\n")
+    call filter(lines, 'v:val != ""')
+    let text = join(lines, "\n")
+    let msg = trim(text, "\n")
+
     let [buf, _] = s:bufinfo()
+    if get(g:, "repl_debug", 0)
+      echo "Target buffer: " . buf
+      echo "\nMessage:"
+      echo msg
+    endif
+
     call term_sendkeys(buf, msg."\n")
 endfunction
 

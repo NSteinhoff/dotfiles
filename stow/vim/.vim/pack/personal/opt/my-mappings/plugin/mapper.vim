@@ -67,6 +67,8 @@ tmap <c-w><c-]> <c-\><c-n>
 "}}}
 
 " --- Searching{{{
+nnoremap <silent> <leader>gg :execute 'grep -r --include=*.'.expand('%:e').' '.expand('<cword>').' .'<CR>
+nnoremap <silent> <leader>gG :execute 'grep -r '.expand('<cword>').' .'<CR>
 nnoremap <silent> <leader>rg :execute 'Rg '.expand('<cword>')<CR>
 nnoremap <silent> <leader>ag :execute 'Ag '.expand('<cword>')<CR>
 "}}}

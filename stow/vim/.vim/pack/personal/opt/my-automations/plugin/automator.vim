@@ -18,8 +18,12 @@ augroup END
 
 augroup user-automake
     autocmd!
-    autocmd BufWritePre  * if get(b:, 'format_on_write', 0) | Format | endif
-    autocmd BufWritePost * if get(b:, 'make_on_write', 0)   | Make   | endif
+    if exists(":Format")
+        autocmd BufWritePre  * if get(b:, 'format_on_write', 0) | Format | endif
+    endif
+    if exists(":Make")
+        autocmd BufWritePost * if get(b:, 'make_on_write', 0)   | Make   | endif
+    endif
 augroup END
 
 augroup user-autoread
