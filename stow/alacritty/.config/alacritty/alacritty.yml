@@ -1151,8 +1151,11 @@ colorschemes:
 
 colors: *dracula
 
-keybindings:
-  - { key: 6,         mods: Control,   chars: "\x1e"                        }
+key_bindings:
+  # Enable CTRL-6 for buffer switching
+  - { key: Key6,      mods: Control,   chars: "\x1e"                        }
+
+  # Explicitly map ALT key combinations for Mac OSX ("use alt as meta" in Terminal/iTerm2)
   - { key: A,         mods: Alt,       chars: "\x1ba"                       }
   - { key: B,         mods: Alt,       chars: "\x1bb"                       }
   - { key: C,         mods: Alt,       chars: "\x1bc"                       }
