@@ -5,8 +5,22 @@ bin := $(HOME)/.local/bin
 man := /usr/share/man
 applications := $(share)/applications
 
-targets := stow crawl brogue nvim fff
-targets += pkg-tmux pkg-htop pkg-alacritty pkg-tree pkg-universal-ctags
+
+# --------------------------------- Install -----------------------------------
+# List of common install targets
+targets := stow
+
+# Packages installed via OS package manager
+targets += pkg-vim pkg-tmux pkg-htop pkg-tree pkg-highlight pkg-jq
+
+# OS specific install targets
+ifeq ($(uname), Linux)
+    targets += crawl brogue
+    targets += pkg-alacritty pkg-universal-ctags
+else ifeq ($(uname), Darwin)
+    targets += pkg-ctags
+endif
+
 untargets := $(patsubst %, un%, $(targets))
 
 install: $(targets)
@@ -24,11 +38,11 @@ ifeq ($(uname), Darwin)
     stowtargets += $(filter %-mac, $(stowlist))
 endif
 
-stow:
+stow: pkg-stow
 	stow $(stowtargets)
 .PHONY: stow
 
-unstow:
+unstow: pkg-stow
 	stow -D $(stowtargets)
 .PHONY: unstow
 
