@@ -698,8 +698,8 @@
 
 
 window:
-  decorations: none
-  startup_mode: Maximized
+  decorations: full
+  startup_mode: Windowed
   padding:
     x: 2
     y: 2
