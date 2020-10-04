@@ -1,2 +1,3 @@
 --dir=stow
 --target=~
+--ignore=.DS_Store
