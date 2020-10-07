@@ -12,10 +12,11 @@ setlocal noswapfile
 setlocal buftype=nofile
 setlocal bufhidden=hide
 
-if executable('xsel')
-    autocmd QuitPre <buffer> %w !xsel -ib
-elseif executable('pbcopy')
-    autocmd QuitPre <buffer> %w !pbcopy
-endif
-autocmd BufEnter <buffer> if getregtype("*") != "" | 0put * | $d | endif
-
+augroup AnyVim
+    if executable('xsel')
+        autocmd QuitPre <buffer> %w !xsel -ib
+    elseif executable('pbcopy')
+        autocmd QuitPre <buffer> %w !pbcopy
+    endif
+    autocmd BufEnter <buffer> if getregtype("*") != "" | 0put * | $d | endif
+augroup END
