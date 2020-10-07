@@ -117,9 +117,9 @@ nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
 " Mnemonic:
 "   (m)ake
 "   <CR> louder than <SPACE>
-nnoremap <silent> m<SPACE> :Make<CR>
+nnoremap <silent> m<SPACE> :make<CR>
 nnoremap <silent> m<CR> :make!<CR>
-nnoremap <silent> <F5> :Make<CR>
+nnoremap <silent> <F5> :make<CR>
 nnoremap <silent> <S-F5> :make!<CR>
 "}}}
 

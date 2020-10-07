@@ -60,29 +60,29 @@ endfunction
 " Styles -> Colors {{{
 if &background == 'dark'
     "" Hues {{{
-    let  s:hues             =  {}
-    let  s:hues.nothing     =  {'lig':  'none',       'fg':  0,     'bg':  bg}
-    let  s:hues.Underlined  =  {'lig':  'underline',  'fg':  fg,  'bg':  bg}
-    let  s:hues.Contrasted  =  {'lig':  'inverse',    'fg':  fg,  'bg':  bg}
-    let  s:hues.Faded       =  {'lig':  'none',       'fg':  8,     'bg':  bg}
-    let  s:hues.Hidden      =  {'lig':  'none',       'fg':  fg,  'bg':  bg}
-    let  s:hues.Bold        =  {'lig':  'bold',       'fg':  fg,  'bg':  bg}
-    let  s:hues.Italic      =  {'lig':  'italic',     'fg':  fg,  'bg':  bg}
-    let  s:hues.Pop         =  {'lig':  'none',       'fg':  15,    'bg':  bg}
-    let  s:hues.StrongPop   =  {'lig':  'bold',       'fg':  15,    'bg':  bg}
+    let  s:hues                =   {}
+    let  s:hues.nothing        =   {'lig':  'none',       'fg':   0,    'bg':  bg}
+    let  s:hues.Underlined     =   {'lig':  'underline',  'fg':  fg,    'bg':  bg}
+    let  s:hues.Contrasted     =   {'lig':  'inverse',    'fg':  fg,    'bg':  bg}
+    let  s:hues.Faded          =   {'lig':  'none',       'fg':   8,    'bg':  bg}
+    let  s:hues.Hidden         =   {'lig':  'none',       'fg':  fg,    'bg':  bg}
+    let  s:hues.Bold           =   {'lig':  'bold',       'fg':  fg,    'bg':  bg}
+    let  s:hues.Italic         =   {'lig':  'italic',     'fg':  fg,    'bg':  bg}
+    let  s:hues.Pop            =   {'lig':  'none',       'fg':  15,    'bg':  bg}
+    let  s:hues.StrongPop      =   {'lig':  'bold',       'fg':  15,    'bg':  bg}
     "" }}}
 else
     "" Hues {{{
     let  s:hues             =  {}
-    let  s:hues.nothing     =  {'lig':  'none',       'fg':  fg,  'bg':  bg}
-    let  s:hues.Underlined  =  {'lig':  'underline',  'fg':  fg,  'bg':  bg}
-    let  s:hues.Contrasted  =  {'lig':  'inverse',    'fg':  fg,  'bg':  bg}
-    let  s:hues.Faded       =  {'lig':  'none',       'fg':  7,     'bg':  bg}
-    let  s:hues.Hidden      =  {'lig':  'none',       'fg':  fg,  'bg':  bg}
-    let  s:hues.Bold        =  {'lig':  'bold',       'fg':  fg,  'bg':  bg}
-    let  s:hues.Italic      =  {'lig':  'italic',     'fg':  fg,  'bg':  bg}
-    let  s:hues.Pop         =  {'lig':  'none',       'fg':  0,     'bg':  bg}
-    let  s:hues.StrongPop   =  {'lig':  'bold',       'fg':  0,     'bg':  bg}
+    let  s:hues.nothing     =  {'lig':  'none',       'fg':  fg,     'bg':  bg}
+    let  s:hues.Underlined  =  {'lig':  'underline',  'fg':  fg,     'bg':  bg}
+    let  s:hues.Contrasted  =  {'lig':  'inverse',    'fg':  fg,     'bg':  bg}
+    let  s:hues.Faded       =  {'lig':  'none',       'fg':   7,     'bg':  bg}
+    let  s:hues.Hidden      =  {'lig':  'none',       'fg':  fg,     'bg':  bg}
+    let  s:hues.Bold        =  {'lig':  'bold',       'fg':  fg,     'bg':  bg}
+    let  s:hues.Italic      =  {'lig':  'italic',     'fg':  fg,     'bg':  bg}
+    let  s:hues.Pop         =  {'lig':  'none',       'fg':   0,     'bg':  bg}
+    let  s:hues.StrongPop   =  {'lig':  'bold',       'fg':   0,     'bg':  bg}
     "" }}}
 endif
 
@@ -134,20 +134,20 @@ let s:diff_styles = {}
 let s:syntax_styles = {}
 
 "" UI Styles {{{
-let s:ui_styles.normal                = "Normal"
-let s:ui_styles.title                 = "StrongPop"
-let s:ui_styles.line                  = "Underlined"
-let s:ui_styles.notice                = "Forceful"
-let s:ui_styles.cursor                = "Contrasted"
-let s:ui_styles.selection             = "Contrasted"
-let s:ui_styles.hidden                = "Hidden"
-let s:ui_styles.ignore                = "Faded"
-let s:ui_styles.status_inactive       = "HFaded"
-let s:ui_styles.status_active         = "HPop"
-let s:ui_styles.status_term           = "HRelaxed"
-let s:ui_styles.match                 = "HExcited"
-let s:ui_styles.highlight             = "HLively"
-let s:ui_styles.highlight_inverted    = "HLivelyInvert"
+let s:ui_styles.normal                   =  "Normal"
+let s:ui_styles.title                    =  "StrongPop"
+let s:ui_styles.line                     =  "Underlined"
+let s:ui_styles.notice                   =  "Forceful"
+let s:ui_styles.cursor                   =  "Contrasted"
+let s:ui_styles.selection                =  "Contrasted"
+let s:ui_styles.hidden                   =  "Hidden"
+let s:ui_styles.ignore                   =  "Faded"
+let s:ui_styles.status_inactive          =  "HFaded"
+let s:ui_styles.status_active            =  "HPop"
+let s:ui_styles.status_term              =  "HRelaxed"
+let s:ui_styles.match                    =  "HExcited"
+let s:ui_styles.highlight                =  "HLively"
+let s:ui_styles.highlight_inverted       =  "HLivelyInvert"
 ""}}}
 
 "" Diff Styles {{{
@@ -194,6 +194,7 @@ let s:ui_groups.notice = [
 \ ]
 let s:ui_groups.cursor = [
 \    "Cursor",
+\    "lCursor",
 \    "CursorIM",
 \    "TermCursor",
 \    "TermCursorNC",

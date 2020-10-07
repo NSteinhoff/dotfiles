@@ -28,7 +28,7 @@ packadd! my-commands
 packadd! my-mappings
 packadd! my-abbreviations
 packadd! my-tags
-" packadd! my-repl
+packadd! my-repl
 
 
 "---------------------------------------------------------------------------- "
