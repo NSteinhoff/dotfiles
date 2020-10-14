@@ -3,6 +3,8 @@
 
 [[ -n "${TMUX}" ]] || exit
 
+tmux show-options status | grep --silent "status off" || exit
+
 tmuxinfo="$(tmux lsw -F '#S:#I:#P #{window_active}' | grep '1$' | cut -d' ' -f1)"
 case $tmuxinfo in
     default:*) shortinfo="*${tmuxinfo#default}" ;;

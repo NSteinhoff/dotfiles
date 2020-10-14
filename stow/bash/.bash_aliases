@@ -115,39 +115,5 @@ command -v fff &>/dev/null && alias f='_() {
     command -v tree &>/dev/null && tree -a --dirsfirst --filelimit 10 -L 1
 }; _'
 
-# --------------------------------- TMUXIFY -----------------------------------
-tmuxify() {
-    # If tmux is installed, we attach each new shell to a tmux session
-    #
-    # single
-    #     One option is to attach all terminals to the same session, in which
-    #     case tmux is used for all window / pane management.
-    #
-    # integrated
-    #     Another option is to attach each terminal to its own session, and
-    #     use the OS window manager for handling windows and tiling.
-    #     Here, tmux is pretty much in 'stealth' mode really only used
-    #     for the copy mode, i.e. terminal:session:window:pane 1:1:1:1
-    [ -x $(which tmux) ] || return 1
-
-    local tmux_mode=${1:-undefined}
-    local tmux_cmd
-    case $tmux_mode in
-        integrated)
-            tmux_cmd="tmux new-session"
-            ;;
-        single)
-            tmux_cmd="tmux new-session -A -s default"
-            ;;
-        *)
-            echo invalid tmux mode \'$tmux_mode\'
-            return 1
-            ;;
-    esac
-
-    [ -n "$TMUX" ] || exec $tmux_cmd
-}
-false && tmuxify integrated
-
 # --------------------------------- GREETING ----------------------------------
 [[ ${PWD} == ${HOME} && ${os} == linux ]] && greeting
