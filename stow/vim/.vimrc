@@ -4,6 +4,7 @@ colorscheme minimal
 
 set mouse=a
 set hidden
+set wildmenu
 set wildmode=longest:full,full
 set path=,,.
 set shiftwidth=4
