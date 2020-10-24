@@ -2,15 +2,9 @@
 set -e
 PATH="/usr/local/bin:$PATH"
 dir="`git rev-parse --git-dir`"
-managed_scala_sources="`find . -path '*/src_managed/*' -name '*.scala'`"
 
 trap 'rm -f "$dir/$$.tags"' EXIT
 
-git ls-files | \
-    ctags --tag-relative=yes --sort=yes -L - -f"$dir/$$.tags" --languages=-css
-
-if [ -n "$managed_scala_sources" ]; then
-    ctags --exclude= --tag-relative=yes --sort=yes -f"$dir/$$.tags" -a $managed_scala_sources
-fi
+git ls-files | ctags --tag-relative=yes --sort=yes -L - -f"$dir/$$.tags"
 
 mv "$dir/$$.tags" "$dir/tags"
