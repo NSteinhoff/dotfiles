@@ -1,83 +1,32 @@
-" --- Mappable Keys{{{
-" Non-conflicting mappable keys and sequences. There are tons more.
-"
-" <BACKSPACE>
-"   -> very convenient adhoc execution mapping
-"   e.g.  :nnoremap <BACKSPACE> :!python %<CR>
-"
-" Function keys:
-"   <F2>
-"   ...
-"   <F12>
-"
-"
-"  .            !     c    d       y         <       >        m             z             `             '             @             "             <PLACEHOLDER>
-"  ---          ---   ---  ---     ---       ---     ---      ---           ---           ---           ---           ---           ---          
-"  MNEMONIC     'do'  .    'diff'  'toggle'  'left'  'right'  'make'        .             .             .             'at'          'comment'     .
-"  ---          ---   ---  ---     ---       ---     ---      ---           ---           ---           ---           ---           ---          
-"  c            !c    .    dc      yc        <c      >c       .             .             .             .             .             .             .
-"  d            !d    cd   .       yd        <d      >d       .             .             .             .             .             .             .
-"  y            !y    cy   dy      .         <y      >y       .             .             .             .             .             .             .
-"  p            !p    cp   dp      yp        <p      >p       .             .             .             .             .             .             .
-"  u            !u    cu   du      yu        <u      >u       .             .             .             .             .             .             .
-"  C            !C    .    dC      yC        <C      >C       .             .             .             .             .             .             .
-"  D            !D    cD   .       yD        <D      >D       .             .             .             .             .             .             .
-"  Y            !Y    cY   dY      .         <Y      >Y       .             .             .             .             .             .             .
-"  P            !P    cP   dP      yP        <P      >P       .             .             .             .             .             .             .
-"  U            !U    cU   dU      yU        <U      >U       .             .             .             .             .             .             .
-"  "            !"    c"   d"      y"        <"      >"       .             z"            .             .             .             ""            .
-"  .            !.    c.   d.      y.        <.      >.       .             .             .             .             .             .             .
-"  <            !<    c<   d<      y<        .       ><       .             z<            .             .             @<            "<            .
-"  >            !>    c>   d>      y>        <>      .        .             z>            .             .             @>            ">            .
-"  !            .     c!   d!      y!        <!      >!       m!            z!            `!            '!            @!            "!            .
-"  @            !@    c@   d@      y@        <@      >@       m@            z@            `@            '@            ..            ..            .
-"  &            !&    c&   d&      y&        <&      >&       m&            z&            `&            '&            @&            "&            .
-"  =            !=    c=   d=      y=        <=      >=       m=            .             `=            '=            .             .             .
-"  ;            !;    c;   d;      y;        <;      >;       m;            z;            `;            ';            .             .             .
-"  ,            !,    c,   d,      y,        <,      >,       m,            z,            `,            ',            @,            ",            .
-"  `            .     .    .       .         .       .        .             z`            .             .             @`            "`            .
-"  .            .     .    .       .         .       .        z             .             .             .             .             .
-"  '            .     .    .       .         .       .        .             .             .             .             @'            "'            .
-"  [            .     .    .       .         .       .        .             z[            .             .             @[            "[            .
-"  ]            .     .    .       .         .       .        .             z]            .             .             @]            "]            .
-"  }            .     .    .       .         .       .        m}            z{            `}            '}            @}            "}            .
-"  {            .     .    .       .         .       .        m{            z}            `{            '{            @{            "{            .
-"  <SPACE>      .     .    .       .         .       .        m<SPACE>      z<SPACE>      `<SPACE>      '<SPACE>      @<SPACE>      "<SPACE>      .
-"  <BACKSPACE>  .     .    .       .         .       .        m<BACKSPACE>  z<BACKSPACE>  `<BACKSPACE>  '<BACKSPACE>  @<BACKSPACE>  "<BACKSPACE>  .
-"  <CR>         .     .    .       .         .       .        m<CR>         .             `<CR>         '<CR>         @<CR>         "<CR>         .
-"  ?            .     .    .       .         .       .        .             .             .             .             @?            "?            .
-"  .            .     .    .       .         .       .        .             .             .             .             .             .             .
-"
-"}}}
+augroup CR_BS_mappings
+    autocmd!
+    autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
+    autocmd CmdwinEnter * nnoremap <buffer> <BS> <BS>
+    autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+    autocmd BufReadPost quickfix nnoremap <buffer> <BS> <BS>
+augroup END
 
 " --- Basics{{{
 " Move over visual lines unless a count is given
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 
+" Switch to alternative buffer
+nnoremap <BS> <C-^>
+nnoremap <silent> <ESC><CR> :make<CR>
+nnoremap <silent> <CR> :make!<CR>
+
 " Window resizing with the arrow keys
-map  <left>   5<C-W><  "  decrease  width
-map  <right>  5<C-W>>  "  increase  width
-map  <up>     5<C-W>+  "  increase  height
-map  <down>   5<C-W>-  "  decrease  height
+map  <left>   5<C-W><
+map  <right>  5<C-W>>
+map  <up>     5<C-W>+
+map  <down>   5<C-W>-
 
 " Terminal
-tmap <c-w>] <c-\><c-n>
-tmap <c-w><c-]> <c-\><c-n>
-"}}}
-
-" --- Searching{{{
-nnoremap <silent> <leader>gg :execute 'grep -r --include=*.'.expand('%:e').' '.expand('<cword>').' .'<CR>
-nnoremap <silent> <leader>gG :execute 'grep -r '.expand('<cword>').' .'<CR>
-nnoremap <silent> <leader>rg :execute 'Rg '.expand('<cword>')<CR>
-nnoremap <silent> <leader>ag :execute 'Ag '.expand('<cword>')<CR>
-"}}}
-
-" --- Execution{{{
-" Run selected lines
-" vnoremap <silent> <CR> :Run<CR>
-" Run whole file
-" nnoremap <silent> <BACKSPACE> :%Run<CR>
+" Use a shortcut that is similar to the TMUX copy mode shortcut for exiting
+" insert mode in terminal buffers.
+tmap <c-w>[ <c-\><c-n>
+tmap <c-w><c-[> <c-\><c-n>
 "}}}
 
 " --- Scrolling{{{
@@ -86,10 +35,6 @@ nnoremap <C-J> 3<C-E>
 nnoremap <C-K> 3<C-Y>
 nnoremap <C-H> 3zh
 nnoremap <C-L> 3zl
-
-" Faster scrolling
-nnoremap <C-E> 3<C-E>
-nnoremap <C-Y> 3<C-Y>
 "}}}
 
 " --- Comment / Uncomment{{{
@@ -112,17 +57,6 @@ nnoremap <silent> <> :Format<CR>
 nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
 "}}}
 
-" --- Make{{{
-" m<SPACE> and m<CR> make the project
-" Mnemonic:
-"   (m)ake
-"   <CR> louder than <SPACE>
-nnoremap <silent> m<SPACE> :make<CR>
-nnoremap <silent> m<CR> :make!<CR>
-nnoremap <silent> <F5> :make<CR>
-nnoremap <silent> <S-F5> :make!<CR>
-"}}}
-
 " --- REPL{{{
 map s <Plug>ReplSendSelection
 nmap s! <Plug>ReplToggle
@@ -140,17 +74,23 @@ nmap s<CR> <Plug>ReplSendAdvanceBlock
 " Mnemonic:
 "   (Q)uickfix
 nnoremap <silent> Q :clist<CR>
-nnoremap <silent> <C-Q> :cwindow<CR>
 "}}}
 
 " --- Preview{{{
-" Preview word under cursor
+nnoremap <silent> <SPACE> :execute 'psearch '.expand('<cword>')<CR>
+vnoremap <silent> <SPACE> y:psearch <C-R>"<CR>
+
+" Preview tag under cursor
+map <NUL> <C-SPACE>
+imap <NUL> <C-SPACE>
 nnoremap <C-SPACE> <C-W>}
+
 " Preview selection
-vnoremap <silent> <C-SPACE> y:ptag<C-R>"<CR>
+vnoremap <silent> <C-SPACE> y:ptag <C-R>"<CR>
+
 " Close the preview window
-nnoremap <C-W><SPACE> <C-W>z
-nnoremap <C-W><C-SPACE> <C-W>z
+nnoremap <ESC><SPACE> <C-W>z
+
 " Complete tag
 inoremap <C-SPACE> <C-X><C-]>
 "}}}
@@ -183,12 +123,23 @@ nnoremap <leader>x :Run<CR>
 vnoremap <leader>x :Run<CR>
 nnoremap <leader>X :%Run<CR>
 nnoremap <leader>o :BufOnly<CR>
-nnoremap <leader>f :F<CR>
+nnoremap <leader>f :Format<CR>
 
 " Switch buffers
 nnoremap <leader>b :buffer <C-Z>
 nnoremap <leader>v :vert sbuffer <C-Z>
 nnoremap <leader>t :tab sbuffer <C-Z>
+
+" Searching
+nnoremap <silent> <leader>* :execute 'vimgrep /' . expand('<cword>') . '/ ' . expand('%')<CR>
+nnoremap <silent> <leader>gg :execute 'grep -r --include=*.'.expand('%:e').' '.expand('<cword>').' .'<CR>
+nnoremap <silent> <leader>gG :execute 'grep -r '.expand('<cword>').' .'<CR>
+nnoremap <silent> <leader>rg :execute 'Rg '.expand('<cword>')<CR>
+vnoremap <silent> <leader>* y:execute 'vimgrep /\V' . escape(@", '\/') . '/ '  . expand('%')<CR>
+vnoremap <silent> <leader>gg y:execute 'grep -r --include=*.'.expand('%:e').' '.shellescape(@").' .'<CR>
+vnoremap <silent> <leader>gG y:execute 'grep -r '.shellescape(@").' .'<CR>
+vnoremap <silent> <leader>rg y:execute 'Rg '.shellescape(@")<CR>
+
 " Edit Settings files
 nnoremap <leader>ee :edit $MYVIMRC<CR>
 nnoremap <leader>ef :EditFtplugin<CR>

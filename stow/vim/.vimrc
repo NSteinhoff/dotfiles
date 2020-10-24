@@ -6,6 +6,8 @@ set mouse=a
 set hidden
 set wildmenu
 set wildmode=longest:full,full
+set wildignore+=node_modules/**
+set wildignore+=**/node_modules/**
 set path=,,.
 set shiftwidth=4
 set softtabstop=-1
@@ -19,7 +21,21 @@ set modeline
 set formatoptions+=j
 set nowrap
 set hlsearch
+set number
 
+" Tweak 'grep' options
+" Default: grep -n $* /dev/null
+"
+" * -I
+"       ignore binary files
+" * --exclude='*/node_modules/*'
+"       ignore node_modules folder
+set grepprg=grep\ -I\ -n\ --exclude='*/node_modules/*'\ $*\ /dev/null
+
+
+"---------------------------------------------------------------------------- "
+"                                  Packages                                   "
+"---------------------------------------------------------------------------- "
 set packpath=~/.vim
 packloadall
 
@@ -32,9 +48,7 @@ packadd! my-tags
 packadd! my-repl
 
 
-"---------------------------------------------------------------------------- "
-"                              External Packages                              "
-"---------------------------------------------------------------------------- "
+" ---------------------------- External Packages ------------------------------
 let s:external_packpath = "~/dev"
 execute 'set packpath+='.s:external_packpath
 
@@ -44,6 +58,9 @@ if !isdirectory(s:packroot)
     echo "Creating external package root directory '".s:packroot."'"
     call mkdir(s:packroot, 'p')
 endif
+
+" --- Editorconfig
+packadd! editorconfig-vim
 
 " --- Send to tmux
 packadd! sendit
@@ -58,6 +75,14 @@ packadd! bats.vim
 packadd! python-syntax
 packadd! vim-python-pep8-indent
 
+" --- JSX / TSX
+packadd! vim-jsx-pretty
+
 " --- Lisp/Scheme
 packadd! vim-parinfer
 packadd! vim-racket
+
+" --- LSP
+packadd! vim-lsp
+packadd! vim-lsp-settings
+packadd! my-lsp
