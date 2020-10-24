@@ -361,13 +361,13 @@
 #   program: /bin/bash
 #   args:
 #     - --login
-shell:
-  program: /usr/local/bin/tmux
-  args:
-    - new-session
-    - -A
-    - -s
-    - default
+# shell:
+#   program: /usr/local/bin/tmux
+#   args:
+#     - new-session
+#     - -A
+#     - -s
+#     - default
 
 # Startup directory
 #
@@ -785,6 +785,13 @@ key_bindings:
   - { key: Backslash, mods: Alt,       chars: "\x1b\\"                      } # Alt + \
   - { key: Backslash, mods: Alt|Shift, chars: "\x1b|"                       } # Alt + |
 
+    # Vi mode:
+  - { key: Q,                     mode: Vi, action: ScrollToBottom          }
+  - { key: Q,                     mode: Vi, action: ToggleViMode            }
+  - { key: K,   mods: Control,    mode: Vi, action: ScrollLineUp            }
+  - { key: J,   mods: Control,    mode: Vi, action: ScrollLineDown          }
+  - { key: U,                     mode: Vi, action: ScrollHalfPageUp        }
+  - { key: D,                     mode: Vi, action: ScrollHalfPageDown      }
 
 window:
   decorations: full
