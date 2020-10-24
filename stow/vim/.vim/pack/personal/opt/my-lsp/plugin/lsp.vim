@@ -1,26 +1,26 @@
-command! LspShowClients lua print(vim.inspect(vim.lsp.buf_get_clients()))
-
-lua << EOF
-vim.cmd('packadd nvim-lsp')
-require'nvim_lsp'.metals.setup{}
-require'nvim_lsp'.rls.setup{}
-EOF
-
-setlocal signcolumn=yes
-setlocal omnifunc=v:lua.vim.lsp.omnifunc
-
-function s:set_lsp_mappings()
-    nnoremap <buffer> <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-    nnoremap <buffer> <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-    nnoremap <buffer> <silent> [<c-d> <cmd>lua vim.lsp.buf.definition()<CR>
-    " nnoremap <buffer> <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-    nnoremap <buffer> <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-    nnoremap <buffer> <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-    nnoremap <buffer> <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-    nnoremap <buffer> <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    imap <silent> <buffer> <C-SPACE> <C-X><C-O>
+    nmap <silent> <buffer> K <plug>(lsp-hover)
+    nmap <silent> <buffer> gh <plug>(lsp-hover)
+    nmap <silent> <buffer> gd <plug>(lsp-definition)
+    nmap <silent> <buffer> gD <plug>(lsp-type-definition)
+    nmap <silent> <buffer> gr <plug>(lsp-references)
+    nmap <silent> <buffer> gi <plug>(lsp-implementation)
+    nmap <silent> <buffer> [g <Plug>(lsp-previous-diagnostic)
+    nmap <silent> <buffer> ]g <Plug>(lsp-next-diagnostic)
+    nmap <silent> <buffer> <leader>rn <plug>(lsp-rename)
 endfunction
 
-augroup LSP
-    autocmd!
-    autocmd Filetype scala,rust call s:set_lsp_mappings()
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_diagnostics_echo_delay = 200
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_diagnostics_float_delay = 2000
