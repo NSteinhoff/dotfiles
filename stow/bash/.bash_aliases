@@ -115,5 +115,8 @@ command -v fff &>/dev/null && alias f='_() {
     command -v tree &>/dev/null && tree -a --dirsfirst --filelimit 10 -L 1
 }; _'
 
+# ---------------------------------- direnv -----------------------------------
+[ -n $(which direnv) ] && eval "$(direnv hook bash)"
+
 # --------------------------------- GREETING ----------------------------------
 [[ ${PWD} == ${HOME} && ${os} == linux ]] && greeting
