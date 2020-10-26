@@ -361,13 +361,13 @@
 #   program: /bin/bash
 #   args:
 #     - --login
-# shell:
-#   program: /usr/local/bin/tmux
-#   args:
-#     - new-session
-#     - -A
-#     - -s
-#     - default
+shell:
+  program: /usr/local/bin/tmux
+  args:
+    - new-session
+    - -A
+    - -s
+    - default
 
 # Startup directory
 #
