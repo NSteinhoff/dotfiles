@@ -1,6 +1,5 @@
 " --------------------------------- Options ----------------------------------- {{{
 set runtimepath+=~/.vim/after
-set packpath=~/.vim,~/Development
 "---
 set mouse=nv
 set laststatus=2
@@ -36,34 +35,38 @@ set background=dark
 "}}}
 
 " --------------------------------- Plugins ----------------------------------- {{{
-" Dev packages under ~/Development/pack/*/opt/
-set packpath+=~/Development
-packloadall
+" Dev packages under ~/dev/pack/*/opt/
+set packpath=~/.vim,~/dev
+packloadall     " load all default packages in 'start'
 
-packadd! matchit
-
-" Open packages with :PackEdit **/{pack}.vim
+" --- Personal packages
 packadd! my-statusline
 packadd! my-automations
 packadd! my-commands
 packadd! my-mappings
 packadd! my-abbreviations
 packadd! my-tags
-" packadd! my-pomodoro
-" packadd! my-repl
-" packadd! my-differ
+packadd! my-lsp
 
+" Create the root directory for external packages
+let s:packroot = expand('~/dev').'/pack/external/opt'
+if !isdirectory(s:packroot)
+    echo "Creating external package root directory '".s:packroot."'"
+    call mkdir(s:packroot, 'p')
+endif
+
+" --- Editorconfig
+packadd! editorconfig-vim
+
+" --- Tpope's mappings
 packadd! vim-unimpaired
-packadd! bats.vim
+
+" --- Python
 packadd! python-syntax
-packadd! vim-parinfer
 packadd! vim-python-pep8-indent
-packadd! vim-racket
 
-packadd! sendit
-let g:sendit_always_current_session = 1
-let g:sendit_always_current_window = 1
-
+" --- JSX / TSX
+packadd! vim-jsx-pretty
 "}}}
 
 " vim:foldmethod=marker textwidth=0
