@@ -54,7 +54,8 @@ nnoremap <silent> <> :Format<CR>
 "}}}
 
 " --- Clear search highlights{{{
-nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
+" <ESC>u is used by 'less' to clear highlights. Why not use the same?
+nnoremap <silent> <ESC>u :nohlsearch<CR>
 "}}}
 
 " --- REPL{{{
@@ -89,6 +90,7 @@ nnoremap <C-SPACE> <C-W>}
 vnoremap <silent> <C-SPACE> y:ptag <C-R>"<CR>
 
 " Close the preview window
+nnoremap <ESC><ESC> <C-W>z
 nnoremap <ESC><SPACE> <C-W>z
 
 " Complete tag

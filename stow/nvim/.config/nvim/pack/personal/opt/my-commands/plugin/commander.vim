@@ -55,32 +55,32 @@ command! -nargs=1 -complete=compiler CompileWith call compiler#with(<f-args>)
 
 "--- Edit my filetype/syntax plugin files for current filetype.{{{
 command! -nargs=? -complete=compiler EditCompiler
-    \ exe 'keepj edit $HOME/.vim/after/compiler/'
+    \ exe 'keepj edit $HOME/.config/nvim/after/compiler/'
     \ . (empty(<q-args>) ? compiler#which() : <q-args>)
     \ . '.vim'
 
 command! -nargs=? -complete=filetype EditFtplugin
-    \ exe 'keepj edit $HOME/.vim/after/ftplugin/'
+    \ exe 'keepj edit $HOME/.config/nvim/after/ftplugin/'
     \ . (empty(<q-args>) ? &filetype : <q-args>)
     \ . '.vim'
 
 command! -nargs=? -complete=filetype EditFtdetect
-    \ exe 'keepj edit $HOME/.vim/after/ftdetect/'
+    \ exe 'keepj edit $HOME/.config/nvim/after/ftdetect/'
     \ . (empty(<q-args>) ? &filetype : <q-args>)
     \ . '.vim'
 
 command! -nargs=? -complete=filetype EditSyntax
-    \ exe 'keepj edit $HOME/.vim/after/syntax/'
+    \ exe 'keepj edit $HOME/.config/nvim/after/syntax/'
     \ . (empty(<q-args>) ? &filetype : <q-args>)
     \ . '.vim'
 
 command! -nargs=? -complete=filetype EditIndent
-    \ exe 'keepj edit $HOME/.vim/after/indent/'
+    \ exe 'keepj edit $HOME/.config/nvim/after/indent/'
     \ . (empty(<q-args>) ? &filetype : <q-args>)
     \ . '.vim'
 
 command! -nargs=? -complete=color EditColorscheme
-    \ execute 'keepj edit $HOME/.vim/after/colors/'
+    \ execute 'keepj edit $HOME/.config/nvim/after/colors/'
     \ . (empty(<q-args>) ? g:colors_name : <q-args>)
     \ . '.vim'
 "}}}

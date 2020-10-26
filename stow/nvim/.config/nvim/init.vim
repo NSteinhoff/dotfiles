@@ -1,6 +1,7 @@
 " --------------------------------- Options ----------------------------------- {{{
-set runtimepath+=~/.vim/after
-"---
+colorscheme minimal
+set background=dark
+" ---
 set mouse=nv
 set laststatus=2
 set number
@@ -27,19 +28,16 @@ let &showbreak = '... '
 " ---
 set wildmode=longest:full,full
 set wildignore+=*/target/*
+set wildignore+=*/node_modules/*
 set inccommand=split
 " ---
-colorscheme minimal
-set background=dark
 
 "}}}
 
 " --------------------------------- Plugins ----------------------------------- {{{
-" Dev packages under ~/dev/pack/*/opt/
-set packpath=~/.vim,~/dev
 packloadall     " load all default packages in 'start'
 
-" --- Personal packages
+" --- Personal
 packadd! my-statusline
 packadd! my-automations
 packadd! my-commands
@@ -48,25 +46,8 @@ packadd! my-abbreviations
 packadd! my-tags
 packadd! my-lsp
 
-" Create the root directory for external packages
-let s:packroot = expand('~/dev').'/pack/external/opt'
-if !isdirectory(s:packroot)
-    echo "Creating external package root directory '".s:packroot."'"
-    call mkdir(s:packroot, 'p')
-endif
+" --- External
 
-" --- Editorconfig
-packadd! editorconfig-vim
-
-" --- Tpope's mappings
-packadd! vim-unimpaired
-
-" --- Python
-packadd! python-syntax
-packadd! vim-python-pep8-indent
-
-" --- JSX / TSX
-packadd! vim-jsx-pretty
 "}}}
 
 " vim:foldmethod=marker textwidth=0
