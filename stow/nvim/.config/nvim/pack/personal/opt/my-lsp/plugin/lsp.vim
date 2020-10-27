@@ -7,6 +7,19 @@ require'nvim_lsp'.rls.setup{}
 require'nvim_lsp'.tsserver.setup{}
 EOF
 
+function! lsp#Indicator()
+    try
+        let lsp = luaeval('vim.inspect(vim.lsp.buf_get_clients())')
+        if lsp != '{}'
+            return '[LSP]'
+        else
+            return ''
+        endif
+    catch
+        return ''
+    endtry
+endfunction
+
 function s:set_lsp_mappings()
     setlocal signcolumn=yes
     setlocal omnifunc=v:lua.vim.lsp.omnifunc
