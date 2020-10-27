@@ -16,9 +16,6 @@
 [submodule "stow/nvim/.config/nvim/pack/external/start/vim-python-pep8-indent"]
 	path = stow/nvim/.config/nvim/pack/external/start/vim-python-pep8-indent
 	url = git@github.com:Vimjas/vim-python-pep8-indent.git
-[submodule "stow/nvim/.config/nvim/pack/external/start/vim-one"]
-	path = stow/nvim/.config/nvim/pack/external/start/vim-one
-	url = git@github.com:rakr/vim-one.git
 [submodule "stow/nvim/.config/nvim/pack/external/start/seoul256.vim"]
 	path = stow/nvim/.config/nvim/pack/external/start/seoul256.vim
 	url = git@github.com:junegunn/seoul256.vim.git
