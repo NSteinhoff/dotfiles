@@ -1247,4 +1247,4 @@ colorschemes:
       cyan:     '0x7aa880'  #  bright  cyan     variant
       white:    '0xaeadaf'  #  bright  white    variant
 
-colors: *dracula
+colors: *taerminal
