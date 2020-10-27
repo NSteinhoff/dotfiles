@@ -77,6 +77,7 @@ which -s highlight && alias hil='_() { highlight -O ansi --force $@ | less -R; }
 # [check for executable] && [ensure exists] && [source completions]
 [ -d ~/.config/bash-completion ] || mkdir -p ~/.config/bash-completion
 
+[ -r ~/.config/bash-completion/git ] || curl -sS https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash > ~/.config/bash-completion/git
 which -s cht.sh && ([ -f ~/.config/bash-completion/cht.sh ] || cht.sh :bash_completion > ~/.config/bash-completion/cht.sh)
 which -s kubectl && ([ -f ~/.config/bash-completion/kubectl ] || kubectl completion bash > ~/.config/bash-completion/kubectl)
 which -s minikube && ([ -f ~/.config/bash-completion/minikube ] || minikube completion bash > ~/.config/bash-completion/minikube)
