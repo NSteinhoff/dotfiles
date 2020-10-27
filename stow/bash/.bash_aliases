@@ -98,7 +98,7 @@ export PROMPT_COMMAND="$HOME/.local/bin/bashbot"
 
 # ----------------------------------- fff -------------------------------------
 # Favourites (Bookmarks) (keys 1-9) (dir or file)
-export FFF_FAV1=~/Development
+export FFF_FAV1=~/dev
 export FFF_FAV2=~/Dropbox
 export FFF_FAV3=~/Downloads
 export FFF_FAV4=/usr/share
@@ -106,17 +106,20 @@ export FFF_FAV5=/etc
 export FFF_FAV6=
 export FFF_FAV7=~/.bash_aliases
 export FFF_FAV8=~/.local/bin
-export FFF_FAV9=~/dotfiles
+export FFF_FAV9=~/dev/dotfiles/stow/nvim/.config/nvim/pack/external
 
 # cd after exit
-command -v fff &>/dev/null && alias f='_() {
+which -s fff && alias f='_() {
     fff $@
     cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"
     command -v tree &>/dev/null && tree -a --dirsfirst --filelimit 10 -L 1
 }; _'
 
+# ------------------------------- Directories ---------------------------------
+export CDPATH=~/.config:~/dev:~/dev/s2
+
 # ---------------------------------- direnv -----------------------------------
-[ -n $(which direnv) ] && eval "$(direnv hook bash)"
+which -s direnv && eval "$(direnv hook bash)"
 
 # --------------------------------- GREETING ----------------------------------
 [[ ${PWD} == ${HOME} && ${os} == linux ]] && greeting
