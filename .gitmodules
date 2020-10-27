@@ -22,9 +22,3 @@
 [submodule "stow/nvim/.config/nvim/pack/external/start/onehalf"]
 	path = stow/nvim/.config/nvim/pack/external/start/onehalf
 	url = git@github.com:sonph/onehalf.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-dirvish"]
-	path = stow/nvim/.config/nvim/pack/external/opt/vim-dirvish
-	url = git@github.com:justinmk/vim-dirvish.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-eunuch"]
-	path = stow/nvim/.config/nvim/pack/external/opt/vim-eunuch
-	url = git@github.com:tpope/vim-eunuch.git
