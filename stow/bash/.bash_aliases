@@ -7,6 +7,18 @@ stty -ixon
 HISTSIZE=100000
 HISTFILESIZE=200000
 
+_clean_history() {
+  # history -n has to be there before history -w to read from
+  # .bash_history the commands saved from any other terminal,
+  history -n            # Read in entries that are not in current history
+  history -a            # Append history; does not trigger erasedups
+  history -c            # Clear current history
+  history -r            # Read history from $HISTFILE
+}
+
+export PROMPT_COMMAND="_clean_history;$PROMPT_COMMAND"
+shopt -s histappend
+
 # Set Vim as default editor
 export EDITOR=vim
 
@@ -94,7 +106,7 @@ xterm*|rxvt*|tmux*|screen*)
     ;;
 esac
 
-export PROMPT_COMMAND="$HOME/.local/bin/bashbot"
+# export PROMPT_COMMAND="$HOME/.local/bin/bashbot"
 
 # ----------------------------------- fff -------------------------------------
 # Favourites (Bookmarks) (keys 1-9) (dir or file)
