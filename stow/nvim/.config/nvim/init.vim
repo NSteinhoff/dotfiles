@@ -47,11 +47,6 @@ packadd! my-tags
 packadd! my-lsp
 
 " --- External
-let g:loaded_netrwPlugin = 1    " don't load netrw
-packadd vim-dirvish
-command! -nargs=? -complete=dir Explore Dirvish <args>
-command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
-command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
 "}}}
 
 " vim:foldmethod=marker textwidth=0

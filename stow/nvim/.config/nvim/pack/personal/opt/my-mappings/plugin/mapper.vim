@@ -4,6 +4,8 @@ augroup CR_BS_mappings
     autocmd CmdwinEnter * nnoremap <buffer> <BS> <BS>
     autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
     autocmd BufReadPost quickfix nnoremap <buffer> <BS> <BS>
+    " There seems to be a bug in netrw which sends a <space> after the '-' mapping
+    autocmd Filetype netrw nnoremap <buffer> <SPACE> <SPACE>
 augroup END
 
 " --- Basics{{{
@@ -59,16 +61,16 @@ nnoremap <silent> <ESC>u :nohlsearch<CR>
 "}}}
 
 " --- REPL{{{
-map s <Plug>ReplSendSelection
-nmap s! <Plug>ReplToggle
-nmap s? <Plug>ReplStatus
-nmap ss <Plug>ReplSendLine
-nmap sS <Plug>ReplSendFile
-nmap s< <Plug>ReplSendAbove
-nmap s> <Plug>ReplSendBelow
-nmap s: <Plug>ReplSendCmd
-nmap s<SPACE> <Plug>ReplSendBlock
-nmap s<CR> <Plug>ReplSendAdvanceBlock
+" map s <Plug>ReplSendSelection
+" nmap s! <Plug>ReplToggle
+" nmap s? <Plug>ReplStatus
+" nmap ss <Plug>ReplSendLine
+" nmap sS <Plug>ReplSendFile
+" nmap s< <Plug>ReplSendAbove
+" nmap s> <Plug>ReplSendBelow
+" nmap s: <Plug>ReplSendCmd
+" nmap s<SPACE> <Plug>ReplSendBlock
+" nmap s<CR> <Plug>ReplSendAdvanceBlock
 "}}}
 
 " --- Errors: Quickfix / Location Lists{{{
