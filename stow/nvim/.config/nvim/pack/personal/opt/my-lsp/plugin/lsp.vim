@@ -1,24 +1,5 @@
-command! LspShowClients lua print(vim.inspect(vim.lsp.buf_get_clients()))
-
-lua << EOF
-vim.cmd('packadd nvim-lspconfig')
-require'nvim_lsp'.metals.setup{}
-require'nvim_lsp'.rls.setup{}
-require'nvim_lsp'.tsserver.setup{}
-EOF
-
-function! lsp#Indicator()
-    try
-        let lsp = luaeval('vim.inspect(vim.lsp.buf_get_clients())')
-        if lsp != '{}'
-            return '[LSP]'
-        else
-            return ''
-        endif
-    catch
-        return ''
-    endtry
-endfunction
+" -- require and make globally available as 'my_lsp'
+lua my_lsp = require('lsp')
 
 function s:set_lsp_mappings()
     setlocal signcolumn=yes
@@ -37,3 +18,5 @@ augroup LSP
     autocmd!
     autocmd Filetype scala,rust,typescript* call s:set_lsp_mappings()
 augroup END
+
+command! LspShowClients lua my_lsp.print_clients()
