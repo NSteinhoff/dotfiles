@@ -27,10 +27,10 @@ set breakindent
 let &showbreak = '... '
 " ---
 set wildmode=longest:full,full
-set wildignore+=*/target/*
-set wildignore+=*/node_modules/*
-set inccommand=split
+set wildignore+=*target*
+set wildignore+=*node_modules*
 " ---
+set inccommand=split
 
 "}}}
 
@@ -45,8 +45,21 @@ packadd! my-mappings
 packadd! my-abbreviations
 packadd! my-tags
 packadd! my-lsp
+packadd! my-projects
 
 " --- External
 "}}}
+
+" ---------------------------------- Paths ------------------------------------ {{{
+let g:cwd_paths = {
+            \ fnamemodify($HOME, ':t'): '~/dev/dotfiles/,~/dev/dotfiles/stow/',
+            \ 's2': 'src/**,*/packages/*/src/**',
+            \}
+
+let g:rcfile_paths = {
+            \ 'package.json': 'src/**,packages/*/src/**',
+            \ 'setup.py': 'src,test',
+            \}
+"  }}}
 
 " vim:foldmethod=marker textwidth=0
