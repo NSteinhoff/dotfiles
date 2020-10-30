@@ -90,6 +90,7 @@ command! -range Run execute '<line1>,<line2>w !'.get(b:, 'interpreter', 'bash')
 "}}}
 
 "--- Git{{{
+command! -nargs=+ GitGrep cexpr system('git grep -n '.<q-args>)
 command! -range -bang ButWhy
     \ echo system(
     \ "git -C " . shellescape(expand('%:p:h'))
@@ -115,5 +116,6 @@ if executable('ag')
     command! -nargs=+ Ag cexpr system('ag --vimgrep --smart-case '.<q-args>)
 endif
 "}}}
+
 
 " vim:foldmethod=marker textwidth=0
