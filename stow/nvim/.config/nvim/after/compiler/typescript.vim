@@ -7,5 +7,5 @@ if exists(":CompilerSet") != 2
   command! -nargs=* CompilerSet setlocal <args>
 endif
 
-CompilerSet makeprg=tsc\ --strict\ --noEmit\ --lib\ esNext,dom\ $*\ %
+CompilerSet makeprg=tsc\ --noEmit\ $*
 CompilerSet errorformat=%+A\ %#%f\ %#(%l\\\,%c):\ %m,%C%m
