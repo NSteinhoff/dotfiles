@@ -129,6 +129,7 @@ which -s fff && alias f='_() {
 }; _'
 
 # ------------------------------- Directories ---------------------------------
+alias gopacks='cd ~/dev/dotfiles/stow/nvim/.config/nvim/pack/external/opt'
 export CDPATH=~/.config:~/dev:~/dev/s2
 
 # ---------------------------------- direnv -----------------------------------
