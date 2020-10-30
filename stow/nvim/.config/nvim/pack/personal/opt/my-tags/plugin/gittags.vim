@@ -16,3 +16,4 @@ set tags+=./.git/tags
 set tags+=./.git/tags;
 set tags+=.git/tags
 set tags+=.git/tags;
+set tags+=*/.git/tags

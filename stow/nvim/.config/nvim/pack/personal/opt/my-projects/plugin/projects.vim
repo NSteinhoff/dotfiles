@@ -1,4 +1,7 @@
 " remember the base path, so we can start from blank slate
+let s:base_path = &path
+let s:save_greprg = &grepprg
+
 if !exists('g:cwd_paths')
     let g:cwd_paths = {}
 endif
@@ -7,8 +10,7 @@ if !exists('g:rcfile_paths')
 endif
 
 function s:append_path(path)
-    let &l:path = &g:path . ',' . a:path
-    echom "Adding '".a:path."' to local path."
+    let &path = s:base_path . ',' . a:path
 endfunction
 
 function s:set_path_for_cwd() abort
@@ -27,12 +29,22 @@ function s:set_path_for_rcfile(rcfile) abort
     endfor
 endfunction
 
+function s:set_options_for_repo() abort
+    let is_repo = finddir('.git', '') != ''
+    if is_repo
+        let &grepprg='git grep -n $*'
+    else
+        let &grepprg=s:save_greprg
+    endif
+endfunction
+
 function s:init() abort
     call s:set_path_for_cwd()
     call s:set_path_for_rcfile('package.json')
+    call s:set_options_for_repo()
 endfunction
 
 augroup projects
     autocmd!
-    autocmd VimEnter,DirChanged * call s:init()
+    autocmd VimEnter,DirChanged,TabEnter * call s:init()
 augroup END
