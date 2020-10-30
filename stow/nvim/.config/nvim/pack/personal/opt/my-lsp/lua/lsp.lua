@@ -1,9 +1,10 @@
 local nvim_lsp = require('nvim_lsp')
+local diagnostic = require('diagnostic')
 
 
 -- LSP client configurations
 
-nvim_lsp.tsserver.setup{}
+nvim_lsp.tsserver.setup{on_attach=diagnostic.on_attach}
 
 --
 
