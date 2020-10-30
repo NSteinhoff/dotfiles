@@ -1,27 +1,27 @@
 [submodule "stow/nvim/.config/nvim/pack/external/editorconfig"]
-	path = stow/nvim/.config/nvim/pack/external/start/editorconfig
+	path = stow/nvim/.config/nvim/pack/external/opt/editorconfig
 	url = git@github.com:editorconfig/editorconfig-vim.git
 [submodule "stow/nvim/.config/nvim/pack/external/nvim-lspconfig"]
-	path = stow/nvim/.config/nvim/pack/external/start/nvim-lspconfig
+	path = stow/nvim/.config/nvim/pack/external/opt/nvim-lspconfig
 	url = git@github.com:neovim/nvim-lspconfig.git
 [submodule "stow/nvim/.config/nvim/pack/external/start/vim-unimpaired"]
-	path = stow/nvim/.config/nvim/pack/external/start/vim-unimpaired
+	path = stow/nvim/.config/nvim/pack/external/opt/vim-unimpaired
 	url = git@github.com:tpope/vim-unimpaired.git
 [submodule "stow/nvim/.config/nvim/pack/external/start/vim-jsx-pretty"]
-	path = stow/nvim/.config/nvim/pack/external/start/vim-jsx-pretty
+	path = stow/nvim/.config/nvim/pack/external/opt/vim-jsx-pretty
 	url = git@github.com:MaxMEllon/vim-jsx-pretty.git
 [submodule "stow/nvim/.config/nvim/pack/external/start/python-syntax"]
-	path = stow/nvim/.config/nvim/pack/external/start/python-syntax
+	path = stow/nvim/.config/nvim/pack/external/opt/python-syntax
 	url = git@github.com:vim-python/python-syntax.git
 [submodule "stow/nvim/.config/nvim/pack/external/start/vim-python-pep8-indent"]
-	path = stow/nvim/.config/nvim/pack/external/start/vim-python-pep8-indent
+	path = stow/nvim/.config/nvim/pack/external/opt/vim-python-pep8-indent
 	url = git@github.com:Vimjas/vim-python-pep8-indent.git
 [submodule "stow/nvim/.config/nvim/pack/external/start/seoul256.vim"]
-	path = stow/nvim/.config/nvim/pack/external/start/seoul256.vim
+	path = stow/nvim/.config/nvim/pack/external/opt/seoul256.vim
 	url = git@github.com:junegunn/seoul256.vim.git
 [submodule "stow/nvim/.config/nvim/pack/external/start/onehalf"]
 	path = stow/nvim/.config/nvim/pack/external/start/onehalf
 	url = git@github.com:sonph/onehalf.git
 [submodule "stow/nvim/.config/nvim/pack/external/start/diagnostic-nvim"]
-	path = stow/nvim/.config/nvim/pack/external/start/diagnostic-nvim
+	path = stow/nvim/.config/nvim/pack/external/opt/diagnostic-nvim
 	url = git@github.com:nvim-lua/diagnostic-nvim.git
