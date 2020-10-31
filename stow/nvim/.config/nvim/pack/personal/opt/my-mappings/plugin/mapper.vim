@@ -1,4 +1,4 @@
-augroup CR_BS_mappings
+augroup SANITIZER
     autocmd!
     autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
     autocmd CmdwinEnter * nnoremap <buffer> <BS> <BS>
@@ -12,6 +12,7 @@ augroup END
 " Move over visual lines unless a count is given
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+nnoremap <C-P> :find <C-Z>
 
 " Switch to alternative buffer
 nnoremap <BS> <C-^>
@@ -87,9 +88,11 @@ vnoremap <silent> <SPACE> y:psearch <C-R>"<CR>
 map <NUL> <C-SPACE>
 imap <NUL> <C-SPACE>
 nnoremap <C-SPACE> <C-W>}
+nnoremap g<C-SPACE> <C-W>g}
 
 " Preview selection
 vnoremap <silent> <C-SPACE> y:ptag <C-R>"<CR>
+vnoremap <silent> g<C-SPACE> y:ptselect <C-R>"<CR>
 
 " Close the preview window
 nnoremap <ESC><ESC> <C-W>z
@@ -102,7 +105,7 @@ inoremap <C-SPACE> <C-X><C-]>
 " --- Cycling{{{
 " Quickly cycling a list
 " (currently Buffers)
-nnoremap <silent> <C-P> :bprevious<CR>
+" nnoremap <silent> <C-P> :bprevious<CR>
 nnoremap <silent> <C-N> :bnext<CR>
 "}}}
 
@@ -157,6 +160,12 @@ nnoremap <leader>eo :EditColorscheme<CR>
 nnoremap <leader>E :Explore<CR>
 nnoremap <leader>V :Vexplore<CR>
 nnoremap <leader>T :Texplore<CR>
+augroup mappings_netrw
+    autocmd!
+    autocmd Filetype netrw nmap <buffer> l <CR>
+    autocmd Filetype netrw nmap <buffer> h -
+    autocmd Filetype netrw nmap <buffer> L gn
+augroup END
 "}}}
 
 " --- differ/vim-igitt{{{

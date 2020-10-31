@@ -28,3 +28,18 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/vim-eunuch"]
 	path = stow/nvim/.config/nvim/pack/external/opt/vim-eunuch
 	url = git@github.com:tpope/vim-eunuch.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/completion-nvim"]
+	path = stow/nvim/.config/nvim/pack/external/opt/completion-nvim
+	url = https://github.com/nvim-lua/completion-nvim
+[submodule "stow/nvim/.config/nvim/pack/external/opt/lsp-status.nvim"]
+	path = stow/nvim/.config/nvim/pack/external/opt/lsp-status.nvim
+	url = git@github.com:nvim-lua/lsp-status.nvim.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/popup.nvim"]
+	path = stow/nvim/.config/nvim/pack/external/opt/popup.nvim
+	url = git@github.com:nvim-lua/popup.nvim.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/plenary.nvim"]
+	path = stow/nvim/.config/nvim/pack/external/opt/plenary.nvim
+	url = git@github.com:nvim-lua/plenary.nvim.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/telescope.nvim"]
+	path = stow/nvim/.config/nvim/pack/external/opt/telescope.nvim
+	url = git@github.com:nvim-lua/telescope.nvim.git
