@@ -273,6 +273,7 @@ let s:syntax_groups.error = [
 \    "SpellBad",
 \    "NvimInternalError",
 \    "LspDiagnosticsError",
+\    "TelescopeMatching",
 \ ]
 let s:syntax_groups.constant = [
 \    "Constant",
@@ -320,6 +321,7 @@ let s:syntax_groups.special = [
 \    "Title",
 \    "Todo",
 \    "netrwSymLink",
+\    "TelescopeSelection",
 \ ]
 let s:syntax_groups.underlined = [
 \    "Underlined",
@@ -329,6 +331,7 @@ let s:syntax_groups.underlined = [
 \    "LspDiagnosticsUnderlineInformation",
 \    "LspDiagnosticsUnderlineWarning",
 \ ]
+
 let s:syntax_groups.emphasis = [
 \    "markdownItalic",
 \    "mkdItalic",

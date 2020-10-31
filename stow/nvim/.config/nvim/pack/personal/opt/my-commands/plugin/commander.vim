@@ -110,7 +110,7 @@ command! Ctags call jobstart(['git', 'ctags'])
 "--- Searching{{{
 command! -nargs=+ Grep execute 'grep -r --include=*.'.expand('%:e').' '.<q-args>.' .'
 if executable('rg')
-    command! -nargs=+ Rg cexpr system('rg --vimgrep --smart-case '.<q-args>)
+    command! -nargs=+ RipGrep cexpr system('rg --vimgrep --smart-case '.<q-args>)
 endif
 if executable('ag')
     command! -nargs=+ Ag cexpr system('ag --vimgrep --smart-case '.<q-args>)
