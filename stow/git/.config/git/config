@@ -29,7 +29,7 @@
 [merge]
     tool = nvimdiff
 [core]
-    editor = vim
+    editor = nvim
 [commit]
     verbose = true
 [difftool]
