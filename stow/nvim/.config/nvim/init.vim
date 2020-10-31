@@ -5,6 +5,7 @@ set background=dark
 set mouse=nv
 set laststatus=2
 set number
+set signcolumn=number
 set rulerformat=%25(%l,%c%V%M%=%P\ %y%)
 set scrolloff=3
 set sidescrolloff=3
@@ -29,6 +30,8 @@ let &showbreak = '... '
 set wildmode=longest:full,full
 set wildignore+=*target*
 set wildignore+=*node_modules*
+set completeopt=menuone,noinsert,noselect
+set shortmess+=c
 " ---
 set inccommand=split
 
@@ -44,16 +47,38 @@ packadd! my-commands
 packadd! my-mappings
 packadd! my-abbreviations
 packadd! my-tags
-packadd! my-lsp
 packadd! my-projects
+packadd! my-lsp
+packadd! my-telescope
 
 " --- External
+" Behavior
+packadd! editorconfig
+packadd! vim-unimpaired
+packadd! vim-eunuch
+packadd! vim-dirvish
+packadd! vim-dirvish-git
+
+" Filetypes
+packadd! python-syntax
+packadd! vim-jsx-pretty
+packadd! vim-python-pep8-indent
+
+" --- Configuration
+let g:loaded_netrwPlugin = 1
+command! -nargs=? -complete=dir Explore Dirvish <args>
+command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
+command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
+augroup dirvish_mappings
+    autocmd!
+    autocmd Filetype dirvish nmap <SPACE> <CR>
+augroup END
 "}}}
 
 " ---------------------------------- Paths ------------------------------------ {{{
 let g:cwd_paths = {
             \ fnamemodify($HOME, ':t'): '~/dev/dotfiles/,~/dev/dotfiles/stow/',
-            \ 's2': 'src/**,*/packages/*/src/**',
+            \ 's2': '*/src/**,*/packages/*/src/**',
             \}
 
 let g:rcfile_paths = {

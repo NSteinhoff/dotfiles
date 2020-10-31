@@ -12,7 +12,9 @@ augroup END
 " Move over visual lines unless a count is given
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
-nnoremap <C-P> :find <C-Z>
+if maparg('<C-P>', 'n') == ''
+    nnoremap <C-P> :find <C-Z>
+endif
 
 " Switch to alternative buffer
 nnoremap <BS> <C-^>
