@@ -272,6 +272,7 @@ let s:syntax_groups.error = [
 \    "ErrorMsg",
 \    "SpellBad",
 \    "NvimInternalError",
+\    "LspDiagnosticsError",
 \ ]
 let s:syntax_groups.constant = [
 \    "Constant",
@@ -301,15 +302,13 @@ let s:syntax_groups.preproc = [
 let s:syntax_groups.informative = [
 \    "Comment",
 \    "Question",
+\    "LspDiagnosticsInformation",
 \ ]
 let s:syntax_groups.trivial = [
 \    "Ignore",
 \    "Conceal",
 \    "Noise",
-\    "LspDiagnosticsError",
 \    "LspDiagnosticsHint",
-\    "LspDiagnosticsInformation",
-\    "LspDiagnosticsWarning",
 \ ]
 let s:syntax_groups.special = [
 \    "Delimiter",
@@ -336,6 +335,7 @@ let s:syntax_groups.emphasis = [
 \    "mkdLineBreak",
 \    "htmlItalic",
 \    "htmlUnderlineItalic",
+\    "LspDiagnosticsWarning",
 \ ]
 let s:syntax_groups.strong = [
 \   "markdownBold",
