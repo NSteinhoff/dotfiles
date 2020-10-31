@@ -77,7 +77,6 @@ vim.cmd('packadd lsp-status.nvim')
 
 local lsp_status = require('lsp-status')
 lsp_status.register_progress()
-
 vim.api.nvim_set_var('diagnostic_insert_delay', 1)
 
 
@@ -89,6 +88,7 @@ local function on_attach(client, bufnr)
     require('completion').on_attach(client, bufnr)
     require('lsp-status').on_attach(client, bufnr)
 end
+
 
 local nvim_lsp = require('nvim_lsp')
 nvim_lsp.tsserver.setup({

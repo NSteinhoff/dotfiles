@@ -17,15 +17,5 @@ function! s:packfiles(arglead, cmdline, cursorpos) abort
     return paths
 endfunction
 
-function! s:packages(packtype) abort
-    let packtype = a:packtype == '' ? '*' : a:packtype
-    let pattern =  'pack/*/' . packtype . '/*'
-    let paths = globpath(s:packpath(), pattern, 0, 1)
-    call map(paths, { _, v -> fnamemodify(v, ':~') })
-    echo join(paths, "\n")
-endfunction
-
 command! -nargs=? -complete=customlist,<SID>packfiles PackEdit
     \ execute 'edit '.<q-args>
-command! -nargs=? -complete=customlist,<SID>packtypes PackList
-    \ call <SID>packages(<q-args>)
