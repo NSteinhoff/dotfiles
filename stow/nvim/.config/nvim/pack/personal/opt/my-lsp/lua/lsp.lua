@@ -65,7 +65,7 @@ local function set_commands()
 end
 
 local function set_options()
-    setlocal('omnifunc', 'v:lua.vim.lsp.omnifunc')
+    vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
 end
 
 -- LSP client configurations
@@ -77,7 +77,7 @@ vim.cmd('packadd lsp-status.nvim')
 
 local lsp_status = require('lsp-status')
 lsp_status.register_progress()
-vim.api.nvim_set_var('diagnostic_insert_delay', 1)
+vim.g.diagnostic_insert_delay = 1
 
 
 local function on_attach(client, bufnr)
