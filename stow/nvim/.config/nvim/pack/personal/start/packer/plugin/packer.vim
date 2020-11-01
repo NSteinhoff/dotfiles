@@ -9,7 +9,7 @@ function! s:packtypes(arglead, cmdline, cursorpos) abort
 endfunction
 
 function! s:packfiles(arglead, cmdline, cursorpos) abort
-    let paths = globpath(s:packpath(), 'pack/**/*.vim', 0, 1)
+    let paths = globpath(s:packpath(), 'pack/personal/**/*.vim', 0, 1)
     call filter(paths, { _, v -> v =~ a:arglead })
     call map(paths, { _, v -> fnamemodify(v, ':.') })
     call uniq(paths)

@@ -1,10 +1,11 @@
-packadd! popup.nvim
-packadd! plenary.nvim
-packadd! telescope.nvim
+packadd popup.nvim
+packadd plenary.nvim
+packadd telescope.nvim
 
 command -nargs=? -complete=dir Find call v:lua.require('my_finder').find(<q-args>)
 nnoremap <c-p> <cmd>Find<CR>
 
+command FindFiles lua require'telescope.builtin'.find_files{}
 command GitFiles lua require'telescope.builtin'.git_files{}
 command Config lua require'telescope.builtin'.find_files{ cwd = "~/.config/nvim/" }
 command Dotfiles lua require'telescope.builtin'.find_files{ cwd = "~/dev/dotfiles/" }

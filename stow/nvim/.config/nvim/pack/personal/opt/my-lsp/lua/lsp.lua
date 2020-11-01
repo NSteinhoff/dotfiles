@@ -31,7 +31,7 @@ local function set_keymaps()
     nnoremap('<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
     nnoremap('gd', '<cmd>lua vim.lsp.buf.declaration()<CR>')
     nnoremap('gD', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-    nnoremap('1gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+    nnoremap('gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 
     -- Listing symbols
     nnoremap('gr', '<cmd>lua vim.lsp.buf.references()<CR>')
@@ -80,13 +80,13 @@ lsp_status.register_progress()
 vim.g.diagnostic_insert_delay = 1
 
 
-local function on_attach(client, bufnr)
+local function on_attach(client)
     set_keymaps()
     set_commands()
     set_options()
-    require('diagnostic').on_attach(client, bufnr)
-    require('completion').on_attach(client, bufnr)
-    require('lsp-status').on_attach(client, bufnr)
+    require('diagnostic').on_attach(client)
+    require('completion').on_attach(client)
+    require('lsp-status').on_attach(client)
 end
 
 
