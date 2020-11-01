@@ -154,7 +154,7 @@ function! s:display_sessions()
 endfunction
 
 function! s:enabled()
-    return exists('#pomodoro#CursorHold')
+    return exists('#pomodoro#CursorMoved')
 endfunction
 
 function! pomodoro#sessions()
@@ -212,8 +212,8 @@ function! pomodoro#ping(time)
             call s:start_break()
         endif
     catch
-        let msg = "Error during 'ping' (".v:exception."). Disabling pomodoro!"
-        echo pomodoro#disable(msg)
+        echo "Error during 'ping' (".v:exception."). Disabling pomodoro!"
+        call v:lua.pomodoro.disable()
     endtry
 endfunction
 
@@ -227,29 +227,6 @@ function! pomodoro#settings()
         echo "\t[disabled]"
     endif
     call s:display_sessions()
-endfunction
-
-function! pomodoro#disable(...)
-    aug pomodoro
-        au!
-    aug END
-    return a:0 > 0 ? a:1 : "Pomodoro disabled"
-endfunction
-
-function! pomodoro#enable(...)
-    aug pomodoro
-        au!
-        au CursorHold * call pomodoro#ping(localtime())
-    aug END
-    return a:0 > 0 ? a:1 : "Pomodoro enabled"
-endfunction
-
-function! pomodoro#toggle()
-    if s:enabled()
-        echo pomodoro#disable()
-    else
-        echo pomodoro#enable()
-    endif
 endfunction
 
 " vim: foldmethod=indent

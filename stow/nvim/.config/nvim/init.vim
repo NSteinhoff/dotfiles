@@ -80,6 +80,7 @@
     packadd! my-tags
     packadd! my-projects
     packadd! my-lsp
+    packadd! my-pomodoro
 
 """ External
     " Behavior

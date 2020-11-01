@@ -25,9 +25,10 @@ function! MyStatusline()
     let compiler    = '%{Compiler()}'
     let errors      = '%{Errors()}'
     let lsp         = '%{v:lua.my_lsp.status()}'
+    let pomodoro    = '%{v:lua.pomodoro.statusline()}'
     let position    = ' ☰ %l:%c | %p%% '
 
-    return file.OPT.args.tags.SEP.errors.lsp.compiler.spell.BAR.position
+    return file.OPT.args.tags.SEP.pomodoro.errors.lsp.compiler.spell.BAR.position
 endfunction
 
 set statusline=%!MyStatusline()
