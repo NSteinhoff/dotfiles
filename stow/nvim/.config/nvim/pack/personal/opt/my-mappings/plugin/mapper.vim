@@ -40,6 +40,10 @@ augroup END
     nnoremap <C-H> 3zh
     nnoremap <C-L> 3zl
 
+""" Command line
+    cnoremap <C-A> <Home>
+    cnoremap <C-E> <End>
+
 
 """ Comment / Uncomment
     " Mnemonic:
