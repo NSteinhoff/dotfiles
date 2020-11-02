@@ -7,5 +7,7 @@ command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args
 
 augroup dirvish_buffer_mappings
     autocmd!
-    autocmd Filetype dirvish nmap <SPACE> <CR>
+    autocmd Filetype dirvish nmap <buffer> <SPACE> <CR>
+    autocmd Filetype dirvish nmap <buffer> cd <cmd>cd %<CR>
+    autocmd Filetype dirvish nmap <buffer> q q
 augroup END

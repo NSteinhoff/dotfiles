@@ -15,7 +15,7 @@ local function imap(lhs, rhs)
 end
 
 local function commander(cmd, action)
-    vim.cmd(':command! '..cmd..' '..action)
+    vim.cmd(':command! -buffer '..cmd..' '..action)
 end
 
 local function setlocal(name, value)
@@ -30,24 +30,23 @@ local function set_keymaps()
     -- Jump to symbols
     nnoremap('<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
     nnoremap('gd', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-    nnoremap('gD', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+    nnoremap('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
     nnoremap('gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 
     -- Listing symbols
     nnoremap('gr', '<cmd>lua vim.lsp.buf.references()<CR>')
 
     nnoremap('gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-
     nnoremap('gO', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 
     -- Moving through errors
     nnoremap(']g', '<cmd>NextDiagnostic<CR>')
     nnoremap('[g', '<cmd>PrevDiagnostic<CR>')
-    nnoremap('[G', '<cmd>OpenDiagnostic<CR>')
+    nnoremap('dO', '<cmd>OpenDiagnostic<CR>')
 
-    -- Code actions
-    nnoremap('<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-    nnoremap('<leader>cr', '<cmd>lua vim.lsp.buf.rename()<CR>')
+    -- Code actions, i.e. do stuff
+    nnoremap('dc', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+    nnoremap('dr', '<cmd>lua vim.lsp.buf.rename()<CR>')
 
     -- Completion
     imap('<c-space>', '<Plug>(completion_trigger)')
@@ -55,13 +54,14 @@ end
 
 local function set_commands()
     -- Code actions
-    commander('-buffer CodeAction', 'lua vim.lsp.buf.code_action()')
-    commander('-buffer CodeRename', 'lua vim.lsp.buf.rename()')
+    commander('CodeAction', 'lua vim.lsp.buf.code_action()')
+    commander('CodeRename', 'lua vim.lsp.buf.rename()')
 
     -- Listings
-    commander('-buffer References', 'lua vim.lsp.buf.references()')
-    commander('-buffer DocumentSymbols', 'lua vim.lsp.buf.document_symbol()')
-    commander('-buffer WorkspaceSymbols', 'lua vim.lsp.buf.workspace_symbol()')
+    commander('References', 'lua vim.lsp.buf.references()')
+    commander('DocumentSymbols', 'lua vim.lsp.buf.document_symbol()')
+    commander('WorkspaceSymbols', 'lua vim.lsp.buf.workspace_symbol()')
+    commander('WorkspaceSymbols', 'lua vim.lsp.buf.workspace_symbol()')
 end
 
 local function set_options()
@@ -136,4 +136,4 @@ function my_lsp.status()
     return long_indicator()
 end
 
-commander('LspShowClients', 'lua my_lsp.print_clients()')
+commander('LspClients', 'lua my_lsp.print_clients()')

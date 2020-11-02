@@ -43,3 +43,6 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/telescope.nvim"]
 	path = stow/nvim/.config/nvim/pack/external/opt/telescope.nvim
 	url = git@github.com:nvim-lua/telescope.nvim.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/BetterLua.vim"]
+	path = stow/nvim/.config/nvim/pack/external/opt/BetterLua.vim
+	url = git@github.com:euclidianAce/BetterLua.vim.git

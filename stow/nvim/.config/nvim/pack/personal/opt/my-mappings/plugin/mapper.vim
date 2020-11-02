@@ -91,12 +91,6 @@ augroup END
     inoremap <C-SPACE> <C-X><C-]>
 
 
-""" Cycling
-    " Quickly cycling a list
-    " (currently Buffers)
-    " nnoremap <silent> <C-P> :bprevious<CR>
-    nnoremap <silent> <C-N> :bnext<CR>
-
 """ Toggle Settings
     " Exetending 'vim-unimpaired'
     " T: s(T)atusbar

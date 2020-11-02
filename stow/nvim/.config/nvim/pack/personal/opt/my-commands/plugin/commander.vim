@@ -131,3 +131,6 @@
     if executable('ag')
         command! -nargs=+ Ag cexpr system('ag --vimgrep --smart-case '.<q-args>)
     endif
+
+""" Greping the help files
+    command! HelpGrep tabnew | lcd $VIMRUNTIME/doc | LiveGrep
