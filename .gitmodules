@@ -46,3 +46,15 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/BetterLua.vim"]
 	path = stow/nvim/.config/nvim/pack/external/opt/BetterLua.vim
 	url = git@github.com:euclidianAce/BetterLua.vim.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-jest"]
+	path = stow/nvim/.config/nvim/pack/external/opt/vim-jest
+	url = git@github.com:jamestthompson3/vim-jest.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/ale"]
+	path = stow/nvim/.config/nvim/pack/external/opt/ale
+	url = git@github.com:dense-analysis/ale.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/nvim-web-devicons"]
+	path = stow/nvim/.config/nvim/pack/external/opt/nvim-web-devicons
+	url = git@github.com:kyazdani42/nvim-web-devicons.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/barbar.nvim"]
+	path = stow/nvim/.config/nvim/pack/external/opt/barbar.nvim
+	url = git@github.com:romgrk/barbar.nvim.git
