@@ -18,6 +18,7 @@
     set fillchars=eob:~
 
 """ Behavior
+    set noswapfile
     set updatetime=1000
     set foldmethod=indent
     set foldlevelstart=99       " start with all folds opened
@@ -25,8 +26,8 @@
     set mouse=n
     set autoread
     set hidden
-    set ignorecase              " ignore case in searches ...
-    set smartcase               " ... unless it includes capital letters
+    " set ignorecase              " ignore case in searches ...
+    " set smartcase               " ... unless it includes capital letters
 
 """ Special characters
     set list
@@ -83,6 +84,12 @@
     packadd! my-pomodoro
 
 """ External
+    " Customized Wrappers
+    " These are wrapper packages that load an external plugin along with the
+    " customized setttings, commands, and mappings.
+    packadd! their-telescope
+    packadd! their-dirvish
+
     " Behavior
     packadd! editorconfig
     packadd! vim-unimpaired
@@ -93,8 +100,5 @@
     packadd! vim-jsx-pretty
     packadd! vim-python-pep8-indent
 
-    " Customized
-    " These are wrapper packages that load an external plugin along with the
-    " customized setttings, commands, and mappings.
-    packadd! their-telescope
-    packadd! their-dirvish
+    " Testing / Linting / Fixing
+    " packadd ale
