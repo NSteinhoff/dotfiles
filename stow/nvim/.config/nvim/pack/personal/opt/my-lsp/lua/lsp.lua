@@ -6,6 +6,14 @@ local function nnoremap(lhs, rhs)
     vim.api.nvim_buf_set_keymap(current_buffer, mode, lhs, rhs, opts)
 end
 
+local function inoremap(lhs, rhs)
+    local mode = 'i'
+    local current_buffer = 0
+    local opts = { silent = true, noremap = true }
+
+    vim.api.nvim_buf_set_keymap(current_buffer, mode, lhs, rhs, opts)
+end
+
 local function imap(lhs, rhs)
     local mode = 'i'
     local current_buffer = 0
@@ -26,6 +34,7 @@ local function set_keymaps()
     -- Get help
     nnoremap('K', '<cmd>lua vim.lsp.buf.hover()<CR>')
     nnoremap('<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+    inoremap('<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 
     -- Jump to symbols
     nnoremap('<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')

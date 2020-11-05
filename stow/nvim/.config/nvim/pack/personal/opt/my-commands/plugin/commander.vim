@@ -4,6 +4,10 @@
         \ | setlocal buftype=nofile bufhidden=hide noswapfile
         \ | let &ft = <q-args>
 
+""" Workspaces
+command! -nargs=1 -complete=dir WorkOn
+        \ tabnew | lcd <args>
+
 """ Format the current buffer
     function! Format()
         if &formatprg == ""
@@ -74,7 +78,8 @@
     command! -range Run execute '<line1>,<line2>w !'.get(b:, 'interpreter', 'bash')
 
 """ Git
-    command! -nargs=+ GitGrep cexpr system('git grep -n '.<q-args>)
+    command! -nargs=+ GitGrep cexpr! system('git grep -n '.<q-args>)
+        \| Quickfix
     command! -range -bang ButWhy
         \ echo system(
         \ "git -C " . shellescape(expand('%:p:h'))
@@ -87,7 +92,8 @@
         \ . " blame -L <line1>,<line2> " . expand('%:t')
         \ )
     command! -bar -nargs=+ Jump
-        \ cexpr system('git jump ' . expand(<q-args>))
+        \ cexpr! system('git jump ' . expand(<q-args>))
+        \| Quickfix
     command! Ctags call jobstart(['git', 'ctags'])
     command! -range Modified
         \ let modified = system(
@@ -101,11 +107,15 @@
         \ . " show HEAD:./" . expand('%:t')
         \ ) | echo content
 
-    function Revisions(arglead, cmdline, curpos)
+    function LocalRevisions(arglead, cmdline, curpos)
         return systemlist('git -C ' . shellescape(expand('%:p:h')) . ' log -n 25 --format=%h\ %s\ \(%ar\)')
     endfunction
 
-    command! -nargs=? -complete=customlist,Revisions DiffSplit
+    function GlobalRevisions(arglead, cmdline, curpos)
+        return systemlist('git -C ' . shellescape(getcwd()) . ' log -n 25 --format=%h\ %s\ \(%ar\)')
+    endfunction
+
+    command! -nargs=? -complete=customlist,LocalRevisions ChangeSplit
         \ let ft = &ft
         \| let ref = (<q-args> != '' ? split(<q-args>)[0] : 'HEAD')
         \| let commit = (<q-args> != '' ? <q-args> : 'HEAD')
@@ -115,7 +125,7 @@
         \| nnoremap <buffer> q :q<CR>
         \| diffthis | wincmd p | diffthis
 
-    command! -nargs=? -complete=customlist,Revisions Changes
+    command! -nargs=? -complete=customlist,LocalRevisions ChangePatch
         \ let ref = (<q-args> != '' ? split(<q-args>)[0] : 'HEAD')
         \| let commit = (<q-args> != '' ? <q-args> : 'HEAD')
         \| let content = systemlist('git -C ' . shellescape(expand('%:p:h')) . ' diff '.ref.' -- ' . expand('%:t'))
@@ -124,12 +134,21 @@
         \| nnoremap <buffer> q :b#<CR> | wincmd p
 
 """ Searching
-    command! -nargs=+ Grep execute 'grep -r --include=*.'.expand('%:e').' '.<q-args>.' .'
+    command! -nargs=+ Vimgrep
+        \ execute 'vimgrep /' . <q-args> . '/j ' . expand('%')
+        \| Quickfix
+    command! -nargs=+ Grep
+            \ execute 'grep -r --include=*.'.expand('%:e').' '.<q-args>.' .'
+            \| Quickfix
     if executable('rg')
-        command! -nargs=+ RipGrep cexpr system('rg --vimgrep --smart-case '.<q-args>)
+        command! -nargs=+ RipGrep
+            \ cexpr! system('rg --vimgrep --smart-case '.<q-args>)
+            \| Quickfix
     endif
     if executable('ag')
-        command! -nargs=+ Ag cexpr system('ag --vimgrep --smart-case '.<q-args>)
+        command! -nargs=+ Ag
+            \ cexpr! system('ag --vimgrep --smart-case '.<q-args>)
+            \| Quickfix
     endif
 
 """ Greping the help files

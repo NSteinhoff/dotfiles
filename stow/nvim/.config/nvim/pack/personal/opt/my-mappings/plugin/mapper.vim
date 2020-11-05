@@ -121,8 +121,8 @@ augroup END
 
     " Searching
     " Search for <cword> or selection in current buffer
-    nnoremap <silent> <leader>* :execute 'vimgrep /' . expand('<cword>') . '/ ' . expand('%')<CR>
-    vnoremap <silent> <leader>* y:execute 'vimgrep /\V' . escape(@", '\/') . '/ '  . expand('%')<CR>
+    nnoremap <silent> <leader>* :execute 'Vimgrep '.expand('<cword>')<CR>
+    vnoremap <silent> <leader>* y:execute 'Vimgrep '.shellescape(@")<CR>
     " Grep for <cword or selection> in files with the same extension as the current buffer
     nnoremap <silent> <leader>gg :execute 'grep -r --include=*.'.expand('%:e').' '.expand('<cword>').' .'<CR>
     vnoremap <silent> <leader>gg y:execute 'grep -r --include=*.'.expand('%:e').' '.shellescape(@").' .'<CR>
@@ -131,7 +131,7 @@ augroup END
     vnoremap <silent> <leader>gG y:execute 'grep -r '.shellescape(@").' .'<CR>
     " RipGrep for <cword or selection> in all files
     nnoremap <silent> <leader>rg :execute 'RipGrep '.expand('<cword>')<CR>
-    vnoremap <silent> <leader>rg y:execute 'Rg '.shellescape(@")<CR>
+    vnoremap <silent> <leader>rg y:execute 'RipGrep '.shellescape(@")<CR>
 
     " Edit Settings files
     nnoremap <leader>ee :edit $MYVIMRC<CR>
@@ -147,6 +147,6 @@ augroup END
     nnoremap <leader>V :Vexplore<CR>
     nnoremap <leader>T :Texplore<CR>
 
-    " Diffing
-    nnoremap <leader>dd :DiffSplit<CR>
-    nnoremap <leader>dc :Changes<CR>
+    " (c): Changes / Diffing
+    nnoremap cs :ChangeSplit<CR>
+    nnoremap cp :ChangePatch<CR>
