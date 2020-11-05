@@ -1,28 +1,44 @@
-local Session = require('pomodoro_session')
+Pomodoro = {}
 
-pomodoro = {}
-
-
-local session_length = 25 * 60
-local break_length = 5 * 60
+local session_length = 1
+local break_length = 5
 local sessions = {}
 
+local Session = {count = 0}
 
-local function sec2min(seconds)
-    return math.floor(seconds / 60)
+function Session:new()
+    local o = setmetatable({}, self)
+    self.__index = self
+    local now = 0
+
+    self.count = self.count + 1
+
+    o.id = self.count
+    o.start = os.time()
+    o.last = os.time()
+
+    return o
 end
 
-
-local function min2sec(minutes)
-    return minutes * 60
+function Session:elapsed()
+    return self.last - self.start
 end
 
+function Session:remaining()
+    return session_length * 60 - self:elapsed()
+end
 
-local function duration2time(seconds)
-    return {
-        min = sec2min(seconds),
-        sec = seconds % 60,
-    }
+function Session:in_overtime()
+    return self:remaining() < 0
+end
+
+function Session:until_next_session()
+    return math.max(0, math.min(break_length, break_length + self:remaining()))
+end
+
+function Session:__tostring()
+    local fmt = '%s: %s'
+    return fmt:format(self.id, self:remaining())
 end
 
 
@@ -33,34 +49,22 @@ local function on_session_start()
 end
 
 
--- Start a break
---
--- When a session has run its duration and the cursor is not moved,
--- a break timer is started. When the cursor is moved before the desired
--- break time has elapsed, the timer is reset.
-local function on_break_start()
-end
-
-
--- Log cursor activity
+-- Process cursor activity
 --
 -- Every time the cursor is moved, this activity is logged as the
 -- last activity of the current session.
 local function on_activity(time)
-    if #sessions == 0 or sessions[#sessions].finished then
-        table.insert(sessions, Session:new(session_length))
+    if #sessions == 0 or sessions[#sessions]:until_next_session() == 0 then
+        table.insert(sessions, Session:new())
         print("Started session #", #sessions)
     end
 
+    if sessions[#sessions]:in_overtime() then
+        print("Take a break!")
+    end
 
     local session = sessions[#sessions]
     session.last = time
-
-
-    if session:duration() >= session.length then
-        session.finished = true
-        print("Finished session #", #sessions)
-    end
 end
 
 
@@ -69,36 +73,51 @@ local function is_enabled()
 end
 
 
+local function display_sessions(sessions)
+    local displaystring = ''
+    for _, session in pairs(sessions) do
+        displaystring = displaystring .. tostring(session)
+    end
+    return displaystring
+end
 
 
-function pomodoro.statusline()
+function Pomodoro.show_settings()
+    local fmt = 'Pomodoro Settings:\n' ..
+    '    Session: %s min\n' ..
+    '    Break:   %s min\n' ..
+    '    Enabled: %s'
+    print(fmt:format(session_length, break_length, is_enabled()))
+    print(display_sessions(sessions))
+end
+
+
+function Pomodoro.statusline()
     if not is_enabled() then return "" end
-
-
     return "[pomodoro]"
 end
 
 
-function pomodoro.status()
-    vim.fn["pomodoro#settings"]()
+function Pomodoro.status()
+    print(sessions[#sessions])
 end
 
 
-function pomodoro.toggle()
+function Pomodoro.toggle()
     if is_enabled() then
-        pomodoro.disable()
+        Pomodoro.disable()
     else
-        pomodoro.enable()
+        Pomodoro.enable()
     end
 end
 
 
-function pomodoro.ping()
+function Pomodoro.ping()
     on_activity(os.time())
 end
 
 
-function pomodoro.enable()
+function Pomodoro.enable()
     vim.cmd('augroup pomodoro')
     vim.cmd('autocmd!')
     vim.cmd('autocmd CursorMoved * lua require("pomodoro").ping()')
@@ -106,23 +125,31 @@ function pomodoro.enable()
 end
 
 
-function pomodoro.disable()
+function Pomodoro.disable()
     vim.cmd('augroup pomodoro')
     vim.cmd('autocmd!')
     vim.cmd('augroup END')
 end
 
 
-function pomodoro.init()
+function Pomodoro.init()
     if vim.g.pomodoro_autostart == 1 then
-        pomodoro.enable()
+        print("Enabling Pomodoro")
+        Pomodoro.enable()
     end
 end
 
-
 function TESTER()
-    return Session:new()
+    print("=== TESTER ===")
+
+    Pomodoro.show_settings()
+    local sessions = {
+        Session:new(), Session: new()
+    }
+    print(tostring(Session:new()))
+    -- print(display_sessions(sessions))
+    print("=== END ===")
 end
 
 
-return pomodoro
+return Pomodoro
