@@ -133,6 +133,27 @@ command! -nargs=1 -complete=dir WorkOn
         \| execute 'file '.commit | set buftype=nofile | set bufhidden=wipe | set nobuflisted | set noswapfile | set ft=diff
         \| nnoremap <buffer> q :b#<CR> | wincmd p
 
+    function s:set_changed_args()
+        let cwd = getcwd()
+        let gitdir = finddir('.git', ';')
+        if gitdir == ''
+            return
+        endif
+        let gitroot = fnamemodify(gitdir, ':h')
+        let changed = systemlist('git diff --name-only -- .')
+        let absolute = map(changed, { k, v -> gitroot.'/'.v })
+        let relative = map(absolute, { k, v ->
+                    \ match(v, cwd) ? strcharpart(v, matchend(v, cwd) + 1) : v
+                    \ })
+        let filepaths = filter(relative, { k, v -> findfile(v) != '' })
+        %argd
+        for path in filepaths
+            execute 'argadd '.path
+        endfor
+    endfunction
+
+    command ChangedFiles :call <SID>set_changed_args()
+
 """ Searching
     command! -nargs=+ Vimgrep
         \ execute 'vimgrep /' . <q-args> . '/j ' . expand('%')

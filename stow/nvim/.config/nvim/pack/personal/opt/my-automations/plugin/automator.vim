@@ -32,28 +32,21 @@ augroup user-autoread
     autocmd CursorHold * silent! checktime
 augroup END
 
-function s:set_changed_args(cwd)
-    let gitdir = finddir('.git', ';')
-    if gitdir == ''
-        return
-    endif
-    let gitroot = fnamemodify(gitdir, ':h')
-    let changed = systemlist('git diff --name-only -- .')
-    let absolute = map(changed, { k, v -> gitroot.'/'.v })
-    let relative = map(absolute, { k, v ->
-                \ match(v, a:cwd) ? strcharpart(v, matchend(v, a:cwd) + 1) : v
-                \ })
-    let filepaths = filter(relative, { k, v -> findfile(v) != '' })
-    %argd
-    for path in filepaths
-        execute 'argadd '.path
-    endfor
+
+function s:track_changes(bang)
+    augroup user-arg-changes
+        autocmd!
+        if !a:bang
+            echo "Now tracking changed files in the argslist."
+            ChangedFiles
+            autocmd VimEnter * ChangedFiles
+            autocmd DirChanged * ChangedFiles
+            autocmd BufWritePost * ChangedFiles
+        else
+            echo "No longer tracking changed files in the argslist."
+        endif
+    augroup END
 endfunction
 
-augroup user-arg-changes
-    autocmd!
-    autocmd VimEnter * call <SID>set_changed_args(getcwd())
-    autocmd DirChanged * call <SID>set_changed_args(getcwd())
-    autocmd BufWritePost * call <SID>set_changed_args(getcwd())
-augroup END
+command -bang TrackChanges call <SID>track_changes(expand("<bang>") == '!')
 " vim:foldmethod=marker textwidth=0
