@@ -93,9 +93,9 @@ local function on_attach(client)
     set_keymaps()
     set_commands()
     set_options()
-    require('diagnostic').on_attach(client)
-    require('completion').on_attach(client)
-    require('lsp-status').on_attach(client)
+    -- require('diagnostic').on_attach(client)
+    -- require('completion').on_attach(client)
+    -- require('lsp-status').on_attach(client)
 end
 
 
@@ -145,4 +145,4 @@ function my_lsp.status()
     return long_indicator()
 end
 
-commander('LspClients', 'lua my_lsp.print_clients()')
+vim.cmd(':command! LspClients lua my_lsp.print_clients()')
