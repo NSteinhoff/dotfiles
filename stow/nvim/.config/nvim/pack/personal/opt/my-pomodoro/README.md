@@ -45,3 +45,9 @@ A simple statusline indicator can be added
 - [ ] overtime causes increasingly annoying reminders to take a break.
 - [ ] display stats with progress bars
 - [ ] show the current time in a floating window or in the statusline.
+
+### Notes:
+
+    au BufWritePost <buffer> luafile <afile>
+
+    nnoremap <leader><space> :lua TESTER<CR>

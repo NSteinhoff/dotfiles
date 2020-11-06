@@ -83,12 +83,6 @@ end
 
 
 function Pomodoro.show_settings()
-    local fmt = 'Pomodoro Settings:\n' ..
-    '    Session: %s min\n' ..
-    '    Break:   %s min\n' ..
-    '    Enabled: %s'
-    print(fmt:format(session_length, break_length, is_enabled()))
-    print(display_sessions(sessions))
 end
 
 
@@ -99,7 +93,12 @@ end
 
 
 function Pomodoro.status()
-    print(sessions[#sessions])
+    local fmt = 'Pomodoro Settings:\n' ..
+    '    Session: %s min\n' ..
+    '    Break:   %s min\n' ..
+    '    Enabled: %s'
+    print(fmt:format(session_length, break_length, is_enabled()))
+    print(display_sessions(sessions))
 end
 
 
@@ -142,7 +141,7 @@ end
 function TESTER()
     print("=== TESTER ===")
 
-    Pomodoro.show_settings()
+    Pomodoro.status()
     local sessions = {
         Session:new(), Session: new()
     }
