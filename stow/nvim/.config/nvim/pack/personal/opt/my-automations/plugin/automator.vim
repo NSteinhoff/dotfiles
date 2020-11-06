@@ -33,19 +33,23 @@ augroup user-autoread
 augroup END
 
 
-function s:track_changes(bang)
-    augroup user-arg-changes
-        autocmd!
-        if !a:bang
-            echo "Now tracking changed files in the argslist."
-            ChangedFiles
+function s:track_changes(off)
+    if a:off
+        augroup user-arg-changes
+            autocmd!
+        augroup END
+        augroup! user-arg-changes
+        echo "No longer tracking changed files in the argslist."
+    else
+        augroup user-arg-changes
+            autocmd!
             autocmd VimEnter * ChangedFiles
             autocmd DirChanged * ChangedFiles
             autocmd BufWritePost * ChangedFiles
-        else
-            echo "No longer tracking changed files in the argslist."
-        endif
-    augroup END
+        augroup END
+        ChangedFiles
+        echo "Now tracking changed files in the argslist."
+    endif
 endfunction
 
 command -bang TrackChanges call <SID>track_changes(expand("<bang>") == '!')
