@@ -33,32 +33,42 @@ end
 local function set_keymaps()
     -- Get help
     nnoremap('K', '<cmd>lua vim.lsp.buf.hover()<CR>')
+    nnoremap('<SPACE>', '<cmd>lua vim.lsp.buf.hover()<CR>')
     nnoremap('<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
     inoremap('<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 
     -- Jump to symbols
-    nnoremap('<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
-    nnoremap('gd', '<cmd>lua vim.lsp.buf.declaration()<CR>')
+    -- nnoremap('<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
+    nnoremap('gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+    nnoremap('gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
     nnoremap('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
     nnoremap('gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 
     -- Listing symbols
+    -- nnoremap('gr', '<cmd>lua require"telescope.builtin".lsp_references{}<CR>')
+    -- nnoremap('gO', '<cmd>lua require"telescope.builtin".lsp_document_symbols{}<CR>')
+    -- nnoremap('gW', '<cmd>lua require"telescope.builtin".lsp_workspace_symbols{}<CR>')
     nnoremap('gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-
-    nnoremap('gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-    nnoremap('gO', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+    nnoremap('gs', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+    nnoremap('gS', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 
     -- Moving through errors
-    nnoremap(']g', '<cmd>NextDiagnostic<CR>')
-    nnoremap('[g', '<cmd>PrevDiagnostic<CR>')
-    nnoremap('dO', '<cmd>OpenDiagnostic<CR>')
+    if vim.g.lsp_diagnostics == 1 then
+        nnoremap(']g', '<cmd>NextDiagnosticCycle<CR>')
+        nnoremap('[g', '<cmd>PrevDiagnosticCycle<CR>')
+        nnoremap('gO', '<cmd>OpenDiagnostic<CR>')
+    end
 
     -- Code actions, i.e. do stuff
     nnoremap('dc', '<cmd>lua vim.lsp.buf.code_action()<CR>')
     nnoremap('dr', '<cmd>lua vim.lsp.buf.rename()<CR>')
 
     -- Completion
-    imap('<c-space>', '<Plug>(completion_trigger)')
+    if vim.g.lsp_completions == 1 then
+        imap('<c-space>', '<Plug>(completion_trigger)')
+    else
+        imap('<c-space>', '<C-x><C-o>')
+    end
 end
 
 local function set_commands()
@@ -70,39 +80,57 @@ local function set_commands()
     commander('References', 'lua vim.lsp.buf.references()')
     commander('DocumentSymbols', 'lua vim.lsp.buf.document_symbol()')
     commander('WorkspaceSymbols', 'lua vim.lsp.buf.workspace_symbol()')
-    commander('WorkspaceSymbols', 'lua vim.lsp.buf.workspace_symbol()')
 end
 
 local function set_options()
     vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
 end
 
+local function set_autocmds()
+    vim.cmd('aug user-lsp')
+    -- vim.cmd('au CursorHold <buffer> lua vim.lsp.buf.hover()')
+    -- vim.cmd('au CursorHold <buffer> silent lwindow')
+    vim.cmd('aug END')
+end
+
 -- LSP client configurations
 
 vim.cmd('packadd nvim-lspconfig')
-vim.cmd('packadd diagnostic-nvim')
-vim.cmd('packadd completion-nvim')
-vim.cmd('packadd lsp-status.nvim')
 
-local lsp_status = require('lsp-status')
-lsp_status.register_progress()
-vim.g.diagnostic_insert_delay = 1
+-- Optional: Diagnostics
+if vim.g.lsp_diagnostics == 1 then
+    vim.cmd('packadd diagnostic-nvim')
+    vim.g.diagnostic_insert_delay = 1
+    vim.g.diagnostic_enable_virtual_text = 1
+end
+
+-- Optional: Completions
+if vim.g.lsp_completions == 1 then
+    vim.cmd('packadd completion-nvim')
+end
+
 
 
 local function on_attach(client)
     set_keymaps()
     set_commands()
     set_options()
-    -- require('diagnostic').on_attach(client)
-    -- require('completion').on_attach(client)
-    -- require('lsp-status').on_attach(client)
+    set_autocmds()
+    if vim.g.lsp_diagnostics == 1 then
+        require('diagnostic').on_attach(client)
+    end
+    if vim.g.lsp_completions == 1 then
+        require('completion').on_attach(client)
+    end
 end
 
 
 local nvim_lsp = require('nvim_lsp')
 nvim_lsp.tsserver.setup({
     on_attach = on_attach,
-    capabilities = lsp_status.capabilities,
+})
+nvim_lsp.rls.setup({
+    on_attach = on_attach,
 })
 
 
