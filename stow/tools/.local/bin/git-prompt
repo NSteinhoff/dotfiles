@@ -20,7 +20,7 @@ branch_name() {
 }
 
 remote_branch() {
-    remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null) || return 1
+    remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)
     echo -n "$remote"
 }
 
