@@ -21,3 +21,8 @@ linter
 openapi
 yaml
 frontend
+plugin
+Pomodoro
+pomodoro
+Statusline
+statusline
