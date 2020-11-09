@@ -158,15 +158,16 @@ let s:diff_styles.text                = "HExcited"
 ""}}}
 
 "" Syntax Styles {{{
-let s:syntax_styles.error             = "Intense"
-let s:syntax_styles.constant          = "Peaceful"
+let s:syntax_styles.error             = "Forceful"
+let s:syntax_styles.constant          = "Calm"
+let s:syntax_styles.literal           = "Busy"
 let s:syntax_styles.identifier        = "Normal"
-let s:syntax_styles.statement         = "Calm"
-let s:syntax_styles.operator          = "Lively"
-let s:syntax_styles.type              = "StrongPop"
+let s:syntax_styles.statement         = "Bold"
+let s:syntax_styles.operator          = "Happy"
+let s:syntax_styles.type              = "Peaceful"
 let s:syntax_styles.preproc           = "Lively"
 let s:syntax_styles.trivial           = "Faded"
-let s:syntax_styles.informative       = "Bold"
+let s:syntax_styles.informative       = "Faded"
 let s:syntax_styles.special           = "Proud"
 let s:syntax_styles.underlined        = "Underlined"
 let s:syntax_styles.emphasis          = "Italic"
@@ -230,9 +231,9 @@ let s:ui_groups.status_active = [
 \    "StatusLine",
 \ ]
 let s:ui_groups.status_inactive = [
-\    "ColorColumn",
-\    "CursorColumn",
 \    "CursorLine",
+\    "CursorColumn",
+\    "ColorColumn",
 \    "StatusLineNC",
 \    "StatusLineTermNC",
 \ ]
@@ -275,10 +276,12 @@ let s:syntax_groups.error = [
 \    "LspDiagnosticsError",
 \    "TelescopeMatching",
 \ ]
+let s:syntax_groups.literal = [
+\    "String",
+\ ]
 let s:syntax_groups.constant = [
 \    "Constant",
 \    "Number",
-\    "String",
 \    "Directory",
 \    "markdownCode",
 \    "markdownCodeBlock",
@@ -302,6 +305,7 @@ let s:syntax_groups.preproc = [
 \ ]
 let s:syntax_groups.informative = [
 \    "Comment",
+\    "SpecialComment",
 \    "Question",
 \    "LspDiagnosticsInformation",
 \ ]
@@ -318,8 +322,8 @@ let s:syntax_groups.special = [
 \    "SpellCap",
 \    "SpellLocal",
 \    "SpellRare",
-\    "Title",
 \    "Todo",
+\    "Title",
 \    "netrwSymLink",
 \    "TelescopeSelection",
 \ ]
@@ -368,6 +372,46 @@ call s:link_groups(s:diff_groups, s:diff_styles)
 call s:link_groups(s:syntax_groups, s:syntax_styles)
 
 syntax enable
+
+syntax keyword nothing nothing
+syntax keyword Underlined Underlined
+syntax keyword Contrasted Contrasted
+syntax keyword Faded Faded
+syntax keyword Hidden Hidden
+syntax keyword Bold Bold
+syntax keyword Italic Italic
+syntax keyword Pop Pop
+syntax keyword StrongPop StrongPop
+
+syntax keyword Proud Proud
+syntax keyword Calm Calm
+syntax keyword Peaceful Peaceful
+syntax keyword Forceful Forceful
+syntax keyword Happy Happy
+syntax keyword Busy Busy
+syntax keyword Satisfied Satisfied
+syntax keyword Relaxed Relaxed
+syntax keyword Fresh Fresh
+syntax keyword Intense Intense
+syntax keyword Excited Excited
+syntax keyword Lively Lively
+
+syntax keyword HPop HPop
+syntax keyword HFaded HFaded
+syntax keyword HPeaceful HPeaceful
+syntax keyword HProud HProud
+syntax keyword HCalm HCalm
+syntax keyword HForceful HForceful
+syntax keyword HHappy HHappy
+syntax keyword HBusy HBusy
+syntax keyword HExcited HExcited
+syntax keyword HSatisfied HSatisfied
+syntax keyword HLively HLively
+syntax keyword HLivelyInvert HLivelyInvert
+syntax keyword HRelaxed HRelaxed
+syntax keyword HFresh HFresh
+syntax keyword HIntense HIntense
+syntax keyword HIntenseInvert HIntenseInvert
 "}}}
 
 " vim: foldmethod=marker
