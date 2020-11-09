@@ -14,11 +14,18 @@ augroup END
         nnoremap <C-P> :find <C-Z>
     endif
 
+    " Move over sections
+    map [[ ?{<CR>w99[{
+    map ][ /}<CR>b99]}
+    map ]] j0[[%/{<CR>
+    map [] k$][%?}<CR>
+
     " Switch to alternative buffer
     nnoremap <BS> <C-^>
 
     " Make
     nnoremap <F5> :make!<CR>
+    nnoremap <leader><leader> :make!<CR>
 
     " Window resizing with the arrow keys
     map  <left>   5<C-W><
@@ -89,6 +96,11 @@ augroup END
 
     " Complete tag
     inoremap <C-SPACE> <C-X><C-]>
+
+""" Cycling Errors
+    nnoremap [G :llist<CR>
+    nnoremap [g :lprevious<CR>
+    nnoremap ]g :lnext<CR>
 
 
 """ Toggle Settings
