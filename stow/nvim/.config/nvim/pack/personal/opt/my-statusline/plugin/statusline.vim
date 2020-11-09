@@ -13,6 +13,22 @@ function! Spell()
     return &spell ? '[spell] ' : ''
 endfunction
 
+function Pomodoro()
+    try
+        return v:lua.Pomodoro.statusline()
+    catch
+        return ''
+    endtry
+endfunction
+
+function LspStatus()
+    try
+        return v:lua.my_lsp.status()
+    catch
+        return ''
+    endtry
+endfunction
+
 function! MyStatusline()
     let BAR         = '%*'
     let OPT         = '%#Question#'
@@ -20,13 +36,13 @@ function! MyStatusline()
 
     let args        = '%a'
     let ft          = '%y'
-    let file        = '%f '
+    let file        = '%t '
     let tags        = ' %m %h %w %q '
     let spell       = '%{Spell()}'
     let compiler    = '%{Compiler()}'
     let errors      = '%{Errors()}'
-    let lsp         = '%{v:lua.my_lsp.status()}'
-    let pomodoro    = '%{v:lua.Pomodoro.statusline()}'
+    let lsp         = '%{LspStatus()}'
+    let pomodoro    = '%{Pomodoro()}'
     let position    = ' ☰ %l:%c | %p%% '
 
     return ft.OPT.args.tags.SEP.file.SEP.pomodoro.errors.lsp.compiler.spell.BAR.position
