@@ -129,7 +129,7 @@ local nvim_lsp = require('nvim_lsp')
 nvim_lsp.tsserver.setup({
     on_attach = on_attach,
 })
-nvim_lsp.rls.setup({
+nvim_lsp.rust_analyzer.setup({
     on_attach = on_attach,
 })
 
