@@ -81,7 +81,7 @@
     packadd! my-tags
     packadd! my-projects
     packadd! my-lsp
-    packadd! my-pomodoro
+    " packadd! my-pomodoro
 
 """ External
     " Customized Wrappers
@@ -91,7 +91,7 @@
     packadd! their-dirvish
 
     " Behavior
-    packadd! editorconfig
+    packadd! editorconfig-vim
     packadd! vim-unimpaired
     packadd! vim-eunuch
 
@@ -100,5 +100,5 @@
     packadd! vim-jsx-pretty
     packadd! vim-python-pep8-indent
 
-    " Testing / Linting / Fixing
-    " packadd ale
+    " Live Evaluation
+    packadd! codi
