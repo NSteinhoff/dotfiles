@@ -16,9 +16,8 @@ targets += pkg-vim pkg-tmux pkg-htop pkg-tree pkg-highlight pkg-jq
 # OS specific install targets
 ifeq ($(uname), Linux)
     targets += crawl brogue
-    targets += pkg-alacritty pkg-universal-ctags
+    targets += pkg-universal-ctags pkg-alacritty
 else ifeq ($(uname), Darwin)
-    targets += pkg-ctags
 endif
 
 untargets := $(patsubst %, un%, $(targets))
@@ -59,7 +58,13 @@ else
     uninstall := echo unknown OS: trying to uninstall
 endif
 
-pkg-%:
+special-treatment:
+ifeq ($(uname), Darwin)
+	brew tap universal-ctags/universal-ctags
+	brew install --head universal-ctags
+endif
+
+pkg-%: special-treatment
 	$(install) $*
 .PHONY: pkg-%
 
