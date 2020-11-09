@@ -2,7 +2,10 @@ packadd popup.nvim
 packadd plenary.nvim
 packadd telescope.nvim
 
-nnoremap <c-p> <cmd>lua require'telescope.builtin'.find_files{}<CR>
+" Prefer git files over find files for git repositories
+nnoremap <expr><c-p> finddir('.git', ';') == ''
+            \ ? '<cmd>lua require"telescope.builtin".find_files{}<CR>'
+            \ : '<cmd>lua require"telescope.builtin".git_files{}<CR>'
 
 command FindFiles lua require'telescope.builtin'.find_files{}
 command GitFiles lua require'telescope.builtin'.git_files{}
