@@ -72,6 +72,9 @@ local function set_keymaps()
 end
 
 local function set_commands()
+    -- Inspect Client
+    commander('LspClientInfo', 'lua print(vim.inspect(vim.lsp.get_active_clients()))')
+
     -- Code actions
     commander('CodeAction', 'lua vim.lsp.buf.code_action()')
     commander('CodeRename', 'lua vim.lsp.buf.rename()')

@@ -36,7 +36,11 @@ function! MyStatusline()
 
     let args        = '%a'
     let ft          = '%y'
-    let file        = '%t '
+    if &ft == 'dirvish'
+        let file        = '%f '
+    else
+        let file        = '%t '
+    endif
     let tags        = ' %m %h %w %q '
     let spell       = '%{Spell()}'
     let compiler    = '%{Compiler()}'

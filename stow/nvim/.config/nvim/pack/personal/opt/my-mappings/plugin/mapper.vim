@@ -24,6 +24,7 @@ augroup END
     nnoremap <BS> <C-^>
 
     " Make
+    nnoremap `<CR> :make<CR>
     nnoremap <F5> :make!<CR>
     nnoremap <leader><leader> :make!<CR>
 
