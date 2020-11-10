@@ -49,3 +49,6 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/codi.vim"]
 	path = stow/nvim/.config/nvim/pack/external/opt/codi.vim
 	url = git@github.com:metakirby5/codi.vim.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-dispatch"]
+	path = stow/nvim/.config/nvim/pack/external/opt/vim-dispatch
+	url = git@github.com:tpope/vim-dispatch.git
