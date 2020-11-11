@@ -87,18 +87,16 @@
     " Customized Wrappers
     " These are wrapper packages that load an external plugin along with the
     " customized setttings, commands, and mappings.
-    packadd! their-telescope
-    packadd! their-dirvish
+    packadd! their-telescope            " fuzzy finder / picker
+    packadd! their-dirvish              " file manager
 
-    " Behavior
-    packadd! editorconfig-vim
-    packadd! vim-unimpaired
-    packadd! vim-eunuch
+    packadd! editorconfig-vim           " ft settings based on local config
+    packadd! vim-unimpaired             " bunch of mappings
+    packadd! vim-eunuch                 " shell commands simplified
+    packadd! vim-dispatch               " dispatch external commands
+    packadd! codi                       " live code evaluation
 
-    " Filetypes
+    " Filetypes / Syntax / Indent
     packadd! python-syntax
-    packadd! vim-jsx-pretty
     packadd! vim-python-pep8-indent
-
-    " Live Evaluation
-    packadd! codi
+    packadd! vim-jsx-pretty
