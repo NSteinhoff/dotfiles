@@ -25,8 +25,6 @@ augroup END
 
     " Make
     nnoremap `<CR> :make<CR>
-    nnoremap <F5> :make!<CR>
-    nnoremap <leader><leader> :make!<CR>
 
     " Window resizing with the arrow keys
     map  <left>   5<C-W><

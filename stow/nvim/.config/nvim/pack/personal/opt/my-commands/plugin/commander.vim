@@ -159,7 +159,8 @@ command! -nargs=1 -complete=dir WorkOn
         \ execute 'vimgrep /' . <q-args> . '/j ' . expand('%')
         \| Quickfix
     command! -nargs=+ Grep
-            \ execute 'grep -r --include=*.'.expand('%:e').' '.<q-args>.' .'
+            \ cexpr! system('grep -r --include=*.'.
+            \expand('%:e').' '.<q-args>.' .')
             \| Quickfix
     if executable('rg')
         command! -nargs=+ RipGrep
