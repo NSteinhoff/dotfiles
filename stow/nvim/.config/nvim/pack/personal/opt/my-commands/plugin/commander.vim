@@ -28,8 +28,8 @@ command! -nargs=1 -complete=dir WorkOn
 """ Align text
     " Using 'sed' and 'column' external tools
     command! -nargs=? -range Align execute
-        \ '<line1>,<line2>!sed '
-        \ ."'s/".(<q-args> == '' ? '\s\+' : '\s*<args>\s*').'/ ~<args> '."/g' "
+        \ '<line1>,<line2>!sed -E '
+        \ ."'s/".(expand('<args>') == '' ? '[[:blank:]]+' : '\s*<args>\s*').'/ ~<args> '."/g' "
         \ .'| '."column -s'~' -t"
 
 """ Headers
@@ -75,7 +75,7 @@ command! -nargs=1 -complete=dir WorkOn
         \ . '.vim'
 
 """ Run lines with interpreter
-    command! -range Run execute '<line1>,<line2>w !'.get(b:, 'interpreter', 'bash')
+    command! -range Run execute '<line1>,<line2>w !'.get(b:, 'interpreter', 'cat')
 
 """ Git
     command! -nargs=+ GitGrep cexpr! system('git grep -n '.<q-args>)
@@ -108,11 +108,11 @@ command! -nargs=1 -complete=dir WorkOn
         \ ) | echo content
 
     function LocalRevisions(arglead, cmdline, curpos)
-        return systemlist('git -C ' . shellescape(expand('%:p:h')) . ' log -n 25 --format=%h\ %s\ \(%ar\)')
+        return systemlist('git -C ' . shellescape(expand('%:p:h')) . ' log --format=%h\ %s\ \(%ar\)')
     endfunction
 
     function GlobalRevisions(arglead, cmdline, curpos)
-        return systemlist('git -C ' . shellescape(getcwd()) . ' log -n 25 --format=%h\ %s\ \(%ar\)')
+        return systemlist('git -C ' . shellescape(getcwd()) . ' log --format=%h\ %s\ \(%ar\)')
     endfunction
 
     command! -nargs=? -complete=customlist,LocalRevisions ChangeSplit
@@ -155,22 +155,13 @@ command! -nargs=1 -complete=dir WorkOn
     command ChangedFiles :call <SID>set_changed_args()
 
 """ Searching
-    command! -nargs=+ Vimgrep
-        \ execute 'vimgrep /' . <q-args> . '/j ' . expand('%')
-        \| Quickfix
-    command! -nargs=+ Grep
-            \ cexpr! system('grep -r --include=*.'.
-            \expand('%:e').' '.<q-args>.' .')
-            \| Quickfix
+    " Search locally in the buffer and put results in the loclist.
+    command! -nargs=+ Vimgrep execute 'lvimgrep /' . <q-args> . '/j ' . expand('%')
+
+    command! -nargs=+ Grep cexpr system('grep -n -r '.<q-args>.' .')
+
     if executable('rg')
-        command! -nargs=+ RipGrep
-            \ cexpr! system('rg --vimgrep --smart-case '.<q-args>)
-            \| Quickfix
-    endif
-    if executable('ag')
-        command! -nargs=+ Ag
-            \ cexpr! system('ag --vimgrep --smart-case '.<q-args>)
-            \| Quickfix
+        command! -nargs=+ RipGrep cexpr system('rg --vimgrep --smart-case '.<q-args>)
     endif
 
 """ Greping the help files
