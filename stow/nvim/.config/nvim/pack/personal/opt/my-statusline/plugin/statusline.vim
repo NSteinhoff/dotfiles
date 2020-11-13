@@ -29,10 +29,20 @@ function LspStatus()
     endtry
 endfunction
 
+function TSStatus()
+    try
+        let s:tree = nvim_treesitter#statusline()
+        return s:tree != 'null' ? s:tree : '?'
+    catch
+        return ''
+    endtry
+endfunction
+
 function! MyStatusline()
     let BAR         = '%*'
     let OPT         = '%#Question#'
     let SEP         = '%='
+    let SPECIAL     = '%#Special#'
 
     let args        = '%a'
     let ft          = '%y'
@@ -41,6 +51,7 @@ function! MyStatusline()
     else
         let file        = '%t '
     endif
+    let tree        = '%{TSStatus()}'
     let tags        = ' %m %h %w %q '
     let spell       = '%{Spell()}'
     let compiler    = '%{Compiler()}'
@@ -49,7 +60,7 @@ function! MyStatusline()
     let pomodoro    = '%{Pomodoro()}'
     let position    = ' ☰ %l:%c | %p%% '
 
-    return ft.OPT.args.tags.SEP.file.SEP.pomodoro.errors.lsp.compiler.spell.BAR.position
+    return ft.OPT.args.tags.SEP.file.SPECIAL.tree.OPT.SEP.pomodoro.errors.lsp.compiler.spell.BAR.position
 endfunction
 
 set statusline=%!MyStatusline()
