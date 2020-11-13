@@ -80,7 +80,9 @@
     packadd! my-abbreviations
     packadd! my-tags
     packadd! my-projects
+    packadd! my-completions
     packadd! my-lsp
+    packadd! my-treesitter
     " packadd! my-pomodoro
 
 """ External

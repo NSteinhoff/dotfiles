@@ -62,13 +62,6 @@ local function set_keymaps()
     -- Code actions, i.e. do stuff
     nnoremap('dc', '<cmd>lua vim.lsp.buf.code_action()<CR>')
     nnoremap('dr', '<cmd>lua vim.lsp.buf.rename()<CR>')
-
-    -- Completion
-    if vim.g.lsp_completions == 1 then
-        imap('<c-space>', '<Plug>(completion_trigger)')
-    else
-        imap('<c-space>', '<C-x><C-o>')
-    end
 end
 
 local function set_commands()
@@ -107,12 +100,6 @@ if vim.g.lsp_diagnostics == 1 then
     vim.g.diagnostic_enable_virtual_text = 1
 end
 
--- Optional: Completions
-if vim.g.lsp_completions == 1 then
-    vim.cmd('packadd completion-nvim')
-end
-
-
 
 local function on_attach(client)
     set_keymaps()
@@ -121,9 +108,6 @@ local function on_attach(client)
     set_autocmds()
     if vim.g.lsp_diagnostics == 1 then
         require('diagnostic').on_attach(client)
-    end
-    if vim.g.lsp_completions == 1 then
-        require('completion').on_attach(client)
     end
 end
 
