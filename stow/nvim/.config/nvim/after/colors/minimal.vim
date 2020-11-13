@@ -305,7 +305,6 @@ let s:syntax_groups.preproc = [
 \ ]
 let s:syntax_groups.informative = [
 \    "Comment",
-\    "SpecialComment",
 \    "Question",
 \    "LspDiagnosticsInformation",
 \ ]
@@ -319,6 +318,7 @@ let s:syntax_groups.special = [
 \    "Delimiter",
 \    "Special",
 \    "SpecialKey",
+\    "SpecialComment",
 \    "SpellCap",
 \    "SpellLocal",
 \    "SpellRare",
