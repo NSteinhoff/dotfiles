@@ -16,7 +16,7 @@ _clean_history() {
   history -r            # Read history from $HISTFILE
 }
 
-export PROMPT_COMMAND="_clean_history;$PROMPT_COMMAND"
+# export PROMPT_COMMAND="_clean_history;$PROMPT_COMMAND"
 shopt -s histappend
 
 # Set Vim as default editor
@@ -134,7 +134,7 @@ alias mypacks='cd ~/dev/dotfiles/stow/nvim/.config/nvim/pack/personal/opt'
 export CDPATH=~/.config:~/dev:~/dev/s2
 
 # ---------------------------------- direnv -----------------------------------
-which -s direnv && eval "$(direnv hook bash)"
+# which -s direnv && eval "$(direnv hook bash)"
 
 # --------------------------------- GREETING ----------------------------------
 [[ ${PWD} == ${HOME} && ${os} == linux ]] && greeting
