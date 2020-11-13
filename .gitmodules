@@ -52,3 +52,18 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/vim-dispatch"]
 	path = stow/nvim/.config/nvim/pack/external/opt/vim-dispatch
 	url = git@github.com:tpope/vim-dispatch.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/nvim-treesitter"]
+	path = stow/nvim/.config/nvim/pack/external/opt/nvim-treesitter
+	url = git@github.com:nvim-treesitter/nvim-treesitter.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-vsnip"]
+	path = stow/nvim/.config/nvim/pack/external/opt/vim-vsnip
+	url = git@github.com:hrsh7th/vim-vsnip.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-vsnip-integ"]
+	path = stow/nvim/.config/nvim/pack/external/opt/vim-vsnip-integ
+	url = git@github.com:hrsh7th/vim-vsnip-integ.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/completion-tags"]
+	path = stow/nvim/.config/nvim/pack/external/opt/completion-tags
+	url = git@github.com:kristijanhusak/completion-tags.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/completion-treesitter"]
+	path = stow/nvim/.config/nvim/pack/external/opt/completion-treesitter
+	url = git@github.com:nvim-treesitter/completion-treesitter.git
