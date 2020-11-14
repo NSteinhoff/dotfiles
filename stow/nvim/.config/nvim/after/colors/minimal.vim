@@ -213,6 +213,8 @@ let s:ui_groups.highlight_inverted = [
 \ ]
 let s:ui_groups.highlight = [
 \    "Substitute",
+\    "CursorLine",
+\    "CursorColumn",
 \ ]
 let s:ui_groups.match = [
 \    "MatchParen",
@@ -231,8 +233,6 @@ let s:ui_groups.status_active = [
 \    "StatusLine",
 \ ]
 let s:ui_groups.status_inactive = [
-\    "CursorLine",
-\    "CursorColumn",
 \    "ColorColumn",
 \    "StatusLineNC",
 \    "StatusLineTermNC",
@@ -296,6 +296,7 @@ let s:syntax_groups.statement = [
 \ ]
 let s:syntax_groups.operator = [
 \    "Operator",
+\    "Exception",
 \ ]
 let s:syntax_groups.type = [
 \    "Type",
