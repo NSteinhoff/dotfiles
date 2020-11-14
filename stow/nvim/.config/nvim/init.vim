@@ -43,7 +43,7 @@
     set softtabstop=-1          " use the value of 'shiftwidth'
     set expandtab               " spaces instead of tabs
 
-    set nowrap
+    set wrap
     set linebreak
     set breakindent             " indent wrapped lines
     let &showbreak = '... '     " prepend wrapped lines with this
