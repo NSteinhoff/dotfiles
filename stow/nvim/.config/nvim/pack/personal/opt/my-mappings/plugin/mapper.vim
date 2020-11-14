@@ -56,6 +56,9 @@ augroup END
     cnoremap <C-A> <Home>
     cnoremap <C-E> <End>
 
+""" Quickly close a window
+    nnoremap Q :close<CR>
+
 
 """ Comment / Uncomment
     " Mnemonic:

@@ -53,11 +53,9 @@ local function set_keymaps()
     nnoremap('gS', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 
     -- Moving through errors
-    if vim.g.lsp_diagnostics == 1 then
-        nnoremap(']g', '<cmd>NextDiagnosticCycle<CR>')
-        nnoremap('[g', '<cmd>PrevDiagnosticCycle<CR>')
-        nnoremap('gO', '<cmd>OpenDiagnostic<CR>')
-    end
+    nnoremap(']g', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+    nnoremap('[g', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
+    nnoremap('gO', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
 
     -- Code actions, i.e. do stuff
     nnoremap('dc', '<cmd>lua vim.lsp.buf.code_action()<CR>')
@@ -67,6 +65,7 @@ end
 local function set_commands()
     -- Inspect Client
     commander('LspClientInfo', 'lua print(vim.inspect(vim.lsp.get_active_clients()))')
+    vim.cmd(':command! LspStopClients lua vim.lsp.stop_client(vim.lsp.get_active_clients())')
 
     -- Code actions
     commander('CodeAction', 'lua vim.lsp.buf.code_action()')
@@ -90,25 +89,13 @@ local function set_autocmds()
 end
 
 -- LSP client configurations
-
 vim.cmd('packadd nvim-lspconfig')
-
--- Optional: Diagnostics
-if vim.g.lsp_diagnostics == 1 then
-    vim.cmd('packadd diagnostic-nvim')
-    vim.g.diagnostic_insert_delay = 1
-    vim.g.diagnostic_enable_virtual_text = 1
-end
-
 
 local function on_attach(client)
     set_keymaps()
     set_commands()
     set_options()
     set_autocmds()
-    if vim.g.lsp_diagnostics == 1 then
-        require('diagnostic').on_attach(client)
-    end
 end
 
 
@@ -116,7 +103,7 @@ local nvim_lsp = require('nvim_lsp')
 nvim_lsp.tsserver.setup({
     on_attach = on_attach,
 })
-nvim_lsp.rust_analyzer.setup({
+nvim_lsp.rls.setup({
     on_attach = on_attach,
 })
 

@@ -80,8 +80,6 @@
     packadd! my-abbreviations
     packadd! my-tags
     packadd! my-projects
-    packadd! my-completions
-    packadd! my-lsp
     packadd! my-treesitter
     " packadd! my-pomodoro
 
@@ -89,6 +87,8 @@
     " Customized Wrappers
     " These are wrapper packages that load an external plugin along with the
     " customized setttings, commands, and mappings.
+    packadd! my-completions             " completion engine with chaining
+    packadd! my-lsp                     " Language Server client configuration
     packadd! their-telescope            " fuzzy finder / picker
     packadd! their-dirvish              " file manager
 

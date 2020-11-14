@@ -4,10 +4,6 @@ vim.cmd('packadd completion-nvim')
 vim.cmd('packadd completion-tags')
 vim.cmd('packadd completion-treesitter')
 
-vim.cmd('augroup user-completion')
-vim.cmd('autocmd BufEnter * lua require"my_completion".on_attach()')
-vim.cmd('augroup END')
-
 
 function M.on_attach()
     require'completion'.on_attach()
