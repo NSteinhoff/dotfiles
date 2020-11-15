@@ -105,26 +105,36 @@ endif
 "" Highlights {{{
 let    s:highlights         =   {}
 if &background == 'dark'
-    let    s:highlights.HPop    =   {'lig':  'none',  'fg':  15,  'bg':  8}
-    let    s:highlights.HFaded  =   {'lig':  'none',  'fg':  7,   'bg':  8}
+    let s:highlights.HPop    =   {'lig':  'none',  'fg':  15,  'bg':  8}
+    let s:highlights.HFaded  =   {'lig':  'none',  'fg':  7,   'bg':  8}
 else
-    let    s:highlights.HPop    =   {'lig':  'none',  'fg':  0,   'bg':  7}
-    let    s:highlights.HFaded  =   {'lig':  'none',  'fg':  8,   'bg':  7}
+    let s:highlights.HPop    =   {'lig':  'none',  'fg':  0,   'bg':  7}
+    let s:highlights.HFaded  =   {'lig':  'none',  'fg':  8,   'bg':  7}
 endif
-let  s:highlights.HPeaceful      =  {'lig':  'none',     'fg':  15,  'bg':  6}
-let  s:highlights.HProud         =  {'lig':  'none',     'fg':  15,  'bg':  4}
-let  s:highlights.HCalm          =  {'lig':  'none',     'fg':  15,  'bg':  2}
-let  s:highlights.HForceful      =  {'lig':  'none',     'fg':  15,  'bg':  1}
-let  s:highlights.HHappy         =  {'lig':  'none',     'fg':  15,  'bg':  5}
-let  s:highlights.HBusy          =  {'lig':  'none',     'fg':  0,   'bg':  3}
-let  s:highlights.HExcited       =  {'lig':  'none',     'fg':  0,   'bg':  13}
-let  s:highlights.HSatisfied     =  {'lig':  'none',     'fg':  0,   'bg':  12}
-let  s:highlights.HLively        =  {'lig':  'none',     'fg':  0,   'bg':  11}
-let  s:highlights.HLivelyInvert  =  {'lig':  'inverse',  'fg':  0,   'bg':  11}
-let  s:highlights.HRelaxed       =  {'lig':  'none',     'fg':  0,   'bg':  10}
-let  s:highlights.HFresh         =  {'lig':  'none',     'fg':  0,   'bg':  14}
-let  s:highlights.HIntense       =  {'lig':  'none',     'fg':  0,   'bg':  9}
-let  s:highlights.HIntenseInvert =  {'lig':  'inverse',  'fg':  0,   'bg':  9}
+let s:highlights.HPeaceful            =    {'lig':    'none',       'fg':    15,    'bg':    6}
+let s:highlights.HProud               =    {'lig':    'none',       'fg':    15,    'bg':    4}
+let s:highlights.HCalm                =    {'lig':    'none',       'fg':    15,    'bg':    2}
+let s:highlights.HForceful            =    {'lig':    'none',       'fg':    15,    'bg':    1}
+let s:highlights.HHappy               =    {'lig':    'none',       'fg':    15,    'bg':    5}
+let s:highlights.HBusy                =    {'lig':    'none',       'fg':    0,     'bg':    3}
+let s:highlights.HExcited             =    {'lig':    'none',       'fg':    0,     'bg':    13}
+let s:highlights.HSatisfied           =    {'lig':    'none',       'fg':    0,     'bg':    12}
+let s:highlights.HLively              =    {'lig':    'none',       'fg':    0,     'bg':    11}
+let s:highlights.HRelaxed             =    {'lig':    'none',       'fg':    0,     'bg':    10}
+let s:highlights.HFresh               =    {'lig':    'none',       'fg':    0,     'bg':    14}
+let s:highlights.HIntense             =    {'lig':    'none',       'fg':    0,     'bg':    9}
+let s:highlights.HPeacefulInverse     =    {'lig':    'inverse',    'fg':    15,    'bg':    6}
+let s:highlights.HProudInverse        =    {'lig':    'inverse',    'fg':    15,    'bg':    4}
+let s:highlights.HCalmInverse         =    {'lig':    'inverse',    'fg':    15,    'bg':    2}
+let s:highlights.HForcefulInverse     =    {'lig':    'inverse',    'fg':    15,    'bg':    1}
+let s:highlights.HHappyInverse        =    {'lig':    'inverse',    'fg':    15,    'bg':    5}
+let s:highlights.HBusyInverse         =    {'lig':    'inverse',    'fg':    0,     'bg':    3}
+let s:highlights.HExcitedInverse      =    {'lig':    'inverse',    'fg':    0,     'bg':    13}
+let s:highlights.HSatisfiedInverse    =    {'lig':    'inverse',    'fg':    0,     'bg':    12}
+let s:highlights.HLivelyInverse       =    {'lig':    'inverse',    'fg':    0,     'bg':    11}
+let s:highlights.HRelaxedInverse      =    {'lig':    'inverse',    'fg':    0,     'bg':    10}
+let s:highlights.HFreshInverse        =    {'lig':    'inverse',    'fg':    0,     'bg':    14}
+let s:highlights.HIntenseInverse      =    {'lig':    'inverse',    'fg':    0,     'bg':    9}
 "" }}}
 " }}}
 
@@ -142,12 +152,12 @@ let s:ui_styles.cursor                   =  "Contrasted"
 let s:ui_styles.selection                =  "Contrasted"
 let s:ui_styles.hidden                   =  "Hidden"
 let s:ui_styles.ignore                   =  "Faded"
-let s:ui_styles.status_inactive          =  "HFaded"
-let s:ui_styles.status_active            =  "HPop"
+let s:ui_styles.status_inactive          =  "HSatisfiedInverse"
+let s:ui_styles.status_active            =  "HSatisfied"
 let s:ui_styles.status_term              =  "HRelaxed"
 let s:ui_styles.match                    =  "HExcited"
 let s:ui_styles.highlight                =  "HLively"
-let s:ui_styles.highlight_inverted       =  "HLivelyInvert"
+let s:ui_styles.highlight_inverted       =  "HLivelyInverse"
 ""}}}
 
 "" Diff Styles {{{
@@ -273,7 +283,8 @@ let s:syntax_groups.error = [
 \    "ErrorMsg",
 \    "SpellBad",
 \    "NvimInternalError",
-\    "LspDiagnosticsError",
+\    "LspDiagnosticsDefaultError",
+\    "LspDiagnosticsSignError",
 \    "TelescopeMatching",
 \ ]
 let s:syntax_groups.literal = [
@@ -307,13 +318,15 @@ let s:syntax_groups.preproc = [
 let s:syntax_groups.informative = [
 \    "Comment",
 \    "Question",
-\    "LspDiagnosticsInformation",
+\    "LspDiagnosticsDefaultInformation",
+\    "LspDiagnosticsSignInformation",
 \ ]
 let s:syntax_groups.trivial = [
 \    "Ignore",
 \    "Conceal",
 \    "Noise",
-\    "LspDiagnosticsHint",
+\    "LspDiagnosticsDefaultHint",
+\    "LspDiagnosticsSignHint",
 \ ]
 let s:syntax_groups.special = [
 \    "Delimiter",
@@ -343,7 +356,8 @@ let s:syntax_groups.emphasis = [
 \    "mkdLineBreak",
 \    "htmlItalic",
 \    "htmlUnderlineItalic",
-\    "LspDiagnosticsWarning",
+\    "LspDiagnosticsDefaultWarning",
+\    "LspDiagnosticsSignWarning",
 \ ]
 let s:syntax_groups.strong = [
 \   "markdownBold",
@@ -408,11 +422,24 @@ syntax keyword HBusy HBusy
 syntax keyword HExcited HExcited
 syntax keyword HSatisfied HSatisfied
 syntax keyword HLively HLively
-syntax keyword HLivelyInvert HLivelyInvert
 syntax keyword HRelaxed HRelaxed
 syntax keyword HFresh HFresh
 syntax keyword HIntense HIntense
-syntax keyword HIntenseInvert HIntenseInvert
+
+syntax keyword HPopInverse HPopInverse
+syntax keyword HFadedInverse HFadedInverse
+syntax keyword HPeacefulInverse HPeacefulInverse
+syntax keyword HProudInverse HProudInverse
+syntax keyword HCalmInverse HCalmInverse
+syntax keyword HForcefulInverse HForcefulInverse
+syntax keyword HHappyInverse HHappyInverse
+syntax keyword HBusyInverse HBusyInverse
+syntax keyword HExcitedInverse HExcitedInverse
+syntax keyword HSatisfiedInverse HSatisfiedInverse
+syntax keyword HLivelyInverse HLivelyInverse
+syntax keyword HRelaxedInverse HRelaxedInverse
+syntax keyword HFreshInverse HFreshInverse
+syntax keyword HIntenseInverse HIntenseInverse
 "}}}
 
 " vim: foldmethod=marker
