@@ -43,7 +43,7 @@
     set softtabstop=-1          " use the value of 'shiftwidth'
     set expandtab               " spaces instead of tabs
 
-    set wrap
+    set nowrap
     set linebreak
     set breakindent             " indent wrapped lines
     let &showbreak = '... '     " prepend wrapped lines with this
@@ -60,7 +60,7 @@
 
 """ Completions
     set wildmode=longest:full,full
-    set completeopt=menuone,noinsert,noselect
+    set completeopt=menuone,preview
     set shortmess+=c
 
 """ Path and files
