@@ -80,25 +80,21 @@
     packadd! my-abbreviations
     packadd! my-tags
     packadd! my-projects
-    packadd! my-treesitter
     " packadd! my-pomodoro
 
 """ External
-    " Customized Wrappers
-    " These are wrapper packages that load an external plugin along with the
-    " customized setttings, commands, and mappings.
-    packadd! my-completions             " completion engine with chaining
-    packadd! my-lsp                     " Language Server client configuration
     packadd! their-telescope            " fuzzy finder / picker
     packadd! their-dirvish              " file manager
 
     packadd! editorconfig-vim           " ft settings based on local config
     packadd! vim-unimpaired             " bunch of mappings
-    packadd! vim-eunuch                 " shell commands simplified
-    packadd! vim-dispatch               " dispatch external commands
-    packadd! codi                       " live code evaluation
 
     " Filetypes / Syntax / Indent
     packadd! python-syntax
     packadd! vim-python-pep8-indent
     packadd! vim-jsx-pretty
+
+    " IDE Mode:
+    packadd! my-lsp                     " Language Server client configuration
+    " packadd! my-treesitter
+    " packadd! my-completions             " completion engine with chaining
