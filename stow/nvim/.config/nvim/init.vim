@@ -60,7 +60,7 @@
 
 """ Completions
     set wildmode=longest:full,full
-    set completeopt=menuone,preview
+    set completeopt=menuone
     set shortmess+=c
 
 """ Path and files

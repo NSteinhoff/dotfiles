@@ -40,18 +40,19 @@ endfunction
 
 function! MyStatusline()
     let BAR         = '%*'
-    let OPT         = '%#Question#'
+    let OPT         = '%#StatusLineNC#'
     let SEP         = '%='
 
     let args        = '%a'
     let ft          = '%y'
+    let pre         = '%w'
     if &ft == 'dirvish'
         let file        = '%f'
     else
         let file        = '%t'
     endif
     let tree        = '%{TSStatus()}'
-    let tags        = ' %m %h %w %q '
+    let mod        = '%m'
     let spell       = '%{Spell()}'
     let compiler    = '%{Compiler()}'
     let errors      = '%{Errors()}'
@@ -59,7 +60,7 @@ function! MyStatusline()
     let pomodoro    = '%{Pomodoro()}'
     let position    = ' ☰ %l:%c | %p%% '
 
-    return ft.OPT.args.tags.SEP.file.tree.SEP.pomodoro.errors.lsp.compiler.spell.BAR.position
+    return pre.ft.OPT.args.mod.SEP.file.tree.SEP.pomodoro.errors.lsp.compiler.spell.BAR.position
 endfunction
 
 set statusline=%!MyStatusline()
