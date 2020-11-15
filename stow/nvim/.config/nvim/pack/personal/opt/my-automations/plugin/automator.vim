@@ -32,6 +32,11 @@ augroup user-autoread
     autocmd CursorHold * silent! checktime
 augroup END
 
+augroup user-ctags
+    autocmd!
+    autocmd BufWritePost * if finddir('.git', ';') != '' | call jobstart(['git', 'ctags']) | endif
+augroup END
+
 
 function s:track_changes(off)
     if a:off
