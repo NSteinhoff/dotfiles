@@ -7,17 +7,8 @@ augroup CR_BS_SANITIZER
 augroup END
 
 
-""" Potential Ad-hoc mappings
-    if maparg('`<BS>', 'n') == ''
-        nnoremap `<BS> <cmd>echo "Map me to run stuff!"<CR>
-    endif
-    if maparg('<Leader><Leader>', 'n') == ''
-        nnoremap <Leader><Leader> <cmd>echo "Map me to something cool!"<CR>
-    endif
-
-
 """ <LEADER> / Wildchar
-    " Explicitly map the <leader> key. Otherwise some plugins use their own default.
+    " Explicitly map the <Leader> key. Otherwise some plugins use their own default.
     let mapleader = '\'
     let maplocalleader = '\'
     set wildcharm=<C-Z>
@@ -86,18 +77,18 @@ augroup END
     " jump to.
     "
     " <key>                     Mnemonic key for the list
-    " <leader><key>             Peek at list
-    " <leader><KEY>             Go to list and pick entry
+    " <Leader><key>             Peek at list
+    " <Leader><KEY>             Go to list and pick entry
     "
     " Quickfix list: global error
     " Mnemonic: (Q)uickfix
-    nnoremap <silent> <leader>q :clist<CR>
-    nnoremap <silent> <expr> <leader>Q exists(':Quickfix') ? ':Quickfix<CR>' : ':cwindow<CR>'
+    nnoremap <silent> <Leader>q :clist<CR>
+    nnoremap <silent> <expr> <Leader>Q exists(':Quickfix') ? ':Quickfix<CR>' : ':cwindow<CR>'
 
     " Location list: local errors
     " Mnemoic: (L)ocation
-    nnoremap <silent> <leader>l :llist<CR>
-    nnoremap <silent> <expr> <leader>L exists(':oclist') ? ':Loclist<CR>' : ':lwindow<CR>'
+    nnoremap <silent> <Leader>l :llist<CR>
+    nnoremap <silent> <expr> <Leader>L exists(':oclist') ? ':Loclist<CR>' : ':lwindow<CR>'
 
 
 """ Preview / Hover
@@ -125,7 +116,7 @@ augroup END
     endif
 
     " Close the preview window
-    nnoremap <leader><SPACE> <C-W>z
+    nnoremap <Leader><SPACE> <C-W>z
 
 
 """ Completion
@@ -144,27 +135,34 @@ augroup END
 
 
 """ Running builds with :make or :Dispatch (if installed)
+    nnoremap `<Leader> <cmd>make<CR>
+    nnoremap `<BS> <cmd>make!<CR>
+    nnoremap <Leader><Leader> <cmd>TMake<CR>
+    nnoremap <Leader><BS> <cmd>TMake!<CR>
+    nnoremap g> <cmd>EchoErr<CR>
+    nnoremap g! <cmd>cfile<CR>
+
     if maparg('`<CR>', 'n') == ''
         nnoremap `<CR> <cmd>make<CR>
     endif
     if maparg('`<SPACE>', 'n') == ''
-        nnoremap `<SPACE> <cmd>make!<CR>
+        nnoremap `<SPACE> <cmd>make<SPACE>
     endif
 
 
 """ Searching
     " Local search
-    nnoremap <silent> <leader>* :execute 'Vimgrep '.expand('<cword>')<CR>
-    vnoremap <silent> <leader>* y:execute 'Vimgrep '.shellescape(@")<CR>
+    nnoremap <silent> <Leader>* :execute 'Vimgrep '.expand('<cword>')<CR>
+    vnoremap <silent> <Leader>* y:execute 'Vimgrep '.shellescape(@")<CR>
 
     " Global search
-    " nnoremap <silent> <leader>g :execute 'GitGrep '.expand('<cword>')<CR>
-    nnoremap <silent> <expr> <leader>g
+    " nnoremap <silent> <Leader>g :execute 'GitGrep '.expand('<cword>')<CR>
+    nnoremap <silent> <expr> <Leader>g
         \ (finddir('.git', ';') != '' ? ':GitGrep' :
         \           (executable('rg') ? ':RipGrep' :
         \                               ':Grep'))
         \ .' '. expand('<cword>').' <CR>'
-    vnoremap <silent> <expr> <leader>g
+    vnoremap <silent> <expr> <Leader>g
         \ 'y'.
         \ (finddir('.git', ';') != '' ? ':GitGrep' :
         \           (executable('rg') ? ':RipGrep' :
@@ -185,34 +183,40 @@ augroup END
     nnoremap <BS> <C-^>
 
     " Quick Keys
-    vnoremap <leader>= :Align<CR>
-    nnoremap <leader>! :!%:p<CR>
-    nnoremap <leader>x :Run<CR>
-    vnoremap <leader>x :Run<CR>
-    nnoremap <leader>X :%Run<CR>
-    nnoremap <expr> <leader>o exists(':Oldfiles') ? ':Oldfiles<CR>' : ':oldfiles<CR>'
-    nnoremap <leader>O :BufOnly<CR>
-    nnoremap <leader>f :Format<CR>
+    vnoremap <Leader>= :Align<CR>
+    nnoremap <Leader>! :!%:p<CR>
+    nnoremap <Leader>x :Run<CR>
+    vnoremap <Leader>x :Run<CR>
+    nnoremap <Leader>X :%Run<CR>
+    nnoremap <expr> <Leader>o exists(':Oldfiles') ? ':Oldfiles<CR>' : ':oldfiles<CR>'
+    nnoremap <Leader>O :BufOnly<CR>
+    nnoremap <Leader>f :Format<CR>
 
     " Switch buffers
-    nnoremap <leader>b :buffer <C-Z>
-    nnoremap <leader>v :vert sbuffer <C-Z>
-    nnoremap <leader>t :tab sbuffer <C-Z>
+    nnoremap <Leader>b :buffer <C-Z>
+    nnoremap <Leader>v :vert sbuffer <C-Z>
+    nnoremap <Leader>t :tab sbuffer <C-Z>
 
     " Edit Settings files
-    nnoremap <leader>ee :edit $MYVIMRC<CR>
-    nnoremap <leader>ef :EditFtplugin<CR>
-    nnoremap <leader>ed :EditFtdetect<CR>
-    nnoremap <leader>ec :EditCompiler<CR>
-    nnoremap <leader>es :EditSyntax<CR>
-    nnoremap <leader>ei :EditIndent<CR>
-    nnoremap <leader>eo :EditColorscheme<CR>
+    nnoremap <Leader>ee :edit $MYVIMRC<CR>
+    nnoremap <Leader>ef :EditFtplugin<CR>
+    nnoremap <Leader>ed :EditFtdetect<CR>
+    nnoremap <Leader>ec :EditCompiler<CR>
+    nnoremap <Leader>es :EditSyntax<CR>
+    nnoremap <Leader>ei :EditIndent<CR>
+    nnoremap <Leader>eo :EditColorscheme<CR>
 
     " File Explorer
-    nnoremap <leader>E :Explore<CR>
-    nnoremap <leader>V :Vexplore<CR>
-    nnoremap <leader>T :Texplore<CR>
+    nnoremap <Leader>E :Explore<CR>
+    nnoremap <Leader>V :Vexplore<CR>
+    nnoremap <Leader>T :Texplore<CR>
 
     " (c): Changes / Diffing
     nnoremap cs :ChangeSplit<CR>
     nnoremap cp :ChangePatch<CR>
+
+
+""" Potential Ad-hoc mappings
+    if maparg('<Leader><Leader>', 'n') == ''
+        nnoremap <Leader><Leader> <cmd>echo "Map me to something cool!"<CR>
+    endif

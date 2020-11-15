@@ -168,3 +168,27 @@ command! -nargs=1 -complete=dir WorkOn
 
 """ Greping the help files
     command! HelpGrep tabnew | lcd $VIMRUNTIME/doc | LiveGrep
+
+""" Run command in tmux split without stealing focus
+    function s:tmakeprg(qargs) abort
+        if &makeprg =~ '$\*'
+            let l:makeprg = substitute(&makeprg, '$\*', a:qargs, '')
+        else
+            let l:makeprg = &makeprg.' '.a:qargs
+        endif
+        return l:makeprg.' '.&shellpipe.' /tmp/$$.err; mv /tmp/$$.err '.&errorfile
+    endfunction
+
+    command! -nargs=+ -bang TSplit execute
+        \ '!tmux '.(expand('<bang>') == '!' ? 'new-window' : 'split-window -h -f')
+        \.' -d -c '.getcwd().' '.shellescape(<q-args>)
+        \| redraw
+    command! -nargs=* -bang TMake execute
+        \ '!tmux '.(expand('<bang>') == '!' ? 'new-window' : 'split-window -h -f')
+        \.' -d -c '.getcwd().' '.shellescape(s:tmakeprg(<q-args>))
+        \| redraw
+
+    command! EchoErr if findfile('errors.err') != '' | execute '!cat errors.err' | endif
+    command! TTailErr if findfile('errors.err') != ''| execute
+        \ '!tmux split-window -c '.getcwd().' -h -f -d tail -F errors.err'
+        \| redraw | endif
