@@ -19,7 +19,7 @@
 
 """ Behavior
     set noswapfile
-    set updatetime=1000
+    set updatetime=200
     set foldmethod=indent
     set foldlevelstart=99       " start with all folds opened
     set clipboard=unnamedplus   " always use clipboard

@@ -33,7 +33,6 @@ end
 local function set_keymaps()
     -- Get help
     nnoremap('K', '<cmd>lua vim.lsp.buf.hover()<CR>')
-    nnoremap('<SPACE>', '<cmd>lua vim.lsp.buf.hover()<CR>')
     nnoremap('<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
     inoremap('<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 

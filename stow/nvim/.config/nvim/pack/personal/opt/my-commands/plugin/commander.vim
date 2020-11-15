@@ -176,19 +176,21 @@ command! -nargs=1 -complete=dir WorkOn
         else
             let l:makeprg = &makeprg.' '.a:qargs
         endif
-        return l:makeprg.' '.&shellpipe.' /tmp/$$.err; mv /tmp/$$.err '.&errorfile
+        return l:makeprg.' '.&shellpipe.' /tmp/$$.err; mv /tmp/$$.err '.&errorfile.'; sleep 1'
     endfunction
 
-    command! -nargs=+ -bang TSplit execute
-        \ '!tmux '.(expand('<bang>') == '!' ? 'new-window' : 'split-window -h -f')
+    command! -count=50 -nargs=+ -bang TSplit execute
+        \ '!tmux '.(expand('<bang>') == '!' ? 'new-window' : 'split-window -f -l <count>\% '
+        \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
         \.' -d -c '.getcwd().' '.shellescape(<q-args>)
         \| redraw
-    command! -nargs=* -bang TMake execute
-        \ '!tmux '.(expand('<bang>') == '!' ? 'new-window' : 'split-window -h -f')
+    command! -count=50 -nargs=* -bang TMake execute
+        \ '!tmux '.(expand('<bang>') == '!' ? 'new-window' : 'split-window -f -l <count>\% '
+        \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
         \.' -d -c '.getcwd().' '.shellescape(s:tmakeprg(<q-args>))
         \| redraw
-
-    command! EchoErr if findfile('errors.err') != '' | execute '!cat errors.err' | endif
-    command! TTailErr if findfile('errors.err') != ''| execute
-        \ '!tmux split-window -c '.getcwd().' -h -f -d tail -F errors.err'
+    command! -count=50 -bang TTailErr if findfile(&errorfile) != ''| execute
+        \ '!tmux '.(expand('<bang>') == '!' ? 'new-window' : 'split-window -f -l <count>\% '
+        \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
+        \.' -d -c '.getcwd().' '.shellescape('tail -F '.&errorfile)
         \| redraw | endif
