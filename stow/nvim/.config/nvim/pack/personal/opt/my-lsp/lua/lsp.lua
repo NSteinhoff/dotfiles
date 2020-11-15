@@ -65,7 +65,7 @@ end
 local function set_commands()
     -- Inspect Client
     commander('LspClientInfo', 'lua print(vim.inspect(vim.lsp.get_active_clients()))')
-    vim.cmd(':command! LspStopClients lua vim.lsp.stop_client(vim.lsp.get_active_clients())')
+    commander('LspStopClients', 'lua vim.lsp.stop_client(vim.lsp.get_active_clients())')
 
     -- Code actions
     commander('CodeAction', 'lua vim.lsp.buf.code_action()')
@@ -84,7 +84,6 @@ end
 local function set_autocmds()
     vim.cmd('aug user-lsp')
     -- vim.cmd('au CursorHold <buffer> lua vim.lsp.buf.hover()')
-    -- vim.cmd('au CursorHold <buffer> silent lwindow')
     vim.cmd('aug END')
 end
 
@@ -103,14 +102,24 @@ local nvim_lsp = require('nvim_lsp')
 nvim_lsp.tsserver.setup({
     on_attach = on_attach,
 })
-nvim_lsp.rls.setup({
+nvim_lsp.rust_analyzer.setup({
     on_attach = on_attach,
 })
+
+-- Handlers
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        -- Enable signs
+        signs = true,
+        -- Disable the virtual text
+        virtual_text = false,
+    }
+)
 
 
 -- Module
 
-my_lsp = {}
+local M = {}
 
 local function clients()
     local results = {}
@@ -137,14 +146,20 @@ local function long_indicator()
     end
 end
 
-function my_lsp.print_clients()
+function M.print_clients()
     for _,c in ipairs(vim.lsp.buf_get_clients()) do
         print(c.name)
     end
 end
 
-function my_lsp.status()
+function M.status()
     return long_indicator()
 end
 
-vim.cmd(':command! LspClients lua my_lsp.print_clients()')
+my_lsp = {
+    status = M.status,
+}
+
+commander('LspClients', 'lua require"lsp".print_clients()')
+
+return M
