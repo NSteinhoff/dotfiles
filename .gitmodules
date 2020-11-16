@@ -67,3 +67,6 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/completion-treesitter"]
 	path = stow/nvim/.config/nvim/pack/external/opt/completion-treesitter
 	url = git@github.com:nvim-treesitter/completion-treesitter.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-devdocs"]
+	path = stow/nvim/.config/nvim/pack/external/opt/vim-devdocs
+	url = git@github.com:romainl/vim-devdocs.git
