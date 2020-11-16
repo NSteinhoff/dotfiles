@@ -60,7 +60,7 @@
 
 """ Completions
     set wildmode=longest:full,full
-    set completeopt=menuone
+    set completeopt=menuone,preview
     set shortmess+=c
 
 """ Path and files
@@ -88,6 +88,8 @@
 
     packadd! editorconfig-vim           " ft settings based on local config
     packadd! vim-unimpaired             " bunch of mappings
+
+    packadd! vim-devdocs                " open devdocs.io
 
     " Filetypes / Syntax / Indent
     packadd! python-syntax

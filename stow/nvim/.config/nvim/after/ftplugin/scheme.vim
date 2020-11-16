@@ -4,3 +4,7 @@ setlocal sw=2
 
 set keywordprg=:ReplSend\ ,doc
 nnoremap <buffer> <BS> :w <bar> ReplSend ,enter %<CR>
+
+if exists(':DD')
+    setlocal keywordprg=:DD
+endif

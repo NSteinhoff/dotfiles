@@ -4,6 +4,10 @@ setlocal fo=croqlj
 let b:repl = 'sbcl'
 let b:interpreter = 'sbcl'
 
+if exists(':DD')
+    setlocal keywordprg=:DD
+endif
+
 " Copy pasted from symbol index of the CLHS
 let s:symbol_list = [
       \'&allow-other-keys',

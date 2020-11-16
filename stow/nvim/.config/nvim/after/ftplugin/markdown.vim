@@ -3,3 +3,7 @@ setlocal shiftwidth=2
 setlocal formatoptions=tcroqlj
 setlocal nowrap
 setlocal spell
+
+if exists(':DD')
+    setlocal keywordprg=:DD
+endif
