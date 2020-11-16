@@ -67,8 +67,8 @@ alias t='$EDITOR +"map q :wq<CR>" ~/Dropbox/Documents/Notes/tasks.taskpaper'
 [[ $OSTYPE = linux* ]] && alias open='xdg-open'
 
 # Syntax highlighting (no need for 'bat')
-which -s highlight && alias hi='highlight -O ansi --force'
-which -s highlight && alias hil='_() { highlight -O ansi --force $@ | less -R; }; _'
+which highlight &>/dev/null && alias hi='highlight -O ansi --force'
+which highlight &>/dev/null && alias hil='_() { highlight -O ansi --force $@ | less -R; }; _'
 
 # ---------- Java Version ---------
 [[ -z $JAVA_HOME && "$os" == linux && -x $(which java) ]] && JAVA_HOME=$(readlink -f $(which java) | sed "s:/bin/java::")
@@ -78,17 +78,17 @@ which -s highlight && alias hil='_() { highlight -O ansi --force $@ | less -R; }
 [ -d ~/.config/bash-completion ] || mkdir -p ~/.config/bash-completion
 
 [ -r ~/.config/bash-completion/git ] || curl -sS https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash > ~/.config/bash-completion/git
-which -s cht.sh && ([ -f ~/.config/bash-completion/cht.sh ] || cht.sh :bash_completion > ~/.config/bash-completion/cht.sh)
-which -s kubectl && ([ -f ~/.config/bash-completion/kubectl ] || kubectl completion bash > ~/.config/bash-completion/kubectl)
-which -s minikube && ([ -f ~/.config/bash-completion/minikube ] || minikube completion bash > ~/.config/bash-completion/minikube)
-which -s helm && ([ -f ~/.config/bash-completion/helm ] || helm completion bash > ~/.config/bash-completion/helm)
+which cht.sh &>/dev/null && ([ -f ~/.config/bash-completion/cht.sh ] || cht.sh :bash_completion > ~/.config/bash-completion/cht.sh)
+which kubectl &>/dev/null && ([ -f ~/.config/bash-completion/kubectl ] || kubectl completion bash > ~/.config/bash-completion/kubectl)
+which minikube &>/dev/null && ([ -f ~/.config/bash-completion/minikube ] || minikube completion bash > ~/.config/bash-completion/minikube)
+which helm &>/dev/null && ([ -f ~/.config/bash-completion/helm ] || helm completion bash > ~/.config/bash-completion/helm)
 
 if [ -n "$(ls ~/.config/bash-completion/)" ]; then
     for file in ~/.config/bash-completion/*; do source "$file"; done
 fi
 
 [ -d "$HOME/.bloop" ] && source "$HOME/.bloop/bash/bloop"
-which -s pyenv && eval "$(pyenv init -)"
+which pyenv &>/dev/null && eval "$(pyenv init -)"
 
 _complete_tmux() {
     COMPREPLY=( $(compgen -W "$(tmux list-commands -F#{command_list_name})" $2) )
@@ -125,7 +125,7 @@ export FFF_FAV8=~/.local/bin
 export FFF_FAV9=~/dev/dotfiles/stow/nvim/.config/nvim/pack/external
 
 # cd after exit
-which -s fff && alias f='_() {
+which fff &>/dev/null && alias f='_() {
     fff $@
     cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"
     command -v tree &>/dev/null && tree -a --dirsfirst --filelimit 10 -L 1
@@ -137,7 +137,7 @@ alias mypacks='cd ~/dev/dotfiles/stow/nvim/.config/nvim/pack/personal/opt'
 export CDPATH=~/.config:~/dev:~/dev/s2
 
 # ---------------------------------- direnv -----------------------------------
-which -s direnv && eval "$(direnv hook bash)"
+which direnv &>/dev/null && eval "$(direnv hook bash)"
 
 # --------------------------------- GREETING ----------------------------------
 [[ ${PWD} == ${HOME} && ${os} == linux ]] && greeting
