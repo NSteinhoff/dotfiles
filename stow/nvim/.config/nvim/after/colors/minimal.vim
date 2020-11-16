@@ -158,6 +158,7 @@ let s:ui_styles.status_term              =  "HRelaxed"
 let s:ui_styles.match                    =  "HExcited"
 let s:ui_styles.highlight                =  "HLively"
 let s:ui_styles.highlight_inverted       =  "HLivelyInverse"
+let s:ui_styles.git_branch               =  "HRelaxedInverse"
 ""}}}
 
 "" Diff Styles {{{
@@ -256,6 +257,9 @@ let s:ui_groups.title = [
 \ ]
 let s:ui_groups.status_term = [
 \    "StatusLineTerm",
+\ ]
+let s:ui_groups.git_branch = [
+\   "GitBranch",
 \ ]
 ""}}}
 
