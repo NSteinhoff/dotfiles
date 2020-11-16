@@ -166,9 +166,6 @@ command! -nargs=1 -complete=dir WorkOn
         command! -nargs=+ RipGrep cexpr system('rg --vimgrep --smart-case '.<q-args>)
     endif
 
-""" Greping the help files
-    command! HelpGrep tabnew | lcd $VIMRUNTIME/doc | LiveGrep
-
 """ Run command in tmux split without stealing focus
     function s:tmakeprg(qargs) abort
         if &makeprg =~ '$\*'
