@@ -32,7 +32,7 @@ endfunction
 function TSStatus()
     try
         let s:tree = nvim_treesitter#statusline()
-        return s:tree != 'null' && s:tree != '' ? ' @ '.s:tree : ''
+        return s:tree != 'null' && s:tree != '' ? s:tree : ''
     catch
         return ''
     endtry
@@ -47,9 +47,9 @@ function! MyStatusline()
     let ft          = '%y'
     let pre         = '%w'
     if &ft == 'dirvish'
-        let file        = '%f'
+        let file        = ' %f '
     else
-        let file        = '%t'
+        let file        = ' %t '
     endif
     let tree        = '%{TSStatus()}'
     let mod        = '%m'
@@ -60,7 +60,7 @@ function! MyStatusline()
     let pomodoro    = '%{Pomodoro()}'
     let position    = ' ☰ %l:%c | %p%% '
 
-    return pre.ft.OPT.args.mod.SEP.file.tree.SEP.pomodoro.errors.lsp.compiler.spell.BAR.position
+    return pre.ft.OPT.file.mod.args.SEP.tree.SEP.pomodoro.errors.lsp.compiler.spell.BAR.position
 endfunction
 
 set statusline=%!MyStatusline()
