@@ -97,15 +97,18 @@ complete -F _complete_tmux tmux
 
 
 # ---------------------------------- PROMPT -----------------------------------
-case "$TERM" in
-xterm*|rxvt*|tmux*|screen*)
-    PS1_tail='\$ '
-    PS1_head="${PS1%'\$ '} "
-    [[ $PS1 == *git-prompt* ]] || export PS1='$(tmux-prompt)'"$PS1_head"'$(git-prompt)[\j]'"\n$PS1_tail"
-    ;;
-*)
-    ;;
-esac
+fancy_prompt=true
+if $fancy_prompt; then
+    case "$TERM" in
+    xterm*|rxvt*|tmux*|screen*)
+        PS1_tail='\$ '
+        PS1_head="${PS1%'\$ '} "
+        [[ $PS1 == *git-prompt* ]] || export PS1='$(tmux-prompt)'"$PS1_head"'$(git-prompt)[\j]'"\n$PS1_tail"
+        ;;
+    *)
+        ;;
+    esac
+fi
 
 # export PROMPT_COMMAND="$HOME/.local/bin/bashbot"
 
@@ -134,7 +137,7 @@ alias mypacks='cd ~/dev/dotfiles/stow/nvim/.config/nvim/pack/personal/opt'
 export CDPATH=~/.config:~/dev:~/dev/s2
 
 # ---------------------------------- direnv -----------------------------------
-# which -s direnv && eval "$(direnv hook bash)"
+which -s direnv && eval "$(direnv hook bash)"
 
 # --------------------------------- GREETING ----------------------------------
 [[ ${PWD} == ${HOME} && ${os} == linux ]] && greeting
