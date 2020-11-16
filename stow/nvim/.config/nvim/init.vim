@@ -81,6 +81,7 @@
     packadd! my-tags
     packadd! my-projects
     " packadd! my-pomodoro
+    packadd! my-completions             " completion engine with chaining
 
 """ External
     packadd! their-telescope            " fuzzy finder / picker
@@ -98,5 +99,4 @@
 
     " IDE Mode:
     packadd! my-lsp                     " Language Server client configuration
-    " packadd! my-treesitter
-    " packadd! my-completions             " completion engine with chaining
+    packadd! my-treesitter
