@@ -10,7 +10,6 @@ augroup END
 
 let g:completion_chain_complete_list = [
 \    {'complete_items': ['lsp']},
-\    {'complete_items': ['ts']},
 \    {'complete_items': ['tags']},
 \    {'mode': '<c-p>'},
 \]
