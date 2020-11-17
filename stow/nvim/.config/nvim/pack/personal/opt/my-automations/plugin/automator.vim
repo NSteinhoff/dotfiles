@@ -13,8 +13,13 @@ augroup user-errorfiles
     " Set the compiler to the root of an errorfile
     " sbt.err -> :compiler sbt
     " flake8.err -> :compiler flake8
-    autocmd BufReadPost *.err if expand("<afile>:r") != 'errors' | execute "compiler ".expand("<afile>:r") | cgetbuffer | endif
-    " autocmd CursorHold * if !bufexists("[Command Line]") && findfile(&errorfile) != '' | cgetfile | endif
+    autocmd BufReadPost *.err if expand("<afile>:r") != 'errors'
+                        \|execute "compiler ".expand("<afile>:r")|cgetbuffer|endif
+    autocmd CursorHold * if !bufexists("[Command Line]")
+                \&& getqflist({'title': 1}).title =~ ':c\(get\)\?file'
+                \&& findfile(&errorfile) != ''
+                \&& getftime(&errorfile) > get(g:, 'cfile_updated', 0)
+                \|cgetfile|let g:cfile_updated=localtime()|endif
 augroup END
 
 augroup user-automake
@@ -23,7 +28,7 @@ augroup user-automake
         autocmd BufWritePre  * if get(b:, 'format_on_write', 0) | Format | endif
     endif
     if exists(":Make")
-        autocmd BufWritePost * if get(b:, 'make_on_write', 0)   | Make   | endif
+        autocmd BufWritePost * if get(b:, 'make_on_write', 0)   | Make | endif
     endif
 augroup END
 

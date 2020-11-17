@@ -167,27 +167,34 @@ command! -nargs=1 -complete=dir WorkOn
     endif
 
 """ Run command in tmux split without stealing focus
-    function s:tmakeprg(qargs) abort
+    function s:makeprg(qargs) abort
         if &makeprg =~ '$\*'
             let makeprg = substitute(&makeprg, '$\*', a:qargs, '')
         else
             let makeprg = &makeprg.' '.a:qargs
         endif
-        let makeprg = substitute(makeprg, '%', expand('%'), '')
-        return 'echo '.shellescape(makeprg).' && '.makeprg.' '.&shellpipe.' /tmp/$$.err; mv /tmp/$$.err '.&errorfile.'; sleep 1'
+        return substitute(makeprg, '%', expand('%'), '')
     endfunction
 
-    command! -count=50 -nargs=+ -bang TSplit execute
-        \ '!tmux '.(expand('<bang>') == '!' ? 'new-window' : 'split-window -f -l <count>\% '
+    function s:shell_cmd(qargs) abort
+        let makeprg = s:makeprg(a:qargs)
+        let tempfile = tempname()
+        return 'echo '.shellescape(makeprg).' && '.makeprg.' '.&shellpipe.' '.tempfile.'; mv '.tempfile.' '.&errorfile.'; sleep 2'
+    endfunction
+
+    command! -bar Make TMake!
+
+    command! -count=50 -nargs=+ -bang TSplit silent execute
+        \ '!tmux '.(expand('<bang>') == '!' ? 'new-window -n <q-args> ' : 'split-window -f -l <count>\% '
         \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
         \.' -d -c '.getcwd().' '.shellescape(<q-args>)
         \| redraw
-    command! -count=50 -nargs=* -bang TMake execute
-        \ '!tmux '.(expand('<bang>') == '!' ? 'new-window' : 'split-window -f -l <count>\% '
+    command! -count=50 -nargs=* -bang TMake silent execute
+        \ '!tmux '.(expand('<bang>') == '!' ? 'new-window -n '''.s:makeprg(<q-args>).''' ' : 'split-window -f -l <count>\% '
         \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
-        \.' -d -c '.getcwd().' '.shellescape(s:tmakeprg(<q-args>))
+        \.' -d -c '.getcwd().' '.shellescape(s:shell_cmd(<q-args>))
         \| redraw
-    command! -count=50 -bang TTailErr if findfile(&errorfile) != ''| execute
+    command! -count=50 -bang TTailErr if findfile(&errorfile) != ''| silent execute
         \ '!tmux '.(expand('<bang>') == '!' ? 'new-window' : 'split-window -f -l <count>\% '
         \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
         \.' -d -c '.getcwd().' '.shellescape('tail -F '.&errorfile)
