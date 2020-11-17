@@ -5,6 +5,6 @@ dir="`git rev-parse --git-dir`"
 
 trap 'rm -f "$dir/$$.tags"' EXIT
 
-git ls-files | ctags --tag-relative=yes --sort=yes -L - -f"$dir/$$.tags"
+git ls-files | ctags --tag-relative=yes --sort=yes --languages=-JSON,-Markdown -L - -f"$dir/$$.tags"
 
 mv "$dir/$$.tags" "$dir/tags"
