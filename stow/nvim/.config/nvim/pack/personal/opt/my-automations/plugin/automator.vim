@@ -15,6 +15,8 @@ augroup user-errorfiles
     " flake8.err -> :compiler flake8
     autocmd BufReadPost *.err if expand("<afile>:r") != 'errors'
                         \|execute "compiler ".expand("<afile>:r")|cgetbuffer|endif
+    " Update the quickfix list when it is read from an errorfile (title == :cfile | :cgetfile)
+    " Only update if the file is newer than the quickfix list.
     autocmd CursorHold * if !bufexists("[Command Line]")
                 \&& getqflist({'title': 1}).title =~ ':c\(get\)\?file'
                 \&& findfile(&errorfile) != ''

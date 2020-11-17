@@ -179,7 +179,7 @@ command! -nargs=1 -complete=dir WorkOn
     function s:shell_cmd(qargs) abort
         let makeprg = s:makeprg(a:qargs)
         let tempfile = tempname()
-        return 'echo '.shellescape(makeprg).' && '.makeprg.' '.&shellpipe.' '.tempfile.'; mv '.tempfile.' '.&errorfile.'; sleep 2'
+        return 'echo '.shellescape(makeprg.'...').' && '.makeprg.' '.&shellpipe.' '.tempfile.'; mv '.tempfile.' '.&errorfile.'; sleep 2'
     endfunction
 
     command! -bar Make TMake!
