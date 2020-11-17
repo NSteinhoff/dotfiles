@@ -137,7 +137,7 @@ augroup END
 """ Running builds with :make or :Dispatch (if installed)
     nnoremap `<Leader> <cmd>make<CR>
     nnoremap `<BS> <cmd>make!<CR>
-    nnoremap <Leader><Leader> <cmd>30TMake<CR>
+    nnoremap <Leader><Leader> <cmd>vertical TMake<CR>
     nnoremap <Leader><BS> <cmd>TMake!<CR>
     nnoremap g> <cmd>execute '!cat '.&errorfile<CR>
     nnoremap g? <cmd>execute 'edit '.&errorfile<CR>

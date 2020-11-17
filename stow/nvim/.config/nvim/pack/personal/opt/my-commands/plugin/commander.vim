@@ -169,11 +169,12 @@ command! -nargs=1 -complete=dir WorkOn
 """ Run command in tmux split without stealing focus
     function s:tmakeprg(qargs) abort
         if &makeprg =~ '$\*'
-            let l:makeprg = substitute(&makeprg, '$\*', a:qargs, '')
+            let makeprg = substitute(&makeprg, '$\*', a:qargs, '')
         else
-            let l:makeprg = &makeprg.' '.a:qargs
+            let makeprg = &makeprg.' '.a:qargs
         endif
-        return l:makeprg.' '.&shellpipe.' /tmp/$$.err; mv /tmp/$$.err '.&errorfile.'; sleep 1'
+        let makeprg = substitute(makeprg, '%', expand('%'), '')
+        return 'echo '.shellescape(makeprg).' && '.makeprg.' '.&shellpipe.' /tmp/$$.err; mv /tmp/$$.err '.&errorfile.'; sleep 1'
     endfunction
 
     command! -count=50 -nargs=+ -bang TSplit execute
