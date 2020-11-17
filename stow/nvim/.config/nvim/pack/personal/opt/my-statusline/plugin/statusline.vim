@@ -21,13 +21,6 @@ function Pomodoro()
     endtry
 endfunction
 
-function GitBranch()
-    if finddir('.git', ';') != ''
-        let branch = '['.trim(substitute(system('git branch'), '^\* ', '', '')).']'
-        return branch
-    endif
-endfunction
-
 function LspStatus()
     try
         return v:lua.my_lsp.status()
@@ -69,7 +62,7 @@ function! MyStatusline()
     let pomodoro    = '%{Pomodoro()}'
     let position    = ' ☰ %l:%c | %p%% '
 
-    return pre.ft.branch.OPT.file.mod.args.SEP.tree.SEP.pomodoro.errors.lsp.compiler.spell.BAR.position
+    return pre.ft.OPT.file.mod.args.SEP.tree.SEP.pomodoro.errors.lsp.compiler.spell.BAR.position
 endfunction
 
 set statusline=%!MyStatusline()
