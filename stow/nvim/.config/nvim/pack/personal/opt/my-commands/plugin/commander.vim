@@ -37,7 +37,7 @@ command! -nargs=1 -complete=dir WorkOn
     command! -nargs=? Header call commander#lib#header(<q-args>)
 
 """ Commenting lines
-    command! -range ToggleCommented <line1>,<line2> call commander#lib#toggle_commented()
+    command! -range ToggleCommented call commander#lib#toggle_comment(<line1>, <line2>)
 
 """ Compiler
     command! Compiler call compiler#describe()

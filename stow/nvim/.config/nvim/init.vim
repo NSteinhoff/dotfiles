@@ -26,8 +26,9 @@
     set mouse=n
     set autoread
     set hidden
-    " set ignorecase              " ignore case in searches ...
-    " set smartcase               " ... unless it includes capital letters
+    set ignorecase              " ignore case in searches ...
+    set smartcase               " ... unless it includes capital letters
+    set splitright              " open vertical splits on the right
 
 """ Special characters
     set list

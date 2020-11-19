@@ -21,7 +21,7 @@ augroup user-errorfiles
                 \&& getqflist({'title': 1}).title =~ ':c\(get\)\?file'
                 \&& findfile(&errorfile) != ''
                 \&& getftime(&errorfile) > get(g:, 'cfile_updated', 0)
-                \|cgetfile|let g:cfile_updated=localtime()|endif
+                \|cgetfile|let g:cfile_updated=localtime()|cwindow|endif
 augroup END
 
 augroup user-automake

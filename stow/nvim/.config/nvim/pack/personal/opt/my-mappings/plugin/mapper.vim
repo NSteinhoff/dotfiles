@@ -56,8 +56,7 @@ augroup END
     "   "       -> Vim's comment string
     "   <CR>    -> line
     "   "<CR>   => 'comment line'
-    nnoremap <silent> "<CR> :ToggleCommented<CR>
-    vnoremap <silent> "<CR> :ToggleCommented<CR>
+    noremap <silent> "<CR> :ToggleCommented<CR>
 
 
 """  Format
@@ -130,25 +129,20 @@ augroup END
 
 """ Quickopen
     if maparg('<C-P>', 'n') == ''
-        nnoremap <C-P> <cmd>find <C-Z>
+        nnoremap <C-P> :find <C-Z>
     endif
 
 
-""" Running builds with :make or :Dispatch (if installed)
+""" Running builds
+    nnoremap <Leader><Leader> <cmd>make<Cr>
     nnoremap `<Leader> <cmd>make<CR>
-    nnoremap `<BS> <cmd>make!<CR>
-    nnoremap <Leader><Leader> <cmd>vertical TMake<CR>
-    nnoremap <Leader><BS> <cmd>TMake!<CR>
-    nnoremap g> <cmd>execute '!cat '.&errorfile<CR>
-    nnoremap g? <cmd>execute 'edit '.&errorfile<CR>
-    nnoremap g! <cmd>cfile<CR>
+    nnoremap `<CR> <cmd>TMake<CR>
+    nnoremap `<BS> <cmd>TMake!<CR>
 
-    if maparg('`<CR>', 'n') == ''
-        nnoremap `<CR> <cmd>make<CR>
-    endif
-    if maparg('`<SPACE>', 'n') == ''
-        nnoremap `<SPACE> :make<SPACE>
-    endif
+    " List, load, read errorfile contents
+    nnoremap g> <cmd>execute '!cat '.&errorfile<CR>
+    nnoremap g! <cmd>cfile<bar>cwindow<CR>
+    nnoremap g? <cmd>execute 'tab view '.&errorfile<CR>
 
 
 """ Searching
@@ -194,7 +188,7 @@ augroup END
     nnoremap <Leader>f :Format<CR>
 
     " Switch buffers
-    nnoremap <Leader>b :buffer <C-Z>
+    nnoremap <expr> <Leader>b exists(':Buffers') ? ':Buffers<CR>' : ':buffer <C-Z>'
     nnoremap <Leader>v :vert sbuffer <C-Z>
     nnoremap <Leader>t :tab sbuffer <C-Z>
 

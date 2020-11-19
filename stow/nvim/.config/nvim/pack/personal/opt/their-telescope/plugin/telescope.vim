@@ -21,6 +21,7 @@ command Oldfiles lua require'telescope.builtin'.oldfiles{}<Cr>
 command Quickfix lua require'telescope.builtin'.quickfix{}<Cr>
 command Loclist lua require'telescope.builtin'.loclist{}<Cr>
 command History lua require'telescope.builtin'.command_history{}<Cr>
+command Buffers lua require'telescope.builtin'.buffers{ shorten_path = true }<Cr>
 
 " Live grep through all files using ripgrep
 if executable('rg')
