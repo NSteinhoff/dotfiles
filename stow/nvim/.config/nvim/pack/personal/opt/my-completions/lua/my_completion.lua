@@ -9,6 +9,8 @@ function M.on_attach()
     require'completion'.on_attach()
 
     -- Set completeopt to have a better completion experience
+    -- menuone:     always show the menu with the additional info
+    -- noinsert:    don't insert anything until I make a choice
     vim.cmd('set completeopt=menuone,noinsert')
 
     -- Avoid showing message extra message when using completion

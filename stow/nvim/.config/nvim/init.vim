@@ -61,7 +61,8 @@
 
 """ Completions
     set wildmode=longest:full,full
-    set completeopt=menuone,preview
+    set completeopt+=menu       " show a menu when there are more than one suggestions
+    set completeopt+=preview    " open the preview window with additional info
     set shortmess+=c
 
 """ Path and files
