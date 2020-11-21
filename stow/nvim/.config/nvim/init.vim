@@ -81,8 +81,8 @@
     packadd! my-abbreviations
     packadd! my-tags
     packadd! my-projects
+    packadd! my-completions             " completion engine with chaining
     " packadd! my-pomodoro
-    " packadd! my-completions             " completion engine with chaining
 
 """ External
     packadd! their-telescope            " fuzzy finder / picker

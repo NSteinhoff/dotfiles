@@ -17,11 +17,15 @@ command Dotfiles lua require'telescope.builtin'.find_files{
             \ cwd = "~/dev/dotfiles/",
             \ find_command = { "rg", "--hidden", "--files", "-g", "!.git" }
             \ }
-command Oldfiles lua require'telescope.builtin'.oldfiles{}<Cr>
-command Quickfix lua require'telescope.builtin'.quickfix{}<Cr>
-command Loclist lua require'telescope.builtin'.loclist{}<Cr>
-command History lua require'telescope.builtin'.command_history{}<Cr>
-command Buffers lua require'telescope.builtin'.buffers{ shorten_path = true }<Cr>
+command Oldfiles lua require'telescope.builtin'.oldfiles{}<CR>
+command Quickfix lua require'telescope.builtin'.quickfix{}<CR>
+command Loclist lua require'telescope.builtin'.loclist{}<CR>
+command History lua require'telescope.builtin'.command_history{}<CR>
+command Buffers lua require'telescope.builtin'.buffers{ shorten_path = true }<CR>
+command Commits lua require'telescope.builtin'.git_commits{}<CR>
+command BCommits lua require'telescope.builtin'.git_bcommits{}<CR>
+command Help lua require'telescope.builtin'.help_tags{}<CR>
+command Treesitter lua require'telescope.builtin'.treesitter{}<CR>
 
 " Live grep through all files using ripgrep
 if executable('rg')
