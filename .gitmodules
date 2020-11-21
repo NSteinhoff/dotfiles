@@ -10,9 +10,6 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/nvim-lspconfig"]
 	path = stow/nvim/.config/nvim/pack/external/opt/nvim-lspconfig
 	url = git@github.com:neovim/nvim-lspconfig.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/diagnostic-nvim"]
-	path = stow/nvim/.config/nvim/pack/external/opt/diagnostic-nvim
-	url = git@github.com:nvim-lua/diagnostic-nvim.git
 [submodule "stow/nvim/.config/nvim/pack/external/opt/vim-unimpaired"]
 	path = stow/nvim/.config/nvim/pack/external/opt/vim-unimpaired
 	url = git@github.com:tpope/vim-unimpaired.git
