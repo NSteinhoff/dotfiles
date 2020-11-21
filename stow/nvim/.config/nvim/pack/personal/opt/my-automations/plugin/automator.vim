@@ -22,7 +22,7 @@ augroup user-errorfiles
         \ if !bufexists("[Command Line]")
         \ && &filetype != ''
         \ && &filetype != 'qf'
-        \ && !&prompt
+        \ && &filetype != 'TelescopePrompt'
         \ && getqflist({'title': 1}).title =~ ':c\(get\)\?file\|'
         \ && findfile(&errorfile) != ''
         \ && getftime(&errorfile) > get(g:, 'cfile_updated', 0)

@@ -179,23 +179,27 @@
     endif
 
 """ Run command in tmux split without stealing focus
-    command! -bar Make TMake!
+    command! -bar Make silent TMake!
 
-    command! -count=50 -nargs=+ -bang TSplit silent execute
-        \ '!tmux '.(expand('<bang>') == '!' ? 'new-window -n <q-args> ' : 'split-window -f -l <count>\% '
+    command! -count=50 -nargs=+ -bang TSplit
+        \ silent execute '!tmux '
+        \.(expand('<bang>') == '!' ? 'new-window -n <q-args> ' : 'split-window -f -l <count>\% '
         \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
         \.' -d -c '.getcwd().' '.shellescape(<q-args>)
-        \| redraw | endif
+        \|silent redraw | endif
 
-    command! -count=50 -nargs=* -bang TMake silent
-        \ call commander#tmake#kill_window(commander#tmake#makeprg(<q-args>))
-        \|execute '!tmux '.(expand('<bang>') == '!' ? 'new-window -n '''.commander#tmake#makeprg(<q-args>).''' ' : 'split-window -f -l <count>\% '
+    command! -count=50 -nargs=* -bang TMake
+        \ silent call commander#tmake#kill_window(commander#tmake#makeprg(<q-args>))
+        \|silent execute '!tmux '
+        \.(expand('<bang>') == '!' ? 'new-window -n '''.commander#tmake#makeprg(<q-args>).''' ' : 'split-window -f -l <count>\% '
         \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
         \.' -d -c '.getcwd().' '.commander#tmake#shell_cmd(<q-args>)
-        \| redraw
+        \|silent redraw
 
-    command! -count=50 -bang TTailErr if findfile(&errorfile) != ''| silent execute
-        \ '!tmux '.(expand('<bang>') == '!' ? 'new-window' : 'split-window -f -l <count>\% '
+    command! -count=50 -bang TTailErr
+        \ if findfile(&errorfile) != ''
+        \|silent execute '!tmux '
+        \.(expand('<bang>') == '!' ? 'new-window' : 'split-window -f -l <count>\% '
         \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
         \.' -d -c '.getcwd().' '.shellescape('tail -F '.&errorfile)
-        \| redraw | endif
+        \|silent redraw | endif
