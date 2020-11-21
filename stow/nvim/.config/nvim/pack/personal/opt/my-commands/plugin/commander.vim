@@ -5,8 +5,20 @@
         \ | let &ft = <q-args>
 
 """ Workspaces
-command! -nargs=1 -complete=dir WorkOn
+    command! -nargs=1 -complete=dir WorkOn
         \ tabnew | lcd <args>
+
+""" Read errorfile
+    command! Cfile if !bufexists("[Command Line]")
+        \ && &filetype != ''
+        \ && &filetype != 'qf'
+        \ && findfile(&errorfile) != ''
+        \|cgetfile|let g:cfile_updated=localtime()|cwindow|endif
+    command! Cgetfile if !bufexists("[Command Line]")
+        \ && &filetype != ''
+        \ && &filetype != 'qf'
+        \ && findfile(&errorfile) != ''
+        \|cgetfile|let g:cfile_updated=localtime()|endif
 
 """ Format the current buffer
     function! Format()

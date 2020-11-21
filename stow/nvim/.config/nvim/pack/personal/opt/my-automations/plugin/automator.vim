@@ -13,15 +13,23 @@ augroup user-errorfiles
     " Set the compiler to the root of an errorfile
     " sbt.err -> :compiler sbt
     " flake8.err -> :compiler flake8
-    autocmd BufReadPost *.err if expand("<afile>:r") != 'errors'
-                        \|execute "compiler ".expand("<afile>:r")|cgetbuffer|endif
+    autocmd BufReadPost *.err
+        \ if expand("<afile>:r") != 'errors'
+        \|execute "compiler ".expand("<afile>:r")|cgetbuffer|endif
     " Update the quickfix list when it is read from an errorfile (title == :cfile | :cgetfile)
     " Only update if the file is newer than the quickfix list.
-    autocmd CursorHold,CursorMoved * if !bufexists("[Command Line]")
-                \&& getqflist({'title': 1}).title =~ ':c\(get\)\?file'
-                \&& findfile(&errorfile) != ''
-                \&& getftime(&errorfile) > get(g:, 'cfile_updated', 0)
-                \|cgetfile|let g:cfile_updated=localtime()|cwindow|endif
+    autocmd CursorHold *
+        \ if !bufexists("[Command Line]")
+        \ && &filetype != ''
+        \ && &filetype != 'qf'
+        \ && !&prompt
+        \ && getqflist({'title': 1}).title =~ ':c\(get\)\?file\|'
+        \ && findfile(&errorfile) != ''
+        \ && getftime(&errorfile) > get(g:, 'cfile_updated', 0)
+        \|cgetfile|let g:cfile_updated=localtime()
+        \|if len(getqflist()) == 0|cclose|else|copen|wincmd p|endif
+        \|echo "Quickfix list updated"
+        \|endif
 augroup END
 
 augroup user-automake

@@ -141,7 +141,7 @@ augroup END
 
     " List, load, read errorfile contents
     nnoremap g> <cmd>execute '!cat '.&errorfile<CR>
-    nnoremap g! <cmd>cfile<bar>cwindow<CR>
+    nnoremap <expr> g! &ft == 'qf' ? '<cmd>cclose<CR>' : '<cmd>Cfile<CR>'
     nnoremap g? <cmd>execute 'tab view '.&errorfile<CR>
 
 
