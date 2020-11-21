@@ -7,10 +7,11 @@ if exists(":CompilerSet") != 2
   command! -nargs=* CompilerSet setlocal <args>
 endif
 
-let rcfile = findfile('tsconfig.json', ".;$HOME")
+let rcfile = findfile('tsconfig.json', ",.;$HOME")
+
 if rcfile != ''
     let project_root = fnamemodify(rcfile, ":h")
-    execute 'CompilerSet makeprg=npx\ tsc\ --project\ '.project_root.'\ $*'
+    execute 'CompilerSet makeprg=npx\ tsc\ --build\ '.project_root.'\ $*'
 else
     CompilerSet makeprg=npx\ tsc\ --build\ $*
 endif
