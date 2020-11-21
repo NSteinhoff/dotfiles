@@ -97,11 +97,11 @@ local function on_attach(client)
 end
 
 
-local nvim_lsp = require('nvim_lsp')
-nvim_lsp.tsserver.setup({
+local lspconfig = require('lspconfig')
+lspconfig.tsserver.setup({
     on_attach = on_attach,
 })
-nvim_lsp.rust_analyzer.setup({
+lspconfig.rust_analyzer.setup({
     on_attach = on_attach,
 })
 
