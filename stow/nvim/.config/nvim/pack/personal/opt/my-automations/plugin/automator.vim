@@ -17,7 +17,7 @@ augroup user-errorfiles
                         \|execute "compiler ".expand("<afile>:r")|cgetbuffer|endif
     " Update the quickfix list when it is read from an errorfile (title == :cfile | :cgetfile)
     " Only update if the file is newer than the quickfix list.
-    autocmd CursorHold * if !bufexists("[Command Line]")
+    autocmd CursorHold,CursorMoved * if !bufexists("[Command Line]")
                 \&& getqflist({'title': 1}).title =~ ':c\(get\)\?file'
                 \&& findfile(&errorfile) != ''
                 \&& getftime(&errorfile) > get(g:, 'cfile_updated', 0)
