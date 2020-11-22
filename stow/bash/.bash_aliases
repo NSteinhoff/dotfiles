@@ -62,7 +62,7 @@ _complete_notes() {
 }
 complete -F _complete_notes note
 alias note='_() { $EDITOR +"map q :wq<CR>" ~/Dropbox/Documents/Notes/$1 ; }; _'
-alias t='$EDITOR +"map q :wq<CR>" ~/Dropbox/Documents/Notes/tasks.taskpaper'
+alias t='$EDITOR +"map Q :wq<CR>" ~/Dropbox/Documents/Notes/tasks.taskpaper'
 
 # Open
 [[ $OSTYPE = linux* ]] && alias open='xdg-open'
