@@ -9,4 +9,5 @@ if exists('current_compiler') && current_compiler == 'cargo'
     CompilerSet errorformat+=
                 \test\ %f\ -\ %m\ (line\ %l)\ ...\ FAILED,
                 \%-G%.%#,
+    CompilerSet makeprg=cargo\ check\ $*
 endif
