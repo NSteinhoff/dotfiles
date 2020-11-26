@@ -134,7 +134,6 @@ augroup END
 
 
 """ Running builds
-    nnoremap <Leader><Leader> <cmd>make<Cr>
     nnoremap `<Leader> <cmd>make<CR>
     nnoremap `<CR> <cmd>TMake<CR>
     nnoremap `<BS> <cmd>TMake!<CR>
@@ -213,5 +212,5 @@ augroup END
 
 """ Potential Ad-hoc mappings
     if maparg('<Leader><Leader>', 'n') == ''
-        nnoremap <Leader><Leader> <cmd>echo "Map me to something cool!"<CR>
+        nnoremap <Leader><Leader> :nnoremap <leader><leader> 
     endif
