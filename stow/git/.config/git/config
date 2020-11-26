@@ -11,10 +11,14 @@
     lol     = log --graph --decorate --pretty=oneline --abbrev-commit
     lola    = log --graph --decorate --pretty=oneline --abbrev-commit --all
     diffw   = diff --color-words
+    di      = diff
+    dis     = diff --staged
     stl     = !git --no-pager stash list
     brl     = !git --no-pager branch --list
     ctags   = !.git/hooks/ctags
     prull   = !git fetch --prune && git pull --ff-only
+    declutter = !git fetch --prune && git checkout master && git branch --merged | grep -v '\\*\\|master' | xargs git branch -d
+    review  = diff origin/master...HEAD
 [color]
     pager = true
     ui = auto

@@ -31,6 +31,11 @@ esac
 # -----------------------------------------------------------------------------
 #  ALIASES
 # -----------------------------------------------------------------------------
+if [[ os == linux ]]; then
+    opener=xdg-open
+else
+    opener=open
+fi
 
 # Safer delete
 alias rm='rm -i'
@@ -47,11 +52,17 @@ alias gtree='git ls-files | tree --fromfile --dirsfirst'
 alias dirs='dirs -v'
 
 # Web search
-alias q='_() { q=${1:-$(xsel -op)}; xdg-open "https://duckduckgo.com/?q=${q}"; }; _'
+alias q='_() { q=${1:-$(xsel -op)}; '$opener' "https://duckduckgo.com/?q=${q}"; }; _'
 
 # Why not
 alias :q='exit'
 alias :e='$EDITOR'
+
+# Git status
+alias gs='git status'
+alias gc='git commit'
+alias gd='git diff'
+alias gds='git diff --staged'
 
 # Read errors from stdin into a scratch buffer and load into quickfix list
 alias quickfix='vim +"set bt=nofile" +cbuffer -'
