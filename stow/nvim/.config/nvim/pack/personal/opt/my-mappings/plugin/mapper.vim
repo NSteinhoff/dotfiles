@@ -207,7 +207,9 @@ augroup END
 
     " (c): Changes / Diffing
     nnoremap cs :ChangeSplit<CR>
+    nnoremap cS :ChangeSplit <C-Z>
     nnoremap cp :ChangePatch<CR>
+    nnoremap cP :ChangePatch <C-Z>
 
 
 """ Potential Ad-hoc mappings
