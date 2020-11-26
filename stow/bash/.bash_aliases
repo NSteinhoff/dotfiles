@@ -58,11 +58,20 @@ alias q='_() { q=${1:-$(xsel -op)}; '$opener' "https://duckduckgo.com/?q=${q}"; 
 alias :q='exit'
 alias :e='$EDITOR'
 
-# Git status
+# Git
 alias gs='git status'
-alias gc='git commit'
 alias gd='git diff'
 alias gds='git diff --staged'
+
+alias ga='git add'
+alias gc='git commit'
+
+alias gp='git pull'
+alias gf='git fetch'
+
+alias gl='git log'
+alias glo='git lo'
+alias gla='git loa'
 
 # Read errors from stdin into a scratch buffer and load into quickfix list
 alias quickfix='vim +"set bt=nofile" +cbuffer -'
