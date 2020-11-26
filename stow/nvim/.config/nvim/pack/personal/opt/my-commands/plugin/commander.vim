@@ -1,12 +1,16 @@
 """ Buffers
     command! -bang BufOnly %bd<bang>|e#|bd#
-    command! -nargs=? -complete=filetype Scratch new
-        \ | setlocal buftype=nofile bufhidden=hide noswapfile
-        \ | let &ft = <q-args>
+
+    function s:scratch(ft, mods)
+        let ft = a:ft != '' ? a:ft : &ft
+        execute a:mods =~ 'vertical' ? 'vnew' : 'new'
+        let &ft = ft
+        setlocal buftype=nofile bufhidden=hide noswapfile
+    endfunction
+    command! -nargs=? -complete=filetype Scratch call s:scratch(<q-args>, '<mods>')
 
 """ Workspaces
-    command! -nargs=1 -complete=dir WorkOn
-        \ tabnew | lcd <args>
+    command! -nargs=1 -complete=dir WorkOn tabnew | lcd <args>
 
 """ Read errorfile
     command! Cfile if !bufexists("[Command Line]")
@@ -56,35 +60,22 @@
     command! -nargs=1 -complete=compiler CompileWith call compiler#with(<f-args>)
 
 """ Edit my filetype/syntax plugin files for current filetype.
-    command! -nargs=? -complete=compiler EditCompiler
-        \ exe 'keepj edit $HOME/.config/nvim/after/compiler/'
-        \ . (empty(<q-args>) ? compiler#which() : <q-args>)
-        \ . '.vim'
+    function s:edit_settings(type, selected)
+        let defaults = {
+        \   'compiler': compiler#which(),
+        \   'colors': g:colors_name,
+        \}
+        let selected = empty(a:selected) ? get(defaults, a:type, &ft) : a:selected
 
-    command! -nargs=? -complete=filetype EditFtplugin
-        \ exe 'keepj edit $HOME/.config/nvim/after/ftplugin/'
-        \ . (empty(<q-args>) ? &filetype : <q-args>)
-        \ . '.vim'
+        exe 'keepj edit $HOME/.config/nvim/after/'.a:type.'/'.selected.'.vim'
+    endfunction
 
-    command! -nargs=? -complete=filetype EditFtdetect
-        \ exe 'keepj edit $HOME/.config/nvim/after/ftdetect/'
-        \ . (empty(<q-args>) ? &filetype : <q-args>)
-        \ . '.vim'
-
-    command! -nargs=? -complete=filetype EditSyntax
-        \ exe 'keepj edit $HOME/.config/nvim/after/syntax/'
-        \ . (empty(<q-args>) ? &filetype : <q-args>)
-        \ . '.vim'
-
-    command! -nargs=? -complete=filetype EditIndent
-        \ exe 'keepj edit $HOME/.config/nvim/after/indent/'
-        \ . (empty(<q-args>) ? &filetype : <q-args>)
-        \ . '.vim'
-
-    command! -nargs=? -complete=color EditColorscheme
-        \ execute 'keepj edit $HOME/.config/nvim/after/colors/'
-        \ . (empty(<q-args>) ? g:colors_name : <q-args>)
-        \ . '.vim'
+    command! -nargs=? -complete=compiler EditCompiler call s:edit_settings('compiler', <q-args>)
+    command! -nargs=? -complete=filetype EditFtplugin call s:edit_settings('ftplugin', <q-args>)
+    command! -nargs=? -complete=filetype EditFtdetect call s:edit_settings('ftdetect', <q-args>)
+    command! -nargs=? -complete=filetype EditSyntax call s:edit_settings('syntax', <q-args>)
+    command! -nargs=? -complete=filetype EditIndent call s:edit_settings('indent', <q-args>)
+    command! -nargs=? -complete=color EditColorscheme call s:edit_settings('colors', <q-args>)
 
 """ Run lines with interpreter
     command! -range Run execute '<line1>,<line2>w !'.get(b:, 'interpreter', 'cat')
@@ -110,20 +101,6 @@
         \| call jobstart(['git', 'ctags']) | else
         \| echo "'".getcwd()."' is not a git repository. Can only run Ctags from within a git repository." | endif
 
-    " Show a diff for the current file
-    command! -range Modified
-        \ let modified = system(
-        \ "git -C " . shellescape(expand('%:p:h'))
-        \ . " diff -- " . expand('%:t')
-        \ ) | echo modified
-
-    " Show the state of the current file on HEAD
-    command! -range Before
-        \ let content = system(
-        \ "git -C " . shellescape(expand('%:p:h'))
-        \ . " show HEAD:./" . expand('%:t')
-        \ ) | echo content
-
     function s:local_revisions(arglead, cmdline, curpos)
         return systemlist('git -C ' . shellescape(expand('%:p:h')) . ' log --format=%h\ %s\ \(%ar\)')
     endfunction
@@ -132,24 +109,29 @@
         return systemlist('git -C ' . shellescape(getcwd()) . ' log --format=%h\ %s\ \(%ar\)')
     endfunction
 
-    command! -nargs=? -complete=customlist,<SID>local_revisions ChangeSplit
-        \ let ft = &ft
-        \| let ref = (<q-args> != '' ? split(<q-args>)[0] : 'HEAD')
-        \| let commit = (<q-args> != '' ? <q-args> : 'HEAD')
-        \| let content = systemlist('git -C ' . shellescape(expand('%:p:h')) . ' show '.ref.':./' . expand('%:t'))
-        \| mark Z
-        \| topleft vnew | call append(0, content) | $delete
-        \| execute 'file '.commit | set buftype=nofile | set bufhidden=wipe | set nobuflisted | set noswapfile | let &ft=ft
-        \| nnoremap <buffer> q :q<CR>`Z
-        \| diffthis | wincmd p | diffthis | wincmd p
+    function s:load_diff_in_split(revision)
+        let ft = &ft
+        let ref = (a:revision != '' ? split(a:revision)[0] : 'HEAD')
+        let commit = (a:revision != '' ? a:revision : 'HEAD')
+        let content = systemlist('git -C ' . shellescape(expand('%:p:h')) . ' show '.ref.':./' . expand('%:t'))
+        mark Z
+        topleft vnew | call append(0, content) | $delete
+        execute 'file '.commit | set buftype=nofile | set bufhidden=wipe | set nobuflisted | set noswapfile | let &ft=ft
+        nnoremap <buffer> q :q<CR>`Z
+        diffthis | wincmd p | diffthis | wincmd p
+    endfunction
 
-    command! -nargs=? -complete=customlist,<SID>local_revisions ChangePatch
-        \ let ref = (<q-args> != '' ? split(<q-args>)[0] : 'HEAD')
-        \| let commit = (<q-args> != '' ? <q-args> : 'HEAD')
-        \| let content = systemlist('git -C ' . shellescape(expand('%:p:h')) . ' diff '.ref.' -- ' . expand('%:t'))
-        \| enew | call append(0, content) | $delete
-        \| execute 'file '.commit | set buftype=nofile | set bufhidden=wipe | set nobuflisted | set noswapfile | set ft=diff
-        \| nnoremap <buffer> q :b#<CR> | wincmd p
+    function s:load_patch(revision)
+        let ref = (a:revision != '' ? split(a:revision)[0] : 'HEAD')
+        let commit = (a:revision != '' ? a:revision : 'HEAD')
+        let content = systemlist('git -C ' . shellescape(expand('%:p:h')) . ' diff '.ref.' -- ' . expand('%:t'))
+        enew | call append(0, content) | $delete
+        execute 'file '.commit | set buftype=nofile | set bufhidden=wipe | set nobuflisted | set noswapfile | set ft=diff
+        nnoremap <buffer> q :b#<CR> | wincmd p
+    endfunction
+
+    command! -nargs=? -complete=customlist,s:local_revisions ChangeSplit call s:load_diff_in_split(<q-args>)
+    command! -nargs=? -complete=customlist,s:local_revisions ChangePatch call s:load_patch(<q-args>)
 
     function s:set_changed_args()
         let cwd = getcwd()
@@ -170,7 +152,7 @@
         endfor
     endfunction
 
-    command ChangedFiles :call <SID>set_changed_args()
+    command ChangedFiles :call s:set_changed_args()
 
 """ Searching
     " Search locally in the buffer and put results in the loclist.
