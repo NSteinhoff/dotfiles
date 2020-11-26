@@ -34,7 +34,6 @@ local function set_keymaps()
     -- Get help
     nnoremap('<space>', '<cmd>lua vim.lsp.buf.hover()<CR>')
     inoremap('<c-h>', '<cmd>lua vim.lsp.buf.hover()<CR>')
-    nnoremap('gh', '<cmd>lua vim.lsp.buf.hover()<CR>')
     nnoremap('<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
     inoremap('<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 
@@ -53,6 +52,7 @@ local function set_keymaps()
     -- Moving through errors
     nnoremap(']g', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
     nnoremap('[g', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
+    nnoremap('gh', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
     nnoremap('gO', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
 
     -- Code actions, i.e. do stuff
