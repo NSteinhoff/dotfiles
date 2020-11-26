@@ -72,6 +72,7 @@
 
 
 " --------------------------------- Plugins -----------------------------------
+    if exists('g:vscode') | finish | endif
     packloadall     " load all default packages in 'start'
 
 """ Personal

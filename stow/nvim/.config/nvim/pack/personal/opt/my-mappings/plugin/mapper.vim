@@ -156,7 +156,7 @@ augroup END
         \ (finddir('.git', ';') != '' ? ':GitGrep' :
         \           (executable('rg') ? ':RipGrep' :
         \                               ':Grep'))
-        \ .' '. expand('<cword>').' <CR>'
+        \ .' '. expand('<cword>').'<CR>'
     vnoremap <silent> <expr> <Leader>g
         \ 'y'.
         \ (finddir('.git', ';') != '' ? ':GitGrep' :
@@ -188,7 +188,7 @@ augroup END
     nnoremap <Leader>f :Format<CR>
 
     " Switch buffers
-    nnoremap <expr> <Leader>b exists(':Buffers') ? ':Buffers<CR>' : ':buffer <C-Z>'
+    nnoremap <expr> <Leader>b :buffer <C-Z>
     nnoremap <Leader>v :vert sbuffer <C-Z>
     nnoremap <Leader>t :tab sbuffer <C-Z>
 

@@ -90,56 +90,60 @@
     command! -range Run execute '<line1>,<line2>w !'.get(b:, 'interpreter', 'cat')
 
 """ Git
-    command! -nargs=+ GitGrep cexpr! system('git grep -n '.<q-args>)
-        \| Quickfix
+    " Show the commits that modified the selected lines
     command! -range -bang ButWhy
         \ echo system(
         \ "git -C " . shellescape(expand('%:p:h'))
         \ . " log -L <line1>,<line2>:" . expand('%:t')
         \ . (<q-bang> != '!' ? ' --no-patch --oneline' : '')
         \ )
+
+    " Show the author who last changed the selected line
     command! -range Blame
         \ echo system(
         \ "git -C " . shellescape(expand('%:p:h'))
         \ . " blame -L <line1>,<line2> " . expand('%:t')
         \ )
-    command! -bar -nargs=+ Jump
-        \ cexpr! system('git jump ' . expand(<q-args>))
-        \| Quickfix
+
+    " Regenerate the git ctags kept under .git/tags
     command! Ctags if finddir('.git', ';') != ''
         \| call jobstart(['git', 'ctags']) | else
         \| echo "'".getcwd()."' is not a git repository. Can only run Ctags from within a git repository." | endif
+
+    " Show a diff for the current file
     command! -range Modified
         \ let modified = system(
         \ "git -C " . shellescape(expand('%:p:h'))
         \ . " diff -- " . expand('%:t')
         \ ) | echo modified
 
+    " Show the state of the current file on HEAD
     command! -range Before
         \ let content = system(
         \ "git -C " . shellescape(expand('%:p:h'))
         \ . " show HEAD:./" . expand('%:t')
         \ ) | echo content
 
-    function LocalRevisions(arglead, cmdline, curpos)
+    function s:local_revisions(arglead, cmdline, curpos)
         return systemlist('git -C ' . shellescape(expand('%:p:h')) . ' log --format=%h\ %s\ \(%ar\)')
     endfunction
 
-    function GlobalRevisions(arglead, cmdline, curpos)
+    function s:global_revisions(arglead, cmdline, curpos)
         return systemlist('git -C ' . shellescape(getcwd()) . ' log --format=%h\ %s\ \(%ar\)')
     endfunction
 
-    command! -nargs=? -complete=customlist,LocalRevisions ChangeSplit
+    command! -nargs=? -complete=customlist,<SID>local_revisions ChangeSplit
         \ let ft = &ft
         \| let ref = (<q-args> != '' ? split(<q-args>)[0] : 'HEAD')
         \| let commit = (<q-args> != '' ? <q-args> : 'HEAD')
         \| let content = systemlist('git -C ' . shellescape(expand('%:p:h')) . ' show '.ref.':./' . expand('%:t'))
+        \| mark Z
         \| topleft vnew | call append(0, content) | $delete
         \| execute 'file '.commit | set buftype=nofile | set bufhidden=wipe | set nobuflisted | set noswapfile | let &ft=ft
-        \| nnoremap <buffer> q :q<CR>
-        \| diffthis | wincmd p | diffthis
+        \| nnoremap <buffer> q :q<CR>`Z
+        \| diffthis | wincmd p | diffthis | wincmd p
 
-    command! -nargs=? -complete=customlist,LocalRevisions ChangePatch
+    command! -nargs=? -complete=customlist,<SID>local_revisions ChangePatch
         \ let ref = (<q-args> != '' ? split(<q-args>)[0] : 'HEAD')
         \| let commit = (<q-args> != '' ? <q-args> : 'HEAD')
         \| let content = systemlist('git -C ' . shellescape(expand('%:p:h')) . ' diff '.ref.' -- ' . expand('%:t'))
@@ -171,9 +175,8 @@
 """ Searching
     " Search locally in the buffer and put results in the loclist.
     command! -nargs=+ Vimgrep execute 'lvimgrep /' . <q-args> . '/j ' . expand('%')
-
     command! -nargs=+ Grep cexpr system('grep -n -r '.<q-args>.' .')
-
+    command! -nargs=+ GitGrep cexpr system('git grep -n '.<q-args>)
     if executable('rg')
         command! -nargs=+ RipGrep cexpr system('rg --vimgrep --smart-case '.<q-args>)
     endif

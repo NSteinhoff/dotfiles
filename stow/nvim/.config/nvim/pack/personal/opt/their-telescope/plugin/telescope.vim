@@ -24,6 +24,7 @@ command History lua require'telescope.builtin'.command_history{}<CR>
 command Buffers lua require'telescope.builtin'.buffers{ shorten_path = true }<CR>
 command Commits lua require'telescope.builtin'.git_commits{}<CR>
 command BCommits lua require'telescope.builtin'.git_bcommits{}<CR>
+command Branches lua require'telescope.builtin'.git_branches{}<CR>
 command Help lua require'telescope.builtin'.help_tags{}<CR>
 command Treesitter lua require'telescope.builtin'.treesitter{}<CR>
 

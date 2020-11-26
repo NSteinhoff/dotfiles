@@ -20,10 +20,8 @@ augroup user-errorfiles
     " Only update if the file is newer than the quickfix list.
     autocmd CursorHold *
         \ if !bufexists("[Command Line]")
-        \ && &filetype != ''
-        \ && &filetype != 'qf'
-        \ && &filetype != 'TelescopePrompt'
-        \ && getqflist({'title': 1}).title =~ ':c\(get\)\?file\|'
+        \ && get(b:, 'current_compiler', get(g:, 'current_compiler', 'NONE')) != 'NONE'
+        \ && (getqflist({'title': 1}).title =~ ':c\(get\)\?file' || getqflist({'title': 1}).title == '')
         \ && findfile(&errorfile) != ''
         \ && getftime(&errorfile) > get(g:, 'cfile_updated', 0)
         \|cgetfile|let g:cfile_updated=localtime()

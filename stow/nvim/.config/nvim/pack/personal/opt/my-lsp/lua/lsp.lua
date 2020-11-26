@@ -46,9 +46,6 @@ local function set_keymaps()
     nnoremap('gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 
     -- Listing symbols
-    -- nnoremap('gr', '<cmd>lua require"telescope.builtin".lsp_references{}<CR>')
-    -- nnoremap('gO', '<cmd>lua require"telescope.builtin".lsp_document_symbols{}<CR>')
-    -- nnoremap('gW', '<cmd>lua require"telescope.builtin".lsp_workspace_symbols{}<CR>')
     nnoremap('gr', '<cmd>lua vim.lsp.buf.references()<CR>')
     nnoremap('gs', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
     nnoremap('gS', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
@@ -64,6 +61,8 @@ local function set_keymaps()
 end
 
 local function set_commands()
+    commander('LspClients', 'lua require"lsp".print_clients()')
+
     -- Inspect Client
     commander('LspClientInfo', 'lua print(vim.inspect(vim.lsp.get_active_clients()))')
     commander('LspStopClients', 'lua vim.lsp.stop_client(vim.lsp.get_active_clients())')
@@ -96,6 +95,7 @@ local function on_attach(client)
     set_commands()
     set_options()
     set_autocmds()
+    require'my_completion'.on_attach()
 end
 
 
@@ -110,10 +110,10 @@ lspconfig.rust_analyzer.setup({
 -- Handlers
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
-        -- Enable signs
         signs = true,
-        -- Disable the virtual text
+        underline = true,
         virtual_text = false,
+        update_in_insert = false,
     }
 )
 
@@ -124,8 +124,8 @@ local M = {}
 
 local function clients()
     local results = {}
-    for i,c in ipairs(vim.lsp.buf_get_clients()) do
-        results[i] = c.name
+    for i,c in pairs(vim.lsp.buf_get_clients()) do
+        table.insert(results, c.name)
     end
     return results
 end
@@ -148,8 +148,8 @@ local function long_indicator()
 end
 
 function M.print_clients()
-    for _,c in ipairs(vim.lsp.buf_get_clients()) do
-        print(c.name)
+    for _,c in pairs(clients()) do
+        print(c)
     end
 end
 
@@ -160,7 +160,5 @@ end
 my_lsp = {
     status = M.status,
 }
-
-commander('LspClients', 'lua require"lsp".print_clients()')
 
 return M
