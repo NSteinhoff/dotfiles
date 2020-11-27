@@ -149,7 +149,7 @@ unnvim:
 	rm -rf $(nvim_bin)
 .PHONY: unnvim
 
-$(nvim_bin):
+$(nvim_bin): | bin
 	curl -fsSL $(nvim_url) -o $@
 	chmod u+x $@
 
@@ -170,7 +170,7 @@ unfff:
 	mandb
 .PHONY: unfff
 
-$(fff_bin): $(fff_src)
+$(fff_bin): $(fff_src) | bin
 	install $</fff $@
 
 $(fff_man): $(fff_src)
@@ -183,3 +183,8 @@ $(fff_src): $(fff_tar)
 
 $(fff_tar):
 	curl -sSfL $(fff_url) -o $@
+
+
+# ----------------------------------- Bin -------------------------------------
+bin:
+	mkdir -p $(bin)

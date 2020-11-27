@@ -7,6 +7,8 @@ stty -ixon
 HISTSIZE=100000
 HISTFILESIZE=200000
 
+export PATH="~/.local/bin:$PATH"
+
 _clean_history() {
   # history -n has to be there before history -w to read from
   # .bash_history the commands saved from any other terminal,
@@ -143,10 +145,10 @@ which fff &>/dev/null && alias f='_() {
 # ------------------------------- Directories ---------------------------------
 alias gopacks='cd ~/dev/dotfiles/stow/nvim/.config/nvim/pack/external/opt'
 alias mypacks='cd ~/dev/dotfiles/stow/nvim/.config/nvim/pack/personal/opt'
-export CDPATH=~/.config:~/dev:~/dev/s2
+export CDPATH=~/.config:~/dev:~/dev/s2:~/Development
 
 # ---------------------------------- direnv -----------------------------------
 which direnv &>/dev/null && eval "$(direnv hook bash)"
 
 # --------------------------------- GREETING ----------------------------------
-[[ ${PWD} == ${HOME} && ${os} == linux ]] && greeting
+# [[ ${PWD} == ${HOME} && ${os} == linux ]] && greeting
