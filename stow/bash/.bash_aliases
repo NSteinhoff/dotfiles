@@ -16,7 +16,7 @@ _clean_history() {
   history -r            # Read history from $HISTFILE
 }
 
-# export PROMPT_COMMAND="_clean_history;$PROMPT_COMMAND"
+export PROMPT_COMMAND="_clean_history;$PROMPT_COMMAND"
 shopt -s histappend
 
 # Set Vim as default editor
@@ -59,19 +59,7 @@ alias :q='exit'
 alias :e='$EDITOR'
 
 # Git
-alias gs='git status'
-alias gd='git diff'
-alias gds='git diff --staged'
-
-alias ga='git add'
-alias gc='git commit'
-
-alias gp='git pull'
-alias gf='git fetch'
-
-alias gl='git log'
-alias glo='git lo'
-alias gla='git loa'
+alias g='git status'
 
 # Read errors from stdin into a scratch buffer and load into quickfix list
 alias quickfix='vim +"set bt=nofile" +cbuffer -'
