@@ -47,7 +47,8 @@ augroup END
     cnoremap <C-A> <Home>
     cnoremap <C-E> <End>
 
-""" Quickly close a window
+""" Windows
+    " Quickly close a window
     nnoremap Q :close<CR>
 
 
@@ -187,7 +188,7 @@ augroup END
     nnoremap <Leader>f :Format<CR>
 
     " Switch buffers
-    nnoremap <expr> <Leader>b :buffer <C-Z>
+    nnoremap <Leader>b :buffer <C-Z>
     nnoremap <Leader>v :vert sbuffer <C-Z>
     nnoremap <Leader>t :tab sbuffer <C-Z>
 

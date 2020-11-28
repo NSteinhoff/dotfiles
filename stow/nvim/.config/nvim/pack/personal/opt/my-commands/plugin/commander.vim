@@ -101,12 +101,16 @@
         \| call jobstart(['git', 'ctags']) | else
         \| echo "'".getcwd()."' is not a git repository. Can only run Ctags from within a git repository." | endif
 
-    function s:local_revisions(arglead, cmdline, curpos)
+    function s:local_revisions(...)
         return systemlist('git -C ' . shellescape(expand('%:p:h')) . ' log --format=%h\ %s\ \(%ar\)')
     endfunction
 
-    function s:global_revisions(arglead, cmdline, curpos)
+    function s:global_revisions(...)
         return systemlist('git -C ' . shellescape(getcwd()) . ' log --format=%h\ %s\ \(%ar\)')
+    endfunction
+
+    function s:file_revisions(...)
+        return systemlist('git -C ' . shellescape(expand('%:p:h')) . ' log --no-patch --format=%h\ %s\ \(%ar\) -- ' . expand('%:t'))
     endfunction
 
     function s:load_diff_in_split(revision)
@@ -130,8 +134,9 @@
         nnoremap <buffer> q :b#<CR> | wincmd p
     endfunction
 
-    command! -nargs=? -complete=customlist,s:local_revisions ChangeSplit call s:load_diff_in_split(<q-args>)
-    command! -nargs=? -complete=customlist,s:local_revisions ChangePatch call s:load_patch(<q-args>)
+    command! Timeline echo join(s:file_revisions(), "\n")
+    command! -nargs=? -complete=customlist,s:file_revisions ChangeSplit call s:load_diff_in_split(<q-args>)
+    command! -nargs=? -complete=customlist,s:file_revisions ChangePatch call s:load_patch(<q-args>)
 
     function s:set_changed_args()
         let cwd = getcwd()
