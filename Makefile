@@ -37,14 +37,14 @@ ifeq ($(uname), Darwin)
     stowtargets += $(filter %-mac, $(stowlist))
 endif
 
-stow: pkg-stow
-	stow $(stowtargets)
+stow: install-stow
+	stow -vvv $(stowtargets)
 .PHONY: stow
 
-unstow: pkg-stow
+unstow: install-stow
 	stow -D $(stowtargets)
 .PHONY: unstow
-
+	
 
 # --------------------------------- Packages ----------------------------------
 ifeq ($(uname), Linux)
@@ -63,6 +63,11 @@ ifeq ($(uname), Darwin)
 	brew tap universal-ctags/universal-ctags
 	brew install --head universal-ctags
 endif
+
+install-stow: .stamps/stow-installed
+.stamps/stow-installed: | .stamps/
+	$(install) stow
+	@touch $@
 
 pkg-%: special-treatment
 	$(install) $*
@@ -188,3 +193,6 @@ $(fff_tar):
 # ----------------------------------- Bin -------------------------------------
 bin:
 	mkdir -p $(bin)
+
+.stamps/:
+	mkdir -p .stamps
