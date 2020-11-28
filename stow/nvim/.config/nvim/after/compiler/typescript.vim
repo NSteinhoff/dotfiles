@@ -11,8 +11,15 @@ let rcfile = findfile('tsconfig.json', ",.;$HOME")
 
 if rcfile != ''
     let project_root = fnamemodify(rcfile, ":h")
-    execute 'CompilerSet makeprg=npx\ tsc\ --build\ '.project_root.'\ $*'
+    execute 'CompilerSet makeprg=yarn\ tsc\ --build\ '.project_root.'\ $*'
 else
-    CompilerSet makeprg=npx\ tsc\ --build\ $*
+    CompilerSet makeprg=yarn\ tsc\ --build\ $*
 endif
-CompilerSet errorformat=%+A\ %#%f\ %#(%l\\\,%c):\ %m,%C%m
+CompilerSet errorformat=
+            \%-GDone%.%#,
+            \%-G$\ %.%#,
+            \%-Gyarn\ run%.%#,
+            \%-Gerror\ Command\ failed%.%#,
+            \%-Ginfo\ Visit%.%#,
+            \%+A\ %#%f\ %#(%l\\,%c):\ %m,
+            \%C\ %#%m,
