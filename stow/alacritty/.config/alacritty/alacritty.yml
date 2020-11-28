@@ -362,7 +362,7 @@
 #   args:
 #     - --login
 shell:
-  program: /usr/bin/tmux
+  program: /usr/local/bin/tmux
   args:
     - new-session
     - -A
