@@ -19,6 +19,7 @@
     prull   = !git fetch --prune && git pull --ff-only
     declutter = !git fetch --prune && git checkout master && git branch --merged | grep -v '\\*\\|master' | xargs git branch -d
     review  = diff origin/master...HEAD
+    watch   = !git ls-files | entr
 [color]
     pager = true
     ui = auto
