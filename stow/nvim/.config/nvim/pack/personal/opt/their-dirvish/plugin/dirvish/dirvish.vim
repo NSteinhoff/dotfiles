@@ -1,5 +1,5 @@
 packadd vim-dirvish
-packadd vim-dirvish-git
+" packadd vim-dirvish-git
 
 command! -nargs=? -complete=dir Explore Dirvish <args>
 command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
