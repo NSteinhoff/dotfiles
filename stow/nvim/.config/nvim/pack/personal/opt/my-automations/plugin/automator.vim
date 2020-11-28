@@ -34,10 +34,10 @@ augroup user-automake
     let g:automake = 1
     autocmd!
     if exists(":Format")
-        autocmd BufWritePre  * if get(g:, 'automake', 0) && get(b:, 'format_on_write', 0) | Format | endif
+        autocmd BufWritePre  * if get(g:, 'automake', 0) && get(b:, 'format_on_write', 0) | silent Format | endif
     endif
     if exists(":Make")
-        autocmd BufWritePost * if get(g:, 'automake', 0) && get(b:, 'make_on_write', 0)   | Make | endif
+        autocmd BufWritePost * if get(g:, 'automake', 0) && get(b:, 'make_on_write', 0)   | silent Make | endif
     endif
 augroup END
 

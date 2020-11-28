@@ -10,8 +10,8 @@ require'nvim-treesitter.configs'.setup {
         keymaps = {
             init_selection = "gnn",
             node_incremental = "grn",
-            scope_incremental = "grc",
             node_decremental = "grm",
+            scope_incremental = "grc",
         },
     },
     textobjects = {

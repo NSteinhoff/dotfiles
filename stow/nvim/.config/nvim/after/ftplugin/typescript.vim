@@ -6,5 +6,5 @@ if exists(':DD')
     setlocal keywordprg=:DD
 endif
 
-let b:format_on_write = 0
+let b:format_on_write = 1
 let b:make_on_write = 0

@@ -38,7 +38,7 @@ local function set_keymaps()
     inoremap('<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 
     -- Jump to symbols
-    -- nnoremap('<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
+    nnoremap('<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
     nnoremap('gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
     nnoremap('gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
     nnoremap('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
@@ -56,8 +56,8 @@ local function set_keymaps()
     nnoremap('gO', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
 
     -- Code actions, i.e. do stuff
-    nnoremap('dc', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-    nnoremap('dr', '<cmd>lua vim.lsp.buf.rename()<CR>')
+    nnoremap('dca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+    nnoremap('dcr', '<cmd>lua vim.lsp.buf.rename()<CR>')
 end
 
 local function set_commands()
