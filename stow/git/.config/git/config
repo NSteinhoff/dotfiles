@@ -18,6 +18,8 @@
     ctags   = !.git/hooks/ctags
     prull   = !git fetch --prune && git pull --ff-only
     declutter = !git fetch --prune && git checkout master && git branch --merged | grep -v '\\*\\|master' | xargs git branch -d
+    subdate = submodule foreach 'git clean -f && git fetch && git checkout origin/master'
+    subclean = submodule foreach 'git clean -f'
     review  = diff origin/master...HEAD
     watch   = !git ls-files | entr
 [color]
