@@ -1,9 +1,12 @@
+setlocal spell
+setlocal wrap
+
 function s:toggle_completed(lnum)
     let text = getline(a:lnum)
     if text =~ '^\s*(x)'
-        execute a:lnum.'s$^\s*(x)$(/)'
+        execute a:lnum.'s$^\(\s*\)(x)$\1(/)'
     elseif text =~ '^\s*(/)'
-        execute a:lnum.'s$^\s*(/)$(x)'
+        execute a:lnum.'s$^\(\s*\)(/)$\1(x)'
     endif
 endfunction
 
@@ -16,7 +19,7 @@ function s:toggle_strikethrough(lnum)
     endif
 endfunction
 
-nnoremap <buffer> <space> :call <SID>toggle_completed(line('.'))<CR>
-nnoremap <buffer> <BS> :call <SID>toggle_strikethrough(line('.'))<CR>
-vnoremap <buffer> <space> :call <SID>toggle_completed(line('.'))<CR>
-vnoremap <buffer> <BS> :call <SID>toggle_strikethrough(line('.'))<CR>
+nnoremap <buffer> <silent> <space> :call <SID>toggle_completed(line('.'))<CR>
+nnoremap <buffer> <silent> <BS> :call <SID>toggle_strikethrough(line('.'))<CR>
+vnoremap <buffer> <silent> <space> :call <SID>toggle_completed(line('.'))<CR>
+vnoremap <buffer> <silent> <BS> :call <SID>toggle_strikethrough(line('.'))<CR>
