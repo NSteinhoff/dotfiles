@@ -1,5 +1,4 @@
 " any.vim
-source ~/.vimrc
 
 set guioptions-=m               " no menubar
 set guioptions-=T               " no toolbar
