@@ -90,6 +90,8 @@
     packadd! their-telescope            " fuzzy finder / picker
     packadd! their-dirvish              " file manager
 
+    packadd! vim-gtfo
+
     packadd! editorconfig-vim           " ft settings based on local config
     packadd! vim-unimpaired             " bunch of mappings
 
