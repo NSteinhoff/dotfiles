@@ -100,19 +100,19 @@ end
 
 
 local lspconfig = require('lspconfig')
-lspconfig.tsserver.setup({
-    on_attach = on_attach,
-})
-lspconfig.rust_analyzer.setup({
-    on_attach = on_attach,
-})
+local servers = {'tsserver', 'rust_analyzer'}
+for _, server in ipairs(servers) do
+    lspconfig[server].setup({
+        on_attach = on_attach,
+    })
+end
 
 -- Handlers
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
         signs = true,
         underline = true,
-        virtual_text = false,
+        virtual_text = true,
         update_in_insert = false,
     }
 )
