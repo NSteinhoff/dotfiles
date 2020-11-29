@@ -87,17 +87,22 @@
     " packadd! my-pomodoro
 
 """ External
+    " Finding / picking files
     packadd! their-telescope            " fuzzy finder / picker
     packadd! their-dirvish              " file manager
     packadd! vim-gtfo
-    packadd! neoranger
 
-    packadd! editorconfig-vim           " ft settings based on local config
-    packadd! vim-unimpaired             " bunch of mappings
+    " Mappings and commands
+    packadd! vim-unimpaired
+    packadd! vim-eunuch
+    packadd! vim-commentary
 
+    " Help / Docs
     packadd! vim-devdocs                " open devdocs.io
 
     " Filetypes / Syntax / Indent
+    packadd! editorconfig-vim           " ft settings based on local config
+
     packadd! python-syntax
     packadd! vim-python-pep8-indent
     packadd! vim-jsx-pretty
