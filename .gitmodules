@@ -73,3 +73,6 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/neoranger"]
 	path = stow/nvim/.config/nvim/pack/external/opt/neoranger
 	url = git@github.com:Lokaltog/neoranger.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-commentary"]
+	path = stow/nvim/.config/nvim/pack/external/opt/vim-commentary
+	url = git@github.com:tpope/vim-commentary.git
