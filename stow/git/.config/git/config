@@ -4,24 +4,22 @@
 [push]
     default = current
 [alias]
-    lo      = log --graph --decorate --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'
-    loa     = log --graph --decorate --all --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'
-    lf      = log --graph --decorate --date=short --format='%C(auto)%h%d %s %C(green)(%cd) %C(blue)<%an>%Creset'
-    lfa     = log --graph --decorate --all --date=short --format='%C(auto)%h%d %s %C(green)(%cd) %C(blue)<%an>%Creset'
-    lol     = log --graph --decorate --pretty=oneline --abbrev-commit
-    lola    = log --graph --decorate --pretty=oneline --abbrev-commit --all
-    diffw   = diff --color-words
-    di      = diff
-    dis     = diff --staged
-    stl     = !git --no-pager stash list
-    brl     = !git --no-pager branch --list
-    ctags   = !.git/hooks/ctags
-    prull   = !git fetch --prune && git pull --ff-only
-    declutter = !git fetch --prune && git checkout master && git branch --merged | grep -v '\\*\\|master' | xargs git branch -d
-    subdate = submodule foreach 'git clean -f && git fetch && git checkout origin/master'
-    subclean = submodule foreach 'git clean -f'
-    review  = diff origin/master...HEAD
-    watch   = !git ls-files | entr
+    lo          = log --graph --decorate --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'
+    loa         = log --graph --decorate --all --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'
+    lf          = log --graph --decorate --date=short --format='%C(auto)%h%d %s %C(green)(%cd) %C(blue)<%an>%Creset'
+    lfa         = log --graph --decorate --all --date=short --format='%C(auto)%h%d %s %C(green)(%cd) %C(blue)<%an>%Creset'
+    di          = diff
+    dis         = diff --staged
+    diffw       = diff --color-words
+    stashes     = !git --no-pager stash list
+    branches    = !git --no-pager branch --list
+    prull       = !git fetch --prune && git pull --ff-only
+    pristine    = !git fetch --prune && git checkout master && git pull --ff-only && git branch --merged | grep -v '\\*\\|master' | xargs git branch -d
+    review      = diff origin/master...HEAD
+    ctags       = !.git/hooks/ctags
+    watch       = !git ls-files | entr
+    subdate     = submodule update --remote --checkout
+    subclean    = submodule foreach 'git clean -f'
 [color]
     pager = true
     ui = auto
