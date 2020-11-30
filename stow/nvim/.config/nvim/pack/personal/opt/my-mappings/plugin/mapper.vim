@@ -1,9 +1,11 @@
-augroup CR_BS_SANITIZER
+augroup SANITIZER
     autocmd!
     autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
     autocmd CmdwinEnter * nnoremap <buffer> <BS> <BS>
+    autocmd CmdwinEnter * nnoremap <buffer> <SPACE> <SPACE>
     autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
     autocmd BufReadPost quickfix nnoremap <buffer> <BS> <BS>
+    autocmd BufReadPost quickfix nnoremap <buffer> <SPACE> <SPACE>
 augroup END
 
 
