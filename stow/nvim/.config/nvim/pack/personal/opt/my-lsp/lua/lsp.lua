@@ -100,7 +100,7 @@ end
 
 
 local lspconfig = require('lspconfig')
-local servers = {'tsserver', 'rust_analyzer'}
+local servers = {'tsserver', 'rls'}
 for _, server in ipairs(servers) do
     lspconfig[server].setup({
         on_attach = on_attach,

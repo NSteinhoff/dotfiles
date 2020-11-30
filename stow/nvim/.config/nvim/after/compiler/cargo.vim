@@ -6,8 +6,9 @@
 if exists('current_compiler') && current_compiler == 'cargo'
     " Parse test output failures
     " Ignore additional error details
-    CompilerSet errorformat+=
+    CompilerSet errorformat^=
                 \test\ %f\ -\ %m\ (line\ %l)\ ...\ FAILED,
-                \%-G%.%#,
+                \%-Gwarning:\ %.%#emitted
+    CompilerSet errorformat+=%-G%.%#
     CompilerSet makeprg=cargo\ check\ $*
 endif
