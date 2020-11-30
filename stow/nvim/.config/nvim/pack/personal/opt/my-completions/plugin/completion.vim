@@ -21,10 +21,6 @@ let g:completion_chain_complete_list = {
 \       'string': [],
 \       'default': [
 \               {'complete_items': ['lsp']},
-\               {'complete_items': ['ts']},
-\               {'complete_items': ['tags']},
-\               {'mode': '<c-p>'},
-\               {'mode': '<c-n>'},
 \       ],
 \   }
 \}

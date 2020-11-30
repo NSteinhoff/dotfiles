@@ -2,8 +2,8 @@ local M = {}
 
 function M.on_attach()
     vim.cmd('packadd completion-nvim')
-    vim.cmd('packadd completion-tags')
-    vim.cmd('packadd completion-treesitter')
+    -- vim.cmd('packadd completion-tags')
+    -- vim.cmd('packadd completion-treesitter')
 
     require'completion'.on_attach()
 
@@ -17,7 +17,7 @@ function M.on_attach()
     vim.cmd('set shortmess+=c')
 
     -- Cycle completion sources
-    vim.cmd('imap <c-j> <Plug>(completion_next_source)')
+    -- vim.cmd('imap <c-j> <Plug>(completion_next_source)')
 
     -- Trigger completions with CTRL-SPACE
     vim.cmd('imap <c-space> <Plug>(completion_trigger)')
