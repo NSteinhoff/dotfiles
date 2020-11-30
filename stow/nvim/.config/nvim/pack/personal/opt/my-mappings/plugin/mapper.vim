@@ -128,6 +128,8 @@ augroup END
     if maparg('<C-SPACE>', 'i') == ''
         inoremap <C-SPACE> <C-X><C-]>
     endif
+    inoremap <expr> <Tab>   pumvisible() ? '<C-n>' : '<Tab>'
+    inoremap <expr> <S-Tab> pumvisible() ? '<C-p>' : '<S-Tab>'
 
 
 """ Quickopen
