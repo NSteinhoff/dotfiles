@@ -23,7 +23,7 @@ local function imap(lhs, rhs)
 end
 
 local function commander(cmd, action)
-    vim.cmd(':command! -buffer '..cmd..' '..action)
+    vim.cmd('command! -buffer '..cmd..' '..action)
 end
 
 local function setlocal(name, value)
@@ -70,6 +70,7 @@ local function set_commands()
     -- Code actions
     commander('CodeAction', 'lua vim.lsp.buf.code_action()')
     commander('CodeRename', 'lua vim.lsp.buf.rename()')
+    commander('CodeFormat', 'lua vim.lsp.buf.formatting()')
 
     -- Listings
     commander('References', 'lua vim.lsp.buf.references()')
@@ -100,7 +101,7 @@ end
 
 
 local lspconfig = require('lspconfig')
-local servers = {'tsserver', 'rls'}
+local servers = {'tsserver', 'rust_analyzer'}
 for _, server in ipairs(servers) do
     lspconfig[server].setup({
         on_attach = on_attach,
