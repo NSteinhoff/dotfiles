@@ -1,46 +1,46 @@
 local M = {}
 
+vim.cmd [[augroup user-completion]]
+vim.cmd [[autocmd!]]
+vim.cmd [[autocmd BufEnter * lua require('my_completion').on_attach()]]
+vim.cmd [[augroup END]]
+
 function M.on_attach()
     vim.cmd('packadd completion-nvim')
+    vim.cmd('packadd completion-treesitter')
     -- vim.cmd('packadd completion-tags')
-    -- vim.cmd('packadd completion-treesitter')
 
     require'completion'.on_attach()
 
-    -- Set completeopt to have a better completion experience
-    -- menuone:     always show the menu with the additional info
-    -- noinsert:    don't insert anything until I make a choice
-    -- noselect:    don't select anything until I make a choice
-    vim.cmd('set completeopt=menuone,noinsert,noselect')
+    vim.g.completion_auto_change_source = 1
+    vim.g.completion_enable_auto_popup = 0
+    vim.g.completion_chain_complete_list = {
+        default = {
+            comment = {},
+            string = {},
+            default = {
+                {complete_items = {'lsp'}},
+                {complete_items = {'ts'}},
+            }
+        }
+    }
 
-    -- Avoid showing message extra message when using completion
-    vim.cmd('set shortmess+=c')
+    vim.cmd('set completeopt=menuone,noinsert,noselect shortmess+=c')
+    vim.cmd('imap <buffer> <c-space> <Plug>(completion_trigger)')
+    vim.cmd('imap <buffer> <c-j> <Plug>(completion_next_source)')
 
-    -- Cycle completion sources
-    -- vim.cmd('imap <c-j> <Plug>(completion_next_source)')
-
-    -- Trigger completions with CTRL-SPACE
-    vim.cmd('imap <c-space> <Plug>(completion_trigger)')
-
-    if vim.g.my_completion_mode == 'smarttab' then
+    mode = 'smarttab'
+    if mode == 'smarttab' then
         vim.g.completion_enable_auto_popup = 1
-
-        -- Use <Tab> and <S-Tab> to navigate through popup menu and trigger completions
-        vim.cmd('imap <expr> <Tab>   pumvisible() ? "<C-n>" : "<Plug>(completion_smart_tab)"')
-        vim.cmd('imap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<Plug>(completion_smart_s_tab)"')
-
-    elseif vim.g.my_completion_mode == 'code' then
+        vim.cmd('imap <buffer> <expr> <Tab>   pumvisible() ? "<C-n>" : "<Plug>(completion_smart_tab)"')
+        vim.cmd('imap <buffer> <expr> <S-Tab> pumvisible() ? "<C-p>" : "<Plug>(completion_smart_s_tab)"')
+    elseif mode == 'code' then
         vim.g.completion_enable_auto_popup = 1
-
-        -- Select the first match to quickly advance by hitting <Tab>.
-        vim.cmd('set completeopt=menuone,noinsert')
-
-        -- Use <Tab> to confirm selection
-        vim.cmd('inoremap <expr> <Tab> pumvisible() ? "<C-y>" : "<Tab>"')
+        vim.cmd('set completeopt-=noselect')
+        vim.cmd('inoremap <buffer> <expr> <Tab> pumvisible() ? "<C-y>" : "<Tab>"')
     else
-        -- Use <Tab> and <S-Tab> to navigate through popup menu
-        vim.cmd('inoremap <expr> <Tab>   pumvisible() ? "<C-n>" : "<Tab>"')
-        vim.cmd('inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"')
+        vim.cmd('inoremap <buffer> <expr> <Tab>   pumvisible() ? "<C-n>" : "<Tab>"')
+        vim.cmd('inoremap <buffer> <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"')
     end
 end
 
