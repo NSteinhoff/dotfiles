@@ -76,3 +76,6 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/vim-commentary"]
 	path = stow/nvim/.config/nvim/pack/external/opt/vim-commentary
 	url = git@github.com:tpope/vim-commentary.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-styled-components"]
+	path = stow/nvim/.config/nvim/pack/external/opt/vim-styled-components
+	url = git@github.com:styled-components/vim-styled-components.git
