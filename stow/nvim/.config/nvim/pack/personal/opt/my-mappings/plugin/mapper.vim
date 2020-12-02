@@ -193,6 +193,7 @@ augroup END
 
     " Switch buffers
     nnoremap <Leader>b :buffer <C-Z>
+    if exists(':Buffers') | nnoremap <leader>B <cmd>Buffers<CR> | endif
     nnoremap <Leader>v :vert sbuffer <C-Z>
     nnoremap <Leader>t :tab sbuffer <C-Z>
 

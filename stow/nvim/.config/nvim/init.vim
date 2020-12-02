@@ -105,8 +105,8 @@
 
     packadd! python-syntax
     packadd! vim-python-pep8-indent
-    packadd! vim-styled-components
-    packadd! vim-jsx-pretty
+    " packadd! vim-styled-components
+    " packadd! vim-jsx-pretty
 
     " IDE Mode:
     packadd! my-lsp                     " Language Server client configuration

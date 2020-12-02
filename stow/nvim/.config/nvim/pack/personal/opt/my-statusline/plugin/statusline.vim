@@ -62,7 +62,7 @@ function! MyStatusline()
     let pomodoro    = '%{Pomodoro()}'
     let position    = ' ☰ %l:%c | %p%% '
 
-    return pre.ft.OPT.file.mod.args.SEP.tree.SEP.pomodoro.errors.lsp.compiler.spell.BAR.position
+    return pre.ft.OPT.file.mod.args.SEP.errors.lsp.compiler.spell.BAR.position
 endfunction
 
 set statusline=%!MyStatusline()

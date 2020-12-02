@@ -3,7 +3,7 @@ vim.cmd('packadd nvim-treesitter')
 require'nvim-treesitter.configs'.setup {
     ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
     highlight = {
-        enable = false,
+        enable = true,
     },
     incremental_selection = {
         enable = true,

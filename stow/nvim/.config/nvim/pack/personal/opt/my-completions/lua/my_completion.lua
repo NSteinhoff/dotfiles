@@ -25,18 +25,18 @@ function M.on_attach()
         }
     }
 
-    vim.cmd('set completeopt=menuone,noinsert,noselect shortmess+=c')
     vim.cmd('imap <buffer> <c-space> <Plug>(completion_trigger)')
     vim.cmd('imap <buffer> <c-j> <Plug>(completion_next_source)')
 
-    mode = 'smarttab'
+    mode = 'none'
     if mode == 'smarttab' then
         vim.g.completion_enable_auto_popup = 1
+        vim.cmd('set completeopt=menuone,noinsert,noselect')
         vim.cmd('imap <buffer> <expr> <Tab>   pumvisible() ? "<C-n>" : "<Plug>(completion_smart_tab)"')
         vim.cmd('imap <buffer> <expr> <S-Tab> pumvisible() ? "<C-p>" : "<Plug>(completion_smart_s_tab)"')
     elseif mode == 'code' then
         vim.g.completion_enable_auto_popup = 1
-        vim.cmd('set completeopt-=noselect')
+        vim.cmd('set completeopt=menuone,noinsert')
         vim.cmd('inoremap <buffer> <expr> <Tab> pumvisible() ? "<C-y>" : "<Tab>"')
     else
         vim.cmd('inoremap <buffer> <expr> <Tab>   pumvisible() ? "<C-n>" : "<Tab>"')
