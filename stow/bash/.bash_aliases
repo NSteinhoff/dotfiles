@@ -18,7 +18,7 @@ _clean_history() {
   history -r            # Read history from $HISTFILE
 }
 
-export PROMPT_COMMAND="_clean_history;$PROMPT_COMMAND"
+# export PROMPT_COMMAND="_clean_history;$PROMPT_COMMAND"
 shopt -s histappend
 
 # Set Vim as default editor
