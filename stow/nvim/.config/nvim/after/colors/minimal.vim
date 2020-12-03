@@ -221,6 +221,7 @@ let s:ui_groups.selection = [
 \ ]
 let s:ui_groups.highlight_inverted = [
 \    "Search",
+\    "MatchParen",
 \ ]
 let s:ui_groups.highlight = [
 \    "Substitute",
@@ -228,7 +229,6 @@ let s:ui_groups.highlight = [
 \    "CursorColumn",
 \ ]
 let s:ui_groups.match = [
-\    "MatchParen",
 \    "IncSearch",
 \    "PmenuSel",
 \    "WildMenu",
