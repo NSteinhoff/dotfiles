@@ -176,7 +176,7 @@
         \.(expand('<bang>') == '!' ? 'new-window -n <q-args> ' : 'split-window -f -l <count>\% '
         \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
         \.' -d -c '.getcwd().' '.shellescape(<q-args>)
-        \|silent redraw | endif
+        \|silent redraw
 
     command! -count=50 -nargs=* -bang TMake
         \ silent call commander#tmake#kill_window(commander#tmake#makeprg(<q-args>))
