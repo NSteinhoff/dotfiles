@@ -58,6 +58,7 @@ local function set_keymaps()
     -- Code actions, i.e. do stuff
     nnoremap('dca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
     nnoremap('dcr', '<cmd>lua vim.lsp.buf.rename()<CR>')
+    nnoremap('dcf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 end
 
 local function set_commands()
