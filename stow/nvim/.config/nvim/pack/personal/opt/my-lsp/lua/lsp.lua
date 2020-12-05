@@ -1,3 +1,5 @@
+local M = {}
+
 local function nnoremap(lhs, rhs)
     local mode = 'n'
     local current_buffer = 0
@@ -33,12 +35,12 @@ end
 local function set_keymaps()
     -- Get help
     nnoremap('<space>', '<cmd>lua vim.lsp.buf.hover()<CR>')
-    inoremap('<c-h>', '<cmd>lua vim.lsp.buf.hover()<CR>')
-    nnoremap('<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-    inoremap('<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+    nnoremap('<c-h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+    inoremap('<c-h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 
     -- Jump to symbols
     nnoremap('<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
+
     nnoremap('gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
     nnoremap('gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
     nnoremap('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
@@ -85,18 +87,19 @@ end
 
 local function set_autocmds()
     vim.cmd('aug user-lsp')
-    -- vim.cmd('au CursorHold <buffer> lua vim.lsp.buf.hover()')
+    vim.cmd('au!')
     vim.cmd('aug END')
 end
 
 -- LSP client configurations
 vim.cmd('packadd nvim-lspconfig')
+vim.cmd('packadd my-completions')
 
 local function on_attach(client)
     set_keymaps()
     set_commands()
     set_options()
-    set_autocmds()
+    -- set_autocmds()
     require'my_completion'.on_attach()
 end
 
@@ -121,9 +124,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 
 
 -- Module
-
-local M = {}
-
 local function clients()
     local results = {}
     for i,c in pairs(vim.lsp.buf_get_clients()) do

@@ -83,7 +83,6 @@
     packadd! my-abbreviations
     packadd! my-tags
     packadd! my-projects
-    packadd! my-completions             " completion engine with chaining
     " packadd! my-pomodoro
 
 """ External
@@ -110,4 +109,4 @@
 
     " IDE Mode:
     packadd! my-lsp                     " Language Server client configuration
-    packadd! my-treesitter
+    packadd! my-treesitter              " Semantic understanding of languages

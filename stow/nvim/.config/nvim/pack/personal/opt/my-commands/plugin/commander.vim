@@ -175,7 +175,7 @@
         \ silent execute '!tmux '
         \.(expand('<bang>') == '!' ? 'new-window -n <q-args> ' : 'split-window -f -l <count>\% '
         \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
-        \.' -d -c '.getcwd().' '.shellescape(<q-args>)
+        \.' -d -c '.getcwd().' '.shellescape('<args>; sleep 2')
         \|silent redraw
 
     command! -count=50 -nargs=* -bang TMake
