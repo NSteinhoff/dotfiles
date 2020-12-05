@@ -21,7 +21,7 @@ function M.on_attach()
     vim.cmd('imap <buffer> <c-j> <Plug>(completion_next_source)')
     vim.cmd('set completeopt=menuone')
 
-    mode = 'default'
+    mode = 'code'
     if mode == 'smarttab' then
         vim.g.completion_enable_auto_popup = 1
         vim.cmd('set completeopt=menuone,noinsert,noselect')
