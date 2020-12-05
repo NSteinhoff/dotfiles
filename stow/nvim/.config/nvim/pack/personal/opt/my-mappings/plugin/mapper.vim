@@ -9,6 +9,32 @@ augroup SANITIZER
 augroup END
 
 
+" Return the text selected by the operator motion
+"
+" This function can be called in operator functions to get the
+" selected text.
+"
+" :map-operator
+function s:opselect(type)
+    let sel_save = &selection
+    let &selection = "inclusive"
+    let reg_save = @@
+    try
+        if a:type ==# 'v' || a:type ==# 'V'
+            silent execute "normal! gvy"
+        elseif a:type == 'line'
+            silent execute "normal! '[V']y"
+        else
+            silent execute "normal! `[v`]y"
+        endif
+        let text = @@
+        return text
+    finally
+        let @@ = reg_save
+    endtry
+endfunction
+
+
 """ <LEADER> / Wildchar
     " Explicitly map the <Leader> key. Otherwise some plugins use their own default.
     let mapleader = '\'
