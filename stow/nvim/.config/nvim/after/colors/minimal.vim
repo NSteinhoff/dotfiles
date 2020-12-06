@@ -287,8 +287,6 @@ let s:syntax_groups.error = [
 \    "ErrorMsg",
 \    "SpellBad",
 \    "NvimInternalError",
-\    "LspDiagnosticsDefaultError",
-\    "LspDiagnosticsSignError",
 \    "TelescopeMatching",
 \ ]
 let s:syntax_groups.literal = [
@@ -322,6 +320,11 @@ let s:syntax_groups.preproc = [
 let s:syntax_groups.informative = [
 \    "Comment",
 \    "Question",
+\    "LspReferenceText",
+\    "LspReferenceRead",
+\    "LspReferenceWrite",
+\    "LspDiagnosticsDefaultWarning",
+\    "LspDiagnosticsSignWarning",
 \    "LspDiagnosticsDefaultInformation",
 \    "LspDiagnosticsSignInformation",
 \ ]
@@ -360,8 +363,8 @@ let s:syntax_groups.emphasis = [
 \    "mkdLineBreak",
 \    "htmlItalic",
 \    "htmlUnderlineItalic",
-\    "LspDiagnosticsDefaultWarning",
-\    "LspDiagnosticsSignWarning",
+\    "LspDiagnosticsDefaultError",
+\    "LspDiagnosticsSignError",
 \ ]
 let s:syntax_groups.strong = [
 \   "markdownBold",
