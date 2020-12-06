@@ -27,6 +27,11 @@ command BCommits lua require'telescope.builtin'.git_bcommits{}<CR>
 command Branches lua require'telescope.builtin'.git_branches{}<CR>
 command Help lua require'telescope.builtin'.help_tags{}<CR>
 command Treesitter lua require'telescope.builtin'.treesitter{}<CR>
+command LspDocumentSymbols lua require'telescope.builtin'.lsp_document_symbols{}<CR>
+command -nargs=? LspWorkspaceSymbols execute
+            \ "lua require'telescope.builtin'.lsp_workspace_symbols{ query = '"
+            \.(<q-args> == '' ? input('Query: ') : <q-args>)
+            \."' }<CR>"
 
 " Live grep through all files using ripgrep
 if executable('rg')

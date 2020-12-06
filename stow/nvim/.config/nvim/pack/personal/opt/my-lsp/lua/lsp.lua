@@ -48,8 +48,16 @@ local function set_keymaps()
 
     -- Listing symbols
     nnoremap('gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-    nnoremap('gs', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-    nnoremap('gS', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+    if vim.fn.exists(':LspDocumentSymbols') then
+        nnoremap('gs', '<cmd>LspDocumentSymbols<CR>')
+    else
+        nnoremap('gs', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+    end
+    if vim.fn.exists(':LspWorkspaceSymbols') then
+        nnoremap('gS', '<cmd>LspWorkspaceSymbols<CR>')
+    else
+        nnoremap('gS', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+    end
 
     -- Moving through errors
     nnoremap(']g', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
