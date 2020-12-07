@@ -90,8 +90,8 @@
 
 """ External
     " Finding / picking files
-    packadd! their-telescope            " fuzzy finder / picker
-    packadd! their-dirvish              " file manager
+    packadd! my-telescope            " fuzzy finder / picker
+    packadd! my-dirvish              " file manager
     packadd! vim-gtfo
 
     " Mappings and commands
