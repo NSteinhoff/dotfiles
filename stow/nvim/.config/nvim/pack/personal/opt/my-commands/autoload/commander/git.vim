@@ -23,7 +23,7 @@ function commander#git#load_diff_in_split(revision)
     let content = systemlist('git -C ' . shellescape(expand('%:p:h')) . ' show '.ref.':./' . expand('%:t'))
     mark Z
     topleft vnew | call append(0, content) | $delete
-    execute 'file '.commit | set buftype=nofile | set bufhidden=wipe | set nobuflisted | set noswapfile | let &ft=ft
+    execute 'file '.commit | set buftype=nofile bufhidden=wipe nobuflisted noswapfile | let &ft=ft | 0
     nnoremap <buffer> q :q<CR>`Z
     diffthis | wincmd p | diffthis | wincmd p
 endfunction
@@ -35,7 +35,7 @@ function commander#git#load_patch(revision)
     let b:alt_save = expand('#')
     enew | call append(0, content) | $delete
     let b:orig = expand('#')
-    execute 'file '.commit | set buftype=nofile | set bufhidden=wipe | set nobuflisted | set noswapfile | set ft=diff
+    execute 'file '.commit | set buftype=nofile bufhidden=wipe nobuflisted noswapfile ft=diff | 0
     nnoremap <buffer> <silent> q :execute 'buffer '.b:orig.' \| let @# = b:alt_save'<CR>
 endfunction
 
@@ -44,9 +44,7 @@ function commander#git#load_timeline()
     let b:alt_save = expand('#')
     enew | call append(0, content) | $delete
     let b:orig = expand('#')
-    execute 'file '.expand('#').'.timeline' | set buftype=nofile | set bufhidden=wipe | set nobuflisted | set noswapfile
-    nnoremap <buffer> <SPACE> <CMD>echo join(commander#git#file_revision(getline('.')), "\n")<CR>
-    nnoremap <buffer> <CR> <CMD>call commander#git#load_revision_in_split(getline('.'))<CR>
+    execute 'file '.expand('#').'.timeline' | set buftype=nofile bufhidden=wipe nobuflisted noswapfile ft=gitlog | 0
     nnoremap <buffer> <silent> q :execute 'buffer '.b:orig.' \| let @# = b:alt_save'<CR>
 endfunction
 
@@ -54,7 +52,7 @@ function commander#git#load_revision_in_split(revision)
     let content = commander#git#file_revision(a:revision)
     mark Z
     topleft vnew | call append(0, content) | $delete
-    execute 'file '.expand('#').'.timeline' | set buftype=nofile | set bufhidden=wipe | set nobuflisted | set noswapfile | set ft=git | 0
+    execute 'file '.expand('#').'.timeline' | set buftype=nofile bufhidden=wipe nobuflisted noswapfile ft=git | 0
     nnoremap <buffer> q :q<CR>`Z
 endfunction
 
