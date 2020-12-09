@@ -166,7 +166,7 @@ endfunction
 
 """ Running builds
     nnoremap `<Leader> <cmd>make<CR>
-    nnoremap `<CR> <cmd>TMake<CR>
+    nnoremap `<CR> <cmd>vert TMake<CR>
     nnoremap `<BS> <cmd>TMake!<CR>
 
     " List, load, read errorfile contents

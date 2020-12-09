@@ -81,6 +81,9 @@
     command! -range Run execute '<line1>,<line2>w !'.get(b:, 'interpreter', 'cat')
 
 """ Git
+    command GlobalRevisions echo join(commander#git#global_revisions(), "\n")
+    command LocalRevisions echo join(commander#git#local_revisions(), "\n")
+
     " Show the commits that modified the selected lines
     command! -range -bang ButWhy
         \ echo system(
@@ -101,63 +104,11 @@
         \| call jobstart(['git', 'ctags']) | else
         \| echo "'".getcwd()."' is not a git repository. Can only run Ctags from within a git repository." | endif
 
-    function s:local_revisions(...)
-        return systemlist('git -C ' . shellescape(expand('%:p:h')) . ' log --format=%h\ %s\ \(%ar\)')
-    endfunction
+    command! -bang Timeline if '<bang>' == '!' | call commander#git#load_timeline() | else | echo join(commander#git#file_revisions(), "n") | endif
+    command! -nargs=? -complete=customlist,commander#git#file_revisions ChangeSplit call commander#git#load_diff_in_split(<q-args>)
+    command! -nargs=? -complete=customlist,commander#git#file_revisions ChangePatch call commander#git#load_patch(<q-args>)
 
-    function s:global_revisions(...)
-        return systemlist('git -C ' . shellescape(getcwd()) . ' log --format=%h\ %s\ \(%ar\)')
-    endfunction
-
-    function s:file_revisions(...)
-        return systemlist('git -C ' . shellescape(expand('%:p:h')) . ' log --no-patch --format=%h\ %s\ \(%ar\) -- ' . expand('%:t'))
-    endfunction
-
-    function s:load_diff_in_split(revision)
-        let ft = &ft
-        let ref = (a:revision != '' ? split(a:revision)[0] : 'HEAD')
-        let commit = (a:revision != '' ? a:revision : 'HEAD')
-        let content = systemlist('git -C ' . shellescape(expand('%:p:h')) . ' show '.ref.':./' . expand('%:t'))
-        mark Z
-        topleft vnew | call append(0, content) | $delete
-        execute 'file '.commit | set buftype=nofile | set bufhidden=wipe | set nobuflisted | set noswapfile | let &ft=ft
-        nnoremap <buffer> q :q<CR>`Z
-        diffthis | wincmd p | diffthis | wincmd p
-    endfunction
-
-    function s:load_patch(revision)
-        let ref = (a:revision != '' ? split(a:revision)[0] : 'HEAD')
-        let commit = (a:revision != '' ? a:revision : 'HEAD')
-        let content = systemlist('git -C ' . shellescape(expand('%:p:h')) . ' diff '.ref.' -- ' . expand('%:t'))
-        enew | call append(0, content) | $delete
-        execute 'file '.commit | set buftype=nofile | set bufhidden=wipe | set nobuflisted | set noswapfile | set ft=diff
-        nnoremap <buffer> q :b#<CR> | wincmd p
-    endfunction
-
-    command! Timeline echo join(s:file_revisions(), "\n")
-    command! -nargs=? -complete=customlist,s:file_revisions ChangeSplit call s:load_diff_in_split(<q-args>)
-    command! -nargs=? -complete=customlist,s:file_revisions ChangePatch call s:load_patch(<q-args>)
-
-    function s:set_changed_args()
-        let cwd = getcwd()
-        let gitdir = finddir('.git', ';')
-        if gitdir == ''
-            return
-        endif
-        let gitroot = fnamemodify(gitdir, ':h')
-        let changed = systemlist('git diff --name-only -- .')
-        let absolute = map(changed, { k, v -> gitroot.'/'.v })
-        let relative = map(absolute, { k, v ->
-                    \ match(v, cwd) ? strcharpart(v, matchend(v, cwd) + 1) : v
-                    \ })
-        let filepaths = filter(relative, { k, v -> findfile(v) != '' })
-        %argd
-        for path in filepaths
-            execute 'argadd '.path
-        endfor
-    endfunction
-
-    command ChangedFiles :call s:set_changed_args()
+    command ChangedFiles :call commander#git#set_changed_args() | first
 
 """ Searching
     " Search locally in the buffer and put results in the loclist.
@@ -179,11 +130,11 @@
         \|silent redraw
 
     command! -count=50 -nargs=* -bang TMake
-        \ silent call commander#tmake#kill_window(commander#tmake#makeprg(<q-args>))
+        \ silent call commander#make#kill_window(commander#make#makeprg(<q-args>))
         \|silent execute '!tmux '
-        \.(expand('<bang>') == '!' ? 'new-window -n '''.commander#tmake#makeprg(<q-args>).''' ' : 'split-window -f -l <count>\% '
+        \.(expand('<bang>') == '!' ? 'new-window -n '''.commander#make#makeprg(<q-args>).''' ' : 'split-window -f -l <count>\% '
         \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
-        \.' -d -c '.getcwd().' '.commander#tmake#shell_cmd(<q-args>)
+        \.' -d -c '.getcwd().' '.commander#make#shell_cmd(<q-args>)
         \|silent redraw
 
     command! -count=50 -bang TTailErr
