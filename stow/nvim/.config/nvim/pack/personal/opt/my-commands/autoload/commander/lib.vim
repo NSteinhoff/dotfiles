@@ -1,3 +1,39 @@
+function commander#lib#peek_lines(lines)
+    echo join(a:lines, "\n")
+endfunction
+
+function commander#lib#load_lines(lines, ...) abort
+    let b:alt_save = expand('#')
+    let l:exit_to = get(b:, 'exit_to', expand('%'))
+    try
+        enew | call append(0, a:lines) | $delete
+    catch /.*/
+        buffer # | bd # | let @# = b:alt_save
+        echoerr 'Unable to load lines: '.v:exception
+    endtry
+    let b:exit_to = l:exit_to
+    set buftype=nofile bufhidden=wipe nobuflisted noswapfile
+    0
+    nnoremap <buffer> <silent> q :execute 'buffer '.b:exit_to.' \| let @# = b:alt_save'<CR>
+    return bufnr()
+endfunction
+
+function commander#lib#load_lines_in_split(lines, ...) abort
+    let l:splitcmd = a:0 ? a:1.' new' : 'new'
+    mark Z
+    execute 'topleft '.l:splitcmd
+    try
+        call append(0, a:lines) | $delete
+    catch /.*/
+        close
+        echoerr 'Unable to load lines in split: '.v:exception
+    endtry
+    set buftype=nofile bufhidden=wipe nobuflisted noswapfile
+    0
+    nnoremap <buffer> q :close<CR>`Z
+endfunction
+command Test call commander#lib#load_lines_in_split(['a', 'b'])
+
 function commander#lib#toggle_comment(line1, line2)
     let lines = getline(a:line1, a:line2)
     let indent = min(map(copy(lines), {_, v -> indent(v)}))
