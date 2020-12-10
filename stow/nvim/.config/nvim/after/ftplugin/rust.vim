@@ -13,5 +13,7 @@ if exists(':DD')
     setlocal keywordprg=:DD
 endif
 
+command Docs call jobstart('cargo doc --open')
+
 let b:format_on_write = 0
 let b:make_on_write = 0
