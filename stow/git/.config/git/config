@@ -14,7 +14,7 @@
     stashes     = !git --no-pager stash list
     branches    = !git --no-pager branch --list
     prull       = !git fetch --prune && git pull --ff-only
-    pristine    = !git fetch --prune && git checkout master && git pull --ff-only && git branch --merged | grep -v '\\*\\|master' | xargs git branch -d
+    fresh       = !git remote update --prune && git checkout master && git pull --ff-only && git branch --merged | grep -v '\\*\\|master' | xargs git branch -d
     review      = diff origin/master...HEAD
     ctags       = !.git/hooks/ctags
     watch       = !git ls-files | entr
