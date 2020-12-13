@@ -177,20 +177,8 @@ endfunction
 
     " Live grep
     nnoremap <c-g> <cmd>LiveGrep<CR>i
-
-    " Global search
-    " nnoremap <silent> <Leader>g :execute 'GitGrep '.expand('<cword>')<CR>
-    nnoremap <silent> <expr> <Leader>g
-        \ (finddir('.git', ';') != '' ? ':GitGrep' :
-        \           (executable('rg') ? ':RipGrep' :
-        \                               ':Grep'))
-        \ .' '. expand('<cword>').'<CR>'
-    vnoremap <silent> <expr> <Leader>g
-        \ 'y'.
-        \ (finddir('.git', ';') != '' ? ':GitGrep' :
-        \           (executable('rg') ? ':RipGrep' :
-        \                               ':Grep'))
-        \ .' <c-r>"<CR>'
+    nnoremap <silent> <expr> <Leader>g ':LiveGrep '.expand('<cword>').'<CR>'
+    vnoremap <silent> <expr> <Leader>g 'y:LiveGrep <c-r>"<CR>'
 
 
 """ Toggle Settings

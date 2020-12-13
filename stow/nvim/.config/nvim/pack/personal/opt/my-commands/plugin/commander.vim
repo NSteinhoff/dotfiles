@@ -162,4 +162,5 @@
     endfunction
 
 """ LiveGrep
-    command -nargs=? LiveGrep execute (expand('<mods>') == '' ? 'edit' : expand('<mods>').' new').' livegrep' | set ft=livegrep | call setline(1, <q-args>) | doau TextChanged
+    command -nargs=? LiveGrep execute (expand('<mods>') == '' ? 'edit' : expand('<mods>').' new').' livegrep'
+                \| set ft=livegrep | call setline(1, <q-args>) | doau TextChanged
