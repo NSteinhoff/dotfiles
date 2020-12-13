@@ -1,8 +1,6 @@
 [user]
     name = Niko Steinhoff
     email = niko.steinhoff@gmail.com
-[push]
-    default = current
 [alias]
     lo          = log --graph --decorate --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'
     loa         = log --graph --decorate --all --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'
