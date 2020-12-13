@@ -1,9 +1,6 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/editorconfig-vim"]
 	path = stow/nvim/.config/nvim/pack/external/opt/editorconfig-vim
 	url = git@github.com:editorconfig/editorconfig-vim.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-dirvish-git"]
-	path = stow/nvim/.config/nvim/pack/external/opt/vim-dirvish-git
-	url = git@github.com:kristijanhusak/vim-dirvish-git.git
 [submodule "stow/nvim/.config/nvim/pack/external/opt/vim-dirvish"]
 	path = stow/nvim/.config/nvim/pack/external/opt/vim-dirvish
 	url = git@github.com:justinmk/vim-dirvish.git
@@ -28,9 +25,6 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/completion-nvim"]
 	path = stow/nvim/.config/nvim/pack/external/opt/completion-nvim
 	url = https://github.com/nvim-lua/completion-nvim
-[submodule "stow/nvim/.config/nvim/pack/external/opt/lsp-status.nvim"]
-	path = stow/nvim/.config/nvim/pack/external/opt/lsp-status.nvim
-	url = git@github.com:nvim-lua/lsp-status.nvim.git
 [submodule "stow/nvim/.config/nvim/pack/external/opt/popup.nvim"]
 	path = stow/nvim/.config/nvim/pack/external/opt/popup.nvim
 	url = git@github.com:nvim-lua/popup.nvim.git
@@ -46,33 +40,15 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/codi.vim"]
 	path = stow/nvim/.config/nvim/pack/external/opt/codi.vim
 	url = git@github.com:metakirby5/codi.vim.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-dispatch"]
-	path = stow/nvim/.config/nvim/pack/external/opt/vim-dispatch
-	url = git@github.com:tpope/vim-dispatch.git
 [submodule "stow/nvim/.config/nvim/pack/external/opt/nvim-treesitter"]
 	path = stow/nvim/.config/nvim/pack/external/opt/nvim-treesitter
 	url = git@github.com:nvim-treesitter/nvim-treesitter.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-vsnip"]
-	path = stow/nvim/.config/nvim/pack/external/opt/vim-vsnip
-	url = git@github.com:hrsh7th/vim-vsnip.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-vsnip-integ"]
-	path = stow/nvim/.config/nvim/pack/external/opt/vim-vsnip-integ
-	url = git@github.com:hrsh7th/vim-vsnip-integ.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/completion-tags"]
-	path = stow/nvim/.config/nvim/pack/external/opt/completion-tags
-	url = git@github.com:kristijanhusak/completion-tags.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/completion-treesitter"]
-	path = stow/nvim/.config/nvim/pack/external/opt/completion-treesitter
-	url = git@github.com:nvim-treesitter/completion-treesitter.git
 [submodule "stow/nvim/.config/nvim/pack/external/opt/vim-devdocs"]
 	path = stow/nvim/.config/nvim/pack/external/opt/vim-devdocs
 	url = git@github.com:romainl/vim-devdocs.git
 [submodule "stow/nvim/.config/nvim/pack/external/opt/vim-gtfo"]
 	path = stow/nvim/.config/nvim/pack/external/opt/vim-gtfo
 	url = git@github.com:justinmk/vim-gtfo.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/neoranger"]
-	path = stow/nvim/.config/nvim/pack/external/opt/neoranger
-	url = git@github.com:Lokaltog/neoranger.git
 [submodule "stow/nvim/.config/nvim/pack/external/opt/vim-commentary"]
 	path = stow/nvim/.config/nvim/pack/external/opt/vim-commentary
 	url = git@github.com:tpope/vim-commentary.git
