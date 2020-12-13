@@ -71,6 +71,8 @@ endfunction
 """ Windows
     " Quickly close a window
     nnoremap Q :close<CR>
+    " Close all other buffers
+    nnoremap <C-W>O :BufOnly<CR>
 
 
 """ Comment / Uncomment
@@ -109,7 +111,7 @@ endfunction
     " Location list: local errors
     " Mnemoic: (L)ocation
     nnoremap <silent> <Leader>l :llist<CR>
-    nnoremap <silent> <expr> <Leader>L exists(':oclist') ? ':Loclist<CR>' : ':lwindow<CR>'
+    nnoremap <silent> <expr> <Leader>L exists(':Loclist') ? ':Loclist<CR>' : ':lwindow<CR>'
 
 
 """ Preview / Hover
@@ -153,7 +155,7 @@ endfunction
 
 """ Quickopen
     if maparg('<C-P>', 'n') == ''
-        nnoremap <C-P> :find <C-Z>
+        nnoremap <C-P> :Find <C-Z>
     endif
 
 
@@ -172,6 +174,9 @@ endfunction
     " Local search
     nnoremap <silent> <Leader>* :execute 'Vimgrep '.expand('<cword>')<CR>
     vnoremap <silent> <Leader>* y:execute 'Vimgrep '.shellescape(@")<CR>
+
+    " Live grep
+    nnoremap <c-g> <cmd>LiveGrep<CR>i
 
     " Global search
     " nnoremap <silent> <Leader>g :execute 'GitGrep '.expand('<cword>')<CR>
@@ -206,8 +211,7 @@ endfunction
     nnoremap <Leader>x :Run<CR>
     vnoremap <Leader>x :Run<CR>
     nnoremap <Leader>X :%Run<CR>
-    nnoremap <expr> <Leader>o exists(':Oldfiles') ? ':Oldfiles<CR>' : ':oldfiles<CR>'
-    nnoremap <Leader>O :BufOnly<CR>
+    nnoremap <expr> <Leader>o exists(':Oldfiles') ? ':Oldfiles <C-Z>' : ':browse oldfiles<CR>'
     nnoremap <Leader>f :Format<CR>
 
     " Switch buffers

@@ -144,3 +144,22 @@
         \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
         \.' -d -c '.getcwd().' '.shellescape('tail -F '.&errorfile)
         \|silent redraw | endif
+
+""" Find files
+    command -nargs=1 -complete=customlist,<SID>complete_files Find edit <args>
+    function s:complete_files(arglead, cmdline, cursorpos)
+        let l:pattern = a:arglead != '' ? '.*'.a:arglead.'.*' : '.*'
+        if finddir('.git', ';') != ''
+            return systemlist('git ls-files | grep -i '.shellescape(l:pattern))
+        else
+            return systemlist('find . -iregex '.shellescape(l:pattern))
+        endif
+    endfunction
+
+    command -nargs=1 -complete=customlist,<SID>complete_oldfiles Oldfiles edit <args>
+    function s:complete_oldfiles(arglead, cmdline, cursorpos)
+        return filter(copy(v:oldfiles), { _, fname -> fname =~ a:arglead })
+    endfunction
+
+""" LiveGrep
+    command -nargs=? LiveGrep execute (expand('<mods>') == '' ? 'edit' : expand('<mods>').' new').' livegrep' | set ft=livegrep | call setline(1, <q-args>) | doau TextChanged
