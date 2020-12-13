@@ -68,13 +68,6 @@ endfunction
     nnoremap <C-L> 3zl
 
 
-""" Command line
-    " Be more like Bash
-    cnoremap <C-B> <Left>
-    cnoremap <C-F> <Right>
-    cnoremap <C-A> <Home>
-    cnoremap <C-E> <End>
-
 """ Windows
     " Quickly close a window
     nnoremap Q :close<CR>
