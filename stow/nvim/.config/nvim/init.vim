@@ -85,7 +85,6 @@
     packadd! my-mappings
     packadd! my-abbreviations
     packadd! my-tags
-    packadd! my-projects
     " packadd! my-pomodoro
 
 """ External
