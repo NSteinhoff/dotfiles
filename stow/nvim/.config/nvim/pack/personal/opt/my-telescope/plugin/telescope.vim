@@ -2,6 +2,15 @@ packadd popup.nvim
 packadd plenary.nvim
 packadd telescope.nvim
 
+lua require('telescope').setup{
+            \  defaults = {
+            \    shorten_path = false,
+            \    file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
+            \    grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
+            \    qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
+            \  }
+            \}
+
 " Prefer git files over find files for git repositories
 nnoremap <expr><c-p> finddir('.git', ';') == ''
             \ ? '<cmd>lua require"telescope.builtin".find_files{}<CR>'

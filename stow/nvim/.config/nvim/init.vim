@@ -89,7 +89,7 @@
 
 """ External
     " Finding / picking files
-    packadd! my-telescope            " fuzzy finder / picker
+    " packadd! my-telescope            " fuzzy finder / picker
     packadd! my-dirvish              " file manager
     packadd! vim-gtfo
 
