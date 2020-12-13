@@ -1,4 +1,4 @@
-function commander#tmake#makeprg(qargs) abort
+function commander#make#makeprg(qargs) abort
     if &makeprg =~ '$\*'
         let makeprg = substitute(&makeprg, '$\*', a:qargs, '')
     else
@@ -7,8 +7,8 @@ function commander#tmake#makeprg(qargs) abort
     return substitute(makeprg, '%', expand('%'), '')
 endfunction
 
-function commander#tmake#shell_cmd(qargs) abort
-    let makeprg = commander#tmake#makeprg(a:qargs)
+function commander#make#shell_cmd(qargs) abort
+    let makeprg = commander#make#makeprg(a:qargs)
     let tempfile = tempname()
     let cmd = 'echo '.shellescape(makeprg.' ...')
                 \.' && '.makeprg.' '.&shellpipe.' '.tempfile
@@ -18,7 +18,7 @@ function commander#tmake#shell_cmd(qargs) abort
     return shellescape(cmd)
 endfunction
 
-function commander#tmake#kill_window(name) abort
+function commander#make#kill_window(name) abort
     let id = s:window_id(a:name)
 
     if id != -1
