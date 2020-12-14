@@ -4,6 +4,9 @@ endif
 
 let b:current_syntax = 'livegrep'
 
+syn match livegrep_query /^.*$/
+highlight link livegrep_query error
+
 syn match livegrep_separator /^---$/
 highlight link livegrep_separator comment
 
