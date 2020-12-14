@@ -184,6 +184,7 @@ let s:syntax_styles.underlined        = "Underlined"
 let s:syntax_styles.emphasis          = "Italic"
 let s:syntax_styles.strong            = "Pop"
 let s:syntax_styles.heavy             = "StrongPop"
+let s:syntax_styles.fixme             = "HForcefulInverse"
 ""}}}
 "}}}
 
@@ -289,6 +290,9 @@ let s:syntax_groups.error = [
 \    "NvimInternalError",
 \    "TelescopeMatching",
 \ ]
+let s:syntax_groups.fixme = [
+\    "Todo",
+\ ]
 let s:syntax_groups.literal = [
 \    "String",
 \ ]
@@ -343,7 +347,6 @@ let s:syntax_groups.special = [
 \    "SpellCap",
 \    "SpellLocal",
 \    "SpellRare",
-\    "Todo",
 \    "Title",
 \    "netrwSymLink",
 \    "TelescopeSelection",
