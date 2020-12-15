@@ -21,35 +21,42 @@ function s:wipe()
     call append('$', ['---'])
 endfunction
 
-function s:searchable(live)
-    return len(s:query()) >= (a:live ? 3 : 1)
+function s:searchable()
+    return len(s:query()) >= 1
 endfunction
 
-function s:search(live)
-    if s:searchable(a:live)
-        call append('$', systemlist(s:finder().' | grep '.shellescape(s:query())))
-    endif
+function s:search()
+    let l:files = systemlist(s:finder().(s:searchable() ? ' | grep -i '.shellescape(s:query()) : ''))
+    call append('$', map(l:files, { i, v -> i.': '.v}))
 endfunction
 
-function s:setname(live)
-    execute 'keepalt file '.s:finder().' \| grep  '.(s:searchable(a:live) ? s:query() : '...')
+function s:setname()
+    execute 'keepalt file '.s:finder().' \| grep  -i '.(s:searchable() ? s:query() : '...')
 endfunction
 
-function s:update(live)
+function s:update()
     if s:editing()
         call s:wipe()
-        call s:setname(a:live)
-        call s:search(a:live)
+        call s:setname()
+        call s:search()
     endif
 endfunction
 
-augroup live-grep
+augroup file-finder
     autocmd!
-    autocmd TextChangedI <buffer> call s:update(1)
-    autocmd TextChanged <buffer> call s:update(0)
-    autocmd InsertLeave <buffer> call s:update(0)
+    autocmd TextChangedI <buffer> call s:update()
+    autocmd TextChanged <buffer> call s:update()
 augroup END
 
-nnoremap <SPACE> <C-W>gf
-nnoremap <expr> <CR> <SID>editing() ? '3Ggf' : 'gf'
-inoremap <expr> <CR> <SID>editing() ? '<esc>3Ggf' : 'gf'
+inoremap <buffer> <SPACE> .*
+nnoremap <buffer> <SPACE> <C-W>gf
+nnoremap <buffer> <expr> <CR> <SID>editing() ? '3Ggf' : 'gf'
+inoremap <buffer> <expr> <CR> <SID>editing() ? '<esc>3Ggf' : '<esc>gf'
+
+function s:open_file(num)
+    execute 'edit '.substitute(getline(a:num + 3), '^\d\+:', '', '')
+endfunction
+
+for i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+    execute 'nnoremap <buffer> '.i.' <cmd>silent call <SID>open_file('.i.')<cr>'
+endfor
