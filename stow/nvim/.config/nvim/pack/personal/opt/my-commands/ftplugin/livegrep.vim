@@ -53,5 +53,5 @@ augroup live-grep
     autocmd InsertLeave <buffer> call s:update(0) | call s:export()
 augroup END
 
-nnoremap <SPACE> <C-W>gF
-nnoremap <CR> gF
+nnoremap <buffer> <SPACE> <C-W>gF
+nnoremap <buffer> <CR> gF

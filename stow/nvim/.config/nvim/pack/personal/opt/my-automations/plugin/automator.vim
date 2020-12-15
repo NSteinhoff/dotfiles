@@ -49,7 +49,7 @@ augroup END
 
 augroup user-ctags
     autocmd!
-    autocmd BufWritePost * if finddir('.git', ';') != '' | call jobstart(['git', 'ctags']) | endif
+    " autocmd BufWritePost * if finddir('.git', ';') != '' | call jobstart(['git', 'ctags']) | endif
 augroup END
 
 

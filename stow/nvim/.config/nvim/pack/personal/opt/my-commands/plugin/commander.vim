@@ -108,7 +108,7 @@
     command! -nargs=? -complete=customlist,commander#git#file_revisions ChangeSplit call commander#git#load_diff_in_split(<q-args>)
     command! -nargs=? -complete=customlist,commander#git#file_revisions ChangePatch call commander#git#load_patch(<q-args>)
 
-    command ChangedFiles :call commander#git#set_changed_args() | first
+    command ChangedFiles :call commander#git#set_changed_args()
 
 """ Searching
     " Search locally in the buffer and put results in the loclist.
