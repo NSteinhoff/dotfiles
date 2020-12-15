@@ -170,4 +170,4 @@
                 \| set ft=filefinder | call setline(1, <q-args>) | doau TextChanged
 
 """ Jira ticket
-    command Jira put+ | 0d | set ft=jira
+    command Jira Scratch | put+ | 0d | set ft=jira

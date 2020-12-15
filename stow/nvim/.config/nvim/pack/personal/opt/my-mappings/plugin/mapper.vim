@@ -154,9 +154,8 @@ endfunction
 
 
 """ Quickopen
-    if maparg('<C-P>', 'n') == ''
-        nnoremap <C-P> <cmd>FindFiles<CR>i
-    endif
+    nnoremap <C-P> :Find <C-Z>
+    "nnoremap <C-P> <cmd>FindFiles<CR>i
 
 
 """ Running builds
