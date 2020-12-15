@@ -32,7 +32,7 @@ local function setlocal(name, value)
     vim.api.nvim_buf_set_option(0, name, value)
 end
 
-local function set_keymaps()
+local function setup_keymaps()
     -- Get help
     nnoremap('<space>', '<cmd>lua vim.lsp.buf.hover()<CR>')
     nnoremap('<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
@@ -71,7 +71,7 @@ local function set_keymaps()
     nnoremap('dcf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 end
 
-local function set_commands()
+local function setup_commands()
     commander('LspClients', 'lua require"lsp".print_clients()')
 
     -- Inspect Client
@@ -89,14 +89,26 @@ local function set_commands()
     commander('WorkspaceSymbols', 'lua vim.lsp.buf.workspace_symbol()')
 end
 
-local function set_options()
+local function setup_options()
     vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
 end
 
-local function set_autocmds()
-    vim.cmd('aug user-lsp')
-    vim.cmd('au!')
-    vim.cmd('aug END')
+local function setup_autocmds()
+    vim.cmd('augroup user-lsp')
+    vim.cmd('autocmd!')
+    -- vim.cmd('autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics({ show_header = false })')
+    vim.cmd('augroup END')
+end
+
+local function setup_signs()
+    vim.fn.sign_define("LspDiagnosticsSignError",
+        {text = "", texthl = "LspDiagnosticsSignError"})
+    vim.fn.sign_define("LspDiagnosticsSignWarning",
+        {text = "", texthl = "LspDiagnosticsSignWarning"})
+    vim.fn.sign_define("LspDiagnosticsSignInformation",
+        {text = "🛈", texthl = "LspDiagnosticsSignInformation"})
+    vim.fn.sign_define("LspDiagnosticsSignHint",
+        {text = "!", texthl = "LspDiagnosticsSignHint"})
 end
 
 -- LSP client configurations
@@ -104,10 +116,11 @@ vim.cmd('packadd nvim-lspconfig')
 vim.cmd('packadd my-completions')
 
 local function on_attach(client)
-    set_keymaps()
-    set_commands()
-    set_options()
-    -- set_autocmds()
+    setup_keymaps()
+    setup_commands()
+    setup_options()
+    setup_autocmds()
+    setup_signs()
     require'my_completion'.on_attach()
 end
 
@@ -120,10 +133,11 @@ for _, server in ipairs(servers) do
     })
 end
 
+
 -- Handlers
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
-        signs = false,
+        signs = true,
         underline = false,
         virtual_text = true,
         update_in_insert = false,
