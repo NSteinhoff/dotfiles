@@ -164,3 +164,10 @@
 """ LiveGrep
     command -nargs=? LiveGrep execute (expand('<mods>') == '' ? 'edit' : expand('<mods>').' new').' livegrep'
                 \| set ft=livegrep | call setline(1, <q-args>) | doau TextChanged
+
+""" FindFiles
+    command -nargs=? FindFiles execute (expand('<mods>') == '' ? 'edit' : expand('<mods>').' new').' filefinder'
+                \| set ft=filefinder | call setline(1, <q-args>) | doau TextChanged
+
+""" Jira ticket
+    command Jira put+ | 0d | set ft=jira
