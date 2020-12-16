@@ -13,7 +13,7 @@
     set scrolloff=5
     set sidescrolloff=3
     set showmatch
-    set signcolumn=number       " reuse the number column for signs
+    " set signcolumn=number       " reuse the number column for signs
     set noequalalways           " don't resize other windows
     set fillchars=eob:~
 
@@ -106,6 +106,8 @@
 
     packadd! python-syntax
     packadd! vim-python-pep8-indent
+    packadd! yajs.vim
+    packadd! yats.vim
     " packadd! vim-styled-components
     " packadd! vim-jsx-pretty
 

@@ -55,3 +55,12 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/vim-styled-components"]
 	path = stow/nvim/.config/nvim/pack/external/opt/vim-styled-components
 	url = git@github.com:styled-components/vim-styled-components.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/yats.vim"]
+	path = stow/nvim/.config/nvim/pack/external/opt/yats.vim
+	url = git@github.com:HerringtonDarkholme/yats.vim.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/yajs.vim"]
+	path = stow/nvim/.config/nvim/pack/external/opt/yajs.vim
+	url = git@github.com:othree/yajs.vim.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/coc.nvim"]
+	path = stow/nvim/.config/nvim/pack/external/opt/coc.nvim
+	url = git@github.com:neoclide/coc.nvim.git

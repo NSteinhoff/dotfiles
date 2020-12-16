@@ -38,6 +38,13 @@ function TSStatus()
     endtry
 endfunction
 
+function CoCStatus()
+    if exists("*coc#status")
+        return '['.coc#status().']'
+    endif
+    return ''
+endfunction
+
 function! MyStatusline()
     let BAR         = '%*'
     let OPT         = '%#StatusLineNC#'
@@ -58,11 +65,12 @@ function! MyStatusline()
     let spell       = '%{Spell()}'
     let compiler    = '%{Compiler()}'
     let errors      = '%{Errors()}'
-    let lsp         = '%{LspStatus()}'
     let pomodoro    = '%{Pomodoro()}'
     let position    = ' ☰ %l:%c | %p%% '
+    let lsp         = '%{LspStatus()}'
+    let coc         = '%{CoCStatus()}'
 
-    return pre.ft.OPT.file.mod.args.SEP.errors.lsp.compiler.spell.BAR.position
+    return pre.ft.OPT.file.mod.args.SEP.errors.coc.lsp.compiler.spell.BAR.position
 endfunction
 
 set statusline=%!MyStatusline()

@@ -87,7 +87,9 @@ endfunction
     " Mnemonic:
     "   < and > change indentation
     "   => 'indent all'
-    nnoremap <silent> <> :Format<CR>
+    if maparg('<>', 'n') == ''
+        nnoremap <silent> <> :Format<CR>
+    endif
 
 
 """  Clear search highlights
@@ -155,7 +157,7 @@ endfunction
 
 """ Quickopen
     nnoremap <C-P> :Find <C-Z>
-    "nnoremap <C-P> <cmd>FindFiles<CR>i
+    " nnoremap <C-P> <cmd>FindFiles<CR>i
 
 
 """ Running builds
@@ -199,7 +201,6 @@ endfunction
     vnoremap <Leader>x :Run<CR>
     nnoremap <Leader>X :%Run<CR>
     nnoremap <expr> <Leader>o exists(':Oldfiles') ? ':Oldfiles <C-Z>' : ':browse oldfiles<CR>'
-    nnoremap <Leader>f :Format<CR>
 
     " Switch buffers
     nnoremap <Leader>b :buffer <C-Z>
