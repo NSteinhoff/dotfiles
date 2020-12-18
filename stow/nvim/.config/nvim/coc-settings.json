@@ -1,13 +1,16 @@
 {
-    "suggest.autoTrigger": "trigger",
     "diagnostic.enableMessage": "jump",
     "diagnostic.messageTarget": "float",
     "diagnostic.messageDelay": 1000,
     "diagnostic.virtualText": true,
+    "diagnostic.virtualTextCurrentLineOnly": true,
     "diagnostic.errorSign": "",
     "diagnostic.warningSign": "",
     "diagnostic.hintSign": "!",
-    "diagnostic.infoSign": " ",
+    "diagnostic.infoSign": "i",
+    "diagnostic.separateRelatedInformationAsDiagnostics": true,
+
+    "suggest.autoTrigger": "trigger",
     "suggest.completionItemKindLabels": {
         "keyword": "\uf1de",
         "variable": "\ue79b",

@@ -40,7 +40,8 @@ endfunction
 
 function CoCStatus()
     if exists("*coc#status")
-        return '['.coc#status().']'
+        let l:status = coc#status()
+        return !empty(l:status) ? ' '.l:status.' ' : ''
     endif
     return ''
 endfunction
@@ -70,7 +71,7 @@ function! MyStatusline()
     let lsp         = '%{LspStatus()}'
     let coc         = '%{CoCStatus()}'
 
-    return pre.ft.OPT.file.mod.args.SEP.errors.coc.lsp.compiler.spell.BAR.position
+    return pre.ft.OPT.file.mod.args.SEP.coc.lsp.errors.compiler.spell.BAR.position
 endfunction
 
 set statusline=%!MyStatusline()

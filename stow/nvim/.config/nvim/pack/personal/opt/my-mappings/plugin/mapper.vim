@@ -156,8 +156,8 @@ endfunction
 
 
 """ Quickopen
-    nnoremap <C-P> :Find <C-Z>
-    " nnoremap <C-P> <cmd>FindFiles<CR>i
+    " nnoremap <C-P> :Find <C-Z>
+    nnoremap <C-P> <cmd>FindFiles<CR>i
 
 
 """ Running builds
