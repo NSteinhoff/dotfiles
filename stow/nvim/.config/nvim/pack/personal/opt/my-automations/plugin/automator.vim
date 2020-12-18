@@ -52,6 +52,12 @@ augroup user-ctags
     " autocmd BufWritePost * if finddir('.git', ';') != '' | call jobstart(['git', 'ctags']) | endif
 augroup END
 
+augroup tmux-window-name
+    autocmd!
+    autocmd DirChanged * if exists('$TMUX') && executable('tmux')
+            \| silent! execute '!tmux rename-window nvim@'.fnamemodify(getcwd(), ':t')
+            \| endif
+augroup END
 
 function s:track_changes(off)
     if a:off
@@ -72,5 +78,5 @@ function s:track_changes(off)
     endif
 endfunction
 
-command -bang TrackChanges call <SID>track_changes(expand("<bang>") == '!')
+command! -bang TrackChanges call <SID>track_changes(expand("<bang>") == '!')
 " vim:foldmethod=marker textwidth=0
