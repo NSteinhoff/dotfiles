@@ -1,12 +1,12 @@
 --recurse=yes
 
 --exclude=.git
---exclude=*db/*
---exclude=*log/*
---exclude=*target/*
---exclude=*vendor/*
---exclude=*node_modules/*
---exclude=*venv/*
---exclude=*devenv/*
---exclude=*runenv/*
---exclude=*.tox/*
+--exclude=db
+--exclude=log
+--exclude=target
+--exclude=vendor
+--exclude=node_modules
+--exclude=venv
+--exclude=devenv
+--exclude=runenv
+--exclude=tox
