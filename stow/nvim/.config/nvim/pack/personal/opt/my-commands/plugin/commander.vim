@@ -100,7 +100,7 @@
                 \ if <bang>0
                 \|call commander#git#load_timeline(<line1>, <line2>)
                 \|else
-                \|echo join(commander#git#line_revisions(<line1>, <line2>), "\n")
+                \|topleft vsplit|call commander#git#load_timeline(<line1>, <line2>)
                 \|endif
     command! -nargs=? -complete=customlist,commander#git#file_revisions ChangeSplit call commander#git#load_diff_in_split(<q-args>)
     command! -nargs=? -complete=customlist,commander#git#file_revisions ChangePatch call commander#git#load_patch(<q-args>)
