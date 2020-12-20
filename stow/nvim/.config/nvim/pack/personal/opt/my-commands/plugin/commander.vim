@@ -81,16 +81,8 @@
     command! -range Run execute '<line1>,<line2>w !'.get(b:, 'interpreter', 'cat')
 
 """ Git
-    command GlobalRevisions echo join(commander#git#global_revisions(), "\n")
-    command LocalRevisions echo join(commander#git#local_revisions(), "\n")
-
-    " Show the commits that modified the selected lines
-    command! -range -bang ButWhy
-        \ echo system(
-        \ "git -C " . shellescape(expand('%:p:h'))
-        \ . " log -L <line1>,<line2>:" . expand('%:t')
-        \ . (<q-bang> != '!' ? ' --no-patch --oneline' : '')
-        \ )
+    command! GlobalRevisions echo join(commander#git#global_revisions(), "\n")
+    command! LocalRevisions echo join(commander#git#local_revisions(), "\n")
 
     " Show the author who last changed the selected line
     command! -range Blame
@@ -104,11 +96,16 @@
         \| call jobstart(['git', 'ctags']) | else
         \| echo "'".getcwd()."' is not a git repository. Can only run Ctags from within a git repository." | endif
 
-    command! -bang Timeline if '<bang>' == '!' | call commander#git#load_timeline() | else | echo join(commander#git#file_revisions(), "\n") | endif
+    command! -bang -range=% Timeline
+                \ if <bang>0
+                \|call commander#git#load_timeline(<line1>, <line2>)
+                \|else
+                \|echo join(commander#git#line_revisions(<line1>, <line2>), "\n")
+                \|endif
     command! -nargs=? -complete=customlist,commander#git#file_revisions ChangeSplit call commander#git#load_diff_in_split(<q-args>)
     command! -nargs=? -complete=customlist,commander#git#file_revisions ChangePatch call commander#git#load_patch(<q-args>)
 
-    command ChangedFiles :call commander#git#set_changed_args()
+    command! ChangedFiles :call commander#git#set_changed_args()
 
 """ Searching
     " Search locally in the buffer and put results in the loclist.
@@ -124,7 +121,7 @@
 
     command! -count=50 -nargs=+ -bang TSplit
         \ silent execute '!tmux '
-        \.(expand('<bang>') == '!' ? 'new-window -n <q-args> ' : 'split-window -f -l <count>\% '
+        \.(<bang>0 ? 'new-window -n <q-args> ' : 'split-window -f -l <count>\% '
         \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
         \.' -d -c '.getcwd().' '.shellescape('<args>; sleep 2')
         \|silent redraw
@@ -132,7 +129,7 @@
     command! -count=50 -nargs=* -bang TMake
         \ silent call commander#make#kill_window(commander#make#makeprg(<q-args>))
         \|silent execute '!tmux '
-        \.(expand('<bang>') == '!' ? 'new-window -n '''.commander#make#makeprg(<q-args>).''' ' : 'split-window -f -l <count>\% '
+        \.(<bang>0 ? 'new-window -n '''.commander#make#makeprg(<q-args>).''' ' : 'split-window -f -l <count>\% '
         \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
         \.' -d -c '.getcwd().' '.commander#make#shell_cmd(<q-args>)
         \|silent redraw
@@ -140,13 +137,13 @@
     command! -count=50 -bang TTailErr
         \ if findfile(&errorfile) != ''
         \|silent execute '!tmux '
-        \.(expand('<bang>') == '!' ? 'new-window' : 'split-window -f -l <count>\% '
+        \.(<bang>0 ? 'new-window' : 'split-window -f -l <count>\% '
         \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
         \.' -d -c '.getcwd().' '.shellescape('tail -F '.&errorfile)
         \|silent redraw | endif
 
 """ Find files
-    command -nargs=1 -complete=customlist,<SID>complete_files Find edit <args>
+    command! -nargs=1 -complete=customlist,<SID>complete_files Find edit <args>
     function s:complete_files(arglead, cmdline, cursorpos)
         let l:pattern = a:arglead != '' ? '.*'.a:arglead.'.*' : '.*'
         if finddir('.git', ';') != ''
@@ -156,18 +153,18 @@
         endif
     endfunction
 
-    command -nargs=1 -complete=customlist,<SID>complete_oldfiles Oldfiles edit <args>
+    command! -nargs=1 -complete=customlist,<SID>complete_oldfiles Oldfiles edit <args>
     function s:complete_oldfiles(arglead, cmdline, cursorpos)
         return filter(copy(v:oldfiles), { _, fname -> fname =~ a:arglead })
     endfunction
 
 """ LiveGrep
-    command -nargs=? LiveGrep execute (expand('<mods>') == '' ? 'edit' : expand('<mods>').' new').' livegrep'
+    command! -nargs=? LiveGrep execute (expand('<mods>') == '' ? 'edit' : expand('<mods>').' new').' livegrep'
                 \| set ft=livegrep | call setline(1, <q-args>) | doau TextChanged
 
 """ FindFiles
-    command -nargs=? FindFiles execute (expand('<mods>') == '' ? 'edit' : expand('<mods>').' new').' filefinder'
+    command! -nargs=? FindFiles execute (expand('<mods>') == '' ? 'edit' : expand('<mods>').' new').' filefinder'
                 \| set ft=filefinder | call setline(1, <q-args>) | doau TextChanged
 
 """ Jira ticket
-    command Jira Scratch | put+ | 0d | set ft=jira
+    command! Jira Scratch | put+ | 0d | set ft=jira

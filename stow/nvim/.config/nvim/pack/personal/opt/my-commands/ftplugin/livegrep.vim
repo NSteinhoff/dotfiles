@@ -1,6 +1,6 @@
 set buftype=nofile bufhidden=wipe nobuflisted noswapfile
 
-let s:insert_help = '<SPACE> inserts wildcard'
+let s:insert_help = '<SPACE> inserts wildcard ; <CR> jump to first result and populate quickfix'
 let s:normal_help = '<CR> go to result ; <SPACE> go to result in tab ; Edit results and close buffer to load results into quickfix'
 let s:placeholder = '  <<< some.*pattern.*in.*file.*contents'
 let s:rip_grep = 'rg --vimgrep --smart-case'
@@ -72,7 +72,7 @@ function s:update(live)
 endfunction
 
 function s:export(buf)
-    cgetexpr getbufline(str2nr(a:buf), 3, '$')
+    cgetexpr getbufline(a:buf, 3, '$')
 endfunction
 
 augroup live-grep
@@ -82,9 +82,10 @@ augroup live-grep
     autocmd InsertLeave <buffer> call s:update(0)
     autocmd InsertEnter <buffer> call s:insert_separator('i')
     autocmd InsertLeave <buffer> call s:insert_separator('n')
-    autocmd BufWipeout <buffer> call s:export(expand('<abuf>'))
+    autocmd BufWipeout <buffer> call s:export(str2nr(expand('<abuf>')))
 augroup END
 
 nnoremap <buffer> <SPACE> <C-W>gF
 nnoremap <buffer> <CR> gF
 inoremap <buffer> <SPACE> .*
+inoremap <buffer> <CR> <esc>3GgF
