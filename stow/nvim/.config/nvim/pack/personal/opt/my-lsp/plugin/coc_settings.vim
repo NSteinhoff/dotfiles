@@ -4,7 +4,7 @@ augroup coc-lsp
     autocmd!
 
     " Disable by default
-    autocmd BufAdd * let b:coc_enabled=0
+    " autocmd BufAdd * let b:coc_enabled=0
 
     " Enable for some filetypes
     autocmd FileType typescript,javascript,javascriptreact,typescriptreact call s:on_attach()
@@ -23,8 +23,9 @@ augroup coc-lsp
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
+command CocAttach call s:on_attach()
 function s:on_attach()
-    CocEnable
+    " CocEnable
     call s:setup_options()
     call s:setup_commands()
     call s:setup_mappings()
@@ -68,10 +69,11 @@ endfunction
 "---------------------------------------------------------------------------- "
 function s:setup_completion()
     " Map <tab> to trigger completion and navigate to the next item: >
-    inoremap <buffer> <silent><expr> <TAB>
-                  \ pumvisible() ? "\<C-n>" :
-                  \ <SID>check_back_space() ? "\<TAB>" :
-                  \ coc#refresh()
+    " inoremap <buffer> <silent><expr> <TAB>
+    "               \ pumvisible() ? "\<C-n>" :
+    "               \ <SID>check_back_space() ? "\<TAB>" :
+    "               \ coc#refresh()
+    inoremap <buffer> <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
     function! s:check_back_space() abort
       let col = col('.') - 1
       return !col || getline('.')[col - 1]  =~ '\s'
