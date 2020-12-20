@@ -41,6 +41,52 @@ function commander#git#local_file_revision(revision, ...)
     return systemlist('git -C '.shellescape(fdir).' show '.ref.':./'.fname)
 endfunction
 
+function commander#git#blame(line1, line2, ...)
+    let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
+    return systemlist('git -C '.shellescape(fdir).' blame -L '.a:line1.','.a:line2.' --date=short '.fname)
+endfunction
+
+function s:blame_update()
+    let b:blame = call('commander#git#blame', [1, line('$')])
+endfunction
+
+function s:blame_mark(lnum)
+    let lnum = a:lnum - 1
+    let text = get(get(b:, 'blame', []), lnum, '')
+    let ns = nvim_create_namespace('git_blame')
+    call nvim_buf_clear_namespace(0, ns, 0, -1)
+    call nvim_buf_set_virtual_text(0, ns, lnum, [[text, 'Comment']], {})
+endfunction
+
+function commander#git#blame_on()
+    call s:blame_update()
+    call s:blame_mark(line('.'))
+    aug blame
+        au!
+        au CursorMoved <buffer> call s:blame_mark(line('.'))
+    aug END
+endfunction
+
+function commander#git#blame_off()
+    au! blame
+    call commander#git#blame_clear()
+endfunction
+
+function commander#git#blame_clear()
+    let ns = nvim_create_namespace('git_blame')
+    call nvim_buf_clear_namespace(0, ns, 0, -1)
+endfunction
+
+function commander#git#blame_lense(line1, line2, ...)
+    let blame = call('commander#git#blame', [a:line1, a:line2] + a:000)
+    let ns = nvim_create_namespace('git_blame')
+    call nvim_buf_clear_namespace(0, ns, a:line1-1, a:line2-1)
+    let blamelines = map(blame, { i, v -> [i+a:line1-1, v] })
+    for [lnum, text] in blamelines
+        call nvim_buf_set_virtual_text(0, ns, lnum, [[text, 'Comment']], {})
+    endfor
+endfunction
+
 function commander#git#load_diff_in_split(revision, ...)
     let ft = &ft
     let content = call('commander#git#local_file_revision', [a:revision] + a:000)

@@ -85,11 +85,15 @@
     command! LocalRevisions echo join(commander#git#local_revisions(), "\n")
 
     " Show the author who last changed the selected line
-    command! -range Blame
-        \ echo system(
-        \ "git -C " . shellescape(expand('%:p:h'))
-        \ . " blame -L <line1>,<line2> " . expand('%:t')
-        \ )
+    command! -range Blame echo join(commander#git#blame(<line1>, <line2>), "\n")
+    command! BlameOn call commander#git#blame_on()
+    command! BlameOff call commander#git#blame_off()
+    command! -range -bang BlameLense
+                \ if <bang>0
+                \|call commander#git#blame_clear()
+                \|else
+                \|call commander#git#blame_lense(<line1>, <line2>)
+                \|endif
 
     " Regenerate the git ctags kept under .git/tags
     command! Ctags if finddir('.git', ';') != ''
