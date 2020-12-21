@@ -3,7 +3,7 @@ nnoremap <buffer> o <CMD>call b:open()<CR>
 nnoremap <buffer> <SPACE> <CMD>call b:peek_commit()<CR>
 nnoremap <buffer> <CR> <CMD>call b:open_commit()<CR>
 
-let s:help_msg = '<- (.) show; (o)pen; <SPACE> show commit; <CR> open commit'
+let s:help_msg = '      <- (.) show; (o)pen; <SPACE> show commit; <CR> open commit'
 
 function s:help()
     let l:ns = nvim_create_namespace('gitlog_help')

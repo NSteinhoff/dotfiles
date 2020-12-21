@@ -100,12 +100,7 @@
         \| call jobstart(['git', 'ctags']) | else
         \| echo "'".getcwd()."' is not a git repository. Can only run Ctags from within a git repository." | endif
 
-    command! -bang -range=% Timeline
-                \ if <bang>0
-                \|call commander#git#load_timeline(<line1>, <line2>)
-                \|else
-                \|topleft vsplit|call commander#git#load_timeline(<line1>, <line2>)
-                \|endif
+    command! -bang -range=% Timeline call commander#git#load_timeline(<bang>0, <line1>, <line2>)
     command! -nargs=? -complete=customlist,commander#git#file_revisions ChangeSplit call commander#git#load_diff_in_split(<q-args>)
     command! -nargs=? -complete=customlist,commander#git#file_revisions ChangePatch call commander#git#load_patch(<q-args>)
 

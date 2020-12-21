@@ -55,7 +55,7 @@ function s:blame_mark(lnum)
     let text = get(get(b:, 'blame', []), lnum, '')
     let ns = nvim_create_namespace('git_blame')
     call nvim_buf_clear_namespace(0, ns, 0, -1)
-    call nvim_buf_set_virtual_text(0, ns, lnum, [[text, 'Comment']], {})
+    call nvim_buf_set_virtual_text(0, ns, lnum, [['    '.text, 'Comment']], {})
 endfunction
 
 function commander#git#blame_on()
@@ -64,6 +64,7 @@ function commander#git#blame_on()
     aug blame
         au!
         au CursorMoved <buffer> call s:blame_mark(line('.'))
+        au BufWritePost <buffer> call s:blame_update()
     aug END
 endfunction
 
@@ -106,11 +107,15 @@ function commander#git#load_patch(revision, ...) abort
     set ft=diff
 endfunction
 
-function commander#git#load_timeline(line1, line2, ...)
+function commander#git#load_timeline(split, line1, line2, ...)
     let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
     let ft=&ft
     let content = call('commander#git#line_revisions', [a:line1, a:line2] + a:000)
-    call commander#lib#load_lines(content)
+    if a:split
+        call commander#lib#load_lines_in_split(content, 'vertical')
+    else
+        call commander#lib#load_lines(content)
+    endif
     execute 'file '.fdir.'/'.fname.'.timeline'
     set ft=gitlog
     let b:open = { -> commander#git#load_file_revision(getline('.'), fdir.'/'.fname, ft) }
