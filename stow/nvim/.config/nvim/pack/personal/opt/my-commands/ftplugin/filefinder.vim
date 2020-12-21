@@ -2,7 +2,7 @@ setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
 setlocal errorformat=%f
 
 let s:insert_help = '<CR> selects <- ; <C-N>/<C-P> moves <- ; <SPACE> inserts wildcards'
-let s:normal_help = '[1-9] open file; <CR> selects <- ;'
+let s:normal_help = '[1-9] open file; <CR> selects <- ; (q)uit'
 let s:placeholder = '  <<< some.*file.*pattern'
 let s:rip_files = 'rg --files'
 let s:git_files = 'git ls-files'
@@ -114,6 +114,7 @@ inoremap <buffer> <TAB> <cmd>call <SID>move_selection(1)<CR>
 inoremap <buffer> <S-TAB> <cmd>call <SID>move_selection(-1)<CR>
 inoremap <buffer> <C-N> <cmd>call <SID>move_selection(1)<CR>
 inoremap <buffer> <C-P> <cmd>call <SID>move_selection(-1)<CR>
+nnoremap <buffer> q <CMD>bdelete<CR>
 
 for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
     execute 'nnoremap <buffer> '.i.' <cmd>silent call <SID>open_file('.i.')<cr>'

@@ -151,6 +151,9 @@ function s:setup_mappings()
     "       Jump to definition(s) of current symbol by invoke
     "       |coc-action-jumpDefinition|
 
+    nmap <buffer> <C-W>d <C-W>s<Plug>(coc-definition)
+    nmap <buffer> <C-W><C-D> <C-W>s<Plug>(coc-definition)
+
     nmap <buffer> gD <Plug>(coc-declaration)
 
     "       Jump to declaration(s) of current symbol by invoke
@@ -189,7 +192,7 @@ function s:setup_mappings()
     "       makes `<leader>p` format the visually selected range, and you can use
     "       `<leader>pap` to format a paragraph.
 
-    nmap <buffer> <leader>f <Plug>(coc-format)
+    nmap <buffer> dcF <Plug>(coc-format)
 
     "       Format the whole buffer by invoke |coc-action-format|, normally you
     "       would like to use a command like: >
@@ -324,10 +327,10 @@ function s:setup_mappings()
     " nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
 
     " Find symbol of current document.
-    nnoremap <buffer> <silent><nowait> gs  :<C-u>CocList outline<cr>
+    nnoremap <buffer> <silent><nowait> gw  :<C-u>CocList outline<cr>
 
     " Search workspace symbols.
-    nnoremap <buffer> <silent><nowait> gS :<C-u>CocList -I symbols<cr>
+    nnoremap <buffer> <silent><nowait> gW :<C-u>CocList -I symbols<cr>
 
     " Do default action for next item.
     " nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>

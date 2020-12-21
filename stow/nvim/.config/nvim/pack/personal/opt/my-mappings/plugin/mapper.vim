@@ -43,6 +43,12 @@ endfunction
 
 
 """ Basics / Improving standard mappings
+    " Make Y behave like C and D
+    nnoremap Y y$
+
+    " Run 'q' macro
+    nnoremap Q @q
+
     " Move over visual lines unless a count is given
     nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
     nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
@@ -68,26 +74,26 @@ endfunction
     nnoremap <C-L> 3zl
 
 
+""" Search and replace
+    nnoremap cr /\V<C-r>=escape(@", '\/')<Cr><Cr>cgn<C-r>.<ESC>
+    nnoremap gs :%s/
+    xnoremap gs :s/
+    nnoremap <expr> <Leader>s ':s%/'.expand('<cword>').'/'
+    vnoremap <Leader>s y:%s/<c-r>"/
+
+
 """ Windows
-    " Quickly close a window
-    nnoremap Q :close<CR>
     " Close all other buffers
     nnoremap <C-W>O :BufOnly<CR>
-
-
-""" Comment / Uncomment
-    " Mnemonic:
-    "   "       -> Vim's comment string
-    "   <CR>    -> line
-    "   "<CR>   => 'comment line'
-    noremap <silent> "<CR> :ToggleCommented<CR>
+    nnoremap <silent> <c-w>o :diffoff!<bar>only<cr>
+    nnoremap <silent> <c-w><c-o> :diffoff!<bar>only<cr>
 
 
 """  Format
     " Mnemonic:
     "   < and > change indentation
     "   => 'indent all'
-    if maparg('<>', 'n') == ''
+    if empty(maparg('<>', 'n'))
         nnoremap <silent> <> :Format<CR>
     endif
 
@@ -119,24 +125,24 @@ endfunction
 """ Preview / Hover
     " Preview information about a symbol.
     " This is replaced with 'Hover' by LSP.
-    if maparg('<SPACE>', 'n') == ''
+    if empty(maparg('<SPACE>', 'n'))
         nnoremap <expr> <silent> <Space> ':psearch '.expand('<cword>').'<CR>'
     endif
-    if maparg('<SPACE>', 'v') == ''
+    if empty(maparg('<SPACE>', 'v'))
         vnoremap <expr> <silent> <Space> 'y:psearch <C-R>"<CR>'
     endif
 
     " Preview definition
-    if maparg('<C-SPACE>', 'n') == ''
+    if empty(maparg('<C-SPACE>', 'n'))
         nnoremap <C-SPACE> <C-W>}
     endif
-    if maparg('g<C-SPACE>', 'n') == ''
+    if empty(maparg('g<C-SPACE>', 'n'))
         nnoremap g<C-SPACE> <C-W>g}
     endif
-    if maparg('<C-SPACE>', 'v') == ''
+    if empty(maparg('<C-SPACE>', 'v'))
         vnoremap <silent> <C-SPACE> y:ptag <C-R>"<CR>
     endif
-    if maparg('g<C-SPACE>', 'v') == ''
+    if empty(maparg('g<C-SPACE>', 'v'))
         vnoremap <silent> g<C-SPACE> y:ptselect <C-R>"<CR>
     endif
 
@@ -148,19 +154,16 @@ endfunction
     " <C-Space> is used for smart completion.
     " By default it completes tags. This could be remapped to omni-completion
     " or LSP completion for supported languages or filetypes.
-    if maparg('<C-SPACE>', 'i') == ''
-        inoremap <C-SPACE> <C-X><C-]>
-    endif
+    inoremap <C-SPACE> <C-X><C-]>
     inoremap <expr> <Tab>   pumvisible() ? '<C-n>' : '<Tab>'
     inoremap <expr> <S-Tab> pumvisible() ? '<C-p>' : '<S-Tab>'
 
 
 """ Quickopen
-    " nnoremap <C-P> :Find <C-Z>
-    nnoremap <C-P> <cmd>FindFiles<CR>i
+    nnoremap <expr> <C-P> exists(':FindFiles') ? '<cmd>FindFiles<CR>i' : ':Find <C-Z>'
 
 
-""" Running builds
+""" Running builds with `<key>
     nnoremap `<Leader> <cmd>make<CR>
     nnoremap `<CR> <cmd>vert TMake<CR>
     nnoremap `<BS> <cmd>TMake!<CR>
@@ -194,6 +197,11 @@ endfunction
     " Switch to alternative buffer
     nnoremap <BS> <C-^>
 
+    " Delete buffer without losing layout
+    nnoremap <expr> <silent> <Leader>d len(getbufinfo({'buflisted': 1})) > 1
+                \? ':bprevious<bar>bdelete#<CR>'
+                \: ':bdelete<CR>'
+
     " Quick Keys
     vnoremap <Leader>= :Align<CR>
     nnoremap <Leader>! :!%:p<CR>
@@ -222,7 +230,8 @@ endfunction
     nnoremap <Leader>V :Vexplore<CR>
     nnoremap <Leader>T :Texplore<CR>
 
-    " (c): Changes / Diffing
+
+""" (c): Changes / Diffing
     nnoremap cs :ChangeSplit<CR>
     nnoremap cS :ChangeSplit <C-Z>
     nnoremap cp :ChangePatch<CR>
@@ -230,6 +239,6 @@ endfunction
 
 
 """ Potential Ad-hoc mappings
-    if maparg('<Leader><Leader>', 'n') == ''
+    if empty(maparg('<Leader><Leader>', 'n'))
         nnoremap <Leader><Leader> :nnoremap <leader><leader> 
     endif

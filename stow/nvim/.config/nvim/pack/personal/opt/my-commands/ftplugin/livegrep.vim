@@ -1,7 +1,7 @@
 set buftype=nofile bufhidden=wipe nobuflisted noswapfile
 
 let s:insert_help = '<SPACE> inserts wildcard ; <CR> jump to first result and populate quickfix'
-let s:normal_help = '<CR> go to result ; <SPACE> go to result in tab ; Edit results and close buffer to load results into quickfix'
+let s:normal_help = '<CR> go to result ; <SPACE> go to result in tab ; Edit results and close buffer to load results into quickfix ; (q)uit'
 let s:placeholder = '  <<< some.*pattern.*in.*file.*contents'
 let s:rip_grep = 'rg --vimgrep --smart-case'
 let s:git_grep = 'git grep -n -i -I'
@@ -89,3 +89,4 @@ nnoremap <buffer> <SPACE> <C-W>gF
 nnoremap <buffer> <CR> gF
 inoremap <buffer> <SPACE> .*
 inoremap <buffer> <CR> <esc>3GgF
+nnoremap <buffer> q <CMD>bdelete<CR>
