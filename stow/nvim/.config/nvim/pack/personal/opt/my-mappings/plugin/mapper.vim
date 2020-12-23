@@ -78,8 +78,8 @@ endfunction
     nnoremap cr /\V<C-r>=escape(@", '\/')<Cr><Cr>cgn<C-r>.<ESC>
     nnoremap gs :%s/
     xnoremap gs :s/
-    nnoremap <expr> <Leader>s ':s%/'.expand('<cword>').'/'
-    vnoremap <Leader>s y:%s/<c-r>"/
+    nnoremap <expr> gS ':%s/\V'.expand('<cword>').'/'
+    vnoremap gS y:%s/\V<c-r>=escape(@", '\/')<CR><BS>/
 
 
 """ Windows
@@ -197,8 +197,9 @@ endfunction
     " Switch to alternative buffer
     nnoremap <BS> <C-^>
 
+    " (d)elete (c)urrent
     " Delete buffer without losing layout
-    nnoremap <expr> <silent> <Leader>d len(getbufinfo({'buflisted': 1})) > 1
+    nnoremap <expr> <silent> dc len(getbufinfo({'buflisted': 1})) > 1
                 \? ':bprevious<bar>bdelete#<CR>'
                 \: ':bdelete<CR>'
 
