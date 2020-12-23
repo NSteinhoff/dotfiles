@@ -1,1 +1,1 @@
-" lua require('lsp')
+lua require('lsp')

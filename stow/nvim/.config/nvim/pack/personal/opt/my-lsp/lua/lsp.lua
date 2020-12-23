@@ -35,8 +35,9 @@ end
 local function setup_keymaps()
     -- Get help
     nnoremap('<space>', '<cmd>lua vim.lsp.buf.hover()<CR>')
-    nnoremap('<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-    inoremap('<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+    nnoremap('<c-h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+    inoremap('<c-h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+    inoremap('<c-space>', '<C-X><C-O>')
 
     -- Jump to symbols
     nnoremap('<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
@@ -48,8 +49,8 @@ local function setup_keymaps()
 
     -- Listing symbols
     nnoremap('gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-    nnoremap('gs', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-    nnoremap('gS', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+    nnoremap('gw', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+    nnoremap('gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 
     -- Moving through errors
     nnoremap(']g', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
@@ -105,7 +106,7 @@ end
 
 -- LSP client configurations
 vim.cmd('packadd nvim-lspconfig')
-vim.cmd('packadd my-completions')
+-- vim.cmd('packadd my-completions')
 
 local function on_attach(client)
     setup_keymaps()
@@ -113,12 +114,12 @@ local function on_attach(client)
     setup_options()
     setup_autocmds()
     setup_signs()
-    require'my_completion'.on_attach()
+    -- require'my_completion'.on_attach()
 end
 
 
 local lspconfig = require('lspconfig')
-local servers = {'tsserver', 'rust_analyzer'}
+local servers = {'tsserver', 'rls'}
 for _, server in ipairs(servers) do
     lspconfig[server].setup({
         on_attach = on_attach,

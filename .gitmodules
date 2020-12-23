@@ -55,6 +55,7 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/vim-styled-components"]
 	path = stow/nvim/.config/nvim/pack/external/opt/vim-styled-components
 	url = git@github.com:styled-components/vim-styled-components.git
+	branch = main
 [submodule "stow/nvim/.config/nvim/pack/external/opt/yats.vim"]
 	path = stow/nvim/.config/nvim/pack/external/opt/yats.vim
 	url = git@github.com:HerringtonDarkholme/yats.vim.git

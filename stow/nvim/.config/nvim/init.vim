@@ -13,9 +13,9 @@
     set scrolloff=5
     set sidescrolloff=3
     set showmatch
-    " set signcolumn=number       " reuse the number column for signs
     set noequalalways           " don't resize other windows
     set fillchars=eob:~
+    set signcolumn=number
 
 """ Behavior
     set noswapfile
@@ -65,7 +65,7 @@
     set completeopt+=menuone
     set completeopt+=noinsert
     set completeopt+=noselect
-    set completeopt+=preview    " open the preview window with additional info
+    set completeopt-=preview    " open the preview window with additional info
     set shortmess+=c
 
 """ Path and files
