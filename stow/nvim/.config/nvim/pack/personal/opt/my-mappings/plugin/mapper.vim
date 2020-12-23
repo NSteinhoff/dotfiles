@@ -197,9 +197,9 @@ endfunction
     " Switch to alternative buffer
     nnoremap <BS> <C-^>
 
-    " (d)elete (c)urrent
+    " (d)elete (c)urrent (b)uffer
     " Delete buffer without losing layout
-    nnoremap <expr> <silent> dc len(getbufinfo({'buflisted': 1})) > 1
+    nnoremap <expr> <silent> dcb len(getbufinfo({'buflisted': 1})) > 1
                 \? ':bprevious<bar>bdelete#<CR>'
                 \: ':bdelete<CR>'
 

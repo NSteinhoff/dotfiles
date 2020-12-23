@@ -107,14 +107,16 @@ augroup file-finder
     autocmd InsertLeave <buffer> call s:insert_separator('n')
 augroup END
 
+nnoremap <buffer> <SPACE> <cmd>if line('.') > 2 \| call <SID>open_file(line('.')-2) \| endif<CR>
+nnoremap <buffer> <CR> <cmd>call <SID>open_selected()<CR>
+nnoremap <buffer> q <CMD>bdelete<CR>
+
 inoremap <buffer> <SPACE> .*
 inoremap <buffer> <CR> <esc><cmd>call <SID>open_selected()<CR>
-nnoremap <buffer> <CR> <cmd>call <SID>open_selected()<CR>
 inoremap <buffer> <TAB> <cmd>call <SID>move_selection(1)<CR>
 inoremap <buffer> <S-TAB> <cmd>call <SID>move_selection(-1)<CR>
 inoremap <buffer> <C-N> <cmd>call <SID>move_selection(1)<CR>
 inoremap <buffer> <C-P> <cmd>call <SID>move_selection(-1)<CR>
-nnoremap <buffer> q <CMD>bdelete<CR>
 
 for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
     execute 'nnoremap <buffer> '.i.' <cmd>silent call <SID>open_file('.i.')<cr>'

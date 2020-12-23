@@ -147,6 +147,7 @@ function s:setup_mappings()
     "       Jump to previous diagnostic error position.
 
     nmap <buffer> gd <Plug>(coc-definition)
+    nmap <buffer> <C-SPACE> <Plug>(coc-definition)
 
     "       Jump to definition(s) of current symbol by invoke
     "       |coc-action-jumpDefinition|
