@@ -65,3 +65,4 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/coc.nvim"]
 	path = stow/nvim/.config/nvim/pack/external/opt/coc.nvim
 	url = git@github.com:neoclide/coc.nvim.git
+	branch = release
