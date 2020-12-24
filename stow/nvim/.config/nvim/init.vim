@@ -91,7 +91,7 @@
     " Finding / picking files
     " packadd! my-telescope            " fuzzy finder / picker
     packadd! my-dirvish              " file manager
-    packadd! vim-gtfo
+    " packadd! vim-gtfo
 
     " Mappings and commands
     packadd! vim-unimpaired
@@ -104,13 +104,13 @@
     " Filetypes / Syntax / Indent
     packadd! editorconfig-vim           " ft settings based on local config
 
-    packadd! python-syntax
-    packadd! vim-python-pep8-indent
-    packadd! yajs.vim
-    packadd! yats.vim
+    " packadd! python-syntax
+    " packadd! vim-python-pep8-indent
+    " packadd! yajs.vim
+   "  packadd! yats.vim
     " packadd! vim-styled-components
     " packadd! vim-jsx-pretty
 
     " IDE Mode:
     packadd! my-lsp                     " Language Server client configuration
-    " packadd! my-treesitter              " Semantic understanding of languages
+    packadd! my-treesitter              " Semantic understanding of languages

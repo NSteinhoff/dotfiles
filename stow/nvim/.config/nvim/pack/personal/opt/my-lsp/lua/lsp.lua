@@ -33,35 +33,37 @@ local function setlocal(name, value)
 end
 
 local function setup_keymaps()
+    -- Completion
+    inoremap('<c-space>',   '<C-X><C-O>')
+
     -- Get help
-    nnoremap('<space>', '<cmd>lua vim.lsp.buf.hover()<CR>')
-    nnoremap('<c-h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-    inoremap('<c-h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-    inoremap('<c-space>', '<C-X><C-O>')
+    nnoremap('<space>',     '<cmd>lua vim.lsp.buf.hover()<CR>')
+    nnoremap('K',           '<cmd>lua vim.lsp.buf.hover()<CR>')
+    inoremap('<c-h>',       '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 
     -- Jump to symbols
-    nnoremap('<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
+    nnoremap('<c-]>',       '<cmd>lua vim.lsp.buf.definition()<CR>')
 
-    nnoremap('gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-    nnoremap('gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-    nnoremap('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-    nnoremap('gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+    nnoremap('gd',          '<cmd>lua vim.lsp.buf.definition()<CR>')
+    nnoremap('gD',          '<cmd>lua vim.lsp.buf.declaration()<CR>')
+    nnoremap('gi',          '<cmd>lua vim.lsp.buf.implementation()<CR>')
+    nnoremap('gy',          '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 
     -- Listing symbols
-    nnoremap('gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-    nnoremap('gw', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-    nnoremap('gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+    nnoremap('gr',          '<cmd>lua vim.lsp.buf.references()<CR>')
+    nnoremap('gw',          '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+    nnoremap('gW',          '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 
     -- Moving through errors
-    nnoremap(']g', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
-    nnoremap('[g', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
-    nnoremap('gh', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-    nnoremap('gO', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
+    nnoremap(']g',          '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+    nnoremap('[g',          '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
+    nnoremap('gh',          '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
+    nnoremap('gH',          '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
 
-    -- Code actions, i.e. do stuff
-    nnoremap('dca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-    nnoremap('dcr', '<cmd>lua vim.lsp.buf.rename()<CR>')
-    nnoremap('dcf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+    -- Code actions,     i.e. do stuff
+    nnoremap('dca',         '<cmd>lua vim.lsp.buf.code_action()<CR>')
+    nnoremap('dcr',         '<cmd>lua vim.lsp.buf.rename()<CR>')
+    nnoremap('dcf',         '<cmd>lua vim.lsp.buf.formatting()<CR>')
 end
 
 local function setup_commands()
@@ -115,11 +117,12 @@ local function on_attach(client)
     setup_autocmds()
     setup_signs()
     -- require'my_completion'.on_attach()
+    print('LSP: ' .. client.name .. ' attached.')
 end
 
 
 local lspconfig = require('lspconfig')
-local servers = {'tsserver', 'rls'}
+local servers = {'tsserver', 'rust_analyzer'}
 for _, server in ipairs(servers) do
     lspconfig[server].setup({
         on_attach = on_attach,

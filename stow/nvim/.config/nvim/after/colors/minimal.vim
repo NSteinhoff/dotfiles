@@ -289,6 +289,8 @@ let s:syntax_groups.error = [
 \    "SpellBad",
 \    "NvimInternalError",
 \    "TelescopeMatching",
+\    "LspDiagnosticsDefaultError",
+\    "LspDiagnosticsSignError",
 \ ]
 let s:syntax_groups.fixme = [
 \    "Todo",
@@ -327,8 +329,6 @@ let s:syntax_groups.informative = [
 \    "LspReferenceText",
 \    "LspReferenceRead",
 \    "LspReferenceWrite",
-\    "LspDiagnosticsDefaultWarning",
-\    "LspDiagnosticsSignWarning",
 \    "LspDiagnosticsDefaultInformation",
 \    "LspDiagnosticsSignInformation",
 \ ]
@@ -366,8 +366,8 @@ let s:syntax_groups.emphasis = [
 \    "mkdLineBreak",
 \    "htmlItalic",
 \    "htmlUnderlineItalic",
-\    "LspDiagnosticsDefaultError",
-\    "LspDiagnosticsSignError",
+\    "LspDiagnosticsDefaultWarning",
+\    "LspDiagnosticsSignWarning",
 \ ]
 let s:syntax_groups.strong = [
 \   "markdownBold",

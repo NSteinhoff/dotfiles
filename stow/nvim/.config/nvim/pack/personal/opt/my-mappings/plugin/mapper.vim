@@ -68,10 +68,10 @@ endfunction
 
 """ Scrolling
     " Scrolling the window with CTRL-HJKL
-    nnoremap <C-J> 3<C-E>
-    nnoremap <C-K> 3<C-Y>
-    nnoremap <C-H> 3zh
-    nnoremap <C-L> 3zl
+    nnoremap <C-J> 5<C-E>
+    nnoremap <C-K> 5<C-Y>
+    nnoremap <C-H> 5zh
+    nnoremap <C-L> 5zl
 
 
 """ Search and replace
@@ -160,7 +160,10 @@ endfunction
 
 
 """ Quickopen
-    nnoremap <expr> <C-P> exists(':FindFiles') ? '<cmd>FindFiles<CR>i' : ':Find <C-Z>'
+    nnoremap <expr> <C-P> exists(':TelescopeFiles') ? '<cmd>TelescopeFiles<cr>'
+                \ : exists(':FindFiles') ? '<cmd>FindFiles<CR>i'
+                \ : exists(':Find') ? ':Find <C-Z>'
+                \ : ':find **<C-Z>'
 
 
 """ Running builds with `<key>
@@ -180,7 +183,9 @@ endfunction
     vnoremap <silent> <Leader>* y:execute 'Vimgrep '.shellescape(@")<CR>
 
     " Live grep
-    nnoremap <c-g> <cmd>LiveGrep<CR>i
+    nnoremap <expr> <c-g> exists(':TelescopeGrep')
+                \? '<cmd>TelescopeGrep<CR>'
+                \: '<cmd>LiveGrep<CR>i'
     nnoremap <silent> <expr> <Leader>g ':LiveGrep '.expand('<cword>').'<CR>'
     vnoremap <silent> <expr> <Leader>g 'y:LiveGrep <c-r>"<CR>'
 
