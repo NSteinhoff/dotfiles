@@ -36,7 +36,7 @@ endfunction
 
 
 """ <LEADER> / Wildchar
-    " Explicitly map the <Leader> key. Otherwise some plugins use their own default.
+    " Explicitly map the <leader> key. Otherwise some plugins use their own default.
     let mapleader = '\'
     let maplocalleader = '\'
     set wildcharm=<C-Z>
@@ -60,10 +60,10 @@ endfunction
     map [] k$][%?}<CR>
 
     " Window resizing with the arrow keys
-    map  <left>   5<C-W><
-    map  <right>  5<C-W>>
-    map  <up>     5<C-W>+
-    map  <down>   5<C-W>-
+    map  <LEFT>   5<C-W><
+    map  <RIGHt>  5<C-W>>
+    map  <UP>     5<C-W>+
+    map  <DOWN>   5<C-W>-
 
 
 """ Scrolling
@@ -75,19 +75,15 @@ endfunction
 
 
 """ Search and replace
-    nnoremap cr /\V<C-r>=escape(@", '\/')<Cr><Cr>cgn<C-r>.<ESC>
     nnoremap gs :%s/
     xnoremap gs :s/
     nnoremap <expr> gS ':%s/\V'.expand('<cword>').'/'
-    vnoremap gS y:%s/\V<c-r>=escape(@", '\/')<CR><BS>/
+    vnoremap gS y:%s/\V<C-R>=escape(@", '\/')<CR><BS>/
 
 
 """ Windows
-    " Close all other buffers
-    nnoremap <C-W>O :BufOnly<CR>
-    nnoremap <silent> <c-w>o :diffoff!<bar>only<cr>
-    nnoremap <silent> <c-w><c-o> :diffoff!<bar>only<cr>
-
+    nnoremap <silent> <C-W>o :diffoff!<BAR>only<CR>
+    nnoremap <silent> <C-W><C-O> :diffoff!<BAR>only<CR>
 
 """  Format
     " Mnemonic:
@@ -108,28 +104,28 @@ endfunction
     " jump to.
     "
     " <key>                     Mnemonic key for the list
-    " <Leader><key>             Peek at list
-    " <Leader><KEY>             Go to list and pick entry
+    " <leader><key>             Peek at list
+    " <leader><KEY>             Go to list and pick entry
     "
     " Quickfix list: global error
     " Mnemonic: (Q)uickfix
-    nnoremap <silent> <Leader>q :clist<CR>
-    nnoremap <silent> <expr> <Leader>Q exists(':Quickfix') ? ':Quickfix<CR>' : ':cwindow<CR>'
+    nnoremap <silent> <leader>q :clist<CR>
+    nnoremap <silent> <expr> <leader>Q exists(':Quickfix') ? ':Quickfix<CR>' : ':cwindow<CR>'
 
     " Location list: local errors
     " Mnemoic: (L)ocation
-    nnoremap <silent> <Leader>l :llist<CR>
-    nnoremap <silent> <expr> <Leader>L exists(':Loclist') ? ':Loclist<CR>' : ':lwindow<CR>'
+    nnoremap <silent> <leader>l :llist<CR>
+    nnoremap <silent> <expr> <leader>L exists(':Loclist') ? ':Loclist<CR>' : ':lwindow<CR>'
 
 
 """ Preview / Hover
     " Preview information about a symbol.
     " This is replaced with 'Hover' by LSP.
     if empty(maparg('<SPACE>', 'n'))
-        nnoremap <expr> <silent> <Space> ':psearch '.expand('<cword>').'<CR>'
+        nnoremap <expr> <silent> <SPACE> ':psearch '.expand('<cword>').'<CR>'
     endif
     if empty(maparg('<SPACE>', 'v'))
-        vnoremap <expr> <silent> <Space> 'y:psearch <C-R>"<CR>'
+        vnoremap <expr> <silent> <SPACE> 'y:psearch <C-R>"<CR>'
     endif
 
     " Preview definition
@@ -147,7 +143,7 @@ endfunction
     endif
 
     " Close the preview window
-    nnoremap <Leader><SPACE> <C-W>z
+    nnoremap <leader><SPACE> <C-W>z
 
 
 """ Completion
@@ -155,19 +151,19 @@ endfunction
     " By default it completes tags. This could be remapped to omni-completion
     " or LSP completion for supported languages or filetypes.
     inoremap <C-SPACE> <C-X><C-]>
-    inoremap <expr> <Tab>   pumvisible() ? '<C-n>' : '<Tab>'
-    inoremap <expr> <S-Tab> pumvisible() ? '<C-p>' : '<S-Tab>'
+    inoremap <expr> <Tab>   pumvisible() ? '<C-N>' : '<TAB>'
+    inoremap <expr> <S-Tab> pumvisible() ? '<C-P>' : '<S-TAB>'
 
 
 """ Quickopen
-    nnoremap <expr> <C-P> exists(':TelescopeFiles') ? '<cmd>TelescopeFiles<cr>'
+    nnoremap <expr> <C-P> exists(':TelescopeFiles') ? '<CMD>TelescopeFiles<CR>'
                 \ : exists(':FindFiles') ? '<cmd>FindFiles<CR>i'
                 \ : exists(':Find') ? ':Find <C-Z>'
                 \ : ':find **<C-Z>'
 
 
 """ Running builds with `<key>
-    nnoremap `<Leader> <cmd>make<CR>
+    nnoremap `<leader> <cmd>make<CR>
     nnoremap `<CR> <cmd>vert TMake<CR>
     nnoremap `<BS> <cmd>TMake!<CR>
 
@@ -179,15 +175,15 @@ endfunction
 
 """ Searching
     " Local search
-    nnoremap <silent> <Leader>* :execute 'Vimgrep '.expand('<cword>')<CR>
-    vnoremap <silent> <Leader>* y:execute 'Vimgrep '.shellescape(@")<CR>
+    nnoremap <silent> <leader>* :execute 'Vimgrep '.expand('<cword>')<CR>
+    vnoremap <silent> <leader>* y:execute 'Vimgrep '.shellescape(@")<CR>
 
     " Live grep
     nnoremap <expr> <c-g> exists(':TelescopeGrep')
                 \? '<cmd>TelescopeGrep<CR>'
                 \: '<cmd>LiveGrep<CR>i'
-    nnoremap <silent> <expr> <Leader>g ':LiveGrep '.expand('<cword>').'<CR>'
-    vnoremap <silent> <expr> <Leader>g 'y:LiveGrep <c-r>"<CR>'
+    nnoremap <silent> <expr> <leader>g ':LiveGrep '.expand('<cword>').'<CR>'
+    vnoremap <silent> <expr> <leader>g 'y:LiveGrep <C-R>"<CR>'
 
 
 """ Toggle Settings
@@ -202,39 +198,25 @@ endfunction
     " Switch to alternative buffer
     nnoremap <BS> <C-^>
 
-    " (d)elete (c)urrent (b)uffer
-    " Delete buffer without losing layout
-    nnoremap <expr> <silent> dcb len(getbufinfo({'buflisted': 1})) > 1
-                \? ':bprevious<bar>bdelete#<CR>'
-                \: ':bdelete<CR>'
-
     " Quick Keys
-    vnoremap <Leader>= :Align<CR>
-    nnoremap <Leader>! :!%:p<CR>
-    nnoremap <Leader>x :Run<CR>
-    vnoremap <Leader>x :Run<CR>
-    nnoremap <Leader>X :%Run<CR>
-    nnoremap <expr> <Leader>o exists(':Oldfiles') ? ':Oldfiles <C-Z>' : ':browse oldfiles<CR>'
+    vnoremap <leader>= :Align<CR>
+    nnoremap <leader>! :!%:p<CR>
+    nnoremap <leader>x :Run<CR>
+    vnoremap <leader>x :Run<CR>
+    nnoremap <leader>X :%Run<CR>
+    nnoremap <leader>o :Oldfiles <C-Z>
 
-    " Switch buffers
-    nnoremap <Leader>b :buffer <C-Z>
-    if exists(':Buffers') | nnoremap <leader>B <cmd>Buffers<CR> | endif
-    nnoremap <Leader>v :vert sbuffer <C-Z>
-    nnoremap <Leader>t :tab sbuffer <C-Z>
+    " (b)uffers
+    nnoremap <leader>b :buffer <C-Z>
+    nnoremap <leader>s :vert sbuffer <C-Z>
+    nnoremap <leader>t :tab sbuffer <C-Z>
+    nnoremap <leader>d :Bdelete<CR>
+    nnoremap <leader>O :BufOnly<CR>
 
-    " Edit Settings files
-    nnoremap <Leader>ee :edit $MYVIMRC<CR>
-    nnoremap <Leader>ef :EditFtplugin<CR>
-    nnoremap <Leader>ed :EditFtdetect<CR>
-    nnoremap <Leader>ec :EditCompiler<CR>
-    nnoremap <Leader>es :EditSyntax<CR>
-    nnoremap <Leader>ei :EditIndent<CR>
-    nnoremap <Leader>eo :EditColorscheme<CR>
-
-    " File Explorer
-    nnoremap <Leader>E :Explore<CR>
-    nnoremap <Leader>V :Vexplore<CR>
-    nnoremap <Leader>T :Texplore<CR>
+    " Explore
+    nnoremap <leader>E :Explore<CR>
+    nnoremap <leader>V :Vexplore<CR>
+    nnoremap <leader>T :Texplore<CR>
 
 
 """ (c): Changes / Diffing
@@ -245,6 +227,6 @@ endfunction
 
 
 """ Potential Ad-hoc mappings
-    if empty(maparg('<Leader><Leader>', 'n'))
-        nnoremap <Leader><Leader> :nnoremap <leader><leader> 
+    if empty(maparg('<leader><leader>', 'n'))
+        nnoremap <leader><leader> :nnoremap <leader><leader> 
     endif

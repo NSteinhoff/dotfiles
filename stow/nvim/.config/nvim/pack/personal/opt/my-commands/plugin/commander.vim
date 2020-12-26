@@ -138,6 +138,11 @@
         \.' -d -c '.getcwd().' '.shellescape('tail -F '.&errorfile)
         \|silent redraw | endif
 
+""" Delete current buffer
+    command! Bdelete execute len(getbufinfo({'buflisted': 1})) > 1
+                \? 'bprevious | bdelete#'
+                \: 'bdelete'
+
 """ Find files
     command! -nargs=1 -complete=customlist,<SID>complete_files Find edit <args>
     function s:complete_files(arglead, cmdline, cursorpos)
