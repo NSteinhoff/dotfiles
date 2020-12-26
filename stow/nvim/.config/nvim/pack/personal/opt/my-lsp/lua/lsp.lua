@@ -129,12 +129,24 @@ end
 
 
 local lspconfig = require('lspconfig')
-local servers = {'tsserver', 'rust_analyzer'}
+local servers = {'tsserver', 'rust_analyzer', 'clangd'}
 for _, server in ipairs(servers) do
-    lspconfig[server].setup({
+    lspconfig[server].setup {
         on_attach = on_attach,
-    })
+    }
 end
+
+lspconfig.sumneko_lua.setup {
+    on_attach = on_attach,
+    settings = {
+        Lua = {
+            diagnostics = {
+                enable = true,
+                globals = { "vim" },
+            },
+        }
+    },
+}
 
 
 -- Handlers
@@ -151,7 +163,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 -- Module
 local function clients()
     local results = {}
-    for i,c in pairs(vim.lsp.buf_get_clients()) do
+    for _,c in pairs(vim.lsp.buf_get_clients()) do
         table.insert(results, c.name)
     end
     return results
@@ -224,7 +236,7 @@ function M.set_qf_diagnostics()
     local qf_items = {}
     for b,ds in pairs(diagnostics) do
         local bufname = vim.fn.bufname(b)
-        for i,d in ipairs(ds) do
+        for _,d in ipairs(ds) do
             local item = {
                 bufnr = b,
                 filename = bufname,
@@ -240,7 +252,7 @@ function M.set_qf_diagnostics()
     vim.fn.setqflist(qf_items)
 end
 
-my_lsp = {
+My_lsp = {
     status = M.status,
 }
 

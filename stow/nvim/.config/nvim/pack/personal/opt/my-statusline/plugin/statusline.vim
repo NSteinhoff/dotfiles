@@ -23,7 +23,7 @@ endfunction
 
 function LspStatus()
     try
-        return v:lua.my_lsp.status()
+        return v:lua.My_lsp.status()
     catch
         return ''
     endtry
