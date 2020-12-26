@@ -54,8 +54,11 @@ augroup END
 
 augroup tmux-window-name
     autocmd!
-    autocmd DirChanged * if exists('$TMUX') && executable('tmux')
-            \| silent! execute '!tmux rename-window nvim@'.fnamemodify(getcwd(), ':t')
+    autocmd VimEnter,WinEnter,DirChanged * if exists('$TMUX') && executable('tmux')
+            \| silent! execute '!tmux rename-window VIM[' . fnamemodify(getcwd(), ':t') . ']'
+            \| endif
+    autocmd VimLeave * if exists('$TMUX') && executable('tmux')
+            \| silent! execute '!tmux set-option -w automatic-rename on'
             \| endif
 augroup END
 
@@ -79,4 +82,3 @@ function s:track_changes(off)
 endfunction
 
 command! -bang TrackChanges call <SID>track_changes(expand("<bang>") == '!')
-" vim:foldmethod=marker textwidth=0
