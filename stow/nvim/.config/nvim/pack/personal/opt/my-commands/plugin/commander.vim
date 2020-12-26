@@ -75,7 +75,7 @@
     command! -nargs=? -complete=color EditColorscheme call s:edit_settings('colors', <q-args>)
 
 """ Run lines with interpreter
-    command! -range Run execute '<line1>,<line2>w !'.get(b:, 'interpreter', 'cat')
+    command! -range=% Run execute '<line1>,<line2>w !'.get(b:, 'interpreter', 'cat')
 
 """ Git
     command! GlobalRevisions echo join(commander#git#global_revisions(), "\n")

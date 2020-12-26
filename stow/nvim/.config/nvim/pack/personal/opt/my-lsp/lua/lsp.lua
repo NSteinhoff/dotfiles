@@ -58,7 +58,8 @@ local function setup_keymaps()
     nnoremap(']g',          '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
     nnoremap('[g',          '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
     nnoremap('gh',          '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-    nnoremap('gH',          '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
+    nnoremap('gH',          '<cmd>lua require"lsp".print_line_diagnostics()<CR>')
+    nnoremap('gO',          '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
 
     -- Code actions,     i.e. do stuff
     nnoremap('dca',         '<cmd>lua vim.lsp.buf.code_action()<CR>')
@@ -74,14 +75,20 @@ local function setup_commands()
     commander('LspStopClients', 'lua vim.lsp.stop_client(vim.lsp.get_active_clients())')
 
     -- Code actions
-    commander('CodeAction', 'lua vim.lsp.buf.code_action()')
-    commander('CodeRename', 'lua vim.lsp.buf.rename()')
-    commander('CodeFormat', 'lua vim.lsp.buf.formatting()')
+    commander('LspCodeAction', 'lua vim.lsp.buf.code_action()')
+    commander('LspCodeRename', 'lua vim.lsp.buf.rename()')
+    commander('LspCodeFormat', 'lua vim.lsp.buf.formatting()')
 
     -- Listings
-    commander('References', 'lua vim.lsp.buf.references()')
-    commander('DocumentSymbols', 'lua vim.lsp.buf.document_symbol()')
-    commander('WorkspaceSymbols', 'lua vim.lsp.buf.workspace_symbol()')
+    commander('LspReferences', 'lua vim.lsp.buf.references()')
+    commander('LspDocumentSymbols', 'lua vim.lsp.buf.document_symbol()')
+    commander('LspWorkspaceSymbols', 'lua vim.lsp.buf.workspace_symbol()')
+
+    -- Diagnostics
+    commander('LspDiagnostics', 'lua require"lsp".print_diagnostics()')
+    commander('LspDiagnosticsLine', 'lua require"lsp".print_line_diagnostics()')
+    commander('LspDiagnosticsBuffer', 'lua require"lsp".print_buffer_diagnostics()')
+    commander('LspDiagnosticsQuickfix', 'lua require"lsp".set_qf_diagnostics()')
 end
 
 local function setup_options()
@@ -175,6 +182,62 @@ end
 
 function M.status()
     return long_indicator()
+end
+
+local severities = {
+    [1] = 'ERROR',
+    [2] = 'WARNING',
+    [3] = 'INFO',
+    [4] = 'HINT',
+}
+
+function M.print_line_diagnostics()
+    local diagnostics = vim.lsp.diagnostic.get_line_diagnostics()
+    for i,d in ipairs(diagnostics) do
+        print(i..'. '..d.source..' '..severities[d.severity])
+        print(d.message)
+    end
+end
+
+function M.print_buffer_diagnostics()
+    local diagnostics = vim.lsp.diagnostic.get()
+    for i,d in ipairs(diagnostics) do
+        print(i..'. '..'line '..d.range.start.line..' - '..d.source..' '..severities[d.severity])
+        print(d.message)
+    end
+end
+
+function M.print_diagnostics()
+    local diagnostics = vim.lsp.diagnostic.get_all()
+    for b,ds in pairs(diagnostics) do
+        local bufname = vim.fn.bufname(b)
+        print('--- '..bufname)
+        for i,d in ipairs(ds) do
+            print(i..'. '..'line '..d.range.start.line..' - '..d.source..' '..severities[d.severity])
+            print(d.message)
+        end
+    end
+end
+
+function M.set_qf_diagnostics()
+    local diagnostics = vim.lsp.diagnostic.get_all()
+    local qf_items = {}
+    for b,ds in pairs(diagnostics) do
+        local bufname = vim.fn.bufname(b)
+        for i,d in ipairs(ds) do
+            local item = {
+                bufnr = b,
+                filename = bufname,
+                lnum = d.range.start.line,
+                col = d.range.start.character,
+                type = severities[d.severity or 1],
+                nr = d.code,
+                text = d.message,
+            }
+            table.insert(qf_items, item)
+        end
+    end
+    vim.fn.setqflist(qf_items)
 end
 
 my_lsp = {

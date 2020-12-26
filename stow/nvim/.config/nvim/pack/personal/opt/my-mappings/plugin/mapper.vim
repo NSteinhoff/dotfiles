@@ -43,6 +43,9 @@ endfunction
 
 
 """ Basics / Improving standard mappings
+    " Clear search highlights with ESC in normal mode
+    nnoremap <silent> <ESC> :nohlsearch<CR>
+
     " Make Y behave like C and D
     nnoremap Y y$
 
@@ -59,14 +62,18 @@ endfunction
     map ]] j0[[%/{<CR>
     map [] k$][%?}<CR>
 
+    " Switch off diff mode when closing all other windows
+    nnoremap <silent> <C-W>o :diffoff!<BAR>only<CR>
+    nnoremap <silent> <C-W><C-O> :diffoff!<BAR>only<CR>
+
+
+""" Viewport
     " Window resizing with the arrow keys
     map  <LEFT>   5<C-W><
     map  <RIGHt>  5<C-W>>
     map  <UP>     5<C-W>+
     map  <DOWN>   5<C-W>-
 
-
-""" Scrolling
     " Scrolling the window with CTRL-HJKL
     nnoremap <C-J> 5<C-E>
     nnoremap <C-K> 5<C-Y>
@@ -78,24 +85,14 @@ endfunction
     nnoremap gs :%s/
     xnoremap gs :s/
     nnoremap <expr> gS ':%s/\V'.expand('<cword>').'/'
-    vnoremap gS y:%s/\V<C-R>=escape(@", '\/')<CR><BS>/
+    vnoremap gS y:%s/\V<C-R>=escape(@", '\/')<CR>/
 
-
-""" Windows
-    nnoremap <silent> <C-W>o :diffoff!<BAR>only<CR>
-    nnoremap <silent> <C-W><C-O> :diffoff!<BAR>only<CR>
 
 """  Format
     " Mnemonic:
     "   < and > change indentation
     "   => 'indent all'
-    if empty(maparg('<>', 'n'))
-        nnoremap <silent> <> :Format<CR>
-    endif
-
-
-"""  Clear search highlights
-    nnoremap <silent> <ESC> :nohlsearch<CR>
+    nnoremap <silent> <> :Format<CR>
 
 
 """  Errors: Quickfix / Location Lists
@@ -106,14 +103,8 @@ endfunction
     " <key>                     Mnemonic key for the list
     " <leader><key>             Peek at list
     " <leader><KEY>             Go to list and pick entry
-    "
-    " Quickfix list: global error
-    " Mnemonic: (Q)uickfix
     nnoremap <silent> <leader>q :clist<CR>
     nnoremap <silent> <expr> <leader>Q exists(':Quickfix') ? ':Quickfix<CR>' : ':cwindow<CR>'
-
-    " Location list: local errors
-    " Mnemoic: (L)ocation
     nnoremap <silent> <leader>l :llist<CR>
     nnoremap <silent> <expr> <leader>L exists(':Loclist') ? ':Loclist<CR>' : ':lwindow<CR>'
 
@@ -150,38 +141,36 @@ endfunction
     " <C-Space> is used for smart completion.
     " By default it completes tags. This could be remapped to omni-completion
     " or LSP completion for supported languages or filetypes.
-    inoremap <C-SPACE> <C-X><C-]>
+    inoremap <expr> <C-SPACE> empty(&omnifunc) ? '<C-X><C-]>' : '<C-X><C-O>'
     inoremap <expr> <Tab>   pumvisible() ? '<C-N>' : '<TAB>'
     inoremap <expr> <S-Tab> pumvisible() ? '<C-P>' : '<S-TAB>'
 
 
 """ Quickopen
     nnoremap <expr> <C-P> exists(':TelescopeFiles') ? '<CMD>TelescopeFiles<CR>'
-                \ : exists(':FindFiles') ? '<cmd>FindFiles<CR>i'
+                \ : exists(':FindFiles') ? '<CMD>FindFiles<CR>i'
                 \ : exists(':Find') ? ':Find <C-Z>'
                 \ : ':find **<C-Z>'
 
 
 """ Running builds with `<key>
-    nnoremap `<leader> <cmd>make<CR>
-    nnoremap `<CR> <cmd>vert TMake<CR>
-    nnoremap `<BS> <cmd>TMake!<CR>
+    nnoremap `<leader> <CMD>make<CR>
+    nnoremap `<CR> <CMD>vert TMake<CR>
+    nnoremap `<BS> <CMD>TMake!<CR>
 
     " List, load, read errorfile contents
-    nnoremap g> <cmd>execute '!cat '.&errorfile<CR>
-    nnoremap <expr> g! &ft == 'qf' ? '<cmd>cclose<CR>' : '<cmd>Cfile<CR>'
-    nnoremap g? <cmd>execute 'tab view '.&errorfile<CR>
+    nnoremap <expr> g> findfile(&errorfile) ? '<CMD>!cat '.&errorfile.'<CR>' : '<CMD>echo "No errorfile"<CR>'
+    nnoremap <expr> g! &ft == 'qf' ? '<CMD>cclose<CR>' : '<CMD>Cfile<CR>'
+    nnoremap <expr> g? findfile(&errorfile) ? '<CMD>tab view '.&errorfile.'<CR>' : '<CMD>echo "No errorfile"<CR>'
 
 
 """ Searching
     " Local search
     nnoremap <silent> <leader>* :execute 'Vimgrep '.expand('<cword>')<CR>
-    vnoremap <silent> <leader>* y:execute 'Vimgrep '.shellescape(@")<CR>
+    vnoremap <silent> <leader>* y:execute 'Vimgrep '.escape(@", '\/')<CR>
 
     " Live grep
-    nnoremap <expr> <c-g> exists(':TelescopeGrep')
-                \? '<cmd>TelescopeGrep<CR>'
-                \: '<cmd>LiveGrep<CR>i'
+    nnoremap <silent> <expr> <c-g> exists(':TelescopeGrep') ? '<CMD>TelescopeGrep<CR>' : '<CMD>LiveGrep<CR>i'
     nnoremap <silent> <expr> <leader>g ':LiveGrep '.expand('<cword>').'<CR>'
     vnoremap <silent> <expr> <leader>g 'y:LiveGrep <C-R>"<CR>'
 
@@ -201,12 +190,12 @@ endfunction
     " Quick Keys
     vnoremap <leader>= :Align<CR>
     nnoremap <leader>! :!%:p<CR>
-    nnoremap <leader>x :Run<CR>
+    nnoremap <leader>x :.Run<CR>
     vnoremap <leader>x :Run<CR>
-    nnoremap <leader>X :%Run<CR>
+    nnoremap <leader>X :Run<CR>
     nnoremap <leader>o :Oldfiles <C-Z>
 
-    " (b)uffers
+    " Buffers
     nnoremap <leader>b :buffer <C-Z>
     nnoremap <leader>s :vert sbuffer <C-Z>
     nnoremap <leader>t :tab sbuffer <C-Z>
