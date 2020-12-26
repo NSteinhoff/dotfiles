@@ -52,9 +52,6 @@
     command! -nargs=? Section call commander#lib#section(<q-args>)
     command! -nargs=? Header call commander#lib#header(<q-args>)
 
-""" Commenting lines
-    command! -range ToggleCommented call commander#lib#toggle_comment(<line1>, <line2>)
-
 """ Compiler
     command! Compiler call compiler#describe()
     command! -nargs=1 -complete=compiler CompileWith call compiler#with(<f-args>)

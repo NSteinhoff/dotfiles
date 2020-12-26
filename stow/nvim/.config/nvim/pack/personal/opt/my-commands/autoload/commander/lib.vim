@@ -34,60 +34,6 @@ function commander#lib#load_lines_in_split(lines, ...) abort
 endfunction
 command Test call commander#lib#load_lines_in_split(['a', 'b'])
 
-function commander#lib#toggle_comment(line1, line2)
-    let lines = getline(a:line1, a:line2)
-    let indent = min(map(copy(lines), {_, v -> indent(v)}))
-
-    let all_commented = v:true
-    for line in lines
-        if !s:commented(line)
-            let all_commented = v:false
-        endif
-    endfor
-
-    let [prefix, suffix] = s:comment_affixes()
-    let toggled = map(
-                \lines,
-                \{_, v ->
-                \all_commented ?
-                \s:uncomment(v, indent, prefix, suffix) :
-                \s:comment(v, indent, prefix, suffix)
-                \})
-
-    call setline(a:line1, toggled)
-endfunction
-
-function s:comment_affixes()
-    let prefix = matchstr(&commentstring, '\S*\(\s*%s\)\@=')
-    let suffix = matchstr(&commentstring, '\(\S*\s*%s\)\@<=\S*')
-    return [prefix, suffix]
-endfunction
-
-function s:commented(line)
-    let [prefix, suffix] = s:comment_affixes()
-    return match(a:line, '^\s*'.escape(prefix, '\*').'\.*') != -1
-endfunction
-
-function s:comment(line, indent, prefix, suffix)
-    let indent = repeat(' ', a:indent)
-    let startline = matchend(a:line, '^'.indent)
-    let words = strcharpart(a:line, startline)
-    let toggled = indent . a:prefix
-    let toggled.= a:line != '' ? ' '.words : ''
-    let toggled.= a:suffix != '' ? ' '.a:suffix : ''
-    return toggled
-endfunction
-
-function s:uncomment(line, indent, prefix, suffix)
-    let indent = repeat(' ', a:indent)
-    let startline = matchend(a:line, '^'.indent.escape(a:prefix, '\*').'\s\?')
-    let endline = match(a:line, '\s\?'.escape(a:suffix, '\*').'$')
-    let endline = endline == -1 ? strlen(a:line) : endline - startline
-    let words = strcharpart(a:line, startline, endline)
-    let toggled = indent . words
-    return toggled
-endfunction
-
 " Create an 80 column wide section header with lines above
 " and below the text wrapped in a comment.
 function commander#lib#section(words)
