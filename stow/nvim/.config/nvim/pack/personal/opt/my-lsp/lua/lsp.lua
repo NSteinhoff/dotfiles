@@ -108,7 +108,7 @@ local function setup_signs()
     vim.fn.sign_define("LspDiagnosticsSignWarning",
         {text = "", texthl = "LspDiagnosticsSignWarning"})
     vim.fn.sign_define("LspDiagnosticsSignInformation",
-        {text = "🛈", texthl = "LspDiagnosticsSignInformation"})
+        {text = "i", texthl = "LspDiagnosticsSignInformation"})
     vim.fn.sign_define("LspDiagnosticsSignHint",
         {text = "!", texthl = "LspDiagnosticsSignHint"})
 end
