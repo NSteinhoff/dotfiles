@@ -187,6 +187,9 @@ endfunction
     " Switch to alternative buffer
     nnoremap <BS> <C-^>
 
+    " Open settings
+    nnoremap <leader>; <CMD>edit $MYVIMRC<CR>
+
     " Quick Keys
     vnoremap <leader>= :Align<CR>
     nnoremap <leader>! :!%:p<CR>
