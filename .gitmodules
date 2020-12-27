@@ -10,15 +10,6 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/vim-unimpaired"]
 	path = stow/nvim/.config/nvim/pack/external/opt/vim-unimpaired
 	url = git@github.com:tpope/vim-unimpaired.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-jsx-pretty"]
-	path = stow/nvim/.config/nvim/pack/external/opt/vim-jsx-pretty
-	url = git@github.com:MaxMEllon/vim-jsx-pretty.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/python-syntax"]
-	path = stow/nvim/.config/nvim/pack/external/opt/python-syntax
-	url = git@github.com:vim-python/python-syntax.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-python-pep8-indent"]
-	path = stow/nvim/.config/nvim/pack/external/opt/vim-python-pep8-indent
-	url = git@github.com:Vimjas/vim-python-pep8-indent.git
 [submodule "stow/nvim/.config/nvim/pack/external/opt/vim-eunuch"]
 	path = stow/nvim/.config/nvim/pack/external/opt/vim-eunuch
 	url = git@github.com:tpope/vim-eunuch.git
@@ -34,35 +25,12 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/telescope.nvim"]
 	path = stow/nvim/.config/nvim/pack/external/opt/telescope.nvim
 	url = git@github.com:nvim-lua/telescope.nvim.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/BetterLua.vim"]
-	path = stow/nvim/.config/nvim/pack/external/opt/BetterLua.vim
-	url = git@github.com:euclidianAce/BetterLua.vim.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/codi.vim"]
-	path = stow/nvim/.config/nvim/pack/external/opt/codi.vim
-	url = git@github.com:metakirby5/codi.vim.git
 [submodule "stow/nvim/.config/nvim/pack/external/opt/nvim-treesitter"]
 	path = stow/nvim/.config/nvim/pack/external/opt/nvim-treesitter
 	url = git@github.com:nvim-treesitter/nvim-treesitter.git
 [submodule "stow/nvim/.config/nvim/pack/external/opt/vim-devdocs"]
 	path = stow/nvim/.config/nvim/pack/external/opt/vim-devdocs
 	url = git@github.com:romainl/vim-devdocs.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-gtfo"]
-	path = stow/nvim/.config/nvim/pack/external/opt/vim-gtfo
-	url = git@github.com:justinmk/vim-gtfo.git
 [submodule "stow/nvim/.config/nvim/pack/external/opt/vim-commentary"]
 	path = stow/nvim/.config/nvim/pack/external/opt/vim-commentary
 	url = git@github.com:tpope/vim-commentary.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-styled-components"]
-	path = stow/nvim/.config/nvim/pack/external/opt/vim-styled-components
-	url = git@github.com:styled-components/vim-styled-components.git
-	branch = main
-[submodule "stow/nvim/.config/nvim/pack/external/opt/yats.vim"]
-	path = stow/nvim/.config/nvim/pack/external/opt/yats.vim
-	url = git@github.com:HerringtonDarkholme/yats.vim.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/yajs.vim"]
-	path = stow/nvim/.config/nvim/pack/external/opt/yajs.vim
-	url = git@github.com:othree/yajs.vim.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/coc.nvim"]
-	path = stow/nvim/.config/nvim/pack/external/opt/coc.nvim
-	url = git@github.com:neoclide/coc.nvim.git
-	branch = release
