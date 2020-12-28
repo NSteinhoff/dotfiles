@@ -140,8 +140,8 @@
 
 """ Delete current buffer
     command! Bdelete execute len(getbufinfo({'buflisted': 1})) > 1
-                \? 'bprevious | bdelete#'
-                \: 'bdelete'
+                \? exists('b:dirvish') ? 'bprevious' : 'bprevious | bdelete#'
+                \: exists('b:dirvish') ? 'edit .' : 'edit . | bdelete#'
 
 """ Find files
     command! -nargs=1 -complete=customlist,<SID>complete_files Find edit <args>

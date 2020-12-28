@@ -28,6 +28,7 @@ augroup user-errorfiles
         \|if len(getqflist()) == 0|cclose|else|copen|wincmd p|endif
         \|echo "Quickfix list updated"
         \|endif
+    autocmd!
 augroup END
 
 augroup user-automake
@@ -44,7 +45,7 @@ augroup END
 augroup user-autoread
     autocmd!
     " check for file modification and trigger realoading
-    autocmd CursorHold * silent! checktime
+    autocmd CursorMoved * silent! checktime
 augroup END
 
 augroup user-ctags
@@ -55,7 +56,7 @@ augroup END
 augroup tmux-window-name
     autocmd!
     autocmd VimEnter,WinEnter,DirChanged * if exists('$TMUX') && executable('tmux')
-            \| silent! execute '!tmux rename-window VIM[' . fnamemodify(getcwd(), ':t') . ']'
+            \| silent! execute "!tmux rename-window ".shellescape('  '.fnamemodify(getcwd(), ':t'))
             \| endif
     autocmd VimLeave * if exists('$TMUX') && executable('tmux')
             \| silent! execute '!tmux set-option -w automatic-rename on'

@@ -6,8 +6,9 @@ endfunction
 
 function! Compiler()
     let compiler = compiler#which()
-    return compiler != 'NONE' ? '['.compiler.'] ' : ''
+    return compiler != 'NONE' ? '[ '.compiler.'] ' : ''
 endfunction
+
 
 function! Spell()
     return &spell ? '[spell] ' : ''
@@ -38,12 +39,14 @@ function TSStatus()
     endtry
 endfunction
 
-function CoCStatus()
-    if exists("*coc#status")
-        let l:status = coc#status()
-        return !empty(l:status) ? ' '.l:status.' ' : ''
-    endif
-    return ''
+function GitBranch()
+    if empty(finddir('.git', ';$HOME')) | return '' | endif
+    try
+        let branch = systemlist('git branch --show-current')[0]
+        return empty(branch) ? '' : '  '.branch
+    catch
+        return ''
+    endtry
 endfunction
 
 function! MyStatusline()
@@ -52,13 +55,14 @@ function! MyStatusline()
     let SEP         = '%='
     let GIT         = '%#GitBranch#'
 
+    let cwd         = '%{getcwd()}'
     let args        = '%a'
     let ft          = '%y'
     let pre         = '%w'
     if &ft == 'dirvish'
-        let file        = ' %f '
+        let file        = '  %f '
     else
-        let file        = ' %f '
+        let file        = '  %f '
     endif
     let branch      = '%{GitBranch()}'
     let tree        = '%{TSStatus()}'
@@ -69,9 +73,8 @@ function! MyStatusline()
     let pomodoro    = '%{Pomodoro()}'
     let position    = ' ☰ %l:%c | %p%% '
     let lsp         = '%{LspStatus()}'
-    let coc         = '%{CoCStatus()}'
 
-    return pre.ft.OPT.file.mod.args.SEP.coc.lsp.errors.compiler.spell.BAR.position
+    return pre.ft.OPT.branch.file.mod.args.SEP.lsp.errors.compiler.spell.BAR.position
 endfunction
 
 set statusline=%!MyStatusline()

@@ -42,8 +42,6 @@ local function setup_keymaps()
     inoremap('<c-h>',       '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 
     -- Jump to symbols
-    nnoremap('<c-]>',       '<cmd>lua vim.lsp.buf.definition()<CR>')
-
     nnoremap('gd',          '<cmd>lua vim.lsp.buf.definition()<CR>')
     nnoremap('gD',          '<cmd>lua vim.lsp.buf.declaration()<CR>')
     nnoremap('gi',          '<cmd>lua vim.lsp.buf.implementation()<CR>')
@@ -104,13 +102,13 @@ end
 
 local function setup_signs()
     vim.fn.sign_define("LspDiagnosticsSignError",
-        {text = "", texthl = "LspDiagnosticsSignError"})
+        {text = [[]], texthl = "LspDiagnosticsSignError"})
     vim.fn.sign_define("LspDiagnosticsSignWarning",
-        {text = "", texthl = "LspDiagnosticsSignWarning"})
+        {text = [[]], texthl = "LspDiagnosticsSignWarning"})
     vim.fn.sign_define("LspDiagnosticsSignInformation",
-        {text = "i", texthl = "LspDiagnosticsSignInformation"})
+        {text = [[כֿ]], texthl = "LspDiagnosticsSignInformation"})
     vim.fn.sign_define("LspDiagnosticsSignHint",
-        {text = "!", texthl = "LspDiagnosticsSignHint"})
+        {text = [[]], texthl = "LspDiagnosticsSignHint"})
 end
 
 -- LSP client configurations
@@ -124,7 +122,6 @@ local function on_attach(client)
     setup_autocmds()
     setup_signs()
     -- require'my_completion'.on_attach()
-    print('LSP: ' .. client.name .. ' attached.')
 end
 
 
@@ -136,17 +133,17 @@ for _, server in ipairs(servers) do
     }
 end
 
-lspconfig.sumneko_lua.setup {
-    on_attach = on_attach,
-    settings = {
-        Lua = {
-            diagnostics = {
-                enable = true,
-                globals = { "vim" },
-            },
-        }
-    },
-}
+-- lspconfig.sumneko_lua.setup {
+--     on_attach = on_attach,
+--     settings = {
+--         Lua = {
+--             diagnostics = {
+--                 enable = true,
+--                 globals = { "vim" },
+--             },
+--         }
+--     },
+-- }
 
 
 -- Handlers
@@ -182,7 +179,7 @@ local function long_indicator()
     if #names == 0 then
         return ''
     else
-        return '['..table.concat(names, ',')..']'
+        return '[ '..table.concat(names, ',')..']'
     end
 end
 

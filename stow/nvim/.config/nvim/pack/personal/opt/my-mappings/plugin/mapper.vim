@@ -44,7 +44,7 @@ endfunction
 
 """ Basics / Improving standard mappings
     " Clear search highlights with ESC in normal mode
-    nnoremap <silent> <ESC> :nohlsearch<CR>
+    nnoremap <silent> <ESC> <CMD>nohlsearch<CR>
 
     " Make Y behave like C and D
     nnoremap Y y$
@@ -82,6 +82,9 @@ endfunction
 
 
 """ Search and replace
+    vnoremap <silent> / y/\V<C-R>=escape(@", '\/')<CR><CR>
+
+    " Substitute
     nnoremap gs :%s/
     xnoremap gs :s/
     nnoremap <expr> gS ':%s/\V'.expand('<cword>').'/'
@@ -188,33 +191,35 @@ endfunction
     nnoremap <BS> <C-^>
 
     " Open settings
-    nnoremap <leader>; <CMD>edit $MYVIMRC<CR>
+    nnoremap <silent> <leader>; <CMD>edit $MYVIMRC<CR>
 
     " Quick Keys
-    vnoremap <leader>= :Align<CR>
-    nnoremap <leader>! :!%:p<CR>
-    nnoremap <leader>x :.Run<CR>
-    vnoremap <leader>x :Run<CR>
-    nnoremap <leader>X :Run<CR>
+    vnoremap <silent> <leader>= :Align<CR>
+    nnoremap <silent> <leader>! :!%:p<CR>
+    nnoremap <silent> <leader>x :.Run<CR>
+    vnoremap <silent> <leader>x :Run<CR>
+    nnoremap <silent> <leader>X :Run<CR>
     nnoremap <leader>o :Oldfiles <C-Z>
 
     " Buffers
     nnoremap <leader>b :buffer <C-Z>
+    nnoremap <leader>B :bdelete <C-Z>
     nnoremap <leader>s :vert sbuffer <C-Z>
     nnoremap <leader>t :tab sbuffer <C-Z>
-    nnoremap <leader>d :Bdelete<CR>
-    nnoremap <leader>O :BufOnly<CR>
+    nnoremap <silent> <leader>d :Bdelete<CR>
+    nnoremap <silent> <leader>D :bdelete<CR>
+    nnoremap <silent> <leader>O :BufOnly<CR>
 
     " Explore
-    nnoremap <leader>E :Explore<CR>
-    nnoremap <leader>V :Vexplore<CR>
-    nnoremap <leader>T :Texplore<CR>
+    nnoremap <silent> <leader>E :Explore<CR>
+    nnoremap <silent> <leader>V :Vexplore<CR>
+    nnoremap <silent> <leader>T :Texplore<CR>
 
 
 """ (c): Changes / Diffing
-    nnoremap cs :ChangeSplit<CR>
+    nnoremap <silent> cs :ChangeSplit<CR>
+    nnoremap <silent> cp :ChangePatch<CR>
     nnoremap cS :ChangeSplit <C-Z>
-    nnoremap cp :ChangePatch<CR>
     nnoremap cP :ChangePatch <C-Z>
 
 
