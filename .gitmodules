@@ -37,3 +37,4 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/tslime.vim"]
 	path = stow/nvim/.config/nvim/pack/external/opt/tslime.vim
 	url = git@github.com:NSteinhoff/tslime.vim.git
+	branch = main
