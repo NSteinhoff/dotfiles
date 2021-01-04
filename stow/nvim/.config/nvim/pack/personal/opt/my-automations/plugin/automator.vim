@@ -1,4 +1,4 @@
-augroup user-settings
+augroup my-settings
     autocmd!
     " Source this file on write
     if has('nvim')
@@ -8,7 +8,7 @@ augroup user-settings
     endif
 augroup END
 
-augroup user-errorfiles
+augroup my-errorfiles
     autocmd!
     " Set the compiler to the root of an errorfile
     " sbt.err -> :compiler sbt
@@ -31,7 +31,7 @@ augroup user-errorfiles
     autocmd!
 augroup END
 
-augroup user-automake
+augroup my-automake
     let g:automake = 1
     autocmd!
     if exists(":Format")
@@ -42,36 +42,36 @@ augroup user-automake
     endif
 augroup END
 
-augroup user-autoread
+augroup my-autoread
     autocmd!
     " check for file modification and trigger realoading
     autocmd CursorMoved * silent! checktime
 augroup END
 
-augroup user-ctags
+augroup my-ctags
     autocmd!
     " autocmd BufWritePost * if finddir('.git', ';') != '' | call jobstart(['git', 'ctags']) | endif
 augroup END
 
 augroup tmux-window-name
     autocmd!
-    autocmd VimEnter,WinEnter,DirChanged * if exists('$TMUX') && executable('tmux')
+    autocmd FocusGained,VimEnter,WinEnter,DirChanged * if exists('$TMUX') && executable('tmux')
             \| silent! execute "!tmux rename-window ".shellescape('  '.fnamemodify(getcwd(), ':t'))
             \| endif
-    autocmd VimLeave * if exists('$TMUX') && executable('tmux')
+    autocmd VimLeave,FocusLost * if exists('$TMUX') && executable('tmux')
             \| silent! execute '!tmux set-option -w automatic-rename on'
             \| endif
 augroup END
 
 function s:track_changes(off)
     if a:off
-        augroup user-arg-changes
+        augroup my-arg-changes
             autocmd!
         augroup END
-        augroup! user-arg-changes
+        augroup! my-arg-changes
         echo "No longer tracking changed files in the argslist."
     else
-        augroup user-arg-changes
+        augroup my-arg-changes
             autocmd!
             autocmd VimEnter * ChangedFiles
             autocmd DirChanged * ChangedFiles

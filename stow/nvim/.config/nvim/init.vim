@@ -63,8 +63,8 @@
     set wildmode=longest:full,full
     set completeopt=
     set completeopt+=menuone
-    set completeopt+=noinsert
-    set completeopt+=noselect
+    set completeopt-=noinsert
+    set completeopt-=noselect
     set completeopt-=preview    " open the preview window with additional info
     set shortmess+=c
 
@@ -89,7 +89,7 @@
 
 """ External
     " Finding / picking files
-    " packadd! my-telescope            " fuzzy finder / picker
+    packadd! my-telescope            " fuzzy finder / picker
     packadd! my-dirvish              " file manager
 
     " Mappings and commands
@@ -99,6 +99,9 @@
 
     " Help / Docs
     packadd! vim-devdocs                " open devdocs.io
+
+    " Tmux repl
+    packadd! my-tslime
 
     " Filetypes / Syntax / Indent
     packadd! editorconfig-vim           " ft settings based on local config

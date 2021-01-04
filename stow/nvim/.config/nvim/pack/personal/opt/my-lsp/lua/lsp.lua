@@ -126,7 +126,7 @@ end
 
 
 local lspconfig = require('lspconfig')
-local servers = {'tsserver', 'rust_analyzer', 'clangd'}
+local servers = {'tsserver', 'rust_analyzer', 'clangd', 'jsonls', 'cssls'}
 for _, server in ipairs(servers) do
     lspconfig[server].setup {
         on_attach = on_attach,

@@ -95,7 +95,7 @@ endfunction
     " Mnemonic:
     "   < and > change indentation
     "   => 'indent all'
-    nnoremap <silent> <> :Format<CR>
+    nnoremap <silent> <> <CMD>Format<CR>
 
 
 """  Errors: Quickfix / Location Lists
@@ -150,10 +150,11 @@ endfunction
 
 
 """ Quickopen
-    nnoremap <expr> <C-P> exists(':TelescopeFiles') ? '<CMD>TelescopeFiles<CR>'
-                \ : exists(':FindFiles') ? '<CMD>FindFiles<CR>i'
-                \ : exists(':Find') ? ':Find <C-Z>'
-                \ : ':find **<C-Z>'
+    nnoremap <expr> <C-P>
+                \ exists(':TelescopeFiles') ? '<CMD>TelescopeFiles<CR>' :
+                \ exists(':FindFiles') ? '<CMD>FindFiles<CR>i' :
+                \ exists(':Find') ? ':Find <C-Z>' :
+                \ ':find **<C-Z>'
 
 
 """ Running builds with `<key>
@@ -187,6 +188,10 @@ endfunction
 
 
 """ Quality of life
+    " Insert file's directory in command line
+    cnoremap %% %:h/
+    cnoremap ## #:h/
+
     " Switch to alternative buffer
     nnoremap <BS> <C-^>
 

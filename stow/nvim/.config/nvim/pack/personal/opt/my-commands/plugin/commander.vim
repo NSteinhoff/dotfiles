@@ -27,7 +27,7 @@
 """ Format the current buffer
     function! Format()
         if &formatprg == ""
-            echo "Abort: 'formatprg' unset"
+            echomsg "Abort: 'formatprg' unset"
             return
         endif
         let l:view = winsaveview()
