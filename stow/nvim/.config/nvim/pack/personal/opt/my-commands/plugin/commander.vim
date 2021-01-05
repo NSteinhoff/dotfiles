@@ -97,9 +97,13 @@
         \| call jobstart(['git', 'ctags']) | else
         \| echo "'".getcwd()."' is not a git repository. Can only run Ctags from within a git repository." | endif
 
+    function s:complete_file_revisions(...)
+        return commander#git#file_revisions()
+    endfunction
+
     command! -bang -range=% Timeline call commander#git#load_timeline(<bang>0, <line1>, <line2>)
-    command! -nargs=? -complete=customlist,commander#git#file_revisions ChangeSplit call commander#git#load_diff_in_split(<q-args>)
-    command! -nargs=? -complete=customlist,commander#git#file_revisions ChangePatch call commander#git#load_patch(<q-args>)
+    command! -nargs=? -complete=customlist,s:complete_file_revisions ChangeSplit call commander#git#load_diff_in_split(<q-args>)
+    command! -nargs=? -complete=customlist,s:complete_file_revisions ChangePatch call commander#git#load_patch(<q-args>)
 
     command! ChangedFiles :call commander#git#set_changed_args()
 
