@@ -61,12 +61,15 @@ local function setup_keymaps(client)
     nnoremap('gw',          '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
     nnoremap('gW',          '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 
-    -- Moving through errors
-    nnoremap(']g',          '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
-    nnoremap('[g',          '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
+    -- Diagnostics
     nnoremap('gh',          '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
     nnoremap('gH',          '<cmd>lua require"lsp".print_line_diagnostics()<CR>')
+
+    --[[ Moving to errors is done via the loclist
+    nnoremap(']g',          '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+    nnoremap('[g',          '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
     nnoremap('gO',          '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
+    --]]
 
     -- Code actions,     i.e. do stuff
     nnoremap('dca',         '<cmd>lua vim.lsp.buf.code_action()<CR>')
@@ -133,10 +136,7 @@ end
 local servers = {'tsserver', 'rust_analyzer', 'clangd', 'jsonls', 'cssls'}
 for _, server in ipairs(servers) do
     lspconfig[server].setup {
-        on_attach = function(client)
-            client.resolved_capabilities.document_formatting = false
-            on_attach(client)
-        end
+        on_attach = on_attach
     }
 end
 
