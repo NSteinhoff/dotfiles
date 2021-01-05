@@ -1,3 +1,7 @@
+vim.cmd('packadd nvim-lspconfig')
+local lspconfig = require'lspconfig'
+-- local format = require'format'
+
 local M = {}
 
 local function nnoremap(lhs, rhs)
@@ -32,16 +36,21 @@ local function setlocal(name, value)
     vim.api.nvim_buf_set_option(0, name, value)
 end
 
-local function setup_keymaps()
+local function setup_keymaps(client)
     -- Completion
     inoremap('<c-space>',   '<C-X><C-O>')
 
     -- Get help
-    nnoremap('<space>',     '<cmd>lua vim.lsp.buf.hover()<CR>')
-    nnoremap('K',           '<cmd>lua vim.lsp.buf.hover()<CR>')
+    if client.resolved_capabilities.hover then
+        nnoremap('<space>',     '<cmd>lua vim.lsp.buf.hover()<CR>')
+        nnoremap('K',           '<cmd>lua vim.lsp.buf.hover()<CR>')
+    end
     inoremap('<c-h>',       '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 
     -- Jump to symbols
+    if client.resolved_capabilities.goto_definition then
+        nnoremap('<c-]>',          '<cmd>lua vim.lsp.buf.definition()<CR>')
+    end
     nnoremap('gd',          '<cmd>lua vim.lsp.buf.definition()<CR>')
     nnoremap('gD',          '<cmd>lua vim.lsp.buf.declaration()<CR>')
     nnoremap('gi',          '<cmd>lua vim.lsp.buf.implementation()<CR>')
@@ -65,7 +74,7 @@ local function setup_keymaps()
     nnoremap('dcf',         '<cmd>lua vim.lsp.buf.formatting()<CR>')
 end
 
-local function setup_commands()
+local function setup_commands(client)
     commander('LspClients', 'lua require"lsp".print_clients()')
 
     -- Inspect Client
@@ -89,15 +98,8 @@ local function setup_commands()
     commander('LspDiagnosticsQuickfix', 'lua require"lsp".set_qf_diagnostics()')
 end
 
-local function setup_options()
+local function setup_options(client)
     vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
-end
-
-local function setup_autocmds()
-    vim.cmd('augroup user-lsp')
-    vim.cmd('autocmd!')
-    -- vim.cmd('autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics({ show_header = false })')
-    vim.cmd('augroup END')
 end
 
 local function setup_signs()
@@ -116,46 +118,40 @@ vim.cmd('packadd nvim-lspconfig')
 -- vim.cmd('packadd my-completions')
 
 local function on_attach(client)
-    setup_keymaps()
-    setup_commands()
-    setup_options()
-    setup_autocmds()
-    setup_signs()
-    -- require'my_completion'.on_attach()
+    setup_keymaps(client)
+    setup_commands(client)
+    setup_options(client)
+    setup_signs(client)
+
+    --[[
+        if client.resolved_capabilities.completion then
+            require'my_completion'.on_attach(client)
+        end
+    --]]
 end
 
-
-local lspconfig = require('lspconfig')
 local servers = {'tsserver', 'rust_analyzer', 'clangd', 'jsonls', 'cssls'}
 for _, server in ipairs(servers) do
     lspconfig[server].setup {
-        on_attach = on_attach,
+        on_attach = function(client)
+            client.resolved_capabilities.document_formatting = false
+            on_attach(client)
+        end
     }
 end
 
--- lspconfig.sumneko_lua.setup {
---     on_attach = on_attach,
---     settings = {
---         Lua = {
---             diagnostics = {
---                 enable = true,
---                 globals = { "vim" },
---             },
---         }
---     },
--- }
-
-
 -- Handlers
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        signs = true,
-        underline = false,
-        virtual_text = true,
-        update_in_insert = false,
-    }
-)
-
+vim.lsp.handlers["textDocument/publishDiagnostics"] = function(...)
+    vim.lsp.with(
+        vim.lsp.diagnostic.on_publish_diagnostics, {
+            signs = true,
+            underline = false,
+            virtual_text = true,
+            update_in_insert = false,
+        }
+    )(...)
+    pcall(vim.lsp.diagnostic.set_loclist, {open_loclist = false})
+end
 
 -- Module
 local function clients()
@@ -249,8 +245,6 @@ function M.set_qf_diagnostics()
     vim.fn.setqflist(qf_items)
 end
 
-My_lsp = {
-    status = M.status,
-}
+lsp_status = M.status
 
 return M
