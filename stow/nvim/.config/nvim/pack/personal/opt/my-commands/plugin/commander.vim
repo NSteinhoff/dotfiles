@@ -171,5 +171,8 @@
     command! -nargs=? FindFiles execute (expand('<mods>') == '' ? 'edit' : expand('<mods>').' new').' filefinder'
                 \| set ft=filefinder | call setline(1, <q-args>) | doau TextChanged
 
+""" Buflist
+    command! BufList edit buffers | set ft=buflist | call commander#lib#load_buflist()
+
 """ Jira ticket
     command! Jira Scratch | put+ | 0d | set ft=jira

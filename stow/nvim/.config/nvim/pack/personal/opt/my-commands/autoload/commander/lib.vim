@@ -100,3 +100,15 @@ function commander#lib#header(words)
     call setline(line('.'), header.fill_after)
     call cursor(line('.'), col('$'))
 endfunction
+
+function commander#lib#load_buflist()
+    let buffers = getbufinfo({'buflisted': 1})
+    let lines = []
+    for buffer in buffers
+        if buffer.name != ''
+            call add(lines, buffer.name)
+        endif
+    endfor
+    call append(0, lines)
+    $delete
+endfunction

@@ -208,7 +208,7 @@ endfunction
 
     " Buffers
     nnoremap <leader>b :buffer <C-Z>
-    nnoremap <leader>B :bdelete <C-Z>
+    nnoremap <leader>B :BufList<CR>
     nnoremap <leader>s :vert sbuffer <C-Z>
     nnoremap <leader>t :tab sbuffer <C-Z>
     nnoremap <silent> <leader>d :Bdelete<CR>
