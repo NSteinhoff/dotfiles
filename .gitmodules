@@ -38,3 +38,6 @@
 	path = stow/nvim/.config/nvim/pack/external/opt/tslime.vim
 	url = git@github.com:NSteinhoff/tslime.vim.git
 	branch = main
+[submodule "stow/nvim/.config/nvim/pack/external/opt/nvim-web-devicons"]
+	path = stow/nvim/.config/nvim/pack/external/opt/nvim-web-devicons
+	url = git@github.com:kyazdani42/nvim-web-devicons.git
