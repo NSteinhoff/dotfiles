@@ -34,6 +34,12 @@ function commander#lib#load_lines_in_split(lines, ...) abort
 endfunction
 command Test call commander#lib#load_lines_in_split(['a', 'b'])
 
+function s:comment_affixes()
+    let prefix = matchstr(&commentstring, '\S*\(\s*%s\)\@=')
+    let suffix = matchstr(&commentstring, '\(\S*\s*%s\)\@<=\S*')
+    return [prefix, suffix]
+endfunction
+
 " Create an 80 column wide section header with lines above
 " and below the text wrapped in a comment.
 function commander#lib#section(words)
