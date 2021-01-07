@@ -82,9 +82,6 @@ endfunction
 
 
 """ Search and replace
-    vnoremap <silent> / y/\V<C-R>=escape(@", '\/')<CR><CR>
-
-    " Substitute
     nnoremap gs :%s/
     xnoremap gs :s/
     nnoremap <expr> gS ':%s/\V'.expand('<cword>').'/'
