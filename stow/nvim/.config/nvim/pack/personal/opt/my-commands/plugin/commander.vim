@@ -143,8 +143,8 @@
         \|silent redraw | endif
 
 """ Delete current buffer
-    command! Bdelete execute len(getbufinfo({'buflisted': 1})) > 1
-                \? exists('b:dirvish') ? 'bprevious' : 'bprevious | bdelete#'
+    command! Bdelete execute len(getbufinfo({'buflisted': 1})) > 1 && !empty(getreg('#'))
+                \? exists('b:dirvish') ? 'bprevious' : 'bprevious | bdelete #'
                 \: exists('b:dirvish') ? 'edit .' : 'edit . | bdelete#'
 
 """ Find files
@@ -172,7 +172,7 @@
                 \| set ft=filefinder | call setline(1, <q-args>) | doau TextChanged
 
 """ Buflist
-    command! BufList edit buffers | set ft=buflist | call commander#lib#load_buflist()
+    command! BufList edit buffers
 
 """ Jira ticket
     command! Jira Scratch | put+ | 0d | set ft=jira

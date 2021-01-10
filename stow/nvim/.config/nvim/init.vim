@@ -79,18 +79,17 @@
     packloadall     " load all default packages in 'start'
 
 """ Personal
-    packadd! my-statusline
-    packadd! my-automations
-    packadd! my-commands
-    packadd! my-mappings
-    packadd! my-abbreviations
-    packadd! my-tags
-    packadd! my-completion
-    " packadd! my-pomodoro
+    packadd my-statusline
+    packadd my-automations
+    packadd my-commands
+    packadd my-mappings
+    packadd my-abbreviations
+    packadd my-tags
+    packadd my-completion
 
 """ External
     " Finding / picking files
-    packadd! my-telescope            " fuzzy finder / picker
+    " packadd! my-telescope            " fuzzy finder / picker
     packadd! my-dirvish              " file manager
 
     " Mappings and commands

@@ -62,7 +62,7 @@ function! MyStatusline()
     if &ft == 'dirvish'
         let file        = '  %f '
     else
-        let file        = '  %f '
+        let file        = '  %n %f '
     endif
     let branch      = '%{GitBranch()}'
     let tree        = '%{TSStatus()}'

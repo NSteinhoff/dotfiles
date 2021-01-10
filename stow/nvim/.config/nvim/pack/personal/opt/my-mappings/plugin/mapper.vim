@@ -3,9 +3,14 @@ augroup SANITIZER
     autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
     autocmd CmdwinEnter * nnoremap <buffer> <BS> <BS>
     autocmd CmdwinEnter * nnoremap <buffer> <SPACE> <SPACE>
+    autocmd CmdwinEnter * nnoremap <buffer> <C-N> <C-N>
+    autocmd CmdwinEnter * nnoremap <buffer> <C-P> <C-P>
+
     autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
     autocmd BufReadPost quickfix nnoremap <buffer> <BS> <BS>
     autocmd BufReadPost quickfix nnoremap <buffer> <SPACE> <SPACE>
+    autocmd BufReadPost quickfix nnoremap <buffer> <C-N> <C-N>
+    autocmd BufReadPost quickfix nnoremap <buffer> <C-P> <C-P>
 augroup END
 
 
@@ -147,7 +152,7 @@ endfunction
 
 
 """ Quickopen
-    nnoremap <C-P> <CMD>FindFiles<CR>i
+    nnoremap <leader>f <CMD>FindFiles<CR>i
 
 
 """ Running builds with `<key>
@@ -167,9 +172,7 @@ endfunction
     vnoremap <silent> <leader>* y:execute 'Vimgrep '.escape(@", '\/')<CR>
 
     " Live grep
-    nnoremap <silent> <c-g> <CMD>LiveGrep<CR>i
-    nnoremap <silent> <expr> <leader>g ':LiveGrep '.expand('<cword>').'<CR>'
-    vnoremap <silent> <expr> <leader>g 'y:LiveGrep <C-R>"<CR>'
+    nnoremap <silent> <leader>g <CMD>LiveGrep<CR>i
 
 
 """ Toggle Settings
@@ -201,12 +204,12 @@ endfunction
 
     " Buffers
     nnoremap <leader>b :buffer <C-Z>
-    nnoremap <leader>B :BufList<CR>
-    nnoremap <leader>s :vert sbuffer <C-Z>
+    nnoremap <leader>B <CMD>BufList<CR>
+    nnoremap <leader>d <CMD>Bdelete<CR>
+    nnoremap <leader>s :sbuffer <C-Z>
+    nnoremap <leader>v :vert sbuffer <C-Z>
     nnoremap <leader>t :tab sbuffer <C-Z>
-    nnoremap <silent> <leader>d :Bdelete<CR>
-    nnoremap <silent> <leader>D :bdelete<CR>
-    nnoremap <silent> <leader>O :BufOnly<CR>
+    nnoremap <silent> <leader>O <CMD>BufOnly<CR>
 
     " Explore
     nnoremap <silent> <leader>E :Explore<CR>

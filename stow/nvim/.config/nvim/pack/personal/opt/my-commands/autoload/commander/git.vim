@@ -163,7 +163,7 @@ function commander#git#set_changed_args()
         return
     endif
     let gitroot = fnamemodify(gitdir, ':h')
-    let changed = systemlist('git diff --name-only -- .')
+    let changed = systemlist('git diff --name-only HEAD -- .')
     let absolute = map(changed, { k, v -> gitroot.'/'.v })
     let relative = map(absolute, { k, v ->
                 \ match(v, cwd) ? strcharpart(v, matchend(v, cwd) + 1) : v

@@ -1,8 +1,8 @@
 setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
 setlocal errorformat=%f
 
-let s:insert_help = '<CR> selects <- ; <C-N>/<C-P> moves <- ; <SPACE> inserts wildcards'
-let s:normal_help = '[1-9] open file; <CR> selects <-'
+let s:insert_help = '<CR> selects <- ; <C-N>/<C-P> moves <- ; <SPACE> inserts wildcards ; <C-C> to exit'
+let s:normal_help = '[1-9] open file ; <C-N>/<C-P> moves <- ; <CR> selects <-'
 let s:placeholder = '  <<< some.*file.*pattern'
 let s:rip_files = 'rg --files'
 let s:git_files = 'git ls-files'
@@ -109,11 +109,14 @@ augroup END
 
 nnoremap <buffer> <SPACE> <cmd>if line('.') > 2 \| call <SID>open_file(line('.')-2) \| endif<CR>
 nnoremap <buffer> <CR> <cmd>call <SID>open_selected()<CR>
+noremap <buffer> <C-N> <cmd>call <SID>move_selection(1)<CR>
+noremap <buffer> <C-P> <cmd>call <SID>move_selection(-1)<CR>
 
 inoremap <buffer> <SPACE> .*
 inoremap <buffer> <CR> <esc><cmd>call <SID>open_selected()<CR>
 inoremap <buffer> <C-N> <cmd>call <SID>move_selection(1)<CR>
 inoremap <buffer> <C-P> <cmd>call <SID>move_selection(-1)<CR>
+inoremap <buffer> <C-C> <esc><cmd>bdelete<CR>
 
 for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
     execute 'nnoremap <buffer> '.i.' <cmd>silent call <SID>open_file('.i.')<cr>'
