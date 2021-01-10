@@ -70,8 +70,8 @@
 
 """ Path and files
     set path=,,.
-    set wildignore+=*target*
-    set wildignore+=*node_modules*
+    set wildignore+=**/target/**
+    set wildignore+=**/node_modules/**
 
 
 " --------------------------------- Plugins -----------------------------------
