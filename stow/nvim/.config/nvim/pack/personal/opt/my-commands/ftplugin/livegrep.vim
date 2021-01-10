@@ -9,8 +9,8 @@ let s:git_grep = 'git grep -n -i -I'
 let b:num_results = 0
 
 function s:grepprg()
-    " return s:rip_grep
-    return (finddir('.git', ';') != '' ? s:git_grep : s:rip_grep)
+    return s:rip_grep
+    " return (finddir('.git', ';') != '' ? s:git_grep : s:rip_grep)
 endfunction
 
 function s:insert_separator(mode)

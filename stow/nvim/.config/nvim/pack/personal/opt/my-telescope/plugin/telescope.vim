@@ -17,8 +17,9 @@ endif
 
 
 " --------------------------------- Mappings ----------------------------------
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').builtin()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').git_status()<cr>
+nnoremap <leader>fB <cmd>lua require('telescope.builtin').builtin()<cr>
+nnoremap <leader>ff <cmd>TelescopeFiles<cr>
+nnoremap <leader>fg <cmd>TelescopeGrep<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 nnoremap <leader>fo <cmd>lua require('telescope.builtin').oldfiles {shorten_path = true}<cr>

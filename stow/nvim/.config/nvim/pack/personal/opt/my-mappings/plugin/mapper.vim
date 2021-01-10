@@ -103,10 +103,10 @@ endfunction
     " <key>                     Mnemonic key for the list
     " <leader><key>             Peek at list
     " <leader><KEY>             Go to list and pick entry
-    nnoremap <silent> <leader>q :clist<CR>
-    nnoremap <silent> <expr> <leader>Q exists(':Quickfix') ? ':Quickfix<CR>' : ':cwindow<CR>'
-    nnoremap <silent> <leader>l :llist<CR>
-    nnoremap <silent> <expr> <leader>L exists(':Loclist') ? ':Loclist<CR>' : ':lwindow<CR>'
+    nnoremap <silent> <leader>q <CMD>clist<CR>
+    nnoremap <silent> <leader>Q <CMD>cwindow<CR>
+    nnoremap <silent> <leader>l <CMD>llist<CR>
+    nnoremap <silent> <leader>L <CMD>lwindow<CR>
 
 
 """ Preview / Hover
@@ -147,11 +147,7 @@ endfunction
 
 
 """ Quickopen
-    nnoremap <expr> <C-P>
-                \ exists(':TelescopeFiles') ? '<CMD>TelescopeFiles<CR>' :
-                \ exists(':FindFiles') ? '<CMD>FindFiles<CR>i' :
-                \ exists(':Find') ? ':Find <C-Z>' :
-                \ ':find **<C-Z>'
+    nnoremap <C-P> <CMD>FindFiles<CR>i
 
 
 """ Running builds with `<key>
@@ -171,7 +167,7 @@ endfunction
     vnoremap <silent> <leader>* y:execute 'Vimgrep '.escape(@", '\/')<CR>
 
     " Live grep
-    nnoremap <silent> <expr> <c-g> exists(':TelescopeGrep') ? '<CMD>TelescopeGrep<CR>' : '<CMD>LiveGrep<CR>i'
+    nnoremap <silent> <c-g> <CMD>LiveGrep<CR>i
     nnoremap <silent> <expr> <leader>g ':LiveGrep '.expand('<cword>').'<CR>'
     vnoremap <silent> <expr> <leader>g 'y:LiveGrep <C-R>"<CR>'
 
