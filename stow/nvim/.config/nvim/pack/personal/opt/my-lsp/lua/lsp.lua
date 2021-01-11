@@ -164,7 +164,7 @@ end
 
 local function indicator()
     if #clients() > 0 then
-        return '[LSP]'
+        return '[ '..#clients()..']'
     else
         return ''
     end
