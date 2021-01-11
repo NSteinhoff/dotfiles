@@ -108,8 +108,10 @@
     command! ChangedFiles :call commander#git#set_changed_args()
 
 """ Searching
-    " Search locally in the buffer and put results in the loclist.
+    " Local
     command! -nargs=+ Vimgrep execute 'lvimgrep /' . <q-args> . '/j ' . expand('%')
+
+    " Global
     command! -nargs=+ Grep cexpr system('grep -n -r '.<q-args>.' .')
     command! -nargs=+ GitGrep cexpr system('git grep -n '.<q-args>)
     if executable('rg')
@@ -147,22 +149,6 @@
                 \? exists('b:dirvish') ? 'bprevious' : 'bprevious | bdelete #'
                 \: exists('b:dirvish') ? 'edit .' : 'edit . | bdelete#'
 
-""" Find files
-    command! -nargs=1 -complete=customlist,<SID>complete_files Find edit <args>
-    function s:complete_files(arglead, cmdline, cursorpos)
-        let l:pattern = a:arglead != '' ? '.*'.a:arglead.'.*' : '.*'
-        if finddir('.git', ';') != ''
-            return systemlist('git ls-files | grep -i '.shellescape(l:pattern))
-        else
-            return systemlist('find . -iregex '.shellescape(l:pattern))
-        endif
-    endfunction
-
-    command! -nargs=1 -complete=customlist,<SID>complete_oldfiles Oldfiles edit <args>
-    function s:complete_oldfiles(arglead, cmdline, cursorpos)
-        return filter(copy(v:oldfiles), { _, fname -> fname =~ a:arglead })
-    endfunction
-
 """ LiveGrep
     command! -nargs=? LiveGrep execute (expand('<mods>') == '' ? 'edit' : expand('<mods>').' new').' livegrep'
                 \| set ft=livegrep | call setline(1, <q-args>) | doau TextChanged
@@ -173,6 +159,3 @@
 
 """ Buflist
     command! BufList edit buffers
-
-""" Jira ticket
-    command! Jira Scratch | put+ | 0d | set ft=jira
