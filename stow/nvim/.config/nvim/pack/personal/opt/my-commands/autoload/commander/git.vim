@@ -165,7 +165,8 @@ function commander#git#set_changed_args()
     let gitroot = fnamemodify(gitdir, ':h')
     let changed = systemlist('git diff --name-only HEAD -- .')
     let absolute = map(changed, { k, v -> gitroot.'/'.v })
-    let relative = map(absolute, { k, v ->
+    let resolved = map(absolute, { k, v -> resolve(v) })
+    let relative = map(resolved, { k, v ->
                 \ match(v, cwd) ? strcharpart(v, matchend(v, cwd) + 1) : v
                 \ })
     let filepaths = filter(relative, { k, v -> findfile(v) != '' })
