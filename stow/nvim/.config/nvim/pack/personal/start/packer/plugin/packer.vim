@@ -18,7 +18,7 @@ function! s:packfiles(arglead, cmdline, cursorpos) abort
     return paths
 endfunction
 
-function s:editpackage(name, mods)
+function s:editpackage(name, mods, split)
     let paths = s:packfiles(a:name, '', '')
 
     if empty(paths)
@@ -26,7 +26,8 @@ function s:editpackage(name, mods)
         return
     endif
 
-    execute a:mods . ' split ' . paths[0]
+    execute a:mods . ' '.(a:split ? 'split' : 'edit').' ' . paths[0]
 endfunction
 
-command! -nargs=? -complete=customlist,<SID>packfiles PackEdit call s:editpackage(<q-args>, '<mods>')
+command! -nargs=? -complete=customlist,<SID>packfiles PackEdit call s:editpackage(<q-args>, '<mods>', 0)
+command! -nargs=? -complete=customlist,<SID>packfiles PackSplit call s:editpackage(<q-args>, '<mods>', 1)
