@@ -1,22 +1,33 @@
 setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
 
+function s:buffer2line(buffer)
+    let b = a:buffer
+
+    return b.bufnr.(b.changed ? '+' : '').' '.b.name
+endfunction
+
+function s:line2name(line)
+    return split(a:line)[1]
+endfunction
+
 function s:load_buflist()
-    let buffers = getbufinfo({'buflisted': 1})
     let lines = []
-    for buffer in buffers
-        if buffer.name != ''
-            call add(lines, buffer.name)
+    for buffer in getbufinfo({'buflisted': 1})
+        if !empty(buffer.name)
+            call add(lines, s:buffer2line(buffer))
         endif
     endfor
+
     %delete
     call append(0, lines)
     $delete
 endfunction
 
 function s:set_listed(buf)
-    let names = filter(getbufline(a:buf, 1, '$'), { _, v -> !empty(v) })
-    let listed = getbufinfo({'buflisted': 1})
-    for buffer in listed
+    let lines = filter(getbufline(a:buf, 1, '$'), { _, v -> !empty(v) })
+    let names = map(lines, { _, v -> s:line2name(v) })
+
+    for buffer in getbufinfo({'buflisted': 1})
         if index(names, buffer.name) == -1
             execute 'bdelete ' . buffer.name
         endif
@@ -24,7 +35,7 @@ function s:set_listed(buf)
 endfunction
 
 nnoremap <buffer> - <CMD>delete<CR>
-nnoremap <expr> <buffer> <CR> empty(getline('.')) ? '<CMD>bdelete<CR>' : 'gf'
+nnoremap <expr> <buffer> <CR> empty(getline('.')) ? '<CMD>bdelete<CR>' : '<CMD>execute "edit ".<SID>line2name(getline("."))<CR>'
 
 augroup buflist
     autocmd!
