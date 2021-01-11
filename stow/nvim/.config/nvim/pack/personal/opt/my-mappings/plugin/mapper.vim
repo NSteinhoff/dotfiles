@@ -195,12 +195,11 @@ endfunction
     nnoremap <silent> <leader>; <CMD>edit $MYVIMRC<CR>
 
     " Quick Keys
-    vnoremap <silent> <leader>= :Align<CR>
-    nnoremap <silent> <leader>! :!%:p<CR>
-    nnoremap <silent> <leader>x :.Run<CR>
-    vnoremap <silent> <leader>x :Run<CR>
-    nnoremap <silent> <leader>X :Run<CR>
-    nnoremap <leader>o :Oldfiles <C-Z>
+    vnoremap <silent> <leader>= <CMD>'<,'>Align<CR>
+    nnoremap <silent> <leader>! <CMD>!%:p<CR>
+    nnoremap <silent> <leader>x <CMD>.Run<CR>
+    vnoremap <silent> <leader>x <CMD>'<,'>Run<CR>
+    nnoremap <silent> <leader>X <CMD>Run<CR>
 
     " Buffers
     nnoremap <leader>b :buffer <C-Z>
@@ -212,16 +211,20 @@ endfunction
     nnoremap <silent> <leader>O <CMD>BufOnly<CR>
 
     " Explore
-    nnoremap <silent> <leader>E :Explore<CR>
-    nnoremap <silent> <leader>V :Vexplore<CR>
-    nnoremap <silent> <leader>T :Texplore<CR>
+    nnoremap <silent> <leader>E <CMD>Explore<CR>
+    nnoremap <silent> <leader>V <CMD>Vexplore<CR>
+    nnoremap <silent> <leader>T <CMD>Texplore<CR>
 
 
 """ (c): Changes / Diffing
-    nnoremap <silent> cs :ChangeSplit<CR>
-    nnoremap <silent> cp :ChangePatch<CR>
+    nnoremap <silent> cs <CMD>ChangeSplit<CR>
+    nnoremap <silent> cp <CMD>ChangePatch<CR>
     nnoremap cS :ChangeSplit <C-Z>
     nnoremap cP :ChangePatch <C-Z>
+
+""" (gb): Git Blame
+    nnoremap <silent> gbb <CMD>Blame<CR>
+    vnoremap <silent> gb <CMD>'<,'>Blame<CR>
 
 
 """ Potential Ad-hoc mappings
