@@ -64,7 +64,7 @@ function commander#git#blame_on()
     aug blame
         au!
         au CursorMoved <buffer> call s:blame_mark(line('.'))
-        au BufWritePost <buffer> call s:blame_update()
+        au TextChanged <buffer> call s:blame_update()
     aug END
 endfunction
 
@@ -166,9 +166,7 @@ function commander#git#set_changed_args()
     let changed = systemlist('git diff --name-only HEAD -- .')
     let absolute = map(changed, { k, v -> gitroot.'/'.v })
     let resolved = map(absolute, { k, v -> resolve(v) })
-    let relative = map(resolved, { k, v ->
-                \ match(v, cwd) ? strcharpart(v, matchend(v, cwd) + 1) : v
-                \ })
+    let relative = map(resolved, { k, v -> fnamemodify(v, ':.') })
     let filepaths = filter(relative, { k, v -> findfile(v) != '' })
     %argd
     for path in filepaths
