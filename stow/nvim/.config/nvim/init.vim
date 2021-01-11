@@ -13,7 +13,6 @@
     set scrolloff=5
     set sidescrolloff=3
     set showmatch
-    set noequalalways           " don't resize other windows
     set fillchars=eob:~
     set signcolumn=number
 
@@ -23,7 +22,7 @@
     set foldmethod=indent
     set foldlevelstart=99       " start with all folds opened
     set clipboard=unnamedplus   " always use clipboard
-    set mouse=n
+    set mouse=n                 " enable mouse in normal mode
     set autoread
     set hidden
     set ignorecase              " ignore case in searches ...
@@ -61,11 +60,7 @@
 
 """ Completions
     set wildmode=longest:full,full
-    set completeopt=
-    set completeopt+=menuone
-    set completeopt-=noinsert
-    set completeopt-=noselect
-    set completeopt-=preview    " open the preview window with additional info
+    set completeopt=menuone,noinsert,noselect
     set shortmess+=c
 
 """ Path and files
