@@ -88,7 +88,7 @@ augroup END
 
 inoremap <buffer> <SPACE> .*
 inoremap <buffer> <CR> <esc>3GgF
-inoremap <buffer> <C-C> <esc><cmd>bdelete<CR>
+inoremap <buffer> <C-C> <esc><cmd>noautocmd bdelete<CR>
 
 nnoremap <buffer> <SPACE> <C-W>gF
 nnoremap <buffer> <CR> gF
