@@ -35,7 +35,9 @@ function s:set_listed(buf)
 endfunction
 
 nnoremap <buffer> - <CMD>delete<CR>
-nnoremap <expr> <buffer> <CR> empty(getline('.')) ? '<CMD>bdelete<CR>' : '<CMD>execute "edit ".<SID>line2name(getline("."))<CR>'
+nnoremap <expr> <buffer> <CR> !empty(getline('.')) ? '<CMD>execute "edit ".<SID>line2name(getline("."))<CR>'
+                           \: exists(':Dirvish')   ? '<CMD>Dirvish<CR>'
+                           \: '<CMD>bdelete<CR>'
 
 augroup buflist
     autocmd!
