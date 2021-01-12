@@ -6,7 +6,7 @@ let s:placeholder = '  <<< some.*pattern.*in.*file.*contents'
 let s:rip_grep = 'rg --vimgrep --smart-case'
 let s:git_grep = 'git grep -n -i -I'
 
-let b:num_results = 0
+let b:query = ''
 
 function s:grepprg()
     return s:rip_grep
@@ -48,15 +48,15 @@ function s:wipe()
 endfunction
 
 function s:searchable(live)
-    return len(s:query()) >= (a:live ? 3 : 1)
+    let l:query = s:query()
+    return len(l:query) >= (a:live ? 3 : 1) && l:query !=# b:query
 endfunction
 
-function s:search(live)
-    if s:searchable(a:live)
-        let l:files = systemlist(s:grepprg().' '.shellescape(s:query()))
-        call append('$', l:files)
-        let b:num_results = len(l:files)
-    endif
+function s:search()
+    let l:query = s:query()
+    let b:query = l:query
+    let l:files = systemlist(s:grepprg().' '.shellescape(l:query))
+    call append('$', l:files)
 endfunction
 
 function s:setname(live)
@@ -65,10 +65,10 @@ endfunction
 
 function s:update(live)
     call s:placeholder()
-    if s:editing()
+    if s:editing() && s:searchable(a:live)
         call s:wipe()
         call s:setname(a:live)
-        call s:search(a:live)
+        call s:search()
     endif
 endfunction
 
@@ -88,7 +88,11 @@ augroup END
 
 inoremap <buffer> <SPACE> .*
 inoremap <buffer> <CR> <esc>3GgF
-inoremap <buffer> <C-C> <esc><cmd>noautocmd bdelete<CR>
+inoremap <buffer> <C-C> <esc><cmd>Cancel<CR>
 
-nnoremap <buffer> <SPACE> <C-W>gF
+nnoremap <buffer> <SPACE> 0<C-W>gF
 nnoremap <buffer> <CR> gF
+nnoremap <buffer> I 1GI
+nnoremap <buffer> A 1GA
+
+command -buffer Cancel noautocmd hide
