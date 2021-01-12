@@ -1282,4 +1282,4 @@ colorschemes:
       cyan:       '#0184bc'
       white:      '#a0a1a7' # mono-3
 
-colors: *one-dark
+colors: *gruvbox-dark
