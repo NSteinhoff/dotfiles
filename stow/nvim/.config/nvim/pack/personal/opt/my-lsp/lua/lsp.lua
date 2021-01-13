@@ -1,5 +1,6 @@
 vim.cmd('packadd nvim-lspconfig')
 local lspconfig = require'lspconfig'
+local util = require'lspconfig/util'
 -- local format = require'format'
 
 local M = {}
@@ -117,7 +118,6 @@ local function setup_signs()
 end
 
 -- LSP client configurations
-vim.cmd('packadd nvim-lspconfig')
 -- vim.cmd('packadd my-completions')
 
 local function on_attach(client)
@@ -133,12 +133,20 @@ local function on_attach(client)
     --]]
 end
 
-local servers = {'tsserver', 'rust_analyzer', 'clangd', 'jsonls', 'cssls'}
+local servers = {'rust_analyzer', 'clangd', 'jsonls', 'cssls'}
 for _, server in ipairs(servers) do
     lspconfig[server].setup {
-        on_attach = on_attach
+        on_attach = on_attach,
     }
 end
+
+lspconfig['tsserver'].setup {
+    on_attach = on_attach,
+    root_dir = function(fname)
+        return util.root_pattern(".git")(fname) or
+               util.root_pattern("tsconfig.json, package.json")(fname)
+    end
+}
 
 -- Handlers
 vim.lsp.handlers["textDocument/publishDiagnostics"] = function(...)
