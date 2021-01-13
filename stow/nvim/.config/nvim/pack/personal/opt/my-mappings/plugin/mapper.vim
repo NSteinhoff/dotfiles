@@ -93,6 +93,7 @@ endfunction
     vnoremap gS y:%s/\V<C-R>=escape(@", '\/')<CR>/
 
 
+
 """  Format
     " Mnemonic:
     "   < and > change indentation
@@ -172,7 +173,8 @@ endfunction
     vnoremap <silent> <leader>* y:execute 'Vimgrep '.escape(@", '\/')<CR>
 
     " Live grep
-    nnoremap <silent> <leader>g <CMD>LiveGrep<CR>i
+    nnoremap <silent> <leader>g <CMD>LiveGrep<CR>A
+    vnoremap <silent> <leader>g y:execute 'LiveGrep '.@"<CR>
 
 
 """ Toggle Settings
@@ -185,8 +187,8 @@ endfunction
 
 """ Quality of life
     " Insert file's directory in command line
-    cnoremap %% %:h/
-    cnoremap ## #:h/
+    cnoremap %% %:h/<C-Z>
+    cnoremap ## #:h/<C-Z>
 
     " Switch to alternative buffer
     nnoremap <BS> <C-^>
