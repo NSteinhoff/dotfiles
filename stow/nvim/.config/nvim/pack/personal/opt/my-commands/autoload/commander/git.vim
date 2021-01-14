@@ -168,6 +168,7 @@ function commander#git#set_changed_args()
     let resolved = map(absolute, { k, v -> resolve(v) })
     let relative = map(resolved, { k, v -> fnamemodify(v, ':.') })
     let filepaths = filter(relative, { k, v -> findfile(v) != '' })
+
     %argd
     for path in filepaths
         execute 'argadd '.path

@@ -162,9 +162,9 @@ endfunction
     nnoremap `<BS> <CMD>TMake!<CR>
 
     " List, load, read errorfile contents
-    nnoremap <expr> g> findfile(&errorfile) ? '<CMD>!cat '.&errorfile.'<CR>' : '<CMD>echo "No errorfile"<CR>'
+    nnoremap <expr> g> !empty(findfile(&errorfile)) ? '<CMD>!cat '.&errorfile.'<CR>' : '<CMD>echo "No errorfile"<CR>'
     nnoremap <expr> g! &ft == 'qf' ? '<CMD>cclose<CR>' : '<CMD>Cfile<CR>'
-    nnoremap <expr> g? findfile(&errorfile) ? '<CMD>tab view '.&errorfile.'<CR>' : '<CMD>echo "No errorfile"<CR>'
+    nnoremap <expr> g? !empty(findfile(&errorfile)) ? '<CMD>tab split '.&errorfile.'<CR>' : '<CMD>echo "No errorfile"<CR>'
 
 
 """ Searching
