@@ -133,20 +133,11 @@ local function on_attach(client)
     --]]
 end
 
-local servers = {'rust_analyzer', 'clangd', 'jsonls', 'cssls'}
-for _, server in ipairs(servers) do
+local servers = {'tsserver', 'rust_analyzer', 'clangd', 'jsonls', 'cssls'} for _, server in ipairs(servers) do
     lspconfig[server].setup {
         on_attach = on_attach,
     }
 end
-
-lspconfig['tsserver'].setup {
-    on_attach = on_attach,
-    root_dir = function(fname)
-        return util.root_pattern(".git")(fname) or
-               util.root_pattern("tsconfig.json, package.json")(fname)
-    end
-}
 
 -- Handlers
 vim.lsp.handlers["textDocument/publishDiagnostics"] = function(...)
