@@ -151,7 +151,7 @@
 
 """ LiveGrep
     command! -nargs=? LiveGrep execute (expand('<mods>') == '' ? 'edit' : expand('<mods>').' new').' livegrep'
-                \| set ft=livegrep | call setline(1, <q-args>) | doau TextChanged
+                \| set ft=livegrep | if !empty(<q-args>) | call setline(1, <q-args>) | doau TextChanged | endif
 
 """ FindFiles
     command! -nargs=? FindFiles execute (expand('<mods>') == '' ? 'edit' : expand('<mods>').' new').' filefinder'

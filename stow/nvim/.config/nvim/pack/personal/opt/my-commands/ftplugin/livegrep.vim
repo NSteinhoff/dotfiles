@@ -1,4 +1,4 @@
-set buftype=nofile bufhidden=wipe nobuflisted noswapfile
+set buftype=nofile bufhidden=hide nobuflisted noswapfile
 
 let s:insert_help = '<SPACE> inserts wildcard ; <CR> jump to first result and populate quickfix ; <C-C> to exit'
 let s:normal_help = '<CR> go to result ; <SPACE> go to result in tab ; Edit results and close buffer to load results into quickfix'
@@ -6,11 +6,10 @@ let s:placeholder = '  <<< some.*pattern.*in.*file.*contents'
 let s:rip_grep = 'rg --vimgrep --smart-case'
 let s:git_grep = 'git grep -n -i -I'
 
-let b:query = ''
+let b:query = get(b:, 'query', '')
 
 function s:grepprg()
     return s:rip_grep
-    " return (finddir('.git', ';') != '' ? s:git_grep : s:rip_grep)
 endfunction
 
 function s:insert_separator(mode)
@@ -59,15 +58,10 @@ function s:search()
     call append('$', l:files)
 endfunction
 
-function s:setname(live)
-    execute 'keepalt file '.s:grepprg().' '.(s:searchable(a:live) ? s:query() : '...')
-endfunction
-
 function s:update(live)
     call s:placeholder()
     if s:editing() && s:searchable(a:live)
         call s:wipe()
-        call s:setname(a:live)
         call s:search()
     endif
 endfunction

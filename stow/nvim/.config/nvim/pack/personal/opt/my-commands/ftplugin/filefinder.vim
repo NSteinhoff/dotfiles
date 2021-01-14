@@ -1,4 +1,4 @@
-setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
+setlocal buftype=nofile bufhidden=hide nobuflisted noswapfile
 setlocal errorformat=%f
 
 let s:insert_help = '<CR> selects <- ; <C-N>/<C-P> moves <- ; <SPACE> inserts wildcards ; <C-C> to exit'
@@ -58,10 +58,6 @@ function s:search()
     let b:num_results = len(l:files)
 endfunction
 
-function s:setname()
-    execute 'keepalt file '.s:finder().' \| grep  -i '.(s:searchable() ? s:query() : '...')
-endfunction
-
 function s:mark_selection()
     let l:line = b:selected + 1     " lines are 0-indexed for virtual text
     let l:ns = nvim_create_namespace('filefinder_selection')
@@ -85,7 +81,6 @@ function s:update()
     call s:placeholder()
     if s:editing()
         call s:wipe(mode())
-        call s:setname()
         call s:search()
         call s:reset_selection()
         call s:mark_selection()
