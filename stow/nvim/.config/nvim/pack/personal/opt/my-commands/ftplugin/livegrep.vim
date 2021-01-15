@@ -1,7 +1,7 @@
-set buftype=nofile bufhidden=hide nobuflisted noswapfile
+set buftype=nofile bufhidden=unload nobuflisted noswapfile
 
 let s:insert_help = '<SPACE> inserts wildcard ; <CR> jump to first result and populate quickfix ; <C-C> to exit'
-let s:normal_help = '<CR> go to result ; <SPACE> go to result in tab ; Edit results and close buffer to load results into quickfix'
+let s:normal_help = '<CR> go to result ; <SPACE> go to result in tab ; X to export the results to the quickfix list.'
 let s:placeholder = '  <<< some.*pattern.*in.*file.*contents'
 let s:rip_grep = 'rg --vimgrep --smart-case'
 let s:git_grep = 'git grep -n -i -I'
@@ -77,7 +77,7 @@ augroup live-grep
     autocmd InsertLeave <buffer> call s:update(0)
     autocmd InsertEnter <buffer> call s:insert_separator('i')
     autocmd InsertLeave <buffer> call s:insert_separator('n')
-    autocmd BufWipeout <buffer> call s:export(str2nr(expand('<abuf>')))
+    " autocmd BufUnload <buffer> call s:export(str2nr(expand('<abuf>')))
 augroup END
 
 inoremap <buffer> <SPACE> .*
@@ -88,5 +88,6 @@ nnoremap <buffer> <SPACE> 0<C-W>gF
 nnoremap <buffer> <CR> gF
 nnoremap <buffer> I 1GI
 nnoremap <buffer> A 1GA
+nnoremap <buffer> X <CMD>call <SID>export('%')<CR>
 
 command -buffer Cancel noautocmd hide

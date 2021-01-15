@@ -1,4 +1,4 @@
-setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
+setlocal buftype=nofile bufhidden=unload nobuflisted noswapfile
 
 function s:buffer2line(buffer)
     let b = a:buffer
