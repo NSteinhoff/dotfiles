@@ -54,7 +54,7 @@ alias gtree='git ls-files | tree --fromfile --dirsfirst'
 alias dirs='dirs -v'
 
 # Web search
-alias q='_() { q=${1:-$(xsel -op)}; '$opener' "https://duckduckgo.com/?q=${q}"; }; _'
+alias q='_() { q="${@:1}"; '$opener' "https://duckduckgo.com/?q=${q}"; }; _'
 
 # Why not
 alias :q='exit'
