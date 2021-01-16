@@ -1,7 +1,5 @@
 vim.cmd('packadd nvim-lspconfig')
 local lspconfig = require'lspconfig'
-local util = require'lspconfig/util'
--- local format = require'format'
 
 local M = {}
 
