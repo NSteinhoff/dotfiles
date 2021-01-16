@@ -1,26 +1,41 @@
 setlocal buftype=nofile bufhidden=unload nobuflisted noswapfile
 
-function s:buffer2line(buffer)
-    let b = a:buffer
+let s:indent = 8
 
-    return b.bufnr.(b.changed ? '+' : '').' '.b.name
+function s:buffer2line(buffer, alt)
+    let b = a:buffer
+    let a = a:alt
+
+    let mods = (b == a ? '#' : '').(b.changed ? '+' : '')
+    let pref = b.bufnr.(empty(mods) ? '' : ' '.mods)
+    let sep = repeat(' ', max([s:indent - strchars(pref), 1]))
+
+    return pref.sep.b.name
 endfunction
 
 function s:line2name(line)
-    return split(a:line)[1]
+    return split(a:line)[-1]
 endfunction
 
 function s:load_buflist()
     let lines = []
+    let alt = get(getbufinfo('#'), 0)
+    let cursorline = 1
+
     for buffer in getbufinfo({'buflisted': 1})
         if !empty(buffer.name)
-            call add(lines, s:buffer2line(buffer))
+            call add(lines, s:buffer2line(buffer, alt))
+            if buffer == alt
+                let cursorline = len(lines)
+            endif
         endif
     endfor
 
-    %delete
+    call deletebufline('', 0, '$')
     call append(0, lines)
-    $delete
+    call deletebufline('', '$', '$')
+
+    call cursor(cursorline, 1)
 endfunction
 
 function s:set_listed(buf)
@@ -43,7 +58,7 @@ function s:exit()
     endif
 endfunction
 
-nnoremap <buffer> - <CMD>delete<CR>
+nnoremap <buffer> x <CMD>delete<CR>
 nnoremap <buffer> <SPACE> <CMD>call <SID>exit()<CR>
 nnoremap <buffer> <CR> <CMD>call <SID>exit()<CR>
 
