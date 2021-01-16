@@ -34,10 +34,18 @@ function s:set_listed(buf)
     endfor
 endfunction
 
+
+function s:exit()
+    if !empty(getline('.'))
+        execute "edit ".s:line2name(getline("."))
+    else
+        edit .
+    endif
+endfunction
+
 nnoremap <buffer> - <CMD>delete<CR>
-nnoremap <expr> <buffer> <CR> !empty(getline('.')) ? '<CMD>execute "edit ".<SID>line2name(getline("."))<CR>'
-                           \: exists(':Dirvish')   ? '<CMD>Dirvish<CR>'
-                           \: '<CMD>bdelete<CR>'
+nnoremap <buffer> <SPACE> <CMD>call <SID>exit()<CR>
+nnoremap <buffer> <CR> <CMD>call <SID>exit()<CR>
 
 augroup buflist
     autocmd!

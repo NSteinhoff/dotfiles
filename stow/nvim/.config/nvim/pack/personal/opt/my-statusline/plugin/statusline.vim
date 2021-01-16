@@ -43,7 +43,7 @@ function GitBranch()
     if empty(finddir('.git', ';$HOME')) | return '' | endif
     try
         let branch = systemlist('git branch --show-current')[0]
-        return empty(branch) ? '' : '  '.branch
+        return empty(branch) ? '' : '  '.branch.' '
     catch
         return ''
     endtry
@@ -61,8 +61,14 @@ function! MyStatusline()
     let pre         = '%w'
     if &ft == 'dirvish'
         let file        = '  %f '
+    elseif &ft == 'filefinder'
+        let file        = '  '
+    elseif &ft == 'livegrep'
+        let file        = '  '
+    elseif &ft == 'buflist'
+        let file        = '  '
     else
-        let file        = '  %n %f '
+        let file        = '  %f '
     endif
     let branch      = '%{GitBranch()}'
     let tree        = '%{TSStatus()}'
@@ -74,7 +80,7 @@ function! MyStatusline()
     let position    = ' ☰ %l:%c | %p%% '
     let lsp         = '%{LspStatus()}'
 
-    return pre.ft.OPT.branch.file.mod.args.SEP.lsp.errors.compiler.spell.BAR.position
+    return pre.ft.branch.OPT.file.mod.args.SEP.lsp.errors.compiler.spell.BAR.position
 endfunction
 
 set statusline=%!MyStatusline()

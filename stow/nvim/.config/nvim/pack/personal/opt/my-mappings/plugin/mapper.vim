@@ -204,8 +204,7 @@ endfunction
     nnoremap <silent> <leader>X <CMD>Run<CR>
 
     " Buffers
-    nnoremap <leader>b :buffer <C-Z>
-    nnoremap <leader>B <CMD>BufList<CR>
+    nnoremap <leader>b <CMD>BufList<CR>
     nnoremap <leader>d <CMD>Bdelete<CR>
     nnoremap <leader>s :sbuffer <C-Z>
     nnoremap <leader>v :vert sbuffer <C-Z>
