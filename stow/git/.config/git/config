@@ -10,6 +10,7 @@
     dis         = diff --staged
     diffw       = diff --color-words
     stomp       = commit --all --amend --no-edit
+    pave        = commit --all --amend --no-edit
     stashes     = !git --no-pager stash list
     branches    = !git --no-pager branch --list
     fresh       = !git remote update --prune && git checkout master && git pull --ff-only && git branch --merged | grep -v '\\*\\|master' | xargs git branch -d
@@ -56,4 +57,4 @@
 [rerere]
     enabled = true
 [pull]
-	ff = only
+    ff = only
