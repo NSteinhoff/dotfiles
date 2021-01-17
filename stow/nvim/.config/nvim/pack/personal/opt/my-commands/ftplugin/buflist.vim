@@ -63,6 +63,7 @@ endfunction
 nnoremap <buffer> x <CMD>delete<CR>
 nnoremap <buffer> <SPACE> <CMD>call <SID>exit(getline('.'))<CR>
 nnoremap <buffer> <CR> <CMD>call <SID>exit(getline('.'))<CR>
+nnoremap <buffer> <BS> <CMD>keepalt b#<CR>
 
 augroup buflist
     autocmd!

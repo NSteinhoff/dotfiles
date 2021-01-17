@@ -108,7 +108,6 @@ augroup live-grep
     autocmd InsertLeave <buffer> call s:update(0)
     autocmd InsertEnter <buffer> call s:insert_separator('i')
     autocmd InsertLeave <buffer> call s:insert_separator('n')
-    " autocmd BufUnload <buffer> call s:export(str2nr(expand('<abuf>')))
 augroup END
 
 inoremap <buffer> <SPACE> .*
@@ -120,5 +119,6 @@ nnoremap <buffer> <CR> <CMD>call <SID>goto(line('.'))<CR>
 nnoremap <buffer> I 1GI
 nnoremap <buffer> A 1GA
 nnoremap <buffer> X <CMD>call <SID>export('%')<CR>
+nnoremap <buffer> <BS> <CMD>Cancel<CR>
 
-command -buffer Cancel noautocmd hide
+command -buffer Cancel keepalt b#

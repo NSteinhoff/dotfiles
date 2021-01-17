@@ -118,6 +118,7 @@ noremap <buffer> <C-N> <cmd>call <SID>move_selection(1)<CR>
 noremap <buffer> <C-P> <cmd>call <SID>move_selection(-1)<CR>
 nnoremap <buffer> I 1GI
 nnoremap <buffer> A 1GA
+nnoremap <buffer> <BS> <CMD>keepalt b#<CR>
 
 inoremap <buffer> <SPACE> .*
 inoremap <buffer> <CR> <esc><cmd>call <SID>open_selected()<CR>
