@@ -77,6 +77,15 @@ function s:move_selection(step)
     call s:mark_selection()
 endfunction
 
+function s:highlight()
+    syntax clear filefinder_match
+
+    let q = s:query()
+    if !empty(q)
+        execute 'syntax match filefinder_match /\c\v'.q.'/ contained'
+    endif
+endfunction
+
 function s:update()
     call s:placeholder()
     if s:editing()
@@ -84,6 +93,7 @@ function s:update()
         call s:search()
         call s:reset_selection()
         call s:mark_selection()
+        call s:highlight()
     endif
 endfunction
 

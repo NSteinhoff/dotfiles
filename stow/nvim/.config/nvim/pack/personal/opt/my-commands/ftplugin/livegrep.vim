@@ -1,7 +1,7 @@
 set buftype=nofile nobuflisted noswapfile
 
-let s:insert_help = '<SPACE> inserts wildcard ; <CR> jump to first result and populate quickfix ; <C-C> to exit'
-let s:normal_help = '<CR> go to result ; <SPACE> go to result in tab ; X to export the results to the quickfix list.'
+let s:insert_help = '<SPACE> inserts wildcard ; <CR> go to first result ; <C-C> to exit'
+let s:normal_help = '<CR> go to result in quickfix ; <SPACE> jump to result ; X export to quickfix'
 let s:placeholder = '  <<< some.*pattern.*in.*file.*contents'
 let s:rip_grep = 'rg --vimgrep --smart-case'
 let s:git_grep = 'git grep -n -i -I'
@@ -51,6 +51,15 @@ function s:searchable(live)
     return empty(l:query) || len(l:query) >= (a:live ? 3 : 1) && l:query !=# b:query
 endfunction
 
+function s:highlight()
+    syntax clear livegrep_match
+
+    let q = s:query()
+    if !empty(q)
+        execute 'syntax match livegrep_match /\c\v'.q.'/ contained'
+    endif
+endfunction
+
 function s:search()
     let l:query = s:query()
     let b:query = l:query
@@ -65,6 +74,7 @@ function s:update(live)
     if s:editing() && s:searchable(a:live)
         call s:wipe()
         call s:search()
+        call s:highlight()
     endif
 endfunction
 
@@ -102,7 +112,7 @@ augroup live-grep
 augroup END
 
 inoremap <buffer> <SPACE> .*
-inoremap <buffer> <CR> <esc>3GgF
+inoremap <buffer> <CR> <esc><CMD>call <SID>goto(3)<CR>
 inoremap <buffer> <C-C> <esc><cmd>Cancel<CR>
 
 nnoremap <buffer> <SPACE> <CMD>call <SID>edit(line('.'))<CR>

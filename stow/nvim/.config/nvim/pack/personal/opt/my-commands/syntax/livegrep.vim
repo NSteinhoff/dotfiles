@@ -14,7 +14,9 @@ highlight link livegrep_fpath Constant
 syn match livegrep_loc /:\(\d\+:\)\{1,2}/ contained
 highlight link livegrep_loc Comment
 
-syn match livegrep_text /\(^[^:]\+:\(\d\+:\)\{1,2}\)\@<=.*$/ contained
+syn match livegrep_text /\(^[^:]\+:\(\d\+:\)\{1,2}\)\@<=.*$/ contained contains=livegrep_match
 highlight link livegrep_text Normal
+
+highlight link livegrep_match Error
 
 let b:current_syntax = 'livegrep'
