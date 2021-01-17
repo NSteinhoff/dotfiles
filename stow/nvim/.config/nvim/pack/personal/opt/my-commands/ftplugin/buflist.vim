@@ -18,6 +18,8 @@ function s:line2name(line)
 endfunction
 
 function s:load_buflist()
+    call deletebufline('', 1, '$')
+
     let lines = []
     let alt = get(getbufinfo('#'), 0)
     let cursorline = 1
@@ -50,17 +52,17 @@ function s:set_listed(buf)
 endfunction
 
 
-function s:exit()
-    if !empty(getline('.'))
-        execute "edit ".s:line2name(getline("."))
+function s:exit(line)
+    if empty(a:line)
+        keepalt edit .
     else
-        edit .
+        execute "keepalt edit ".s:line2name(a:line)
     endif
 endfunction
 
 nnoremap <buffer> x <CMD>delete<CR>
-nnoremap <buffer> <SPACE> <CMD>call <SID>exit()<CR>
-nnoremap <buffer> <CR> <CMD>call <SID>exit()<CR>
+nnoremap <buffer> <SPACE> <CMD>call <SID>exit(getline('.'))<CR>
+nnoremap <buffer> <CR> <CMD>call <SID>exit(getline('.'))<CR>
 
 augroup buflist
     autocmd!
