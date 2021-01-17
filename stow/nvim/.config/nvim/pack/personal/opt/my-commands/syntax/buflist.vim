@@ -2,13 +2,13 @@ if exists("b:current_syntax")
   finish
 endif
 
-syn match buflist_file /\d\+\s\+\S\+$/
+syn match buflist_file /\d\+\s\+\zs\S\+$/
 highlight link buflist_file Constant
 
-syn match buflist_current_file /\d\s#+\?\S*\s\+\S\+$/
+syn match buflist_current_file /\d\s#+\?\S*\s\+\zs\S\+$/
 highlight link buflist_current_file Operator
 
-syn match buflist_modified_file /\d\s#\?+\S*\s\+\S\+$/
+syn match buflist_modified_file /\d\s#\?+\S*\s\+\zs\S\+$/
 highlight link buflist_modified_file Todo
 
 
