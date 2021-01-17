@@ -106,6 +106,8 @@ nnoremap <buffer> <SPACE> <cmd>if line('.') > 2 \| call <SID>open_file(line('.')
 nnoremap <buffer> <CR> <cmd>call <SID>open_selected()<CR>
 noremap <buffer> <C-N> <cmd>call <SID>move_selection(1)<CR>
 noremap <buffer> <C-P> <cmd>call <SID>move_selection(-1)<CR>
+nnoremap <buffer> I 1GI
+nnoremap <buffer> A 1GA
 
 inoremap <buffer> <SPACE> .*
 inoremap <buffer> <CR> <esc><cmd>call <SID>open_selected()<CR>
