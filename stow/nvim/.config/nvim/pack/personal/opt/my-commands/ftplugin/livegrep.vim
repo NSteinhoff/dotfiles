@@ -1,4 +1,4 @@
-set buftype=nofile bufhidden=unload nobuflisted noswapfile
+set buftype=nofile nobuflisted noswapfile
 
 let s:insert_help = '<SPACE> inserts wildcard ; <CR> jump to first result and populate quickfix ; <C-C> to exit'
 let s:normal_help = '<CR> go to result ; <SPACE> go to result in tab ; X to export the results to the quickfix list.'
@@ -48,14 +48,16 @@ endfunction
 
 function s:searchable(live)
     let l:query = s:query()
-    return len(l:query) >= (a:live ? 3 : 1) && l:query !=# b:query
+    return empty(l:query) || len(l:query) >= (a:live ? 3 : 1) && l:query !=# b:query
 endfunction
 
 function s:search()
     let l:query = s:query()
     let b:query = l:query
-    let l:files = systemlist(s:grepprg().' '.shellescape(l:query))
-    call append('$', l:files)
+    if !empty(l:query)
+        let l:files = systemlist(s:grepprg().' '.shellescape(l:query))
+        call append('$', l:files)
+    endif
 endfunction
 
 function s:update(live)
@@ -70,8 +72,27 @@ function s:export(buf)
     cgetexpr getbufline(a:buf, 3, '$')
 endfunction
 
+function s:line2result(line)
+    let [fname, lnum; _] = split(getline(a:line), ':')
+    return [fname, lnum]
+endfunction
+
+function s:edit(line)
+    let [fname, lnum] = s:line2result(a:line)
+    execute 'keepalt edit +'.lnum.' '.fname
+endfunction
+
+function s:goto(line)
+    if a:line <=2
+        return
+    endif
+    call s:export('%')
+    execute 'cc '.(a:line - 2)
+endfunction
+
 augroup live-grep
     autocmd!
+    autocmd BufEnter <buffer> call s:update(0)
     autocmd CursorHoldI <buffer> call s:update(1)
     autocmd TextChanged <buffer> call s:update(0)
     autocmd InsertLeave <buffer> call s:update(0)
@@ -84,8 +105,8 @@ inoremap <buffer> <SPACE> .*
 inoremap <buffer> <CR> <esc>3GgF
 inoremap <buffer> <C-C> <esc><cmd>Cancel<CR>
 
-nnoremap <buffer> <SPACE> 0<C-W>gF
-nnoremap <buffer> <CR> gF
+nnoremap <buffer> <SPACE> <CMD>call <SID>edit(line('.'))<CR>
+nnoremap <buffer> <CR> <CMD>call <SID>goto(line('.'))<CR>
 nnoremap <buffer> I 1GI
 nnoremap <buffer> A 1GA
 nnoremap <buffer> X <CMD>call <SID>export('%')<CR>

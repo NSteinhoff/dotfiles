@@ -150,7 +150,7 @@
                 \: exists('b:dirvish') ? 'edit .' : 'edit . | bdelete#'
 
 """ LiveGrep
-    command! -nargs=? LiveGrep edit livegrep | call setline(1, <q-args>) | doau TextChanged
+    command! -nargs=? -bang LiveGrep execute (empty(getbufinfo('^livegrep$')) ? 'edit livegrep' : 'buffer ^livegrep$') | if !empty(<q-args>) || <bang>0 | call setline(1, <q-args>) | 1 | doau TextChanged | endif
 
 """ FindFiles
     command! -nargs=? FindFiles edit filefinder | call setline(1, <q-args>) | doau TextChanged

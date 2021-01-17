@@ -173,7 +173,8 @@ endfunction
     vnoremap <silent> <leader>* y:execute 'Vimgrep '.escape(@", '\/')<CR>
 
     " Live grep
-    nnoremap <silent> <leader>g <CMD>LiveGrep<CR>A
+    nnoremap <silent> <leader>g <CMD>LiveGrep!<CR>A
+    nnoremap <silent> <leader>G <CMD>LiveGrep<CR>
     vnoremap <silent> <leader>g y:execute 'LiveGrep '.@"<CR>
 
 
