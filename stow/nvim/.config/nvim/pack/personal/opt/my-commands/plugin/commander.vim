@@ -109,7 +109,7 @@
 
 """ Searching
     " Local
-    command! -nargs=+ Vimgrep execute 'lvimgrep /' . <q-args> . '/j ' . expand('%')
+    command! -nargs=+ Vimgrep execute 'lvimgrep /' . <q-args> . '/ ' . expand('%')
 
     " Global
     command! -nargs=+ Grep cexpr system('grep -n -r '.<q-args>.' .')
@@ -157,3 +157,6 @@
 
 """ Buflist
     command! BufList edit buffers
+
+""" Matches
+    command! -nargs=? Match execute empty(<q-args>) ? 'match Error /'.expand('<cword>').'/' : 'match Error /<args>/'
