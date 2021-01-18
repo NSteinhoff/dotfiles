@@ -9,6 +9,14 @@
     endfunction
     command! -nargs=? -complete=filetype Scratch call s:scratch(<q-args>, '<mods>')
 
+    " Delete current buffer
+    command! Bdelete execute len(getbufinfo({'buflisted': 1})) > 1 && !empty(getreg('#'))
+                \? exists('b:dirvish') ? 'bprevious' : 'bprevious | bdelete #'
+                \: exists('b:dirvish') ? 'edit .' : 'edit . | bdelete#'
+
+    " Open editable buffer list
+    command! BufList edit buflist
+
 """ Workspaces
     command! -nargs=1 -complete=dir WorkOn tabnew | lcd <args>
 
@@ -120,46 +128,6 @@
     if executable('rg')
         command! -nargs=+ RipGrep cexpr system('rg --vimgrep --smart-case '.<q-args>)
     endif
-
-""" Run command in tmux split without stealing focus
-    command! -bar Make silent TMake!
-
-    command! -count=50 -nargs=+ -bang TSplit
-        \ silent execute '!tmux '
-        \.(<bang>0 ? 'new-window -n <q-args> ' : 'split-window -f -l <count>\% '
-        \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
-        \.' -d -c '.getcwd().' '.shellescape('<args>; sleep 2')
-        \|silent redraw
-
-    command! -count=50 -nargs=* -bang TMake
-        \ silent call commander#make#kill_window(commander#make#makeprg(<q-args>))
-        \|silent execute '!tmux '
-        \.(<bang>0 ? 'new-window -n '''.commander#make#makeprg(<q-args>).''' ' : 'split-window -f -l <count>\% '
-        \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
-        \.' -d -c '.getcwd().' '.commander#make#shell_cmd(<q-args>)
-        \|silent redraw
-
-    command! -count=50 -bang TTailErr
-        \ if findfile(&errorfile) != ''
-        \|silent execute '!tmux '
-        \.(<bang>0 ? 'new-window' : 'split-window -f -l <count>\% '
-        \.(expand('<mods>') =~ 'vertical' ? ' -h ' : ' -v '))
-        \.' -d -c '.getcwd().' '.shellescape('tail -F '.&errorfile)
-        \|silent redraw | endif
-
-""" Delete current buffer
-    command! Bdelete execute len(getbufinfo({'buflisted': 1})) > 1 && !empty(getreg('#'))
-                \? exists('b:dirvish') ? 'bprevious' : 'bprevious | bdelete #'
-                \: exists('b:dirvish') ? 'edit .' : 'edit . | bdelete#'
-
-""" LiveGrep
-    command! -nargs=? -bang LiveGrep execute (empty(getbufinfo('^livegrep$')) ? 'edit livegrep' : 'buffer ^livegrep$') | if !empty(<q-args>) || <bang>0 | call setline(1, <q-args>) | 1 | doau TextChanged | endif
-
-""" FindFiles
-    command! -nargs=? FindFiles edit filefinder | call setline(1, <q-args>) | doau TextChanged
-
-""" Buflist
-    command! BufList edit buffers
 
 """ Matches
     command! -nargs=? Match execute empty(<q-args>) ? 'match Error /'.expand('<cword>').'/' : 'match Error /<args>/'

@@ -156,18 +156,18 @@ endfunction
 
 
 """ Quickopen
-    nnoremap <leader>f <CMD>FindFiles<CR>i
+    nmap <leader>f <Plug>(filefinder-new)
 
 
 """ Running builds with `<key>
-    nnoremap `<leader> <CMD>make<CR>
-    nnoremap `<CR> <CMD>vert TMake<CR>
-    nnoremap `<BS> <CMD>TMake!<CR>
+    nmap `<leader> <Plug>(maker-sync)
+    nmap `<CR> <Plug>(maker-split)
+    nmap `<BS> <Plug>(maker-background)
 
     " List, load, read errorfile contents
-    nnoremap <expr> g> !empty(findfile(&errorfile)) ? '<CMD>!cat '.&errorfile.'<CR>' : '<CMD>echo "No errorfile"<CR>'
-    nnoremap <expr> g! &ft == 'qf' ? '<CMD>cclose<CR>' : '<CMD>Cfile<CR>'
-    nnoremap <expr> g? !empty(findfile(&errorfile)) ? '<CMD>tab split '.&errorfile.'<CR>' : '<CMD>echo "No errorfile"<CR>'
+    nmap g> <Plug>(maker-show-log)
+    nmap g! <Plug>(maker-load-errors)
+    nmap g? <Plug>(maker-edit-errors)
 
 
 """ Searching
@@ -176,9 +176,9 @@ endfunction
     vnoremap <silent> <leader>* y:execute 'Vimgrep '.escape(@", '\/')<CR>
 
     " Live grep
-    nnoremap <silent> <leader>g <CMD>LiveGrep!<CR>A
-    nnoremap <silent> <leader>G <CMD>LiveGrep<CR>
-    vnoremap <silent> <leader>g y:execute 'LiveGrep '.@"<CR>
+    nmap <leader>g <Plug>(livegrep-new)
+    nmap <leader>G <Plug>(livegrep-resume)
+    vmap <leader>g <Plug>(livegrep-selection)
 
 
 """ Toggle Settings
