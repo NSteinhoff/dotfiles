@@ -100,12 +100,15 @@
     function s:complete_file_revisions(...)
         return commander#git#file_revisions()
     endfunction
+    function s:complete_global_revisions(...)
+        return commander#git#global_revisions()
+    endfunction
 
     command! -bang -range=% Timeline call commander#git#load_timeline(<bang>0, <line1>, <line2>)
     command! -nargs=? -complete=customlist,s:complete_file_revisions ChangeSplit call commander#git#load_diff_in_split(<q-args>)
     command! -nargs=? -complete=customlist,s:complete_file_revisions ChangePatch call commander#git#load_patch(<q-args>)
 
-    command! -bang ChangedFiles call commander#git#set_changed_args() | if <bang>0 | first | endif
+    command! -nargs=? -bang -complete=customlist,s:complete_global_revisions ChangedFiles call commander#git#set_changed_args(<q-args>) | if <bang>0 | first | endif
 
 """ Searching
     " Local

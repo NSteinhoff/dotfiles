@@ -156,14 +156,15 @@ function commander#git#load_file_revision_in_split(revision, ...)
     let &ft=ft
 endfunction
 
-function commander#git#set_changed_args()
+function commander#git#set_changed_args(...)
+    let ref = a:0 && !empty(a:1) ? split(a:1)[0] : 'HEAD'
     let cwd = getcwd()
     let gitdir = finddir('.git', ';')
     if gitdir == ''
         return
     endif
     let gitroot = fnamemodify(gitdir, ':h')
-    let changed = systemlist('git diff --name-only HEAD -- .')
+    let changed = systemlist('git diff --name-only '.ref.' -- .')
     let absolute = map(changed, { k, v -> gitroot.'/'.v })
     let resolved = map(absolute, { k, v -> resolve(v) })
     let relative = map(resolved, { k, v -> fnamemodify(v, ':.') })
