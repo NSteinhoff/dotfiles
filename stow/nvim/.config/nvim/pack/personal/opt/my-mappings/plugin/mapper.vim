@@ -208,12 +208,12 @@ endfunction
     nnoremap <silent> <leader>X <CMD>Run<CR>
 
     " Buffers
-    nnoremap <leader>b <CMD>BufList<CR>
-    nnoremap <leader>d <CMD>Bdelete<CR>
     nnoremap <leader>s :sbuffer <C-Z>
     nnoremap <leader>v :vert sbuffer <C-Z>
     nnoremap <leader>t :tab sbuffer <C-Z>
-    nnoremap <silent> <leader>O <CMD>BufOnly<CR>
+    nmap <leader>b <Plug>(buffers-edit-list)
+    nmap <leader>d <Plug>(buffers-delete)
+    nmap <leader>O <Plug>(buffers-only)
 
     " Explore
     nnoremap <silent> <leader>E <CMD>Explore<CR>
