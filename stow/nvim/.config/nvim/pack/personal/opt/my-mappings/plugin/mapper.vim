@@ -93,8 +93,8 @@ endfunction
     vnoremap gS y:%s/\V<C-R>=escape(@", '\/')<CR>/
 
     " Highlight matches
-    nnoremap gm <CMD>Match<CR>
-    nnoremap gM <CMD>match<CR>
+    nnoremap <expr> gm v:count <= 1 ? '<CMD>Match<CR>' : '<CMD>Match'.v:count.'<CR>'
+    nnoremap <expr> gM v:count <= 1 ? '<CMD>match<CR>' : '<CMD>'.v:count.'match<CR>'
 
 
 """  Format

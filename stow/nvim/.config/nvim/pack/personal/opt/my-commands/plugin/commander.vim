@@ -67,4 +67,7 @@
     command! -range=% Run execute '<line1>,<line2>w !'.get(b:, 'interpreter', 'cat')
 
 """ Matches
-    command! -nargs=? Match execute empty(<q-args>) ? 'match Error /'.expand('<cword>').'/' : 'match Error /<args>/'
+    command! -nargs=? Match execute 'match Error /'.(empty(<q-args>) ? expand('<cword>') : '<args>').'/'
+    command! -nargs=? Match2 execute '2match Constant /'.(empty(<q-args>) ? expand('<cword>') : '<args>').'/'
+    command! -nargs=? Match3 execute '3match Todo /'.(empty(<q-args>) ? expand('<cword>') : '<args>').'/'
+    command! MatchOff match | 2match | 3match
