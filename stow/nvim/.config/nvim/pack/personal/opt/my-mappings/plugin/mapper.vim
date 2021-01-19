@@ -222,14 +222,14 @@ endfunction
 
 
 """ (c): Changes / Diffing
-    nnoremap <silent> cs <CMD>ChangeSplit<CR>
-    nnoremap <silent> cp <CMD>ChangePatch<CR>
-    nnoremap cS :ChangeSplit <C-Z>
-    nnoremap cP :ChangePatch <C-Z>
+    nmap <silent> cs <Plug>(git-diff-split)
+    nmap <silent> cp <Plug>(git-patch-split)
+    nmap cS <Plug>(git-diff-split-ref)
+    nmap cP <Plug>(git-patch-split-ref)
 
 """ (gb): Git Blame
-    nnoremap <silent> gbb <CMD>Blame<CR>
-    vnoremap <silent> gb <CMD>'<,'>Blame<CR>
+    nmap <silent> gbb <Plug>(git-blame)
+    vmap <silent> gb <Plug>(git-blame)
 
 
 """ Potential Ad-hoc mappings
