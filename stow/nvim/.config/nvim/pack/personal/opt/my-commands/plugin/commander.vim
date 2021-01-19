@@ -66,16 +66,5 @@
 """ Run lines with interpreter
     command! -range=% Run execute '<line1>,<line2>w !'.get(b:, 'interpreter', 'cat')
 
-""" Searching
-    " Local
-    command! -nargs=+ Vimgrep execute 'lvimgrep /' . <q-args> . '/ ' . expand('%')
-
-    " Global
-    command! -nargs=+ Grep cexpr system('grep -n -r '.<q-args>.' .')
-    command! -nargs=+ GitGrep cexpr system('git grep -n '.<q-args>)
-    if executable('rg')
-        command! -nargs=+ RipGrep cexpr system('rg --vimgrep --smart-case '.<q-args>)
-    endif
-
 """ Matches
     command! -nargs=? Match execute empty(<q-args>) ? 'match Error /'.expand('<cword>').'/' : 'match Error /<args>/'

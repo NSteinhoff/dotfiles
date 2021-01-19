@@ -172,8 +172,8 @@ endfunction
 
 """ Searching
     " Local search
-    nnoremap <silent> <leader>* :execute 'Vimgrep '.expand('<cword>')<CR>
-    vnoremap <silent> <leader>* y:execute 'Vimgrep '.escape(@", '\/')<CR>
+    nmap <silent> <leader>* <Plug>(search-word-in-file)
+    vmap <silent> <leader>* <Plug>(search-selection-in-file)
 
     " Live grep
     nmap <leader>g <Plug>(livegrep-new)
