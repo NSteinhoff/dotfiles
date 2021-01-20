@@ -7,7 +7,7 @@ augroup SANITIZER
     autocmd CmdwinEnter * nnoremap <buffer> <C-P> <C-P>
 
     autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-    autocmd BufReadPost quickfix nnoremap <buffer> <BS> <BS>
+    autocmd BufReadPost quickfix nnoremap <buffer> <BS> <C-W>c
     autocmd BufReadPost quickfix nnoremap <buffer> <SPACE> <SPACE>
     autocmd BufReadPost quickfix nnoremap <buffer> <C-N> <C-N>
     autocmd BufReadPost quickfix nnoremap <buffer> <C-P> <C-P>
@@ -119,28 +119,11 @@ endfunction
 
 
 """ Preview / Hover
-    " Preview information about a symbol.
-    " This is replaced with 'Hover' by LSP.
-    if empty(maparg('<SPACE>', 'n'))
-        nnoremap <expr> <silent> <SPACE> ':psearch '.expand('<cword>').'<CR>'
-    endif
-    if empty(maparg('<SPACE>', 'v'))
-        vnoremap <expr> <silent> <SPACE> 'y:psearch <C-R>"<CR>'
-    endif
-
     " Preview definition
-    if empty(maparg('<C-SPACE>', 'n'))
-        nnoremap <C-SPACE> <C-W>}
-    endif
-    if empty(maparg('g<C-SPACE>', 'n'))
-        nnoremap g<C-SPACE> <C-W>g}
-    endif
-    if empty(maparg('<C-SPACE>', 'v'))
-        vnoremap <silent> <C-SPACE> y:ptag <C-R>"<CR>
-    endif
-    if empty(maparg('g<C-SPACE>', 'v'))
-        vnoremap <silent> g<C-SPACE> y:ptselect <C-R>"<CR>
-    endif
+    nnoremap <C-SPACE> <C-W>}
+    nnoremap g<C-SPACE> <C-W>g}
+    vnoremap <silent> <C-SPACE> y:ptag <C-R>"<CR>
+    vnoremap <silent> g<C-SPACE> y:ptselect <C-R>"<CR>
 
     " Close the preview window
     nnoremap <leader><SPACE> <C-W>z
