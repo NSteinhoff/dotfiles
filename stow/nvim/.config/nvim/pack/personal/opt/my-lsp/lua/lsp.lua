@@ -80,8 +80,13 @@ local function setup_commands(client)
     commander('LspClients', 'lua require"lsp".print_clients()')
 
     -- Inspect Client
-    commander('LspClientInfo', 'lua print(vim.inspect(vim.lsp.get_active_clients()))')
-    commander('LspStopClients', 'lua vim.lsp.stop_client(vim.lsp.get_active_clients())')
+    commander('LspClientInfo', 'lua require"lsp".inspect_clients()')
+    commander('LspStopClients', 'lua require"lsp".stop_clients()')
+
+    -- Workspace Folders
+    commander('LspShowWorkspace', 'lua require"lsp".inspect_workspace_folders()')
+    vim.cmd [[command! -buffer -nargs=? -complete=dir LspAddWorkspaceFolder execute 'lua require"lsp".add_workspace_folder("<args>")']]
+    vim.cmd [[command! -buffer -nargs=? -complete=dir LspRemoveWorkspaceFolder execute 'lua require"lsp".remove_workspace_folder("<args>")']]
 
     -- Code actions
     commander('LspCodeAction', 'lua vim.lsp.buf.code_action()')
@@ -192,6 +197,42 @@ local severities = {
     [3] = 'INFO',
     [4] = 'HINT',
 }
+
+local function inspect(obj)
+    print(vim.inspect(obj))
+end
+
+local function empty(s)
+    return s == '' or s == nil
+end
+
+local function absolute(p)
+    return vim.fn.fnamemodify(p, ':p')
+end
+
+local function path_or_nil(p)
+    return not empty(p) and absolute(p) or nil
+end
+
+function M.add_workspace_folder(dir)
+    vim.lsp.buf.add_workspace_folder(path_or_nil(dir))
+end
+
+function M.remove_workspace_folder(dir)
+    vim.lsp.buf.remove_workspace_folder(path_or_nil(dir))
+end
+
+function M.inspect_clients()
+    inspect(vim.lsp.get_active_clients())
+end
+
+function M.inspect_workspace_folders()
+    inspect(vim.lsp.buf.list_workspace_folders())
+end
+
+function M.stop_clients()
+    vim.lsp.stop_client(vim.lsp.get_active_clients())
+end
 
 function M.print_line_diagnostics()
     local diagnostics = vim.lsp.diagnostic.get_line_diagnostics()
