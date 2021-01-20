@@ -1,5 +1,7 @@
 set buftype=nofile nobuflisted noswapfile
 
+setlocal errorformat=%f:%l:%c:%m
+
 let s:insert_help = '<SPACE> inserts wildcard ; <CR> go to first result ; <C-C> to exit'
 let s:normal_help = '<CR> go to result in quickfix ; <SPACE> jump to result ; X export to quickfix'
 let s:placeholder = '  <<< some.*pattern.*in.*file.*contents'
