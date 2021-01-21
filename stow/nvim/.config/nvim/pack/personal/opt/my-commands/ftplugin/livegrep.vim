@@ -81,7 +81,8 @@ function s:update(live)
 endfunction
 
 function s:export(buf)
-    cgetexpr getbufline(a:buf, 3, '$')
+    let lines = getbufline(a:buf, 3, '$')
+    call setqflist([], ' ', {'lines': lines, 'title': '[livegrep] '.s:grepprg().' '.shellescape(b:query)})
 endfunction
 
 function s:line2result(line)
