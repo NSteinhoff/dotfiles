@@ -2,11 +2,24 @@ setlocal buftype=nofile bufhidden=unload nobuflisted noswapfile
 
 let s:indent = 8
 
+function s:is_arg(fname)
+    let i = 0
+    while i < argc()
+        let a = fnamemodify(argv(i), ':p')
+        let b = fnamemodify(a:fname, ':p')
+        if a == b
+            return 1
+        endif
+        let i += 1
+    endwhile
+    return 0
+endfunction
+
 function s:buffer2line(buffer, alt)
     let b = a:buffer
     let a = a:alt
 
-    let mods = (b == a ? '#' : '').(b.changed ? '+' : '')
+    let mods = (s:is_arg(b.name) ? '!' : '').(b == a ? '#' : '').(b.changed ? '+' : '')
     let pref = b.bufnr.(empty(mods) ? '' : ' '.mods)
     let sep = repeat(' ', max([s:indent - strchars(pref), 1]))
 
