@@ -2,7 +2,7 @@ setlocal buftype=nofile bufhidden=unload nobuflisted noswapfile
 setlocal errorformat=%f
 
 let s:insert_help = '<CR> selects <- ; <C-N>/<C-P> moves <- ; <SPACE> inserts wildcards ; <C-C> to exit'
-let s:normal_help = '[1-9] open file ; <C-N>/<C-P> moves <- ; <CR> selects <-'
+let s:normal_help = '[1-9] open file ; <CR> go to file under cursor'
 let s:placeholder = '  <<< some.*file.*pattern'
 let s:rip_files = 'rg --files'
 let s:git_files = 'git ls-files'
@@ -58,11 +58,13 @@ function s:search()
     let b:num_results = len(l:files)
 endfunction
 
-function s:mark_selection()
+function s:mark_selection(mode)
     let l:line = b:selected + 1     " lines are 0-indexed for virtual text
     let l:ns = nvim_create_namespace('filefinder_selection')
     call nvim_buf_clear_namespace(0, l:ns, 0, -1)
-    call nvim_buf_set_virtual_text(0, l:ns, l:line, [['<- ', 'Operator']], {})
+    if a:mode == 'i'
+        call nvim_buf_set_virtual_text(0, l:ns, l:line, [['<- ', 'Statement']], {})
+    endif
 endfunction
 
 function s:reset_selection()
@@ -74,7 +76,7 @@ function s:move_selection(step)
     let l:old_i = b:selected - 1
     let l:new_i = ((l:n + l:old_i + a:step) % l:n)
     let b:selected = l:new_i + 1
-    call s:mark_selection()
+    call s:mark_selection(mode())
 endfunction
 
 function s:highlight()
@@ -92,7 +94,7 @@ function s:update()
         call s:wipe(mode())
         call s:search()
         call s:reset_selection()
-        call s:mark_selection()
+        call s:mark_selection(mode())
         call s:highlight()
     endif
 endfunction
@@ -110,13 +112,14 @@ augroup file-finder
     autocmd TextChanged,TextChangedI <buffer> call s:update()
     autocmd InsertEnter <buffer> call s:insert_separator('i')
     autocmd InsertLeave <buffer> call s:insert_separator('n')
+    autocmd InsertEnter <buffer> call s:mark_selection('i')
+    autocmd InsertLeave <buffer> call s:mark_selection('n')
 augroup END
 
-nnoremap <buffer> <SPACE> <cmd>if line('.') > 2 \| call <SID>open_file(line('.')-2) \| endif<CR>
-nnoremap <buffer> <CR> <cmd>call <SID>open_selected()<CR>
-noremap <buffer> <C-N> <cmd>call <SID>move_selection(1)<CR>
-noremap <buffer> <C-P> <cmd>call <SID>move_selection(-1)<CR>
+nnoremap <buffer> <CR> <cmd>if line('.') > 2 \| call <SID>open_file(line('.')-2) \| endif<CR>
 nnoremap <buffer> I 1GI
+nnoremap <buffer> i 1GA
+nnoremap <buffer> a 1GA
 nnoremap <buffer> A 1GA
 nnoremap <buffer> <BS> <CMD>keepalt b#<CR>
 
