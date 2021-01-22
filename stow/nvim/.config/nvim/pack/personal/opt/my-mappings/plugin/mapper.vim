@@ -71,6 +71,10 @@ endfunction
     nnoremap <silent> <C-W>o :diffoff!<BAR>only<CR>
     nnoremap <silent> <C-W><C-O> :diffoff!<BAR>only<CR>
 
+    " Addition window commands
+    nnoremap <silent> <C-W>t <CMD>tab split<CR>
+    nnoremap <silent> <C-W>N <CMD>vnew<CR>
+
 
 """ Viewport
     " Window resizing with the arrow keys
