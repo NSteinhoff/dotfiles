@@ -174,10 +174,10 @@ let s:ui_styles.git_branch               =  "HRelaxedInverse"
 ""}}}
 
 "" Diff Styles {{{
-let s:diff_styles.add                 = "Relaxed"
+let s:diff_styles.add                 = "Calm"
 let s:diff_styles.delete              = "Forceful"
-let s:diff_styles.change              = "Lively"
-let s:diff_styles.text                = "HLively"
+let s:diff_styles.change              = "Satisfied"
+let s:diff_styles.text                = "HSatisfiedDark"
 ""}}}
 
 "" Syntax Styles {{{
@@ -234,7 +234,6 @@ let s:ui_groups.selection = [
 \ ]
 let s:ui_groups.highlight_inverted = [
 \    "Search",
-\    "MatchParen",
 \ ]
 let s:ui_groups.highlight = [
 \    "Substitute",
@@ -245,6 +244,7 @@ let s:ui_groups.match = [
 \    "IncSearch",
 \    "PmenuSel",
 \    "WildMenu",
+\    "MatchParen",
 \ ]
 let s:ui_groups.ignore = [
 \    "FoldColum",
