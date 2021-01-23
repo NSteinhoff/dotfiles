@@ -177,6 +177,10 @@ endfunction
 
 
 """ Quality of life
+    " Move cursor in command line
+    cnoremap <C-H> <left>
+    cnoremap <C-L> <right>
+
     " Insert file's directory in command line
     cnoremap %% %:h/<C-Z>
     cnoremap ## #:h/<C-Z>
