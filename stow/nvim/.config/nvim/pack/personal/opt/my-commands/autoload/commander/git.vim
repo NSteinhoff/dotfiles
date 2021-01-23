@@ -90,9 +90,10 @@ endfunction
 
 function commander#git#load_diff_in_split(revision, ...)
     let ft = &ft
+    let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
     let content = call('commander#git#local_file_revision', [a:revision] + a:000)
     call commander#lib#load_lines_in_split(content, 'vertical')
-    execute 'file '.(a:revision != '' ? a:revision : 'HEAD')
+    execute 'file '.(a:revision != '' ? a:revision : 'HEAD').':'.fname
     let &ft=ft
     au BufWipeout <buffer> diffoff!
     diffthis | wincmd p | diffthis | wincmd p
