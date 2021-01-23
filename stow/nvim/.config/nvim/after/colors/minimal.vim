@@ -123,6 +123,7 @@ let s:highlights.HLively              =    {'lig':    'none',       'fg':    15,
 let s:highlights.HRelaxed             =    {'lig':    'none',       'fg':    15,    'bg':    10}
 let s:highlights.HFresh               =    {'lig':    'none',       'fg':    15,    'bg':    14}
 let s:highlights.HIntense             =    {'lig':    'none',       'fg':    15,    'bg':    9}
+
 let s:highlights.HPeacefulDark        =    {'lig':    'none',       'fg':    0,     'bg':    6}
 let s:highlights.HProudDark           =    {'lig':    'none',       'fg':    0,     'bg':    4}
 let s:highlights.HCalmDark            =    {'lig':    'none',       'fg':    0,     'bg':    2}
@@ -135,6 +136,7 @@ let s:highlights.HLivelyDark          =    {'lig':    'none',       'fg':    0, 
 let s:highlights.HRelaxedDark         =    {'lig':    'none',       'fg':    0,     'bg':    10}
 let s:highlights.HFreshDark           =    {'lig':    'none',       'fg':    0,     'bg':    14}
 let s:highlights.HIntenseDark         =    {'lig':    'none',       'fg':    0,     'bg':    9}
+
 let s:highlights.HPeacefulInverse     =    {'lig':    'inverse',    'fg':    15,    'bg':    6}
 let s:highlights.HProudInverse        =    {'lig':    'inverse',    'fg':    15,    'bg':    4}
 let s:highlights.HCalmInverse         =    {'lig':    'inverse',    'fg':    15,    'bg':    2}
@@ -147,6 +149,19 @@ let s:highlights.HLivelyInverse       =    {'lig':    'inverse',    'fg':    15,
 let s:highlights.HRelaxedInverse      =    {'lig':    'inverse',    'fg':    15,    'bg':    10}
 let s:highlights.HFreshInverse        =    {'lig':    'inverse',    'fg':    15,    'bg':    14}
 let s:highlights.HIntenseInverse      =    {'lig':    'inverse',    'fg':    15,    'bg':    9}
+
+let s:highlights.HPeacefulInverseFade     =    {'lig':    'inverse',    'fg':    8,    'bg':    6}
+let s:highlights.HProudInverseFade        =    {'lig':    'inverse',    'fg':    8,    'bg':    4}
+let s:highlights.HCalmInverseFade         =    {'lig':    'inverse',    'fg':    8,    'bg':    2}
+let s:highlights.HForcefulInverseFade     =    {'lig':    'inverse',    'fg':    8,    'bg':    1}
+let s:highlights.HHappyInverseFade        =    {'lig':    'inverse',    'fg':    8,    'bg':    5}
+let s:highlights.HBusyInverseFade         =    {'lig':    'inverse',    'fg':    8,    'bg':    3}
+let s:highlights.HExcitedInverseFade      =    {'lig':    'inverse',    'fg':    8,    'bg':    13}
+let s:highlights.HSatisfiedInverseFade    =    {'lig':    'inverse',    'fg':    8,    'bg':    12}
+let s:highlights.HLivelyInverseFade       =    {'lig':    'inverse',    'fg':    8,    'bg':    11}
+let s:highlights.HRelaxedInverseFade      =    {'lig':    'inverse',    'fg':    8,    'bg':    10}
+let s:highlights.HFreshInverseFade        =    {'lig':    'inverse',    'fg':    8,    'bg':    14}
+let s:highlights.HIntenseInverseFade      =    {'lig':    'inverse',    'fg':    8,    'bg':    9}
 "" }}}
 " }}}
 
@@ -174,10 +189,10 @@ let s:ui_styles.git_branch               =  "HRelaxedInverse"
 ""}}}
 
 "" Diff Styles {{{
-let s:diff_styles.add                 = "Calm"
-let s:diff_styles.delete              = "Forceful"
-let s:diff_styles.change              = "Satisfied"
-let s:diff_styles.text                = "HSatisfiedDark"
+let s:diff_styles.add                 = "HRelaxedDark"
+let s:diff_styles.delete              = "HForcefulDark"
+let s:diff_styles.change              = "HLivelyDark"
+let s:diff_styles.text                = "HHappyDark"
 ""}}}
 
 "" Syntax Styles {{{
@@ -477,6 +492,21 @@ syntax keyword HLivelyInverse HLivelyInverse
 syntax keyword HRelaxedInverse HRelaxedInverse
 syntax keyword HFreshInverse HFreshInverse
 syntax keyword HIntenseInverse HIntenseInverse
+
+syntax keyword HPopInverseFade HPopInverseFade
+syntax keyword HFadedInverseFade HFadedInverseFade
+syntax keyword HPeacefulInverseFade HPeacefulInverseFade
+syntax keyword HProudInverseFade HProudInverseFade
+syntax keyword HCalmInverseFade HCalmInverseFade
+syntax keyword HForcefulInverseFade HForcefulInverseFade
+syntax keyword HHappyInverseFade HHappyInverseFade
+syntax keyword HBusyInverseFade HBusyInverseFade
+syntax keyword HExcitedInverseFade HExcitedInverseFade
+syntax keyword HSatisfiedInverseFade HSatisfiedInverseFade
+syntax keyword HLivelyInverseFade HLivelyInverseFade
+syntax keyword HRelaxedInverseFade HRelaxedInverseFade
+syntax keyword HFreshInverseFade HFreshInverseFade
+syntax keyword HIntenseInverseFade HIntenseInverseFade
 "}}}
 
 " vim: foldmethod=marker
