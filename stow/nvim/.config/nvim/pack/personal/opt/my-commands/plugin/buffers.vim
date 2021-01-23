@@ -14,7 +14,7 @@ command! Bdelete execute len(getbufinfo({'buflisted': 1})) > 1 && !empty(getreg(
             \: exists('b:dirvish') ? 'edit .' : 'edit . | bdelete#'
 
 " Open editable buffer list
-command! BufList edit buflist
+command! BufList execute &ft == 'qf' ? 'new buflist' : 'edit buflist'
 
 nnoremap <silent> <Plug>(buffers-edit-list) <CMD>BufList<CR>
 nnoremap <silent> <Plug>(buffers-delete) <CMD>Bdelete<CR>

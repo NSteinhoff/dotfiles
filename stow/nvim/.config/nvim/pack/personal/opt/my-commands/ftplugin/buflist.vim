@@ -46,7 +46,7 @@ function s:load_buflist()
         endif
     endfor
 
-    call deletebufline('', 0, '$')
+    call deletebufline('', 1, '$')
     call append(0, lines)
     call deletebufline('', '$', '$')
 
@@ -58,8 +58,8 @@ function s:set_listed(buf)
     let names = map(lines, { _, v -> s:line2name(v) })
 
     for buffer in getbufinfo({'buflisted': 1})
-        if index(names, buffer.name) == -1
-            execute 'bdelete ' . buffer.name
+        if !empty(buffer.name) && index(names, buffer.name) == -1
+            execute 'bdelete '.buffer.name
         endif
     endfor
 endfunction

@@ -3,10 +3,10 @@ if exists("b:current_syntax")
 endif
 
 syn match buflist_file /\d\+\s\+\zs\S\+$/
-highlight link buflist_file Constant
+highlight link buflist_file Normal
 
 syn match buflist_arg /\d\s!#\?+\?\S*\s\+\zs\S\+$/
-highlight link buflist_arg Type
+highlight link buflist_arg Normal
 
 syn match buflist_current_file /\d\s!\?#+\?\S*\s\+\zs\S\+$/
 highlight link buflist_current_file Statement
