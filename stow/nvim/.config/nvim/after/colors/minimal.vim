@@ -189,8 +189,8 @@ let s:ui_styles.git_branch               =  "HRelaxedInverse"
 ""}}}
 
 "" Diff Styles {{{
-let s:diff_styles.add                 = "HRelaxedDark"
-let s:diff_styles.delete              = "HForcefulDark"
+let s:diff_styles.add                 = "Calm"
+let s:diff_styles.delete              = "Forceful"
 let s:diff_styles.change              = "HLivelyDark"
 let s:diff_styles.text                = "HHappyDark"
 ""}}}
