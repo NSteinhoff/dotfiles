@@ -3,6 +3,12 @@ local lspconfig = require'lspconfig'
 
 local M = {}
 
+local severities = {
+    names = {'ERROR', 'WARNING', 'INFO', 'HINT'},
+    symbols = {'', '', 'כֿ', ''}
+}
+
+
 local function nnoremap(lhs, rhs)
     local mode = 'n'
     local current_buffer = 0
@@ -61,8 +67,8 @@ local function setup_keymaps(client)
     nnoremap('gW',          '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 
     -- Diagnostics
-    nnoremap('gh',          '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-    nnoremap('gH',          '<cmd>lua require"lsp".print_line_diagnostics()<CR>')
+    -- nnoremap('gh',          '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
+    nnoremap('gh',          '<cmd>lua require"lsp".print_line_diagnostics()<CR>')
 
     --[[ Moving to errors is done via the loclist
     nnoremap(']g',          '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
@@ -111,13 +117,13 @@ end
 
 local function setup_signs()
     vim.fn.sign_define("LspDiagnosticsSignError",
-        {text = [[]], texthl = "LspDiagnosticsSignError"})
+        {text = severities.symbols[1], texthl = "LspDiagnosticsSignError"})
     vim.fn.sign_define("LspDiagnosticsSignWarning",
-        {text = [[]], texthl = "LspDiagnosticsSignWarning"})
+        {text = severities.symbols[2], texthl = "LspDiagnosticsSignWarning"})
     vim.fn.sign_define("LspDiagnosticsSignInformation",
-        {text = [[כֿ]], texthl = "LspDiagnosticsSignInformation"})
+        {text = severities.symbols[3], texthl = "LspDiagnosticsSignInformation"})
     vim.fn.sign_define("LspDiagnosticsSignHint",
-        {text = [[]], texthl = "LspDiagnosticsSignHint"})
+        {text = severities.symbols[4], texthl = "LspDiagnosticsSignHint"})
 end
 
 -- LSP client configurations
@@ -191,13 +197,6 @@ function M.status()
     return long_indicator()
 end
 
-local severities = {
-    [1] = 'ERROR',
-    [2] = 'WARNING',
-    [3] = 'INFO',
-    [4] = 'HINT',
-}
-
 local function inspect(obj)
     print(vim.inspect(obj))
 end
@@ -237,7 +236,7 @@ end
 function M.print_line_diagnostics()
     local diagnostics = vim.lsp.diagnostic.get_line_diagnostics()
     for i,d in ipairs(diagnostics) do
-        print(i..'. '..d.source..' '..severities[d.severity])
+        print(i..'. '..d.source..' '..severities.names[d.severity])
         print(d.message)
     end
 end
@@ -245,7 +244,7 @@ end
 function M.print_buffer_diagnostics()
     local diagnostics = vim.lsp.diagnostic.get()
     for i,d in ipairs(diagnostics) do
-        print(i..'. '..'line '..d.range.start.line..' - '..d.source..' '..severities[d.severity])
+        print(i..'. '..'line '..d.range.start.line..' - '..d.source..' '..severities.names[d.severity])
         print(d.message)
     end
 end
@@ -256,7 +255,7 @@ function M.print_diagnostics()
         local bufname = vim.fn.bufname(b)
         print('--- '..bufname)
         for i,d in ipairs(ds) do
-            print(i..'. '..'line '..d.range.start.line..' - '..d.source..' '..severities[d.severity])
+            print(i..'. '..'line '..d.range.start.line..' - '..d.source..' '..severities.names[d.severity])
             print(d.message)
         end
     end
@@ -273,7 +272,7 @@ function M.set_qf_diagnostics()
                 filename = bufname,
                 lnum = d.range.start.line,
                 col = d.range.start.character,
-                type = severities[d.severity or 1],
+                type = severities.names[d.severity or 1],
                 nr = d.code,
                 text = d.message,
             }
