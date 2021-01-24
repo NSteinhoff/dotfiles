@@ -7,7 +7,7 @@
     set cmdheight=1
     set inccommand=split
     set laststatus=2
-    set noshowmode
+    set showmode
     set number
     set rulerformat=%25(%l,%c%V%M%=%P\ %y%)
     set scrolloff=5
@@ -61,7 +61,7 @@
 """ Completions
     set wildmode=longest:full,full
     set completeopt=menuone,noinsert,noselect
-    set shortmess+=c
+    " set shortmess+=c
 
 """ Path and files
     set path=,,.
