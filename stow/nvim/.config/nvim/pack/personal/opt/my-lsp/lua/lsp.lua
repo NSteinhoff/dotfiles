@@ -142,11 +142,22 @@ local function on_attach(client)
     --]]
 end
 
-local servers = {'tsserver', 'rust_analyzer', 'clangd', 'jsonls', 'cssls'} for _, server in ipairs(servers) do
+local servers = {'tsserver', 'clangd', 'jsonls', 'cssls'} for _, server in ipairs(servers) do
     lspconfig[server].setup {
         on_attach = on_attach,
     }
 end
+
+lspconfig['rust_analyzer'].setup {
+    on_attach = on_attach,
+    settings = {
+        ['rust-analyzer'] = {
+            diagnostics = {
+                disabled = {'missing-unsafe'}
+            }
+        }
+    }
+}
 
 -- Handlers
 vim.lsp.handlers["textDocument/publishDiagnostics"] = function(...)
