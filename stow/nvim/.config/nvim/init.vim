@@ -19,6 +19,7 @@
 """ Behavior
     set noswapfile
     set updatetime=200
+    set foldenable
     set foldmethod=indent
     set foldlevelstart=99       " start with all folds opened
     set clipboard=unnamedplus   " always use clipboard
@@ -28,6 +29,7 @@
     set ignorecase              " ignore case in searches ...
     set smartcase               " ... unless it includes capital letters
     set splitright              " open vertical splits on the right
+    set sessionoptions+=options " save global mappings and options
 
 """ Special characters
     set list
@@ -61,7 +63,7 @@
 """ Completions
     set wildmode=longest:full,full
     set completeopt=menuone,noinsert,noselect
-    " set shortmess+=c
+    set shortmess+=c
 
 """ Path and files
     set path=,,.
@@ -103,4 +105,4 @@
 
     " IDE Mode:
     packadd! my-lsp                     " Language Server client configuration
-    " packadd! my-treesitter              " Semantic understanding of languages
+    packadd! my-treesitter              " Semantic understanding of languages

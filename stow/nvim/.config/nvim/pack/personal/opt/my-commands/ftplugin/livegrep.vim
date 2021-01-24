@@ -100,7 +100,7 @@ function s:goto(line)
         return
     endif
     call s:export('%')
-    execute 'cc '.(a:line - 2)
+    execute 'keepalt cc '.(a:line - 2)
 endfunction
 
 augroup live-grep

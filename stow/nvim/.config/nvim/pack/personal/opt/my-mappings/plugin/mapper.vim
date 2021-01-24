@@ -98,7 +98,8 @@ endfunction
 
 """ Search and replace
     nnoremap gs :%s/
-    xnoremap gs :s/
+    vnoremap gs :s/
+
     nnoremap <expr> gS ':%s/\V'.expand('<cword>').'/'
     vnoremap gS y:%s/\V<C-R>=escape(@", '\/')<CR>/
 
@@ -192,7 +193,7 @@ endfunction
     cnoremap ## #:h/
 
     " Switch to alternative buffer
-    nnoremap <expr> <BS> empty(@#) ? ':echoerr "No alternate file"<cr>' : '<C-^>'
+    nnoremap <expr> <BS> empty(expand('#:t')) ? ':echoerr "No alternate file"<cr>' : '<C-^>'
 
     " Open settings
     nnoremap <silent> <leader>; <CMD>edit $MYVIMRC<CR>
@@ -210,6 +211,7 @@ endfunction
     nnoremap <leader>t :tab sbuffer <C-Z>
     nmap <leader>b <Plug>(buffers-edit-list)
     nmap <leader>d <Plug>(buffers-delete)
+    nmap <leader>D <Plug>(buffers-wipe)
     nmap <leader>O <Plug>(buffers-only)
 
     " Explore
