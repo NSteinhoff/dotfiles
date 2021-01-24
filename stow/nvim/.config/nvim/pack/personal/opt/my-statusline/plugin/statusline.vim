@@ -49,6 +49,14 @@ function GitBranch()
     endtry
 endfunction
 
+function! Alt()
+    let alt = expand('#:t')
+    if empty(alt)
+        return ''
+    endif
+    return ' (#'.alt.')'
+endfunction
+
 function! MyStatusline()
     let BAR         = '%*'
     let OPT         = '%#StatusLineNC#'
@@ -70,6 +78,7 @@ function! MyStatusline()
     else
         let file        = '  %f '
     endif
+    let alt         = '%{Alt()}'
     let branch      = '%{GitBranch()}'
     let tree        = '%{TSStatus()}'
     let mod        = '%m'
@@ -80,7 +89,7 @@ function! MyStatusline()
     let position    = ' ☰ %l:%c | %p%% '
     let lsp         = '%{LspStatus()}'
 
-    return pre.ft.branch.OPT.file.mod.args.SEP.lsp.errors.compiler.spell.BAR.position
+    return pre.ft.branch.OPT.file.alt.mod.args.SEP.lsp.errors.compiler.spell.BAR.position
 endfunction
 
 set statusline=%!MyStatusline()
