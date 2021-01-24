@@ -186,7 +186,7 @@ let s:ui_styles.match                    =  "HExcited"
 let s:ui_styles.highlight                =  "HLively"
 let s:ui_styles.highlight_dark           =  "HLivelyDark"
 let s:ui_styles.highlight_inverted       =  "HLivelyInverse"
-let s:ui_styles.git_branch               =  "HRelaxedInverse"
+let s:ui_styles.git_branch               =  "HFreshInverse"
 ""}}}
 
 "" Diff Styles {{{
