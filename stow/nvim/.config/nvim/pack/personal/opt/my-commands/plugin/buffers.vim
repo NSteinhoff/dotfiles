@@ -9,7 +9,7 @@ endfunction
 command! -nargs=? -complete=filetype Scratch call s:scratch(<q-args>, '<mods>')
 
 function s:is_last_buffer()
-    return len(getbufinfo({'buflisted': 1})) == 1 || empty(getreg('#'))
+    return len(getbufinfo({'buflisted': 1})) <= 1
 endfunction
 
 function s:go_home(wipe)

@@ -51,15 +51,16 @@ endfunction
 
 function! Alt()
     let alt = expand('#:t')
-    if empty(alt)
+    if empty(alt) || expand('#') == expand('%')
         return ''
     endif
-    return ' (#'.alt.')'
+    return ' '.alt
 endfunction
 
 function! MyStatusline()
     let BAR         = '%*'
     let OPT         = '%#StatusLineNC#'
+    let CLR         = '%#Normal#'
     let SEP         = '%='
     let GIT         = '%#GitBranch#'
 
@@ -76,7 +77,7 @@ function! MyStatusline()
     elseif &ft == 'buflist'
         let file        = '  '
     else
-        let file        = '  %f '
+        let file        = '  [%t] '
     endif
     let alt         = '%{Alt()}'
     let branch      = '%{GitBranch()}'
@@ -89,7 +90,7 @@ function! MyStatusline()
     let position    = ' ☰ %l:%c | %p%% '
     let lsp         = '%{LspStatus()}'
 
-    return pre.ft.branch.OPT.file.alt.mod.args.SEP.lsp.errors.compiler.spell.BAR.position
+    return pre.ft.branch.OPT.file.alt.mod.args.CLR.SEP.OPT.lsp.errors.compiler.spell.BAR.position
 endfunction
 
 set statusline=%!MyStatusline()

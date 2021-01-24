@@ -38,4 +38,4 @@ autocmd BufEnter <buffer> noautocmd call s:load()
 autocmd TextChanged <buffer> call s:export()
 
 nnoremap <buffer> <BS> <CMD>keepalt b#<CR>
-nnoremap <buffer> <CR> <CMD>execute 'cc '.line('.')<CR>
+nnoremap <buffer> <CR> <CMD>execute 'keepalt cc '.line('.')<CR>

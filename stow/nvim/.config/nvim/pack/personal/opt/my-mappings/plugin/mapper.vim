@@ -193,7 +193,7 @@ endfunction
     cnoremap ## #:h/
 
     " Switch to alternative buffer
-    nnoremap <expr> <BS> empty(expand('#:t')) ? ':echoerr "No alternate file"<cr>' : '<C-^>'
+    nnoremap <expr> <BS> empty(expand('#:t')) \|\| (expand('#') == expand('%')) ? ':echoerr "No alternate file"<cr>' : '<C-^>'
 
     " Open settings
     nnoremap <silent> <leader>; <CMD>edit $MYVIMRC<CR>
