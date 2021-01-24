@@ -22,13 +22,14 @@ augroup my-sessions
     autocmd!
     autocmd VimEnter * if findfile('Session.vim') != ''
                 \| source Session.vim
-                \| echom "Resuming session from ".strftime("%c", getftime('Session.vim'))
+                \| echom "Resuming session from ".strftime("%c", getftime('Session.vim').".")
                 \| endif
 augroup END
 
 augroup my-changed-files
     autocmd!
-    autocmd VimEnter,VimResume,FocusGained * ChangedFiles
+    autocmd VimEnter * ChangedFilesOnStartup
+    autocmd VimResume,FocusGained * ChangedFiles
     autocmd DirChanged * ChangedFiles
     autocmd BufWritePost * ChangedFiles
 augroup END
