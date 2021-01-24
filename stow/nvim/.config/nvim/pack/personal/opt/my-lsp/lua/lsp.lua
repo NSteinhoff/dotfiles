@@ -84,9 +84,11 @@ end
 
 local function setup_commands(client)
     commander('LspClients', 'lua require"lsp".print_clients()')
+    commander('LspClientSettings', 'lua require"lsp".client_settings()')
+    commander('LspClientInfo', 'lua require"lsp".client_info()')
 
-    -- Inspect Client
-    commander('LspClientInfo', 'lua require"lsp".inspect_clients()')
+    -- All Clients
+    commander('LspInspectClients', 'lua require"lsp".inspect_clients()')
     commander('LspStopClients', 'lua require"lsp".stop_clients()')
 
     -- Workspace Folders
@@ -181,6 +183,22 @@ local function clients()
     return results
 end
 
+local function client_info()
+    local results = {}
+    for _,c in pairs(vim.lsp.buf_get_clients()) do
+        results[c.name] = c
+    end
+    return results
+end
+
+local function client_settings()
+    local results = {}
+    for _,c in pairs(vim.lsp.buf_get_clients()) do
+        results[c.name] = c.config.settings
+    end
+    return results
+end
+
 local function indicator()
     if #clients() > 0 then
         return '[ '..#clients()..']'
@@ -230,6 +248,14 @@ end
 
 function M.remove_workspace_folder(dir)
     vim.lsp.buf.remove_workspace_folder(path_or_nil(dir))
+end
+
+function M.client_info()
+    inspect(client_info())
+end
+
+function M.client_settings()
+    inspect(client_settings())
 end
 
 function M.inspect_clients()
