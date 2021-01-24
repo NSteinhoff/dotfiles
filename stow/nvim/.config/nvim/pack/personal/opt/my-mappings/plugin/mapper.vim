@@ -75,13 +75,19 @@ endfunction
     nnoremap <silent> <C-W>t <CMD>tab split<CR>
     nnoremap <silent> <C-W>N <CMD>vnew<CR>
 
+    " Moving selected lines
+    vnoremap  <LEFT>   <gv
+    vnoremap  <RIGHt>  >gv
+    vmap  <UP>     [egv
+    vmap  <DOWN>   ]egv
+
 
 """ Viewport
     " Window resizing with the arrow keys
-    map  <LEFT>   5<C-W><
-    map  <RIGHt>  5<C-W>>
-    map  <UP>     5<C-W>+
-    map  <DOWN>   5<C-W>-
+    nnoremap  <LEFT>   5<C-W><
+    nnoremap  <RIGHt>  5<C-W>>
+    nnoremap  <UP>     5<C-W>+
+    nnoremap  <DOWN>   5<C-W>-
 
     " Scrolling the window with CTRL-HJKL
     nnoremap <C-J> 5<C-E>
@@ -182,11 +188,11 @@ endfunction
     cnoremap <C-L> <right>
 
     " Insert file's directory in command line
-    cnoremap %% %:h/<C-Z>
-    cnoremap ## #:h/<C-Z>
+    cnoremap %% %:h/
+    cnoremap ## #:h/
 
     " Switch to alternative buffer
-    nnoremap <BS> <C-^>
+    nnoremap <expr> <BS> empty(@#) ? ':echoerr "No alternate file"<cr>' : '<C-^>'
 
     " Open settings
     nnoremap <silent> <leader>; <CMD>edit $MYVIMRC<CR>
