@@ -184,6 +184,7 @@ let s:ui_styles.status_active            =  "HSatisfied"
 let s:ui_styles.status_term              =  "HRelaxed"
 let s:ui_styles.match                    =  "HExcited"
 let s:ui_styles.highlight                =  "HLively"
+let s:ui_styles.highlight_dark           =  "HLivelyDark"
 let s:ui_styles.highlight_inverted       =  "HLivelyInverse"
 let s:ui_styles.git_branch               =  "HRelaxedInverse"
 ""}}}
@@ -248,6 +249,8 @@ let s:ui_groups.selection = [
 \    "PmenuSbar",
 \ ]
 let s:ui_groups.highlight_inverted = [
+\ ]
+let s:ui_groups.highlight_dark = [
 \    "Search",
 \ ]
 let s:ui_groups.highlight = [
