@@ -67,8 +67,8 @@ local function setup_keymaps(client)
     nnoremap('gW',          '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 
     -- Diagnostics
-    -- nnoremap('gh',          '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-    nnoremap('gh',          '<cmd>lua require"lsp".print_line_diagnostics()<CR>')
+    nnoremap('gh',          '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
+    nnoremap('gH',          '<cmd>lua require"lsp".print_line_diagnostics()<CR>')
 
     --[[ Moving to errors is done via the loclist
     nnoremap(']g',          '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
@@ -155,6 +155,7 @@ lspconfig['rust_analyzer'].setup {
     settings = {
         ['rust-analyzer'] = {
             diagnostics = {
+                -- Rust Analyzer does not handle procedural macros yet.
                 disabled = {'missing-unsafe'}
             }
         }
