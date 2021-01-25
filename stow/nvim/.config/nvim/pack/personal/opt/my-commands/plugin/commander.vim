@@ -1,20 +1,8 @@
 """ Workspaces
     command! -nargs=1 -complete=dir WorkOn tabnew | lcd <args>
 
-""" Read errorfile
-    command! Cfile if !bufexists("[Command Line]")
-        \ && &filetype != ''
-        \ && &filetype != 'qf'
-        \ && findfile(&errorfile) != ''
-        \|cgetfile|cwindow|endif
-    command! Cgetfile if !bufexists("[Command Line]")
-        \ && &filetype != ''
-        \ && &filetype != 'qf'
-        \ && findfile(&errorfile) != ''
-        \|cgetfile|endif
-
 """ Format the current buffer
-    function! Format()
+    function Format()
         if &formatprg == ""
             echomsg "Abort: 'formatprg' unset"
             return
