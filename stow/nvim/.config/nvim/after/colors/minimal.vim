@@ -182,11 +182,11 @@ let s:ui_styles.ignore                   =  "Faded"
 let s:ui_styles.status_inactive          =  "Normal"
 let s:ui_styles.status_active            =  "HFresh"
 let s:ui_styles.status_term              =  "HRelaxed"
+let s:ui_styles.status_focus             =  "HFreshInverse"
 let s:ui_styles.match                    =  "HExcited"
 let s:ui_styles.highlight                =  "HLively"
 let s:ui_styles.highlight_dark           =  "HLivelyDark"
 let s:ui_styles.highlight_inverted       =  "HLivelyInverse"
-let s:ui_styles.git_branch               =  "HFreshInverse"
 ""}}}
 
 "" Diff Styles {{{
@@ -289,8 +289,8 @@ let s:ui_groups.title = [
 let s:ui_groups.status_term = [
 \    "StatusLineTerm",
 \ ]
-let s:ui_groups.git_branch = [
-\   "GitBranch",
+let s:ui_groups.status_focus = [
+\   "StatusLineFocus",
 \ ]
 ""}}}
 

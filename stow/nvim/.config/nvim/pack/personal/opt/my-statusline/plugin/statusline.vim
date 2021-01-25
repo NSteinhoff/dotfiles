@@ -63,7 +63,7 @@ function CurrentFile()
         let alt = ' '.expand('#:t')
     endif
 
-    return (empty(file) ? '' : '['.file.']').(empty(alt) || empty(file) ? '' : ' ').(empty(alt) ? '' : alt)
+    return (empty(file) ? '' : '['.file.']').(empty(alt) || empty(file) ? '' : ' ').(empty(alt) ? '' : alt.' ')
 endfunction
 
 
@@ -72,7 +72,7 @@ function MyStatusline()
     let OPT         = '%#StatusLineNC#'
     let CLR         = '%#Normal#'
     let SEP         = '%='
-    let GIT         = '%#GitBranch#'
+    let FOC         = '%#StatusLineFocus#'
 
     let cwd         = '%{getcwd()}'
     let args        = '%a'
@@ -87,7 +87,7 @@ function MyStatusline()
     let position    = '☰ %l:%c | %p%%'
     let lsp         = '%{LspStatus()}'
 
-    return pre.ft.branch.OPT.file.mod.args.CLR.SEP.OPT.spell.errors.lsp.compiler.BAR.' '.position
+    return pre.ft.branch.FOC.file.OPT.mod.args.CLR.SEP.OPT.spell.lsp.compiler.FOC.errors.BAR.' '.position
 endfunction
 
 set statusline=%!MyStatusline()
