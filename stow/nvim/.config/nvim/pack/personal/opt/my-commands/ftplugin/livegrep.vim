@@ -49,14 +49,25 @@ function s:wipe()
 endfunction
 
 function s:searchable(live)
-    let l:query = s:query()
-    return empty(l:query) || len(l:query) >= (a:live ? 3 : 1) && l:query !=# b:query
+    let q = s:query()
+
+    if empty(q) | return 0 | endif
+    if q ==# b:query | return 0 | endif
+    if len(q) < (a:live ? 3 : 1) | return 0 | endif
+    if q =~ '|$' | return 0 | endif
+
+    for a in split(q, '|')
+        if len(a) < (a:live ? 3 : 1) | return 0 | endif
+    endfor
+
+    return 1
 endfunction
 
 function s:highlight()
     syntax clear livegrep_match
 
     let q = s:query()
+
     if !empty(q)
         execute 'syntax match livegrep_match /\c\v'.q.'/ contained'
     endif
