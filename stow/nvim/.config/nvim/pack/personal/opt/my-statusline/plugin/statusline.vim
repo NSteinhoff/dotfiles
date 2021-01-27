@@ -10,7 +10,7 @@ endfunction
 
 function Compiler()
     let compiler = compiler#which()
-    return compiler != 'NONE' ? '[ '.compiler.']' : ''
+    return compiler != 'NONE' ? winwidth(0) < 79 ? '[]' : '[ '.compiler.']' : ''
 endfunction
 
 
@@ -20,16 +20,28 @@ endfunction
 
 function LspStatus()
     try
-        return v:lua.lsp_status()
+        return winwidth(0) < 79 ? v:lua.lsp_tinystatus() : v:lua.lsp_status()
     catch
         return ''
     endtry
 endfunction
 
 function GitBranch()
+    if winwidth(0) < 79
+        return ''
+    endif
+
     if empty(finddir('.git', ';$HOME')) | return '' | endif
     try
         let branch = systemlist('git branch --show-current')[0]
+        if strchars(branch) > (winwidth(0) < 100 ? 15
+                           \ : winwidth(0) < 150 ? 25
+                           \ :                     50)
+            let shift = winwidth(0) < 100 ? 5
+                    \ : winwidth(0) < 150 ? 10
+                    \ :                     20
+            let branch = branch[0:shift].'...'.branch[-1-shift:-1]
+        endif
         return empty(branch) ? '' : '  '.branch.' '
     catch
         return ''
@@ -57,13 +69,7 @@ function CurrentFile()
         let file = !empty(expand('%')) ? ' '.expand('%:t') : ''
     endif
 
-    if empty(expand('#:t')) || expand('#') == expand('%')
-        let alt = ''
-    else
-        let alt = ' '.expand('#:t')
-    endif
-
-    return (empty(file) ? '' : '['.file.']').(empty(alt) || empty(file) ? '' : ' ').(empty(alt) ? '' : alt.' ')
+    return file
 endfunction
 
 
@@ -74,7 +80,6 @@ function MyStatusline()
     let SEP         = '%='
     let FOC         = '%#StatusLineFocus#'
 
-    let cwd         = '%{getcwd()}'
     let args        = '%a'
     let ft          = '%y'
     let pre         = '%w'
@@ -87,7 +92,7 @@ function MyStatusline()
     let position    = '☰ %l:%c | %p%%'
     let lsp         = '%{LspStatus()}'
 
-    return pre.ft.branch.FOC.file.OPT.mod.args.CLR.SEP.OPT.spell.lsp.compiler.FOC.errors.BAR.' '.position
+    return pre.ft.branch.OPT.' '.file.' '.mod.args.OPT.SEP.errors.spell.lsp.compiler.BAR.' '.position
 endfunction
 
 set statusline=%!MyStatusline()

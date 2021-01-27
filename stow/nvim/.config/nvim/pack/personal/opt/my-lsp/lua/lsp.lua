@@ -200,6 +200,14 @@ local function client_settings()
     return results
 end
 
+local function tiny_indicator()
+    if #clients() > 0 then
+        return '[]'
+    else
+        return ''
+    end
+end
+
 local function indicator()
     if #clients() > 0 then
         return '[ '..#clients()..']'
@@ -320,6 +328,8 @@ function M.set_qf_diagnostics()
     vim.fn.setqflist(qf_items)
 end
 
-lsp_status = M.status
+lsp_status = long_indicator
+lsp_shortstatus = indicator
+lsp_tinystatus = tiny_indicator
 
 return M
