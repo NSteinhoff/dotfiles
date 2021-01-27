@@ -53,7 +53,7 @@ function s:searchable()
 endfunction
 
 function s:search()
-    let l:files = systemlist(s:finder().(s:searchable() ? ' | grep -i '.shellescape(s:query()) : ''))
+    let l:files = systemlist(s:finder().(s:searchable() ? ' | rg --smart-case '.shellescape(s:query()) : ''))
     call append('$', map(l:files, { i, v -> i+1.': '.v}))
     let b:num_results = len(l:files)
 endfunction
@@ -95,7 +95,7 @@ function s:update()
         call s:search()
         call s:reset_selection()
         call s:mark_selection(mode())
-        call s:highlight()
+        " call s:highlight()
     endif
 endfunction
 
@@ -118,8 +118,6 @@ augroup END
 
 nnoremap <buffer> <CR> <cmd>if line('.') > 2 \| call <SID>open_file(line('.')-2) \| endif<CR>
 nnoremap <buffer> I 1GI
-nnoremap <buffer> i 1GA
-nnoremap <buffer> a 1GA
 nnoremap <buffer> A 1GA
 nnoremap <buffer> <BS> <CMD>keepalt b#<CR>
 

@@ -4,14 +4,12 @@ command! -nargs=+ Vimgrep execute 'lvimgrep /' . <q-args> . '/ ' . expand('%')
 " Global
 command! -nargs=+ Grep cexpr system('grep -n -r '.<q-args>.' .')
 command! -nargs=+ GitGrep cexpr system('git grep -n '.<q-args>)
-if executable('rg')
-    command! -nargs=+ RipGrep cexpr system('rg --vimgrep --smart-case '.<q-args>)
-endif
+command! -nargs=+ RipGrep cexpr system('rg --vimgrep --smart-case '.<q-args>)
 
 " Live results
 command! -nargs=? -bang LiveGrep execute
             \ (empty(getbufinfo('^livegrep$')) ? 'edit livegrep' : 'buffer ^livegrep$')
-            \| if !empty(<q-args>) || <bang>0
+            \| if !empty(<q-args>) || <bang>0 || empty(getline(1))
             \| call setline(1, <q-args>) | 1 | doau TextChanged
             \| endif
 

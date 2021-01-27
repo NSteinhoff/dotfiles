@@ -192,9 +192,9 @@ let s:ui_styles.highlight_inverted       =  "HLivelyInverse"
 "" Diff Styles {{{
 let s:diff_styles.add                 = "Calm"
 let s:diff_styles.delete              = "Forceful"
-let s:diff_styles.change              = "HLivelyDark"
-let s:diff_styles.text                = "HHappyDark"
-""}}}
+let s:diff_styles.change              = "Lively"
+let s:diff_styles.text                = "HExcited"
+""}}}_COLOR
 
 "" Syntax Styles {{{
 let s:syntax_styles.error             = "Forceful"
@@ -254,11 +254,11 @@ let s:ui_groups.highlight_dark = [
 \    "Search",
 \ ]
 let s:ui_groups.highlight = [
-\    "Substitute",
 \    "CursorLine",
 \    "CursorColumn",
 \ ]
 let s:ui_groups.match = [
+\    "Substitute",
 \    "IncSearch",
 \    "PmenuSel",
 \    "WildMenu",

@@ -5,7 +5,7 @@ setlocal errorformat=%f:%l:%c:%m
 let s:insert_help = '<SPACE> inserts wildcard ; <CR> go to first result ; <C-C> to exit'
 let s:normal_help = '<CR> go to result in quickfix ; <SPACE> jump to result ; X export to quickfix'
 let s:placeholder = '  <<< some.*pattern.*in.*file.*contents'
-let s:rip_grep = 'rg --vimgrep --smart-case'
+let s:rip_grep = 'rg --vimgrep --smart-case --sort path'
 let s:git_grep = 'git grep -n -i -I'
 
 let b:query = get(b:, 'query', '')
@@ -76,7 +76,7 @@ function s:update(live)
     if s:editing() && s:searchable(a:live)
         call s:wipe()
         call s:search()
-        call s:highlight()
+        " call s:highlight()
     endif
 endfunction
 

@@ -105,4 +105,4 @@
 
     " IDE Mode:
     packadd! my-lsp                     " Language Server client configuration
-    packadd! my-treesitter              " Semantic understanding of languages
+    " packadd! my-treesitter              " Semantic understanding of languages
