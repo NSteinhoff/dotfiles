@@ -5,8 +5,8 @@ let s:indent = 8
 function s:is_arg(fname)
     let i = 0
     while i < argc()
-        let a = fnamemodify(argv(i), ':p')
-        let b = fnamemodify(a:fname, ':p')
+        let a = fnamemodify(resolve(argv(i)), ':p')
+        let b = fnamemodify(resolve(a:fname), ':p')
         if a == b
             return 1
         endif
