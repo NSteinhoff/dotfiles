@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead qfedit setf qfedit
+autocmd BufNewFile,BufRead QF setf qfedit

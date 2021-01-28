@@ -60,11 +60,13 @@ function CurrentFile()
     if &ft == 'dirvish'
         let file = ' '.(empty(expand('%:.')) ? './' : '').expand('%:.')
     elseif &ft == 'filefinder'
-        let file = ' FIND'
+        let file = ' '.expand('%')
     elseif &ft == 'livegrep'
-        let file = ' GREP'
+        let file = ' '.expand('%')
     elseif &ft == 'buflist'
-        let file = ' BUFFERS'
+        let file = ' '.expand('%')
+    elseif &ft == 'qfedit'
+        let file = ' '.expand('%')
     else
         let file = !empty(expand('%')) ? ' '.expand('%:t') : ''
     endif

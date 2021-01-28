@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead filefinder setf filefinder
+autocmd BufNewFile,BufRead FILES setf filefinder

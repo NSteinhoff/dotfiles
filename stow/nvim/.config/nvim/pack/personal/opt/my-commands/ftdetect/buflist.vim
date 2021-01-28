@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead buflist setf buflist
+autocmd BufNewFile,BufRead BUFFERS setf buflist

@@ -25,7 +25,7 @@ command! Bdelete execute s:is_last_buffer() ? s:go_home(0) : s:delete_buffer(0)
 command! Bwipe execute s:is_last_buffer() ? s:go_home(1) : s:delete_buffer(1)
 
 " Open editable buffer list
-command! BufList execute &ft == 'qf' ? 'new buflist' : 'edit buflist'
+command! BufList execute &ft == 'qf' ? 'new BUFFERS' : 'edit BUFFERS'
 
 nnoremap <silent> <Plug>(buffers-edit-list) <CMD>BufList<CR>
 nnoremap <silent> <Plug>(buffers-delete) <CMD>Bdelete<CR>
