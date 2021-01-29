@@ -128,9 +128,35 @@ local function setup_signs()
         {text = severities.symbols[4], texthl = "LspDiagnosticsSignHint"})
 end
 
--- LSP client configurations
--- vim.cmd('packadd my-completions')
+local function setup_completion()
+    vim.cmd('packadd my-completions')
+    if client.resolved_capabilities.completion then
+        require'my_completion'.on_attach(client)
+    end
+end
 
+local function setup_lspsaga()
+    vim.cmd('packadd lspsaga.nvim')
+    local saga = require 'lspsaga'
+
+    saga.init_lsp_saga {
+        max_hover_width = vim.fn.winwidth(0) - 20,
+    }
+
+    nnoremap('g<c-]>',      '<cmd>lua require"lspsaga.provider".lsp_finder()<CR>')
+    nnoremap('<c-w>}',      '<cmd>lua require"lspsaga.provider".preview_definition()<CR>')
+
+    inoremap('<c-h>',       '<cmd>lua require"lspsaga.signaturehelp".signature_help()<CR>')
+
+    nnoremap('dca',         '<cmd>lua require"lspsaga.codeaction".code_action()<CR>')
+    nnoremap('dcr',         '<cmd>lua require"lspsaga.rename".rename()<CR>')
+
+    nnoremap('gh',          '<cmd>lua require"lspsaga.diagnostic".show_line_diagnostics()<CR>')
+    nnoremap('[g',          '<cmd>lua require"lspsaga.diagnostic".lsp_jump_diagnostic_prev()<CR>')
+    nnoremap(']g',          '<cmd>lua require"lspsaga.diagnostic".lsp_jump_diagnostic_next()<CR>')
+end
+
+-- LSP client configurations
 local function on_attach(client)
     setup_keymaps(client)
     setup_commands(client)
@@ -138,9 +164,11 @@ local function on_attach(client)
     setup_signs(client)
 
     --[[
-        if client.resolved_capabilities.completion then
-            require'my_completion'.on_attach(client)
-        end
+    setup_completion(client)
+    --]]
+
+    --[[
+    setup_lspsaga(client)
     --]]
 end
 
