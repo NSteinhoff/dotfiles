@@ -170,8 +170,8 @@ endfunction
     vmap <silent> <leader>* <Plug>(search-selection-in-file)
 
     " Live grep
-    nmap <leader>g <Plug>(livegrep-resume)
-    nmap <leader>G <Plug>(livegrep-new)
+    nmap <leader>g <Plug>(livegrep-new)
+    nmap <leader>G <Plug>(livegrep-resume)
     vmap <leader>g <Plug>(livegrep-selection)
 
 
