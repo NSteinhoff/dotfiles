@@ -52,9 +52,18 @@ function s:searchable()
     return len(s:query()) >= 1
 endfunction
 
+function s:digits(n)
+    return float2nr(log10(a:n)) + 1
+endfunction
+
+function s:nr2str(n, digits)
+    return repeat(' ', a:digits - s:digits(a:n)).a:n
+endfunction
+
 function s:search()
     let l:files = systemlist(s:finder().(s:searchable() ? ' | rg --smart-case '.shellescape(s:query()) : ''))
-    call append('$', map(l:files, { i, v -> i+1.': '.v}))
+    let maxdigits = s:digits(len(l:files))
+    call append('$', map(l:files, { i, v -> s:nr2str(i+1, maxdigits).': '.v}))
     let b:num_results = len(l:files)
 endfunction
 
@@ -100,7 +109,7 @@ function s:update()
 endfunction
 
 function s:open_file(num)
-    execute 'keepalt edit '.substitute(getline(a:num + 2), '^\d\+:', '', '')
+    execute 'keepalt edit '.substitute(getline(a:num + 2), '^\s*\d\+:', '', '')
 endfunction
 
 function s:open_selected()
