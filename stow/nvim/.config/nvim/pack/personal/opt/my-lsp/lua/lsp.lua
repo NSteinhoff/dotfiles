@@ -173,16 +173,29 @@ local function on_attach(client)
     setup_completion(client)
     --]]
 
-    ---[[
+    --[[
     setup_lspsaga(client)
     --]]
 end
 
-local servers = {'tsserver', 'clangd', 'jsonls', 'cssls'} for _, server in ipairs(servers) do
+local servers = {'clangd', 'jsonls', 'cssls'} for _, server in ipairs(servers) do
     lspconfig[server].setup {
         on_attach = on_attach,
     }
 end
+
+lspconfig['tsserver'].setup {
+    on_attach = on_attach,
+    root_dir = function(fname)
+        -- Prefer the repository root for typescript
+        -- NOTE:
+        -- This may break for projects that don't use project references defined
+        -- in the root tsconfig.json, or when typescript is only used in a subdirectory.
+        local util = require'lspconfig/util'
+        return util.root_pattern(".git")(fname) or
+               util.root_pattern("tsconfig.json, package.json")(fname)
+    end
+}
 
 lspconfig['rust_analyzer'].setup {
     on_attach = on_attach,
