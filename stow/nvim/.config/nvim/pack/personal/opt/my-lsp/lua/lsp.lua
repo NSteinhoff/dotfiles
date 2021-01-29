@@ -197,6 +197,7 @@ lspconfig['tsserver'].setup {
     end
 }
 
+---[[
 lspconfig['rust_analyzer'].setup {
     on_attach = on_attach,
     settings = {
@@ -208,6 +209,7 @@ lspconfig['rust_analyzer'].setup {
         }
     }
 }
+--]]
 
 -- Handlers
 vim.lsp.handlers["textDocument/publishDiagnostics"] = function(...)
@@ -215,7 +217,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = function(...)
         vim.lsp.diagnostic.on_publish_diagnostics, {
             signs = true,
             underline = false,
-            virtual_text = true,
+            virtual_text = false,
             update_in_insert = false,
         }
     )(...)
