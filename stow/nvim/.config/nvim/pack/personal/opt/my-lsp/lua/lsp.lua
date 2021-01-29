@@ -46,16 +46,12 @@ local function setup_keymaps(client)
     inoremap('<c-space>',   '<C-X><C-O>')
 
     -- Get help
-    if client.resolved_capabilities.hover then
-        nnoremap('<space>',     '<cmd>lua vim.lsp.buf.hover()<CR>')
-        nnoremap('K',           '<cmd>lua vim.lsp.buf.hover()<CR>')
-    end
+    nnoremap('<space>',     '<cmd>lua vim.lsp.buf.hover()<CR>')
+    nnoremap('K',           '<cmd>lua vim.lsp.buf.hover()<CR>')
     inoremap('<c-h>',       '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 
     -- Jump to symbols
-    if client.resolved_capabilities.goto_definition then
-        nnoremap('<c-]>',          '<cmd>lua vim.lsp.buf.definition()<CR>')
-    end
+    nnoremap('<c-]>',       '<cmd>lua vim.lsp.buf.definition()<CR>')
     nnoremap('gd',          '<cmd>lua vim.lsp.buf.definition()<CR>')
     nnoremap('gD',          '<cmd>lua vim.lsp.buf.declaration()<CR>')
     nnoremap('gi',          '<cmd>lua vim.lsp.buf.implementation()<CR>')
@@ -140,7 +136,13 @@ local function setup_lspsaga()
     local saga = require 'lspsaga'
 
     saga.init_lsp_saga {
+        use_saga_diagnostic_handler = false,
+        use_saga_diagnostic_sign = false,
         max_hover_width = vim.fn.winwidth(0) - 20,
+        error_sign = severities.symbols[1],
+        warn_sign  = severities.symbols[2],
+        infor_sign  = severities.symbols[3],
+        hint_sign  = severities.symbols[4],
     }
 
     nnoremap('g<c-]>',      '<cmd>lua require"lspsaga.provider".lsp_finder()<CR>')
@@ -148,12 +150,16 @@ local function setup_lspsaga()
 
     inoremap('<c-h>',       '<cmd>lua require"lspsaga.signaturehelp".signature_help()<CR>')
 
+    --[[
     nnoremap('dca',         '<cmd>lua require"lspsaga.codeaction".code_action()<CR>')
     nnoremap('dcr',         '<cmd>lua require"lspsaga.rename".rename()<CR>')
+    --]]
 
+    --[[
     nnoremap('gh',          '<cmd>lua require"lspsaga.diagnostic".show_line_diagnostics()<CR>')
     nnoremap('[g',          '<cmd>lua require"lspsaga.diagnostic".lsp_jump_diagnostic_prev()<CR>')
     nnoremap(']g',          '<cmd>lua require"lspsaga.diagnostic".lsp_jump_diagnostic_next()<CR>')
+    --]]
 end
 
 -- LSP client configurations
@@ -167,7 +173,7 @@ local function on_attach(client)
     setup_completion(client)
     --]]
 
-    --[[
+    ---[[
     setup_lspsaga(client)
     --]]
 end
