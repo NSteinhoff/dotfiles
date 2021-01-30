@@ -13,15 +13,12 @@ require'nvim-treesitter.configs'.setup {
         enable = true,
         keymaps = {
             init_selection = "gnn",
-            node_incremental = "grn",
-            node_decremental = "grm",
-            scope_incremental = "grc",
+            node_incremental = "gnn",
+            node_decremental = "gnm",
+            scope_incremental = "gnc",
         },
     },
     textobjects = {
         enable = true
     },
 }
-
-vim.cmd [[set foldmethod=expr]]
-vim.cmd [[set foldexpr=nvim_treesitter#foldexpr()]]
