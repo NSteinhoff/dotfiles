@@ -22,11 +22,11 @@ endfunction
 function compiler#with(name, ...)
     let [compiler, errorformat] = [get(b:, 'current_compiler'), &l:errorformat]
     try
-        execute 'compiler '.a:name
-        execute 'make '.join(a:000, ' ')
+        execute 'compiler '..a:name
+        execute 'make '..join(a:000, ' ')
     finally
         if compiler:
-            execute 'compiler '.compiler
+            execute 'compiler '..compiler
         else
             setlocal makeprg&
             unlet b:current_compiler
@@ -46,12 +46,12 @@ function compiler#describe()
     echo "========"
     echo "\n"
     echo "Global"
-    echo "\tName: ".compilers.global.name
-    echo "\tMakeprg: ".compilers.global.makeprg
-    echo "\tErrorformat: ".compilers.global.errorformat
+    echo "\tName: "..compilers.global.name
+    echo "\tMakeprg: "..compilers.global.makeprg
+    echo "\tErrorformat: "..compilers.global.errorformat
     echo "\n"
     echo "Local"
-    echo "\tName: ".compilers.local.name
-    echo "\tMakeprg: ".compilers.local.makeprg
-    echo "\tErrorformat: ".compilers.local.errorformat
+    echo "\tName: "..compilers.local.name
+    echo "\tMakeprg: "..compilers.local.makeprg
+    echo "\tErrorformat: "..compilers.local.errorformat
 endfunction

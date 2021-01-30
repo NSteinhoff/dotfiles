@@ -3,28 +3,28 @@ function Errors()
     let nl = len(filter(getloclist(0), 'v:val["valid"] == 1'))
     let iq = getqflist({'idx': 0}).idx
     let il = getloclist(0, {'idx': 0}).idx
-    let q = nq ? 'Q:'.iq.'/'.nq : ''
-    let l = nl ? 'L:'.il.'/'.nl : ''
-    return nl || nq ? '['.q.(nl && nq ? '|' : '').l.']' : ''
+    let q = nq ? 'Q:'..iq..'/'..nq : ''
+    let l = nl ? 'L:'..il..'/'..nl : ''
+    return nl || nq ? '['..q..(nl && nq ? '|' : '')..l..']' : ''
 endfunction
 
 function Compiler()
     let compiler = compiler#which()
-    return compiler != 'NONE' ? winwidth(0) < 79 ? '[]' : '[ '.compiler.']' : ''
+    return compiler != 'NONE' ? winwidth(0) < 79 ? '[]' : '[ '..compiler..']' : ''
 endfunction
 
 function Tree()
-    if winwidth(0) < 79
+    let width = (winwidth(0) - 60) / 2
+    if width < 30
         return ''
     endif
-
     let opts = {
-        \   'indicator_size': winwidth(0) > 120 ? 50 : 25,
+        \   'indicator_size': width,
+        \   'separator': '  ',
         \}
-    let pos = nvim_treesitter#statusline()
-    return empty(pos) || pos ==? 'null' ? '' : pos
+    let pos = nvim_treesitter#statusline(opts)
+    return empty(pos) || pos ==? 'null' ? '' : ' '..pos
 endfunction
-
 
 function Spell()
     return &spell ? '[spell]' : ''
@@ -52,9 +52,9 @@ function GitBranch()
             let shift = winwidth(0) < 100 ? 5
                     \ : winwidth(0) < 150 ? 10
                     \ :                     20
-            let branch = branch[0:shift].'...'.branch[-1-shift:-1]
+            let branch = branch[0:shift]..'...'..branch[-1-shift:-1]
         endif
-        return empty(branch) ? '' : '  '.branch.' '
+        return empty(branch) ? '' : '  '..branch..' '
     catch
         return ''
     endtry
@@ -65,22 +65,22 @@ function Alt()
     if empty(alt) || expand('#') == expand('%')
         return ''
     endif
-    return ' '.alt
+    return ' '..alt
 endfunction
 
 function CurrentFile()
     if &ft == 'dirvish'
-        let file = ' '.(empty(expand('%:.')) ? './' : '').expand('%:.')
+        let file = ' '..(empty(expand('%:.')) ? './' : '')..expand('%:.')
     elseif &ft == 'filefinder'
-        let file = ' '.expand('%')
+        let file = ' '..expand('%')
     elseif &ft == 'livegrep'
-        let file = ' '.expand('%')
+        let file = ' '..expand('%')
     elseif &ft == 'buflist'
-        let file = ' '.expand('%')
+        let file = ' '..expand('%')
     elseif &ft == 'qfedit'
-        let file = ' '.expand('%')
+        let file = ' '..expand('%')
     else
-        let file = !empty(expand('%')) ? ' '.expand('%:t') : ''
+        let file = !empty(expand('%')) ? ' '..expand('%:t') : ''
     endif
 
     return file
@@ -91,6 +91,7 @@ function MyStatusline()
     let BAR         = '%*'
     let OPT         = '%#StatusLineNC#'
     let CLR         = '%#Normal#'
+    let SPC         = '%#Special#'
     let SEP         = '%='
     let FOC         = '%#StatusLineFocus#'
 
@@ -107,7 +108,7 @@ function MyStatusline()
     let lsp         = '%{LspStatus()}'
     let tree        = '%{Tree()}'
 
-    return pre..ft..branch..OPT..' '..file..' '..mod..args..SEP..tree..SEP..errors..spell..lsp..compiler..BAR..' '..position
+    return pre..ft..branch..OPT..' '..file..' '..mod..args..SPC..tree..SEP..OPT..errors..spell..lsp..compiler..BAR..' '..position
 endfunction
 
 set statusline=%!MyStatusline()

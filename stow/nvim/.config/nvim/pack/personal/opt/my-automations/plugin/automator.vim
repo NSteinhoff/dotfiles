@@ -11,7 +11,7 @@ augroup END
 augroup my-tmux-window-name
     autocmd!
     autocmd FocusGained,VimEnter,WinEnter,DirChanged * if exists('$TMUX') && executable('tmux')
-            \| silent! execute "!tmux rename-window ".shellescape('  '.fnamemodify(getcwd(), ':t'))
+            \| silent! execute "!tmux rename-window "..shellescape('  '..fnamemodify(getcwd(), ':t'))
             \| endif
     autocmd VimLeave,FocusLost * if exists('$TMUX') && executable('tmux')
             \| silent! execute '!tmux set-option -w automatic-rename on'
@@ -22,7 +22,7 @@ augroup my-sessions
     autocmd!
     autocmd VimEnter * if findfile('Session.vim') != ''
                 \| source Session.vim
-                \| echom "Resuming session from ".strftime("%c", getftime('Session.vim').".")
+                \| echom "Resuming session from "..strftime("%c", getftime('Session.vim')..".")
                 \| endif
 augroup END
 
