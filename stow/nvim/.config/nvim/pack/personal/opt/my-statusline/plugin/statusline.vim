@@ -13,6 +13,18 @@ function Compiler()
     return compiler != 'NONE' ? winwidth(0) < 79 ? '[]' : '[ '.compiler.']' : ''
 endfunction
 
+function Tree()
+    if winwidth(0) < 79
+        return ''
+    endif
+
+    let opts = {
+        \   'indicator_size': winwidth(0) > 120 ? 50 : 25,
+        \}
+    let pos = nvim_treesitter#statusline()
+    return empty(pos) || pos ==? 'null' ? '' : pos
+endfunction
+
 
 function Spell()
     return &spell ? '[spell]' : ''
@@ -93,8 +105,9 @@ function MyStatusline()
     let errors      = '%{Errors()}'
     let position    = '☰ %l:%c | %p%%'
     let lsp         = '%{LspStatus()}'
+    let tree        = '%{Tree()}'
 
-    return pre.ft.branch.OPT.' '.file.' '.mod.args.OPT.SEP.errors.spell.lsp.compiler.BAR.' '.position
+    return pre..ft..branch..OPT..' '..file..' '..mod..args..SEP..tree..SEP..errors..spell..lsp..compiler..BAR..' '..position
 endfunction
 
 set statusline=%!MyStatusline()

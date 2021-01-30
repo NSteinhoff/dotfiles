@@ -265,7 +265,6 @@ let s:ui_groups.match = [
 \    "MatchParen",
 \ ]
 let s:ui_groups.ignore = [
-\    "FoldColum",
 \    "Folded",
 \    "LineNr",
 \    "SignColumn",
@@ -284,6 +283,7 @@ let s:ui_groups.line = [
 \    "TabLineFill",
 \ ]
 let s:ui_groups.title = [
+\    "FoldColumn",
 \    "TabLineSel",
 \ ]
 let s:ui_groups.status_term = [
