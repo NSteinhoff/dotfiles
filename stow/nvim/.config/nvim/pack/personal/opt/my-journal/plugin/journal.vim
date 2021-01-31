@@ -15,6 +15,13 @@ function s:journal(mods) abort
 endfunction
 command Journal call s:journal(<q-mods>)
 
+function s:topics(arglead, cmdline, cursorpos)
+    let paths = globpath('$JOURNAL_ROOT', '**/*.md', 0, 1)
+    let topics = map(paths, { _, v -> substitute(v, g:journal_root_dir..'/\(.*\)\.md$', '\1', '') })
+    let matches =  filter(paths, { _, v -> v =~ a:arglead })
+    return matches
+endfunction
+command Topics echo join(s:topics('.*', '', ''), "\n")
 
 function s:about(topic, mods) abort
     let path = simplify(g:journal_root_dir..'/'..a:topic..'.md')
@@ -26,8 +33,7 @@ function s:about(topic, mods) abort
     endif
     execute 'split '..a:mods..' '..path
 endfunction
-command -nargs=? About call s:about(<q-args>, <q-mods>)
-
+command -nargs=? -complete=customlist,<SID>topics About call s:about(<q-args>, <q-mods>)
 
 function s:apropos(query) abort
     let grep = executable('rg') ? 'rg --vimgrep' : 'grep -n -r'
