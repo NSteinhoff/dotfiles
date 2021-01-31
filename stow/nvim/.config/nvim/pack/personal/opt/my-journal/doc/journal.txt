@@ -1,0 +1,72 @@
+journal.txt                                                      *journal.txt*
+
+Plugin for taking notes and keeping a journal while you are coding.
+
+
+==============================================================================
+INTRODUCTION                                                         *journal*
+                                                        *journal-introduction*
+
+The goal of this plugin is to provide easy access to a place to put random
+thoughts as well as more structured notes. It should be as non-intrusive as
+possible, so as not to interrupt or disturb the main task.
+
+
+Design Philosophy~
+
+Use standard Vim features as much as possible. That means no fancy custom UI,
+using `quickfix` and `location` lists. Do not require the user to lear
+
+
+Roadmap~
+
+*   A useful 'keywordprg', maybe based on `:Apropos`
+*   Navigate via tags (window local 'tags' config?)
+*   Load hierarchical table of contents into the location list.
+    Similar to the `gO` outline mapping in Nvim's help.
+
+
+==============================================================================
+USAGE                                                          *journal-usage*
+
+                                                 *:Journal* *journal-:Journal*
+:Journal
+
+    Open the journal file and create a new entry with the current datetime as
+    a header.
+
+                                                     *:About* *journal-:About*
+:About [topic]
+
+    Edit/create a markdown file about the specified [topic].
+    When [topic] is not provided, edit the top level notes directory.
+
+    The [topic] can include path separators `some/interesting/topic`.
+    Intermediate directories will be created as necessary.
+
+
+                                                 *:Apropos* *journal-:Apropos*
+:Apropos [regex]
+
+    Search all notes for [regex] using an external grep commands. If `ripgrep`
+    is installed, it is preferred over `grep`. Opens a split with the first
+    result and populates the location list.
+
+
+==============================================================================
+CONFIGURATION                                          *journal-configuration*
+
+                                                          *g:journal_root_dir*
+g:journal_root_dir = get(environ(), 'JOURNAL_ROOT', '~/journal')
+
+    The root directory of the journal files. New entries will be created under
+    this directory. Searches will be restricted to this directory.
+
+                                                          *g:journal_filename*
+g:journal_filename = 'journal.md'
+
+    The name of the journal file inside the `g:journal_root_dir` opened by
+    the `:Journal` command.
+
+
+ vim:tw=78:ft=help:norl:

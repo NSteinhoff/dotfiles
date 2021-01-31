@@ -146,6 +146,8 @@ which fff &>/dev/null && alias f='_() {
 alias gopacks='cd ~/dev/dotfiles/stow/nvim/.config/nvim/pack/external/opt'
 alias mypacks='cd ~/dev/dotfiles/stow/nvim/.config/nvim/pack/personal/opt'
 export CDPATH=~/dev:~/dev/s2
+export JOURNAL_ROOT=~/Dropbox/Notes
+alias Journal='nvim +Journal +only'
 
 # ---------------------------------- direnv -----------------------------------
 which direnv &>/dev/null && eval "$(direnv hook bash)"

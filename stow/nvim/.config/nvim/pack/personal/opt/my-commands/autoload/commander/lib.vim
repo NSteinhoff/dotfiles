@@ -46,7 +46,7 @@ function commander#lib#section(words)
     let [prefix, suffix] = s:comment_affixes()
     let suffix = suffix == "" ? " ".prefix : " ".suffix
     let fillchar = '-'
-    let ncols = 79
+    let ncols = &tw ? &tw : 79
 
     " Set the section header text
     let text = a:words == '' ? trim(getline('.')) : a:words
@@ -78,7 +78,7 @@ function commander#lib#header(words)
     let suffix = suffix == "" ? "" : " ".suffix
     let prefix.=' '
     let fillchar = '-'
-    let ncols = 79
+    let ncols = &tw ? &tw : 79
 
     " Set the text that goes in-between the separators
     let text = a:words == '' ? trim(getline('.')) : a:words

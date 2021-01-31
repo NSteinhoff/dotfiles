@@ -1,0 +1,13 @@
+:About	journal.txt	/*:About*
+:Apropos	journal.txt	/*:Apropos*
+:Journal	journal.txt	/*:Journal*
+g:journal_filename	journal.txt	/*g:journal_filename*
+g:journal_root_dir	journal.txt	/*g:journal_root_dir*
+journal	journal.txt	/*journal*
+journal-:About	journal.txt	/*journal-:About*
+journal-:Apropos	journal.txt	/*journal-:Apropos*
+journal-:Journal	journal.txt	/*journal-:Journal*
+journal-configuration	journal.txt	/*journal-configuration*
+journal-introduction	journal.txt	/*journal-introduction*
+journal-usage	journal.txt	/*journal-usage*
+journal.txt	journal.txt	/*journal.txt*

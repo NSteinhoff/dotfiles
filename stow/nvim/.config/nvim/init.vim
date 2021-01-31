@@ -70,6 +70,12 @@
     set wildignore+=**/target/**
     set wildignore+=**/node_modules/**
 
+""" Highlight todo items
+    aug syn-todo
+        autocmd!
+        autocmd BufEnter * syn keyword todo    todo Todo TODO todo: Todo: TODO:
+    aug END
+
 
 " --------------------------------- Plugins -----------------------------------
     if exists('g:vscode') | finish | endif
@@ -83,6 +89,7 @@
     packadd my-abbreviations
     packadd my-tags
     packadd my-completion
+    packadd my-journal
 
 """ External
     " Finding / picking files

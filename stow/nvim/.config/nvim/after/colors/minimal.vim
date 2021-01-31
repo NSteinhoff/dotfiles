@@ -206,7 +206,7 @@ let s:syntax_styles.operator          = "Happy"
 let s:syntax_styles.type              = "Peaceful"
 let s:syntax_styles.preproc           = "Lively"
 let s:syntax_styles.trivial           = "Faded"
-let s:syntax_styles.informative       = "Faded"
+let s:syntax_styles.informative       = "Fresh"
 let s:syntax_styles.special           = "Proud"
 let s:syntax_styles.underlined        = "Underlined"
 let s:syntax_styles.emphasis          = "Italic"
@@ -249,13 +249,14 @@ let s:ui_groups.selection = [
 \    "PmenuSbar",
 \ ]
 let s:ui_groups.highlight_inverted = [
+\    "ColorColumn",
 \ ]
 let s:ui_groups.highlight_dark = [
 \    "Search",
-\ ]
-let s:ui_groups.highlight = [
 \    "CursorLine",
 \    "CursorColumn",
+\ ]
+let s:ui_groups.highlight = [
 \ ]
 let s:ui_groups.match = [
 \    "Substitute",
@@ -274,7 +275,6 @@ let s:ui_groups.status_active = [
 \    "StatusLine",
 \ ]
 let s:ui_groups.status_inactive = [
-\    "ColorColumn",
 \    "StatusLineNC",
 \    "StatusLineTermNC",
 \ ]
