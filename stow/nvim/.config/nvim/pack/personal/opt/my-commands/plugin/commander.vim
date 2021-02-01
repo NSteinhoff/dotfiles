@@ -1,5 +1,5 @@
 """ Workspaces
-    command! -nargs=1 -complete=dir WorkOn tabnew | lcd <args>
+    command! -nargs=1 -complete=dir WorkOn tabnew | tcd <args>
 
 """ Format the current buffer
     function Format()

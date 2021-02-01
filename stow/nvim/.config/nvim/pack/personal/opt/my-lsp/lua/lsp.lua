@@ -192,7 +192,7 @@ lspconfig['tsserver'].setup {
         -- This may break for projects that don't use project references defined
         -- in the root tsconfig.json, or when typescript is only used in a subdirectory.
         local util = require'lspconfig/util'
-        return util.root_pattern(".git")(fname) or
+        return util.find_git_ancestor(fname) or
                util.root_pattern("tsconfig.json, package.json")(fname)
     end
 }
@@ -249,40 +249,36 @@ local function client_settings()
     return results
 end
 
-local function tiny_indicator()
-    if #clients() > 0 then
-        return '[]'
-    else
-        return ''
-    end
-end
-
-local function indicator()
-    if #clients() > 0 then
-        return '[ '..#clients()..']'
-    else
-        return ''
-    end
-end
-
-local function long_indicator()
-    local names = clients()
-    if #names == 0 then
-        return ''
-    else
-        return '[ '..table.concat(names, ',')..']'
-    end
-end
-
 function M.print_clients()
     for _,c in pairs(clients()) do
         print(c)
     end
 end
 
-function M.status()
-    return long_indicator()
-end
+M.status = {
+    long = function()
+        local names = clients()
+        if #names == 0 then
+            return ''
+        else
+            return ' '..table.concat(names, ',')
+        end
+    end,
+    tiny = function()
+        if #clients() > 0 then
+            return ''
+        else
+            return ''
+        end
+    end,
+    short = function()
+        if #clients() > 0 then
+            return ' '..#clients()
+        else
+            return ''
+        end
+    end
+}
 
 local function inspect(obj)
     print(vim.inspect(obj))
@@ -308,6 +304,14 @@ function M.remove_workspace_folder(dir)
     vim.lsp.buf.remove_workspace_folder(path_or_nil(dir))
 end
 
+function M.inspect_workspace_folders()
+    inspect(vim.lsp.buf.list_workspace_folders())
+end
+
+function M.stop_clients()
+    vim.lsp.stop_client(vim.lsp.get_active_clients())
+end
+
 function M.client_info()
     inspect(client_info())
 end
@@ -318,14 +322,6 @@ end
 
 function M.inspect_clients()
     inspect(vim.lsp.get_active_clients())
-end
-
-function M.inspect_workspace_folders()
-    inspect(vim.lsp.buf.list_workspace_folders())
-end
-
-function M.stop_clients()
-    vim.lsp.stop_client(vim.lsp.get_active_clients())
 end
 
 function M.print_line_diagnostics()
@@ -377,8 +373,8 @@ function M.set_qf_diagnostics()
     vim.fn.setqflist(qf_items)
 end
 
-lsp_status = long_indicator
-lsp_shortstatus = indicator
-lsp_tinystatus = tiny_indicator
+lsp_status = M.status.long
+lsp_shortstatus = M.status.short
+lsp_tinystatus = M.status.tiny
 
 return M

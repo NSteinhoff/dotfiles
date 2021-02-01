@@ -10,12 +10,12 @@ endfunction
 
 function Compiler()
     let compiler = compiler#which()
-    return compiler != 'NONE' ? winwidth(0) < 79 ? '[]' : '[ '..compiler..']' : ''
+    return compiler != 'NONE' ? winwidth(0) < 100 ? ' ' : '[ '..compiler..']' : ''
 endfunction
 
 function Tree()
     let width = (winwidth(0) - 60) / 2
-    if width < 30
+    if width < 40
         return ''
     endif
     let opts = {
@@ -32,18 +32,18 @@ endfunction
 
 function LspStatus()
     try
-        return winwidth(0) < 79 ? v:lua.lsp_tinystatus() : v:lua.lsp_status()
+        let small = winwidth(0) < 100
+        let status = small ? v:lua.lsp_tinystatus() : v:lua.lsp_status()
+        return !empty(status) ? small ? status..' ' : '['..status..']' : ''
     catch
         return ''
     endtry
 endfunction
 
 function GitBranch()
-    if winwidth(0) < 79
-        return ''
-    endif
+    if empty(finddir('.git', ';$HOME'))|return ''|endif
+    if winwidth(0) < 79|return '  '|endif
 
-    if empty(finddir('.git', ';$HOME')) | return '' | endif
     try
         let branch = systemlist('git branch --show-current')[0]
         if strchars(branch) > (winwidth(0) < 100 ? 15
