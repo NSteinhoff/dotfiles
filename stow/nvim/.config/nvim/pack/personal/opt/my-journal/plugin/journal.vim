@@ -5,15 +5,16 @@ let g:journal_root_dir = get(g:, 'journal_root_dir', get(environ(), 'JOURNAL_ROO
 let g:journal_filename = get(g:, 'journal_filename', 'journal.md')
 
 
-function s:journal(mods) abort
+function s:journal(split, mods) abort
     let path = g:journal_root_dir..'/'..g:journal_filename
     let header = '# '..strftime("%Y %b %d %X")
-    execute 'split '..a:mods..' '..path
+    execute (a:split ? 'split ' : 'edit ')..a:mods..' '..path
     call append(0, [header, '', ''])
     call cursor(2, 1)
     startinsert
 endfunction
-command Journal call s:journal(<q-mods>)
+command Journal call s:journal(0, <q-mods>)
+command JournalSplit call s:journal(1, <q-mods>)
 
 function s:topics(arglead, cmdline, cursorpos)
     let paths = globpath('$JOURNAL_ROOT', '**/*.md', 0, 1)
@@ -23,7 +24,7 @@ function s:topics(arglead, cmdline, cursorpos)
 endfunction
 command Topics echo join(s:topics('.*', '', ''), "\n")
 
-function s:about(topic, mods) abort
+function s:about(split, topic, mods) abort
     let path = simplify(g:journal_root_dir..'/'..a:topic..'.md')
     let dir = fnamemodify(path, ':h')
     let fname = fnamemodify(path, ':t')
@@ -31,9 +32,10 @@ function s:about(topic, mods) abort
         let mkdir_result = system('mkdir -p '..dir)
         if v:shell_error | throw mkdir_result | return | endif
     endif
-    execute 'split '..a:mods..' '..path
+    execute (a:split ? 'split ' : 'edit ')..a:mods..' '..path
 endfunction
-command -nargs=? -complete=customlist,<SID>topics About call s:about(<q-args>, <q-mods>)
+command -nargs=? -complete=customlist,<SID>topics About call s:about(0, <q-args>, <q-mods>)
+command -nargs=? -complete=customlist,<SID>topics AboutSplit call s:about(1, <q-args>, <q-mods>)
 
 function s:apropos(query) abort
     let grep = executable('rg') ? 'rg --vimgrep' : 'grep -n -r'
