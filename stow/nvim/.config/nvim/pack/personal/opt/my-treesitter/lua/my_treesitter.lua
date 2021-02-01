@@ -7,7 +7,7 @@ require'nvim-treesitter.configs'.setup {
     },
     highlight = {
         enable = true,
-        disable = { 'typescript' },
+        disable = { 'typescript', 'typescriptreact' },
     },
     incremental_selection = {
         enable = true,
