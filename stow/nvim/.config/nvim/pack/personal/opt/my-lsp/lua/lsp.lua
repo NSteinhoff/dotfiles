@@ -192,8 +192,10 @@ lspconfig['tsserver'].setup {
         -- This may break for projects that don't use project references defined
         -- in the root tsconfig.json, or when typescript is only used in a subdirectory.
         local util = require'lspconfig/util'
-        return util.find_git_ancestor(fname) or
-               util.root_pattern("tsconfig.json, package.json")(fname)
+        local git_root = util.find_git_ancestor(fname)
+        return git_root and util.path.is_file(util.path.join(git_root, "tsconfig.json"))
+            and git_root
+            or util.root_pattern("tsconfig.json", "package.json")(fname)
     end
 }
 
