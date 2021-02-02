@@ -159,37 +159,6 @@ $(nvim_bin): | bin
 	chmod u+x $@
 
 
-# ----------------------------------- fff -------------------------------------
-fff_url := https://github.com/dylanaraps/fff/archive/2.1.tar.gz
-fff_tar := /tmp/fff.tar.gz
-fff_src := /tmp/fff-2.1
-fff_bin := $(bin)/fff
-fff_man := $(man)/man1/fff.1
-
-fff: $(fff_bin) $(fff_man)
-.PHONY: fff
-
-unfff:
-	rm -rf $(fff_bin)
-	rm -rf $(fff_man)
-	mandb
-.PHONY: unfff
-
-$(fff_bin): $(fff_src) | bin
-	install $</fff $@
-
-$(fff_man): $(fff_src)
-	cp $</fff.1 $@
-	mandb
-
-$(fff_src): $(fff_tar)
-	tar -C /tmp -xvf $<
-	touch $@
-
-$(fff_tar):
-	curl -sSfL $(fff_url) -o $@
-
-
 # ----------------------------------- Bin -------------------------------------
 bin:
 	mkdir -p $(bin)
