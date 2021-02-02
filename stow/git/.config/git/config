@@ -19,6 +19,7 @@
     watch       = !git ls-files | entr
     subdate     = submodule update --remote --checkout
     subclean    = submodule foreach 'git clean -f'
+    tree        = !git ls-files | tree --fromfile --dirsfirst
 [color]
     pager = true
     ui = auto
