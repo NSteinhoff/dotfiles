@@ -51,7 +51,6 @@ local function setup_keymaps(client)
     inoremap('<c-h>',       '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 
     -- Jump to symbols
-    nnoremap('<c-]>',       '<cmd>lua vim.lsp.buf.definition()<CR>')
     nnoremap('gd',          '<cmd>lua vim.lsp.buf.definition()<CR>')
     nnoremap('gD',          '<cmd>lua vim.lsp.buf.declaration()<CR>')
     nnoremap('gi',          '<cmd>lua vim.lsp.buf.implementation()<CR>')
