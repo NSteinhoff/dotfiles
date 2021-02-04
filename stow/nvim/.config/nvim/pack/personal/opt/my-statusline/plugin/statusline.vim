@@ -1,5 +1,5 @@
 function Errors()
-    if winwidth(0) < 79
+    if winwidth(0) < 100
         return ''
     endif
 
@@ -36,9 +36,10 @@ function Spell()
 endfunction
 
 function LspStatus()
+    lua lsp = require('lsp').status
     try
         let small = winwidth(0) < 100
-        let status = small ? v:lua.lsp_tinystatus() : v:lua.lsp_status()
+        let status = small ? v:lua.lsp_status.tiny() : v:lua.lsp.status.long()
         return !empty(status) ? small ? status..' ' : '['..status..']' : ''
     catch
         return ''

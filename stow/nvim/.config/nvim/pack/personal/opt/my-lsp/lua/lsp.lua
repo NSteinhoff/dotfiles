@@ -375,8 +375,4 @@ function M.set_qf_diagnostics()
     vim.fn.setqflist(qf_items)
 end
 
-lsp_status = M.status.long
-lsp_shortstatus = M.status.short
-lsp_tinystatus = M.status.tiny
-
 return M
