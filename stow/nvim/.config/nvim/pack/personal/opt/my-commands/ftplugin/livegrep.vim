@@ -82,9 +82,9 @@ function s:search()
     endif
 endfunction
 
-function s:update(live)
+function s:update(live, ...)
     call s:placeholder()
-    if s:editing() && s:searchable(a:live)
+    if s:editing() && s:searchable(a:live) || a:0
         call s:wipe()
         call s:search()
         " call s:highlight()
@@ -136,3 +136,4 @@ nnoremap <buffer> X <CMD>call <SID>export('%')<CR>
 nnoremap <buffer> <BS> <CMD>Cancel<CR>
 
 command -buffer Cancel keepalt b#
+command -buffer Reload call s:update(0, 1)
