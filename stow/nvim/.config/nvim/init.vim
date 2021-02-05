@@ -15,6 +15,7 @@
     set showmatch
     set fillchars=eob:~
     set signcolumn=number
+    set nohlsearch
 
 """ Behavior
     set noswapfile

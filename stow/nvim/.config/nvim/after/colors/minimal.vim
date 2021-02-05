@@ -184,7 +184,7 @@ let s:ui_styles.status_active            =  "HFresh"
 let s:ui_styles.status_term              =  "HRelaxed"
 let s:ui_styles.status_focus             =  "HFreshInverse"
 let s:ui_styles.match                    =  "HExcited"
-let s:ui_styles.highlight                =  "HLively"
+let s:ui_styles.highlight                =  "HFaded"
 let s:ui_styles.highlight_dark           =  "HLivelyDark"
 let s:ui_styles.highlight_inverted       =  "HLivelyInverse"
 ""}}}
@@ -252,11 +252,11 @@ let s:ui_groups.highlight_inverted = [
 \    "ColorColumn",
 \ ]
 let s:ui_groups.highlight_dark = [
-\    "Search",
 \    "CursorLine",
 \    "CursorColumn",
 \ ]
 let s:ui_groups.highlight = [
+\    "Search",
 \ ]
 let s:ui_groups.match = [
 \    "Substitute",
