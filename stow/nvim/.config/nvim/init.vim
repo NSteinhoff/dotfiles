@@ -89,7 +89,7 @@
     packadd my-mappings
     packadd my-abbreviations
     packadd my-tags
-    packadd my-completion
+    packadd my-completions
     packadd my-journal
 
 """ External
