@@ -19,6 +19,7 @@ function Compiler()
 endfunction
 
 function Tree()
+    if !exists('*nvim_treesitter#statusline') | return '' | endif
     let width = (winwidth(0) - 60) / 2
     if width < 40
         return ''
@@ -36,10 +37,10 @@ function Spell()
 endfunction
 
 function LspStatus()
-    lua lsp = require('lsp').status
+    lua lsp = require('lsp')
     try
         let small = winwidth(0) < 100
-        let status = small ? v:lua.lsp_status.tiny() : v:lua.lsp.status.long()
+        let status = small ? v:lua.lsp.status.tiny() : v:lua.lsp.status.long()
         return !empty(status) ? small ? status..' ' : '['..status..']' : ''
     catch
         return ''
