@@ -56,6 +56,7 @@ endfunction
 
     " Run 'q' macro
     nnoremap Q @q
+    vnoremap Q @q
 
     " Move over visual lines unless a count is given
     nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
