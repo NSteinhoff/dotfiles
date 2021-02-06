@@ -65,7 +65,6 @@ fs += You feel you are being watched by something
 # Autoinscriptions
 # ================
 ai := autoinscribe
-ai += ^rations?:@e1
 
 ai += potions? of curing:@q1
 ai += potions? of heal wounds:@q2
