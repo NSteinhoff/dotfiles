@@ -9,11 +9,12 @@ let &l:includeexpr="substitute(substitute(v:fname, '\\./', '', ''), '\\.', '../'
 
 let &l:define='^\s*\(export\s\)\?\(async\s\)\?\(function\|class\|interface\|type\|const\|let\|var\)\s\ze'
 
-if expand('%:t') =~ 'test.ts$'
-    compiler jest
-else
-    compiler tsc
-endif
+" if expand('%:t') =~ 'test.ts$'
+"     compiler jest
+" else
+"     compiler tsc
+" endif
+compiler tsc
 
 if exists(':DD')
     setlocal keywordprg=:DD
