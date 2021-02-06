@@ -37,10 +37,9 @@ function Spell()
 endfunction
 
 function LspStatus()
-    lua lsp = require('lsp')
     try
         let small = winwidth(0) < 100
-        let status = small ? v:lua.lsp.status.tiny() : v:lua.lsp.status.long()
+        let status = luaeval('require("lsp").status.'..(small ? 'tiny' : 'long')..'()')
         return !empty(status) ? small ? status..' ' : '['..status..']' : ''
     catch
         return ''
