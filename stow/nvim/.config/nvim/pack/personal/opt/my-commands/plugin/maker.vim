@@ -27,5 +27,5 @@ nnoremap <silent> <Plug>(maker-split) <CMD>vert TMake<CR>
 nnoremap <silent> <Plug>(maker-background) <CMD>TMake!<CR>
 
 nnoremap <expr> <Plug>(maker-show-log) !empty(findfile(&errorfile)) ? '<CMD>!cat '.&errorfile.'<CR>' : '<CMD>echo "No errorfile"<CR>'
-nnoremap <expr> <Plug>(maker-load-errors) &ft == 'qf' ? '<CMD>cclose<CR>' : '<CMD>Cfile<CR>'
+nnoremap <expr> <Plug>(maker-load-errors) &ft == 'qf' ? '<CMD>cclose<CR>' : '<CMD>cfile<CR>'
 nnoremap <expr> <Plug>(maker-edit-errors) !empty(findfile(&errorfile)) ? '<CMD>tab split '.&errorfile.'<CR>' : '<CMD>echo "No errorfile"<CR>'
