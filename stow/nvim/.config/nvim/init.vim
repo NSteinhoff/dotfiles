@@ -91,6 +91,7 @@
     packadd my-tags
     packadd my-completions
     packadd my-journal
+    packadd my-zettelkasten
 
 """ External
     " Finding / picking files
