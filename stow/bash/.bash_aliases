@@ -79,6 +79,7 @@ alias hil='_() { highlight -O ansi --force $@ | less -R; }; _'
 
 # Journaling
 alias Journal='nvim +Journal +only'
+alias Zettel='_() { nvim "+Zettel $*"; }; _'
 
 # ---------- Java Version ---------
 [[ -z $JAVA_HOME && "$os" == linux && -x $(which java) ]] && JAVA_HOME=$(readlink -f $(which java) | sed "s:/bin/java::")
@@ -116,6 +117,7 @@ alias gopacks='cd ~/dev/dotfiles/stow/nvim/.config/nvim/pack/external/opt'
 alias mypacks='cd ~/dev/dotfiles/stow/nvim/.config/nvim/pack/personal/opt'
 export CDPATH=~/dev:~/dev/s2
 export JOURNAL_ROOT=~/Dropbox/Notes
+export ZETTELKASTEN=~/Dropbox/Zettel
 
 # ---------------------------------- direnv -----------------------------------
 which direnv &>/dev/null && eval "$(direnv hook bash)"
