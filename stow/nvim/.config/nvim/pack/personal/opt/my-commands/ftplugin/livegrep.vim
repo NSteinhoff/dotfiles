@@ -124,16 +124,20 @@ augroup live-grep
     autocmd InsertLeave <buffer> call s:insert_separator('n')
 augroup END
 
+command -buffer Cancel keepalt b#
+command -buffer Export call s:export('%')
+command -buffer Reload call s:update(0, 1)
+
 inoremap <buffer> <SPACE> .*
 inoremap <buffer> <CR> <esc><CMD>call <SID>goto(3)<CR>
 inoremap <buffer> <C-C> <esc><cmd>Cancel<CR>
 
 nnoremap <buffer> <SPACE> <CMD>call <SID>edit(line('.'))<CR>
 nnoremap <buffer> <CR> <CMD>call <SID>goto(line('.'))<CR>
+nnoremap <buffer> <BS> <CMD>Cancel<CR>
 nnoremap <buffer> I 1GI
 nnoremap <buffer> A 1GA
-nnoremap <buffer> X <CMD>call <SID>export('%')<CR>
-nnoremap <buffer> <BS> <CMD>Cancel<CR>
-
-command -buffer Cancel keepalt b#
-command -buffer Reload call s:update(0, 1)
+nnoremap <buffer> X <CMD>Export<CR>
+nnoremap <buffer> R <CMD>Reload<CR>
+nnoremap <buffer> gs <CMD>call <SID>export('%')<CR>:cdo s/=getline(1)/
+nnoremap <buffer> gS <CMD>call <SID>export('%')<CR>:cfdo %s/=getline(1)/
