@@ -1,4 +1,4 @@
-set buftype=nofile bufhidden=unload nobuflisted noswapfile
+setlocal buftype=nofile nobuflisted noswapfile
 
 setlocal errorformat=%f:%l:%c:E%n:%m
 setlocal errorformat+=%f:%l:%c:%m

@@ -1,4 +1,4 @@
-setlocal buftype=nofile bufhidden=unload nobuflisted noswapfile
+setlocal buftype=nofile nobuflisted noswapfile
 setlocal errorformat=%f
 
 let s:insert_help = '<CR> selects <- ; <C-N>/<C-P> moves <- ; <SPACE> inserts wildcards ; <C-C> to exit'
