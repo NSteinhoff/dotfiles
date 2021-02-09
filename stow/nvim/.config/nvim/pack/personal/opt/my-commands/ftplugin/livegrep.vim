@@ -139,5 +139,5 @@ nnoremap <buffer> I 1GI
 nnoremap <buffer> A 1GA
 nnoremap <buffer> X <CMD>Export<CR>
 nnoremap <buffer> R <CMD>Reload<CR>
-nnoremap <buffer> gs <CMD>call <SID>export('%')<CR>:cdo s/=getline(1)/
-nnoremap <buffer> gS <CMD>call <SID>export('%')<CR>:cfdo %s/=getline(1)/
+nnoremap <buffer> gs <CMD>call <SID>export('%')<CR>:cdo s/\v=getline(1)/
+nnoremap <buffer> gS <CMD>call <SID>export('%')<CR>:cfdo %s/\v=getline(1)/
