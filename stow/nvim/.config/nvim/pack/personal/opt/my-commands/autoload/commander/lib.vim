@@ -20,7 +20,7 @@ endfunction
 
 function commander#lib#load_lines_in_split(lines, ...) abort
     let l:splitcmd = a:0 ? a:1.' new' : 'new'
-    mark Z
+    mark Q
     execute 'topleft '.l:splitcmd
     try
         call append(0, a:lines) | $delete
@@ -30,7 +30,7 @@ function commander#lib#load_lines_in_split(lines, ...) abort
     endtry
     set buftype=nofile bufhidden=wipe nobuflisted noswapfile
     0
-    nnoremap <buffer> q :close<CR>`Z
+    nnoremap <buffer> q :close<CR>`Q
 endfunction
 command Test call commander#lib#load_lines_in_split(['a', 'b'])
 
