@@ -96,7 +96,7 @@ function commander#git#load_diff_in_split(revision, ...)
     execute 'file '.(a:revision != '' ? a:revision : 'HEAD').':'.fname
     let &ft=ft
     au BufWipeout <buffer> diffoff!
-    diffthis | wincmd p | diffthis | wincmd p
+    windo diffthis
 endfunction
 
 function commander#git#load_patch(revision, ...) abort
