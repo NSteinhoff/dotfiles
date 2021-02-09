@@ -57,9 +57,9 @@ local function setup_keymaps(client)
     nnoremap('gy',          '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 
     -- Listing symbols
-    nnoremap('gr',          '<cmd>lua vim.lsp.buf.references()<CR>')
-    nnoremap('gw',          '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-    nnoremap('gW',          '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+    nnoremap('gr',          'mZ<cmd>lua vim.lsp.buf.references()<CR>')
+    nnoremap('gw',          'mZ<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+    nnoremap('gW',          'mZ<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 
     -- Diagnostics
     nnoremap('gh',          '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')

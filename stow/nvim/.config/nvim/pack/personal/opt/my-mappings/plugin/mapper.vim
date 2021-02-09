@@ -82,6 +82,9 @@ endfunction
     vmap  <UP>     [egv
     vmap  <DOWN>   ]egv
 
+    " Favorite mark
+    nnoremap gz `Z
+
 
 """ Viewport
     " Window resizing with the arrow keys
