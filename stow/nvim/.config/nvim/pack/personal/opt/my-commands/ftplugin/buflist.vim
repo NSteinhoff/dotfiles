@@ -82,4 +82,6 @@ augroup buflist
     autocmd!
     autocmd BufEnter <buffer> call s:load_buflist()
     autocmd TextChanged <buffer> call s:set_listed(str2nr(expand('<abuf>')))
+    autocmd BufEnter <buffer> let b:colors_name=g:colors_name | colorscheme murphy
+    autocmd BufLeave <buffer> execute 'colorscheme '..b:colors_name
 augroup END

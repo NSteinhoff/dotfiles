@@ -122,6 +122,8 @@ augroup live-grep
     autocmd InsertLeave <buffer> call s:update(0)
     autocmd InsertEnter <buffer> call s:insert_separator('i')
     autocmd InsertLeave <buffer> call s:insert_separator('n')
+    autocmd BufEnter <buffer> let b:colors_name=g:colors_name | colorscheme pablo
+    autocmd BufLeave <buffer> execute 'colorscheme '..b:colors_name
 augroup END
 
 command -buffer Cancel keepalt b#

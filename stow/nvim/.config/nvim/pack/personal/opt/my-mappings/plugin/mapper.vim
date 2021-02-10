@@ -85,6 +85,9 @@ endfunction
     " Favorite mark
     nnoremap gz `Z
 
+    " Cycle colorschemes
+    nnoremap <F12> <CMD>CycleColorNext<CR>
+
 
 """ Viewport
     " Window resizing with the arrow keys

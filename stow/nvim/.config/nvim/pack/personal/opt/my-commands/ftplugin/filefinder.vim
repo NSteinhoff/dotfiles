@@ -123,6 +123,8 @@ augroup file-finder
     autocmd InsertLeave <buffer> call s:insert_separator('n')
     autocmd InsertEnter <buffer> call s:mark_selection('i')
     autocmd InsertLeave <buffer> call s:mark_selection('n')
+    autocmd BufEnter <buffer> let b:colors_name=g:colors_name | colorscheme delek
+    autocmd BufLeave <buffer> execute 'colorscheme '..b:colors_name
 augroup END
 
 nnoremap <buffer> <CR> <cmd>if line('.') > 2 \| call <SID>open_file(line('.')-2) \| endif<CR>
