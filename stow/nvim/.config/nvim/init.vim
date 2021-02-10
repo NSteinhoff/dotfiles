@@ -106,9 +106,6 @@
     " Help / Docs
     packadd! vim-devdocs                " open devdocs.io
 
-    " Tmux repl
-    packadd! my-tslime
-
     " Filetypes / Syntax / Indent
     packadd! editorconfig-vim           " ft settings based on local config
 
