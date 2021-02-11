@@ -158,6 +158,7 @@ endfunction
 
 """ Quickopen
     nmap <leader>f <Plug>(filefinder-new)
+    nmap <leader>F <Plug>(filefinder-here)
 
 
 """ Running builds with `<key>
