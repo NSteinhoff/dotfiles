@@ -209,9 +209,10 @@ endfunction
     " Quick Keys
     vnoremap <silent> <leader>= <CMD>'<,'>Align<CR>
     nnoremap <silent> <leader>! <CMD>!%:p<CR>
-    nnoremap <silent> <leader>x <CMD>.Run<CR>
-    vnoremap <silent> <leader>x <CMD>'<,'>Run<CR>
-    nnoremap <silent> <leader>X <CMD>Run<CR>
+    nnoremap <leader>x :.w !xargs 
+    vnoremap <leader>x :w !xargs 
+    nnoremap <leader>X :.!xargs 
+    vnoremap <leader>X :!xargs 
 
     " Buffers
     nnoremap <leader>s :sbuffer <C-Z>
