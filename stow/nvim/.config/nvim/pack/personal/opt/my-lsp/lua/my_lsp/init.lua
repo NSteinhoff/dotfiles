@@ -1,13 +1,10 @@
 vim.cmd('packadd nvim-lspconfig')
 local lspconfig = require'lspconfig'
 
-local M = {}
+diagnostics = require'my_lsp.diagnostics'
+status = require'my_lsp.status'
 
-local severities = {
-    names = {'ERROR', 'WARNING', 'INFO', 'HINT'},
-    symbols = {'', '', 'כֿ', ''}
-}
-
+local severities = require('my_lsp.diagnostics').severities
 
 local function nnoremap(lhs, rhs)
     local mode = 'n'
@@ -63,7 +60,7 @@ local function setup_keymaps(client)
 
     -- Diagnostics
     nnoremap('gh',          '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-    nnoremap('gH',          '<cmd>lua require"lsp".print_line_diagnostics()<CR>')
+    nnoremap('gH',          '<cmd>lua require"my_lsp.diagnostics".print_line()<CR>')
 
     --[[ Moving to errors is done via the loclist
     nnoremap(']g',          '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
@@ -78,18 +75,18 @@ local function setup_keymaps(client)
 end
 
 local function setup_commands(client)
-    commander('LspClients', 'lua require"lsp".print_clients()')
-    commander('LspClientSettings', 'lua require"lsp".client_settings()')
-    commander('LspClientInfo', 'lua require"lsp".client_info()')
+    commander('LspClients', 'lua require"my_lsp".print_clients()')
+    commander('LspClientSettings', 'lua require"my_lsp".client_settings()')
+    commander('LspClientInfo', 'lua require"my_lsp".client_info()')
 
     -- All Clients
-    commander('LspInspectClients', 'lua require"lsp".inspect_clients()')
-    commander('LspStopClients', 'lua require"lsp".stop_clients()')
+    commander('LspInspectClients', 'lua require"my_lsp".inspect_clients()')
+    commander('LspStopClients', 'lua require"my_lsp".stop_clients()')
 
     -- Workspace Folders
-    commander('LspShowWorkspace', 'lua require"lsp".inspect_workspace_folders()')
-    vim.cmd [[command! -buffer -nargs=? -complete=dir LspAddWorkspaceFolder execute 'lua require"lsp".add_workspace_folder("<args>")']]
-    vim.cmd [[command! -buffer -nargs=? -complete=dir LspRemoveWorkspaceFolder execute 'lua require"lsp".remove_workspace_folder("<args>")']]
+    commander('LspShowWorkspace', 'lua require"my_lsp".inspect_workspace_folders()')
+    vim.cmd [[command! -buffer -nargs=? -complete=dir LspAddWorkspaceFolder execute 'lua require"my_lsp".add_workspace_folder("<args>")']]
+    vim.cmd [[command! -buffer -nargs=? -complete=dir LspRemoveWorkspaceFolder execute 'lua require"my_lsp".remove_workspace_folder("<args>")']]
 
     -- Code actions
     commander('LspCodeAction', 'lua vim.lsp.buf.code_action()')
@@ -102,25 +99,14 @@ local function setup_commands(client)
     commander('LspWorkspaceSymbols', 'lua vim.lsp.buf.workspace_symbol()')
 
     -- Diagnostics
-    commander('LspDiagnostics', 'lua require"lsp".print_diagnostics()')
-    commander('LspDiagnosticsLine', 'lua require"lsp".print_line_diagnostics()')
-    commander('LspDiagnosticsBuffer', 'lua require"lsp".print_buffer_diagnostics()')
-    commander('LspDiagnosticsQuickfix', 'lua require"lsp".set_qf_diagnostics()')
+    commander('LspDiagnostics', 'lua require"my_lsp.diagnostics".print_all()')
+    commander('LspDiagnosticsLine', 'lua require"my_lsp.diagnostics".print_line()')
+    commander('LspDiagnosticsBuffer', 'lua require"my_lsp.diagnostics".print_buffer()')
+    commander('LspDiagnosticsQuickfix', 'lua require"my_lsp.diagnostics".set_qf()')
 end
 
 local function setup_options(client)
     vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
-end
-
-local function setup_signs()
-    vim.fn.sign_define("LspDiagnosticsSignError",
-        {text = severities.symbols[1], texthl = "LspDiagnosticsSignError"})
-    vim.fn.sign_define("LspDiagnosticsSignWarning",
-        {text = severities.symbols[2], texthl = "LspDiagnosticsSignWarning"})
-    vim.fn.sign_define("LspDiagnosticsSignInformation",
-        {text = severities.symbols[3], texthl = "LspDiagnosticsSignInformation"})
-    vim.fn.sign_define("LspDiagnosticsSignHint",
-        {text = severities.symbols[4], texthl = "LspDiagnosticsSignHint"})
 end
 
 local function setup_completion()
@@ -162,18 +148,18 @@ local function setup_lspsaga()
 end
 
 -- LSP client configurations
-local function on_attach(client)
-    setup_keymaps(client)
-    setup_commands(client)
-    setup_options(client)
-    setup_signs(client)
+local function on_attach(...)
+    diagnostics.on_attach(...)
+    setup_keymaps(...)
+    setup_commands(...)
+    setup_options(...)
 
     --[[
-    setup_completion(client)
+    setup_completion(...)
     --]]
 
     --[[
-    setup_lspsaga(client)
+    setup_lspsaga(...)
     --]]
 end
 
@@ -250,36 +236,11 @@ local function client_settings()
     return results
 end
 
-function M.print_clients()
+local function print_clients()
     for _,c in pairs(clients()) do
         print(c)
     end
 end
-
-M.status = {
-    long = function()
-        local names = clients()
-        if #names == 0 then
-            return ''
-        else
-            return ' '..table.concat(names, ',')
-        end
-    end,
-    tiny = function()
-        if #clients() > 0 then
-            return ''
-        else
-            return ''
-        end
-    end,
-    short = function()
-        if #clients() > 0 then
-            return ' '..#clients()
-        else
-            return ''
-        end
-    end
-}
 
 local function inspect(obj)
     print(vim.inspect(obj))
@@ -297,81 +258,43 @@ local function path_or_nil(p)
     return not empty(p) and absolute(p) or nil
 end
 
-function M.add_workspace_folder(dir)
+local function add_workspace_folder(dir)
     vim.lsp.buf.add_workspace_folder(path_or_nil(dir))
 end
 
-function M.remove_workspace_folder(dir)
+local function remove_workspace_folder(dir)
     vim.lsp.buf.remove_workspace_folder(path_or_nil(dir))
 end
 
-function M.inspect_workspace_folders()
+local function inspect_workspace_folders()
     inspect(vim.lsp.buf.list_workspace_folders())
 end
 
-function M.stop_clients()
+local function stop_clients()
     vim.lsp.stop_client(vim.lsp.get_active_clients())
 end
 
-function M.client_info()
+local function inspect_client_info()
     inspect(client_info())
 end
 
-function M.client_settings()
+local function inspect_client_settings()
     inspect(client_settings())
 end
 
-function M.inspect_clients()
+local function inspect_clients()
     inspect(vim.lsp.get_active_clients())
 end
 
-function M.print_line_diagnostics()
-    local diagnostics = vim.lsp.diagnostic.get_line_diagnostics()
-    for i,d in ipairs(diagnostics) do
-        print(i..'. '..d.source..' '..severities.names[d.severity])
-        print(d.message)
-    end
-end
-
-function M.print_buffer_diagnostics()
-    local diagnostics = vim.lsp.diagnostic.get()
-    for i,d in ipairs(diagnostics) do
-        print(i..'. '..'line '..d.range.start.line..' - '..d.source..' '..severities.names[d.severity])
-        print(d.message)
-    end
-end
-
-function M.print_diagnostics()
-    local diagnostics = vim.lsp.diagnostic.get_all()
-    for b,ds in pairs(diagnostics) do
-        local bufname = vim.fn.bufname(b)
-        print('--- '..bufname)
-        for i,d in ipairs(ds) do
-            print(i..'. '..'line '..d.range.start.line..' - '..d.source..' '..severities.names[d.severity])
-            print(d.message)
-        end
-    end
-end
-
-function M.set_qf_diagnostics()
-    local diagnostics = vim.lsp.diagnostic.get_all()
-    local qf_items = {}
-    for b,ds in pairs(diagnostics) do
-        local bufname = vim.fn.bufname(b)
-        for _,d in ipairs(ds) do
-            local item = {
-                bufnr = b,
-                filename = bufname,
-                lnum = d.range.start.line,
-                col = d.range.start.character,
-                type = severities.names[d.severity or 1],
-                nr = d.code,
-                text = d.message,
-            }
-            table.insert(qf_items, item)
-        end
-    end
-    vim.fn.setqflist(qf_items)
-end
-
-return M
+return {
+    print_clients = print_clients,
+    add_workspace_folder,
+    remove_workspace_folder,
+    inspect_workspace_folders = inspect_workspace_folders,
+    stop_clients = stop_clients,
+    client_info = inspect_client_info,
+    client_settings = inspect_client_settings,
+    inspect_clients = inspect_clients,
+    diagnostics = diagnostics,
+    status = status,
+}

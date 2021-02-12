@@ -39,7 +39,7 @@ endfunction
 function LspStatus()
     try
         let small = winwidth(0) < 100
-        let status = luaeval('require("lsp").status.'..(small ? 'tiny' : 'long')..'()')
+        let status = luaeval('require("my_lsp").status.'..(small ? 'tiny' : 'long')..'()')
         return !empty(status) ? small ? status..' ' : '['..status..']' : ''
     catch
         return ''
