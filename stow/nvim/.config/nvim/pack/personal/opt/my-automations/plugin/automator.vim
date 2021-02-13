@@ -28,10 +28,10 @@ augroup my-sessions
     autocmd VimLeave * if exists('g:auto_session') | mksession! | endif
 augroup END
 
-augroup my-changed-files
-    autocmd!
-    autocmd VimEnter * ChangedFilesOnStartup
-    autocmd VimResume,FocusGained * ChangedFiles
-    autocmd DirChanged * ChangedFiles
-    autocmd BufWritePost * ChangedFiles
-augroup END
+" augroup my-changed-files
+"     autocmd!
+"     autocmd VimEnter * ChangedFilesOnStartup
+"     autocmd VimResume,FocusGained * ChangedFiles
+"     autocmd DirChanged * ChangedFiles
+"     autocmd BufWritePost * ChangedFiles
+" augroup END
