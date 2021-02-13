@@ -109,9 +109,6 @@ function s:on_attach(fname)
     setl omnifunc=CompleteZettelkasten
 
     execute 'setl path='..g:zettelkasten
-
-    nnoremap <buffer> <expr> <SPACE> '<CMD>find '..expand('<cfile>')..'.md<CR>'
-    nnoremap <buffer> <expr> <C-SPACE> '<CMD>tabfind '..expand('<cfile>')..'.md<CR>'
 endfunction
 
 command -nargs=1 -complete=customlist,<SID>complete_zettel Zettel call s:zettel(<q-args>)
