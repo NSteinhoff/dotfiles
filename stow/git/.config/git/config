@@ -29,32 +29,34 @@
     showBranch = auto
     interactive = auto
     grep = auto
-[diff]
-    tool = nvimdiff
-[merge]
-    tool = nvimdiff2
 [core]
     editor = nvim
 [commit]
     verbose = true
-[difftool]
-    prompt = true
-    trustExitCode = true
-[mergetool]
-    prompt = true
-    trustExitCode = true
-
-[difftool "nvimdiff"]
-    cmd = nvim -d $LOCAL $REMOTE
-[mergetool "nvim"]
-    cmd = nvim $MERGED
-[mergetool "nvimdiff"]
-    cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '2wincmd w' -c 'diffoff' -c '$wincmd w' -c 'wincmd J' -c 'diffoff'
-[mergetool "nvimdiff2"]
-    cmd = nvim -d $LOCAL $MERGED $REMOTE -c '2wincmd w' -c 'wincmd J' -c 'diffoff'
 [init]
     templatedir = ~/.config/git/template
 [rerere]
     enabled = true
 [pull]
     ff = only
+[diff]
+    tool = nvimdiff
+[merge]
+    tool = nvimdiff2
+    conflictstyle = diff3
+[difftool]
+    prompt = true
+    trustExitCode = true
+[mergetool]
+    prompt = true
+    trustExitCode = true
+    keepBackup = false
+
+[difftool "nvimdiff"]
+    cmd = nvim -d $LOCAL $REMOTE
+[mergetool "nvim"]
+    cmd = nvim -d $MERGED
+[mergetool "nvimdiff2"]
+    cmd = nvim -d $LOCAL $MERGED $REMOTE -c '2wincmd w' -c 'wincmd J'
+[mergetool "nvimdiff"]
+    cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '2wincmd w' -c '$wincmd w' -c 'wincmd J'
