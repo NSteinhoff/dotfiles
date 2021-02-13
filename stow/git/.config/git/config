@@ -32,7 +32,7 @@
 [diff]
     tool = nvimdiff
 [merge]
-    tool = nvimdiff
+    tool = nvimdiff2
 [core]
     editor = nvim
 [commit]
