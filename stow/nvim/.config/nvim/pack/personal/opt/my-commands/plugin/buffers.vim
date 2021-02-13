@@ -1,12 +1,13 @@
 command! -bang BufOnly %bd<bang>|e#|bd#
 
 function s:scratch(ft, mods, lines)
+    if @% ==# 'SCRATCH'|return|endif
+
     let ft = a:ft != '' ? a:ft : &ft =~ 'dirvish' ? 'txt' : &ft
-    execute a:mods..' new'
+    execute a:mods..' '..(&ft == 'qf' ? 'new' : 'edit')..' SCRATCH'
     let &ft = ft
-    setlocal buftype=nofile bufhidden=hide noswapfile
-    call append(0, a:lines)
-    $d
+    setlocal buftype=nofile noswapfile nobuflisted
+    call append('$', a:lines)
 endfunction
 command! -nargs=? -range -complete=filetype Scratch call s:scratch(<q-args>, <q-mods>, <range> ? getline(<line1>, <line2>) : [])
 
