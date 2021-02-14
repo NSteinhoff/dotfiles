@@ -15,20 +15,13 @@ local function on_attach(client)
 
     -- Listing symbols
     vim.cmd([[nnoremap <silent> <buffer> gr           mZ<cmd>lua vim.lsp.buf.references()<CR>]])
-    vim.cmd([[nnoremap <silent> <buffer> gw           mZ<cmd>lua vim.lsp.buf.document_symbol()<CR>]])
-    vim.cmd([[nnoremap <silent> <buffer> gW           mZ<cmd>lua vim.lsp.buf.workspace_symbol()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> gw           mZ<cmd>lua vim.lsp.buf.workspace_symbol()<CR>]])
 
     -- Diagnostics
     vim.cmd([[nnoremap <silent> <buffer> gh           <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>]])
     vim.cmd([[nnoremap <silent> <buffer> gH           <cmd>lua require"my_lsp.diagnostics".print_line()<CR>]])
 
-    --[=[ Moving to errors is done via the loclist
-    vim.cmd [[nnoremap <silent> <buffer> ]g           <cmd>lua vim.lsp.diagnostic.goto_next()<CR>]]
-    vim.cmd [[nnoremap <silent> <buffer> [g           <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>]]
-    vim.cmd [[nnoremap <silent> <buffer> gO           <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>]]
-    --]=]
-
-    -- Code actions,     i.e. do stuff
+    -- Code actions,     i.e. (d)o (c)ode (a)ction
     vim.cmd([[nnoremap <silent> <buffer> dca          <cmd>lua vim.lsp.buf.code_action()<CR>]])
     vim.cmd([[nnoremap <silent> <buffer> dcr          <cmd>lua vim.lsp.buf.rename()<CR>]])
     vim.cmd([[nnoremap <silent> <buffer> dcf          <cmd>lua vim.lsp.buf.formatting()<CR>]])
