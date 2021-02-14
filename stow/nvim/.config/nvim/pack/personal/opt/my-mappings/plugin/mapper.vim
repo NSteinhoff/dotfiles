@@ -63,6 +63,7 @@ endfunction
     nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 
     " Move over sections
+    " Taken from `help section`
     map [[ ?{<CR>w99[{
     map ][ /}<CR>b99]}
     map ]] j0[[%/{<CR>
@@ -72,23 +73,12 @@ endfunction
     nnoremap <silent> <C-W>o :diffoff!<BAR>only<CR>
     nnoremap <silent> <C-W><C-O> :diffoff!<BAR>only<CR>
 
-    nnoremap <silent> <C-W>O <CMD>tabonly<CR>
-
-    " Addition window commands
-    nnoremap <silent> <C-W>t <CMD>tab split<CR>
-    nnoremap <silent> <C-W>N <CMD>vnew<CR>
-
+    " Do something useful with the arrow keys:
     " Moving selected lines
     vnoremap  <LEFT>   <gv
     vnoremap  <RIGHt>  >gv
     vmap  <UP>     [egv
     vmap  <DOWN>   ]egv
-
-    " Favorite mark
-    nnoremap gz `Z
-
-    " Cycle colorschemes
-    nnoremap <F12> <CMD>CycleColorNext<CR>
 
 
 """ Viewport
@@ -117,7 +107,7 @@ endfunction
     nnoremap <expr> gM v:count <= 1 ? '<CMD>match<CR>' : '<CMD>'.v:count.'match<CR>'
 
 
-"""  Format
+""" Format
     " Mnemonic:
     "   < and > change indentation
     "   => 'indent all'
@@ -158,10 +148,6 @@ endfunction
     inoremap <expr> <S-Tab> pumvisible() ? '<C-P>' : '<S-TAB>'
 
 
-""" Quickopen
-    nmap <leader>f <Plug>(filefinder-new)
-    nmap <leader>F <Plug>(filefinder-here)
-
 
 """ Running builds with `<key>
     nmap `<leader> <Plug>(maker-sync)
@@ -172,6 +158,11 @@ endfunction
     nmap g> <Plug>(maker-show-log)
     nmap g! <Plug>(maker-load-errors)
     nmap g? <Plug>(maker-edit-errors)
+
+
+""" Find files
+    nmap <leader>f <Plug>(filefinder-new)
+    nmap <leader>F <Plug>(filefinder-here)
 
 
 """ Searching
@@ -220,15 +211,21 @@ endfunction
     nnoremap <leader>s :sbuffer <C-Z>
     nnoremap <leader>v :vert sbuffer <C-Z>
     nnoremap <leader>t :tab sbuffer <C-Z>
-    nmap <leader>b <Plug>(buffers-edit-list)
+    nnoremap <leader>b :buffer <C-Z>
+    nmap <leader>B <Plug>(buffers-edit-list)
     nmap <leader>d <Plug>(buffers-delete)
     nmap <leader>D <Plug>(buffers-wipe)
-    nmap <leader>O <Plug>(buffers-only)
 
     " Explore
     nnoremap <silent> <leader>E <CMD>Explore<CR>
     nnoremap <silent> <leader>V <CMD>Vexplore<CR>
     nnoremap <silent> <leader>T <CMD>Texplore<CR>
+
+    " Favorite mark
+    nnoremap gz `Z
+
+    " Cycle colorschemes
+    nnoremap <F12> <CMD>CycleColorNext<CR>
 
 
 """ (c): Changes / Diffing
@@ -238,8 +235,8 @@ endfunction
     nmap cP <Plug>(git-patch-split-ref)
 
 """ (gb): Git Blame
-    nmap <silent> gbb <Plug>(git-blame)
-    vmap <silent> gb <Plug>(git-blame)
+    nmap gb <Plug>(git-blame)
+    vmap gb <Plug>(git-blame)
 
 
 """ Potential Ad-hoc mappings

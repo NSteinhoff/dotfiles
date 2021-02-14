@@ -54,4 +54,4 @@ nnoremap <Plug>(git-patch-split) <CMD>ChangePatch<CR>
 nnoremap <Plug>(git-diff-split-ref) :ChangeSplit <C-Z>
 nnoremap <Plug>(git-patch-split-ref) :ChangePatch <C-Z>
 nnoremap <Plug>(git-blame) <CMD>Blame<CR>
-vnoremap <Plug>(git-blame) <CMD>'<,'>Blame<CR>
+vnoremap <Plug>(git-blame) :Blame<CR>

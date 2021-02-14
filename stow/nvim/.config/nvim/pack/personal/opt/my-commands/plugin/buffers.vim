@@ -11,8 +11,6 @@ function s:scratch(ft, mods, lines)
 endfunction
 command! -nargs=? -range -complete=filetype Scratch call s:scratch(<q-args>, <q-mods>, <range> ? getline(<line1>, <line2>) : [])
 
-command -range Test echo expand('<range>')..': '..expand('<line1>')..'..'..expand('<line2>')
-
 function s:is_last_buffer()
     return len(getbufinfo({'buflisted': 1})) <= 1
 endfunction

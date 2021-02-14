@@ -32,7 +32,6 @@ function commander#lib#load_lines_in_split(lines, ...) abort
     0
     nnoremap <buffer> q :close<CR>`Q
 endfunction
-command Test call commander#lib#load_lines_in_split(['a', 'b'])
 
 function s:comment_affixes()
     let prefix = matchstr(&commentstring, '\S*\(\s*%s\)\@=')
