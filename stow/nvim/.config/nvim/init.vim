@@ -23,6 +23,7 @@
     set foldenable
     set foldmethod=indent
     set foldlevelstart=99       " start with all folds opened
+    set foldcolumn=auto
     set clipboard=unnamedplus   " always use clipboard
     set mouse=n                 " enable mouse in normal mode
     set autoread
