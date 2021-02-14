@@ -1,6 +1,6 @@
 " lua require('my_completion')
 
-function CompleteRegisters(findstart, base)
+function CompleteRegister(findstart, base)
     if a:findstart
         " Always insert in the cursorcolumn
         return -1
@@ -20,8 +20,13 @@ function CompleteRegisters(findstart, base)
     endif
 endfunction
 
+function InsCompleteRegister()
+    call complete(col('.'), CompleteRegister(0, ''))
+    return ''
+endfunction
+imap <Plug>(ins-complete-register) <C-R>=InsCompleteRegister()<CR>
 
-function CompletePaths(findstart, base)
+function CompletePath(findstart, base)
     if a:findstart
         " Always insert in the cursorcolumn
         return -1
@@ -38,6 +43,11 @@ function CompletePaths(findstart, base)
     return items
 endfunction
 
+function InsCompletePath()
+    call complete(col('.'), CompletePath(0, ''))
+    return ''
+endfunction
+imap <Plug>(ins-complete-path) <C-R>=InsCompletePath()<CR>
 
 function CompleteCombined(findstart, base)
     if a:findstart
@@ -45,8 +55,8 @@ function CompleteCombined(findstart, base)
         return -1
     endif
     let items = []
-    call extend(items, CompletePaths(a:findstart, a:base))
-    call extend(items, CompleteRegisters(a:findstart, a:base))
+    call extend(items, CompletePath(a:findstart, a:base))
+    call extend(items, CompleteRegister(a:findstart, a:base))
     return items
 endfunction
 

@@ -147,6 +147,12 @@ endfunction
     inoremap <expr> <Tab>   pumvisible() ? '<C-N>' : '<TAB>'
     inoremap <expr> <S-Tab> pumvisible() ? '<C-P>' : '<S-TAB>'
 
+    " Additional ins-completion modes
+    " W,R,A,G,H,J,Z,C,B,M
+    " Registers:
+    " imap <C-X><C-R> <Plug>(ins-complete-register)
+    " Paths:
+    " imap <C-X><C-H> <Plug>(ins-complete-path)
 
 
 """ Running builds with `<key>
