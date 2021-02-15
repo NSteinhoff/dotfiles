@@ -96,15 +96,12 @@
 """ External
     " Finding / picking files
     " packadd! my-telescope            " fuzzy finder / picker
-    packadd! my-dirvish              " file manager
+    packadd! my-dirvish                " file manager
 
     " Mappings and commands
     packadd! vim-unimpaired
     packadd! vim-eunuch
     packadd! vim-commentary
-
-    " Help / Docs
-    packadd! vim-devdocs                " open devdocs.io
 
     " Filetypes / Syntax / Indent
     packadd! editorconfig-vim           " ft settings based on local config

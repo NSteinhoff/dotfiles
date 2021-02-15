@@ -28,9 +28,6 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/nvim-treesitter"]
 	path = stow/nvim/.config/nvim/pack/external/opt/nvim-treesitter
 	url = git@github.com:nvim-treesitter/nvim-treesitter.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-devdocs"]
-	path = stow/nvim/.config/nvim/pack/external/opt/vim-devdocs
-	url = git@github.com:romainl/vim-devdocs.git
 [submodule "stow/nvim/.config/nvim/pack/external/opt/vim-commentary"]
 	path = stow/nvim/.config/nvim/pack/external/opt/vim-commentary
 	url = git@github.com:tpope/vim-commentary.git
