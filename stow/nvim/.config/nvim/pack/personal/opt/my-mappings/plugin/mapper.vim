@@ -122,6 +122,7 @@ endfunction
     " <key>                     Mnemonic key for the list
     " <leader><key>             Peek at list
     " <leader><KEY>             Go to list and pick entry
+    nnoremap <leader><SPACE> <CMD>cclose<bar>lclose<CR>
     nnoremap <silent> <leader>q <CMD>clist<CR>
     nnoremap <silent> <leader>Q <CMD>cwindow<CR>
     nnoremap <silent> <leader>l <CMD>llist<CR>
@@ -136,7 +137,7 @@ endfunction
     vnoremap <silent> g<C-SPACE> y:ptselect <C-R>"<CR>
 
     " Close the preview window
-    nnoremap <leader><SPACE> <C-W>z
+    " nnoremap <leader><SPACE> <C-W>z
 
 
 """ Completion
@@ -201,6 +202,12 @@ endfunction
 
     " Switch to alternative buffer
     nnoremap <expr> <BS> empty(expand('#:t')) \|\| (expand('#') == expand('%')) ? ':echoerr "No alternate file"<cr>' : '<C-^>'
+
+    " Missing `:tab split` mapping
+    " Like <C-W>T, but without removing the window from the current pane.
+    " Also works when there is only one window.
+    nnoremap <silent> <C-W>t <CMD>tab split<CR>
+    nnoremap <silent> <C-W><C-t> <CMD>tab split<CR>
 
     " Open settings
     nnoremap <silent> <leader>; <CMD>edit $MYVIMRC<CR>
