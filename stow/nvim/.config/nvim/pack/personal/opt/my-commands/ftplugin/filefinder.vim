@@ -134,8 +134,12 @@ nnoremap <buffer> <BS> <CMD>keepalt b#<CR>
 
 inoremap <buffer> <SPACE> .*
 inoremap <buffer> <CR> <esc><cmd>call <SID>open_selected()<CR>
-inoremap <buffer> <C-N> <cmd>call <SID>move_selection(1)<CR>
-inoremap <buffer> <C-P> <cmd>call <SID>move_selection(-1)<CR>
+inoremap <buffer> <Plug>(filefinder-next) <cmd>call <SID>move_selection(1)<CR>
+inoremap <buffer> <Plug>(filefinder-prev) <cmd>call <SID>move_selection(-1)<CR>
+imap <buffer> <C-N> <Plug>(filefinder-next)
+imap <buffer> <C-P> <Plug>(filefinder-prev)
+imap <buffer> <Tab> <Plug>(filefinder-next)
+imap <buffer> <S-Tab> <Plug>(filefinder-prev)
 inoremap <buffer> <C-C> <esc><cmd>bdelete<CR>
 
 for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]

@@ -25,7 +25,7 @@
     set foldlevelstart=99       " start with all folds opened
     set foldcolumn=0
     set clipboard=unnamedplus   " always use clipboard
-    set mouse=n                 " enable mouse in normal mode
+    set mouse=nv                " enable mouse in normal and visual mode
     set autoread
     set hidden
     set ignorecase              " ignore case in searches ...
@@ -65,7 +65,7 @@
 """ Completions
     set wildmode=longest:full,full
     set completeopt=menuone,noinsert,noselect
-    set shortmess-=c
+    set shortmess+=c
 
 """ Path and files
     set path=,,.
