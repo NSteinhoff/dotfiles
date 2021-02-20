@@ -15,7 +15,6 @@ targets += pkg-vim pkg-tmux pkg-htop pkg-tree pkg-highlight pkg-jq
 
 # OS specific install targets
 ifeq ($(uname), Linux)
-    targets += crawl brogue
     targets += pkg-universal-ctags pkg-alacritty
 else ifeq ($(uname), Darwin)
 endif
