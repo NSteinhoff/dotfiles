@@ -2,7 +2,7 @@ uname := $(shell uname -s)
 
 share := $(HOME)/.local/share
 bin := $(HOME)/.local/bin
-man := /usr/share/man
+dev := $(HOME)/dev
 applications := $(share)/applications
 
 
@@ -80,16 +80,14 @@ unpkg-%:
 # ---------------------------------- Crawl ------------------------------------
 crawld := $(share)/crawl
 crawl_key := $(crawld)/crawl_key
-crawl_apt_src := deb https://crawl.develz.org/debian crawl 0.25
-crawl_apt_updated := $(crawld)/apt-updated
-crawl_bin := /usr/games/crawl
+crawl_repo := $(dev)/crawl
+crawl_bin := $(crawl_repo)/crawl-ref/source/crawl
 
 crawl: $(crawl_key) $(crawl_bin)
 .PHONY: crawl
 
 uncrawl:
-	rm -rf $(crawld)
-	apt-get remove -y crawl
+	rm -rf $(crawl_key) $(crawl_bin)
 .PHONY: uncrawl
 
 $(crawl_key): | $(crawld)
@@ -99,19 +97,15 @@ $(crawl_key): | $(crawld)
 $(crawld):
 	mkdir -p $(crawld)
 
-$(crawl_bin): $(crawl_apt_updated)
-	apt-get install -y crawl
-	touch $@
+$(crawl_bin): crawl_pull
+	cd $(crawl_repo)/crawl-ref/source && make -j4
 
-$(crawl_apt_updated):
-	# Install source repository
-	grep "$(crawl_apt_src)" /etc/apt/sources.list &>/dev/null || (echo "$(crawl_apt_src)" | tee -a /etc/apt/sources.list)
-	# Install the DCSS signing key
-	curl https://crawl.develz.org/debian/pubkey | apt-key add -
-	# update your package list
-	apt-get update
-	touch $@
+crawl_pull: | $(crawl_repo)
+	cd $(crawl_repo) && git pull && git submodule update --init
+.PHONY: crawl_pull
 
+$(crawl_repo): | $(dev)
+	git clone git@github.com:crawl/crawl.git $(crawl_repo)
 
 # ---------------------------------- Brogue -----------------------------------
 brogued := $(share)/brogue
@@ -154,14 +148,17 @@ unnvim:
 	rm -rf $(nvim_bin)
 .PHONY: unnvim
 
-$(nvim_bin): | bin
+$(nvim_bin): | $(bin)
 	curl -fsSL $(nvim_url) -o $@
 	chmod u+x $@
 
 
-# ----------------------------------- Bin -------------------------------------
-bin:
+# ----------------------------------- Dirs ------------------------------------
+$(bin):
 	mkdir -p $(bin)
+
+$(dev):
+	mkdir -p $(dev)
 
 .stamps/:
 	mkdir -p .stamps

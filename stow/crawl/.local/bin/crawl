@@ -1,0 +1,2 @@
+#!/bin/bash
+cd $HOME/dev/crawl/crawl-ref/source && ./crawl -rc $HOME/.config/crawl/crawlrc
