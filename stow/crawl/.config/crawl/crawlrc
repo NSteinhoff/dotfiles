@@ -12,6 +12,11 @@ default_manual_training = true
 auto_hide_spells = true
 
 
+# Macros
+# ======
+macros += M \{32} 5
+
+
 # Viewport
 # ========
 view_max_width = 60
@@ -70,12 +75,11 @@ ai += potions? of curing:@q1
 ai += potions? of heal wounds:@q2
 
 ai += scrolls? of identify:@r1
-ai += scrolls? of remove curse:@r2
-ai += scrolls? of teleportation:@r3
+ai += scrolls? of teleportation:@r2
 
 ai += .*-tipped darts?:=f =F
-ai += throwing nets?:!f =f =F
-ai += boomerangs? of dispersal:!f =f =F
+ai += throwing nets?:=f =F
+ai += boomerangs? of dispersal:=f =F
 
 
 # Spell Slots

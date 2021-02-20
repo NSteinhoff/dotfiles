@@ -1,2 +1,7 @@
 #!/bin/bash
-cd $HOME/dev/crawl/crawl-ref/source && ./crawl -rc $HOME/.config/crawl/crawlrc
+cd $HOME/dev/crawl/crawl-ref/source \
+    && ./crawl \
+    -dir $HOME/.local/share/crawl \
+    -macro $HOME/.config/crawl \
+    -rcdir $HOME/.config/crawl \
+    -rc $HOME/.config/crawl/crawlrc $@
