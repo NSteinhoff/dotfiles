@@ -100,7 +100,9 @@ complete -F _complete_tmux tmux
 
 # ---------------------------------- PROMPT -----------------------------------
 fancy_prompt=true
-if $fancy_prompt; then
+if (which starship &>/dev/null); then
+    eval "$(starship init bash)"
+elif $fancy_prompt; then
     case "$TERM" in
     xterm*|rxvt*|tmux*|screen*)
         PS1_tail='\$ '
