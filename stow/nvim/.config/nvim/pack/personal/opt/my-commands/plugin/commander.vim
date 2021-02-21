@@ -3,18 +3,22 @@
 
 """ Format the current buffer
     function Format()
-        if &formatprg == ""
+        if empty(&formatprg)
             echomsg "Abort: 'formatprg' unset"
             return
         endif
-        let l:view = winsaveview()
-        normal! gggqG
+        let formatprg = expandcmd(&formatprg)
+        let formatted = systemlist(formatprg, getline(0, '$'))
         if v:shell_error > 0
-            silent undo
-            redraw
-            echomsg 'formatprg "'.&formatprg.'" exited with status '.v:shell_error
+            echomsg "Error: formatprg '".formatprg."' exited with status ".v:shell_error
+        else
+            " Setting lines and then deleting dangling lines at the end avoids
+            " jumping to the beginning of the buffer when undoing as would
+            " happen with %delete -> append()
+            call setline(1, formatted)
+            undojoin
+            call deletebufline('%', len(formatted) + 1, '$')
         endif
-        call winrestview(l:view)
     endfunction
     command! -bar Format call Format()
 
