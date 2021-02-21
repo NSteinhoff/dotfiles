@@ -38,7 +38,12 @@ endfunction
 function commander#git#local_file_revision(revision, ...)
     let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
     let ref = (a:revision != '' ? split(a:revision)[0] : 'HEAD')
-    return systemlist('git -C '.shellescape(fdir).' show '.ref.':./'.fname)
+    let lines = systemlist('git -C '.shellescape(fdir).' show '.ref.':./'.fname)
+    if v:shell_error
+        echoerr join(lines, "\n")
+    else
+        return lines
+    endif
 endfunction
 
 function commander#git#blame(line1, line2, ...)
@@ -91,12 +96,16 @@ endfunction
 function commander#git#load_diff_in_split(revision, ...)
     let ft = &ft
     let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
-    let content = call('commander#git#local_file_revision', [a:revision] + a:000)
-    call commander#lib#load_lines_in_split(content, 'vertical')
-    execute 'file '.(a:revision != '' ? a:revision : 'HEAD').':'.fname
-    let &ft=ft
-    au BufWipeout <buffer> diffoff!
-    windo diffthis
+    try
+        let content = call('commander#git#local_file_revision', [a:revision] + a:000)
+        call commander#lib#load_lines_in_split(content, 'vertical')
+        execute 'file '.(a:revision != '' ? a:revision : 'HEAD').':'.fname
+        let &ft=ft
+        au BufWipeout <buffer> diffoff!
+        windo diffthis
+    catch
+        echom v:exception
+    endtry
 endfunction
 
 function commander#git#load_patch(revision, ...) abort
@@ -108,16 +117,17 @@ function commander#git#load_patch(revision, ...) abort
     set ft=diff
 endfunction
 
-function commander#git#load_timeline(split, line1, line2, ...)
+function commander#git#load_timeline(split, line1, line2, range, ...)
     let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
     let ft=&ft
     let content = call('commander#git#line_revisions', [a:line1, a:line2] + a:000)
+    let bufname = fname..(a:range ? ':'..a:line1..','..a:line2 : '')..'.timeline'
     if a:split
         call commander#lib#load_lines_in_split(content, 'vertical')
     else
         call commander#lib#load_lines(content)
     endif
-    execute 'file '.fdir.'/'.fname.'.timeline'
+    execute 'file '.bufname
     set ft=gitlog
     let b:open = { -> commander#git#load_file_revision(getline('.'), fdir.'/'.fname, ft) }
     let b:peek = { -> commander#git#load_file_revision_in_split(getline('.'), fdir.'/'.fname, ft) }
@@ -141,20 +151,28 @@ endfunction
 
 function commander#git#load_file_revision(revision, ...)
     let ft = a:0 >= 2 ? a:2 : &ft
-    let content = call('commander#git#local_file_revision', [a:revision] + a:000)
-    call commander#lib#load_lines(content)
-    let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
-    execute 'file '.fdir.'/'.fname.'@'.(a:revision != '' ? a:revision : 'HEAD')
-    let &ft=ft
+    try
+        let content = call('commander#git#local_file_revision', [a:revision] + a:000)
+        call commander#lib#load_lines(content)
+        let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
+        execute 'file '.fdir.'/'.fname.'@'.(a:revision != '' ? a:revision : 'HEAD')
+        let &ft=ft
+    catch
+        echom v:exception
+    endtry
 endfunction
 
 function commander#git#load_file_revision_in_split(revision, ...)
     let ft = a:0 >= 2 ? a:2 : &ft
-    let content = call('commander#git#local_file_revision', [a:revision] + a:000)
-    call commander#lib#load_lines_in_split(content, 'vertical')
-    let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
-    execute 'file '.fdir.'/'.fname.'@'.(a:revision != '' ? a:revision : 'HEAD')
-    let &ft=ft
+    try
+        let content = call('commander#git#local_file_revision', [a:revision] + a:000)
+        call commander#lib#load_lines_in_split(content, 'vertical')
+        let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
+        execute 'file '.fdir.'/'.fname.'@'.(a:revision != '' ? a:revision : 'HEAD')
+        let &ft=ft
+    catch
+        echom v:exception
+    endtry
 endfunction
 
 function commander#git#set_changed_args(...)

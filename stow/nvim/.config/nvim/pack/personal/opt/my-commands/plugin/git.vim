@@ -31,7 +31,7 @@ function s:edit_args_msg()
     return "Editing the first of ".argc()." changed files."
 endfunction
 
-command! -bang -range=% Timeline call commander#git#load_timeline(<bang>0, <line1>, <line2>)
+command! -bang -range=% Timeline call commander#git#load_timeline(<bang>0, <line1>, <line2>, <range>)
 command! -nargs=? -complete=customlist,s:complete_file_revisions ChangeSplit call commander#git#load_diff_in_split(<q-args>)
 command! -nargs=? -complete=customlist,s:complete_file_revisions ChangePatch call commander#git#load_patch(<q-args>)
 
