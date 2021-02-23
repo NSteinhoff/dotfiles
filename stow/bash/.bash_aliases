@@ -99,8 +99,9 @@ _complete_tmux() {
 complete -F _complete_tmux tmux
 
 # ---------------------------------- PROMPT -----------------------------------
+starship_prompt=true
 fancy_prompt=true
-if (which starship &>/dev/null); then
+if $starship_prompt &&(which starship &>/dev/null); then
     eval "$(starship init bash)"
 elif $fancy_prompt; then
     case "$TERM" in
