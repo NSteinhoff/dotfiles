@@ -99,7 +99,7 @@ endfunction
     nnoremap gs :%s/
     vnoremap gs :s/
 
-    nnoremap <expr> gS ':%s/\V'.expand('<cword>').'/'
+    nnoremap <expr> gS ':%s/\V\<'.expand('<cword>').'\>/'
     vnoremap gS y:%s/\V<C-R>=escape(@", '\/')<CR>/
 
     " Highlight matches
