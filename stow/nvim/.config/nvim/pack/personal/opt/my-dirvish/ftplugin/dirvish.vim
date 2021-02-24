@@ -1,6 +1,15 @@
-nmap <buffer> <SPACE> <CR>
-nmap <buffer> cd <cmd>cd %<CR>
-nmap <buffer> q q
+mapclear <buffer>
+
+nnoremap <buffer> - <CMD>exe 'Dirvish %:h'.repeat(':h',v:count1)<CR>
+
+nnoremap <buffer> <CR> <CMD>call dirvish#open('edit', 0)<CR>
+nnoremap <buffer> <SPACE> <CMD>call dirvish#open('edit', 0)<CR>
+nnoremap <buffer> <C-SPACE> <CMD>call dirvish#open('p', 1)<CR>
+nnoremap <buffer> <C-N> j<CMD>call dirvish#open('p', 1)<CR>
+nnoremap <buffer> <C-P> k<CMD>call dirvish#open('p', 1)<CR>
+
+nnoremap <buffer> cd <CMD>cd %<CR>
+
 nnoremap <buffer> t <CMD>.!xargs tree<CR>
 vnoremap <buffer> t :!xargs tree<CR>
 nnoremap <buffer> T <CMD>.!xargs tree -a<CR>
