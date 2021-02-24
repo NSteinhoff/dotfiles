@@ -35,7 +35,7 @@ alias rm='rm -i'
 # Listing files
 [ $os = "linux" ] && alias ls='ls --color=auto --group-directories-first'
 [ $os = "mac" ] && alias ls='ls -G'
-alias ll='ls -lF'
+alias ll='ls -lFh'
 alias lla='ll -a'
 alias tree='tree --dirsfirst'
 

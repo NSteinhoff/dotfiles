@@ -32,6 +32,7 @@
     set smartcase               " ... unless it includes capital letters
     set splitright              " open vertical splits on the right
     set sessionoptions+=options " save global mappings and options
+    set undofile
 
 """ Special characters
     set list
@@ -105,6 +106,9 @@
     packadd! vim-unimpaired
     packadd! vim-eunuch
     packadd! vim-commentary
+
+    " Undotree Visualizer
+    packadd! vim-mundo
 
     " Filetypes / Syntax / Indent
     packadd! editorconfig-vim           " ft settings based on local config

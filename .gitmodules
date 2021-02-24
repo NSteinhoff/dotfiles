@@ -38,3 +38,6 @@
 	path = stow/nvim/.config/nvim/pack/external/opt/lspsaga.nvim
 	url = https://github.com/glepnir/lspsaga.nvim
 	branch = main
+[submodule "stow/nvim/.config/nvim/pack/external/opt/vim-mundo"]
+	path = stow/nvim/.config/nvim/pack/external/opt/vim-mundo
+	url = git@github.com:simnalamburt/vim-mundo.git
