@@ -240,6 +240,10 @@ endfunction
     " Cycle colorschemes
     nnoremap <F12> <CMD>CycleColorNext<CR>
 
+    " Open directory with OS file explorer
+    nnoremap <silent> <leader>o <CMD>!open %:h/<CR>
+    nnoremap <silent> <leader>O <CMD>!open .<CR>
+
 
 """ (c): Changes / Diffing
     nmap <silent> cs <Plug>(git-diff-split)
