@@ -107,9 +107,6 @@
     packadd! vim-eunuch
     packadd! vim-commentary
 
-    " Undotree Visualizer
-    packadd! vim-mundo
-
     " Filetypes / Syntax / Indent
     packadd! editorconfig-vim           " ft settings based on local config
 

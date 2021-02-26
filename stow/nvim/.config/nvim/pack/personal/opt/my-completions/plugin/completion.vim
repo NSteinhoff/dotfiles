@@ -1,5 +1,3 @@
-" lua require('my_completion')
-
 function CompleteRegister(findstart, base)
     if a:findstart
         " Always insert in the cursorcolumn
