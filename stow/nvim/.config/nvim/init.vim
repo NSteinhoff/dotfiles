@@ -99,7 +99,6 @@
 
 """ External
     " Finding / picking files
-    " packadd! my-telescope            " fuzzy finder / picker
     packadd! my-dirvish                " file manager
 
     " Mappings and commands
@@ -110,6 +109,6 @@
     " Filetypes / Syntax / Indent
     packadd! editorconfig-vim           " ft settings based on local config
 
-    " IDE Mode:
+    " IDE Mode
     packadd! my-lsp                     " Language Server client configuration
     packadd! my-treesitter              " Semantic understanding of languages
