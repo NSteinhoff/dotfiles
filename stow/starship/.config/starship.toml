@@ -1,1 +1,4 @@
-add_newline = false
+# add_newline = false
+
+[package]
+display_private = true
