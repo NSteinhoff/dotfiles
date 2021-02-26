@@ -87,14 +87,15 @@
     packloadall     " load all default packages in 'start'
 
 """ Personal
-    packadd my-statusline
+    packadd my-abbreviations
     packadd my-automations
+    packadd my-completions
+    packadd my-statusline
+    packadd my-tags
     packadd my-commands
     packadd my-mappings
-    packadd my-abbreviations
-    packadd my-tags
-    packadd my-completions
-    packadd my-journal
+
+    " Note-taking
     packadd my-zettelkasten
 
 """ External
