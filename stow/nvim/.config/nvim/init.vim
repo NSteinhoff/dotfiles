@@ -30,6 +30,7 @@
     set hidden
     set ignorecase              " ignore case in searches ...
     set smartcase               " ... unless it includes capital letters
+    set tagcase=match           " ... but match case in :tag searches
     set splitright              " open vertical splits on the right
     set sessionoptions+=options " save global mappings and options
     set undofile
