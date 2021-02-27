@@ -122,19 +122,21 @@ endfunction
     " <key>                     Mnemonic key for the list
     " <leader><key>             Peek at list
     " <leader><KEY>             Go to list and pick entry
-    nnoremap <leader><SPACE> <CMD>cclose<bar>lclose<CR>
-    nnoremap <silent> <leader>q <CMD>clist<CR>
-    nnoremap <silent> <leader>Q <CMD>cwindow<CR>
-    nnoremap <silent> <leader>l <CMD>llist<CR>
-    nnoremap <silent> <leader>L <CMD>lwindow<CR>
+    nnoremap <silent> <leader><SPACE>   <CMD>cclose<bar>lclose<CR>
+    nnoremap <silent> <leader>q         <CMD>clist<CR>
+    nnoremap <silent> <leader>Q         <CMD>cwindow<CR>
+    nnoremap <silent> <leader>l         <CMD>llist<CR>
+    nnoremap <silent> <leader>L         <CMD>lwindow<CR>
 
 
 """ Preview / Hover
     " Preview definition
-    nnoremap <C-SPACE> <C-W>}
-    nnoremap g<C-SPACE> <C-W>g}
-    vnoremap <silent> <C-SPACE> y:ptag <C-R>"<CR>
-    vnoremap <silent> g<C-SPACE> y:ptselect <C-R>"<CR>
+    nnoremap          <C-W><SPACE>      <C-W>z
+    nnoremap          <C-W><C-SPACE>    <C-W>z
+    nnoremap          <C-SPACE>         <C-W>}
+    nnoremap          g<C-SPACE>        <C-W>g}
+    vnoremap <silent> <C-SPACE>         y:ptag <C-R>"<CR>
+    vnoremap <silent> g<C-SPACE>        y:ptselect <C-R>"<CR>
 
     " Close the preview window
     " nnoremap <leader><SPACE> <C-W>z
@@ -157,9 +159,9 @@ endfunction
 
 
 """ Running builds with `<key>
-    nmap `<leader> <Plug>(maker-sync)
-    nmap `<CR> <Plug>(maker-split)
-    nmap `<BS> <Plug>(maker-background)
+    nmap `<SPACE>   <Plug>(maker-sync)
+    nmap `<CR>      <Plug>(maker-split)
+    nmap `<BS>      <Plug>(maker-background)
 
     " List, load, read errorfile contents
     nmap g> <Plug>(maker-show-log)
@@ -186,9 +188,9 @@ endfunction
 """ Toggle Settings
     " Extending 'vim-unimpaired'
     " _: Statusbar
-    nnoremap <silent> [o_ :set ls=2<CR>
-    nnoremap <silent> ]o_ :set ls=0<CR>
-    nnoremap <expr> <silent> yo_ (&laststatus == 2 ? ':set ls=0<CR>' : ':set ls=2<CR>')
+    nnoremap <silent> [o_ <CMD>set ls=2<CR>
+    nnoremap <silent> ]o_ <CMD>set ls=0<CR>
+    nnoremap <expr> <silent> yo_ (&laststatus == 2 ? '<CMD>set ls=0<CR>' : '<CMD>set ls=2<CR>')
 
 
 """ Quality of life
