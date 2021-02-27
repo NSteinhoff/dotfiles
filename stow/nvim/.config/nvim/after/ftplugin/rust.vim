@@ -1,4 +1,6 @@
-let g:cargo_makeprg_params='check --all-targets'
+set define=^\\v(pub\\s+)?(fn\|struct\|const\|type)\\ze\\s+\\i+
+set include=\\v^(pub\\s+)?(mod\|use)\\s+\\zs(\\w+(::)?)+\\ze(::\\{\|::\\*)?.*;
+set includeexpr=substitute(substitute(v:fname,'::','/','g'),'/$','','')
 
 compiler cargo
 
