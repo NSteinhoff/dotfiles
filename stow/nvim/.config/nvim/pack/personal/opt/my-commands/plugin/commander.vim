@@ -8,9 +8,12 @@
             return
         endif
         let formatprg = expandcmd(&formatprg)
-        let formatted = systemlist(formatprg, getline(0, '$'))
+        let lines = getline(0, '$')
+        let formatted = systemlist(formatprg, lines)
         if v:shell_error > 0
             echomsg "Error: formatprg '".formatprg."' exited with status ".v:shell_error
+        elseif formatted == lines
+            echo "Already formatted"
         else
             " Setting lines and then deleting dangling lines at the end avoids
             " jumping to the beginning of the buffer when undoing as would
@@ -18,6 +21,7 @@
             call setline(1, formatted)
             undojoin
             call deletebufline('%', len(formatted) + 1, '$')
+            echo "Formatted buffer"
         endif
     endfunction
     command! -bar Format call Format()
