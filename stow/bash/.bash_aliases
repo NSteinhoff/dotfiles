@@ -3,6 +3,9 @@
 # Disable <ctrl-s> suspending (reactivated with <ctrl-q>)
 stty -ixon
 
+# Variables
+: ${NOTES_DIR:=~/Dropbox/Notes}
+
 # History
 HISTSIZE=100000
 HISTFILESIZE=200000
@@ -64,11 +67,11 @@ alias quickfix='vim +"set bt=nofile" +cbuffer -'
 
 # Open notes for editing
 _complete_notes() {
-    COMPREPLY=( $(compgen -W "$(ls ~/Dropbox/Documents/Notes/)" $2) )
+    COMPREPLY=( $(compgen -W "$(ls $NOTES_DIR/)" $2) )
 }
 complete -F _complete_notes note
-alias note='_() { $EDITOR +"map q :wq<CR>" ~/Dropbox/Documents/Notes/$1 ; }; _'
-alias t='$EDITOR +"map Q :wq<CR>" ~/Dropbox/Documents/Notes/tasks.taskpaper'
+alias note='_() { $EDITOR --cmd "cd $NOTES_DIR" +"map q :wq<CR>" $NOTES_DIR/$1 ; }; _'
+alias t='$EDITOR +"map Q :wq<CR>" $NOTES_DIR/tasks.taskpaper'
 
 # Open
 [[ $OSTYPE = linux* ]] && alias open='xdg-open'

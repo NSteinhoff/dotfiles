@@ -10,6 +10,7 @@ nnoremap <buffer> <C-P> k<CMD>call dirvish#open('p', 1)<CR>
 
 nnoremap <buffer> cd <CMD>cd %<CR>
 
+nnoremap <buffer> R <CMD> e %<CR>
 nnoremap <buffer> t <CMD>.!xargs tree<CR>
 vnoremap <buffer> t :!xargs tree<CR>
 nnoremap <buffer> T <CMD>.!xargs tree -a<CR>

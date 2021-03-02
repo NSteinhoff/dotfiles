@@ -243,8 +243,9 @@ endfunction
     nnoremap <F12> <CMD>CycleColorNext<CR>
 
     " Open directory with OS file explorer
-    nnoremap <silent> <leader>o <CMD>!open %:h/<CR>
-    nnoremap <silent> <leader>O <CMD>!open .<CR>
+    " I only use Mac or Ubuntu
+    nnoremap <silent> <expr> <leader>o ':!'..(system('uname') =~? 'darwin' ? 'open' : 'xdg-open')..' %:h/<CR>'
+    nnoremap <silent> <expr> <leader>O ':!'..(system('uname') =~? 'darwin' ? 'open' : 'xdg-open')..' .<CR>'
 
 
 """ (c): Changes / Diffing
