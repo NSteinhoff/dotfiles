@@ -33,7 +33,6 @@
     set tagcase=match           " ... but match case in :tag searches
     set splitright              " open vertical splits on the right
     set sessionoptions+=options " save global mappings and options
-    set undofile
 
 """ Special characters
     set list
