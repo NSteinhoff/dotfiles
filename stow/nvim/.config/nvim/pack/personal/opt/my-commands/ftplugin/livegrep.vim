@@ -3,7 +3,7 @@ set buftype=nofile nobuflisted noswapfile
 setlocal errorformat=%f:%l:%c:%m
 
 let s:insert_help = '<SPACE> inserts wildcard ; <CR> go to first result ; <C-C> to exit'
-let s:normal_help = '<CR> go to result in quickfix ; <SPACE> jump to result ; X export to quickfix'
+let s:normal_help = '<CR>/<SPACE> jump to result ; e(X)port; (R)eload'
 let s:placeholder = '  <<< some.*pattern.*in.*file.*contents'
 let s:rip_grep = 'rg --vimgrep --smart-case --sort path'
 let s:git_grep = 'git grep -n -i -I'
@@ -93,17 +93,7 @@ endfunction
 
 function s:export(buf)
     let lines = getbufline(a:buf, 3, '$')
-    call setqflist([], ' ', {'lines': lines, 'title': '[livegrep] '.s:grepprg().' '.shellescape(b:query)})
-endfunction
-
-function s:line2result(line)
-    let [fname, lnum; _] = split(getline(a:line), ':')
-    return [fname, lnum]
-endfunction
-
-function s:edit(line)
-    let [fname, lnum] = s:line2result(a:line)
-    execute 'keepalt edit +'.lnum.' '.fname
+    call setqflist([], ' ', {'lines': lines, 'title': '[livegrep] '..shellescape(b:query)})
 endfunction
 
 function s:goto(line)
@@ -134,7 +124,7 @@ inoremap <buffer> <SPACE> .*
 inoremap <buffer> <CR> <esc><CMD>call <SID>goto(3)<CR>
 inoremap <buffer> <C-C> <esc><cmd>Cancel<CR>
 
-nnoremap <buffer> <SPACE> <CMD>call <SID>edit(line('.'))<CR>
+nnoremap <buffer> <SPACE> <CMD>call <SID>goto(line('.'))<CR>
 nnoremap <buffer> <CR> <CMD>call <SID>goto(line('.'))<CR>
 nnoremap <buffer> <BS> <CMD>Cancel<CR>
 nnoremap <buffer> I 1GI
