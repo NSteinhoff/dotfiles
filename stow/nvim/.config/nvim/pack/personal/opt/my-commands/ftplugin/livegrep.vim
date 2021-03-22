@@ -91,9 +91,13 @@ function s:update(live, ...)
     endif
 endfunction
 
-function s:export(buf)
+function s:export(buf, ...)
     let lines = getbufline(a:buf, 3, '$')
-    call setqflist([], ' ', {'lines': lines, 'title': '[livegrep] '..shellescape(b:query)})
+    if a:0 && a:1
+        call setqflist([], 'a', {'lines': lines})
+    else
+        call setqflist([], ' ', {'lines': lines, 'title': '[livegrep] '..shellescape(b:query)})
+    endif
 endfunction
 
 function s:goto(line)
@@ -117,7 +121,7 @@ augroup live-grep
 augroup END
 
 command -buffer Cancel keepalt b#
-command -buffer Export call s:export('%')
+command -buffer -bang Export call s:export('%', <bang>0)
 command -buffer Reload call s:update(0, 1)
 
 inoremap <buffer> <SPACE> .*
@@ -127,8 +131,10 @@ inoremap <buffer> <C-C> <esc><cmd>Cancel<CR>
 nnoremap <buffer> <SPACE> <CMD>call <SID>goto(line('.'))<CR>
 nnoremap <buffer> <CR> <CMD>call <SID>goto(line('.'))<CR>
 nnoremap <buffer> <BS> <CMD>Cancel<CR>
-nnoremap <buffer> I 1GI
-nnoremap <buffer> A 1GA
+nnoremap <buffer> <expr> i line('.') == 1 ? 'i' : '1GI'
+nnoremap <buffer> <expr> I line('.') == 1 ? 'I' : '1GI'
+nnoremap <buffer> <expr> a line('.') == 1 ? 'a' : '1GA'
+nnoremap <buffer> <expr> A line('.') == 1 ? 'A' : '1GA'
 nnoremap <buffer> X <CMD>Export<CR>
 nnoremap <buffer> R <CMD>Reload<CR>
 nnoremap <buffer> gs <CMD>call <SID>export('%')<CR>:cdo s/\v=getline(1)/
