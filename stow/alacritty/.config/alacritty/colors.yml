@@ -199,4 +199,40 @@ themes:
       cyan:       '#56b6c2'
       white:      '#828997' # mono-2     white:    '0xaeadaf'  #  bright  white    variant
 
-colors: *one-dark
+  spaceduck: &spaceduck
+    # Default colors
+    primary:
+      background: '#0f111b'
+      foreground: '#ecf0c1'
+
+    # Stolen from one-dark
+    cursor:
+      text:       CellBackground
+      cursor:     '#528bff'
+    selection:
+      text:       CellForeground
+      background: '#3e4451'
+
+    # Normal colors
+    normal:
+      black:   '#000000'
+      red:     '#e33400'
+      green:   '#5ccc96'
+      yellow:  '#b3a1e6'
+      blue:    '#00a3cc'
+      magenta: '#f2ce00'
+      cyan:    '#7a5ccc'
+      white:   '#686f9a'
+
+    # Bright colors
+    bright:
+      black:   '#686f9a'
+      red:     '#e33400'
+      green:   '#5ccc96'
+      yellow:  '#b3a1e6'
+      blue:    '#00a3cc'
+      magenta: '#f2ce00'
+      cyan:    '#7a5ccc'
+      white:   '#f0f1ce'
+
+colors: *spaceduck
