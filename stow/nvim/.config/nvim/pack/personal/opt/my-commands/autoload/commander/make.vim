@@ -12,7 +12,6 @@ function commander#make#shell_cmd(qargs) abort
     let tempfile = tempname()
     let cmd = 'echo '.shellescape(makeprg.' ...')
                 \.' && '.makeprg.' '.&shellpipe.' '.tempfile
-                \.' && echo SUCCESS || echo FAILURE'
                 \.'; mv '.tempfile.' '.&errorfile
                 \.'; sleep 2'
     return shellescape(cmd)
