@@ -244,8 +244,8 @@ endfunction
 
     " Open directory with OS file explorer
     " I only use Mac or Ubuntu
-    nnoremap <silent> <expr> <leader>o ':!'..(system('uname') =~? 'darwin' ? 'open' : 'xdg-open')..' %:h/<CR>'
-    nnoremap <silent> <expr> <leader>O ':!'..(system('uname') =~? 'darwin' ? 'open' : 'xdg-open')..' .<CR>'
+    nnoremap <leader>o <CMD>silent Open<CR>
+    nnoremap <leader>O <CMD>silent Open %:h<CR>
 
 
 """ (c): Changes / Diffing

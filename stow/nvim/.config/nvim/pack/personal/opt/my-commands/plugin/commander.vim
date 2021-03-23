@@ -1,6 +1,9 @@
 """ Workspaces
     command! -nargs=1 -complete=dir WorkOn tabnew | tcd <args>
 
+""" Open with default application
+    command! -nargs=? -complete=file Open execute '!'..(system('uname') =~? 'darwin' ? 'open' : 'xdg-open')..' '..(<q-args> == '' ? '%' : expandcmd(<q-args>))
+
 """ Format the current buffer
     function Format()
         if empty(&formatprg)
