@@ -7,6 +7,9 @@
 """ Insert dummy text
     command! -count=10 -bang Lorem call commander#lorem#insert(<count>, <bang>0)
 
+""" Browse old files
+    command -nargs=* Broldfiles execute 'browse '..(<q-args> != '' ? 'filter :'..<q-args>..': ' : '')..'oldfiles'
+
 """ Format the current buffer
     function Format()
         if empty(&formatprg)
