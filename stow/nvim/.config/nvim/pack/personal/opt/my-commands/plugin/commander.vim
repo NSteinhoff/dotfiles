@@ -4,6 +4,9 @@
 """ Open with default application
     command! -nargs=? -complete=file Open execute '!'..(system('uname') =~? 'darwin' ? 'open' : 'xdg-open')..' '..(<q-args> == '' ? '%' : expandcmd(<q-args>))
 
+""" Insert dummy text
+    command! -count=10 -bang Lorem call commander#lorem#insert(<count>, <bang>0)
+
 """ Format the current buffer
     function Format()
         if empty(&formatprg)
