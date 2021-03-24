@@ -184,7 +184,7 @@ let s:ui_styles.status_active            =  "HFresh"
 let s:ui_styles.status_term              =  "HRelaxed"
 let s:ui_styles.status_focus             =  "HFreshInverse"
 let s:ui_styles.match                    =  "HExcited"
-let s:ui_styles.highlight                =  "HFaded"
+let s:ui_styles.highlight                =  "HPop"
 let s:ui_styles.highlight_dark           =  "HLivelyDark"
 let s:ui_styles.highlight_inverted       =  "HLivelyInverse"
 ""}}}

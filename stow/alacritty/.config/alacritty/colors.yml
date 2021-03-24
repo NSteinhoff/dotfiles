@@ -209,6 +209,7 @@ themes:
     cursor:
       text:       CellBackground
       cursor:     '#528bff'
+
     selection:
       text:       CellForeground
       background: '#3e4451'
