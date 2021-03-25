@@ -1,6 +1,6 @@
 #!/bin/bash
-cd $HOME/dev/crawl/crawl-ref/source \
-    && ./crawl \
-    -dir $HOME/.local/share/crawl \
-    -rcdir $HOME/.config/crawl \
-    -rc $HOME/.config/crawl/crawlrc $@
+
+[[ -x /usr/games/crawl ]] && \
+    /usr/games/crawl \
+        -rc $HOME/.config/crawl/crawlrc $@ || \
+    echo "Crawl is not installed."

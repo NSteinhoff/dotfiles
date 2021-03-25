@@ -78,20 +78,15 @@ unpkg-%:
 
 # ---------------------------------- Crawl ------------------------------------
 crawld := $(share)/crawl
-crawl_key := $(crawld)/crawl_key
 crawl_repo := $(dev)/crawl
 crawl_bin := $(crawl_repo)/crawl-ref/source/crawl
 
-crawl: $(crawl_key) $(crawl_bin)
+crawl: $(crawl_bin)
 .PHONY: crawl
 
 uncrawl:
-	rm -rf $(crawl_key) $(crawl_bin)
+	rm -rf $(crawl_bin)
 .PHONY: uncrawl
-
-$(crawl_key): | $(crawld)
-	curl https://crawl.develz.org/cao_key 2>/dev/null > $(crawl_key)
-	chmod 600 $(crawl_key)
 
 $(crawld):
 	mkdir -p $(crawld)
