@@ -2,5 +2,6 @@
 
 [[ -x /usr/games/crawl ]] && \
     /usr/games/crawl \
+        -dir $HOME/Dropbox/Documents/crawl \
         -rc $HOME/.config/crawl/crawlrc $@ || \
     echo "Crawl is not installed."

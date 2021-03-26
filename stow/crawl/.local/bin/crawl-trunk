@@ -3,7 +3,6 @@
 [[ -x ~/dev/crawl/crawl-ref/source/crawl ]] && \
     cd $HOME/dev/crawl/crawl-ref/source && \
     ./crawl \
-        -dir $HOME/.local/share/crawl \
-        -rcdir $HOME/.config/crawl \
+        -dir $HOME/Dropbox/Documents/crawl \
         -rc $HOME/.config/crawl/crawlrc $@ || \
     echo "Crawl is not installed."
