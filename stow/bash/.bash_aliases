@@ -127,3 +127,7 @@ export ZETTELKASTEN=~/Dropbox/Zettel
 
 # ---------------------------------- direnv -----------------------------------
 which direnv &>/dev/null && eval "$(direnv hook bash)"
+
+
+# ------------------------------- Update theme --------------------------------
+$HOME/.local/bin/update-theme
