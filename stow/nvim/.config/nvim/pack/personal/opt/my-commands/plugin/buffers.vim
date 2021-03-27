@@ -3,9 +3,7 @@ command! -bang BufOnly %bd<bang>|e#|bd#
 function s:scratch(ft, mods, lines)
     if @% ==# 'SCRATCH'|return|endif
 
-    let ft = a:ft != '' ? a:ft : &ft =~ 'dirvish' ? 'txt' : &ft
     execute a:mods..' '..(&ft == 'qf' ? 'new' : 'edit')..' SCRATCH'
-    let &ft = ft
     setlocal buftype=nofile noswapfile nobuflisted
     call append('$', a:lines)
 endfunction
