@@ -35,13 +35,6 @@ command! -bang -range=% Timeline call commander#git#load_timeline(<bang>0, <line
 command! -nargs=? -complete=customlist,s:complete_file_revisions ChangeSplit call commander#git#load_diff_in_split(<q-args>)
 command! -nargs=? -complete=customlist,s:complete_file_revisions ChangePatch call commander#git#load_patch(<q-args>)
 
-command! ChangedFilesOnStartup if !argc()
-            \| call commander#git#set_changed_args()
-            \| if argc()
-            \|     echom s:edit_args_msg()
-            \|     call feedkeys("[A")
-            \| endif
-            \| endif
 command! -nargs=? -bang -complete=customlist,s:complete_global_revisions ChangedFiles call commander#git#set_changed_args(<q-args>)
             \| if <bang>0 && argc()
             \|     echom s:edit_args_msg()
