@@ -171,7 +171,7 @@ let s:ui_styles.highlight_inverted       =  "HLivelyInverse"
 let s:diff_styles.add                 = "Calm"
 let s:diff_styles.delete              = "Forceful"
 let s:diff_styles.change              = "Lively"
-let s:diff_styles.text                = "HExcited"
+let s:diff_styles.text                = "HLivelyDark"
 ""}}}_COLOR
 
 "" Syntax Styles {{{

@@ -1,13 +1,12 @@
 command! -bang BufOnly %bd<bang>|e#|bd#
 
-function s:scratch(ft, mods, lines)
+function s:scratch(mods, lines)
     if @% ==# 'SCRATCH'|return|endif
-
     execute a:mods..' '..(&ft == 'qf' ? 'new' : 'edit')..' SCRATCH'
     setlocal buftype=nofile noswapfile nobuflisted
     call append('$', a:lines)
 endfunction
-command! -nargs=? -range -complete=filetype Scratch call s:scratch(<q-args>, <q-mods>, <range> ? getline(<line1>, <line2>) : [])
+command! -range -complete=filetype Scratch call s:scratch(<q-mods>, <range> ? getline(<line1>, <line2>) : [])
 
 function s:is_last_buffer()
     return len(getbufinfo({'buflisted': 1})) <= 1

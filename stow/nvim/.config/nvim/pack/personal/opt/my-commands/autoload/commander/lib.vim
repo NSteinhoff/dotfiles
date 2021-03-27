@@ -21,7 +21,7 @@ endfunction
 function commander#lib#load_lines_in_split(lines, ...) abort
     let l:splitcmd = a:0 ? a:1.' new' : 'new'
     mark Q
-    execute 'topleft '.l:splitcmd
+    execute 'leftabove '.l:splitcmd
     try
         call append(0, a:lines) | $delete
     catch /.*/
