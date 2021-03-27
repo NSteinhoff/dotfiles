@@ -2,7 +2,7 @@ command! -bang BufOnly %bd<bang>|e#|bd#
 
 function s:scratch(mods, lines)
     if @% ==# 'SCRATCH'|return|endif
-    execute a:mods..' '..(&ft == 'qf' ? 'new' : 'edit')..' SCRATCH'
+    execute a:mods..' new SCRATCH'
     setlocal buftype=nofile noswapfile nobuflisted
     call append('$', a:lines)
 endfunction
