@@ -41,7 +41,8 @@ hp_colour = 95:yellow, 75:brown, 50:magenta, 25:red
 # ======
 travel_one_unsafe_move = true
 travel_avoid_terrain = deep water
-# travel_delay = 5
+travel_delay = -1
+explore_delay = 10
 explore_wall_bias = 5
 show_travel_trail = true
 
@@ -59,9 +60,11 @@ fm := force_more_message
 
 fm += You feel strangely unstable
 fm += You feel you are being watched by something
-fm += .*into view.*wielding .*(distortion|chaos|electrocution)
+fm += wielding.*(distortion|chaos|electrocution|venom)
+fm += quivering.*tipped darts
+fm += carrying a wand
 
-fm += Sigmund.*into view
+fm += (Sigmund|Erolcha|Grinder) .* into view
 
 fs := flash_screen_message
 fs += You feel you are being watched by something
@@ -82,9 +85,52 @@ ai += throwing nets?:=f =F
 ai += boomerangs? of dispersal:=f =F
 
 
-# Spell Slots
-# ===========
-sp := spell_slot
-sp ^= Blink:B
-sp ^= Invisibility:I
-sp ^= Apportation:A
+#---------------------------------------------------------------------------- #
+#                                     LUA                                     #
+#---------------------------------------------------------------------------- #
+{
+local prev_hp = nil
+local prev_mp = nil
+
+function announce_damage()
+    local curr_hp, _ = you.hp()
+    local curr_mp, _ = you.mp()
+
+    --Skips message on initializing game
+    if prev_hp ~= nil and prev_mp ~= nil then
+        local hp_diff = curr_hp - prev_hp
+        local mp_diff = curr_mp - prev_mp
+
+        -- Simplified condensed HP and MP output
+        local message = nil
+
+        -- MP[-1]
+        if hp_diff == 0 and mp_diff < 0 then
+          message = string.format("MP[%s]", mp_diff)
+        -- HP[-2]
+        elseif hp_diff < 0 and mp_diff == 0 then
+          message = string.format("HP[%s]", hp_diff)
+        -- HP[-2] MP[-1]
+        elseif hp_diff < 0 and mp_diff < 0 then
+          message = string.format("HP[%s] MP[%s]", hp_diff, mp_diff)
+        else
+          -- No changes
+        end
+
+        if message ~= nil then
+          crawl.mpr(message)
+        end
+    end
+
+    --Set previous hp/mp and form at end of turn
+    prev_hp = curr_hp
+    prev_mp = curr_mp
+end
+
+
+-- Run every player turn
+function ready()
+    -- Display damage taken in log
+    -- announce_damage()
+end
+}
