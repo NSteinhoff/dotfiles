@@ -14,6 +14,8 @@ auto_hide_spells = true
 
 # Macros
 # ======
+
+# Hit <space> to rest
 macros += M \{32} 5
 
 
@@ -93,44 +95,48 @@ local prev_hp = nil
 local prev_mp = nil
 
 function announce_damage()
-    local curr_hp, _ = you.hp()
-    local curr_mp, _ = you.mp()
+    local hp_curr, hp_max = you.hp()
+    local mp_curr, mp_max = you.mp()
 
-    --Skips message on initializing game
+    -- Skips message on initializing game
     if prev_hp ~= nil and prev_mp ~= nil then
-        local hp_diff = curr_hp - prev_hp
-        local mp_diff = curr_mp - prev_mp
+        local hp_diff = hp_curr - prev_hp
+        local mp_diff = mp_curr - prev_mp
 
-        -- Simplified condensed HP and MP output
         local message = nil
-
-        -- MP[-1]
         if hp_diff == 0 and mp_diff < 0 then
-          message = string.format("MP[%s]", mp_diff)
-        -- HP[-2]
+            message = string.format("MP: %s/%s (%s)", mp_curr, mp_max, mp_diff)
         elseif hp_diff < 0 and mp_diff == 0 then
-          message = string.format("HP[%s]", hp_diff)
-        -- HP[-2] MP[-1]
+            message = string.format("HP: %s/%s (%s)", hp_curr, hp_max, hp_diff)
         elseif hp_diff < 0 and mp_diff < 0 then
-          message = string.format("HP[%s] MP[%s]", hp_diff, mp_diff)
-        else
-          -- No changes
+            message = string.format("HP: %s/%s (%s)", hp_curr, hp_max, hp_diff)
+            message = message .. string.format(" MP: %s/%s (%s)", mp_curr, mp_max, mp_diff)
         end
 
         if message ~= nil then
-          crawl.mpr(message)
+            local channel = "plain"
+
+            if hp_diff < 0 then
+                -- Always warn about HP loss
+                channel = "warning"
+            elseif hp_curr < hp_max * 0.5 then
+                -- Danger below half health
+                channel = "danger"
+            end
+
+            crawl.mpr(message, channel)
         end
     end
 
-    --Set previous hp/mp and form at end of turn
-    prev_hp = curr_hp
-    prev_mp = curr_mp
+    -- Set previous hp/mp and form at end of turn
+    prev_hp = hp_curr
+    prev_mp = mp_curr
 end
 
 
 -- Run every player turn
 function ready()
     -- Display damage taken in log
-    -- announce_damage()
+    announce_damage()
 end
 }
