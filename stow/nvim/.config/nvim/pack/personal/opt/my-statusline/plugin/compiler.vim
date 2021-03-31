@@ -20,20 +20,20 @@ endfunction
 
 
 function compiler#with(name, ...)
-    let [compiler, errorformat] = [get(b:, 'current_compiler'), &l:errorformat]
+    let [compiler_save, errorformat_save] = [get(b:, 'current_compiler'), &l:errorformat]
     try
         execute 'compiler '..a:name
         execute 'make '..join(a:000, ' ')
     finally
-        if compiler:
-            execute 'compiler '..compiler
+        if !empty(compiler_save)
+            execute 'compiler '..compiler_save
         else
             setlocal makeprg&
             unlet b:current_compiler
         endif
-        if errorformat
-            let &l:errorformat = errorformat
-        else:
+        if !empty(errorformat_save)
+            let &l:errorformat = errorformat_save
+        else
             setlocal errorformat&
         endif
     endtry
