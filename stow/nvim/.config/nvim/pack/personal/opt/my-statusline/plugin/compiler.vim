@@ -19,11 +19,11 @@ function compiler#which()
 endfunction
 
 
-function compiler#with(name, ...)
+function compiler#with(local, name, ...)
     let [compiler_save, errorformat_save] = [get(b:, 'current_compiler'), &l:errorformat]
     try
         execute 'compiler '..a:name
-        execute 'make '..join(a:000, ' ')
+        execute (a:local ? 'l' : '')..'make '..join(a:000, ' ')
     finally
         if !empty(compiler_save)
             execute 'compiler '..compiler_save

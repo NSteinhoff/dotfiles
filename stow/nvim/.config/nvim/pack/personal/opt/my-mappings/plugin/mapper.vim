@@ -166,6 +166,7 @@ endfunction
     " List, load, read errorfile contents
     nmap g> <Plug>(maker-show-log)
     nmap g! <Plug>(maker-load-errors)
+    nmap g± <Plug>(maker-local-load-errors)
     nmap g? <Plug>(maker-edit-errors)
 
 

@@ -48,7 +48,7 @@
 
 """ Compiler
     command! Compiler call compiler#describe()
-    command! -nargs=1 -complete=compiler CompileWith call compiler#with(<f-args>)
+    command! -nargs=1 -bang -complete=compiler CompileWith call compiler#with(<bang>0, <f-args>)
 
 """ Edit my filetype/syntax plugin files for current filetype.
     function s:edit_settings(type, selected, mods)
