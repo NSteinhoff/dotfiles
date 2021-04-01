@@ -113,6 +113,9 @@ endfunction
     "   => 'indent all'
     nnoremap <silent> <> <CMD>Format<CR>
 
+""" Align
+    vnoremap <silent> <leader>= <CMD>'<,'>Align<CR>
+
 
 """  Errors: Quickfix / Location Lists
     " The idea here is to have one mapping to get a peek at the current list
@@ -131,15 +134,14 @@ endfunction
 
 """ Preview / Hover
     " Preview definition
-    nnoremap          <C-W><SPACE>      <C-W>z
-    nnoremap          <C-W><C-SPACE>    <C-W>z
     nnoremap          <C-SPACE>         <C-W>}
     nnoremap          g<C-SPACE>        <C-W>g}
     vnoremap <silent> <C-SPACE>         y:ptag <C-R>"<CR>
     vnoremap <silent> g<C-SPACE>        y:ptselect <C-R>"<CR>
 
     " Close the preview window
-    " nnoremap <leader><SPACE> <C-W>z
+    nnoremap          <C-W><SPACE>      <C-W>z
+    nnoremap          <C-W><C-SPACE>    <C-W>z
 
 
 """ Completion
@@ -215,8 +217,7 @@ endfunction
     " Open settings
     nnoremap <silent> <leader>; <CMD>edit $MYVIMRC<CR>
 
-    " Quick Keys
-    vnoremap <silent> <leader>= <CMD>'<,'>Align<CR>
+    " Execute
     nnoremap <silent> <leader>! <CMD>!%:p<CR>
     nnoremap <leader>x :.w !xargs 
     vnoremap <leader>x :w !xargs 
@@ -244,7 +245,6 @@ endfunction
     nnoremap <F12> <CMD>CycleColorNext<CR>
 
     " Open directory with OS file explorer
-    " I only use Mac or Ubuntu
     nnoremap <leader>o <CMD>silent Open<CR>
     nnoremap <leader>O <CMD>silent Open %:h<CR>
 
