@@ -99,7 +99,7 @@ endfunction
 
 function MyStatusline()
     let BAR         = '%*'
-    let OPT         = '%#StatusLineNC#'
+    let OPT         = '%#Normal#'
     let CLR         = '%#Normal#'
     let SPC         = '%#Special#'
     let SEP         = '%='
