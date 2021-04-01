@@ -56,7 +56,7 @@ endfunction
 
     " Run 'q' macro
     nnoremap Q @q
-    vnoremap Q @q
+    vnoremap Q <CMD>normal @q<CR>
 
     " Move over visual lines unless a count is given
     nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
@@ -264,8 +264,8 @@ endfunction
     nmap cP <Plug>(git-patch-split-ref)
 
 """ (gb): Git Blame
-    nmap gb <Plug>(git-blame)
-    vmap gb <Plug>(git-blame)
+    nmap <silent> gb <Plug>(git-blame)
+    vmap <silent> gb <Plug>(git-blame)
 
 
 """ Potential Ad-hoc mappings

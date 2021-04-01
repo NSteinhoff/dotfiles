@@ -81,8 +81,7 @@ alias hi='highlight -O ansi --force'
 alias hil='_() { highlight -O ansi --force $@ | less -R; }; _'
 
 # Journaling
-alias Journal='nvim +Journal +only'
-alias Zettel='_() { nvim "+Zettel $*"; }; _'
+alias zettel='_() { nvim "+Zettel $*"; }; _'
 
 # ---------- Java Version ---------
 [[ -z $JAVA_HOME && "$os" == linux && -x $(which java) ]] && JAVA_HOME=$(readlink -f $(which java) | sed "s:/bin/java::")
