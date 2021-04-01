@@ -130,6 +130,14 @@ endfunction
     nnoremap <silent> <leader>Q         <CMD>cwindow<CR>
     nnoremap <silent> <leader>l         <CMD>llist<CR>
     nnoremap <silent> <leader>L         <CMD>lwindow<CR>
+    nnoremap <silent> <expr> <C-N>
+                \ pumvisible() ? '<C-N'
+                \ : len(getloclist(0)) == 0 ? '<CMD>cnext<CR>'
+                \ : '<CMD>lnext<CR>'
+    nnoremap <silent> <expr> <C-P>
+                \ pumvisible() ? '<C-P'
+                \ : len(getloclist(0)) == 0 ? '<CMD>cprevious<CR>'
+                \ : '<CMD>lprevious<CR>'
 
 
 """ Preview / Hover
