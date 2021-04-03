@@ -54,7 +54,7 @@
     set linebreak
     set breakindent             " indent wrapped lines
     let &showbreak = '... '     " prepend wrapped lines with this
-    set cindent
+    set smartindent
 
     set formatoptions=
     set formatoptions+=c        " wrap comments
