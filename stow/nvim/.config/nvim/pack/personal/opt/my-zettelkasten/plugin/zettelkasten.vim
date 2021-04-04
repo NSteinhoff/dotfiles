@@ -89,12 +89,12 @@ endfunction
 function s:zettel_name(zettel)
     let root = substitute(fnamemodify(a:zettel, ':t:r'), '^\d\{12}_', '', '')
     let Capitalize = { _, v -> toupper(v[0])..v[1:] }
-    let pretty = join(map(split(root, '\s\|_\|-'), Capitalize))
+    let pretty = join(map(split(root, '\s\|_'), Capitalize))
     return pretty
 endfunction
 
 function s:zettel(zettel)
-    let fname = a:zettel
+    let fname = substitute(a:zettel, ' ', '_', 'g')
     if !empty(findfile(g:zettelkasten..'/'..fname))
         execute 'edit '..g:zettelkasten..'/'..fname
     else

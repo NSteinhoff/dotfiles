@@ -227,6 +227,7 @@ endfunction
 
     " Execute
     nnoremap <silent> <leader>! <CMD>!%:p<CR>
+    vnoremap <silent> <leader>! :w !bash<CR>
     nnoremap <leader>x :.w !xargs 
     vnoremap <leader>x :w !xargs 
     nnoremap <leader>X :.!xargs 
