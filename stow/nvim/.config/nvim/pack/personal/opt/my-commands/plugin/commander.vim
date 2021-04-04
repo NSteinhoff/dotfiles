@@ -1,8 +1,22 @@
+
 """ Workspaces
     command! -nargs=1 -complete=dir WorkOn tabnew | tcd <args>
 
 """ Open with default application
     command! -nargs=? -complete=file Open execute '!'..(system('uname') =~? 'darwin' ? 'open' : 'xdg-open')..' '..(<q-args> == '' ? '%' : expandcmd(<q-args>))
+
+""" Note-Taking and Journaling
+    function! s:notes_dir()
+        return expand(get(g:, 'notes_dir', get(environ(), 'NOTES_DIR', '~/notes')))
+    endfunction
+    function! s:complete_note(arglead, cmdline, cursorpos)
+        let dir = s:notes_dir()
+        let paths = filter(globpath(dir, '**/'..a:arglead..'*', 1, 1), { _, p -> filereadable(p) })
+        let relpaths = map(paths, { _, p -> substitute(p, '^'..dir..'/\?', '', '') })
+        return relpaths
+    endfunction
+    command! -nargs=? -complete=customlist,<SID>complete_note Note execute '<mods> edit '..s:notes_dir()..'/<args>'
+    command! Journal Note journal.md
 
 """ Insert dummy text
     command! -count=10 -bang Lorem call commander#lorem#insert(<count>, <bang>0)
@@ -11,7 +25,7 @@
     command -nargs=* Broldfiles execute 'browse '..(<q-args> != '' ? 'filter :'..<q-args>..': ' : '')..'oldfiles'
 
 """ Format the current buffer
-    function Format()
+    function s:format()
         if empty(&formatprg)
             echomsg "Abort: 'formatprg' unset"
             return
@@ -33,7 +47,7 @@
             echo "Formatted buffer"
         endif
     endfunction
-    command! -bar Format call Format()
+    command! -bar Format call s:format()
 
 """ Align text
     " Using 'sed' and 'column' external tools

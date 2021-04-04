@@ -3,9 +3,6 @@
 # Disable <ctrl-s> suspending (reactivated with <ctrl-q>)
 stty -ixon
 
-# Variables
-: ${NOTES_DIR:=~/Dropbox/Notes}
-
 # History
 HISTSIZE=100000
 HISTFILESIZE=200000
@@ -121,7 +118,7 @@ fi
 alias gopacks='cd ~/dev/dotfiles/stow/nvim/.config/nvim/pack/external/opt'
 alias mypacks='cd ~/dev/dotfiles/stow/nvim/.config/nvim/pack/personal/opt'
 export CDPATH=~/dev:~/dev/s2
-export JOURNAL_ROOT=~/Dropbox/Notes
+export NOTES_DIR=~/Dropbox/Notes
 export ZETTELKASTEN=~/Dropbox/Zettel
 
 # ---------------------------------- direnv -----------------------------------
