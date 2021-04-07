@@ -11,8 +11,7 @@ let b:selected = 1
 let b:num_results = 0
 
 function s:finder()
-    " return (finddir('.git', ';') != '' ? s:git_files : s:rip_files)
-    return s:rip_files
+    return (finddir('.git', ';') != '' ? s:git_files : s:rip_files)
 endfunction
 
 function s:query()

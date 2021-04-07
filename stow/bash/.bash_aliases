@@ -67,7 +67,8 @@ _complete_notes() {
     COMPREPLY=( $(compgen -W "$(ls $NOTES_DIR/)" $2) )
 }
 complete -F _complete_notes note
-alias note='_() { $EDITOR --cmd "cd $NOTES_DIR" +"map q :wq<CR>" $NOTES_DIR/$1 ; }; _'
+alias note='_() { $EDITOR --cmd "cd $NOTES_DIR" $NOTES_DIR/$1 ; }; _'
+alias journal='nvim +Journal'
 alias t='$EDITOR +"map Q :wq<CR>" $NOTES_DIR/tasks.taskpaper'
 
 # Open
