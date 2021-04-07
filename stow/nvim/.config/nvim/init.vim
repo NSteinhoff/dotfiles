@@ -101,7 +101,8 @@
 
 """ External
     " Finding / picking files
-    packadd! my-dirvish                " file manager
+    packadd! my-dirvish                 " file manager
+    packadd! my-numb                    " peek at lines :{num}
 
     " Mappings and commands
     packadd! vim-unimpaired

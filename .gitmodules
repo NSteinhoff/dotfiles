@@ -25,3 +25,6 @@
 [submodule "3rd/pandoc-letter"]
 	path = 3rd/pandoc-letter
 	url = git@github.com:benedictdudel/pandoc-letter-din5008.git
+[submodule "stow/nvim/.config/nvim/pack/external/opt/numb.nvim"]
+	path = stow/nvim/.config/nvim/pack/external/opt/numb.nvim
+	url = git@github.com:nacro90/numb.nvim.git
