@@ -1,3 +1,9 @@
+function Cwd()
+    let local  = fnamemodify(getcwd(), ':t')
+    let global = fnamemodify(get(g:, 'current_dir', ''), ':t')
+    return local != global ? '@'..local..'/' : ''
+endfunction
+
 function Errors()
     if winwidth(0) < 100
         return ''
@@ -90,7 +96,8 @@ function CurrentFile()
     elseif &ft == 'qfedit'
         let file = ' '..expand('%')
     else
-        let file = !empty(expand('%')) ? ' '..expand('%:t') : ''
+        " let file = !empty(expand('%')) ? ' '..expand('%:t') : ''
+        let file = !empty(expand('%')) ? ' '..pathshorten(expand('%:p:.')) : ''
     endif
 
     return file
@@ -102,6 +109,7 @@ function MyStatusline()
     let OPT         = '%#Normal#'
     let CLR         = '%#Normal#'
     let SPC         = '%#Special#'
+    let WRN         = '%#Todo#'
     let SEP         = '%='
     let FOC         = '%#StatusLineFocus#'
 
@@ -109,6 +117,7 @@ function MyStatusline()
     let ft          = '%y'
     let pre         = '%w'
     let file        = '%{CurrentFile()}'
+    let cwd         = '%{Cwd()}'
     let branch      = '%{GitBranch()}'
     let mod         = '%m'
     let spell       = '%{Spell()}'
@@ -118,7 +127,30 @@ function MyStatusline()
     let lsp         = '%{LspStatus()}'
     let tree        = '%{Tree()}'
 
-    return pre..ft..branch..OPT..' '..file..' '..mod..args..SPC..tree..SEP..OPT..errors..spell..lsp..compiler..BAR..' '..position
+    let stl  = pre
+    let stl .= ft
+    let stl .= branch
+    let stl .= WRN
+    let stl .= cwd
+    let stl .= OPT
+    let stl .= ' '
+    let stl .= file
+    let stl .= ' '
+    let stl .= mod
+    let stl .= args
+    let stl .= SPC
+    let stl .= tree
+    let stl .= SEP
+    let stl .= OPT
+    let stl .= errors
+    let stl .= spell
+    let stl .= lsp
+    let stl .= compiler
+    let stl .= BAR
+    let stl .= ' '
+    let stl .= position
+
+    return stl
 endfunction
 
 set statusline=%!MyStatusline()
