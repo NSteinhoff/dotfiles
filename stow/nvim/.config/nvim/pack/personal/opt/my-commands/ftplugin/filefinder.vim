@@ -1,11 +1,13 @@
 setlocal buftype=nofile nobuflisted noswapfile
 setlocal errorformat=%f
 
+let s:fuzzy = 0
 let s:insert_help = '<CR> selects <- ; <C-N>/<C-P> moves <- ; <SPACE> inserts wildcards ; <C-C> to exit'
 let s:normal_help = '[1-9] open file ; <CR> go to file under cursor'
 let s:placeholder = '  <<< some.*file.*pattern'
 let s:rip_files = 'rg --files'
 let s:git_files = 'git ls-files'
+let s:matcher = executable('fzf') && s:fuzzy ? 'fzf -f' : 'rg --smart-case'
 
 let b:selected = 1
 let b:num_results = 0
@@ -61,7 +63,7 @@ function s:nr2str(n, digits)
 endfunction
 
 function s:search()
-    let l:files = systemlist(s:finder().(s:searchable() ? ' | rg --smart-case '.shellescape(s:query()) : ''))
+    let l:files = systemlist(s:finder().(s:searchable() ? ' | '..s:matcher..' '.shellescape(s:query()) : ''))
     let maxdigits = s:digits(len(l:files))
     call append('$', map(l:files, { i, v -> s:nr2str(i+1, maxdigits).': '.v}))
     let b:num_results = len(l:files)
@@ -130,7 +132,7 @@ nnoremap <buffer> I 1GI
 nnoremap <buffer> A 1GA
 nnoremap <buffer> <BS> <CMD>keepalt b#<CR>
 
-inoremap <buffer> <SPACE> .*
+execute 'inoremap <buffer> <SPACE> '..(s:fuzzy ? ' ' : '.*')
 inoremap <buffer> <CR> <esc><cmd>call <SID>open_selected()<CR>
 inoremap <buffer> <Plug>(filefinder-next) <cmd>call <SID>move_selection(1)<CR>
 inoremap <buffer> <Plug>(filefinder-prev) <cmd>call <SID>move_selection(-1)<CR>
