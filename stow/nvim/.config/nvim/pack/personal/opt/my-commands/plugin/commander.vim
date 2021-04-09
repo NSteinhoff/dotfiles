@@ -90,3 +90,30 @@
     command! -nargs=? Match2 execute '2match Constant /\<'..(empty(<q-args>) ? expand('<cword>')..'\>' : '<args>').'/'
     command! -nargs=? Match3 execute '3match Todo /\<'..(empty(<q-args>) ? expand('<cword>')..'\>' : '<args>').'/'
     command! MatchOff match | 2match | 3match
+
+""" Send paragraph under cursor to terminal
+    function! s:send_to_term()
+        if mode() == 'n'
+            exec "normal mk\"vyip"
+        elseif mode() =~ '[Vv]'
+            exec "normal gv\"vy"
+        endif
+
+        if !exists("g:last_terminal_chan_id")
+            vsplit
+            terminal
+            let g:last_terminal_chan_id = b:terminal_job_id
+            au BufDelete <buffer> unlet g:last_terminal_chan_id
+            wincmd p
+        endif
+
+        if getreg('"v') =~ "^\n"
+            call chansend(g:last_terminal_chan_id, expand("%:p")."\n")
+        else
+          call chansend(g:last_terminal_chan_id, @v)
+        endif
+
+        exec "normal `k"
+    endfunction
+
+    command! SendToTerm call s:send_to_term()
