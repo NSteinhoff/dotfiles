@@ -56,7 +56,7 @@ endfunction
 
     " Run 'q' macro
     nnoremap Q @q
-    vnoremap Q <CMD>normal @q<CR>
+    vnoremap Q :normal @q<CR>
 
     " Move over visual lines unless a count is given
     nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
@@ -256,6 +256,7 @@ endfunction
     " Open directory with OS file explorer
     nnoremap <leader>o <CMD>silent Open<CR>
     nnoremap <leader>O <CMD>silent Open %:h<CR>
+    vnoremap <leader>o y:Open "<CR>
 
 
 """ (c): Changes / Diffing
