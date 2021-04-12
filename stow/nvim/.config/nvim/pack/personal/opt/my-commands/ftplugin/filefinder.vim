@@ -1,13 +1,13 @@
 setlocal buftype=nofile nobuflisted noswapfile
 setlocal errorformat=%f
 
-let s:fuzzy = 0
-let s:insert_help = '<CR> selects <- ; <C-N>/<C-P> moves <- ; <SPACE> inserts wildcards ; <C-C> to exit'
+let s:fuzzy = executable('fzf') && 1
+let s:insert_help = '<CR> selects <- ; <C-N>/<C-P> moves <-'..(s:fuzzy ? '' : ' ; <SPACE> inserts wildcards')..' ; <C-C> to exit'
 let s:normal_help = '[1-9] open file ; <CR> go to file under cursor'
-let s:placeholder = '  <<< some.*file.*pattern'
+let s:placeholder = s:fuzzy ? '  <<< fuzzy filename' : '  <<< some.*file.*pattern'
 let s:rip_files = 'rg --files'
 let s:git_files = 'git ls-files'
-let s:matcher = executable('fzf') && s:fuzzy ? 'fzf -f' : 'rg --smart-case'
+let s:matcher = s:fuzzy ? 'fzf -f' : 'rg --smart-case'
 
 let b:selected = 1
 let b:num_results = 0
