@@ -1,7 +1,7 @@
 function Cwd()
     let local  = fnamemodify(getcwd(), ':t')
     let global = fnamemodify(get(g:, 'current_dir', ''), ':t')
-    return local != global ? '@'..local..'/' : ''
+    return !empty(global) &&!empty(local) && local != global ? '@'..local..'/' : ''
 endfunction
 
 function Errors()
@@ -96,8 +96,9 @@ function CurrentFile()
     elseif &ft == 'qfedit'
         let file = ' '..expand('%')
     else
-        " let file = !empty(expand('%')) ? ' '..expand('%:t') : ''
-        let file = !empty(expand('%')) ? ' '..pathshorten(expand('%:p:.')) : ''
+        let file = empty(expand('%')) ? ''
+                \ : &showtabline == 2 || (&showtabline == 1 && tabpagenr('$') > 1) ? ' '..expand('%:t')
+                \ : ' '..pathshorten(expand('%:p:.'))
     endif
 
     return file
