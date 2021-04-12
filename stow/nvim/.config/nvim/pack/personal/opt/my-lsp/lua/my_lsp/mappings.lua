@@ -3,7 +3,7 @@ local function on_attach(client)
     vim.cmd([[inoremap <silent> <buffer> <c-space>    <C-X><C-O>]])
 
     -- Get help
-    vim.cmd([[nnoremap <silent> <buffer> <space>      <cmd>lua vim.lsp.buf.hover()<CR>]])
+    -- vim.cmd([[nnoremap <silent> <buffer> <space>      <cmd>lua vim.lsp.buf.hover()<CR>]])
     vim.cmd([[nnoremap <silent> <buffer> K            <cmd>lua vim.lsp.buf.hover()<CR>]])
     vim.cmd([[inoremap <silent> <buffer> <c-h>        <cmd>lua vim.lsp.buf.signature_help()<CR>]])
 

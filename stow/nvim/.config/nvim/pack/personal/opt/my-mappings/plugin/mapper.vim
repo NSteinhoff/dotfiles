@@ -51,6 +51,9 @@ endfunction
     " Clear search highlights with ESC in normal mode
     nnoremap <silent> <ESC> <CMD>nohlsearch<CR>
 
+    " Toggle folds with <SPACE>
+    nnoremap <SPACE> za
+
     " Make Y behave like C and D
     nnoremap Y y$
 
