@@ -60,16 +60,21 @@ autofight_warning = 100
 show_more = false
 fm := force_more_message
 
+# Events
+fm += You riposte
+
+# HP loss
+fm += HP: \d+/\d+ \(-\d+\)
+
+# Statuses
 fm += You feel strangely unstable
+fm += You are frozen
+
+# Threats
 fm += You feel you are being watched by something
 fm += wielding.*(distortion|chaos|electrocution|venom)
 fm += quivering.*tipped darts
 fm += carrying a wand
-
-fm += (Sigmund|Erolcha|Grinder) .* into view
-
-fs := flash_screen_message
-fs += You feel you are being watched by something
 
 
 # Autoinscriptions
@@ -93,6 +98,29 @@ ai += boomerangs? of dispersal:=f =F
 {
 local prev_hp = nil
 local prev_mp = nil
+
+function bar(current, change, max, length)
+    local length = length or 12
+    local fraction_filled  = current / max
+    local fraction_changed = math.abs(change / max)
+    local characters_filled  = math.min(length, math.floor(length * fraction_filled))
+    local characters_changed = math.min(length, math.ceil(length * fraction_changed))
+    local filled = '<green>'..string.rep('=', characters_filled)..'</green>'
+    local lost = '<red>'..string.rep('-', characters_changed)..'</red>'
+    local rest = string.rep('-', length - characters_filled - characters_changed)
+    return ' <darkgrey>'..filled..lost..rest..'</darkgrey> '
+end
+
+function bighit(change, max)
+    if change <= 0 then
+        return ''
+    end
+
+    local fraction_changed = math.abs(change / hp_max)
+    local ouch = string.rep('!', math.floor(fraction_changed * 10))
+
+    return ouch == '' and '' or ' '..ouch
+end
 
 function announce_damage()
     local hp_curr, hp_max = you.hp()
@@ -119,6 +147,8 @@ function announce_damage()
             if hp_diff < 0 then
                 -- Always warn about HP loss
                 channel = "warning"
+                message = message..bar(hp_curr, hp_diff, hp_max)
+                message = message..bighit(hp_diff, hp_max)
             elseif hp_curr < hp_max * 0.5 then
                 -- Danger below half health
                 channel = "danger"
