@@ -9,8 +9,8 @@ function Errors()
         return ''
     endif
 
-    let nq = len(filter(getqflist(), 'v:val["valid"] == 1'))
-    let nl = len(filter(getloclist(0), 'v:val["valid"] == 1'))
+    let nq = len(filter(getqflist(), 'v:val.valid == 1'))
+    let nl = len(filter(getloclist(0), 'v:val.valid == 1'))
     let iq = getqflist({'idx': 0}).idx
     let il = getloclist(0, {'idx': 0}).idx
     let q = nq ? iq..':'..nq : '-'

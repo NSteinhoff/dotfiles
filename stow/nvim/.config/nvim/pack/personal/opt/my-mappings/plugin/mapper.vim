@@ -133,14 +133,20 @@ endfunction
     nnoremap <silent> <leader>Q         <CMD>cwindow<CR>
     nnoremap <silent> <leader>l         <CMD>llist<CR>
     nnoremap <silent> <leader>L         <CMD>lwindow<CR>
-    nnoremap <silent> <expr> <C-N>
-                \ pumvisible() ? '<C-N'
-                \ : len(getloclist(0)) == 0 ? '<CMD>cnext<CR>'
-                \ : '<CMD>lnext<CR>'
-    nnoremap <silent> <expr> <C-P>
-                \ pumvisible() ? '<C-P'
-                \ : len(getloclist(0)) == 0 ? '<CMD>cprevious<CR>'
-                \ : '<CMD>lprevious<CR>'
+
+    function CycleLoclist(direction) abort
+        let loclist = getloclist(0, {'idx': 0, 'size': 0})
+        if loclist.size == 0
+            echo "No errors."
+            return
+        endif
+        let [advance, wrap] = a:direction ? ['lnext', 'lfirst'] : ['lprevious', 'llast']
+        let at_end = a:direction ? loclist.idx == loclist.size : loclist.idx == 1
+        execute at_end ? wrap : advance
+    endfunction
+
+    nnoremap <silent> <expr> <C-N> pumvisible() ? '<C-N' : '<cmd> call CycleLoclist(1)<cr>'
+    nnoremap <silent> <expr> <C-P> pumvisible() ? '<C-P' : '<cmd> call CycleLoclist(0)<cr>'
 
 
 """ Preview / Hover

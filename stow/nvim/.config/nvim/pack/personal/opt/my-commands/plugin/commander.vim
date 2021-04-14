@@ -1,4 +1,3 @@
-
 """ Workspaces
     command! -nargs=1 -complete=dir WorkOn tabnew | tcd <args>
 
@@ -84,6 +83,11 @@
 
 """ Run lines with interpreter
     command! -range=% Run execute '<line1>,<line2>w !'.get(b:, 'interpreter', 'cat')
+
+""" Clear error lists
+    command! -bar ClearQf call setqflist([], 'f')
+    command! -bar ClearLoc call setloclist(0, [], 'f')
+    command! -bar ClearErr ClearQf | ClearLoc
 
 """ Matches
     command! -nargs=? Match execute 'match Error /\<'..(empty(<q-args>) ? expand('<cword>')..'\>' : '<args>').'/'
