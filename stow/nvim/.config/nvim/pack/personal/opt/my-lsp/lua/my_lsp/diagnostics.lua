@@ -31,7 +31,29 @@ local function print_all()
     end
 end
 
-local function set_qf()
+local function set_loclist()
+    local diagnostics = vim.lsp.diagnostic.get()
+    local loc_items = {}
+    local bufname = vim.fn.bufname()
+    for _, d in ipairs(diagnostics) do
+        local item = {
+            bufnr = b,
+            filename = bufname,
+            lnum = d.range.start.line + 1,
+            col = d.range.start.character,
+            type = severities.names[d.severity or 1],
+            nr = d.code,
+            text = d.message,
+        }
+        table.insert(loc_items, item)
+    end
+    local title = 'LSP Diagnostics'
+    local curtitle = vim.fn.getloclist(0, {title = 1}).title
+    local action = title == curtitle and 'r' or ' '
+    vim.fn.setloclist(0, {}, action, {items = loc_items, title = title})
+end
+
+local function set_qflist()
     local diagnostics = vim.lsp.diagnostic.get_all()
     local qf_items = {}
     for b, ds in pairs(diagnostics) do
@@ -40,7 +62,7 @@ local function set_qf()
             local item = {
                 bufnr = b,
                 filename = bufname,
-                lnum = d.range.start.line,
+                lnum = d.range.start.line + 1,
                 col = d.range.start.character,
                 type = severities.names[d.severity or 1],
                 nr = d.code,
@@ -49,7 +71,10 @@ local function set_qf()
             table.insert(qf_items, item)
         end
     end
-    vim.fn.setqflist(qf_items)
+    local title = 'LSP Diagnostics'
+    local curtitle = vim.fn.getqflist({title = 1}).title
+    local action = title == curtitle and 'r' or ' '
+    vim.fn.setqflist({}, action, {items = qf_items, title = title})
 end
 
 local function setup_signs()
@@ -82,7 +107,7 @@ local function on_publish_diagnostics(...)
         virtual_text = false,
         update_in_insert = false,
     })(...)
-    pcall(vim.lsp.diagnostic.set_loclist, { open_loclist = false })
+    pcall(set_loclist)
 end
 
 return {
@@ -90,7 +115,8 @@ return {
     print_line = print_line,
     print_buffer = print_buffer,
     print_all = print_all,
-    set_qf = set_qf,
+    set_qflist = set_qflist,
+    set_loclist = set_loclist,
     on_attach = on_attach,
     on_publish_diagnostics = on_publish_diagnostics,
 }

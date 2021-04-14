@@ -145,8 +145,8 @@ endfunction
         execute at_end ? wrap : advance
     endfunction
 
-    nnoremap <silent> <expr> <C-N> pumvisible() ? '<C-N' : '<cmd> call CycleLoclist(1)<cr>'
-    nnoremap <silent> <expr> <C-P> pumvisible() ? '<C-P' : '<cmd> call CycleLoclist(0)<cr>'
+    nnoremap <silent> <expr> <C-N> pumvisible() ? '<C-N' : '<cmd>call CycleLoclist(1)<cr>'
+    nnoremap <silent> <expr> <C-P> pumvisible() ? '<C-P' : '<cmd>call CycleLoclist(0)<cr>'
 
 
 """ Preview / Hover
