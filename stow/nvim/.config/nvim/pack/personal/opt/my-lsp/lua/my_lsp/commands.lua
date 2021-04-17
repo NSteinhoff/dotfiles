@@ -10,11 +10,11 @@ local function on_attach(client)
     vim.cmd([[command! -buffer LspListWorkspaceSymbols lua vim.lsp.buf.workspace_symbol()]])
 
     -- Diagnostics
-    vim.cmd([[command! -buffer LspDiagnostics lua require("my_lsp.diagnostics").print_all()]])
-    vim.cmd([[command! -buffer LspDiagnosticsLine lua require("my_lsp.diagnostics").print_line()]])
-    vim.cmd([[command! -buffer LspDiagnosticsBuffer lua require("my_lsp.diagnostics").print_buffer()]])
-    vim.cmd([[command! -buffer LspDiagnosticsQuickfix lua require("my_lsp.diagnostics").set_qflist()]])
-    vim.cmd([[command! -buffer LspDiagnosticsLoclist lua require("my_lsp.diagnostics").set_loclist()]])
+    vim.cmd([[command! -buffer LspDiagnosticsPrintAll lua require("my_lsp.diagnostics").print_all()]])
+    vim.cmd([[command! -buffer LspDiagnosticsPrintLine lua require("my_lsp.diagnostics").print_line()]])
+    vim.cmd([[command! -buffer LspDiagnosticsPrintBuffer lua require("my_lsp.diagnostics").print_buffer()]])
+    vim.cmd([[command! -buffer LspDiagnosticsSetQuickfix lua require("my_lsp.diagnostics").set_qflist()]])
+    vim.cmd([[command! -buffer LspDiagnosticsSetLoclist lua require("my_lsp.diagnostics").set_loclist()]])
 end
 
 return {
