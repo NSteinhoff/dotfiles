@@ -31,3 +31,4 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/nvim-lsp-ts-utils"]
 	path = stow/nvim/.config/nvim/pack/external/opt/nvim-lsp-ts-utils
 	url = git@github.com:jose-elias-alvarez/nvim-lsp-ts-utils.git
+	branch = main
