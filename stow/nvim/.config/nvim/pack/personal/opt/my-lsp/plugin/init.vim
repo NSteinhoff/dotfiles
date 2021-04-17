@@ -5,10 +5,12 @@ let s:lua_paths = glob(copy(s:lua_dir)..'/**/*.lua', 1, 1)
 let s:lua_files = map(copy(s:lua_paths), { _, p -> substitute(p, '^'..s:lua_dir..'/', '', '') })
 let s:lua_modules = map(copy(s:lua_files), { _, f -> substitute(substitute(f, '/', '.', 'g'), '\(\.init\)\?\.lua$', '', '') })
 
+
 function s:reload()
     for m in s:lua_modules
         execute 'lua package.loaded["'..m..'"] = nil'
     endfor
+    lua require('my_lsp')
 endfunction
 
 command Test call s:reload()
