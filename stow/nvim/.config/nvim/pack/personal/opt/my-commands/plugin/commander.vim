@@ -2,7 +2,10 @@
     command! -nargs=1 -complete=dir WorkOn tabnew | tcd <args>
 
 """ Open with default application
-    command! -nargs=? -complete=file Open execute '!'..(system('uname') =~? 'darwin' ? 'open' : 'xdg-open')..' '..shellescape((<q-args> == '' ? '%' : expandcmd(<q-args>)))
+    function! s:uri(s)
+        return a:s =~ '^https\?://[a-zA-Z0-9\-./#?=&_]\+$' ? escape(a:s, '#%') : expandcmd(a:s)
+    endfunction
+    command! -nargs=? Open execute '!'..(system('uname') =~? 'darwin' ? 'open' : 'xdg-open')..' '..shellescape((<q-args> == '' ? '%' : s:uri(<q-args>)))
 
 """ Note-Taking and Journaling
     function! s:notes_dir()
