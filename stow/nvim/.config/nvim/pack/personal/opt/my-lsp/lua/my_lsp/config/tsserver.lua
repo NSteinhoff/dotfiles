@@ -1,8 +1,10 @@
 local lspconfig = require("lspconfig")
 
-return function(on_attach)
-    lspconfig["tsserver"].setup({
-        on_attach = function(client, bufnr, ...)
+return function(config)
+    local override = {
+        autostart = true,
+
+        on_attach = function(...)
             vim.cmd("packadd nvim-lsp-ts-utils")
             require("nvim-lsp-ts-utils").setup({
                 disable_commands = true,
@@ -20,8 +22,9 @@ return function(on_attach)
             vim.api.nvim_buf_set_keymap(bufnr, "n", "dcR", "<CMD>LspTsRenameFile<CR>", { silent = true, noremap = true })
             vim.api.nvim_buf_set_keymap(bufnr, "n", "dcI", "<CMD>LspTsImportAll<CR>", { silent = true, noremap = true })
 
-            on_attach(client, bufnr, ...)
+            config.on_attach(...)
         end,
+
         root_dir = function(fname)
             -- Prefer the repository root for typescript
             -- NOTE:
@@ -34,5 +37,7 @@ return function(on_attach)
                 and git_root
                 or lsputil.root_pattern("tsconfig.json", "package.json")(fname)
         end,
-    })
+    }
+
+    lspconfig["tsserver"].setup(vim.tbl_extend('keep', override, config))
 end

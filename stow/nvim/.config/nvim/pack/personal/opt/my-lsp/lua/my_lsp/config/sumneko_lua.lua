@@ -1,6 +1,6 @@
 local lspconfig = require("lspconfig")
 
-return function(on_attach)
+return function(config)
     local system_name
     if vim.fn.has("mac") == 1 then
         system_name = "macOS"
@@ -47,9 +47,10 @@ return function(on_attach)
         },
     }
 
-    lspconfig["sumneko_lua"].setup({
+    local override = {
         cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
-        on_attach = on_attach,
         settings = settings,
-    })
+    }
+
+    lspconfig["sumneko_lua"].setup(vim.tbl_extend('keep', override, config))
 end

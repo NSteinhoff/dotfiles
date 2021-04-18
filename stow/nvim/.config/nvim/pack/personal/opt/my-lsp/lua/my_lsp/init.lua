@@ -16,5 +16,8 @@ local servers = {
     "sumneko_lua",
 }
 for _, server in ipairs(servers) do
-    require("my_lsp.config")[server](on_attach)
+    require("my_lsp.config")[server]({
+        on_attach = on_attach,
+        autostart = false,
+    })
 end

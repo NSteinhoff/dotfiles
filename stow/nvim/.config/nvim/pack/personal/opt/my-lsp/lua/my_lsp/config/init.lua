@@ -4,8 +4,8 @@ local lspconfig = require("lspconfig")
 -- Call the standard lspconfig setup function
 local default = {
     __index = function(_, server)
-        return function(on_attach)
-            lspconfig[server].setup({ on_attach = on_attach })
+        return function(config)
+            lspconfig[server].setup(config)
         end
     end,
 }

@@ -1,8 +1,7 @@
 local lspconfig = require("lspconfig")
 
-return function(on_attach)
-    lspconfig["rust_analyzer"].setup({
-        on_attach = on_attach,
+return function(config)
+    local override = {
         settings = {
             ["rust-analyzer"] = {
                 diagnostics = {
@@ -11,5 +10,7 @@ return function(on_attach)
                 },
             },
         },
-    })
+    }
+
+    lspconfig["rust_analyzer"].setup(vim.tbl_extend('keep', override, config))
 end
