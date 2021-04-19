@@ -1,6 +1,6 @@
-vim.cmd('packadd nvim-treesitter')
+vim.cmd("packadd nvim-treesitter")
 
-require'nvim-treesitter.configs'.setup {
+require("nvim-treesitter.configs").setup({
     ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
     indent = {
         enable = true,
@@ -18,6 +18,6 @@ require'nvim-treesitter.configs'.setup {
         },
     },
     textobjects = {
-        enable = true
+        enable = true,
     },
-}
+})
