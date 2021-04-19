@@ -5,12 +5,6 @@ augroup SANITIZER
     autocmd CmdwinEnter * nnoremap <buffer> <SPACE> <SPACE>
     autocmd CmdwinEnter * nnoremap <buffer> <C-N> <C-N>
     autocmd CmdwinEnter * nnoremap <buffer> <C-P> <C-P>
-
-    autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-    autocmd BufReadPost quickfix nnoremap <buffer> <BS> <C-W>c
-    autocmd BufReadPost quickfix nnoremap <buffer> <SPACE> <SPACE>
-    autocmd BufReadPost quickfix nnoremap <buffer> <C-N> <C-N>
-    autocmd BufReadPost quickfix nnoremap <buffer> <C-P> <C-P>
 augroup END
 
 
@@ -135,7 +129,7 @@ endfunction
     nnoremap <silent> <leader>L         <CMD>lwindow<CR>
 
     function CycleLoclist(direction) abort
-        let loclist = getloclist(0, {'idx': 0, 'size': 0})
+        let loclist = getloclist(0, {'idx': 1, 'size': 1})
         if loclist.size == 0
             echo "No errors."
             return

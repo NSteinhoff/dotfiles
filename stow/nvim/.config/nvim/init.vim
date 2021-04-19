@@ -116,7 +116,7 @@
     packadd! my-lsp                     " Language Server client configuration
     packadd! my-treesitter              " Semantic understanding of languages
 
-    packadd! my-bqf
+    " packadd! my-bqf
 
 """ Development
     set packpath+=~/dev
