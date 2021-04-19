@@ -24,7 +24,10 @@ local function on_attach(client)
     -- Code actions,     i.e. (d)o (c)ode (a)ction
     vim.cmd([[nnoremap <silent> <buffer> dca          <cmd>lua vim.lsp.buf.code_action()<CR>]])
     vim.cmd([[nnoremap <silent> <buffer> dcr          <cmd>lua vim.lsp.buf.rename()<CR>]])
-    vim.cmd([[nnoremap <silent> <buffer> dcf          <cmd>lua vim.lsp.buf.formatting()<CR>]])
+
+    if client.resolved_capabilities.document_formatting then
+        vim.cmd([[nnoremap <silent> <buffer> dcf          <cmd>lua vim.lsp.buf.formatting()<CR>]])
+    end
 end
 
 return {

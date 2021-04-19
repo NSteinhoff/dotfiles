@@ -366,6 +366,9 @@ let s:syntax_groups.underlined = [
 \    "LspDiagnosticsUnderlineHint",
 \    "LspDiagnosticsUnderlineInformation",
 \    "LspDiagnosticsUnderlineWarning",
+\    "LspReferenceRead",
+\    "LspReferenceText",
+\    "LspReferenceWrite",
 \ ]
 
 let s:syntax_groups.emphasis = [
