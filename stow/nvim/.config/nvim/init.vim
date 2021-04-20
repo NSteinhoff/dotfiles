@@ -116,6 +116,7 @@
     packadd! my-lsp                     " Language Server client configuration
     packadd! my-treesitter              " Semantic understanding of languages
 
+    packadd! my-qf
     " packadd! my-bqf
 
 """ Development
