@@ -5,7 +5,7 @@ local function on_attach(...)
     require("my_lsp.options").on_attach(...)
     require("my_lsp.commands").on_attach(...)
     require("my_lsp.mappings").on_attach(...)
-    require("my_lsp.autocmds").on_attach(...)
+    -- require("my_lsp.autocmds").on_attach(...)
 end
 
 local servers = {
