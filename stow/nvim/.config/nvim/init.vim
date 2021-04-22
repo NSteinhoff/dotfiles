@@ -117,6 +117,7 @@
     packadd! my-treesitter              " Semantic understanding of languages
 
     packadd! my-qf
+    packadd! my-marks
     " packadd! my-bqf
 
 """ Development
