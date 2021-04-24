@@ -1,5 +1,5 @@
-if get(g:, 'marker_loaded')|finish|endif
-let g:marker_loaded = 1
+if get(g:, 'loaded_showmarks')|finish|endif
+let g:loaded_showmarks = 1
 let g:marker_enabled = 1
 
 let s:sign_group = 'marks'
@@ -36,39 +36,30 @@ endfunction
 
 function s:enable()
     let g:marker_enabled = 1
-    MarkerPlaceSigns
+    call s:update()
 endfunction
 
 function s:disable()
     let g:marker_enabled = 0
-    MarkerClearSigns
+    call s:update()
 endfunction
 
-function s:toggle()
-    if get(g:, 'marker_enabled')
-        call s:disable()
-    else
-        call s:enable()
-    endif
-endfunction
-
-function s:place()
+function s:update()
     if get(g:, 'marker_enabled')
         call s:place_signs()
+    else
+        call sign_unplace(s:sign_group)
     endif
 endfunction
 
-command MarkerDisable call s:disable()
-command MarkerEnable call s:enable()
-command MarkerToggle call s:toggle()
-command MarkerPlaceSigns call s:place()
-command MarkerClearSigns call sign_unplace(s:sign_group)
+command! NoShowMarks call s:disable()
+command! ShowMarks call s:enable()
 
 for sign in s:signs
-    execute 'nnoremap m'..sign..' <CMD>silent mark '..sign..' <bar> MarkerPlaceSigns<CR>'
+    execute 'nnoremap m'..sign..' <CMD>silent mark '..sign..' <bar> call <SID>update()<CR>'
 endfor
 
 augroup my-marker
     autocmd!
-    autocmd BufEnter * MarkerPlaceSigns
+    autocmd BufEnter * call s:update()
 augroup END

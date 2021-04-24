@@ -83,16 +83,6 @@ function commander#git#blame_clear()
     call nvim_buf_clear_namespace(0, ns, 0, -1)
 endfunction
 
-function commander#git#blame_lense(line1, line2, ...)
-    let blame = call('commander#git#blame', [a:line1, a:line2] + a:000)
-    let ns = nvim_create_namespace('git_blame')
-    call nvim_buf_clear_namespace(0, ns, a:line1-1, a:line2-1)
-    let blamelines = map(blame, { i, v -> [i+a:line1-1, v] })
-    for [lnum, text] in blamelines
-        call nvim_buf_set_virtual_text(0, ns, lnum, [[text, 'Comment']], {})
-    endfor
-endfunction
-
 function commander#git#load_diff_in_split(revision, ...)
     let ft = &ft
     let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')

@@ -90,13 +90,13 @@
 """ Personal
     packadd my-abbreviations
     packadd my-automations
+    packadd my-commands
     packadd my-completions
+    packadd my-mappings
+    packadd my-marks
+    packadd my-quickfix
     packadd my-statusline
     packadd my-tags
-    packadd my-commands
-    packadd my-mappings
-
-    " Note-taking
     packadd my-zettelkasten
 
 """ External
@@ -116,9 +116,13 @@
     packadd! my-lsp                     " Language Server client configuration
     packadd! my-treesitter              " Semantic understanding of languages
 
-    packadd! my-qf
-    packadd! my-marks
-    " packadd! my-bqf
-
 """ Development
     set packpath+=~/dev
+
+""" Neovide GUI
+if get(g:, 'neovide')
+    let g:neovide_fullscreen=v:true
+    set guifont=Iosevka\ Nerd\ Font\ Mono,FiraCode\ Nerd\ Font\ Mono
+    colorscheme desert
+    if getcwd() == '/' | cd | endif
+endif

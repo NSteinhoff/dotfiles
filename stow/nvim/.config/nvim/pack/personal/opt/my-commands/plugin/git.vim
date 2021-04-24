@@ -3,8 +3,8 @@ command! LocalRevisions echo join(commander#git#local_revisions(), "\n")
 
 " Show the author who last changed the selected line
 command! -range Blame echo join(commander#git#blame(<line1>, <line2>), "\n")
-command! BlameOn call commander#git#blame_on()
-command! BlameOff call commander#git#blame_off()
+command! ShowBlame call commander#git#blame_on()
+command! NoShowBlame call commander#git#blame_off()
 command! -range -bang BlameLense
     \ if <bang>0
     \|call commander#git#blame_clear()
@@ -31,7 +31,7 @@ function s:edit_args_msg()
     return "Editing the first of ".argc()." changed files."
 endfunction
 
-command! -bang -range=% Timeline call commander#git#load_timeline(<bang>0, <line1>, <line2>, <range>)
+command! -bang -range=% Timeline call commander#git#load_timeline(<bang>1, <line1>, <line2>, <range>)
 command! -nargs=? -complete=customlist,s:complete_file_revisions ChangeSplit call commander#git#load_diff_in_split(<q-args>)
 command! -nargs=? -complete=customlist,s:complete_file_revisions ChangePatch call commander#git#load_patch(<q-args>)
 

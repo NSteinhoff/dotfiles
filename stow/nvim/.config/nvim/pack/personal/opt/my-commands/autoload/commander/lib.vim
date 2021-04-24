@@ -1,7 +1,3 @@
-function commander#lib#peek_lines(lines)
-    echo join(a:lines, "\n")
-endfunction
-
 function commander#lib#load_lines(lines, ...) abort
     let b:alt_save = expand('#')
     let l:exit_to = get(b:, 'exit_to', expand('%'))
@@ -20,17 +16,15 @@ endfunction
 
 function commander#lib#load_lines_in_split(lines, ...) abort
     let l:splitcmd = a:0 ? a:1.' new' : 'new'
-    mark Q
     execute 'leftabove '.l:splitcmd
+    set buftype=nofile bufhidden=wipe nobuflisted noswapfile
     try
         call append(0, a:lines) | $delete
     catch /.*/
         close
         echoerr 'Unable to load lines in split: '.v:exception
     endtry
-    set buftype=nofile bufhidden=wipe nobuflisted noswapfile
     0
-    nnoremap <buffer> q :close<CR>`Q
 endfunction
 
 function s:comment_affixes()
@@ -44,6 +38,7 @@ endfunction
 function commander#lib#section(words)
     let [prefix, suffix] = s:comment_affixes()
     let suffix = suffix == "" ? " ".prefix : " ".suffix
+    let prefix = prefix..' '
     let fillchar = '-'
     let ncols = &tw ? &tw : 79
 
@@ -54,7 +49,7 @@ function commander#lib#section(words)
     let ruler = prefix.repeat(fillchar, ncols - strlen(prefix) - strlen(suffix)).suffix
 
     " Build the title line
-    let titleline = prefix.' '
+    let titleline = prefix
     let titleline.= repeat(' ', (ncols - strlen(titleline) - strlen(text) - strlen(suffix)) / 2)
     let titleline.= text
     let titleline.= repeat(' ', ncols - strlen(titleline) - strlen(suffix))
@@ -75,7 +70,7 @@ endfunction
 function commander#lib#header(words)
     let [prefix, suffix] = s:comment_affixes()
     let suffix = suffix == "" ? "" : " ".suffix
-    let prefix.=' '
+    let prefix = prefix..' '
     let fillchar = '-'
     let ncols = &tw ? &tw : 79
 
@@ -104,16 +99,4 @@ function commander#lib#header(words)
     " Set the current line to the header and position the cursor at the end.
     call setline(line('.'), header.fill_after)
     call cursor(line('.'), col('$'))
-endfunction
-
-function commander#lib#load_buflist()
-    let buffers = getbufinfo({'buflisted': 1})
-    let lines = []
-    for buffer in buffers
-        if buffer.name != ''
-            call add(lines, buffer.name)
-        endif
-    endfor
-    call append(0, lines)
-    $delete
 endfunction

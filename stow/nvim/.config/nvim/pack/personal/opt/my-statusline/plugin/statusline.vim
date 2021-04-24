@@ -96,8 +96,10 @@ function CurrentFile()
     elseif &ft == 'qfedit'
         let file = ' '..expand('%')
     else
+        let tabline_visible = &showtabline == 2 || (&showtabline == 1 && tabpagenr('$') > 1)
+        let show_path = tabline_visible || 1
         let file = empty(expand('%')) ? ''
-                \ : &showtabline == 2 || (&showtabline == 1 && tabpagenr('$') > 1) ? ' '..expand('%:t')
+                \ : show_path ? ' '..expand('%:t')
                 \ : ' '..pathshorten(expand('%:p:.'))
     endif
 
@@ -140,7 +142,7 @@ function MyStatusline()
     let stl .= mod
     let stl .= args
     let stl .= SPC
-    let stl .= tree
+    " let stl .= tree
     let stl .= SEP
     let stl .= OPT
     let stl .= errors

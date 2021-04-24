@@ -26,7 +26,7 @@ command -buffer PathRemove execute 'set path-='..expand('%')
 command -buffer -range -nargs=* -bang Tree execute '<line1>,<line2>!xargs tree -fi'..(<bang>0 ? 'a' : '')..' --noreport <args>'
 
 syn clear DirvishPathHead
-execute 'syn match DirvishPathHead ='..expand("%:p:.")..'\ze.\+=  conceal'
+execute 'syn match DirvishPathHead ='..expand('%:p'..(get(g:, 'dirvish_relative_paths') ? ':.' : ''))..'\ze.\+=  conceal'
 autocmd! dirvish_buflocal TextChanged,TextChangedI
 
 function! s:add_segment()
