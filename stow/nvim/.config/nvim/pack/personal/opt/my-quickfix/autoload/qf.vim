@@ -81,5 +81,5 @@ function qf#cycle_lists(forward)
     let step = a:forward ? (curr == last ? 'older'..rewind : 'newer')
                        \ : (curr == 1    ? 'newer'..rewind : 'older')
 
-    return prefix..step
+    execute prefix..step
 endfunction
