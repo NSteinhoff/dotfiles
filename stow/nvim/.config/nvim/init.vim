@@ -19,7 +19,7 @@
 
 """ Behavior
     set noswapfile
-    set updatetime=200
+    set updatetime=500
     set foldenable
     set foldmethod=indent
     set foldlevelstart=99       " start with all folds opened

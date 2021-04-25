@@ -4,25 +4,22 @@ let g:marker_enabled = 1
 
 let s:sign_group = 'marks'
 let s:signs = split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', '\ze')
+let s:signs = map(s:signs, {_, v -> "'"..v})
 call sign_define(map(copy(s:signs), { i, v -> {'name': v, 'text': v, 'texthl': 'Special'} }))
 
 function s:marks()
-    let marks = execute("marks")
-    let marks = split(marks, "\n")[1:]
-    let marks = map(marks, { _, v -> split(v)})
-    let marks = map(marks, { _, v -> {'mark': v[0], 'line': v[1], 'col': v[2], 'file/text': join(v[3:], ' ')}})
-
-    let local = filter(copy(marks), { _, v -> v['mark'] =~# '[a-z]'})
-    let global = filter(copy(marks), { _, v -> v['mark'] =~# '[A-Z]'})
-
-    return {'local': local, 'global': global}
+    let global = filter(getmarklist(), {_, v -> index(s:signs, v.mark) != -1 && v.pos[0] == bufnr()})
+    let local = filter(getmarklist(''), {_, v -> index(s:signs, v.mark) != -1})
+    let marks = local + global
+    let marks = map(marks, { _, v -> {'mark': v.mark, 'line': v.pos[1], 'col': v.pos[2]}})
+    return marks
 endfunction
 
 function s:mark2sign(mark)
     return {
         \ 'buffer': '%',
         \ 'group': s:sign_group,
-        \ 'id': char2nr(a:mark.mark),
+        \ 'id': char2nr(a:mark.mark[1:]),
         \ 'lnum': a:mark.line,
         \ 'name': a:mark.mark,
         \ }
@@ -30,8 +27,8 @@ endfunction
 
 function s:place_signs()
     call sign_unplace(s:sign_group)
-    let local = map(s:marks().local, { _, v -> s:mark2sign(v) })
-    call sign_placelist(local)
+    let signs = map(s:marks(), { _, v -> s:mark2sign(v) })
+    call sign_placelist(signs)
 endfunction
 
 function s:enable()
@@ -56,10 +53,10 @@ command! NoShowMarks call s:disable()
 command! ShowMarks call s:enable()
 
 for sign in s:signs
-    execute 'nnoremap m'..sign..' <CMD>silent mark '..sign..' <bar> call <SID>update()<CR>'
+    execute 'nnoremap m'..sign[1:]..' <CMD>silent mark '..sign[1:]..' <bar> call <SID>update()<CR>'
 endfor
 
 augroup my-marker
     autocmd!
-    autocmd BufEnter * call s:update()
+    autocmd BufEnter,CursorHold * silent call s:update()
 augroup END
