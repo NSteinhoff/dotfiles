@@ -277,3 +277,7 @@ endfunction
     if empty(maparg('<leader><leader>', 'n'))
         nnoremap <leader><leader> :nnoremap <leader><leader> 
     endif
+
+
+""" Toggle Light/Dark
+    nmap <F7> <CMD>silent !toggle-light-dark<CR>
