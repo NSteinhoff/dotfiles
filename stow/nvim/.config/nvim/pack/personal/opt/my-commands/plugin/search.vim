@@ -7,9 +7,9 @@ else
     set grepprg=grep\ -nH
 endif
 
-command! -nargs=+ Grep cexpr system('grep -n -r '..expandcmd(<q-args>)..' .')
-command! -nargs=+ GitGrep cexpr system('git grep -n '..expandcmd(<q-args>))
-command! -nargs=+ RipGrep cexpr system('rg --vimgrep --smart-case '..expandcmd(<q-args>))
+command! -bang -nargs=+ -complete=file Grep execute (<bang>0 ? 'cgetexpr' : 'cexpr')..' system("grep -n -r '..expandcmd(<q-args>)..'")'
+command! -bang -nargs=+ -complete=file GitGrep execute (<bang>0 ? 'cgetexpr' : 'cexpr')..' system("git grep -n '..expandcmd(<q-args>)..'")'
+command! -bang -nargs=+ -complete=file RipGrep execute (<bang>0 ? 'cgetexpr' : 'cexpr')..' system("rg --vimgrep --smart-case '..expandcmd(<q-args>)..'")'
 
 " Live results
 command! -nargs=? -bang LiveGrep execute
