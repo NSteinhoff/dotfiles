@@ -128,19 +128,8 @@ endfunction
     nnoremap <silent> <leader>l         <CMD>llist<CR>
     nnoremap <silent> <leader>L         <CMD>lwindow<CR>
 
-    function CycleLoclist(direction) abort
-        let loclist = getloclist(0, {'idx': 1, 'size': 1})
-        if loclist.size == 0
-            echo "No errors."
-            return
-        endif
-        let [advance, wrap] = a:direction ? ['lnext', 'lfirst'] : ['lprevious', 'llast']
-        let at_end = a:direction ? loclist.idx == loclist.size : loclist.idx == 1
-        execute at_end ? wrap : advance
-    endfunction
-
-    nnoremap <silent> <expr> <C-N> pumvisible() ? '<C-N' : '<cmd>call CycleLoclist(1)<cr>'
-    nnoremap <silent> <expr> <C-P> pumvisible() ? '<C-P' : '<cmd>call CycleLoclist(0)<cr>'
+    nmap <C-N> <Plug>(cycle-loc-forward)
+    nmap <C-P> <Plug>(cycle-loc-backward)
 
 
 """ Preview / Hover

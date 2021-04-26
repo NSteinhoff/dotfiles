@@ -2,6 +2,8 @@ let s:sign_name = 'qf-mark'
 let s:sign_group = 'qf-selected'
 call sign_define(s:sign_name, {'text': '>', 'texthl': 'Error'})
 
+augroup QfPreviewCul|augroup END
+
 function qf#isloc()
     return getwininfo(win_getid())[0].loclist == 1
 endfunction
@@ -39,6 +41,20 @@ function s:unselected()
     return filter(all, { i, _ -> index(lnums, i + 1) == -1})
 endfunction
 
+function s:next()
+    let list = s:get({'idx': 1, 'size': 1})
+    if list.size == 0|return|endif
+    let [advance, wrap] = ['next', 'first']
+    return (qf#isloc() ? 'l' : 'c')..(list.idx == list.size ? wrap : advance)
+endfunction
+
+function s:prev()
+    let list = s:get({'idx': 1, 'size': 1})
+    if list.size == 0|return|endif
+    let [advance, wrap] = ['prev', 'last']
+    return (qf#isloc() ? 'l' : 'c')..(list.idx == 1 ? wrap : advance)
+endfunction
+
 function qf#mark()
     let lnum = line('.')
     if index(s:marked(), lnum) == -1
@@ -65,6 +81,20 @@ function qf#duplicate() abort
     call s:set([], ' ', {'title': this.title, 'items': this.items, 'nr': '$'})
 endfunction
 
+function qf#preview(pos)
+    let pref = qf#isloc() ? 'l' : 'c'
+    let cmd = a:pos == 0 ? line('.')..pref..pref
+          \ : a:pos > 0 ? s:next()
+          \ : s:prev()
+    execute cmd
+    let cul = &cursorline ? 'cursorline' : 'nocursorline'
+    if !exists('#QfPreviewCul#BufEnter#<buffer>')
+        set cursorline
+        execute 'autocmd QfPreviewCul BufEnter <buffer> set '..cul..' | autocmd! QfPreviewCul BufEnter <buffer>'
+    endif
+    wincmd p
+endfunction
+
 function qf#only() abort
     let this = s:get({'title': 1, 'items': 1})
     call s:set([], 'f')
@@ -82,4 +112,15 @@ function qf#cycle_lists(forward)
                        \ : (curr == 1    ? 'newer'..rewind : 'older')
 
     execute prefix..step
+endfunction
+
+function qf#cycle_loc(forward) abort
+    let loclist = getloclist(0, {'idx': 1, 'size': 1})
+    if loclist.size == 0
+        echo "No errors."
+        return
+    endif
+    let [advance, wrap] = a:forward ? ['lnext', 'lfirst'] : ['lprevious', 'llast']
+    let at_end = a:forward ? loclist.idx == loclist.size : loclist.idx == 1
+    execute at_end ? wrap : advance
 endfunction
