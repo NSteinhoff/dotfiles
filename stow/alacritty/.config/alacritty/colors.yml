@@ -200,12 +200,10 @@ themes:
       white:      '#828997' # mono-2     white:    '0xaeadaf'  #  bright  white    variant
 
   spaceduck: &spaceduck
-    # Default colors
     primary:
       background: '#0f111b'
       foreground: '#ecf0c1'
 
-    # Stolen from one-dark
     cursor:
       text:       CellBackground
       cursor:     '#16172d'
@@ -214,7 +212,6 @@ themes:
       text:       CellForeground
       background: '#1b1c36'
 
-    # Normal colors
     normal:
       black:   '#000000'  # pure black
       red:     '#e33400'  # red
@@ -225,7 +222,6 @@ themes:
       cyan:    '#00a3cc'  # cyan
       white:   '#f0f1ce'  # (custom) white
 
-    # Bright colors
     bright:
       black:   '#30365F'  # dark purple
       red:     '#e39400'  # orange
@@ -236,14 +232,12 @@ themes:
       cyan:    '#686f9a'  # dark purple 2
       white:   '#ffffff'  # pure white
 
-iceberg-dark: &iceberg-dark
-    # Default colors
+  iceberg-dark: &iceberg-dark
     primary:
-        background: '#161821'
-        foreground: '#d2d4de'
+      background: '#161821'
+      foreground: '#d2d4de'
 
-    # Normal colors
-    normal:
+      normal:
         black:   '#161821'
         red:     '#e27878'
         green:   '#b4be82'
@@ -253,8 +247,7 @@ iceberg-dark: &iceberg-dark
         cyan:    '#89b8c2'
         white:   '#c6c8d1'
 
-    # Bright colors
-    bright:
+      bright:
         black:   '#6b7089'
         red:     '#e98989'
         green:   '#c0ca8e'
@@ -264,32 +257,29 @@ iceberg-dark: &iceberg-dark
         cyan:    '#95c4ce'
         white:   '#d2d4de'
 
-iceberg-light: &iceberg-light
-    # Default colors
+  iceberg-light: &iceberg-light
     primary:
-        background: '#e8e9ec'
-        foreground: '#33374c'
+      background: '#e8e9ec'
+      foreground: '#33374c'
 
-    # Normal colors
     normal:
-        black:   '#dcdfe7'
-        red:     '#cc517a'
-        green:   '#668e3d'
-        yellow:  '#c57339'
-        blue:    '#2d539e'
-        magenta: '#7759b4'
-        cyan:    '#3f83a6'
-        white:   '#33374c'
+      black:   '#dcdfe7'
+      red:     '#cc517a'
+      green:   '#668e3d'
+      yellow:  '#c57339'
+      blue:    '#2d539e'
+      magenta: '#7759b4'
+      cyan:    '#3f83a6'
+      white:   '#33374c'
 
-    # Bright colors
     bright:
-        black:   '#8389a3'
-        red:     '#cc3768'
-        green:   '#598030'
-        yellow:  '#b6662d'
-        blue:    '#22478e'
-        magenta: '#6845ad'
-        cyan:    '#327698'
-        white:   '#262a3f'
+      black:   '#8389a3'
+      red:     '#cc3768'
+      green:   '#598030'
+      yellow:  '#b6662d'
+      blue:    '#22478e'
+      magenta: '#6845ad'
+      cyan:    '#327698'
+      white:   '#262a3f'
 
 colors: *gruvbox-dark
