@@ -19,8 +19,12 @@ command! -nargs=? -bang LiveGrep execute
             \| endif
 
 nnoremap <silent> <Plug>(livegrep-new) <CMD>LiveGrep!<CR>A
-nnoremap <silent> <Plug>(livegrep-resume) <CMD>LiveGrep<CR>
-vnoremap <silent> <Plug>(livegrep-selection) y:execute 'LiveGrep '.@"<CR>
+nnoremap <silent> <Plug>(livegrep-resume) <CMD>LiveGrep<CR>A
+vnoremap <silent> <Plug>(livegrep-selection) y:execute 'LiveGrep '..escape(@", '()\|.*+[]^$')<CR>
 
+nnoremap <silent> <Plug>(search-word) :execute 'grep ''\b'..expand('<cword>')..'\b'''<CR>
+nnoremap <silent> <Plug>(search-word-g) :execute 'grep '''..expand('<cword>')..''''<CR>
+vnoremap <silent> <Plug>(search-selection) y:execute "grep '"..substitute(escape(@", '()\|.*+[]^$'), "'", '''\\''''', 'g').."'"<CR>
 nnoremap <silent> <Plug>(search-word-in-file) :execute 'lvimgrep /\<'..expand('<cword>')..'\>/ %'<CR>
+nnoremap <silent> <Plug>(search-word-g-in-file) :execute 'lvimgrep /'..expand('<cword>')..'/ %'<CR>
 vnoremap <silent> <Plug>(search-selection-in-file) y:execute 'lvimgrep /'..escape(@", '\/')..'/ %'<CR>

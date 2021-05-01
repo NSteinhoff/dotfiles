@@ -25,6 +25,7 @@ command -buffer PathRemove execute 'set path-='..expand('%')
 " Tree prints the input path, so we can just filter the lines
 command -buffer -range -nargs=* -bang Tree execute '<line1>,<line2>!xargs tree -fi'..(<bang>0 ? 'a' : '')..' --noreport <args>'
 
+highlight default link DirvishPathHead Normal
 syn clear DirvishPathHead
 execute 'syn match DirvishPathHead ='..expand('%:p'..(get(g:, 'dirvish_relative_paths') ? ':.' : ''))..'\ze.\+=  conceal'
 autocmd! dirvish_buflocal TextChanged,TextChangedI

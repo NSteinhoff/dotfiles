@@ -124,3 +124,14 @@ function qf#cycle_loc(forward) abort
     let at_end = a:forward ? loclist.idx == loclist.size : loclist.idx == 1
     execute at_end ? wrap : advance
 endfunction
+
+function qf#cycle_qf(forward) abort
+    let qflist = getqflist({'idx': 1, 'size': 1})
+    if qflist.size == 0
+        echo "No errors."
+        return
+    endif
+    let [advance, wrap] = a:forward ? ['cnext', 'cfirst'] : ['cprevious', 'clast']
+    let at_end = a:forward ? qflist.idx == qflist.size : qflist.idx == 1
+    execute at_end ? wrap : advance
+endfunction

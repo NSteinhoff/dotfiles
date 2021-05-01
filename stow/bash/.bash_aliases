@@ -42,6 +42,9 @@ alias tree='tree --dirsfirst'
 # Listing dirs
 alias dirs='dirs -v'
 
+# Grep with color
+alias grep='grep --color=auto'
+
 # Web search
 alias q='_() { q="${@:1}"; '$opener' "https://duckduckgo.com/?q=${q}"; }; _'
 

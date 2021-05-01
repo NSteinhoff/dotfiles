@@ -93,7 +93,7 @@
     packadd my-commands
     packadd my-completions
     packadd my-mappings
-    packadd my-marks
+    " packadd my-marks
     packadd my-quickfix
     packadd my-statusline
     packadd my-tags
@@ -121,7 +121,7 @@
 
 """ Neovide GUI
 if get(g:, 'neovide')
-    let g:neovide_fullscreen=v:true
+    let g:neovide_fullscreen=v:false
     set guifont=Iosevka\ Nerd\ Font\ Mono,FiraCode\ Nerd\ Font\ Mono
     colorscheme desert
     if getcwd() == '/' | cd | endif

@@ -110,8 +110,11 @@ endfunction
     "   => 'indent all'
     nnoremap <silent> <> <CMD>Format<CR>
 
-""" Align
-    vnoremap <silent> <leader>= <CMD>'<,'>Align<CR>
+""" Align: <leader>=
+    vnoremap <silent> <leader>== :Align<CR>
+    vnoremap <silent> <leader>=. :center<CR>
+    vnoremap <silent> <leader>=> :right<CR>
+    vnoremap <silent> <leader>=< :left<CR>
 
 
 """  Errors: Quickfix / Location Lists
@@ -123,10 +126,14 @@ endfunction
     " <leader><key>             Peek at list
     " <leader><KEY>             Go to list and pick entry
     nnoremap <silent> <leader><SPACE>   <CMD>cclose<bar>lclose<CR>
-    nnoremap <silent> <leader>q         <CMD>clist<CR>
-    nnoremap <silent> <leader>Q         <CMD>cwindow<CR>
-    nnoremap <silent> <leader>l         <CMD>llist<CR>
-    nnoremap <silent> <leader>L         <CMD>lwindow<CR>
+    nnoremap <silent> <leader>qq         <CMD>clist<CR>
+    nnoremap <silent> <leader>qo         <CMD>copen<CR>
+    nnoremap <silent> <leader>qc         <CMD>cclose<CR>
+    nnoremap <silent> <leader>qw         <CMD>cwindow<CR>
+    nnoremap <silent> <leader>ll         <CMD>llist<CR>
+    nnoremap <silent> <leader>lo         <CMD>lopen<CR>
+    nnoremap <silent> <leader>lc         <CMD>lclose<CR>
+    nnoremap <silent> <leader>lw         <CMD>lwindow<CR>
 
     nmap <C-N> <Plug>(cycle-loc-forward)
     nmap <C-P> <Plug>(cycle-loc-backward)
@@ -172,22 +179,6 @@ endfunction
     nmap g? <Plug>(maker-edit-errors)
 
 
-""" Find files
-    nmap <leader>f <Plug>(filefinder-new)
-    nmap <leader>F <Plug>(filefinder-here)
-
-
-""" Searching
-    " Local search
-    nmap <silent> <leader>* <Plug>(search-word-in-file)
-    vmap <silent> <leader>* <Plug>(search-selection-in-file)
-
-    " Live grep
-    nmap <leader>g <Plug>(livegrep-new)
-    nmap <leader>G <Plug>(livegrep-resume)
-    vmap <leader>g <Plug>(livegrep-selection)
-
-
 """ Toggle Settings
     " Extending 'vim-unimpaired'
     " _: Statusbar
@@ -200,6 +191,9 @@ endfunction
     " Move cursor in command line
     " cnoremap <C-H> <left>
     " cnoremap <C-L> <right>
+
+    " Favorite mark
+    nnoremap gz `Z
 
     " Insert file's directory in command line
     cnoremap %% %:h/
@@ -214,41 +208,66 @@ endfunction
     nnoremap <silent> <C-W>t <CMD>tab split<CR>
     nnoremap <silent> <C-W><C-t> <CMD>tab split<CR>
 
-    " Open settings
-    nnoremap <silent> <leader>; <CMD>edit $MYVIMRC<CR>
+    " Open settings: <leader>;
+    nnoremap <silent> <leader>;; <CMD>edit $MYVIMRC<CR>
+    nnoremap <silent> <leader>;m <CMD>PackEdit mapper.vim<CR>
+    nnoremap <silent> <leader>;c <CMD>PackEdit commander.vim<CR>
 
-    " Execute
-    nnoremap <silent> <leader>! <CMD>!%:p<CR>
-    vnoremap <silent> <leader>! :w !bash<CR>
-    nnoremap <leader>x :.w !xargs 
-    vnoremap <leader>x :w !xargs 
-    nnoremap <leader>X :.!xargs 
-    vnoremap <leader>X :!xargs 
+    " Bang: <leader>!
+    nnoremap <leader>!! <CMD>!%:p<CR>
+    vnoremap <leader>!! :w !bash<CR>
 
-    " Buffers
-    nnoremap <leader>s :sbuffer <C-Z>
-    nnoremap <leader>v :vert sbuffer <C-Z>
-    nnoremap <leader>t :tab sbuffer <C-Z>
-    nnoremap <leader>b :buffer <C-Z>
-    nmap <leader>B <Plug>(buffers-edit-list)
-    nmap <leader>d <Plug>(buffers-delete)
-    nmap <leader>D <Plug>(buffers-wipe)
+    " Execute: <leader>x
+    nnoremap <leader>xx :.w !xargs 
+    vnoremap <leader>xx :w !xargs 
+    nnoremap <leader>xf :.!xargs 
+    vnoremap <leader>xf :!xargs 
 
-    " Explore
-    nnoremap <silent> <leader>E <CMD>Explore<CR>
-    nnoremap <silent> <leader>V <CMD>Vexplore<CR>
-    nnoremap <silent> <leader>T <CMD>Texplore<CR>
+    " Split: <leader>s
+    nnoremap <leader>ss :sbuffer <C-Z>
+    nnoremap <leader>sv :vert sbuffer <C-Z>
+    nnoremap <leader>st :tab sbuffer <C-Z>
 
-    " Favorite mark
-    nnoremap gz `Z
+    " Buffers: <leader>b
+    nnoremap <leader>bb :buffer <C-Z>
+    nmap <leader>be <Plug>(buffers-edit-list)
+    nmap <leader>bd <Plug>(buffers-delete)
+    nmap <leader>bw <Plug>(buffers-wipe)
 
-    " Cycle colorschemes
-    nnoremap <F12> <CMD>CycleColorNext<CR>
+    " Explore: <leader>e
+    nnoremap <silent> <leader>ee <CMD>Explore<CR>
+    nnoremap <silent> <leader>ev <CMD>Vexplore<CR>
+    nnoremap <silent> <leader>es <CMD>Sexplore<CR>
+    nnoremap <silent> <leader>et <CMD>Texplore<CR>
 
-    " Open directory with OS file explorer
-    nnoremap <leader>o <CMD>silent Open<CR>
-    nnoremap <leader>O <CMD>silent Open %:h<CR>
-    vnoremap <leader>o y:Open "<CR>
+    " Arguments: <leader>a
+    nnoremap <silent> <leader>al <CMD>arglocal<CR>
+    nnoremap <silent> <leader>ag <CMD>argglobal<CR>
+    nnoremap <silent> <leader>aa <CMD>argadd<CR>
+    nnoremap <silent> <leader>ad <CMD>argdelete<CR>
+
+    " Open: <leader>o
+    nnoremap <leader>oo <CMD>silent Open<CR>
+    nnoremap <leader>o, <CMD>silent Open %:h<CR>
+    nnoremap <leader>o. <CMD>silent execute 'Open '..getcwd()<CR>
+    vnoremap <leader>oo y:Open "<CR>
+
+    " Find: <leader>f
+    nmap <leader>ff <Plug>(filefinder-new)
+
+    " Search: <leader>*
+    nmap <silent> <leader>*. <Plug>(search-word-in-file)
+    nmap <silent> <leader>*g. <Plug>(search-word-g-in-file)
+    vmap <silent> <leader>*. <Plug>(search-selection-in-file)
+
+    nmap <silent> <leader>** <Plug>(search-word)
+    nmap <silent> <leader>*g* <Plug>(search-word-g)
+    vmap <silent> <leader>** <Plug>(search-selection)
+
+    " Livegrep: <leader>g
+    nmap <leader>gg <Plug>(livegrep-resume)
+    nmap <leader>gn <Plug>(livegrep-new)
+    vmap <leader>gg <Plug>(livegrep-selection)
 
 
 """ (c): Changes / Diffing
@@ -262,11 +281,17 @@ endfunction
     vmap <silent> gb <Plug>(git-blame)
 
 
-""" Potential Ad-hoc mappings
+""" Potential Ad-hoc mappings or show <leader> mappings
+    for letter in split('abcdefghijklmnopqrstuvwxyz', '\ze')
+        if empty(maparg('<leader>'..letter, 'n'))
+            execute 'nnoremap <leader>'..letter..' <CMD>echo join(split(execute(''map <leader>'..letter..'''), "\n")[1:], "\n")<CR>'
+        endif
+    endfor
     if empty(maparg('<leader><leader>', 'n'))
-        nnoremap <leader><leader> :nnoremap <leader><leader> 
+        nnoremap <leader><leader> <CMD>map <leader><CR>
     endif
 
 
-""" Toggle Light/Dark
-    nmap <F7> <CMD>silent !toggle-light-dark<CR>
+""" Theme and Colors
+    nnoremap <F7> <CMD>silent !toggle-light-dark<CR>
+    nnoremap <F8> <CMD>CycleColorNext<CR>
