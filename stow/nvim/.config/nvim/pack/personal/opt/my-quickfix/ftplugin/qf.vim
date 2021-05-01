@@ -17,6 +17,9 @@ nnoremap <silent> <buffer> <C-N> <CMD>call qf#preview(1)<CR>
 nnoremap <silent> <buffer> <C-P> <CMD>call qf#preview(-1)<CR>
 
 if qf#isloc()|finish|endif
+nnoremap <silent> <buffer> !! <CMD>call qf#only()<CR>
+nnoremap <silent> <buffer> !$ <CMD>call qf#duplicate()<CR>
+
 nnoremap <silent> <buffer> <Tab> <CMD>call qf#mark()<CR>
 vnoremap <silent> <buffer> <Tab> :call qf#mark()<CR>
 nnoremap <silent> <buffer> J <CMD>call qf#mark()<CR>j
@@ -25,14 +28,10 @@ nnoremap <silent> <buffer> <S-Tab> <CMD>call qf#clear_marks()<CR>
 
 nnoremap <silent> <buffer> zn <CMD>call qf#filter(0, v:count)<CR>
 nnoremap <silent> <buffer> zN <CMD>call qf#filter(1, v:count)<CR>
-
-vnoremap <silent> <buffer> < :call qf#mark()<CR><CMD>call qf#filter(1)<CR>
-vnoremap <silent> <buffer> > :call qf#mark()<CR><CMD>call qf#filter(0)<CR>
-vnoremap <silent> <buffer> d :call qf#mark()<CR><CMD>call qf#swap(1)<CR>
-vnoremap <silent> <buffer> y :call qf#mark()<CR><CMD>call qf#swap(0)<CR>
+vnoremap <silent> <buffer> zn :call qf#mark()<CR><CMD>call qf#filter(0)<CR>
+vnoremap <silent> <buffer> zN :call qf#mark()<CR><CMD>call qf#filter(1)<CR>
 
 nnoremap <silent> <buffer> dd <CMD>call qf#mark()<CR><CMD>call qf#swap(1)<CR>
 nnoremap <silent> <buffer> yy <CMD>call qf#mark()<CR><CMD>call qf#swap(0)<CR>
-
-nnoremap <silent> <buffer> !! <CMD>call qf#only()<CR>
-nnoremap <silent> <buffer> !$ <CMD>call qf#duplicate()<CR>
+vnoremap <silent> <buffer> d :call qf#mark()<CR><CMD>call qf#swap(1)<CR>
+vnoremap <silent> <buffer> y :call qf#mark()<CR><CMD>call qf#swap(0)<CR>

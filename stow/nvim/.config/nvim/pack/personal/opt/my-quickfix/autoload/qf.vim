@@ -81,9 +81,27 @@ function qf#swap(v) abort
     let items = a:v ? s:unselected() : s:selected()
     call qf#clear_marks()
     if empty(items)|return|endif
-    let this = s:get({'title': 1, 'nr': 0})
-    let title = '*'..this.title
-    call s:set([], ' ', {'title': title, 'items': items, 'nr': max([this.nr - 1, 0])})
+    let this = s:get({'title': 1})
+    call s:set([], 'r', {'title': this.title, 'items': items})
+endfunction
+
+function qf#add() abort range
+    let this = s:get({'title': 1, 'items': 1})
+    let items = this.items
+    " This might be the first list, so give it a title
+    let title = empty(this.title) ? 'Bookmarks' : this.title
+    let lnum = a:firstline
+    while lnum <= a:lastline
+        let item = {'bufnr': bufnr(), 'lnum': lnum, 'col': 1, 'text': getline(lnum)}
+        let items = add(items, item)
+        let lnum += 1
+    endwhile
+    call setqflist([], 'r', {'title': title, 'items': items})
+endfunction
+
+function qf#new(...) abort
+    let title = a:0 && !empty(a:1) ? a:1 : 'Bookmarks'
+    call setqflist([], ' ', {'title': title, 'nr': (a:0 >= 2 && a:2 ? 0 : '$')})
 endfunction
 
 function qf#duplicate() abort

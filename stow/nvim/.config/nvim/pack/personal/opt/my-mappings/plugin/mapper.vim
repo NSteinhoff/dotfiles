@@ -121,19 +121,19 @@ endfunction
     " The idea here is to have one mapping to get a peek at the current list
     " of entries and a second one to browse the list and pick an entry to
     " jump to.
-    "
-    " <key>                     Mnemonic key for the list
-    " <leader><key>             Peek at list
-    " <leader><KEY>             Go to list and pick entry
-    nnoremap <silent> <leader><SPACE>   <CMD>cclose<bar>lclose<CR>
-    nnoremap <silent> <leader>qq         <CMD>clist<CR>
-    nnoremap <silent> <leader>qo         <CMD>copen<CR>
-    nnoremap <silent> <leader>qc         <CMD>cclose<CR>
-    nnoremap <silent> <leader>qw         <CMD>cwindow<CR>
-    nnoremap <silent> <leader>ll         <CMD>llist<CR>
-    nnoremap <silent> <leader>lo         <CMD>lopen<CR>
-    nnoremap <silent> <leader>lc         <CMD>lclose<CR>
-    nnoremap <silent> <leader>lw         <CMD>lwindow<CR>
+    nnoremap <silent> <leader><SPACE>  <CMD>cclose<bar>lclose<CR>
+    nnoremap <silent> <leader>qq       <CMD>clist<CR>
+    nnoremap <silent> <leader>qo       <CMD>copen<CR>
+    nnoremap <silent> <leader>qc       <CMD>cclose<CR>
+    nnoremap <silent> <leader>qw       <CMD>cwindow<CR>
+    nnoremap <silent> <leader>ll       <CMD>llist<CR>
+    nnoremap <silent> <leader>lo       <CMD>lopen<CR>
+    nnoremap <silent> <leader>lc       <CMD>lclose<CR>
+    nnoremap <silent> <leader>lw       <CMD>lwindow<CR>
+
+    nmap <silent> <leader>qn <Plug>(qf-new)
+    nmap <silent> <leader>qa <Plug>(qf-add)
+    vmap <silent> <leader>qa <Plug>(qf-add)
 
     nmap <C-N> <Plug>(cycle-loc-forward)
     nmap <C-P> <Plug>(cycle-loc-backward)
