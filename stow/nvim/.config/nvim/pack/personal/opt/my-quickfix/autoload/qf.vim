@@ -70,10 +70,20 @@ endfunction
 
 function qf#filter(v, ...) abort
     let items = a:v ? s:unselected() : s:selected()
-    if empty(items)|return|endif
-    let title = '*'..s:get({'title': 1}).title
     call qf#clear_marks()
+    if empty(items)|return|endif
+    let this = s:get({'title': 1, 'nr': 0})
+    let title = '*'..this.title
     call s:set([], ' ', {'title': title, 'items': items, 'nr': (a:0 && a:1 ? '$' : 0)})
+endfunction
+
+function qf#swap(v) abort
+    let items = a:v ? s:unselected() : s:selected()
+    call qf#clear_marks()
+    if empty(items)|return|endif
+    let this = s:get({'title': 1, 'nr': 0})
+    let title = '*'..this.title
+    call s:set([], ' ', {'title': title, 'items': items, 'nr': max([this.nr - 1, 0])})
 endfunction
 
 function qf#duplicate() abort

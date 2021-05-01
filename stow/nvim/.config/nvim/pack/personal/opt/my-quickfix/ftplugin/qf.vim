@@ -1,4 +1,7 @@
 setlocal cursorline
+setlocal scrolloff=0
+
+command -buffer Mark call qf#mark()
 
 " Remove some global mappings that do not make sense in the quickfix list
 nnoremap <buffer> - -
@@ -22,6 +25,14 @@ nnoremap <silent> <buffer> <S-Tab> <CMD>call qf#clear_marks()<CR>
 
 nnoremap <silent> <buffer> zn <CMD>call qf#filter(0, v:count)<CR>
 nnoremap <silent> <buffer> zN <CMD>call qf#filter(1, v:count)<CR>
+
+vnoremap <silent> <buffer> < :call qf#mark()<CR><CMD>call qf#filter(1)<CR>
+vnoremap <silent> <buffer> > :call qf#mark()<CR><CMD>call qf#filter(0)<CR>
+vnoremap <silent> <buffer> d :call qf#mark()<CR><CMD>call qf#swap(1)<CR>
+vnoremap <silent> <buffer> y :call qf#mark()<CR><CMD>call qf#swap(0)<CR>
+
+nnoremap <silent> <buffer> dd <CMD>call qf#mark()<CR><CMD>call qf#swap(1)<CR>
+nnoremap <silent> <buffer> yy <CMD>call qf#mark()<CR><CMD>call qf#swap(0)<CR>
 
 nnoremap <silent> <buffer> !! <CMD>call qf#only()<CR>
 nnoremap <silent> <buffer> !$ <CMD>call qf#duplicate()<CR>
