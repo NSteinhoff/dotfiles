@@ -61,10 +61,10 @@ show_more = false
 fm := force_more_message
 
 # Events
-fm += You riposte
+# fm += You riposte
 
 # HP loss
-fm += HP: \d+/\d+ \(-\d+\)
+fm += HP: \d+/\d+ \(-\d+\).*!+
 
 # Statuses
 fm += You feel strangely unstable
@@ -111,13 +111,14 @@ function bar(current, change, max, length)
     return ' <darkgrey>'..filled..lost..rest..'</darkgrey> '
 end
 
-function bighit(change, max)
-    if change <= 0 then
-        return ''
-    end
+function bighit(hp_loss, hp_max, fraction)
+    if hp_loss >= 0 then return '' end
 
-    local fraction_changed = math.abs(change / hp_max)
-    local ouch = string.rep('!', math.floor(fraction_changed * 10))
+    -- Add '!' per every 10th of HP by default
+    multiplier = fraction and 1/fraction or 10
+
+    local fraction_changed = math.abs(hp_loss / hp_max)
+    local ouch = string.rep('!', math.floor(fraction_changed * multiplier))
 
     return ouch == '' and '' or ' '..ouch
 end
@@ -142,18 +143,16 @@ function announce_damage()
         end
 
         if message ~= nil then
-            local channel = "plain"
-
             if hp_diff < 0 then
                 -- Always warn about HP loss
-                channel = "warning"
                 message = message..bar(hp_curr, hp_diff, hp_max)
                 message = message..bighit(hp_diff, hp_max)
-            elseif hp_curr < hp_max * 0.5 then
-                -- Danger below half health
-                channel = "danger"
             end
 
+            local channel =
+                hp_curr < hp_max * 0.5 and "danger"
+                or hp_diff < 0 and "warning"
+                or "plain"
             crawl.mpr(message, channel)
         end
     end
