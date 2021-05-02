@@ -43,5 +43,5 @@ vnoremap <silent> <buffer> zN :call qf#mark()<CR><CMD>call qf#filter(1, 1)<CR>
 " Edit current list
 nnoremap <silent> <buffer> dd <CMD>call qf#mark()<CR><CMD>call qf#swap(1)<CR>
 nnoremap <silent> <buffer> yy <CMD>call qf#mark()<CR><CMD>call qf#swap(0)<CR>
-vnoremap <silent> <buffer> d :call qf#mark()<CR><CMD>call qf#swap(1)<CR>
+vnoremap <silent> <buffer> d :call qf#mark()<CR><CMD>call qf#swap(1)<CR><CMD>execute min([line("'<"), line("$")])<CR>
 vnoremap <silent> <buffer> y :call qf#mark()<CR><CMD>call qf#swap(0)<CR>

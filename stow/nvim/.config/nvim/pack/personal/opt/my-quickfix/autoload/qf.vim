@@ -225,13 +225,12 @@ endfunction
 
 function qf#add() abort range
     let this = getqflist({'all': 1})
-    " This might be the first list, so give it a title
-    let title = empty(this.title) ? 'Bookmarks' : this.title
+    let this.title = empty(this.title) ? 'Bookmarks' : this.title
     let lnum = a:firstline
     while lnum <= a:lastline
         let item = {'bufnr': bufnr(), 'lnum': lnum, 'col': 1, 'text': getline(lnum)}
         call add(this.items, item)
         let lnum += 1
     endwhile
-    call setqflist([], 'r', this)
+    call setqflist([], this.nr == 0 ? ' ' : 'r', this)
 endfunction

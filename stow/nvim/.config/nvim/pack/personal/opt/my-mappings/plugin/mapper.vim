@@ -283,7 +283,7 @@ endfunction
 
 
 """ Potential Ad-hoc mappings or show <leader> mappings
-    for letter in split('abcdefghijklmnopqrstuvwxyz', '\ze')
+    for letter in split('abcdefghijklmnopqrstuvwxyz*;!=', '\ze')
         if empty(maparg('<leader>'..letter, 'n'))
             execute 'nnoremap <leader>'..letter..' <CMD>echo join(split(execute(''map <leader>'..letter..'''), "\n")[1:], "\n")<CR>'
         endif

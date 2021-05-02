@@ -89,9 +89,6 @@ function s:update(live, ...)
         call s:search()
         " call s:highlight()
     endif
-    if !a:live
-        call s:export('%')
-    endif
 endfunction
 
 function s:export(buf, ...)
@@ -100,11 +97,11 @@ function s:export(buf, ...)
     endif
     let lines = getbufline(a:buf, 3, '$')
     if a:0 && a:1
-        call setqflist([], 'a', {'lines': lines})
+        call setqflist([], 'a', {'lines': lines, 'nr': '$'})
     else
         let title = '[livegrep] '..shellescape(b:query)
         let curtitle = getqflist({'title': 1}).title
-        call setqflist([], title == curtitle ? 'r' : ' ', {'lines': lines, 'title': title})
+        call setqflist([], title == curtitle ? 'r' : ' ', {'lines': lines, 'title': title, 'nr': '$'})
     endif
 endfunction
 
