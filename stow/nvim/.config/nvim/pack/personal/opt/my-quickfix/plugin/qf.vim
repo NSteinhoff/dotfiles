@@ -1,7 +1,11 @@
-command! Qfedit execute (empty(getbufinfo('^QFEDIT$')) ? 'edit QFEDIT' : 'buffer ^QFEDIT$')
-command! -nargs=* -bang Qfnew call qf#new(<q-args>, <bang>0)
+command! -nargs=* -bang Cnew call qf#new(<q-args>, <bang>0)
+command! Cdelete call qf#delete()
+command! Cyank call qf#yank()
+command! Cpaste call qf#paste()
+command! Conly call qf#only()
 
-nnoremap <silent> <Plug>(qf-edit) <CMD>QfEdit<CR>
+command! Ctab if getqflist({'nr': 0}).nr|tab split|copen|only|else|echo "No quickfix list."|endif
+command! Ltab if getloclist(0, {'nr': 0}).nr|tab split|lopen|only|else|echo "No location list."|endif
 
 nnoremap <silent> <Plug>(cycle-loc-forward) <CMD>call qf#cycle_loc(1)<CR>
 nnoremap <silent> <Plug>(cycle-loc-backward) <CMD>call qf#cycle_loc(0)<CR>

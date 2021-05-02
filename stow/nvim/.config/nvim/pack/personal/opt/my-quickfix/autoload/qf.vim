@@ -1,5 +1,7 @@
 let s:sign_name = 'qf-mark'
 let s:sign_group = 'qf-selected'
+let s:clipboard = {}
+
 call sign_define(s:sign_name, {'text': '>', 'texthl': 'Error'})
 
 augroup QfPreviewCul|augroup END
@@ -55,6 +57,9 @@ function s:prev()
     return (qf#isloc() ? 'l' : 'c')..(list.idx == 1 ? wrap : advance)
 endfunction
 
+" -------------------------------------------------------------------------- "
+"                                    Both                                    "
+" -------------------------------------------------------------------------- "
 function qf#mark()
     let lnum = line('.')
     if index(s:marked(), lnum) == -1
@@ -72,41 +77,20 @@ function qf#filter(v, ...) abort
     let items = a:v ? s:unselected() : s:selected()
     call qf#clear_marks()
     if empty(items)|return|endif
-    let this = s:get({'title': 1, 'nr': 0})
-    let title = '*'..this.title
-    call s:set([], ' ', {'title': title, 'items': items, 'nr': (a:0 && a:1 ? '$' : 0)})
+    let this = s:get({'all': 1})
+    let this.title = '*'..this.title
+    let this.items = items
+    let this.nr = (a:0 && a:1 ? '$' : 0)
+    call s:set([], ' ', this)
 endfunction
 
 function qf#swap(v) abort
     let items = a:v ? s:unselected() : s:selected()
     call qf#clear_marks()
     if empty(items)|return|endif
-    let this = s:get({'title': 1})
-    call s:set([], 'r', {'title': this.title, 'items': items})
-endfunction
-
-function qf#add() abort range
-    let this = s:get({'title': 1, 'items': 1})
-    let items = this.items
-    " This might be the first list, so give it a title
-    let title = empty(this.title) ? 'Bookmarks' : this.title
-    let lnum = a:firstline
-    while lnum <= a:lastline
-        let item = {'bufnr': bufnr(), 'lnum': lnum, 'col': 1, 'text': getline(lnum)}
-        let items = add(items, item)
-        let lnum += 1
-    endwhile
-    call setqflist([], 'r', {'title': title, 'items': items})
-endfunction
-
-function qf#new(...) abort
-    let title = a:0 && !empty(a:1) ? a:1 : 'Bookmarks'
-    call setqflist([], ' ', {'title': title, 'nr': (a:0 >= 2 && a:2 ? 0 : '$')})
-endfunction
-
-function qf#duplicate() abort
-    let this = s:get({'title': 1, 'items': 1})
-    call s:set([], ' ', {'title': this.title, 'items': this.items, 'nr': '$'})
+    let this = s:get({'all': 1})
+    let this.items = items
+    call s:set([], 'r', this)
 endfunction
 
 function qf#preview(pos)
@@ -123,12 +107,6 @@ function qf#preview(pos)
     wincmd p
 endfunction
 
-function qf#only() abort
-    let this = s:get({'title': 1, 'items': 1})
-    call s:set([], 'f')
-    call s:set([], ' ', {'title': this.title, 'items': this.items, 'nr': '$'})
-endfunction
-
 function qf#cycle_lists(forward)
     let curr = s:get({'nr': 0}).nr
     let last = s:get({'nr': '$'}).nr
@@ -142,6 +120,9 @@ function qf#cycle_lists(forward)
     execute prefix..step
 endfunction
 
+" -------------------------------------------------------------------------- "
+"                                  Loclist                                   "
+" -------------------------------------------------------------------------- "
 function qf#cycle_loc(forward) abort
     let loclist = getloclist(0, {'idx': 1, 'size': 1})
     if loclist.size == 0
@@ -153,6 +134,43 @@ function qf#cycle_loc(forward) abort
     execute at_end ? wrap : advance
 endfunction
 
+" -------------------------------------------------------------------------- "
+"                                  Quickfix                                  "
+" -------------------------------------------------------------------------- "
+function s:setmany(lists)
+    for list in a:lists
+        let list.nr = '$'
+        call setqflist([], ' ', list)
+    endfor
+endfunction
+
+function s:qflists()
+    let lists = []
+    let nlists = getqflist({'nr': '$'}).nr
+    let idx = 1
+    while idx <= nlists
+        call add(lists, getqflist({'all': 1, 'nr': idx}))
+        let idx += 1
+    endwhile
+    return lists
+endfunction
+
+function s:goto(nr)
+    let curr = getqflist({'nr': 0}).nr
+    if curr == 0|return|endif
+
+    let last = getqflist({'nr': '$'}).nr
+    let target = a:nr == '$' ? last : max([1, min([last, a:nr])])
+    let steps = target - curr
+    if steps == 0
+        return
+    elseif steps > 0
+        execute steps..'cnewer'
+    else
+        execute -steps..'colder'
+    endif
+endfunction
+
 function qf#cycle_qf(forward) abort
     let qflist = getqflist({'idx': 1, 'size': 1})
     if qflist.size == 0
@@ -162,4 +180,58 @@ function qf#cycle_qf(forward) abort
     let [advance, wrap] = a:forward ? ['cnext', 'cfirst'] : ['cprevious', 'clast']
     let at_end = a:forward ? qflist.idx == qflist.size : qflist.idx == 1
     execute at_end ? wrap : advance
+endfunction
+
+function qf#new(...) abort
+    let title = a:0 && !empty(a:1) ? a:1 : 'Bookmarks'
+    call setqflist([], ' ', {'title': title, 'nr': (a:0 >= 2 && a:2 ? 0 : '$')})
+endfunction
+
+function qf#yank() abort
+    let this = getqflist({'all': 1})
+    let s:clipboard = this
+    echo this.size.." errors yanked."
+endfunction
+
+function qf#delete() abort
+    let lists = s:qflists()
+    let this = getqflist({'all': 1})
+    call filter(lists, {_, l -> l.nr != this.nr})
+    let s:clipboard = copy(this)
+    call setqflist([], 'f')
+    call s:setmany(lists)
+    call s:goto(this.nr)
+endfunction
+
+function qf#paste() abort
+    let lists = s:qflists()
+    if empty(s:clipboard)
+        echom "Quickfix list clipboard empty."
+    else
+        let nr = getqflist({'nr': 0}).nr
+        call insert(lists, s:clipboard, nr)
+        call setqflist([], 'f')
+        call s:setmany(lists)
+        call s:goto(nr + 1)
+    endif
+endfunction
+
+function qf#only() abort
+    let this = getqflist({'all': 1})
+    let this.nr = '$'
+    call setqflist([], 'f')
+    call setqflist([], ' ', this)
+endfunction
+
+function qf#add() abort range
+    let this = getqflist({'all': 1})
+    " This might be the first list, so give it a title
+    let title = empty(this.title) ? 'Bookmarks' : this.title
+    let lnum = a:firstline
+    while lnum <= a:lastline
+        let item = {'bufnr': bufnr(), 'lnum': lnum, 'col': 1, 'text': getline(lnum)}
+        call add(this.items, item)
+        let lnum += 1
+    endwhile
+    call setqflist([], 'r', this)
 endfunction
