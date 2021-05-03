@@ -76,6 +76,11 @@ function GitBranch()
     endtry
 endfunction
 
+function GitDiffTarget()
+    let revision = get(t:, 'diff_target', '')
+    return empty(revision) ? '' : "> "..revision.." <"
+endfunction
+
 function Alt()
     let alt = expand('#:t')
     if empty(alt) || expand('#') == expand('%')
@@ -122,6 +127,7 @@ function MyStatusline()
     let file        = '%{CurrentFile()}'
     let cwd         = '%{Cwd()}'
     let branch      = '%{GitBranch()}'
+    let review      = '%{GitDiffTarget()}'
     let mod         = '%m'
     let spell       = '%{Spell()}'
     let compiler    = '%{Compiler()}'
@@ -134,6 +140,7 @@ function MyStatusline()
     let stl .= ft
     let stl .= branch
     let stl .= WRN
+    let stl .= review
     let stl .= cwd
     let stl .= OPT
     let stl .= ' '

@@ -40,6 +40,8 @@ command! -nargs=? -bang -complete=customlist,s:complete_global_revisions Changed
             \|     echom s:edit_args_msg()
             \|     call feedkeys("[A")
             \| endif
+command! -nargs=? -bang -complete=customlist,s:complete_global_revisions DiffTarget call call('commander#git#set_diff_target', <bang>1 ? [<q-args>] : [])
+command! -nargs=+ -complete=customlist,s:complete_global_revisions Review call commander#git#review(<q-args>)
 
 
 nnoremap <Plug>(git-diff-split) <CMD>ChangeSplit<CR>

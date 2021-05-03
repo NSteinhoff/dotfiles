@@ -29,7 +29,7 @@ endfunction
 
 " Show a local revision
 function commander#git#local_revision(revision, ...)
-    let ref = (a:revision != '' ? split(a:revision)[0] : 'HEAD')
+    let ref = (a:revision != '' ? split(a:revision)[0] : get(t:, 'diff_target', 'HEAD'))
     let [fdir, _] = s:pathsplit(a:0 ? a:1 : '%')
     return systemlist('git -C '.shellescape(fdir).' show '.ref)
 endfunction
@@ -37,7 +37,7 @@ endfunction
 " Show a file revision
 function commander#git#local_file_revision(revision, ...)
     let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
-    let ref = (a:revision != '' ? split(a:revision)[0] : 'HEAD')
+    let ref = (a:revision != '' ? split(a:revision)[0] : get(t:, 'diff_target', 'HEAD'))
     let lines = systemlist('git -C '.shellescape(fdir).' show '.ref.':./'.fname)
     if v:shell_error
         echoerr join(lines, "\n")
@@ -91,7 +91,7 @@ function commander#git#load_diff_in_split(revision, ...)
         diffthis
         call commander#lib#load_lines_in_split(content, 'vertical')
         diffthis
-        execute 'file '.(a:revision != '' ? a:revision : 'HEAD').':'.fname
+        execute 'file '.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD')).':'.fname
         let &ft=ft
         au BufWipeout <buffer> diffoff!
         wincmd p
@@ -103,10 +103,10 @@ endfunction
 
 function commander#git#load_patch(revision, ...) abort
     let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
-    let ref = (a:revision != '' ? split(a:revision)[0] : 'HEAD')
+    let ref = (a:revision != '' ? split(a:revision)[0] : get(t:, 'diff_target', 'HEAD'))
     let content = systemlist('git -C '.shellescape(fdir).' diff '.ref.' -- '.fname)
     call commander#lib#load_lines(content)
-    execute 'file '.expand('#').'.'.(a:revision != '' ? a:revision : 'HEAD')
+    execute 'file '.expand('#').'.'.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
     set ft=diff
 endfunction
 
@@ -148,7 +148,7 @@ function commander#git#load_file_revision(revision, ...)
         let content = call('commander#git#local_file_revision', [a:revision] + a:000)
         call commander#lib#load_lines(content)
         let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
-        execute 'file '.fdir.'/'.fname.'@'.(a:revision != '' ? a:revision : 'HEAD')
+        execute 'file '.fdir.'/'.fname.'@'.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
         let &ft=ft
     catch
         echom v:exception
@@ -161,7 +161,7 @@ function commander#git#load_file_revision_in_split(revision, ...)
         let content = call('commander#git#local_file_revision', [a:revision] + a:000)
         call commander#lib#load_lines_in_split(content, 'vertical')
         let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
-        execute 'file '.fdir.'/'.fname.'@'.(a:revision != '' ? a:revision : 'HEAD')
+        execute 'file '.fdir.'/'.fname.'@'.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
         let &ft=ft
     catch
         echom v:exception
@@ -169,7 +169,7 @@ function commander#git#load_file_revision_in_split(revision, ...)
 endfunction
 
 function commander#git#set_changed_args(...)
-    let ref = a:0 && !empty(a:1) ? split(a:1)[0] : 'HEAD'
+    let ref = a:0 && !empty(a:1) ? split(a:1)[0] : get(t:, 'diff_target', 'HEAD')
     let cwd = getcwd()
     let gitdir = finddir('.git', ';')
     if gitdir == ''
@@ -186,4 +186,24 @@ function commander#git#set_changed_args(...)
     for path in filepaths
         execute 'argadd '.path
     endfor
+endfunction
+
+function commander#git#set_diff_target(...)
+    if !a:0
+        if exists('t:diff_target')
+            unlet t:diff_target
+        endif
+    elseif empty(a:1)
+        echo 'Diffing against: '..get(t:, 'diff_target', 'HEAD')
+    else
+        let t:diff_target = split(a:1)[0]
+    endif
+endfunction
+
+function commander#git#review(ref)
+    tab split
+    call commander#git#set_diff_target(a:ref)
+    arglocal
+    call commander#git#set_changed_args()
+    first
 endfunction
