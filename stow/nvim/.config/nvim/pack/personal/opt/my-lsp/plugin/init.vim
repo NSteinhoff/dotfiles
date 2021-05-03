@@ -13,7 +13,6 @@ function s:reload()
     lua require('my_lsp')
 endfunction
 
-command Test call s:reload()
 aug my-lsp-reload
     autocmd!
     execute 'autocmd BufWritePost '..join(s:lua_paths, ',')..' call s:reload()'
