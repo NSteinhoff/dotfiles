@@ -298,3 +298,6 @@ endfunction
 """ Theme and Colors
     nnoremap <F7> <CMD>silent !toggle-light-dark<CR>
     nnoremap <F8> <CMD>CycleColorNext<CR>
+
+""" TOC
+    nmap gw <PLUG>(tag-toc)

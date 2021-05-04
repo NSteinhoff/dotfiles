@@ -1,4 +1,4 @@
-function s:toc(...)
+function! s:toc(...)
     let l:index = a:0 && a:1
     let l:fname = expand('%')
     let l:tags = filter(taglist('.*'), {_, v -> v.filename == l:fname})
@@ -11,13 +11,13 @@ function s:toc(...)
         let l:title = 'TOC: '..l:fname
     endif
     if !empty(l:items)
-        call setloclist(0, [], (getloclist(0, {'title': 1}).title == l:title ? 'r' : ' '), {'items': l:items, 'title': l:title})
-        lopen|wincmd p
+        call setqflist([], (getqflist({'title': 1}).title == l:title ? 'r' : ' '), {'items': l:items, 'title': l:title})
+        copen|wincmd p
     endif
 endfunction
 
-function s:tag2item(tag, index)
-    let l:text = a:index ? "["..a:tag.kind.."] "..a:tag.name : a:tag.name.." ["..a:tag.kind.."]"
+function! s:tag2item(tag, index)
+    let l:text = "["..a:tag.kind.."] "..a:tag.name
     return {
         \'bufnr': bufnr(a:tag.filename),
         \'lnum': split(a:tag.cmd, ';')[0],
@@ -28,3 +28,5 @@ endfunction
 
 command TagToc call s:toc()
 command TagIndex call s:toc(1)
+
+nnoremap <Plug>(tag-toc) <CMD>TagToc<CR>
