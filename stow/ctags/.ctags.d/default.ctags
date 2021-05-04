@@ -1,3 +1,4 @@
+--excmd=combine
 --recurse=yes
 
 --exclude=.git

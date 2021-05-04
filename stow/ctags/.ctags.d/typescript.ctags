@@ -1,1 +1,0 @@
---regex-typescript=/^[ \t]*(export[ \t]+)*const[ \t]+([a-zA-Z0-9]+)/\2/C,constant/

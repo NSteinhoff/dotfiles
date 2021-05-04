@@ -16,6 +16,7 @@
     set fillchars=eob:~
     set signcolumn=number
     set hlsearch
+    set shortmess+=s
 
 """ Behavior
     set noswapfile
@@ -115,6 +116,7 @@
     " IDE Mode
     packadd! my-lsp                     " Language Server client configuration
     packadd! my-treesitter              " Semantic understanding of languages
+    packadd! vista.vim                  " Tags in the sidebar
 
     " QoL
     packadd! my-neoscroll
