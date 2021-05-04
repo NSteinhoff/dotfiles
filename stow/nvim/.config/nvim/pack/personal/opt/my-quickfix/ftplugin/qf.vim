@@ -14,6 +14,7 @@ nnoremap <buffer> <nowait> > <CMD>call qf#cycle_lists(1)<CR>
 nnoremap <buffer> <nowait> < <CMD>call qf#cycle_lists(0)<CR>
 
 " Preview errors
+nnoremap <silent> <buffer> <SPACE> <CMD>call qf#preview(0)<CR>
 nnoremap <silent> <buffer> p <CMD>call qf#preview(0)<CR>
 nnoremap <silent> <buffer> <C-N> <CMD>call qf#preview(1)<CR>
 nnoremap <silent> <buffer> <C-P> <CMD>call qf#preview(-1)<CR>
