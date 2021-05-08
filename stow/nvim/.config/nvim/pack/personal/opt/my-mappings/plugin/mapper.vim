@@ -51,6 +51,9 @@ endfunction
     " Make Y behave like C and D
     nnoremap Y y$
 
+    " Close all folds but show the cursorline
+    nnoremap zV <CMD>normal zMzv<CR>
+
     " Run 'q' macro
     nnoremap Q @q
     vnoremap Q :normal @q<CR>
@@ -61,10 +64,10 @@ endfunction
 
     " Move over sections
     " Taken from `help section`
-    map [[ ?{<CR>w99[{
-    map ][ /}<CR>b99]}
-    map ]] j0[[%/{<CR>
-    map [] k$][%?}<CR>
+    " map [[ ?{<CR>w99[{
+    " map ][ /}<CR>b99]}
+    " map ]] j0[[%/{<CR>
+    " map [] k$][%?}<CR>
 
     " Switch off diff mode when closing all other windows
     nnoremap <silent> <C-W>o :diffoff!<BAR>only<CR>

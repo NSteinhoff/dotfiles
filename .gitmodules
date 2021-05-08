@@ -35,6 +35,3 @@
 [submodule "stow/nvim/.config/nvim/pack/external/opt/neoscroll.nvim"]
 	path = stow/nvim/.config/nvim/pack/external/opt/neoscroll.nvim
 	url = git@github.com:karb94/neoscroll.nvim.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/vista.vim"]
-	path = stow/nvim/.config/nvim/pack/external/opt/vista.vim
-	url = git@github.com:liuchengxu/vista.vim.git
