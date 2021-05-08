@@ -9,13 +9,11 @@ nnoremap <buffer> <expr> <C-N> pumvisible() ? '<C-N>' : 'j<CMD>call dirvish#open
 nnoremap <buffer> <expr> <C-P> pumvisible() ? '<C-P>' : 'k<CMD>call dirvish#open("p", 1)<CR>'
 
 nnoremap <buffer> R <CMD>e %<CR>
-nnoremap <buffer> cd <CMD>cd %<CR>
+nnoremap <buffer> cd <CMD>lcd %<CR>
 nnoremap <buffer> K <CMD>Tree<CR>
 nnoremap <buffer> <expr> zc '<CMD>set conceallevel='..(&conceallevel == 0 ? '2' : '0')..'<CR>'
 nnoremap <buffer> <nowait> < $T/D
 nnoremap <buffer> <nowait> > <CMD>call <SID>add_segment()<CR>$
-inoremap <buffer> <nowait> < <C-O>$<C-O>T/<C-O>D
-inoremap <buffer> <nowait> > <CMD>call <SID>add_segment()<CR><C-O>$
 
 onoremap <buffer> i/ <CMD>normal! T/vt/<CR>
 onoremap <buffer> a/ <CMD>normal! F/vf/<CR>
