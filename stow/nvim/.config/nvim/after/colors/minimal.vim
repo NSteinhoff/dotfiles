@@ -58,11 +58,13 @@ let  s:hues                =   {}
 let  s:hues.nothing        =   {'lig':  'none',       'fg':       0,    'bg':      bg}
 let  s:hues.Underlined     =   {'lig':  'underline',  'fg':      fg,    'bg':      bg}
 let  s:hues.Faded          =   {'lig':  'none',       'fg':       8,    'bg':      bg}
+let  s:hues.FadedLine      =   {'lig':  'none,underline',       'fg':       8,    'bg':      bg}
 let  s:hues.Hidden         =   {'lig':  'none',       'fg':      fg,    'bg':      bg}
 let  s:hues.Bold           =   {'lig':  'bold',       'fg':      fg,    'bg':      bg}
 let  s:hues.Italic         =   {'lig':  'italic',     'fg':      fg,    'bg':      bg}
 let  s:hues.Pop            =   {'lig':  'none',       'fg':      15,    'bg':      bg}
 let  s:hues.StrongPop      =   {'lig':  'bold',       'fg':      15,    'bg':      bg}
+let  s:hues.StrongPopLine  =   {'lig':  'bold,underline',       'fg':      15,    'bg':      bg}
 let  s:hues.Inverse        =   {'lig':  'inverse',    'fg':  'none',    'bg':  'none'}
 "" }}}
 
@@ -84,6 +86,25 @@ let  s:moods.Excited    =  {'lig':  'none',  'fg':  13,  'bg':  bg}
 let  s:moods.Fresh      =  {'lig':  'none',  'fg':  14,  'bg':  bg}
 let  s:moods.Shy        =  {'lig':  'none',  'fg':  15,  'bg':  bg}
 "" }}}
+
+"" Underline {{{
+let  s:underlines            =  {}
+let  s:underlines.ForcefulLine   =  {'lig':  'none,underline',  'fg':   1,  'bg':  bg}
+let  s:underlines.CalmLine       =  {'lig':  'none,underline',  'fg':   2,  'bg':  bg}
+let  s:underlines.BusyLine       =  {'lig':  'none,underline',  'fg':   3,  'bg':  bg}
+let  s:underlines.ProudLine      =  {'lig':  'none,underline',  'fg':   4,  'bg':  bg}
+let  s:underlines.HappyLine      =  {'lig':  'none,underline',  'fg':   5,  'bg':  bg}
+let  s:underlines.PeacefulLine   =  {'lig':  'none,underline',  'fg':   6,  'bg':  bg}
+let  s:underlines.QuietLine      =  {'lig':  'none,underline',  'fg':   7,  'bg':  bg}
+let  s:underlines.PlainLine      =  {'lig':  'none,underline',  'fg':   8,  'bg':  bg}
+let  s:underlines.IntenseLine    =  {'lig':  'none,underline',  'fg':   9,  'bg':  bg}
+let  s:underlines.RelaxedLine    =  {'lig':  'none,underline',  'fg':  10,  'bg':  bg}
+let  s:underlines.LivelyLine     =  {'lig':  'none,underline',  'fg':  11,  'bg':  bg}
+let  s:underlines.SatisfiedLine  =  {'lig':  'none,underline',  'fg':  12,  'bg':  bg}
+let  s:underlines.ExcitedLine    =  {'lig':  'none,underline',  'fg':  13,  'bg':  bg}
+let  s:underlines.FreshLine      =  {'lig':  'none,underline',  'fg':  14,  'bg':  bg}
+let  s:underlines.ShyLine        =  {'lig':  'none,underline',  'fg':  15,  'bg':  bg}
+""}}}
 
 "" Highlights {{{
 let s:highlights                      =    {}
@@ -150,7 +171,7 @@ let s:syntax_styles = {}
 
 "" UI Styles {{{
 let s:ui_styles.normal                   =  "Normal"
-let s:ui_styles.title                    =  "StrongPop"
+let s:ui_styles.title                    =  "StrongPopLine"
 let s:ui_styles.line                     =  "Underlined"
 let s:ui_styles.notice                   =  "Forceful"
 let s:ui_styles.cursor                   =  "Inverse"
@@ -161,6 +182,10 @@ let s:ui_styles.status_inactive          =  "HFreshInverseFade"
 let s:ui_styles.status_active            =  "HFresh"
 let s:ui_styles.status_term              =  "HRelaxed"
 let s:ui_styles.status_focus             =  "HFreshInverse"
+let s:ui_styles.tabline_active           =  "StrongPopLine"
+let s:ui_styles.tabline_inactive         =  "Underlined"
+let s:ui_styles.tabline_fill             =  "FadedLine"
+let s:ui_styles.tabline_focus            =  "ProudLine"
 let s:ui_styles.match                    =  "HExcited"
 let s:ui_styles.highlight                =  "HPop"
 let s:ui_styles.highlight_dark           =  "HLivelyDark"
@@ -257,12 +282,9 @@ let s:ui_groups.status_inactive = [
 \    "StatusLineTermNC",
 \ ]
 let s:ui_groups.line = [
-\    "TabLine",
-\    "TabLineFill",
 \ ]
 let s:ui_groups.title = [
 \    "FoldColumn",
-\    "TabLineSel",
 \ ]
 let s:ui_groups.status_term = [
 \    "StatusLineTerm",
@@ -270,6 +292,16 @@ let s:ui_groups.status_term = [
 let s:ui_groups.status_focus = [
 \   "StatusLineFocus",
 \ ]
+let s:ui_groups.tabline_active = [
+\    "TabLineSel",
+\ ]
+let s:ui_groups.tabline_inactive = [
+\    "TabLine",
+\ ]
+let s:ui_groups.tabline_fill = [
+\    "TabLineFill",
+\ ]
+let s:ui_groups.tabline_focus = []
 ""}}}
 
 "" Diff {{{
@@ -399,6 +431,7 @@ let s:syntax_groups.heavy = [
 " else links to.
 call s:init_styles(s:hues)
 call s:init_styles(s:moods)
+call s:init_styles(s:underlines)
 call s:init_styles(s:highlights)
 
 " Now we link the individual elements in *_groups to their respective
@@ -413,11 +446,13 @@ syntax keyword nothing nothing
 syntax keyword Underlined Underlined
 syntax keyword Inverse Inverse
 syntax keyword Faded Faded
+syntax keyword FadedLine FadedLine
 syntax keyword Hidden Hidden
 syntax keyword Bold Bold
 syntax keyword Italic Italic
 syntax keyword Pop Pop
 syntax keyword StrongPop StrongPop
+syntax keyword StrongPopLine StrongPopLine
 
 syntax keyword Proud Proud
 syntax keyword Calm Calm
@@ -434,6 +469,22 @@ syntax keyword Intense Intense
 syntax keyword Excited Excited
 syntax keyword Lively Lively
 syntax keyword Shy Shy
+
+syntax keyword ProudLine ProudLine
+syntax keyword CalmLine CalmLine
+syntax keyword PeacefulLine PeacefulLine
+syntax keyword QuietLine QuietLine
+syntax keyword PlainLine PlainLine
+syntax keyword ForcefulLine ForcefulLine
+syntax keyword HappyLine HappyLine
+syntax keyword BusyLine BusyLine
+syntax keyword SatisfiedLine SatisfiedLine
+syntax keyword RelaxedLine RelaxedLine
+syntax keyword FreshLine FreshLine
+syntax keyword IntenseLine IntenseLine
+syntax keyword ExcitedLine ExcitedLine
+syntax keyword LivelyLine LivelyLine
+syntax keyword ShyLine ShyLine
 
 syntax keyword HPop HPop
 syntax keyword HFaded HFaded

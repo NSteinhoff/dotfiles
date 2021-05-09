@@ -97,6 +97,7 @@
     " packadd my-marks
     packadd my-quickfix
     packadd my-statusline
+    packadd my-tabline
     packadd my-tags
     packadd my-zettelkasten
 

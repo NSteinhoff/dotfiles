@@ -1,7 +1,8 @@
 function Cwd()
+    if tabpagenr('$') > 1 && &showtabline == 1 || &showtabline > 1|return ''|endif
     let local  = fnamemodify(getcwd(), ':t')
     let global = fnamemodify(get(g:, 'current_dir', ''), ':t')
-    return !empty(global) &&!empty(local) && local != global ? '@'..local..'/' : ''
+    return !empty(global) && !empty(local) && local != global ? '@'..local..'/' : ''
 endfunction
 
 function Errors()
@@ -77,6 +78,7 @@ function GitBranch()
 endfunction
 
 function GitDiffTarget()
+    if tabpagenr('$') > 1 && &showtabline == 1 || &showtabline > 1|return ''|endif
     let revision = get(t:, 'diff_target', '')
     return empty(revision) ? '' : "> "..revision.." <"
 endfunction
@@ -101,11 +103,7 @@ function CurrentFile()
     elseif &ft == 'qfedit'
         let file = ' '..expand('%')
     else
-        let tabline_visible = &showtabline == 2 || (&showtabline == 1 && tabpagenr('$') > 1)
-        let show_path = tabline_visible || 1
-        let file = empty(expand('%')) ? ''
-                \ : show_path ? ' '..expand('%:t')
-                \ : ' '..pathshorten(expand('%:p:.'))
+        let file = empty(expand('%')) ? '' : ' '..expand('%:t')
     endif
 
     return file
