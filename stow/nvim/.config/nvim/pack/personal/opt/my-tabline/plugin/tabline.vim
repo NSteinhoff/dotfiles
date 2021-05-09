@@ -1,3 +1,5 @@
+let g:show_buffers_in_tabline = 0
+
 function! MyTabLabel(n)
     let buflist = tabpagebuflist(a:n)
     let winnr = tabpagewinnr(a:n)
@@ -18,9 +20,34 @@ function! MyTabDiffTarget(n)
     return difftarget
 endfunction
 
+function! MyTabCwd()
+    let cwd = substitute(getcwd(), $HOME, '~', '')
+    let cwd = cwd == '~' ? '~/' : cwd
+    return '  '..cwd
+endfunction
 
-function! MyTabLine()
-    let s = ''
+function! MyBuffers()
+    let s = &showtabline == 2 && get(g:, 'show_buffers_in_tabline') ? '  ' : ''
+    let alt = get(getbufinfo('#'), 0)
+    for b in getbufinfo({'buflisted': 1})
+        let isactive = bufnr() == b.bufnr
+        let isalt = b == alt
+        let highlight = isactive ? '%#TabLineSel#'
+                    \ : isalt    ? '%#TabLine#'
+                    \ :            '%#TabLine#'
+        let s .= highlight
+        let s .= ' '..b.bufnr
+        let s .= isalt ? '#' : ''
+        let s .= b.changed ? '+' : ''
+        let s .= ' '
+        let s .= fnamemodify(b.name, ':t')
+        let s .= ' %#TabLine#'
+    endfor
+    return s
+endfunction
+
+function! MyTabs()
+    let s = &showtabline == 2 && get(g:, 'show_buffers_in_tabline') ? ' 裡' : ''
     for i in range(1, tabpagenr('$'))
         let highlight = i == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
         if i > 1|let s .= '|'|endif
@@ -33,13 +60,23 @@ function! MyTabLine()
         let s .= ' %T'
         let s .= '%#TabLine#'
     endfor
-    let s .= '%#TabLineFill#'
-    let s .= '%=%#ProudLine#'
-    let cwd = substitute(getcwd(), $HOME, '~', '')
-    let cwd = cwd == '~' ? '~/' : cwd
-    let s .= ' '..cwd
+    return s
+endfunction
 
+
+function! MyTabLine()
+    let s = ''
+    let s .= '%#TabLine#'
+    if tabpagenr('$') == 1 && get(g:, 'show_buffers_in_tabline')
+        let s .= MyBuffers()
+    else
+        let s .= MyTabs()
+        let s .= '%#TabLineFill#'
+        let s .= '%=%#ProudLine#'
+        let s .= '%{MyTabCwd()}'
+    endif
     return s
 endfunction
 
 set tabline=%!MyTabLine()
+set showtabline=1

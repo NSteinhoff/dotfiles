@@ -80,7 +80,7 @@ endfunction
 function GitDiffTarget()
     if tabpagenr('$') > 1 && &showtabline == 1 || &showtabline > 1|return ''|endif
     let revision = get(t:, 'diff_target', '')
-    return empty(revision) ? '' : "> "..revision.." <"
+    return empty(revision) ? '' : ' ( '..revision..')'
 endfunction
 
 function Alt()
