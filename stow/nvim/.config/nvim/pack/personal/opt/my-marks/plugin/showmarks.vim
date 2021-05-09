@@ -58,5 +58,5 @@ endfor
 
 augroup my-marker
     autocmd!
-    autocmd BufEnter,CursorHold * silent call s:update()
+    autocmd BufEnter,CursorHold * silent! call s:update()
 augroup END
