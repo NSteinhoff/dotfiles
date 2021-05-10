@@ -100,6 +100,7 @@
     packadd my-tabline
     packadd my-tags
     packadd my-zettelkasten
+    packadd my-lualib
 
 """ External
     " Finding / picking files
@@ -119,11 +120,3 @@
 
 """ Development
     set packpath+=~/dev
-
-""" Neovide GUI
-if get(g:, 'neovide')
-    let g:neovide_fullscreen=v:false
-    set guifont=Iosevka\ Nerd\ Font\ Mono,FiraCode\ Nerd\ Font\ Mono
-    colorscheme desert
-    if getcwd() == '/' | cd | endif
-endif
