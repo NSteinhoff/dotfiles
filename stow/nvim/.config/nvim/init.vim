@@ -94,7 +94,7 @@
     packadd my-commands
     packadd my-completions
     packadd my-mappings
-    " packadd my-marks
+    packadd my-marks
     packadd my-quickfix
     packadd my-statusline
     packadd my-tabline
@@ -104,7 +104,6 @@
 """ External
     " Finding / picking files
     packadd! my-dirvish                 " file manager
-    packadd! my-numb                    " peek at lines :{num}
 
     " Mappings and commands
     packadd! vim-unimpaired
@@ -117,9 +116,6 @@
     " IDE Mode
     packadd! my-lsp                     " Language Server client configuration
     packadd! my-treesitter              " Semantic understanding of languages
-    " packadd! vista.vim                  " Tags in the sidebar
-
-    " packadd! my-neoscroll
 
 """ Development
     set packpath+=~/dev

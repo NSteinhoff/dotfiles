@@ -25,13 +25,7 @@
 [submodule "3rd/pandoc-letter"]
 	path = 3rd/pandoc-letter
 	url = git@github.com:benedictdudel/pandoc-letter-din5008.git
-[submodule "stow/nvim/.config/nvim/pack/external/opt/numb.nvim"]
-	path = stow/nvim/.config/nvim/pack/external/opt/numb.nvim
-	url = git@github.com:nacro90/numb.nvim.git
 [submodule "stow/nvim/.config/nvim/pack/external/opt/nvim-lsp-ts-utils"]
 	path = stow/nvim/.config/nvim/pack/external/opt/nvim-lsp-ts-utils
 	url = git@github.com:jose-elias-alvarez/nvim-lsp-ts-utils.git
 	branch = main
-[submodule "stow/nvim/.config/nvim/pack/external/opt/neoscroll.nvim"]
-	path = stow/nvim/.config/nvim/pack/external/opt/neoscroll.nvim
-	url = git@github.com:karb94/neoscroll.nvim.git

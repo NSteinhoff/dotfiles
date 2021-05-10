@@ -269,9 +269,9 @@ endfunction
     vmap <silent> <leader>** <Plug>(search-selection)
 
     " Livegrep: <leader>g
-    nmap <leader>gg <Plug>(livegrep-resume)
-    nmap <leader>gn <Plug>(livegrep-new)
+    nmap <leader>gg <Plug>(livegrep-new)
     vmap <leader>gg <Plug>(livegrep-selection)
+    nmap <leader>gr <Plug>(livegrep-resume)
 
 
 """ (c): Changes / Diffing

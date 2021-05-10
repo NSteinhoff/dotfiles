@@ -19,7 +19,7 @@ command! -nargs=? -bang LiveGrep execute
             \| endif
 
 nnoremap <silent> <Plug>(livegrep-new) <CMD>LiveGrep!<CR>A
-nnoremap <silent> <Plug>(livegrep-resume) <CMD>LiveGrep<CR>A
+nnoremap <silent> <Plug>(livegrep-resume) <CMD>LiveGrep<CR>
 vnoremap <silent> <Plug>(livegrep-selection) y:execute 'LiveGrep '..escape(@", '()\|.*+[]^$')<CR>
 
 nnoremap <silent> <Plug>(search-word) :execute 'grep ''\b'..expand('<cword>')..'\b'''<CR>
