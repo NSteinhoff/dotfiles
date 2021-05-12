@@ -54,113 +54,115 @@ endfunction
 
 " Styles -> Colors {{{
 "" Hues {{{
-let  s:hues                =   {}
-let  s:hues.nothing        =   {'lig':  'none',       'fg':       0,    'bg':      bg}
-let  s:hues.Underlined     =   {'lig':  'underline',  'fg':      fg,    'bg':      bg}
-let  s:hues.Faded          =   {'lig':  'none',       'fg':       8,    'bg':      bg}
-let  s:hues.FadedLine      =   {'lig':  'none,underline',       'fg':       8,    'bg':      bg}
-let  s:hues.Hidden         =   {'lig':  'none',       'fg':      fg,    'bg':      bg}
-let  s:hues.Bold           =   {'lig':  'bold',       'fg':      fg,    'bg':      bg}
-let  s:hues.Italic         =   {'lig':  'italic',     'fg':      fg,    'bg':      bg}
-let  s:hues.Pop            =   {'lig':  'none',       'fg':      15,    'bg':      bg}
-let  s:hues.StrongPop      =   {'lig':  'bold',       'fg':      15,    'bg':      bg}
-let  s:hues.StrongPopLine  =   {'lig':  'bold,underline',       'fg':      15,    'bg':      bg}
-let  s:hues.Inverse        =   {'lig':  'inverse',    'fg':  'none',    'bg':  'none'}
+let    s:hues                  =    {}
+let    s:hues.nothing          =    {'lig':    'none',              'fg':    0,         'bg':    bg}
+let    s:hues.Underlined       =    {'lig':    'underline',         'fg':    fg,        'bg':    bg}
+let    s:hues.Faded            =    {'lig':    'none',              'fg':    8,         'bg':    bg}
+let    s:hues.FadedLine        =    {'lig':    'none,underline',    'fg':    8,         'bg':    bg}
+let    s:hues.Hidden           =    {'lig':    'none',              'fg':    fg,        'bg':    bg}
+let    s:hues.Bold             =    {'lig':    'bold',              'fg':    fg,        'bg':    bg}
+let    s:hues.Italic           =    {'lig':    'italic',            'fg':    fg,        'bg':    bg}
+let    s:hues.Pop              =    {'lig':    'none',              'fg':    15,        'bg':    bg}
+let    s:hues.StrongPop        =    {'lig':    'bold',              'fg':    15,        'bg':    bg}
+let    s:hues.StrongPopLine    =    {'lig':    'bold,underline',    'fg':    15,        'bg':    bg}
+let    s:hues.Inverse          =    {'lig':    'inverse',           'fg':    'none',    'bg':    'none'}
 "" }}}
 
 "" Moods {{{
-let  s:moods            =  {}
-let  s:moods.Forceful   =  {'lig':  'none',  'fg':   1,  'bg':  bg}
-let  s:moods.Calm       =  {'lig':  'none',  'fg':   2,  'bg':  bg}
-let  s:moods.Busy       =  {'lig':  'none',  'fg':   3,  'bg':  bg}
-let  s:moods.Proud      =  {'lig':  'none',  'fg':   4,  'bg':  bg}
-let  s:moods.Happy      =  {'lig':  'none',  'fg':   5,  'bg':  bg}
-let  s:moods.Peaceful   =  {'lig':  'none',  'fg':   6,  'bg':  bg}
-let  s:moods.Quiet      =  {'lig':  'none',  'fg':   7,  'bg':  bg}
-let  s:moods.Plain      =  {'lig':  'none',  'fg':   8,  'bg':  bg}
-let  s:moods.Intense    =  {'lig':  'none',  'fg':   9,  'bg':  bg}
-let  s:moods.Relaxed    =  {'lig':  'none',  'fg':  10,  'bg':  bg}
-let  s:moods.Lively     =  {'lig':  'none',  'fg':  11,  'bg':  bg}
-let  s:moods.Satisfied  =  {'lig':  'none',  'fg':  12,  'bg':  bg}
-let  s:moods.Excited    =  {'lig':  'none',  'fg':  13,  'bg':  bg}
-let  s:moods.Fresh      =  {'lig':  'none',  'fg':  14,  'bg':  bg}
-let  s:moods.Shy        =  {'lig':  'none',  'fg':  15,  'bg':  bg}
+let    s:moods               =    {}
+let    s:moods.Forceful      =    {'lig':    'none',    'fg':    1,     'bg':    bg}
+let    s:moods.Calm          =    {'lig':    'none',    'fg':    2,     'bg':    bg}
+let    s:moods.Busy          =    {'lig':    'none',    'fg':    3,     'bg':    bg}
+let    s:moods.Proud         =    {'lig':    'none',    'fg':    4,     'bg':    bg}
+let    s:moods.Happy         =    {'lig':    'none',    'fg':    5,     'bg':    bg}
+let    s:moods.Peaceful      =    {'lig':    'none',    'fg':    6,     'bg':    bg}
+let    s:moods.Quiet         =    {'lig':    'none',    'fg':    7,     'bg':    bg}
+let    s:moods.Plain         =    {'lig':    'none',    'fg':    8,     'bg':    bg}
+let    s:moods.Intense       =    {'lig':    'none',    'fg':    9,     'bg':    bg}
+let    s:moods.Relaxed       =    {'lig':    'none',    'fg':    10,    'bg':    bg}
+let    s:moods.Lively        =    {'lig':    'none',    'fg':    11,    'bg':    bg}
+let    s:moods.VeryLively    =    {'lig':    'bold',    'fg':    11,    'bg':    bg}
+let    s:moods.Satisfied     =    {'lig':    'none',    'fg':    12,    'bg':    bg}
+let    s:moods.Excited       =    {'lig':    'none',    'fg':    13,    'bg':    bg}
+let    s:moods.Fresh         =    {'lig':    'none',    'fg':    14,    'bg':    bg}
+let    s:moods.Shy           =    {'lig':    'none',    'fg':    15,    'bg':    bg}
 "" }}}
 
 "" Underline {{{
-let  s:underlines            =  {}
-let  s:underlines.ForcefulLine   =  {'lig':  'none,underline',  'fg':   1,  'bg':  bg}
-let  s:underlines.CalmLine       =  {'lig':  'none,underline',  'fg':   2,  'bg':  bg}
-let  s:underlines.BusyLine       =  {'lig':  'none,underline',  'fg':   3,  'bg':  bg}
-let  s:underlines.ProudLine      =  {'lig':  'none,underline',  'fg':   4,  'bg':  bg}
-let  s:underlines.HappyLine      =  {'lig':  'none,underline',  'fg':   5,  'bg':  bg}
-let  s:underlines.PeacefulLine   =  {'lig':  'none,underline',  'fg':   6,  'bg':  bg}
-let  s:underlines.QuietLine      =  {'lig':  'none,underline',  'fg':   7,  'bg':  bg}
-let  s:underlines.PlainLine      =  {'lig':  'none,underline',  'fg':   8,  'bg':  bg}
-let  s:underlines.IntenseLine    =  {'lig':  'none,underline',  'fg':   9,  'bg':  bg}
-let  s:underlines.RelaxedLine    =  {'lig':  'none,underline',  'fg':  10,  'bg':  bg}
-let  s:underlines.LivelyLine     =  {'lig':  'none,underline',  'fg':  11,  'bg':  bg}
-let  s:underlines.SatisfiedLine  =  {'lig':  'none,underline',  'fg':  12,  'bg':  bg}
-let  s:underlines.ExcitedLine    =  {'lig':  'none,underline',  'fg':  13,  'bg':  bg}
-let  s:underlines.FreshLine      =  {'lig':  'none,underline',  'fg':  14,  'bg':  bg}
-let  s:underlines.ShyLine        =  {'lig':  'none,underline',  'fg':  15,  'bg':  bg}
+let    s:underlines                   =    {}
+let    s:underlines.ForcefulLine      =    {'lig':    'underline',         'fg':    1,     'bg':    bg}
+let    s:underlines.CalmLine          =    {'lig':    'underline',         'fg':    2,     'bg':    bg}
+let    s:underlines.BusyLine          =    {'lig':    'underline',         'fg':    3,     'bg':    bg}
+let    s:underlines.ProudLine         =    {'lig':    'underline',         'fg':    4,     'bg':    bg}
+let    s:underlines.HappyLine         =    {'lig':    'underline',         'fg':    5,     'bg':    bg}
+let    s:underlines.PeacefulLine      =    {'lig':    'underline',         'fg':    6,     'bg':    bg}
+let    s:underlines.QuietLine         =    {'lig':    'underline',         'fg':    7,     'bg':    bg}
+let    s:underlines.PlainLine         =    {'lig':    'underline',         'fg':    8,     'bg':    bg}
+let    s:underlines.IntenseLine       =    {'lig':    'underline',         'fg':    9,     'bg':    bg}
+let    s:underlines.RelaxedLine       =    {'lig':    'underline',         'fg':    10,    'bg':    bg}
+let    s:underlines.LivelyLine        =    {'lig':    'underline',         'fg':    11,    'bg':    bg}
+let    s:underlines.VeryLivelyLine    =    {'lig':    'bold,underline',    'fg':    11,    'bg':    bg}
+let    s:underlines.SatisfiedLine     =    {'lig':    'underline',         'fg':    12,    'bg':    bg}
+let    s:underlines.ExcitedLine       =    {'lig':    'underline',         'fg':    13,    'bg':    bg}
+let    s:underlines.FreshLine         =    {'lig':    'underline',         'fg':    14,    'bg':    bg}
+let    s:underlines.ShyLine           =    {'lig':    'underline',         'fg':    15,    'bg':    bg}
 ""}}}
 
 "" Highlights {{{
-let s:highlights                      =    {}
-let s:highlights.HPop                 =    {'lig':    'none',       'fg':    15,    'bg':    8}
-let s:highlights.HFaded               =    {'lig':    'none',       'fg':     7,    'bg':    8}
-let s:highlights.HPeaceful            =    {'lig':    'none',       'fg':    15,    'bg':    6}
-let s:highlights.HProud               =    {'lig':    'none',       'fg':    15,    'bg':    4}
-let s:highlights.HCalm                =    {'lig':    'none',       'fg':    15,    'bg':    2}
-let s:highlights.HForceful            =    {'lig':    'none',       'fg':    15,    'bg':    1}
-let s:highlights.HHappy               =    {'lig':    'none',       'fg':    15,    'bg':    5}
-let s:highlights.HBusy                =    {'lig':    'none',       'fg':    15,    'bg':    3}
-let s:highlights.HExcited             =    {'lig':    'none',       'fg':    15,    'bg':   13}
-let s:highlights.HSatisfied           =    {'lig':    'none',       'fg':    15,    'bg':   12}
-let s:highlights.HLively              =    {'lig':    'none',       'fg':    15,    'bg':   11}
-let s:highlights.HRelaxed             =    {'lig':    'none',       'fg':    15,    'bg':   10}
-let s:highlights.HFresh               =    {'lig':    'none',       'fg':    15,    'bg':   14}
-let s:highlights.HIntense             =    {'lig':    'none',       'fg':    15,    'bg':    9}
+let    s:highlights                          =    {}
+let    s:highlights.HPop                     =    {'lig':    'none',       'fg':    15,    'bg':    8}
+let    s:highlights.HFaded                   =    {'lig':    'none',       'fg':    7,     'bg':    8}
+let    s:highlights.HPeaceful                =    {'lig':    'none',       'fg':    15,    'bg':    6}
+let    s:highlights.HProud                   =    {'lig':    'none',       'fg':    15,    'bg':    4}
+let    s:highlights.HCalm                    =    {'lig':    'none',       'fg':    15,    'bg':    2}
+let    s:highlights.HForceful                =    {'lig':    'none',       'fg':    15,    'bg':    1}
+let    s:highlights.HHappy                   =    {'lig':    'none',       'fg':    15,    'bg':    5}
+let    s:highlights.HBusy                    =    {'lig':    'none',       'fg':    15,    'bg':    3}
+let    s:highlights.HExcited                 =    {'lig':    'none',       'fg':    15,    'bg':    13}
+let    s:highlights.HSatisfied               =    {'lig':    'none',       'fg':    15,    'bg':    12}
+let    s:highlights.HLively                  =    {'lig':    'none',       'fg':    15,    'bg':    11}
+let    s:highlights.HRelaxed                 =    {'lig':    'none',       'fg':    15,    'bg':    10}
+let    s:highlights.HFresh                   =    {'lig':    'none',       'fg':    15,    'bg':    14}
+let    s:highlights.HIntense                 =    {'lig':    'none',       'fg':    15,    'bg':    9}
 
-let s:highlights.HPeacefulDark        =    {'lig':    'none',       'fg':    0,     'bg':    6}
-let s:highlights.HProudDark           =    {'lig':    'none',       'fg':    0,     'bg':    4}
-let s:highlights.HCalmDark            =    {'lig':    'none',       'fg':    0,     'bg':    2}
-let s:highlights.HForcefulDark        =    {'lig':    'none',       'fg':    0,     'bg':    1}
-let s:highlights.HHappyDark           =    {'lig':    'none',       'fg':    0,     'bg':    5}
-let s:highlights.HBusyDark            =    {'lig':    'none',       'fg':    0,     'bg':    3}
-let s:highlights.HExcitedDark         =    {'lig':    'none',       'fg':    0,     'bg':   13}
-let s:highlights.HSatisfiedDark       =    {'lig':    'none',       'fg':    0,     'bg':   12}
-let s:highlights.HLivelyDark          =    {'lig':    'none',       'fg':    0,     'bg':   11}
-let s:highlights.HRelaxedDark         =    {'lig':    'none',       'fg':    0,     'bg':   10}
-let s:highlights.HFreshDark           =    {'lig':    'none',       'fg':    0,     'bg':   14}
-let s:highlights.HIntenseDark         =    {'lig':    'none',       'fg':    0,     'bg':    9}
+let    s:highlights.HPeacefulDark            =    {'lig':    'none',       'fg':    0,     'bg':    6}
+let    s:highlights.HProudDark               =    {'lig':    'none',       'fg':    0,     'bg':    4}
+let    s:highlights.HCalmDark                =    {'lig':    'none',       'fg':    0,     'bg':    2}
+let    s:highlights.HForcefulDark            =    {'lig':    'none',       'fg':    0,     'bg':    1}
+let    s:highlights.HHappyDark               =    {'lig':    'none',       'fg':    0,     'bg':    5}
+let    s:highlights.HBusyDark                =    {'lig':    'none',       'fg':    0,     'bg':    3}
+let    s:highlights.HExcitedDark             =    {'lig':    'none',       'fg':    0,     'bg':    13}
+let    s:highlights.HSatisfiedDark           =    {'lig':    'none',       'fg':    0,     'bg':    12}
+let    s:highlights.HLivelyDark              =    {'lig':    'none',       'fg':    0,     'bg':    11}
+let    s:highlights.HRelaxedDark             =    {'lig':    'none',       'fg':    0,     'bg':    10}
+let    s:highlights.HFreshDark               =    {'lig':    'none',       'fg':    0,     'bg':    14}
+let    s:highlights.HIntenseDark             =    {'lig':    'none',       'fg':    0,     'bg':    9}
 
-let s:highlights.HPeacefulInverse     =    {'lig':    'inverse',    'fg':    15,    'bg':    6}
-let s:highlights.HProudInverse        =    {'lig':    'inverse',    'fg':    15,    'bg':    4}
-let s:highlights.HCalmInverse         =    {'lig':    'inverse',    'fg':    15,    'bg':    2}
-let s:highlights.HForcefulInverse     =    {'lig':    'inverse',    'fg':    15,    'bg':    1}
-let s:highlights.HHappyInverse        =    {'lig':    'inverse',    'fg':    15,    'bg':    5}
-let s:highlights.HBusyInverse         =    {'lig':    'inverse',    'fg':    15,    'bg':    3}
-let s:highlights.HExcitedInverse      =    {'lig':    'inverse',    'fg':    15,    'bg':   13}
-let s:highlights.HSatisfiedInverse    =    {'lig':    'inverse',    'fg':    15,    'bg':   12}
-let s:highlights.HLivelyInverse       =    {'lig':    'inverse',    'fg':    15,    'bg':   11}
-let s:highlights.HRelaxedInverse      =    {'lig':    'inverse',    'fg':    15,    'bg':   10}
-let s:highlights.HFreshInverse        =    {'lig':    'inverse',    'fg':    15,    'bg':   14}
-let s:highlights.HIntenseInverse      =    {'lig':    'inverse',    'fg':    15,    'bg':    9}
+let    s:highlights.HPeacefulInverse         =    {'lig':    'inverse',    'fg':    15,    'bg':    6}
+let    s:highlights.HProudInverse            =    {'lig':    'inverse',    'fg':    15,    'bg':    4}
+let    s:highlights.HCalmInverse             =    {'lig':    'inverse',    'fg':    15,    'bg':    2}
+let    s:highlights.HForcefulInverse         =    {'lig':    'inverse',    'fg':    15,    'bg':    1}
+let    s:highlights.HHappyInverse            =    {'lig':    'inverse',    'fg':    15,    'bg':    5}
+let    s:highlights.HBusyInverse             =    {'lig':    'inverse',    'fg':    15,    'bg':    3}
+let    s:highlights.HExcitedInverse          =    {'lig':    'inverse',    'fg':    15,    'bg':    13}
+let    s:highlights.HSatisfiedInverse        =    {'lig':    'inverse',    'fg':    15,    'bg':    12}
+let    s:highlights.HLivelyInverse           =    {'lig':    'inverse',    'fg':    15,    'bg':    11}
+let    s:highlights.HRelaxedInverse          =    {'lig':    'inverse',    'fg':    15,    'bg':    10}
+let    s:highlights.HFreshInverse            =    {'lig':    'inverse',    'fg':    15,    'bg':    14}
+let    s:highlights.HIntenseInverse          =    {'lig':    'inverse',    'fg':    15,    'bg':    9}
 
-let s:highlights.HPeacefulInverseFade     =    {'lig':    'inverse',    'fg':    8,    'bg':    6}
-let s:highlights.HProudInverseFade        =    {'lig':    'inverse',    'fg':    8,    'bg':    4}
-let s:highlights.HCalmInverseFade         =    {'lig':    'inverse',    'fg':    8,    'bg':    2}
-let s:highlights.HForcefulInverseFade     =    {'lig':    'inverse',    'fg':    8,    'bg':    1}
-let s:highlights.HHappyInverseFade        =    {'lig':    'inverse',    'fg':    8,    'bg':    5}
-let s:highlights.HBusyInverseFade         =    {'lig':    'inverse',    'fg':    8,    'bg':    3}
-let s:highlights.HExcitedInverseFade      =    {'lig':    'inverse',    'fg':    8,    'bg':   13}
-let s:highlights.HSatisfiedInverseFade    =    {'lig':    'inverse',    'fg':    8,    'bg':   12}
-let s:highlights.HLivelyInverseFade       =    {'lig':    'inverse',    'fg':    8,    'bg':   11}
-let s:highlights.HRelaxedInverseFade      =    {'lig':    'inverse',    'fg':    8,    'bg':   10}
-let s:highlights.HFreshInverseFade        =    {'lig':    'inverse',    'fg':    8,    'bg':   14}
-let s:highlights.HIntenseInverseFade      =    {'lig':    'inverse',    'fg':    8,    'bg':    9}
+let    s:highlights.HPeacefulInverseFade     =    {'lig':    'inverse',    'fg':    8,     'bg':    6}
+let    s:highlights.HProudInverseFade        =    {'lig':    'inverse',    'fg':    8,     'bg':    4}
+let    s:highlights.HCalmInverseFade         =    {'lig':    'inverse',    'fg':    8,     'bg':    2}
+let    s:highlights.HForcefulInverseFade     =    {'lig':    'inverse',    'fg':    8,     'bg':    1}
+let    s:highlights.HHappyInverseFade        =    {'lig':    'inverse',    'fg':    8,     'bg':    5}
+let    s:highlights.HBusyInverseFade         =    {'lig':    'inverse',    'fg':    8,     'bg':    3}
+let    s:highlights.HExcitedInverseFade      =    {'lig':    'inverse',    'fg':    8,     'bg':    13}
+let    s:highlights.HSatisfiedInverseFade    =    {'lig':    'inverse',    'fg':    8,     'bg':    12}
+let    s:highlights.HLivelyInverseFade       =    {'lig':    'inverse',    'fg':    8,     'bg':    11}
+let    s:highlights.HRelaxedInverseFade      =    {'lig':    'inverse',    'fg':    8,     'bg':    10}
+let    s:highlights.HFreshInverseFade        =    {'lig':    'inverse',    'fg':    8,     'bg':    14}
+let    s:highlights.HIntenseInverseFade      =    {'lig':    'inverse',    'fg':    8,     'bg':    9}
 "" }}}
 " }}}
 
@@ -192,11 +194,13 @@ let s:ui_styles.highlight_dark           =  "HLivelyDark"
 let s:ui_styles.highlight_inverted       =  "HLivelyInverse"
 ""}}}
 
+"" Some more text
 "" Diff Styles {{{
+
 let s:diff_styles.add                 = "Calm"
 let s:diff_styles.delete              = "Forceful"
 let s:diff_styles.change              = "Lively"
-let s:diff_styles.text                = "HLivelyDark"
+let s:diff_styles.text                = "VeryLivelyLine"
 ""}}}_COLOR
 
 "" Syntax Styles {{{
@@ -468,6 +472,7 @@ syntax keyword Fresh Fresh
 syntax keyword Intense Intense
 syntax keyword Excited Excited
 syntax keyword Lively Lively
+syntax keyword VeryLively VeryLively
 syntax keyword Shy Shy
 
 syntax keyword ProudLine ProudLine
@@ -483,7 +488,7 @@ syntax keyword RelaxedLine RelaxedLine
 syntax keyword FreshLine FreshLine
 syntax keyword IntenseLine IntenseLine
 syntax keyword ExcitedLine ExcitedLine
-syntax keyword LivelyLine LivelyLine
+syntax keyword VeryLivelyLine VeryLivelyLine
 syntax keyword ShyLine ShyLine
 
 syntax keyword HPop HPop
