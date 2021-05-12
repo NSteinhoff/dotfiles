@@ -75,24 +75,24 @@ endfunction
 
     " Do something useful with the arrow keys:
     " Moving selected lines
-    vnoremap  <LEFT>   <gv
-    vnoremap  <RIGHt>  >gv
-    vmap  <UP>     [egv
-    vmap  <DOWN>   ]egv
+     vnoremap <LEFT> <gv
+     vnoremap <RIGHt> >gv
+     vmap <UP> [egv
+     vmap <DOWN> ]egv
 
 
 """ Viewport
     " Window resizing with the arrow keys
-    nnoremap  <LEFT>   5<C-W><
-    nnoremap  <RIGHt>  5<C-W>>
-    nnoremap  <UP>     5<C-W>+
-    nnoremap  <DOWN>   5<C-W>-
+    nnoremap <LEFT>  5<C-W><
+    nnoremap <RIGHt> 5<C-W>>
+    nnoremap <UP>    5<C-W>+
+    nnoremap <DOWN>  5<C-W>-
 
     " Scrolling the window with CTRL-HJKL
     nnoremap <C-J> 5<C-E>
     nnoremap <C-K> 5<C-Y>
-    nnoremap <C-H> 5zh
-    nnoremap <C-L> 5zl
+    nnoremap <C-H> 10zh
+    nnoremap <C-L> 10zl
 
 
 """ Search and replace
