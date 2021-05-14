@@ -212,6 +212,11 @@ endfunction
     nnoremap <silent> <C-W>t <CMD>tab split<CR>
     nnoremap <silent> <C-W><C-t> <CMD>tab split<CR>
 
+    " Grep, i.e. go-to-reference
+    nmap <silent> gr <Plug>(search-word)
+    vmap <silent> gr <Plug>(search-selection)
+
+""" Scoped <leader> mappings
     " Open settings: <leader>;
     nnoremap <silent> <leader>;; <CMD>edit $MYVIMRC<CR>
     nnoremap <silent> <leader>;m <CMD>PackEdit mapper.vim<CR>
