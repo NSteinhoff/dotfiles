@@ -85,8 +85,8 @@ endfunction
     " Window resizing with the arrow keys
     nnoremap <LEFT>  5<C-W><
     nnoremap <RIGHt> 5<C-W>>
-    nnoremap <UP>    5<C-W>+
-    nnoremap <DOWN>  5<C-W>-
+    nnoremap <UP>    2<C-W>+
+    nnoremap <DOWN>  2<C-W>-
 
     " Scrolling the window with CTRL-HJKL
     nnoremap <C-J> 5<C-E>
