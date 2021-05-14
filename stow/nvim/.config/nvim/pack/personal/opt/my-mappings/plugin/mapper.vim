@@ -294,12 +294,12 @@ endfunction
     for letter in split('abcdefghijklmnopqrstuvwxyz*;!=', '\ze')
         if empty(maparg('<leader>'..letter, 'n'))
             " Display all <leader>letter mappings but this one
-            execute 'nnoremap <leader>'..letter..' <CMD>echo join(split(execute(''map <leader>'..letter..'''), "\n")[1:], "\n")<CR>'
+            execute 'nnoremap <leader>'..letter..' <CMD>echo join(filter(split(execute(''map <leader>'..letter..'''), "\n"), {_, v -> v !~# ''^\s*n\s*\\'..letter..'\s'' }), "\n")<CR>'
         endif
     endfor
     if empty(maparg('<leader><leader>', 'n'))
         " Display all <leader> mappings but this one
-        nnoremap <leader><leader> <CMD>echo join(filter(split(execute('map <leader>'), "\n")[1:], {_, v -> v !~# '^\s*n\s*\\.\s' }), "\n")<CR>
+        nnoremap <leader><leader> <CMD>echo join(filter(split(execute('map <leader>'), "\n")[1:], {_, v -> v !~# '^\s*n\s*\\\\\s' }), "\n")<CR>
     endif
 
 
