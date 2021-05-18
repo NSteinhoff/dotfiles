@@ -242,6 +242,8 @@ endfunction
     nmap <leader>be <Plug>(buffers-edit-list)
     nmap <leader>bd <Plug>(buffers-delete)
     nmap <leader>bw <Plug>(buffers-wipe)
+    nmap <leader>bs <Plug>(buffers-scratch)
+    vmap <leader>bs <Plug>(buffers-scratch)
 
     " Explore: <leader>e
     nnoremap <silent> <leader>ee <CMD>Explore<CR>

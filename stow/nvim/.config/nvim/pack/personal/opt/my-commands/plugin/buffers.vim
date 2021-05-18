@@ -1,12 +1,23 @@
-function s:scratch(mods, lines)
+function s:scratch(lines)
     if @% ==# 'SCRATCH'|return|endif
-    execute a:mods..' new SCRATCH'
-    setlocal buftype=nofile noswapfile nobuflisted
-    let empty = line('$') == 1
-    call append('$', a:lines)
-    if empty|0delete|endif
+
+    let winids = win_findbuf(bufnr('SCRATCH'))
+    if !empty(winids)
+        call win_gotoid(winids[0])
+    else
+        new SCRATCH
+        setlocal buftype=nofile noswapfile nobuflisted
+    endif
+
+    if !empty(a:lines)
+        let empty = line('$') == 1 && empty(getline(1))
+        call append('$', a:lines)
+        if empty|0delete|endif
+    endif
+
+    normal G
 endfunction
-command! -range -complete=filetype Scratch call s:scratch(<q-mods>, <range> ? getline(<line1>, <line2>) : [])
+command! -range Scratch call s:scratch(<range> ? getline(<line1>, <line2>) : [])
 
 function s:is_last_buffer()
     return len(getbufinfo({'buflisted': 1})) <= 1
@@ -34,3 +45,5 @@ nnoremap <silent> <Plug>(buffers-edit-list) <CMD>Buffers<CR>
 nnoremap <silent> <Plug>(buffers-delete) <CMD>Bdelete<CR>
 nnoremap <silent> <Plug>(buffers-wipe) <CMD>Bwipe<CR>
 nnoremap <silent> <Plug>(buffers-only) <CMD>Bonly<CR>
+nnoremap <silent> <Plug>(buffers-scratch) <CMD>Scratch<CR>
+vnoremap <silent> <Plug>(buffers-scratch) :Scratch<CR>
