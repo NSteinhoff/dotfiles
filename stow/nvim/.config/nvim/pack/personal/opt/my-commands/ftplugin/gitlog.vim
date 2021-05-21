@@ -2,6 +2,7 @@ nnoremap <buffer> . <CMD>call b:peek()<CR>
 nnoremap <buffer> o <CMD>call b:open()<CR>
 nnoremap <buffer> <SPACE> <CMD>call b:peek_commit()<CR>
 nnoremap <buffer> <CR> <CMD>call b:open_commit()<CR>
+nnoremap <buffer> <expr> R '<CMD>Review '..getline('.')..'<CR>'
 
 let s:help_msg = 'Usage: (./o) peek/open file; (<SPACE>/<CR>) peek/open commit'
 
