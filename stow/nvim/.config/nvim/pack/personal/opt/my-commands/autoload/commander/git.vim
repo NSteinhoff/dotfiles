@@ -122,8 +122,22 @@ function commander#git#load_timeline(split, line1, line2, range, ...)
     endif
     execute 'file '.bufname
     set ft=gitlog
-    let b:open = { -> commander#git#load_file_revision(getline('.'), fdir.'/'.fname, ft) }
-    let b:peek = { -> commander#git#load_file_revision_in_split(getline('.'), fdir.'/'.fname, ft) }
+    let b:open_file = { -> commander#git#load_file_revision(getline('.'), fdir.'/'.fname, ft) }
+    let b:peek_file = { -> commander#git#load_file_revision_in_split(getline('.'), fdir.'/'.fname, ft) }
+    let b:open_commit = { -> commander#git#load_revision(getline('.')) }
+    let b:peek_commit = { -> commander#git#load_revision_in_split(getline('.')) }
+endfunction
+
+function commander#git#load_log(split, ...)
+    let ft=&ft
+    let content = commander#git#global_revisions()
+    if a:split
+        call commander#lib#load_lines_in_split(content, 'vertical')
+    else
+        call commander#lib#load_lines(content)
+    endif
+    execute 'file GITLOG'
+    set ft=gitlog
     let b:open_commit = { -> commander#git#load_revision(getline('.')) }
     let b:peek_commit = { -> commander#git#load_revision_in_split(getline('.')) }
 endfunction

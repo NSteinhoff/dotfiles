@@ -25,6 +25,7 @@ function s:edit_args_msg()
     return "Editing the first of ".argc()." changed files."
 endfunction
 
+command! -bang -range=% GitLog call commander#git#load_log(<bang>0)
 command! -bang -range=% Timeline call commander#git#load_timeline(<bang>1, <line1>, <line2>, <range>)
 command! -nargs=? -complete=customlist,s:complete_file_revisions ChangeSplit call commander#git#load_diff_in_split(<q-args>)
 command! -nargs=? -complete=customlist,s:complete_file_revisions ChangePatch call commander#git#load_patch(<q-args>)
