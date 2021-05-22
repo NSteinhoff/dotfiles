@@ -273,6 +273,7 @@ let s:ui_groups.match = [
 \    "MatchParen",
 \ ]
 let s:ui_groups.ignore = [
+\    "Ignore",
 \    "Folded",
 \    "LineNr",
 \    "SignColumn",
