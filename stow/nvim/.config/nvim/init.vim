@@ -77,11 +77,9 @@
     set wildignore+=**/target/**
     set wildignore+=**/node_modules/**
 
-""" Highlight todo items
-    aug syn-todo
-        autocmd!
-        autocmd BufEnter * syn keyword todo    todo Todo TODO todo: Todo: TODO:
-    aug END
+""" Diffing
+    " Speed up diff syntax highlighting by disabling localization
+    let g:diff_translations = 0
 
 
 " --------------------------------- Plugins -----------------------------------

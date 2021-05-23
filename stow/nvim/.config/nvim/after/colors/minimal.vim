@@ -49,122 +49,87 @@ function! s:link_items_to_style(items, style)
         exec "highlight! link " . item . " " . a:style
     endfor
 endfunction
-
 " }}}
+
+if !get(g:, 'minimal_test_colors')
+    function! s:test_colors(split)
+        syntax clear
+        let l:styles = sort(keys(copy(s:styles)))
+        if a:split
+            let l:colors = filter(copy(l:styles), {_, v -> v !~# 'H\u'})
+
+            let l:highlights = filter(copy(l:styles), {_, v -> v =~# 'H\u'})
+            let l:normal = filter(copy(l:highlights), {_, v -> v !~# 'Light' && v !~# 'Dark' && v !~# 'Fade'})
+            let l:light = filter(copy(l:highlights), {_, v -> v =~# 'Light'})
+            let l:dark = filter(copy(l:highlights), {_, v -> v =~# 'Dark'})
+            let l:fade = filter(copy(l:highlights), {_, v -> v =~# 'Fade'})
+
+            vertical new
+            call append('$',  l:colors + l:normal + l:light + l:dark + l:fade)
+            0delete
+        endif
+        for style in l:styles
+            execute 'syntax match '.style.' /"\?'.style.'"\?/'
+        endfor
+        setlocal completefunc=CompleteStyles
+    endfunction
+
+    function! CompleteStyles(findstart, base)
+        if a:findstart
+            " locate the start of the word
+            let line = getline('.')
+            let start = col('.') - 1
+            while start > 0 && line[start - 1] =~ '\a'
+                let start -= 1
+            endwhile
+            return start
+        else
+            return filter(keys(s:styles), {_, v -> v =~ '^'.a:base})
+        endif
+    endfunction
+    command! -buffer -bang Test let g:minimal_test_colors=1|call s:test_colors(<bang>0)|unlet g:minimal_test_colors
+endif
 
 " Styles -> Colors {{{
-"" Hues {{{
-let    s:hues                  =    {}
-let    s:hues.nothing          =    {'lig':    'none',              'fg':    0,         'bg':    bg}
-let    s:hues.Underlined       =    {'lig':    'underline',         'fg':    fg,        'bg':    bg}
-let    s:hues.Faded            =    {'lig':    'none',              'fg':    8,         'bg':    bg}
-let    s:hues.FadedLine        =    {'lig':    'none,underline',    'fg':    8,         'bg':    bg}
-let    s:hues.Hidden           =    {'lig':    'none',              'fg':    fg,        'bg':    bg}
-let    s:hues.Bold             =    {'lig':    'bold',              'fg':    fg,        'bg':    bg}
-let    s:hues.Italic           =    {'lig':    'italic',            'fg':    fg,        'bg':    bg}
-let    s:hues.Pop              =    {'lig':    'none',              'fg':    15,        'bg':    bg}
-let    s:hues.StrongPop        =    {'lig':    'bold',              'fg':    15,        'bg':    bg}
-let    s:hues.StrongPopLine    =    {'lig':    'bold,underline',    'fg':    15,        'bg':    bg}
-let    s:hues.Inverse          =    {'lig':    'inverse',           'fg':    'none',    'bg':    'none'}
+let    s:styles               =    {}
+let    s:styles.Normal        =    {'lig':    'none',    'fg':   fg,     'bg':    bg}
+let    s:styles.Hidden        =    {'lig':    'none',    'fg':    0,     'bg':    bg}
+let    s:styles.Forceful      =    {'lig':    'none',    'fg':    1,     'bg':    bg}
+let    s:styles.Calm          =    {'lig':    'none',    'fg':    2,     'bg':    bg}
+let    s:styles.Busy          =    {'lig':    'none',    'fg':    3,     'bg':    bg}
+let    s:styles.Proud         =    {'lig':    'none',    'fg':    4,     'bg':    bg}
+let    s:styles.Happy         =    {'lig':    'none',    'fg':    5,     'bg':    bg}
+let    s:styles.Peaceful      =    {'lig':    'none',    'fg':    6,     'bg':    bg}
+let    s:styles.Quiet         =    {'lig':    'none',    'fg':    7,     'bg':    bg}
+let    s:styles.Faded         =    {'lig':    'none',    'fg':    8,     'bg':    bg}
+let    s:styles.Intense       =    {'lig':    'none',    'fg':    9,     'bg':    bg}
+let    s:styles.Relaxed       =    {'lig':    'none',    'fg':    10,    'bg':    bg}
+let    s:styles.Lively        =    {'lig':    'none',    'fg':    11,    'bg':    bg}
+let    s:styles.Satisfied     =    {'lig':    'none',    'fg':    12,    'bg':    bg}
+let    s:styles.Excited       =    {'lig':    'none',    'fg':    13,    'bg':    bg}
+let    s:styles.Fresh         =    {'lig':    'none',    'fg':    14,    'bg':    bg}
+let    s:styles.Pop           =    {'lig':    'none',    'fg':    15,    'bg':    bg}
+
+for [k, v] in items(s:styles)
+    let s:styles[k..'Italic']                  =  extend(copy(v), {'lig': 'italic'})
+    let s:styles[k..'Bold']                    =  extend(copy(v), {'lig': 'bold'})
+    let s:styles[k..'Underlined']              =  extend(copy(v), {'lig': 'underline'})
+    let s:styles[k..'ItalicUnderlined']        =  extend(copy(v), {'lig': 'italic,underline'})
+    let s:styles[k..'BoldUnderlined']          =  extend(copy(v), {'lig': 'bold,underline'})
+    let s:styles[k..'ItalicBoldUnderlined']    =  extend(copy(v), {'lig': 'italic,bold,underline'})
+    let s:styles[k..'Inverse']                 =  extend(copy(v), {'lig': 'inverse'})
+    let s:styles[k..'BoldInverse']             =  extend(copy(v), {'lig': 'bold,inverse'})
+
+endfor
+
+for [k, v] in items(s:styles)
+    if v['lig'] =~? 'inverse'|continue|endif
+    let s:styles['H'..k]                          =   extend(copy(v), {'fg': fg, 'bg': v['fg']})
+    let s:styles['HLight'..k]                     =   extend(copy(v), {'fg': v['fg'], 'bg': 15})
+    let s:styles['HDark'..k]                      =   extend(copy(v), {'fg': 0, 'bg': v['fg']})
+    let s:styles['HFade'..k]                      =   extend(copy(v), {'fg': v['fg'], 'bg': 8})
+endfor
 "" }}}
-
-"" Moods {{{
-let    s:moods               =    {}
-let    s:moods.Forceful      =    {'lig':    'none',    'fg':    1,     'bg':    bg}
-let    s:moods.Calm          =    {'lig':    'none',    'fg':    2,     'bg':    bg}
-let    s:moods.Busy          =    {'lig':    'none',    'fg':    3,     'bg':    bg}
-let    s:moods.Proud         =    {'lig':    'none',    'fg':    4,     'bg':    bg}
-let    s:moods.Happy         =    {'lig':    'none',    'fg':    5,     'bg':    bg}
-let    s:moods.Peaceful      =    {'lig':    'none',    'fg':    6,     'bg':    bg}
-let    s:moods.Quiet         =    {'lig':    'none',    'fg':    7,     'bg':    bg}
-let    s:moods.Plain         =    {'lig':    'none',    'fg':    8,     'bg':    bg}
-let    s:moods.Intense       =    {'lig':    'none',    'fg':    9,     'bg':    bg}
-let    s:moods.Relaxed       =    {'lig':    'none',    'fg':    10,    'bg':    bg}
-let    s:moods.Lively        =    {'lig':    'none',    'fg':    11,    'bg':    bg}
-let    s:moods.VeryLively    =    {'lig':    'bold',    'fg':    11,    'bg':    bg}
-let    s:moods.Satisfied     =    {'lig':    'none',    'fg':    12,    'bg':    bg}
-let    s:moods.Excited       =    {'lig':    'none',    'fg':    13,    'bg':    bg}
-let    s:moods.Fresh         =    {'lig':    'none',    'fg':    14,    'bg':    bg}
-let    s:moods.Shy           =    {'lig':    'none',    'fg':    15,    'bg':    bg}
-"" }}}
-
-"" Underline {{{
-let    s:underlines                   =    {}
-let    s:underlines.ForcefulLine      =    {'lig':    'underline',         'fg':    1,     'bg':    bg}
-let    s:underlines.CalmLine          =    {'lig':    'underline',         'fg':    2,     'bg':    bg}
-let    s:underlines.BusyLine          =    {'lig':    'underline',         'fg':    3,     'bg':    bg}
-let    s:underlines.ProudLine         =    {'lig':    'underline',         'fg':    4,     'bg':    bg}
-let    s:underlines.HappyLine         =    {'lig':    'underline',         'fg':    5,     'bg':    bg}
-let    s:underlines.PeacefulLine      =    {'lig':    'underline',         'fg':    6,     'bg':    bg}
-let    s:underlines.QuietLine         =    {'lig':    'underline',         'fg':    7,     'bg':    bg}
-let    s:underlines.PlainLine         =    {'lig':    'underline',         'fg':    8,     'bg':    bg}
-let    s:underlines.IntenseLine       =    {'lig':    'underline',         'fg':    9,     'bg':    bg}
-let    s:underlines.RelaxedLine       =    {'lig':    'underline',         'fg':    10,    'bg':    bg}
-let    s:underlines.LivelyLine        =    {'lig':    'underline',         'fg':    11,    'bg':    bg}
-let    s:underlines.VeryLivelyLine    =    {'lig':    'bold,underline',    'fg':    11,    'bg':    bg}
-let    s:underlines.SatisfiedLine     =    {'lig':    'underline',         'fg':    12,    'bg':    bg}
-let    s:underlines.ExcitedLine       =    {'lig':    'underline',         'fg':    13,    'bg':    bg}
-let    s:underlines.FreshLine         =    {'lig':    'underline',         'fg':    14,    'bg':    bg}
-let    s:underlines.ShyLine           =    {'lig':    'underline',         'fg':    15,    'bg':    bg}
-""}}}
-
-"" Highlights {{{
-let    s:highlights                          =    {}
-let    s:highlights.HPop                     =    {'lig':    'none',       'fg':    15,    'bg':    8}
-let    s:highlights.HFaded                   =    {'lig':    'none',       'fg':    7,     'bg':    8}
-let    s:highlights.HPeaceful                =    {'lig':    'none',       'fg':    15,    'bg':    6}
-let    s:highlights.HProud                   =    {'lig':    'none',       'fg':    15,    'bg':    4}
-let    s:highlights.HCalm                    =    {'lig':    'none',       'fg':    15,    'bg':    2}
-let    s:highlights.HForceful                =    {'lig':    'none',       'fg':    15,    'bg':    1}
-let    s:highlights.HHappy                   =    {'lig':    'none',       'fg':    15,    'bg':    5}
-let    s:highlights.HBusy                    =    {'lig':    'none',       'fg':    15,    'bg':    3}
-let    s:highlights.HExcited                 =    {'lig':    'none',       'fg':    15,    'bg':    13}
-let    s:highlights.HSatisfied               =    {'lig':    'none',       'fg':    15,    'bg':    12}
-let    s:highlights.HLively                  =    {'lig':    'none',       'fg':    15,    'bg':    11}
-let    s:highlights.HRelaxed                 =    {'lig':    'none',       'fg':    15,    'bg':    10}
-let    s:highlights.HFresh                   =    {'lig':    'none',       'fg':    15,    'bg':    14}
-let    s:highlights.HIntense                 =    {'lig':    'none',       'fg':    15,    'bg':    9}
-
-let    s:highlights.HPeacefulDark            =    {'lig':    'none',       'fg':    0,     'bg':    6}
-let    s:highlights.HProudDark               =    {'lig':    'none',       'fg':    0,     'bg':    4}
-let    s:highlights.HCalmDark                =    {'lig':    'none',       'fg':    0,     'bg':    2}
-let    s:highlights.HForcefulDark            =    {'lig':    'none',       'fg':    0,     'bg':    1}
-let    s:highlights.HHappyDark               =    {'lig':    'none',       'fg':    0,     'bg':    5}
-let    s:highlights.HBusyDark                =    {'lig':    'none',       'fg':    0,     'bg':    3}
-let    s:highlights.HExcitedDark             =    {'lig':    'none',       'fg':    0,     'bg':    13}
-let    s:highlights.HSatisfiedDark           =    {'lig':    'none',       'fg':    0,     'bg':    12}
-let    s:highlights.HLivelyDark              =    {'lig':    'none',       'fg':    0,     'bg':    11}
-let    s:highlights.HRelaxedDark             =    {'lig':    'none',       'fg':    0,     'bg':    10}
-let    s:highlights.HFreshDark               =    {'lig':    'none',       'fg':    0,     'bg':    14}
-let    s:highlights.HIntenseDark             =    {'lig':    'none',       'fg':    0,     'bg':    9}
-
-let    s:highlights.HPeacefulInverse         =    {'lig':    'inverse',    'fg':    15,    'bg':    6}
-let    s:highlights.HProudInverse            =    {'lig':    'inverse',    'fg':    15,    'bg':    4}
-let    s:highlights.HCalmInverse             =    {'lig':    'inverse',    'fg':    15,    'bg':    2}
-let    s:highlights.HForcefulInverse         =    {'lig':    'inverse',    'fg':    15,    'bg':    1}
-let    s:highlights.HHappyInverse            =    {'lig':    'inverse',    'fg':    15,    'bg':    5}
-let    s:highlights.HBusyInverse             =    {'lig':    'inverse',    'fg':    15,    'bg':    3}
-let    s:highlights.HExcitedInverse          =    {'lig':    'inverse',    'fg':    15,    'bg':    13}
-let    s:highlights.HSatisfiedInverse        =    {'lig':    'inverse',    'fg':    15,    'bg':    12}
-let    s:highlights.HLivelyInverse           =    {'lig':    'inverse',    'fg':    15,    'bg':    11}
-let    s:highlights.HRelaxedInverse          =    {'lig':    'inverse',    'fg':    15,    'bg':    10}
-let    s:highlights.HFreshInverse            =    {'lig':    'inverse',    'fg':    15,    'bg':    14}
-let    s:highlights.HIntenseInverse          =    {'lig':    'inverse',    'fg':    15,    'bg':    9}
-
-let    s:highlights.HPeacefulInverseFade     =    {'lig':    'inverse',    'fg':    8,     'bg':    6}
-let    s:highlights.HProudInverseFade        =    {'lig':    'inverse',    'fg':    8,     'bg':    4}
-let    s:highlights.HCalmInverseFade         =    {'lig':    'inverse',    'fg':    8,     'bg':    2}
-let    s:highlights.HForcefulInverseFade     =    {'lig':    'inverse',    'fg':    8,     'bg':    1}
-let    s:highlights.HHappyInverseFade        =    {'lig':    'inverse',    'fg':    8,     'bg':    5}
-let    s:highlights.HBusyInverseFade         =    {'lig':    'inverse',    'fg':    8,     'bg':    3}
-let    s:highlights.HExcitedInverseFade      =    {'lig':    'inverse',    'fg':    8,     'bg':    13}
-let    s:highlights.HSatisfiedInverseFade    =    {'lig':    'inverse',    'fg':    8,     'bg':    12}
-let    s:highlights.HLivelyInverseFade       =    {'lig':    'inverse',    'fg':    8,     'bg':    11}
-let    s:highlights.HRelaxedInverseFade      =    {'lig':    'inverse',    'fg':    8,     'bg':    10}
-let    s:highlights.HFreshInverseFade        =    {'lig':    'inverse',    'fg':    8,     'bg':    14}
-let    s:highlights.HIntenseInverseFade      =    {'lig':    'inverse',    'fg':    8,     'bg':    9}
-"" }}}
-" }}}
 
 " Elements -> Styles {{{
 let s:ui_styles = {}
@@ -173,53 +138,52 @@ let s:syntax_styles = {}
 
 "" UI Styles {{{
 let s:ui_styles.normal                   =  "Normal"
-let s:ui_styles.title                    =  "StrongPopLine"
-let s:ui_styles.line                     =  "Underlined"
+let s:ui_styles.title                    =  "PopBoldUnderlined"
+let s:ui_styles.line                     =  "NormalUnderlined"
 let s:ui_styles.notice                   =  "Forceful"
-let s:ui_styles.cursor                   =  "Inverse"
-let s:ui_styles.selection                =  "Inverse"
+let s:ui_styles.cursor                   =  "NormalInverse"
+let s:ui_styles.selection                =  "NormalBoldInverse"
 let s:ui_styles.hidden                   =  "Hidden"
 let s:ui_styles.ignore                   =  "Faded"
-let s:ui_styles.status_inactive          =  "HFreshInverseFade"
+let s:ui_styles.status_inactive          =  "HFadeFresh"
 let s:ui_styles.status_active            =  "HFresh"
 let s:ui_styles.status_term              =  "HRelaxed"
-let s:ui_styles.status_focus             =  "HFreshInverse"
-let s:ui_styles.tabline_active           =  "StrongPopLine"
-let s:ui_styles.tabline_inactive         =  "FadedLine"
-let s:ui_styles.tabline_fill             =  "FadedLine"
-let s:ui_styles.tabline_focus            =  "ProudLine"
+let s:ui_styles.status_focus             =  "HLightFresh"
+let s:ui_styles.tabline_active           =  "PopBoldUnderlined"
+let s:ui_styles.tabline_inactive         =  "FadedUnderlined"
+let s:ui_styles.tabline_fill             =  "FadedUnderlined"
+let s:ui_styles.tabline_focus            =  "ProudUnderlined"
 let s:ui_styles.match                    =  "HExcited"
-let s:ui_styles.highlight                =  "HPop"
-let s:ui_styles.highlight_dark           =  "HLivelyDark"
-let s:ui_styles.highlight_inverted       =  "HLivelyInverse"
+let s:ui_styles.highlight                =  "HDarkPop"
+let s:ui_styles.highlight_dark           =  "HDarkLively"
+let s:ui_styles.highlight_fade           =  "HFadeLively"
 ""}}}
 
 "" Some more text
 "" Diff Styles {{{
-
 let s:diff_styles.add                 = "Calm"
 let s:diff_styles.delete              = "Forceful"
-let s:diff_styles.change              = "Lively"
-let s:diff_styles.text                = "VeryLivelyLine"
-""}}}_COLOR
+let s:diff_styles.change              = "Busy"
+let s:diff_styles.text                = "LivelyBoldUnderlined"
+""}}}
 
 "" Syntax Styles {{{
-let s:syntax_styles.error             = "Forceful"
-let s:syntax_styles.constant          = "Calm"
-let s:syntax_styles.literal           = "Busy"
+let s:syntax_styles.comment           = "Faded"
+let s:syntax_styles.constant          = "QuietBold"
 let s:syntax_styles.identifier        = "Normal"
-let s:syntax_styles.statement         = "Bold"
-let s:syntax_styles.operator          = "Happy"
-let s:syntax_styles.type              = "Peaceful"
-let s:syntax_styles.preproc           = "Lively"
+let s:syntax_styles.statement         = "Proud"
+let s:syntax_styles.preproc           = "Happy"
+let s:syntax_styles.type              = "Fresh"
+let s:syntax_styles.special           = "Satisfied"
+let s:syntax_styles.underlined        = "NormalUnderlined"
+let s:syntax_styles.fixme             = "HLightForceful"
+let s:syntax_styles.error             = "Intense"
+let s:syntax_styles.ignore            = "Faded"
+
 let s:syntax_styles.trivial           = "Faded"
-let s:syntax_styles.informative       = "Fresh"
-let s:syntax_styles.special           = "Proud"
-let s:syntax_styles.underlined        = "Underlined"
-let s:syntax_styles.emphasis          = "Italic"
-let s:syntax_styles.strong            = "Pop"
-let s:syntax_styles.heavy             = "StrongPop"
-let s:syntax_styles.fixme             = "HForcefulInverse"
+let s:syntax_styles.emphasis          = "Pop"
+let s:syntax_styles.strong            = "NormalBold"
+let s:syntax_styles.heavy             = "PopBold"
 ""}}}
 "}}}
 
@@ -255,7 +219,7 @@ let s:ui_groups.selection = [
 \    "Pmenu",
 \    "PmenuSbar",
 \ ]
-let s:ui_groups.highlight_inverted = [
+let s:ui_groups.highlight_fade = [
 \    "ColorColumn",
 \ ]
 let s:ui_groups.highlight_dark = [
@@ -340,11 +304,9 @@ let s:syntax_groups.error = [
 let s:syntax_groups.fixme = [
 \    "Todo",
 \ ]
-let s:syntax_groups.literal = [
-\    "String",
-\ ]
 let s:syntax_groups.constant = [
 \    "Constant",
+\    "String",
 \    "Number",
 \    "Directory",
 \    "markdownCode",
@@ -368,7 +330,7 @@ let s:syntax_groups.type = [
 let s:syntax_groups.preproc = [
 \    "PreProc",
 \ ]
-let s:syntax_groups.informative = [
+let s:syntax_groups.comment = [
 \    "Comment",
 \    "Question",
 \    "LspReferenceText",
@@ -407,7 +369,9 @@ let s:syntax_groups.underlined = [
 \    "LspReferenceText",
 \    "LspReferenceWrite",
 \ ]
-
+let s:syntax_groups.ignore = [
+\    "Ignore",
+\ ]
 let s:syntax_groups.emphasis = [
 \    "markdownItalic",
 \    "mkdItalic",
@@ -434,10 +398,7 @@ let s:syntax_groups.heavy = [
 
 " First we create the new highlight groups that everything
 " else links to.
-call s:init_styles(s:hues)
-call s:init_styles(s:moods)
-call s:init_styles(s:underlines)
-call s:init_styles(s:highlights)
+call s:init_styles(s:styles)
 
 " Now we link the individual elements in *_groups to their respective
 " style group as defined in the *_styles.
@@ -446,111 +407,5 @@ call s:link_groups(s:diff_groups, s:diff_styles)
 call s:link_groups(s:syntax_groups, s:syntax_styles)
 
 syntax enable
-
-syntax keyword nothing nothing
-syntax keyword Underlined Underlined
-syntax keyword Inverse Inverse
-syntax keyword Faded Faded
-syntax keyword FadedLine FadedLine
-syntax keyword Hidden Hidden
-syntax keyword Bold Bold
-syntax keyword Italic Italic
-syntax keyword Pop Pop
-syntax keyword StrongPop StrongPop
-syntax keyword StrongPopLine StrongPopLine
-
-syntax keyword Proud Proud
-syntax keyword Calm Calm
-syntax keyword Peaceful Peaceful
-syntax keyword Quiet Quiet
-syntax keyword Plain Plain
-syntax keyword Forceful Forceful
-syntax keyword Happy Happy
-syntax keyword Busy Busy
-syntax keyword Satisfied Satisfied
-syntax keyword Relaxed Relaxed
-syntax keyword Fresh Fresh
-syntax keyword Intense Intense
-syntax keyword Excited Excited
-syntax keyword Lively Lively
-syntax keyword VeryLively VeryLively
-syntax keyword Shy Shy
-
-syntax keyword ProudLine ProudLine
-syntax keyword CalmLine CalmLine
-syntax keyword PeacefulLine PeacefulLine
-syntax keyword QuietLine QuietLine
-syntax keyword PlainLine PlainLine
-syntax keyword ForcefulLine ForcefulLine
-syntax keyword HappyLine HappyLine
-syntax keyword BusyLine BusyLine
-syntax keyword SatisfiedLine SatisfiedLine
-syntax keyword RelaxedLine RelaxedLine
-syntax keyword FreshLine FreshLine
-syntax keyword IntenseLine IntenseLine
-syntax keyword ExcitedLine ExcitedLine
-syntax keyword VeryLivelyLine VeryLivelyLine
-syntax keyword ShyLine ShyLine
-
-syntax keyword HPop HPop
-syntax keyword HFaded HFaded
-syntax keyword HPeaceful HPeaceful
-syntax keyword HProud HProud
-syntax keyword HCalm HCalm
-syntax keyword HForceful HForceful
-syntax keyword HHappy HHappy
-syntax keyword HBusy HBusy
-syntax keyword HExcited HExcited
-syntax keyword HSatisfied HSatisfied
-syntax keyword HLively HLively
-syntax keyword HRelaxed HRelaxed
-syntax keyword HFresh HFresh
-syntax keyword HIntense HIntense
-
-syntax keyword HPopDark HPopDark
-syntax keyword HFadedDark HFadedDark
-syntax keyword HPeacefulDark HPeacefulDark
-syntax keyword HProudDark HProudDark
-syntax keyword HCalmDark HCalmDark
-syntax keyword HForcefulDark HForcefulDark
-syntax keyword HHappyDark HHappyDark
-syntax keyword HBusyDark HBusyDark
-syntax keyword HExcitedDark HExcitedDark
-syntax keyword HSatisfiedDark HSatisfiedDark
-syntax keyword HLivelyDark HLivelyDark
-syntax keyword HRelaxedDark HRelaxedDark
-syntax keyword HFreshDark HFreshDark
-syntax keyword HIntenseDark HIntenseDark
-
-syntax keyword HPopInverse HPopInverse
-syntax keyword HFadedInverse HFadedInverse
-syntax keyword HPeacefulInverse HPeacefulInverse
-syntax keyword HProudInverse HProudInverse
-syntax keyword HCalmInverse HCalmInverse
-syntax keyword HForcefulInverse HForcefulInverse
-syntax keyword HHappyInverse HHappyInverse
-syntax keyword HBusyInverse HBusyInverse
-syntax keyword HExcitedInverse HExcitedInverse
-syntax keyword HSatisfiedInverse HSatisfiedInverse
-syntax keyword HLivelyInverse HLivelyInverse
-syntax keyword HRelaxedInverse HRelaxedInverse
-syntax keyword HFreshInverse HFreshInverse
-syntax keyword HIntenseInverse HIntenseInverse
-
-syntax keyword HPopInverseFade HPopInverseFade
-syntax keyword HFadedInverseFade HFadedInverseFade
-syntax keyword HPeacefulInverseFade HPeacefulInverseFade
-syntax keyword HProudInverseFade HProudInverseFade
-syntax keyword HCalmInverseFade HCalmInverseFade
-syntax keyword HForcefulInverseFade HForcefulInverseFade
-syntax keyword HHappyInverseFade HHappyInverseFade
-syntax keyword HBusyInverseFade HBusyInverseFade
-syntax keyword HExcitedInverseFade HExcitedInverseFade
-syntax keyword HSatisfiedInverseFade HSatisfiedInverseFade
-syntax keyword HLivelyInverseFade HLivelyInverseFade
-syntax keyword HRelaxedInverseFade HRelaxedInverseFade
-syntax keyword HFreshInverseFade HFreshInverseFade
-syntax keyword HIntenseInverseFade HIntenseInverseFade
 "}}}
-
 " vim: foldmethod=marker
