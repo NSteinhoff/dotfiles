@@ -69,10 +69,6 @@ endfunction
     " map ]] j0[[%/{<CR>
     " map [] k$][%?}<CR>
 
-    " Switch off diff mode when closing all other windows
-    nnoremap <silent> <C-W>o :diffoff!<BAR>only<CR>
-    nnoremap <silent> <C-W><C-O> :diffoff!<BAR>only<CR>
-
     " Do something useful with the arrow keys:
     " Moving selected lines
      vnoremap <LEFT> <gv
