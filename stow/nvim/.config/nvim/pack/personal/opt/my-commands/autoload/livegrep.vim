@@ -29,10 +29,8 @@ function s:job.on_exit(job_id, data, event)
         echo join(self.err, "\n")
     endif
 
-    if !empty(self.data)
-        call s:wipe(self.buf)
-        call appendbufline(self.buf, '$', self.data)
-    endif
+    call s:wipe(self.buf)
+    call appendbufline(self.buf, '$', self.data)
     call nvim_buf_set_virtual_text(self.buf, s:ns_results, 0, [[printf('(%d)', len(self.data)), 'Ignore']], {})
 endfunction
 
