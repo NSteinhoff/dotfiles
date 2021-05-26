@@ -52,7 +52,7 @@ function! MyTabs()
         let highlight = i == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
         if i > 1|let s .= '|'|endif
         let s .= '%'..i..'T '
-        let s .= '%#ProudLine#'
+        let s .= '%#TablineFocus#'
         let s .= '%{MyTabIndicators('..i..')}'
         let s .= highlight
         let s .= ' %{MyTabLabel('..i..')}'
@@ -72,7 +72,7 @@ function! MyTabLine()
     else
         let s .= MyTabs()
         let s .= '%#TabLineFill#'
-        let s .= '%=%#ProudLine#'
+        let s .= '%=%#TablineFocus#'
         let s .= '%{MyTabCwd()}'
     endif
     return s

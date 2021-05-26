@@ -210,14 +210,14 @@ let s:ui_groups.cursor = [
 \    "CursorIM",
 \    "TermCursor",
 \    "TermCursorNC",
+\    "Pmenu",
+\    "PmenuSbar",
 \ ]
 let s:ui_groups.hidden = [
 \    "EndOfBuffer",
 \ ]
 let s:ui_groups.selection = [
 \    "Visual",
-\    "Pmenu",
-\    "PmenuSbar",
 \ ]
 let s:ui_groups.highlight_fade = [
 \    "ColorColumn",
@@ -270,7 +270,9 @@ let s:ui_groups.tabline_inactive = [
 let s:ui_groups.tabline_fill = [
 \    "TabLineFill",
 \ ]
-let s:ui_groups.tabline_focus = []
+let s:ui_groups.tabline_focus = [
+\    "TabLineFocus",
+\ ]
 ""}}}
 
 "" Diff {{{
