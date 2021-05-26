@@ -94,8 +94,8 @@ function qf#swap(v) abort
 endfunction
 
 function qf#preview(pos)
-    let pref = qf#isloc() ? 'l' : 'c'
-    let cmd = a:pos == 0 ? line('.')..pref..pref
+    let pref = qf#isloc() ? 'll' : 'cc'
+    let cmd = a:pos == 0 ? line('.')..pref
           \ : a:pos > 0 ? s:next()
           \ : s:prev()
     execute cmd

@@ -101,6 +101,7 @@ endfunction
     " Highlight matches
     nnoremap <expr> gm v:count <= 1 ? '<CMD>Match<CR>' : '<CMD>Match'.v:count.'<CR>'
     nnoremap <expr> gM v:count <= 1 ? '<CMD>match<CR>' : '<CMD>'.v:count.'match<CR>'
+    vnoremap gm y:<C-U>Match <c-r>"<CR>
 
 
 """ Format

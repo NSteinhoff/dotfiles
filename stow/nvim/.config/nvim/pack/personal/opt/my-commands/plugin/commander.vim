@@ -97,11 +97,9 @@
     command! -bar ClearErr ClearQf | ClearLoc
 
 """ Matches
-    command! -nargs=? Match execute 'match Error /\<'..(empty(<q-args>) ? expand('<cword>')..'\>' : '<args>').'/'
-    command! -nargs=? Match2 execute '2match Constant /\<'..(empty(<q-args>) ? expand('<cword>')..'\>' : '<args>').'/'
+    command! -nargs=? Match execute 'match Error /'..(empty(<q-args>) ? '\<'..expand('<cword>')..'\>' : escape(<q-args>, '/')).'/'
+    command! -nargs=? Match2 execute '2match Constant /'..(empty(<q-args>) ? '\<'..expand('<cword>')..'\>' : escape(<q-args>, '/')).'/'
     command! MatchOff match | 2match
-    " command! -nargs=? Match3 execute '3match Todo /\<'..(empty(<q-args>) ? expand('<cword>')..'\>' : '<args>').'/'
-    " command! MatchOff match | 2match | 3match
 
 """ Send paragraph under cursor to terminal
     function! s:send_to_term()
