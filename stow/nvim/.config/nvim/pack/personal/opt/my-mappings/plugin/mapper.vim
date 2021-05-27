@@ -45,6 +45,9 @@ endfunction
     " Clear search highlights with ESC in normal mode
     nnoremap <silent> <ESC> <CMD>nohlsearch<CR>
 
+    " Go home
+    " noremap <expr> 0 col('.') == 1 ? '^' : '0'
+
     " Toggle folds with <SPACE>
     nnoremap <SPACE> za
 
@@ -111,11 +114,10 @@ endfunction
     nnoremap <silent> <> <CMD>Format<CR>
 
 """ Align: <leader>=
-    vnoremap <silent> <leader>== :Align<CR>
-    vnoremap <silent> <leader>=. :center<CR>
-    vnoremap <silent> <leader>=> :right<CR>
-    vnoremap <silent> <leader>=< :left<CR>
-
+    noremap <silent> <leader>== :Align<CR>
+    noremap <silent> <leader>=. :center<CR>
+    noremap <silent> <leader>=> :right<CR>
+    noremap <silent> <leader>=< :left<CR>
 
 """  Errors: Quickfix / Location Lists
     " The idea here is to have one mapping to get a peek at the current list

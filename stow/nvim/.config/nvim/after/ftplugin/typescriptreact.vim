@@ -29,4 +29,5 @@ function s:component_name()
     return 'MyComponent'
 endfunction
 
+iabbrev <buffer> excp export function SomeComponent(): JSX.Element {}
 iabbrev <buffer> <expr> expr <SID>props()

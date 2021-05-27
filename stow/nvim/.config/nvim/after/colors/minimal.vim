@@ -65,6 +65,7 @@ if !get(g:, 'minimal_test_colors')
             let l:fade = filter(copy(l:highlights), {_, v -> v =~# 'Fade'})
 
             vertical new
+            set buftype=nofile
             call append('$',  l:colors + l:normal + l:light + l:dark + l:fade)
             0delete
         endif
@@ -98,15 +99,17 @@ let    s:styles.Forceful      =    {'lig':    'none',    'fg':    1,     'bg':  
 let    s:styles.Calm          =    {'lig':    'none',    'fg':    2,     'bg':    bg}
 let    s:styles.Busy          =    {'lig':    'none',    'fg':    3,     'bg':    bg}
 let    s:styles.Proud         =    {'lig':    'none',    'fg':    4,     'bg':    bg}
-let    s:styles.Happy         =    {'lig':    'none',    'fg':    5,     'bg':    bg}
+let    s:styles.Excited       =    {'lig':    'none',    'fg':    5,     'bg':    bg}
 let    s:styles.Peaceful      =    {'lig':    'none',    'fg':    6,     'bg':    bg}
 let    s:styles.Quiet         =    {'lig':    'none',    'fg':    7,     'bg':    bg}
+
+" Bright
 let    s:styles.Faded         =    {'lig':    'none',    'fg':    8,     'bg':    bg}
 let    s:styles.Intense       =    {'lig':    'none',    'fg':    9,     'bg':    bg}
 let    s:styles.Relaxed       =    {'lig':    'none',    'fg':    10,    'bg':    bg}
 let    s:styles.Lively        =    {'lig':    'none',    'fg':    11,    'bg':    bg}
 let    s:styles.Satisfied     =    {'lig':    'none',    'fg':    12,    'bg':    bg}
-let    s:styles.Excited       =    {'lig':    'none',    'fg':    13,    'bg':    bg}
+let    s:styles.Happy         =    {'lig':    'none',    'fg':    13,    'bg':    bg}
 let    s:styles.Fresh         =    {'lig':    'none',    'fg':    14,    'bg':    bg}
 let    s:styles.Pop           =    {'lig':    'none',    'fg':    15,    'bg':    bg}
 
@@ -145,10 +148,10 @@ let s:ui_styles.cursor                   =  "NormalInverse"
 let s:ui_styles.selection                =  "NormalBoldInverse"
 let s:ui_styles.hidden                   =  "Hidden"
 let s:ui_styles.ignore                   =  "Faded"
-let s:ui_styles.status_inactive          =  "HFadeFresh"
-let s:ui_styles.status_active            =  "HFresh"
-let s:ui_styles.status_term              =  "HRelaxed"
-let s:ui_styles.status_focus             =  "HLightFresh"
+let s:ui_styles.status_inactive          =  "HFadeProud"
+let s:ui_styles.status_active            =  "HDarkProud"
+let s:ui_styles.status_focus             =  "HLightProud"
+let s:ui_styles.status_term              =  "HDarkHappy"
 let s:ui_styles.tabline_active           =  "PopBoldUnderlined"
 let s:ui_styles.tabline_inactive         =  "FadedUnderlined"
 let s:ui_styles.tabline_fill             =  "FadedUnderlined"
@@ -168,16 +171,18 @@ let s:diff_styles.text                = "LivelyBoldUnderlined"
 ""}}}
 
 "" Syntax Styles {{{
-let s:syntax_styles.comment           = "Faded"
-let s:syntax_styles.constant          = "QuietBold"
+let s:syntax_styles.comment           = "Quiet"
 let s:syntax_styles.identifier        = "Normal"
-let s:syntax_styles.statement         = "Proud"
-let s:syntax_styles.preproc           = "Happy"
-let s:syntax_styles.type              = "Fresh"
-let s:syntax_styles.special           = "Satisfied"
+let s:syntax_styles.constant          = "Pop"
+let s:syntax_styles.statement         = "Pop"
+let s:syntax_styles.operator          = "PopBold"
+let s:syntax_styles.preproc           = "Excited"
+let s:syntax_styles.type              = "Peaceful"
+let s:syntax_styles.special           = "Proud"
+let s:syntax_styles.specialchar       = "ProudBold"
 let s:syntax_styles.underlined        = "NormalUnderlined"
 let s:syntax_styles.fixme             = "HLightForceful"
-let s:syntax_styles.error             = "Intense"
+let s:syntax_styles.error             = "Forceful"
 let s:syntax_styles.ignore            = "Faded"
 
 let s:syntax_styles.trivial           = "Faded"
@@ -348,10 +353,13 @@ let s:syntax_groups.trivial = [
 \    "LspDiagnosticsDefaultHint",
 \    "LspDiagnosticsSignHint",
 \ ]
-let s:syntax_groups.special = [
-\    "Delimiter",
-\    "Special",
+let s:syntax_groups.specialchar = [
+\    "SpecialChar",
 \    "SpecialKey",
+\    "Delimiter",
+\ ]
+let s:syntax_groups.special = [
+\    "Special",
 \    "SpecialComment",
 \    "SpellCap",
 \    "SpellLocal",

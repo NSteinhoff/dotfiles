@@ -25,7 +25,7 @@
     set foldmethod=indent
     set foldlevelstart=99       " start with all folds opened
     set foldcolumn=0
-    set clipboard=unnamedplus   " always use clipboard
+    " set clipboard=unnamedplus   " always use clipboard
     set mouse=nv                " enable mouse in normal and visual mode
     set autoread
     set hidden

@@ -16,6 +16,7 @@
     # Committing (crimes)
     pave        = commit --all --amend --no-edit
     nuke        = !git commit --all --amend --no-edit && git push -f
+    squeeze     = rebase -i --autosquash
 
     # Listing
     stashes     = !git --no-pager stash list
