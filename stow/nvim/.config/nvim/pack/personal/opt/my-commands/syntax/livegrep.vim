@@ -1,4 +1,4 @@
-if exists("b:current_syntax")
+if exists("b:current_syntax") || 1
   finish
 endif
 
