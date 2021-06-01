@@ -107,7 +107,8 @@ local function on_publish_diagnostics(...)
         virtual_text = false,
         update_in_insert = false,
     })(...)
-    pcall(set_loclist)
+    local result, error = pcall(set_loclist)
+    if error then vim.api.nvim_err_writeln(error) end
 end
 
 return {
