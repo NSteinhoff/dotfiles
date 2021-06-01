@@ -44,14 +44,14 @@ function s:unselected()
 endfunction
 
 function s:next()
-    let list = s:get({'idx': 1, 'size': 1})
+    let list = s:get({'idx': 0, 'size': 1})
     if list.size == 0|return|endif
     let [advance, wrap] = ['next', 'first']
     return (qf#isloc() ? 'l' : 'c')..(list.idx == list.size ? wrap : advance)
 endfunction
 
 function s:prev()
-    let list = s:get({'idx': 1, 'size': 1})
+    let list = s:get({'idx': 0, 'size': 1})
     if list.size == 0|return|endif
     let [advance, wrap] = ['prev', 'last']
     return (qf#isloc() ? 'l' : 'c')..(list.idx == 1 ? wrap : advance)
@@ -124,7 +124,7 @@ endfunction
 "                                  Loclist                                   "
 " -------------------------------------------------------------------------- "
 function qf#cycle_loc(forward) abort
-    let loclist = getloclist(0, {'idx': 1, 'size': 1})
+    let loclist = getloclist(0, {'idx': 0, 'size': 1})
     if loclist.size == 0
         echo "No errors."
         return
@@ -172,7 +172,7 @@ function s:goto(nr)
 endfunction
 
 function qf#cycle_qf(forward) abort
-    let qflist = getqflist({'idx': 1, 'size': 1})
+    let qflist = getqflist({'idx': 0, 'size': 1})
     if qflist.size == 0
         echo "No errors."
         return
