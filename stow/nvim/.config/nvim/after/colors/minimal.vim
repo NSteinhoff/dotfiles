@@ -340,9 +340,6 @@ let s:syntax_groups.preproc = [
 let s:syntax_groups.comment = [
 \    "Comment",
 \    "Question",
-\    "LspReferenceText",
-\    "LspReferenceRead",
-\    "LspReferenceWrite",
 \    "LspDiagnosticsDefaultInformation",
 \    "LspDiagnosticsSignInformation",
 \ ]
@@ -375,8 +372,8 @@ let s:syntax_groups.underlined = [
 \    "LspDiagnosticsUnderlineHint",
 \    "LspDiagnosticsUnderlineInformation",
 \    "LspDiagnosticsUnderlineWarning",
-\    "LspReferenceRead",
 \    "LspReferenceText",
+\    "LspReferenceRead",
 \    "LspReferenceWrite",
 \ ]
 let s:syntax_groups.ignore = [
