@@ -29,9 +29,9 @@ endfunction
 " Apply a syntax highlight style based on a dicationary of options.
 function! s:create_group(name, opts)
     let n = a:name
-    let lig = get(a:opts, 'lig', 'none')
-    let fg = get(a:opts, 'fg', 'none')
-    let bg = get(a:opts, 'bg', 'none')
+    let lig = get(a:opts, 'lig', 'NONE')
+    let fg = get(a:opts, 'fg', 'NONE')
+    let bg = get(a:opts, 'bg', 'NONE')
     exec "highlight " . n . " cterm=" . lig . " ctermfg=" . fg . " ctermbg=" . bg
 endfunction
 
@@ -93,25 +93,25 @@ endif
 
 " Styles -> Colors {{{
 let    s:styles               =    {}
-let    s:styles.Normal        =    {'lig':    'none',    'fg':   fg,     'bg':    bg}
-let    s:styles.Hidden        =    {'lig':    'none',    'fg':    0,     'bg':    bg}
-let    s:styles.Forceful      =    {'lig':    'none',    'fg':    1,     'bg':    bg}
-let    s:styles.Calm          =    {'lig':    'none',    'fg':    2,     'bg':    bg}
-let    s:styles.Busy          =    {'lig':    'none',    'fg':    3,     'bg':    bg}
-let    s:styles.Proud         =    {'lig':    'none',    'fg':    4,     'bg':    bg}
-let    s:styles.Excited       =    {'lig':    'none',    'fg':    5,     'bg':    bg}
-let    s:styles.Peaceful      =    {'lig':    'none',    'fg':    6,     'bg':    bg}
-let    s:styles.Quiet         =    {'lig':    'none',    'fg':    7,     'bg':    bg}
+let    s:styles.Normal        =    {'lig':    'NONE',    'fg':   fg,     'bg':    bg}
+let    s:styles.Hidden        =    {'lig':    'NONE',    'fg':    0,     'bg':    bg}
+let    s:styles.Forceful      =    {'lig':    'NONE',    'fg':    1,     'bg':    bg}
+let    s:styles.Calm          =    {'lig':    'NONE',    'fg':    2,     'bg':    bg}
+let    s:styles.Busy          =    {'lig':    'NONE',    'fg':    3,     'bg':    bg}
+let    s:styles.Proud         =    {'lig':    'NONE',    'fg':    4,     'bg':    bg}
+let    s:styles.Excited       =    {'lig':    'NONE',    'fg':    5,     'bg':    bg}
+let    s:styles.Peaceful      =    {'lig':    'NONE',    'fg':    6,     'bg':    bg}
+let    s:styles.Quiet         =    {'lig':    'NONE',    'fg':    7,     'bg':    bg}
 
 " Bright
-let    s:styles.Faded         =    {'lig':    'none',    'fg':    8,     'bg':    bg}
-let    s:styles.Intense       =    {'lig':    'none',    'fg':    9,     'bg':    bg}
-let    s:styles.Relaxed       =    {'lig':    'none',    'fg':    10,    'bg':    bg}
-let    s:styles.Lively        =    {'lig':    'none',    'fg':    11,    'bg':    bg}
-let    s:styles.Satisfied     =    {'lig':    'none',    'fg':    12,    'bg':    bg}
-let    s:styles.Happy         =    {'lig':    'none',    'fg':    13,    'bg':    bg}
-let    s:styles.Fresh         =    {'lig':    'none',    'fg':    14,    'bg':    bg}
-let    s:styles.Pop           =    {'lig':    'none',    'fg':    15,    'bg':    bg}
+let    s:styles.Faded         =    {'lig':    'NONE',    'fg':    8,     'bg':    bg}
+let    s:styles.Intense       =    {'lig':    'NONE',    'fg':    9,     'bg':    bg}
+let    s:styles.Relaxed       =    {'lig':    'NONE',    'fg':    10,    'bg':    bg}
+let    s:styles.Lively        =    {'lig':    'NONE',    'fg':    11,    'bg':    bg}
+let    s:styles.Satisfied     =    {'lig':    'NONE',    'fg':    12,    'bg':    bg}
+let    s:styles.Happy         =    {'lig':    'NONE',    'fg':    13,    'bg':    bg}
+let    s:styles.Fresh         =    {'lig':    'NONE',    'fg':    14,    'bg':    bg}
+let    s:styles.Pop           =    {'lig':    'NONE',    'fg':    15,    'bg':    bg}
 
 for [k, v] in items(s:styles)
     let s:styles[k..'Italic']                  =  extend(copy(v), {'lig': 'italic'})
@@ -160,6 +160,7 @@ let s:ui_styles.match                    =  "HExcited"
 let s:ui_styles.highlight                =  "HDarkPop"
 let s:ui_styles.highlight_dark           =  "HDarkLively"
 let s:ui_styles.highlight_fade           =  "HFadeLively"
+let s:ui_styles.menu                     =  "HFaded"
 ""}}}
 
 "" Some more text
@@ -215,8 +216,6 @@ let s:ui_groups.cursor = [
 \    "CursorIM",
 \    "TermCursor",
 \    "TermCursorNC",
-\    "Pmenu",
-\    "PmenuSbar",
 \ ]
 let s:ui_groups.hidden = [
 \    "EndOfBuffer",
@@ -230,6 +229,10 @@ let s:ui_groups.highlight_fade = [
 let s:ui_groups.highlight_dark = [
 \    "CursorLine",
 \    "CursorColumn",
+\ ]
+let s:ui_groups.menu = [
+\    "Pmenu",
+\    "PmenuSbar",
 \ ]
 let s:ui_groups.highlight = [
 \    "Search",
