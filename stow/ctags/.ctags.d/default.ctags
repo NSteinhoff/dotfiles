@@ -1,3 +1,5 @@
+--tag-relative=yes
+
 --excmd=combine
 --recurse=yes
 
