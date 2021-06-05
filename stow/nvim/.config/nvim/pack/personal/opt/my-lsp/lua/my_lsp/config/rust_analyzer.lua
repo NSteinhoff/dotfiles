@@ -2,6 +2,7 @@ local lspconfig = require("lspconfig")
 
 return function(config)
     local override = {
+        autostart = true,
         settings = {
             ["rust-analyzer"] = {
                 diagnostics = {
