@@ -216,6 +216,7 @@ let s:ui_groups.cursor = [
 \    "CursorIM",
 \    "TermCursor",
 \    "TermCursorNC",
+\    "MatchParen",
 \ ]
 let s:ui_groups.hidden = [
 \    "EndOfBuffer",
@@ -242,7 +243,6 @@ let s:ui_groups.match = [
 \    "IncSearch",
 \    "PmenuSel",
 \    "WildMenu",
-\    "MatchParen",
 \ ]
 let s:ui_groups.ignore = [
 \    "Ignore",
