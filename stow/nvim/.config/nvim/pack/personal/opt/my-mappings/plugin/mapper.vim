@@ -251,6 +251,7 @@ endfunction
     nnoremap <silent> <leader>et <CMD>Texplore<CR>
 
     " Arguments: <leader>a
+    nnoremap <silent> <leader>a. <CMD>argument<CR>
     nnoremap <silent> <leader>al <CMD>arglocal<CR>
     nnoremap <silent> <leader>ag <CMD>argglobal<CR>
     nnoremap <silent> <leader>aa <CMD>argadd<CR>

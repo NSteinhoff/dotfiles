@@ -7,24 +7,24 @@ endfunction
 " Get revisions in current file's repo
 function commander#git#local_revisions(...)
     let [fdir, _] = s:pathsplit(a:0 ? a:1 : '%')
-    return systemlist('git -C ' . shellescape(fdir) . ' log --format=%h\ %s\ \(%cr\)')
+    return systemlist('git -C ' . shellescape(fdir) . ' log --format=%h\ %d\ %s\ \(%cr\)')
 endfunction
 
 " Get revisions
 function commander#git#global_revisions()
-    return systemlist('git -C ' . shellescape(getcwd()) . ' log --format=%h\ %s\ \(%cr\)')
+    return systemlist('git -C ' . shellescape(getcwd()) . ' log --format=%h\ %d\ %s\ \(%cr\)')
 endfunction
 
 " Get revisions for a file
 function commander#git#file_revisions(...)
     let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
-    return systemlist('git -C ' . shellescape(fdir) . ' log --no-patch --format=%h\ %s\ \(%cr\) -- ' . fname)
+    return systemlist('git -C ' . shellescape(fdir) . ' log --no-patch --format=%h\ %d\ %s\ \(%cr\) -- ' . fname)
 endfunction
 
 " Get revisions for lines in a file
 function commander#git#line_revisions(line1, line2, ...)
     let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
-    return systemlist('git -C ' . shellescape(fdir) . ' log -L '.a:line1.','.a:line2.':'.fname.' --no-patch --format=%h\ %s\ \(%cr\)')
+    return systemlist('git -C ' . shellescape(fdir) . ' log -L '.a:line1.','.a:line2.':'.fname.' --no-patch --format=%h\ %d\ %s\ \(%cr\)')
 endfunction
 
 " Show a local revision
