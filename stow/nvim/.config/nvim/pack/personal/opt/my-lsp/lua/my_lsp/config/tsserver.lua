@@ -24,11 +24,11 @@ return function(config)
         autostart = true,
 
         on_attach = function(...)
-            local success, result = pcall(setup_ts_utils)
+            -- local success, result = pcall(setup_ts_utils)
 
-            if not success then
-                print("Unable to setup 'nvim-lsp-ts-utils': "..result)
-            end
+            -- if not success then
+            --     print("Unable to setup 'nvim-lsp-ts-utils': "..result)
+            -- end
 
             config.on_attach(...)
         end,
