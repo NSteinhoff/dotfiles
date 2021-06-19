@@ -251,11 +251,14 @@ endfunction
     nnoremap <silent> <leader>et <CMD>Texplore<CR>
 
     " Arguments: <leader>a
+    function s:curarg()
+        return argv(argidx()) == bufname()
+    endfunction
     nnoremap <silent> <leader>a. <CMD>argument<CR>
     nnoremap <silent> <leader>al <CMD>arglocal<CR>
     nnoremap <silent> <leader>ag <CMD>argglobal<CR>
     nnoremap <silent> <leader>aa <CMD>argadd<CR>
-    nnoremap <silent> <leader>ad <CMD>argdelete<CR>
+    nnoremap <silent> <expr> <leader>ad '<CMD>argdelete'..(<SID>curarg() ? '<BAR>argument' : '')..'<CR>'
 
     " Open: <leader>o
     nnoremap <leader>oo <CMD>silent Open<CR>
