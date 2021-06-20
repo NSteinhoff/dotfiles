@@ -135,6 +135,7 @@ endfunction
     nnoremap <silent> <leader>lc       <CMD>lclose<CR>
     nnoremap <silent> <leader>lw       <CMD>lwindow<CR>
 
+    nmap <silent> <leader>qn <Plug>(qf-new)
     nmap <silent> <leader>qa <Plug>(qf-add)
     vmap <silent> <leader>qa <Plug>(qf-add)
 

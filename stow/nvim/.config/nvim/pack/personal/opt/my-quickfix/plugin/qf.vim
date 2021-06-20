@@ -1,8 +1,5 @@
 command! -nargs=* -bang Cnew call qf#new(<q-args>, <bang>0)
-command! Cdelete call qf#delete()
-command! Cyank call qf#yank()
-command! Cpaste call qf#paste()
-command! Conly call qf#only()
+command! Cadd call qf#add()
 
 command! Ctab if getqflist({'nr': 0}).nr|tab split|copen|only|else|echo "No quickfix list."|endif
 command! Ltab if getloclist(0, {'nr': 0}).nr|tab split|lopen|only|else|echo "No location list."|endif
