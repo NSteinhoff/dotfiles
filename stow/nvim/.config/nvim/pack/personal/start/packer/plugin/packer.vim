@@ -1,12 +1,14 @@
+set packpath+=~/dev/dotfiles/3rd
+
 function! s:packpath() abort
-    return split(&packpath, ',')[0]
+    return split(&packpath, ',')[0]..'/pack/personal/opt/'
 endfunction
 
 function! s:packfiles(arglead, cmdline, cursorpos) abort
-    let paths = globpath(s:packpath(), 'pack/personal/**/*.vim', 0, 1)
-                \ + globpath(s:packpath(), 'pack/personal/**/*.lua', 0, 1)
+    let paths = globpath(s:packpath(), '**/*.vim', 0, 1)
+                \ + globpath(s:packpath(), '**/*.lua', 0, 1)
     call filter(paths, { _, v -> v =~ a:arglead })
-    call map(paths, { _, v -> fnamemodify(v, ':.') })
+    call map(paths, { _, v -> fnamemodify(v, ':.')[strlen(s:packpath()) : ]})
     call uniq(paths)
     call sort(paths)
     return paths
@@ -20,7 +22,7 @@ function s:editpackage(name, mods, split)
         return
     endif
 
-    execute a:mods . ' '.(a:split ? 'split' : 'edit').' ' . paths[0]
+    execute a:mods . ' '.(a:split ? 'split' : 'edit').' ' . s:packpath() . paths[0]
 endfunction
 
 command! -nargs=? -complete=customlist,<SID>packfiles PackEdit call s:editpackage(<q-args>, '<mods>', 0)
