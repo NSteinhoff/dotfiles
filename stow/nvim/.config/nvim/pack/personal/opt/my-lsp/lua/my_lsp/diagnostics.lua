@@ -50,7 +50,7 @@ local function set_loclist()
     local title = 'LSP Diagnostics'
     local curtitle = vim.fn.getloclist(0, {title = 1}).title
     local action = title == curtitle and 'r' or ' '
-    vim.fn.setloclist(0, {}, action, {items = loc_items, title = title})
+    vim.fn.setloclist(0, {}, action, {items = loc_items, title = title, quickfixtextfunc = 'qf#no_bufnames'})
 end
 
 local function set_qflist()
@@ -74,7 +74,7 @@ local function set_qflist()
     local title = 'LSP Diagnostics'
     local curtitle = vim.fn.getqflist({title = 1}).title
     local action = title == curtitle and 'r' or ' '
-    vim.fn.setqflist({}, action, {items = qf_items, title = title})
+    vim.fn.setqflist({}, action, {items = qf_items, title = title, quickfixtextfunc = 'qf#no_bufnames'})
 end
 
 local function setup_signs()

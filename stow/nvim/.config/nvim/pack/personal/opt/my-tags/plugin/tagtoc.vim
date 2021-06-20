@@ -11,8 +11,8 @@ function! s:toc(...)
         let l:title = 'TOC: '..l:fname
     endif
     if !empty(l:items)
-        call setqflist([], (getqflist({'title': 1}).title == l:title ? 'r' : ' '), {'items': l:items, 'title': l:title})
-        copen|wincmd p
+        call setloclist(0, [], (getloclist(0, {'title': 1}).title == l:title ? 'r' : ' '), {'items': l:items, 'title': l:title, 'quickfixtextfunc': 'qf#text_only'})
+        lopen|wincmd p
     endif
 endfunction
 

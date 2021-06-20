@@ -5,8 +5,9 @@ vim.lsp.handlers["textDocument/documentSymbol"] = function(_, _, result, _, bufn
 
     local items = vim.lsp.util.symbols_to_items(result, bufnr)
     vim.fn.setqflist({}, " ", {
-        title = "LSP Symbols: "..vim.fn.bufname(bufnr),
+        title = "LSP Symbols: " .. vim.fn.bufname(bufnr),
         items = items,
+        quickfixtextfunc = "qf#text_only",
     })
     vim.api.nvim_command("copen")
     vim.api.nvim_command("wincmd p")

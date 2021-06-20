@@ -257,3 +257,39 @@ function qf#cycle_qf(forward) abort
     let at_end = a:forward ? qflist.idx == qflist.size : qflist.idx == 1
     execute at_end ? wrap : advance
 endfunction
+
+" -------------------------------------------------------------------------- "
+"                         Quickfixtextfunc Callbacks                         "
+" -------------------------------------------------------------------------- "
+function qf#text_only(info)
+    let items = s:get({'id' : a:info.id, 'items' : 1}).items
+    let lines = []
+    for idx in range(a:info.start_idx - 1, a:info.end_idx - 1)
+      call add(lines, items[idx].text)
+    endfor
+    return lines
+endfunc
+
+function qf#no_bufnames(info)
+    let items = s:get({'id' : a:info.id, 'items' : 1}).items
+    let lines = []
+    for idx in range(a:info.start_idx - 1, a:info.end_idx - 1)
+        let item = items[idx]
+        let line = '|'..item.lnum
+        let line .= item.col ? ' col '..item.col : ''
+        let line .= item.nr != -1 && !empty(item.type) ? ' '..item.type..' '..item.nr : ''
+        let line .= '|'..item.text
+        call add(lines, line)
+    endfor
+    return lines
+endfunc
+
+function qf#bufnames(info)
+    let items = s:get({'id' : a:info.id, 'items' : 1}).items
+    let lines = []
+    for idx in range(a:info.start_idx - 1, a:info.end_idx - 1)
+        " use the simplified file name
+        call add(lines, fnamemodify(bufname(items[idx].bufnr), ':p:.'))
+    endfor
+    return lines
+endfunc

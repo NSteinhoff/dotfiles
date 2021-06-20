@@ -216,6 +216,9 @@ endfunction
     nmap <silent> gr <Plug>(search-word)
     vmap <silent> gr <Plug>(search-selection)
 
+    " Outline
+    nmap gO <Plug>(tag-toc)
+
 """ Scoped <leader> mappings
     " Open settings: <leader>;
     nnoremap <silent> <leader>;; <CMD>edit $MYVIMRC<CR>
