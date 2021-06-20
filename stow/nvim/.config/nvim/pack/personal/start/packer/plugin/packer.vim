@@ -2,12 +2,6 @@ function! s:packpath() abort
     return split(&packpath, ',')[0]
 endfunction
 
-function! s:packtypes(arglead, cmdline, cursorpos) abort
-    let types = ['start', 'opt']
-    call filter(types, { _, v -> v =~ a:arglead })
-    return types
-endfunction
-
 function! s:packfiles(arglead, cmdline, cursorpos) abort
     let paths = globpath(s:packpath(), 'pack/personal/**/*.vim', 0, 1)
                 \ + globpath(s:packpath(), 'pack/personal/**/*.lua', 0, 1)
