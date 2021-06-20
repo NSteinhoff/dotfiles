@@ -29,3 +29,6 @@
 	path = 3rd/pack/external/opt/nvim-lsp-ts-utils
 	url = git@github.com:jose-elias-alvarez/nvim-lsp-ts-utils.git
 	branch = main
+[submodule "3rd/pack/external/opt/nvim-luaref"]
+	path = 3rd/pack/external/opt/nvim-luaref
+	url = git@github.com:milisims/nvim-luaref.git
