@@ -9,7 +9,7 @@ let s:rip_files = 'rg --files'
 let s:git_files = 'git ls-files'
 let s:matcher = s:fuzzy ? 'fzf -f' : 'rg --smart-case'
 
-let b:selected = 1
+let b:selected = 0
 let b:num_results = 0
 
 function s:finder()
@@ -28,20 +28,20 @@ function s:insert_separator(mode)
     if line('$') < 2
         call append('$', [''])
     endif
-    let l:ns = nvim_create_namespace('filefinder_separator')
-    call nvim_buf_clear_namespace(0, l:ns, 0, -1)
+    let ns = nvim_create_namespace('filefinder_separator')
+    call nvim_buf_clear_namespace(0, ns, 0, -1)
     if a:mode == 'i'
-        call nvim_buf_set_virtual_text(0, l:ns, 1, [['--- ', 'Comment'], [s:insert_help, 'Comment']], {})
+        call nvim_buf_set_virtual_text(0, ns, 1, [['--- ', 'Comment'], [s:insert_help, 'Comment']], {})
     elseif a:mode == 'n'
-        call nvim_buf_set_virtual_text(0, l:ns, 1, [['--- ', 'Comment'], [s:normal_help, 'Comment']], {})
+        call nvim_buf_set_virtual_text(0, ns, 1, [['--- ', 'Comment'], [s:normal_help, 'Comment']], {})
     endif
 endfunction
 
 function s:placeholder()
-    let l:ns = nvim_create_namespace('filefinder_placeholder')
-    call nvim_buf_clear_namespace(0, l:ns, 0, -1)
+    let ns = nvim_create_namespace('filefinder_placeholder')
+    call nvim_buf_clear_namespace(0, ns, 0, -1)
     if getline(1) == ''
-        call nvim_buf_set_virtual_text(0, l:ns, 0, [[s:placeholder, 'Special']], {})
+        call nvim_buf_set_virtual_text(0, ns, 0, [[s:placeholder, 'Special']], {})
     endif
 endfunction
 
@@ -54,49 +54,35 @@ function s:searchable()
     return len(s:query()) >= 1
 endfunction
 
-function s:digits(n)
-    return float2nr(log10(a:n)) + 1
-endfunction
-
-function s:nr2str(n, digits)
-    return repeat(' ', a:digits - s:digits(a:n)).a:n
-endfunction
-
 function s:search()
-    let l:files = systemlist(s:finder().(s:searchable() ? ' | '..s:matcher..' '.shellescape(s:query()) : ''))
-    let maxdigits = s:digits(len(l:files))
-    call append('$', map(l:files, { i, v -> s:nr2str(i+1, maxdigits).': '.v}))
-    let b:num_results = len(l:files)
+    let files = systemlist(s:finder().(s:searchable() ? ' | '..s:matcher..' '.shellescape(s:query()) : ''))
+    call append('$', files)
+    let b:num_results = len(files)
 endfunction
 
 function s:mark_selection(mode)
-    let l:line = b:selected + 1     " lines are 0-indexed for virtual text
-    let l:ns = nvim_create_namespace('filefinder_selection')
-    call nvim_buf_clear_namespace(0, l:ns, 0, -1)
+    let line = b:selected + 2
+    let ns = nvim_create_namespace('filefinder_selection')
+    call nvim_buf_clear_namespace(0, ns, 0, -1)
     if a:mode == 'i'
-        call nvim_buf_set_virtual_text(0, l:ns, l:line, [['<- ', 'Statement']], {})
+        call nvim_buf_set_virtual_text(0, ns, line, [['<- ', 'Statement']], {})
     endif
 endfunction
 
 function s:reset_selection()
-    let b:selected = 1
+    let b:selected = 0
+endfunction
+
+function s:files()
+    return getline(3, '$')
 endfunction
 
 function s:move_selection(step)
-    let l:n = b:num_results
-    let l:old_i = b:selected - 1
-    let l:new_i = ((l:n + l:old_i + a:step) % l:n)
-    let b:selected = l:new_i + 1
+    let n = b:num_results
+    let old_i = b:selected
+    let new_i = ((n + old_i + a:step) % n)
+    let b:selected = new_i
     call s:mark_selection(mode())
-endfunction
-
-function s:highlight()
-    syntax clear filefinder_match
-
-    let q = s:query()
-    if !empty(q)
-        execute 'syntax match filefinder_match /\c\v'.q.'/ contained'
-    endif
 endfunction
 
 function s:update()
@@ -106,16 +92,21 @@ function s:update()
         call s:search()
         call s:reset_selection()
         call s:mark_selection(mode())
-        " call s:highlight()
     endif
 endfunction
 
-function s:open_file(num)
-    execute 'keepalt edit '.substitute(getline(a:num + 2), '^\s*\d\+:', '', '')
+function s:open_selected()
+    let idx = b:selected
+    execute 'keepalt edit '.s:files()[idx]
 endfunction
 
-function s:open_selected()
-    call s:open_file(b:selected)
+function s:open() range
+    if a:firstline < 3|return|endif
+    let indices = range(a:firstline - 3, a:lastline - 3)
+    let files = s:files()
+    for i in indices
+        execute 'edit '..files[i]
+    endfor
 endfunction
 
 augroup file-finder
@@ -127,10 +118,14 @@ augroup file-finder
     autocmd InsertLeave <buffer> call s:mark_selection('n')
 augroup END
 
-nnoremap <buffer> <CR> <cmd>if line('.') > 2 \| call <SID>open_file(line('.')-2) \| endif<CR>
+command -buffer Cancel keepalt b#
+
+nnoremap <buffer> <CR> <cmd>call <SID>open()<CR>
+vnoremap <buffer> <silent> <CR> :call <SID>open()<CR>
 nnoremap <buffer> I 1GI
 nnoremap <buffer> A 1GA
-nnoremap <buffer> <BS> <CMD>keepalt b#<CR>
+nnoremap <buffer> <BS> <CMD>Cancel<CR>
+inoremap <buffer> <C-C> <esc><cmd>Cancel<CR>
 
 execute 'inoremap <buffer> <SPACE> '..(s:fuzzy ? ' ' : '.*')
 inoremap <buffer> <CR> <esc><cmd>call <SID>open_selected()<CR>
@@ -140,8 +135,3 @@ imap <buffer> <C-N> <Plug>(filefinder-next)
 imap <buffer> <C-P> <Plug>(filefinder-prev)
 imap <buffer> <Tab> <Plug>(filefinder-next)
 imap <buffer> <S-Tab> <Plug>(filefinder-prev)
-inoremap <buffer> <C-C> <esc><cmd>bdelete<CR>
-
-for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    execute 'nnoremap <buffer> '.i.' <cmd>silent call <SID>open_file('.i.')<cr>'
-endfor
