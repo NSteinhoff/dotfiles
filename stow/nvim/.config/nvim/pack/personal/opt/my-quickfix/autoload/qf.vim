@@ -51,6 +51,14 @@ function s:unselected()
     return filter(all, { i, _ -> index(lnums, i + 1) == -1})
 endfunction
 
+function s:replace(items)
+    let this = s:get({'all': 1})
+    let selected = this.items[this.idx]
+    let this.items = a:items
+    let this.idx = index(this.items, selected)
+    call s:set([], 'r', this)
+endfunction
+
 function s:next()
     let list = s:get({'idx': 0, 'size': 1})
     if list.size == 0|return|endif
@@ -70,6 +78,11 @@ function s:setmany(lists)
         let list.nr = '$'
         call s:set([], ' ', list)
     endfor
+endfunction
+
+function s:replace_all(lists)
+    call s:set([], 'f')
+    call s:setmany(a:lists)
 endfunction
 
 function s:lists()
@@ -99,6 +112,7 @@ function s:goto(nr)
     endif
 endfunction
 
+" ---------------------------------- Items -----------------------------------
 function qf#mark()
     if !qf#isqf()|return|endif
 
@@ -110,6 +124,33 @@ function qf#mark()
     endif
 endfunction
 
+function qf#preview(direction)
+    if !qf#isqf()|return|endif
+
+    let pref = qf#isloc() ? 'll' : 'cc'
+    let cmd = a:direction == 0 ? line('.')..pref
+          \ : a:direction > 0 ? s:next()
+          \ : s:prev()
+    execute cmd
+    let cul = &cursorline ? 'cursorline' : 'nocursorline'
+    if !exists('#QfPreviewCul#BufEnter#<buffer>')
+        set cursorline
+        execute 'autocmd QfPreviewCul BufEnter <buffer> set '..cul..' | autocmd! QfPreviewCul BufEnter <buffer>'
+    endif
+    wincmd p
+endfunction
+
+function qf#delete() range
+    if !qf#isqf()|return|endif
+
+    let lnums = range(a:firstline, a:lastline)
+    let items = s:get()
+    let items = filter(items, { i, _ -> index(lnums, i + 1) == -1})
+    call s:replace(items)
+    execute min([a:firstline, line('$')])
+endfunction
+
+" ---------------------------------- Lists -----------------------------------
 function qf#clear_marks()
     if !qf#isqf()|return|endif
 
@@ -135,25 +176,7 @@ function qf#swap(v) abort
     let items = a:v ? s:unselected() : s:selected()
     call qf#clear_marks()
     if empty(items)|return|endif
-    let this = s:get({'all': 1})
-    let this.items = items
-    call s:set([], 'r', this)
-endfunction
-
-function qf#preview(pos)
-    if !qf#isqf()|return|endif
-
-    let pref = qf#isloc() ? 'll' : 'cc'
-    let cmd = a:pos == 0 ? line('.')..pref
-          \ : a:pos > 0 ? s:next()
-          \ : s:prev()
-    execute cmd
-    let cul = &cursorline ? 'cursorline' : 'nocursorline'
-    if !exists('#QfPreviewCul#BufEnter#<buffer>')
-        set cursorline
-        execute 'autocmd QfPreviewCul BufEnter <buffer> set '..cul..' | autocmd! QfPreviewCul BufEnter <buffer>'
-    endif
-    wincmd p
+    call s:replace(items)
 endfunction
 
 function qf#cycle_lists(forward)
@@ -179,15 +202,14 @@ function qf#yank() abort
     echo this.size.." errors yanked."
 endfunction
 
-function qf#delete() abort
+function qf#cut() abort
     if !qf#isqf()|return|endif
 
     let lists = s:lists()
     let this = s:get({'all': 1})
     call filter(lists, {_, l -> l.nr != this.nr})
     let s:clipboard = copy(this)
-    call s:set([], 'f')
-    call s:setmany(lists)
+    call s:replace_all(lists)
     call s:goto(this.nr)
 endfunction
 
@@ -200,8 +222,7 @@ function qf#paste() abort
     else
         let nr = s:get({'nr': 0}).nr
         call insert(lists, s:clipboard, nr)
-        call s:set([], 'f')
-        call s:setmany(lists)
+        call s:replace_all(lists)
         call s:goto(nr + 1)
     endif
 endfunction
