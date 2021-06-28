@@ -18,10 +18,11 @@ vim.lsp.handlers["textDocument/references"] = function(_, _, result)
         return
     end
     local items = vim.lsp.util.locations_to_items(result)
-    vim.fn.setqflist({}, " ", {
-        title = "LSP References",
-        items = items,
-    })
+    local title = 'LSP References'
+    local curtitle = vim.fn.getqflist({title = 1}).title
+    local action = title == curtitle and 'r' or ' '
+    vim.fn.setqflist({}, action, {items = items, title = title})
+
     vim.api.nvim_command("copen")
     vim.api.nvim_command("wincmd p")
 end
