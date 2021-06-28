@@ -14,6 +14,6 @@ if rcfile != ''
 else
     CompilerSet makeprg=npx\ tslint\ %\ $*'
 endif
-CompilerSet errorformat=ERROR:\ %f:%l:%c\ -\ %m,%-G\\s%#
+CompilerSet errorformat=%A%f:%l:%c,%ZERROR:\ %l:%c\ %m,%-G%.%#
 
-command -buffer FixFile :make --fix
+command -buffer FixFile :make --fix %

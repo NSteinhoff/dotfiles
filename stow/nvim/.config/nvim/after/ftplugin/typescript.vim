@@ -1,3 +1,7 @@
+" Execution
+let b:interpreter = 'ts-node'
+let b:repl = 'ts-node'
+
 " './some-file'
 " '../some-file'
 " '.../some-file'
@@ -24,3 +28,4 @@ let b:format_on_write = 0
 let b:make_on_write = 0
 
 iabbrev <buffer> exif export interface {}
+command -buffer Run !ts-node %
