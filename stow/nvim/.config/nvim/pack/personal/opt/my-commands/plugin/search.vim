@@ -19,13 +19,26 @@ command! -nargs=? -bang LiveGrep execute
             \| call setline(1, <q-args>) | 1 | doau TextChanged
             \| endif
 
+function s:grep(pattern, word, ...) abort
+    let cmd = 'grep! '
+    let @/ = a:word ? '\<'..a:pattern..'\>' : a:pattern
+    let pattern = a:word ? '''\b'..a:pattern..'\b''' : "'"..a:pattern.."'"
+    let extra = a:0 ? ' '..join(a:000, ' ') : ''
+    execute cmd..pattern..extra
+endfunction
+
+function s:selected() abort
+    return substitute(escape(@", '()\|.*+[]^$'), "'", '''\\''''', 'g')
+endfunction
+
 nnoremap <silent> <Plug>(livegrep-new) <CMD>LiveGrep!<CR>A
 nnoremap <silent> <Plug>(livegrep-resume) <CMD>LiveGrep<CR>
 vnoremap <silent> <Plug>(livegrep-selection) y:execute 'LiveGrep '..escape(@", '()\|.*+[]^$')<CR>
 
-nnoremap <silent> <Plug>(search-word) :execute 'grep ''\b'..expand('<cword>')..'\b'''<CR>
-nnoremap <silent> <Plug>(search-word-g) :execute 'grep '''..expand('<cword>')..''''<CR>
-vnoremap <silent> <Plug>(search-selection) y:execute "grep '"..substitute(escape(@", '()\|.*+[]^$'), "'", '''\\''''', 'g').."'"<CR>
-nnoremap <silent> <Plug>(search-word-in-file) :execute 'lvimgrep /\<'..expand('<cword>')..'\>/ %'<CR>
-nnoremap <silent> <Plug>(search-word-g-in-file) :execute 'lvimgrep /'..expand('<cword>')..'/ %'<CR>
-vnoremap <silent> <Plug>(search-selection-in-file) y:execute 'lvimgrep /'..escape(@", '\/')..'/ %'<CR>
+nnoremap <silent> <Plug>(search-word) <CMD>call <SID>grep(expand('<cword>'), 1)<CR>
+nnoremap <silent> <Plug>(search-word-g) <CMD>call <SID>grep(expand('<cword>'), 0)<CR>
+vnoremap <silent> <Plug>(search-selection) y:call <SID>grep(<SID>selected(), 0)<CR>
+
+nnoremap <silent> <Plug>(search-word-in-file) <CMD>call <SID>grep(expand('<cword>'), 1, '%')<CR>
+nnoremap <silent> <Plug>(search-word-g-in-file) <CMD>call <SID>grep(expand('<cword>'), 0, '%')<CR>
+vnoremap <silent> <Plug>(search-selection-in-file) y:call <SID>grep(<SID>selected(), 0, '%')<CR>
