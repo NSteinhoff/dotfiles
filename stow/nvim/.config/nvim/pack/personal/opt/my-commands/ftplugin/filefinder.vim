@@ -104,9 +104,10 @@ function s:open() range
     if a:firstline < 3|return|endif
     let indices = range(a:firstline - 3, a:lastline - 3)
     let files = s:files()
-    for i in indices
-        execute 'edit '..files[i]
+    for i in indices[:-2]
+        execute 'bad '..files[i]
     endfor
+    execute 'edit '..files[-1]
 endfunction
 
 augroup file-finder

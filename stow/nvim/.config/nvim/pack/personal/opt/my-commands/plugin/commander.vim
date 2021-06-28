@@ -98,7 +98,7 @@
 
 """ Matches
     command! -nargs=? Match execute 'match Error /'..(empty(<q-args>) ? '\<'..expand('<cword>')..'\>' : escape(<q-args>, '/')).'/'
-    command! -nargs=? Match2 execute '2match Constant /'..(empty(<q-args>) ? '\<'..expand('<cword>')..'\>' : escape(<q-args>, '/')).'/'
+    command! -nargs=? Match2 execute '2match Todo /'..(empty(<q-args>) ? '\<'..expand('<cword>')..'\>' : escape(<q-args>, '/')).'/'
     command! MatchOff match | 2match
 
 """ Send paragraph under cursor to terminal
