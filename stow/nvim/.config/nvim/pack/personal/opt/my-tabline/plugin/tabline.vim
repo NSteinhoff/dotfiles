@@ -1,10 +1,14 @@
 let g:show_buffers_in_tabline = 0
 
 function! MyTabLabel(n)
-    let buflist = tabpagebuflist(a:n)
-    let winnr = tabpagewinnr(a:n)
-    let bufname = fnamemodify(bufname(buflist[winnr-1]), ':t')
-    return empty(bufname) ? '[No Name]' : bufname
+    if a:n != tabpagenr() && getcwd(-1, a:n) != getcwd()
+        return MyTabCwd(-1, a:n)
+    else
+        let buflist = tabpagebuflist(a:n)
+        let winnr = tabpagewinnr(a:n)
+        let bufname = fnamemodify(bufname(buflist[winnr-1]), ':t')
+        return empty(bufname) ? '[No Name]' : bufname
+    endif
 endfunction
 
 function! MyTabIndicators(n)
@@ -20,8 +24,8 @@ function! MyTabDiffTarget(n)
     return difftarget
 endfunction
 
-function! MyTabCwd()
-    let cwd = substitute(getcwd(), $HOME, '~', '')
+function! MyTabCwd(...)
+    let cwd = substitute(call("getcwd", a:000), $HOME, '~', '')
     let cwd = cwd == '~' ? '~/' : cwd
     return '  '..cwd
 endfunction
