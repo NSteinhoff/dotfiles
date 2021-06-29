@@ -58,6 +58,7 @@
 	ff = only
 [diff]
 	tool = nvimdiff
+	colorMoved = true
 [merge]
 	tool = nvimdiff2
 	conflictstyle = diff3
