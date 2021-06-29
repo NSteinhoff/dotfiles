@@ -78,3 +78,21 @@
 	cmd = nvim -d $LOCAL $MERGED $REMOTE -c '2wincmd w' -c 'wincmd J'
 [mergetool "nvimdiff"]
 	cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '2wincmd w' -c '$wincmd w' -c 'wincmd J'
+
+[pager]
+	diff = delta
+	log = delta
+	reflog = delta
+	show = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	features = line-numbers decorations
+	whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+	file-style = bold yellow ul
+	commit-decoration-style = bold yellow box ul
+	file-decoration-style = none
