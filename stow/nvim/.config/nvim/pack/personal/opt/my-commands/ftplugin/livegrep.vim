@@ -14,7 +14,6 @@ command -buffer Cancel keepalt b#
 command -buffer -bang Export call livegrep#export('%', <bang>0)
 command -buffer Reload call livegrep#update(0, 1)
 
-inoremap <buffer> <SPACE> .*
 inoremap <buffer> <CR> <esc><CMD>call livegrep#goto(3)<CR>
 inoremap <buffer> <C-C> <esc><cmd>Cancel<CR>
 

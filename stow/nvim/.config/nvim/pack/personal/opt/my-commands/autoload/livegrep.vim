@@ -115,7 +115,7 @@ function s:search(buf)
     let l:query = s:query(a:buf)
     let b:query = l:query
     if !empty(l:query)
-        call s:job.start(a:buf, s:grepprg().' '.shellescape(l:query))
+        call s:job.start(a:buf, s:grepprg().' '.l:query)
     endif
 endfunction
 
@@ -134,7 +134,7 @@ function livegrep#export(buf, ...)
     if a:0 && a:1
         call setqflist([], 'a', {'lines': lines, 'efm': s:errorformat, 'nr': '$'})
     else
-        let title = '[livegrep] '..shellescape(s:query(a:buf))
+        let title = '[livegrep] '..s:query(a:buf)
         let curtitle = getqflist({'title': 1}).title
         call setqflist([], title == curtitle ? 'r' : ' ', {'lines': lines, 'efm': s:errorformat, 'title': title, 'nr': '$'})
     endif
