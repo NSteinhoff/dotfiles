@@ -1,8 +1,13 @@
 function Cwd()
-    if tabpagenr('$') > 1 && &showtabline == 1 || &showtabline > 1|return ''|endif
-    let local  = fnamemodify(getcwd(), ':t')
-    let global = fnamemodify(get(g:, 'current_dir', ''), ':t')
-    return !empty(global) && !empty(local) && local != global ? '@'..local..'/' : ''
+    let windows = filter(getwininfo(), {_, v -> v.tabnr == tabpagenr()})
+    let directories = map(copy(windows), {_, v -> getcwd(v.winnr)})
+    if len(uniq(sort(directories))) > 1
+        let tabcwd = getcwd(-1, tabpagenr())
+        let relpath = substitute(getcwd(), '^'..tabcwd..'/', '', '')
+        return getcwd() != tabcwd  ? '@'..relpath..'/' : ''
+    endif
+
+    return ''
 endfunction
 
 function Errors()
