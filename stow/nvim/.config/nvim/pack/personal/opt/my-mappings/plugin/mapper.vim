@@ -267,7 +267,7 @@ endfunction
     " Open: <leader>o
     nnoremap <leader>oo <CMD>silent Open<CR>
     nnoremap <leader>o, <CMD>silent Open %:h<CR>
-    nnoremap <leader>o. <CMD>silent execute 'Open '..getcwd()<CR>
+    nnoremap <leader>o. <CMD>silent Open .<CR>
     vnoremap <leader>oo y:Open "<CR>
 
     " Find: <leader>f
