@@ -1,4 +1,5 @@
 set buftype=nofile nobuflisted noswapfile
+setlocal nolist
 
 augroup live-grep
     autocmd!

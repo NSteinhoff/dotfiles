@@ -25,13 +25,19 @@ function s:job.on_exit(job_id, data, event)
     call nvim_buf_clear_namespace(self.buf, s:ns_results, 0, -1)
     call nvim_buf_clear_namespace(self.buf, s:ns_loading, 0, -1)
 
+    let lines = self.data
     if !empty(self.err)
-        echo join(self.err, "\n")
+        let lines += ['', '=================================== ERROR ====================================']
+        let lines += self.err
+        let lines += ['', '=================================== HELP =====================================']
+        let lines += systemlist(s:grepprg()..' --help')
+        call nvim_buf_set_virtual_text(self.buf, s:ns_results, 0, [['', 'Error']], {})
+    else
+        call nvim_buf_set_virtual_text(self.buf, s:ns_results, 0, [[printf('(%d)', len(self.data)), 'Special']], {})
     endif
 
     call s:wipe(self.buf)
-    call appendbufline(self.buf, '$', self.data)
-    call nvim_buf_set_virtual_text(self.buf, s:ns_results, 0, [[printf('(%d)', len(self.data)), 'Ignore']], {})
+    call appendbufline(self.buf, '$', self.data + self.err)
 endfunction
 
 function s:job.stop()
