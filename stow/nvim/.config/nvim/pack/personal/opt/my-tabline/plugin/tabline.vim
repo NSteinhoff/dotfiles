@@ -77,7 +77,7 @@ function! MyTabLine()
         let s .= MyTabs()
         let s .= '%#TabLineFill#'
         let s .= '%=%#TablineFocus#'
-        let s .= '%{MyTabCwd()}'
+        let s .= '%{MyTabCwd(-1, tabpagenr())}'
     endif
     return s
 endfunction
