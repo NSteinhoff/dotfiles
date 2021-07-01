@@ -6,6 +6,18 @@ call sign_define(s:sign_name, {'text': '>', 'texthl': 'Error'})
 " Create the autocmd group for previewing errors
 augroup QfPreviewCul|augroup END
 
+function qf#locvisible()
+    return !empty(filter(getwininfo(), { _, win -> win.tabnr == tabpagenr() && win.quickfix && win.loclist }))
+endfunction
+
+function qf#qfvisible()
+    return !empty(filter(getwininfo(), { _, win -> win.tabnr == tabpagenr() && win.quickfix && !win.loclist }))
+endfunction
+
+function qf#anyvisible()
+    return !empty(filter(getwininfo(), { _, win -> win.tabnr == tabpagenr() && win.quickfix }))
+endfunction
+
 function qf#isqf()
     return getwininfo(win_getid())[0].quickfix == 1
 endfunction

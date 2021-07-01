@@ -43,7 +43,7 @@ endfunction
 
 """ Basics / Improving standard mappings
     " Clear search highlights with ESC in normal mode
-    nnoremap <silent> <ESC> <CMD>nohlsearch<CR>
+    nnoremap <silent> <ESC>u <CMD>nohlsearch<CR>
 
     " Go home
     " noremap <expr> 0 col('.') == 1 ? '^' : '0'
@@ -123,7 +123,8 @@ endfunction
     " The idea here is to have one mapping to get a peek at the current list
     " of entries and a second one to browse the list and pick an entry to
     " jump to.
-    nnoremap <silent> <leader><SPACE>  <CMD>cclose<bar>lclose<CR>
+    nnoremap <silent> <expr> <ESC><SPACE>  qf#qfvisible() ? '<CMD>cclose<bar>lclose<CR>' : '<CMD>cwindow<CR>'
+    nnoremap <silent> <expr> <leader><SPACE>  qf#locvisible() ? '<CMD>cclose<bar>lclose<CR>' : '<CMD>lwindow<CR>'
 
     nnoremap <silent> <leader>qq       <CMD>clist<CR>
     nnoremap <silent> <leader>qo       <CMD>copen<CR>

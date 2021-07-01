@@ -19,6 +19,7 @@
     set shortmess+=s
 
 """ Behavior
+    set ttimeoutlen=25
     set noswapfile
     set updatetime=250
     set foldenable
