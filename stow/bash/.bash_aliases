@@ -96,6 +96,8 @@ if [ -n "$(ls ~/.config/bash-completion/)" ]; then
     for file in ~/.config/bash-completion/*; do source "$file"; done
 fi
 
+(which pandoc &>/dev/null) && eval "$(pandoc --bash-completion)"
+
 _complete_tmux() {
     COMPREPLY=( $(compgen -W "$(tmux list-commands -F#{command_list_name})" $2) )
 }
@@ -104,7 +106,7 @@ complete -F _complete_tmux tmux
 # ---------------------------------- PROMPT -----------------------------------
 starship_prompt=true
 fancy_prompt=true
-if $starship_prompt &&(which starship &>/dev/null); then
+if $starship_prompt && (which starship &>/dev/null); then
     eval "$(starship init bash)"
 elif $fancy_prompt; then
     case "$TERM" in
