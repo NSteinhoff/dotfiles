@@ -31,7 +31,7 @@ local function print_all()
     end
 end
 
-local function set_loclist()
+local function set_loclist(client)
     local diagnostics = vim.lsp.diagnostic.get()
     local loc_items = {}
     local bufname = vim.fn.bufname()
@@ -47,7 +47,7 @@ local function set_loclist()
         }
         table.insert(loc_items, item)
     end
-    local title = 'LSP Diagnostics'
+    local title = 'LSP Diagnostics: '..client
     local curtitle = vim.fn.getloclist(0, {title = 1}).title
     local action = title == curtitle and 'r' or ' '
     vim.fn.setloclist(0, {}, action, {items = loc_items, title = title, quickfixtextfunc = 'qf#no_bufnames'})
@@ -100,14 +100,25 @@ local function on_attach()
     setup_signs()
 end
 
+local function find(elements, predicate)
+    for _, h in ipairs(elements) do
+        if predicate(h) then return h end
+    end
+end
+
 local function on_publish_diagnostics(...)
+    local _, _, _, client_id = ...
+    local clients = vim.lsp.get_active_clients()
+    local client = find(clients, function(c) return c.id == client_id end)
+    if not client then return end
+
     vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
         signs = true,
         underline = false,
         virtual_text = false,
         update_in_insert = false,
     })(...)
-    local result, error = pcall(set_loclist)
+    local result, error = pcall(set_loclist, client.name)
     if error then vim.api.nvim_err_writeln(error) end
 end
 
