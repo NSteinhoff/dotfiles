@@ -127,8 +127,8 @@ endfunction
     " The idea here is to have one mapping to get a peek at the current list
     " of entries and a second one to browse the list and pick an entry to
     " jump to.
-    nnoremap <silent> <expr> `<space>  qf#qfvisible() ? '<cmd>cclose<bar>lclose<cr>' : '<cmd>cwindow<cr>'
-    nnoremap <silent> <expr> <leader><space>  qf#locvisible() ? '<cmd>cclose<bar>lclose<cr>' : '<cmd>lwindow<cr>'
+    nnoremap <silent> <expr> `<space>  qf#qfvisible() ? '<cmd>cclose<bar>lclose<cr>' : '<cmd>copen<cr>'
+    nnoremap <silent> <expr> <leader><space>  qf#locvisible() ? '<cmd>cclose<bar>lclose<cr>' : '<cmd>lopen<cr>'
 
     nnoremap <silent> <leader>qq       <cmd>clist<cr>
     nnoremap <silent> <leader>qo       <cmd>copen<cr>

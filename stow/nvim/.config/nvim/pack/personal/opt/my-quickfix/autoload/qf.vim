@@ -192,7 +192,9 @@ function qf#swap(v) abort
 endfunction
 
 function qf#cycle_lists(forward)
-    if !qf#isqf()|return|endif
+    if !qf#isqf() || empty(s:get())
+        return
+    endif
 
     let curr = s:get({'nr': 0}).nr
     let last = s:get({'nr': '$'}).nr
