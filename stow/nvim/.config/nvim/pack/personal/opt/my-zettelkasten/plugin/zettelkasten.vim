@@ -111,9 +111,9 @@ function s:on_attach(fname)
     execute 'setl path='..g:zettelkasten
 endfunction
 
-command -nargs=1 -complete=customlist,<SID>complete_zettel Zettel call s:zettel(<q-args>)
-command -nargs=1 -complete=customlist,<SID>complete_tags Ztags cgetexpr s:find_tag(<q-args>)|cwindow
-command -nargs=? -complete=customlist,<SID>complete_zettel Ziblings cgetexpr s:related(<q-args>)|cwindow
+command -nargs=1 -complete=customlist,<sid>complete_zettel Zettel call s:zettel(<q-args>)
+command -nargs=1 -complete=customlist,<sid>complete_tags Ztags cgetexpr s:find_tag(<q-args>)|cwindow
+command -nargs=? -complete=customlist,<sid>complete_zettel Ziblings cgetexpr s:related(<q-args>)|cwindow
 
 augroup zettelkasten
     autocmd!

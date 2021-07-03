@@ -30,4 +30,4 @@ function s:component_name()
 endfunction
 
 iabbrev <buffer> excp export function SomeComponent(): JSX.Element {}
-iabbrev <buffer> <expr> expr <SID>props()
+iabbrev <buffer> <expr> expr <sid>props()

@@ -53,7 +53,7 @@ command! NoShowMarks call s:disable()
 command! ShowMarks call s:enable()
 
 for sign in s:signs
-    execute 'nnoremap m'..sign[1:]..' <CMD>silent mark '..sign[1:]..' <bar> call <SID>update()<CR>'
+    execute 'nnoremap m'..sign[1:]..' <cmd>silent mark '..sign[1:]..' <bar> call <sid>update()<cr>'
 endfor
 
 augroup my-marker

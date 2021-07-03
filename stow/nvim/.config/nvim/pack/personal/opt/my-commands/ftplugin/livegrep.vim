@@ -15,20 +15,20 @@ command -buffer Cancel keepalt b#
 command -buffer -bang Export call livegrep#export('%', <bang>0)
 command -buffer Reload call livegrep#update(0, 1)
 
-inoremap <buffer> <CR> <esc><CMD>call livegrep#goto(3)<CR>
-inoremap <buffer> <C-C> <esc><cmd>Cancel<CR>
+inoremap <buffer> <cr> <esc><cmd>call livegrep#goto(3)<cr>
+inoremap <buffer> <c-c> <esc><cmd>Cancel<cr>
 
-nnoremap <buffer> <SPACE> <CMD>call livegrep#goto(line('.'))<CR>
-nnoremap <buffer> <CR> <CMD>call livegrep#goto(line('.'))<CR>
-nnoremap <buffer> <BS> <CMD>Cancel<CR>
+nnoremap <buffer> <space> <cmd>call livegrep#goto(line('.'))<cr>
+nnoremap <buffer> <cr> <cmd>call livegrep#goto(line('.'))<cr>
+nnoremap <buffer> <bs> <cmd>Cancel<cr>
 nnoremap <buffer> <expr> i line('.') == 1 ? 'i' : '1GI'
 nnoremap <buffer> <expr> I line('.') == 1 ? 'I' : '1GI'
 nnoremap <buffer> <expr> a line('.') == 1 ? 'a' : '1GA'
 nnoremap <buffer> <expr> A line('.') == 1 ? 'A' : '1GA'
-nnoremap <buffer> X <CMD>Export<CR>
-nnoremap <buffer> R <CMD>Reload<CR>
-nnoremap <buffer> gs <CMD>call livegrep#export('%')<CR>:cdo s/\v=getline(1)/
-nnoremap <buffer> gS <CMD>call livegrep#export('%')<CR>:cfdo %s/\v=getline(1)/
+nnoremap <buffer> X <cmd>Export<cr>
+nnoremap <buffer> R <cmd>Reload<cr>
+nnoremap <buffer> gs <cmd>call livegrep#export('%')<cr>:cdo s/\v=getline(1)/
+nnoremap <buffer> gS <cmd>call livegrep#export('%')<cr>:cfdo %s/\v=getline(1)/
 
-onoremap <buffer> i<bar> <CMD>normal! T<bar>vt<bar><CR>
-onoremap <buffer> a<bar> <CMD>normal! F<bar>vf<bar><CR>
+onoremap <buffer> i<bar> <cmd>normal! T<bar>vt<bar><cr>
+onoremap <buffer> a<bar> <cmd>normal! F<bar>vf<bar><cr>

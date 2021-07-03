@@ -22,11 +22,11 @@ command! -count=50 -bang TTailErr
     \|silent redraw | endif
 
 
-nnoremap <silent> <Plug>(maker-sync) <CMD>make<CR>
-nnoremap <silent> <Plug>(maker-split) <CMD>vert TMake<CR>
-nnoremap <silent> <Plug>(maker-background) <CMD>TMake!<CR>
+nnoremap <silent> <plug>(maker-sync) <cmd>make<cr>
+nnoremap <silent> <plug>(maker-split) <cmd>vert TMake<cr>
+nnoremap <silent> <plug>(maker-background) <cmd>TMake!<cr>
 
-nnoremap <expr> <Plug>(maker-show-log) !empty(findfile(&errorfile)) ? '<CMD>!cat '.&errorfile.'<CR>' : '<CMD>echo "No errorfile"<CR>'
-nnoremap <expr> <Plug>(maker-load-errors) &ft == 'qf' ? '<CMD>cclose<CR>' : '<CMD>cfile<CR>'
-nnoremap <expr> <Plug>(maker-local-load-errors) &ft == 'qf' ? '<CMD>lclose<CR>' : '<CMD>lfile<CR>'
-nnoremap <expr> <Plug>(maker-edit-errors) !empty(findfile(&errorfile)) ? '<CMD>tab split '.&errorfile.'<CR>' : '<CMD>echo "No errorfile"<CR>'
+nnoremap <expr> <plug>(maker-show-log) !empty(findfile(&errorfile)) ? '<cmd>!cat '.&errorfile.'<cr>' : '<cmd>echo "No errorfile"<cr>'
+nnoremap <expr> <plug>(maker-load-errors) &ft == 'qf' ? '<cmd>cclose<cr>' : '<cmd>cfile<cr>'
+nnoremap <expr> <plug>(maker-local-load-errors) &ft == 'qf' ? '<cmd>lclose<cr>' : '<cmd>lfile<cr>'
+nnoremap <expr> <plug>(maker-edit-errors) !empty(findfile(&errorfile)) ? '<cmd>tab split '.&errorfile.'<cr>' : '<cmd>echo "No errorfile"<cr>'

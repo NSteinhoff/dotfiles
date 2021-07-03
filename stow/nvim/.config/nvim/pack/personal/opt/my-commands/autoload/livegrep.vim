@@ -1,5 +1,5 @@
-let s:insert_help = '<SPACE> inserts wildcard ; <CR> go to first result ; <C-C> to exit'
-let s:normal_help = '<CR>/<SPACE> jump to result ; e(X)port; (R)eload'
+let s:insert_help = '<space> inserts wildcard ; <cr> go to first result ; <c-c> to exit'
+let s:normal_help = '<cr>/<space> jump to result ; e(X)port; (R)eload'
 let s:placeholder = '  <<< some.*pattern.*in.*file.*contents'
 let s:rip_grep = 'rg --vimgrep --smart-case --sort path'
 let s:git_grep = 'git grep -n -i -I'

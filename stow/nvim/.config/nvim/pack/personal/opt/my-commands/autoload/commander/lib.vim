@@ -10,7 +10,7 @@ function commander#lib#load_lines(lines, ...) abort
     let b:exit_to = l:exit_to
     set buftype=nofile bufhidden=wipe nobuflisted noswapfile
     0
-    nnoremap <buffer> <silent> q :execute 'buffer '.b:exit_to.' \| let @# = b:alt_save'<CR>
+    nnoremap <buffer> <silent> q :execute 'buffer '.b:exit_to.' \| let @# = b:alt_save'<cr>
     return bufnr()
 endfunction
 

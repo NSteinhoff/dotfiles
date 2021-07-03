@@ -20,7 +20,7 @@
         let relpaths = map(paths, { _, p -> substitute(p, '^'..dir..'/\?', '', '') })
         return relpaths
     endfunction
-    command! -nargs=? -complete=customlist,<SID>complete_note Note execute '<mods> edit '..s:notes_dir()..'/<args>'
+    command! -nargs=? -complete=customlist,<sid>complete_note Note execute '<mods> edit '..s:notes_dir()..'/<args>'
     command! Journal Note journal.md
 
 """ Insert dummy text

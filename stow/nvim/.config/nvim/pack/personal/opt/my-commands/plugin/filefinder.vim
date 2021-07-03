@@ -3,4 +3,4 @@ command! -nargs=? -complete=file FileFinder execute
             \| call setline(1, <q-args>) | 1 | doau TextChanged
 
 
-nnoremap <silent> <Plug>(filefinder-new) <CMD>FileFinder<CR>i
+nnoremap <silent> <plug>(filefinder-new) <cmd>FileFinder<cr>i

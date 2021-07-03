@@ -3,40 +3,40 @@ setlocal scrolloff=0
 
 " Remove some global mappings that do not make sense in the quickfix list
 nnoremap <buffer> - -
-nnoremap <buffer> <CR> <CR>
-nnoremap <buffer> <SPACE> <SPACE>
-nnoremap <buffer> <BS> <C-W>c
+nnoremap <buffer> <cr> <cr>
+nnoremap <buffer> <space> <space>
+nnoremap <buffer> <bs> <c-w>c
 
 " Cycle through lists
-nnoremap <buffer> <nowait> > <CMD>call qf#cycle_lists(1)<CR>
-nnoremap <buffer> <nowait> < <CMD>call qf#cycle_lists(0)<CR>
+nnoremap <buffer> <nowait> > <cmd>call qf#cycle_lists(1)<cr>
+nnoremap <buffer> <nowait> < <cmd>call qf#cycle_lists(0)<cr>
 
 " Preview errors
-nnoremap <silent> <buffer> <SPACE> <CMD>call qf#preview(0)<CR>
-nnoremap <silent> <buffer> <C-SPACE> <CMD>call qf#preview(0)<CR>
-nnoremap <silent> <buffer> p <CMD>call qf#preview(0)<CR>
-nnoremap <silent> <buffer> <C-N> <CMD>call qf#preview(1)<CR>
-nnoremap <silent> <buffer> <C-P> <CMD>call qf#preview(-1)<CR>
+nnoremap <silent> <buffer> <space> <cmd>call qf#preview(0)<cr>
+nnoremap <silent> <buffer> <c-space> <cmd>call qf#preview(0)<cr>
+nnoremap <silent> <buffer> p <cmd>call qf#preview(0)<cr>
+nnoremap <silent> <buffer> <c-n> <cmd>call qf#preview(1)<cr>
+nnoremap <silent> <buffer> <c-p> <cmd>call qf#preview(-1)<cr>
 
 " Mark errors for filtering
-nnoremap <silent> <buffer> <Tab> <CMD>call qf#mark()<CR>
-vnoremap <silent> <buffer> <Tab> :call qf#mark()<CR>
-nnoremap <silent> <buffer> J <CMD>call qf#mark()<CR>j
-nnoremap <silent> <buffer> K k<CMD>call qf#mark()<CR>
-nnoremap <silent> <buffer> <S-Tab> <CMD>call qf#clear_marks()<CR>
+nnoremap <silent> <buffer> <tab> <cmd>call qf#mark()<cr>
+vnoremap <silent> <buffer> <tab> :call qf#mark()<cr>
+nnoremap <silent> <buffer> J <cmd>call qf#mark()<cr>j
+nnoremap <silent> <buffer> K k<cmd>call qf#mark()<cr>
+nnoremap <silent> <buffer> <s-tab> <cmd>call qf#clear_marks()<cr>
 
 " Filter based on marks/selection (creates new lists)
-nnoremap <silent> <buffer> zn <CMD>call qf#filter(0, 1)<CR>
-nnoremap <silent> <buffer> zN <CMD>call qf#filter(1, 1)<CR>
-vnoremap <silent> <buffer> zn :call qf#mark()<CR><CMD>call qf#filter(0, 1)<CR>
-vnoremap <silent> <buffer> zN :call qf#mark()<CR><CMD>call qf#filter(1, 1)<CR>
+nnoremap <silent> <buffer> zn <cmd>call qf#filter(0, 1)<cr>
+nnoremap <silent> <buffer> zN <cmd>call qf#filter(1, 1)<cr>
+vnoremap <silent> <buffer> zn :call qf#mark()<cr><cmd>call qf#filter(0, 1)<cr>
+vnoremap <silent> <buffer> zN :call qf#mark()<cr><cmd>call qf#filter(1, 1)<cr>
 
 " Manage lists
-nnoremap <silent> <buffer> !! <CMD>call qf#only()<CR>
-nnoremap <silent> <buffer> X <CMD>call qf#cut()<CR>
-nnoremap <silent> <buffer> Y <CMD>call qf#yank()<CR>
-nnoremap <silent> <buffer> P <CMD>call qf#paste()<CR>
+nnoremap <silent> <buffer> !! <cmd>call qf#only()<cr>
+nnoremap <silent> <buffer> X <cmd>call qf#cut()<cr>
+nnoremap <silent> <buffer> Y <cmd>call qf#yank()<cr>
+nnoremap <silent> <buffer> P <cmd>call qf#paste()<cr>
 
 " Edit current list
-nnoremap <silent> <buffer> dd <CMD>call qf#delete()<CR>
-vnoremap <silent> <buffer> d :call qf#delete()<CR>
+nnoremap <silent> <buffer> dd <cmd>call qf#delete()<cr>
+vnoremap <silent> <buffer> d :call qf#delete()<cr>

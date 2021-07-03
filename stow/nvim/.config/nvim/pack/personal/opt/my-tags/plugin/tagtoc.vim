@@ -29,4 +29,4 @@ endfunction
 command TagToc call s:toc()
 command TagIndex call s:toc(1)
 
-nnoremap <Plug>(tag-toc) <CMD>TagToc<CR>
+nnoremap <plug>(tag-toc) <cmd>TagToc<cr>

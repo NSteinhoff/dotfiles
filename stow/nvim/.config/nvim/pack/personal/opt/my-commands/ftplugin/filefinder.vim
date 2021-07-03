@@ -2,8 +2,8 @@ setlocal buftype=nofile nobuflisted noswapfile
 setlocal errorformat=%f
 
 let s:fuzzy = executable('fzf') && 1
-let s:insert_help = '<CR> selects <- ; <C-N>/<C-P> moves <-'..(s:fuzzy ? '' : ' ; <SPACE> inserts wildcards')..' ; <C-C> to exit'
-let s:normal_help = '[1-9] open file ; <CR> go to file under cursor'
+let s:insert_help = '<cr> selects <- ; <c-n>/<c-p> moves <-'..(s:fuzzy ? '' : ' ; <space> inserts wildcards')..' ; <c-c> to exit'
+let s:normal_help = '[1-9] open file ; <cr> go to file under cursor'
 let s:placeholder = s:fuzzy ? '  <<< fuzzy filename' : '  <<< some.*file.*pattern'
 let s:rip_files = 'rg --files'
 let s:git_files = 'git ls-files'
@@ -121,18 +121,18 @@ augroup END
 
 command -buffer Cancel keepalt b#
 
-nnoremap <buffer> <CR> <cmd>call <SID>open()<CR>
-vnoremap <buffer> <silent> <CR> :call <SID>open()<CR>
+nnoremap <buffer> <cr> <cmd>call <sid>open()<cr>
+vnoremap <buffer> <silent> <cr> :call <sid>open()<cr>
 nnoremap <buffer> I 1GI
 nnoremap <buffer> A 1GA
-nnoremap <buffer> <BS> <CMD>Cancel<CR>
-inoremap <buffer> <C-C> <esc><cmd>Cancel<CR>
+nnoremap <buffer> <bs> <cmd>Cancel<cr>
+inoremap <buffer> <c-c> <esc><cmd>Cancel<cr>
 
-execute 'inoremap <buffer> <SPACE> '..(s:fuzzy ? ' ' : '.*')
-inoremap <buffer> <CR> <esc><cmd>call <SID>open_selected()<CR>
-inoremap <buffer> <Plug>(filefinder-next) <cmd>call <SID>move_selection(1)<CR>
-inoremap <buffer> <Plug>(filefinder-prev) <cmd>call <SID>move_selection(-1)<CR>
-imap <buffer> <C-N> <Plug>(filefinder-next)
-imap <buffer> <C-P> <Plug>(filefinder-prev)
-imap <buffer> <Tab> <Plug>(filefinder-next)
-imap <buffer> <S-Tab> <Plug>(filefinder-prev)
+execute 'inoremap <buffer> <space> '..(s:fuzzy ? ' ' : '.*')
+inoremap <buffer> <cr> <esc><cmd>call <sid>open_selected()<cr>
+inoremap <buffer> <plug>(filefinder-next) <cmd>call <sid>move_selection(1)<cr>
+inoremap <buffer> <plug>(filefinder-prev) <cmd>call <sid>move_selection(-1)<cr>
+imap <buffer> <c-n> <plug>(filefinder-next)
+imap <buffer> <c-p> <plug>(filefinder-prev)
+imap <buffer> <tab> <plug>(filefinder-next)
+imap <buffer> <s-tab> <plug>(filefinder-prev)

@@ -22,7 +22,7 @@ function InsCompleteRegister()
     call complete(col('.'), CompleteRegister(0, ''))
     return ''
 endfunction
-imap <Plug>(ins-complete-register) <C-R>=InsCompleteRegister()<CR>
+imap <plug>(ins-complete-register) <c-r>=InsCompleteRegister()<cr>
 
 function CompletePath(findstart, base)
     if a:findstart
@@ -45,7 +45,7 @@ function InsCompletePath()
     call complete(col('.'), CompletePath(0, ''))
     return ''
 endfunction
-imap <Plug>(ins-complete-path) <C-R>=InsCompletePath()<CR>
+imap <plug>(ins-complete-path) <c-r>=InsCompletePath()<cr>
 
 function CompleteCombined(findstart, base)
     if a:findstart

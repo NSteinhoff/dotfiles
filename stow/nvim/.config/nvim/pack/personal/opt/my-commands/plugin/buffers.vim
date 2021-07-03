@@ -41,9 +41,9 @@ command! -bang Bonly %bd<bang>|e#|bd#
 " Open editable buffer list
 command! Buffers execute &ft == 'qf' || <q-mods> =~ 'tab' ? 'tabedit BUFFERS' : 'edit BUFFERS'
 
-nnoremap <silent> <Plug>(buffers-edit-list) <CMD>Buffers<CR>
-nnoremap <silent> <Plug>(buffers-delete) <CMD>Bdelete<CR>
-nnoremap <silent> <Plug>(buffers-wipe) <CMD>Bwipe<CR>
-nnoremap <silent> <Plug>(buffers-only) <CMD>Bonly<CR>
-nnoremap <silent> <Plug>(buffers-scratch) <CMD>Scratch<CR>
-vnoremap <silent> <Plug>(buffers-scratch) :Scratch<CR>
+nnoremap <silent> <plug>(buffers-edit-list) <cmd>Buffers<cr>
+nnoremap <silent> <plug>(buffers-delete) <cmd>Bdelete<cr>
+nnoremap <silent> <plug>(buffers-wipe) <cmd>Bwipe<cr>
+nnoremap <silent> <plug>(buffers-only) <cmd>Bonly<cr>
+nnoremap <silent> <plug>(buffers-scratch) <cmd>Scratch<cr>
+vnoremap <silent> <plug>(buffers-scratch) :Scratch<cr>

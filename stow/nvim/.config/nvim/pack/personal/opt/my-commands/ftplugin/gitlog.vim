@@ -1,12 +1,12 @@
-nnoremap <buffer> <SPACE> <CMD>call b:peek_commit()<CR>
-nnoremap <buffer> <CR> <CMD>call b:open_commit()<CR>
-nnoremap <buffer> <expr> R '<CMD>Review '..getline('.')..'<CR>'
+nnoremap <buffer> <space> <cmd>call b:peek_commit()<cr>
+nnoremap <buffer> <cr> <cmd>call b:open_commit()<cr>
+nnoremap <buffer> <expr> R '<cmd>Review '..getline('.')..'<cr>'
 
-let s:help_msg = 'Usage: (<SPACE>/<CR>) peek/open commit'
+let s:help_msg = 'Usage: (<space>/<cr>) peek/open commit'
 if bufname() =~ 'timeline$'
     let s:help_msg .= '; (./o) peek/open file'
-    nnoremap <buffer> . <CMD>call b:peek_file()<CR>
-    nnoremap <buffer> o <CMD>call b:open_file()<CR>
+    nnoremap <buffer> . <cmd>call b:peek_file()<cr>
+    nnoremap <buffer> o <cmd>call b:open_file()<cr>
 endif
 
 if getline(1) != s:help_msg

@@ -1,22 +1,24 @@
 mapclear <buffer>
 
-nnoremap <buffer> - <CMD>exe 'Dirvish %:h'.repeat(':h',v:count1)<CR>
+nnoremap <buffer> - <cmd>exe 'Dirvish %:h'.repeat(':h',v:count1)<cr>
 
-nnoremap <buffer> <CR> <CMD>call dirvish#open('edit', 0)<CR>
-nnoremap <buffer> <SPACE> <CMD>call dirvish#open('edit', 0)<CR>
-nnoremap <buffer> <C-SPACE> <CMD>call dirvish#open('p', 1)<CR>
-nnoremap <buffer> <expr> <C-N> pumvisible() ? '<C-N>' : 'j<CMD>call dirvish#open("p", 1)<CR>'
-nnoremap <buffer> <expr> <C-P> pumvisible() ? '<C-P>' : 'k<CMD>call dirvish#open("p", 1)<CR>'
+nnoremap <buffer> <cr> <cmd>call dirvish#open('edit', 0)<cr>
+nnoremap <buffer> <space> <cmd>call dirvish#open('edit', 0)<cr>
+nnoremap <buffer> <c-space> <cmd>call dirvish#open('p', 1)<cr>
+nnoremap <buffer> <expr> <c-n> pumvisible() ? '<c-n>' : 'j<cmd>call dirvish#open("p", 1)<cr>'
+nnoremap <buffer> <expr> <c-p> pumvisible() ? '<c-p>' : 'k<cmd>call dirvish#open("p", 1)<cr>'
 
-nnoremap <buffer> R <CMD>e %<CR>
-nnoremap <buffer> cd <CMD>lcd %<CR>
-nnoremap <buffer> K <CMD>Tree<CR>
-nnoremap <buffer> <expr> zc '<CMD>set conceallevel='..(&conceallevel == 0 ? '2' : '0')..'<CR>'
+nnoremap <buffer> R <cmd>e %<cr>
+nnoremap <buffer> cd <cmd>lcd %<cr>
+nnoremap <buffer> K <cmd>Tree<cr>
+nnoremap <buffer> zc <cmd>set conceallevel=2<cr>
+nnoremap <buffer> zo <cmd>set conceallevel=0<cr>
+nnoremap <buffer> <expr> za '<cmd>set conceallevel='..(&conceallevel == 0 ? '2' : '0')..'<cr>'
 nnoremap <buffer> <nowait> < $T/D
-nnoremap <buffer> <nowait> > <CMD>call <SID>add_segment()<CR>$
+nnoremap <buffer> <nowait> > <cmd>call <sid>add_segment()<cr>$
 
-onoremap <buffer> i/ <CMD>normal! T/vt/<CR>
-onoremap <buffer> a/ <CMD>normal! F/vf/<CR>
+onoremap <buffer> i/ <cmd>normal! T/vt/<cr>
+onoremap <buffer> a/ <cmd>normal! F/vf/<cr>
 
 command -buffer -bang PathAdd execute 'set path'..(<bang>0 ? '' : '+')..'='..expand('%')
 command -buffer PathRemove execute 'set path-='..expand('%')

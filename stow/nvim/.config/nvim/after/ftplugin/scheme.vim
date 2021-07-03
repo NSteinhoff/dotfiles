@@ -3,7 +3,7 @@ let b:interpreter = 'racket'
 setlocal sw=2
 
 set keywordprg=:ReplSend\ ,doc
-nnoremap <buffer> <BS> :w <bar> ReplSend ,enter %<CR>
+nnoremap <buffer> <bs> :w <bar> ReplSend ,enter %<cr>
 
 if exists(':DD')
     setlocal keywordprg=:DD

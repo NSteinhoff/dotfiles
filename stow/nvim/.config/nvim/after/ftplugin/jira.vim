@@ -19,7 +19,7 @@ function s:toggle_strikethrough(lnum)
     endif
 endfunction
 
-nnoremap <buffer> <silent> <space> :call <SID>toggle_completed(line('.'))<CR>
-nnoremap <buffer> <silent> - :call <SID>toggle_strikethrough(line('.'))<CR>
-vnoremap <buffer> <silent> <space> :call <SID>toggle_completed(line('.'))<CR>
-vnoremap <buffer> <silent> - :call <SID>toggle_strikethrough(line('.'))<CR>
+nnoremap <buffer> <silent> <space> :call <sid>toggle_completed(line('.'))<cr>
+nnoremap <buffer> <silent> - :call <sid>toggle_strikethrough(line('.'))<cr>
+vnoremap <buffer> <silent> <space> :call <sid>toggle_completed(line('.'))<cr>
+vnoremap <buffer> <silent> - :call <sid>toggle_strikethrough(line('.'))<cr>

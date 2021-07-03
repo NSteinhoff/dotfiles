@@ -73,11 +73,11 @@ function s:exit(line)
     endif
 endfunction
 
-nnoremap <buffer> x <CMD>delete<CR>
-nnoremap <buffer> R <CMD>call <SID>load_buflist()<CR>
-nnoremap <buffer> <SPACE> <CMD>call <SID>exit(getline('.'))<CR>
-nnoremap <buffer> <CR> <CMD>call <SID>exit(getline('.'))<CR>
-nnoremap <buffer> <BS> <CMD>keepalt b#<CR>
+nnoremap <buffer> x <cmd>delete<cr>
+nnoremap <buffer> R <cmd>call <sid>load_buflist()<cr>
+nnoremap <buffer> <space> <cmd>call <sid>exit(getline('.'))<cr>
+nnoremap <buffer> <cr> <cmd>call <sid>exit(getline('.'))<cr>
+nnoremap <buffer> <bs> <cmd>keepalt b#<cr>
 
 augroup buflist
     autocmd!

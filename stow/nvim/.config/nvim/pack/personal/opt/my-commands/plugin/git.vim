@@ -39,9 +39,9 @@ command! -nargs=? -bang -complete=customlist,s:complete_global_revisions DiffTar
 command! -nargs=+ -complete=customlist,s:complete_global_revisions Review call commander#git#review(<q-args>)
 
 
-nnoremap <Plug>(git-diff-split) <CMD>ChangeSplit<CR>
-nnoremap <Plug>(git-patch-split) <CMD>ChangePatch<CR>
-nnoremap <Plug>(git-diff-split-ref) :ChangeSplit <C-Z>
-nnoremap <Plug>(git-patch-split-ref) :ChangePatch <C-Z>
-nnoremap <Plug>(git-blame) <CMD>Blame<CR>
-vnoremap <Plug>(git-blame) :Blame<CR>
+nnoremap <plug>(git-diff-split) <cmd>ChangeSplit<cr>
+nnoremap <plug>(git-patch-split) <cmd>ChangePatch<cr>
+nnoremap <plug>(git-diff-split-ref) :ChangeSplit <c-z>
+nnoremap <plug>(git-patch-split-ref) :ChangePatch <c-z>
+nnoremap <plug>(git-blame) <cmd>Blame<cr>
+vnoremap <plug>(git-blame) :Blame<cr>

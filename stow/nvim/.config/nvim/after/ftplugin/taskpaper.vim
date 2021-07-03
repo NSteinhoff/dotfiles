@@ -5,9 +5,9 @@ command! TaskDone silent s/\(\s\+@done.*\)\?$/ @done/ | nohlsearch
 command! TaskUndone silent s/\s\+@done.*$// | nohlsearch
 command! ToggleDone if getline('.') =~ '@done.*$' | execute 'TaskUndone' | else | execute 'TaskDone' | endif
 
-nnoremap <buffer> <Space> <cmd>ToggleDone<CR>
+nnoremap <buffer> <space> <cmd>ToggleDone<cr>
 command! ArchiveDone g/@done/move$ | nohlsearch
-nnoremap <buffer> <leader>ta :ArchiveDone<CR>
+nnoremap <buffer> <leader>ta :ArchiveDone<cr>
 
 if exists(':DD')
     setlocal keywordprg=:DD
