@@ -27,7 +27,13 @@ endfunction
 
 function Compiler()
     let compiler = compiler#which()
-    return compiler != 'NONE' ? winwidth(0) < 100 ? ' ' : '[ '..compiler..']' : ''
+    let watching = !exists('*watcher#status') || empty(watcher#status()) ? '' : ' '..watcher#status()
+    if compiler == 'NONE'|return ''|endif
+    if winwidth(0) >= 100
+        return '[ '..compiler..']'..watching..' '
+    else
+        return ''..watching..' '
+    endif
 endfunction
 
 function Tree()

@@ -100,6 +100,7 @@
     packadd my-tags
     packadd my-zettelkasten
     packadd my-lualib
+    packadd my-watcher
 
 """ External
     " Finding / picking files

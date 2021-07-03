@@ -1,7 +1,4 @@
-if exists("current_compiler")
-  finish
-endif
 let current_compiler = "jest"
 
-CompilerSet makeprg=yarn\ jest\ --no-verbose\ --silent\ --no-coverage\ --only-changed\ $*
+CompilerSet makeprg=npx\ jest\ --no-verbose\ --silent\ --no-coverage\ --only-changed\ --ci\ --no-color\ $*
 CompilerSet errorformat=%.%#\ (%f:%l:%c)
