@@ -116,11 +116,13 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 export PATH="$HOME/go/bin:$PATH"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
+
+# Hook direnv into your shell.
+eval "$(asdf exec direnv hook bash)"
+
+# A shortcut for asdf managed direnv.
+direnv() { asdf exec direnv "$@"; }

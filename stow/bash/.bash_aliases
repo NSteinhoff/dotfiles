@@ -126,6 +126,3 @@ alias mypacks='cd ~/dev/dotfiles/stow/nvim/.config/nvim/pack/personal/opt'
 export CDPATH=~/dev:~/dev/s2
 export NOTES_DIR=~/Dropbox/Notes
 export ZETTELKASTEN=~/Dropbox/Zettel
-
-# ---------------------------------- direnv -----------------------------------
-which direnv &>/dev/null && eval "$(direnv hook bash)"
