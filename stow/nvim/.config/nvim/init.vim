@@ -100,11 +100,13 @@
     packadd my-tags
     packadd my-zettelkasten
     packadd my-lualib
-    packadd my-watcher
 
 """ External
     " Finding / picking files
     packadd! my-dirvish                 " file manager
+
+    " Lua documentation
+    packadd! nvim-luaref
 
     " Mappings and commands
     packadd! vim-unimpaired

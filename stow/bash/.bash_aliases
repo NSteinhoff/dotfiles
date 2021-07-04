@@ -37,7 +37,7 @@ alias rm='rm -i'
 [ $os = "mac" ] && alias ls='ls -G'
 alias ll='ls -lFh'
 alias lla='ll -a'
-alias tree='tree --dirsfirst'
+alias tree='tree -C --dirsfirst'
 
 # Listing dirs
 alias dirs='dirs -v'

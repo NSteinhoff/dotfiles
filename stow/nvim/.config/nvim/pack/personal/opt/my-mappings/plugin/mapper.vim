@@ -305,16 +305,13 @@ endfunction
 
 
 """ Potential Ad-hoc mappings or show <leader> mappings
+    nnoremap <leader>? <cmd>echo join(filter(split(execute('map <leader>'), "\n")[1:], {_, v -> v =~ '^\s*n\s*\\\S\S\s' }), "\n")<cr>
     for letter in split('abcdefghijklmnopqrstuvwxyz*;!=', '\ze')
         if empty(maparg('<leader>'..letter, 'n'))
             " Display all <leader>letter mappings but this one
             execute 'nnoremap <leader>'..letter..' <cmd>echo join(filter(split(execute(''map <leader>'..letter..'''), "\n"), {_, v -> v !~# ''^\s*n\s*\\'..letter..'\s'' }), "\n")<cr>'
         endif
     endfor
-    if empty(maparg('<leader><leader>', 'n'))
-        " Display all <leader> mappings but this one
-        nnoremap <leader><leader> <cmd>echo join(filter(split(execute('map <leader>'), "\n")[1:], {_, v -> v !~# '^\s*n\s*\\\\\s' }), "\n")<cr>
-    endif
 
 
 """ Theme and Colors
