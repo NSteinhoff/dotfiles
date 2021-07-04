@@ -13,7 +13,7 @@ augroup END
 
 command -buffer Cancel keepalt b#
 command -buffer -bang Export call livegrep#export('%', <bang>0)
-command -buffer Reload call livegrep#update(0, 1)
+command -buffer Reload call livegrep#update(0, bufnr('%'))
 
 inoremap <buffer> <cr> <esc><cmd>call livegrep#goto(3)<cr>
 inoremap <buffer> <c-c> <esc><cmd>Cancel<cr>

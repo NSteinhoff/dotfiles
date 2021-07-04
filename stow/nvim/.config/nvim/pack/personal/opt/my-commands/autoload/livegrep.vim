@@ -1,8 +1,7 @@
 let s:insert_help = '<space> inserts wildcard ; <cr> go to first result ; <c-c> to exit'
 let s:normal_help = '<cr>/<space> jump to result ; e(X)port; (R)eload'
 let s:placeholder = '  <<< some.*pattern.*in.*file.*contents'
-let s:rip_grep = 'rg --vimgrep --smart-case --sort path'
-let s:git_grep = 'git grep -n -i -I'
+let s:grepprg = 'rg --vimgrep --smart-case --sort path --glob !.git/*'
 let s:errorformat = '%f:%l:%c:%m'
 let s:ns_loading = nvim_create_namespace('livegrep_job_loading')
 let s:ns_results = nvim_create_namespace('livegrep_job_results')
@@ -30,7 +29,7 @@ function s:job.on_exit(job_id, data, event)
         let lines += ['', '=================================== ERROR ====================================']
         let lines += self.err
         let lines += ['', '=================================== HELP =====================================']
-        let lines += systemlist(s:grepprg()..' --help')
+        let lines += systemlist(s:grepprg..' --help')
         call nvim_buf_set_virtual_text(self.buf, s:ns_results, 0, [['', 'Error']], {})
     else
         call nvim_buf_set_virtual_text(self.buf, s:ns_results, 0, [[printf('(%d)', len(self.data)), 'Special']], {})
@@ -61,10 +60,6 @@ endfunction
 
 function s:previous_query()
     return get(b:, 'query', '')
-endfunction
-
-function s:grepprg()
-    return s:rip_grep
 endfunction
 
 function livegrep#insert_separator(buf, mode)
@@ -105,7 +100,7 @@ function s:searchable(buf, live)
     let q = s:query(a:buf)
 
     if empty(q) | return 0 | endif
-    if q ==# s:previous_query() | return 0 | endif
+    if q ==# s:previous_query() && !a:live | return 0 | endif
     if len(q) < (a:live ? 3 : 1) | return 0 | endif
     if q =~ '[|\\]$' | return 0 | endif
     if q =~ '([^)]*$' | return 0 | endif
@@ -121,7 +116,7 @@ function s:search(buf)
     let l:query = s:query(a:buf)
     let b:query = l:query
     if !empty(l:query)
-        call s:job.start(a:buf, s:grepprg().' '.l:query)
+        call s:job.start(a:buf, s:grepprg.' '.l:query.' .')
     endif
 endfunction
 
@@ -152,4 +147,8 @@ function livegrep#goto(line)
     endif
     call livegrep#export('%')
     execute 'keepalt cc '.(a:line - 2)
+endfunction
+
+function livegrep#inspect()
+    echo s:job
 endfunction
