@@ -3,7 +3,7 @@
 
 """ Open with default application
     function! s:uri(s)
-        return a:s == '' ? expand('%')
+        return a:s == '' ? (expand('%') == '' ? getcwd() : expand('%'))
             \ : a:s == '.' ? getcwd()
             \ : a:s =~ '^https\?://[a-zA-Z0-9\-./#?=&_]\+$' ? escape(a:s, '#%')
             \ : expandcmd(a:s)
