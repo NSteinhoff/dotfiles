@@ -1,11 +1,14 @@
 let s:insert_help = '<space> inserts wildcard ; <cr> go to first result ; <c-c> to exit'
 let s:normal_help = '<cr>/<space> jump to result ; e(X)port; (R)eload'
 let s:placeholder = '  <<< some.*pattern.*in.*file.*contents'
-let s:grepprg = 'rg --vimgrep --smart-case --sort path --glob !.git/*'
-let s:errorformat = '%f:%l:%c:%m'
+let s:grepprg = 'rg -n --smart-case --sort path --glob !.git/*'
+let s:errorformat = '%f:%l:%m'
 let s:ns_loading = nvim_create_namespace('livegrep_job_loading')
 let s:ns_results = nvim_create_namespace('livegrep_job_results')
 
+" Plugin State
+let s:history = []
+let s:histindex = -1
 let s:job = {'id': 0}
 
 function s:job.on_stdout(job_id, data, event)
@@ -48,7 +51,7 @@ function s:job.start(buf, cmd)
     let self.data = []
     let self.err = []
     let self.buf = a:buf
-    let self.id = jobstart(a:cmd , self)
+    let self.id = jobstart(split(a:cmd) , self)
     call self.loading()
 endfunction
 
@@ -100,7 +103,7 @@ function s:searchable(buf, live)
     let q = s:query(a:buf)
 
     if empty(q) | return 0 | endif
-    if q ==# s:previous_query() && !a:live | return 0 | endif
+    if q ==# s:previous_query() | return 0 | endif
     if len(q) < (a:live ? 3 : 1) | return 0 | endif
     if q =~ '[|\\]$' | return 0 | endif
     if q =~ '([^)]*$' | return 0 | endif
@@ -122,7 +125,8 @@ endfunction
 
 function livegrep#update(live, buf, ...)
     call s:placeholder(a:buf)
-    if s:editing(a:buf) && s:searchable(a:buf, a:live) || a:0
+    let force_update = a:0
+    if s:editing(a:buf) && s:searchable(a:buf, a:live) || force_update
         call s:search(a:buf)
     endif
 endfunction
@@ -150,5 +154,28 @@ function livegrep#goto(line)
 endfunction
 
 function livegrep#inspect()
-    echo s:job
+    let info = "Livegrep\n"
+    let info.= "========\n"
+    let info.= "\nJob:\n{\n"
+    let info.= "  "..join(map(copy(items(s:job)), {_, v -> join(v, ': ')}), "\n  ").."\n}\n"
+    let info.= "\nHistory:\n"
+    let info.= join(map(copy(s:history), {i, v -> (i == s:histindex ? ' *' : '  ')..v}), "\n").."\n"
+    echo info
+endfunction
+
+function livegrep#histpush()
+    let line = getline(1)
+    if empty(line) || get(s:history, s:histindex, "") == line
+        return
+    endif
+    call add(s:history, line)
+    let s:histindex = len(s:history)
+endfunction
+
+function livegrep#history(delta)
+    let idx = s:histindex + a:delta
+    let idx = max([0, idx])
+    let idx = min([idx, len(s:history)])
+    let s:histindex = idx
+    return get(s:history, s:histindex, "")
 endfunction
