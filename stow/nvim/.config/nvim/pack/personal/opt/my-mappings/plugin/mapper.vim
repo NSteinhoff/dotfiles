@@ -231,8 +231,11 @@ endfunction
     nnoremap <silent> <leader>;c <cmd>PackEdit commander.vim<cr>
 
     " Bang: <leader>!
-    nnoremap <leader>!! <cmd>!%:p<cr>
+    nnoremap <leader>!! <cmd>w !bash<cr>
     vnoremap <leader>!! :w !bash<cr>
+
+    " Shebang: <leader>#!
+    nnoremap <leader>#! <cmd>!%:p<cr>
 
     " Execute: <leader>x
     nnoremap <leader>xx :.w !xargs 
