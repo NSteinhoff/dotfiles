@@ -8,7 +8,7 @@ if rcfile == ''
 endif
 
 let project_root = fnamemodify(rcfile, ":h")
-execute 'CompilerSet makeprg=yarn\ tsc\ --project\ '.project_root.'\ $*'
+execute 'CompilerSet makeprg=npx\ tsc\ --project\ '.project_root.'\ $*'
 CompilerSet errorformat^=
             \%-GDone%.%#,
             \%-G$\ %.%#,
