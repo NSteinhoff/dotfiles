@@ -29,7 +29,7 @@
 	review      = diff origin/master...
 
 	# External tools
-	tree        = !git ls-files | tree --fromfile --dirsfirst
+	tree        = !git ls-files | tree --fromfile --dirsfirst -C
 	ctags       = !.git/hooks/ctags
 	watch       = !git ls-files | entr
 
@@ -78,6 +78,9 @@
 	cmd = nvim -d $LOCAL $MERGED $REMOTE -c '2wincmd w' -c 'wincmd J'
 [mergetool "nvimdiff"]
 	cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '2wincmd w' -c '$wincmd w' -c 'wincmd J'
+
+[includeIf "gitdir:~/dev/s2/"]
+	path = ~/.config/git/config-s2
 
 ; [pager]
 ; 	diff = delta
