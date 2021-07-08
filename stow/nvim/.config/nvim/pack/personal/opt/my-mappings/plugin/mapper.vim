@@ -225,6 +225,8 @@ endfunction
     nmap gO <plug>(tag-toc)
 
 """ Scoped <leader> mappings
+    nnoremap <silent> <leader><bar><bar> <cmd>execute 'vertical resize '..(winwidth(0) > &columns / 4 ? &columns / 4 : &columns / 4 * 3)<cr>
+
     " Open settings: <leader>;
     nnoremap <silent> <leader>;; <cmd>edit $MYVIMRC<cr>
     nnoremap <silent> <leader>;m <cmd>PackEdit mapper.vim<cr>
