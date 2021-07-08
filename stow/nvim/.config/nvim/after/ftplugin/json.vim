@@ -11,9 +11,9 @@ function! s:parse_yarn_info(info)
 
         if line =~ '^\s*},$'|break|endif
 
-        let l:matches = matchlist(line, '^\s*''\(\([0-9]\+.\)\{2}[0-9]\+\)'': ''\(.*\)'',\?$')
+        let l:matches = matchlist(line, '^\s*''\(\([0-9]\+.\)\{2}[0-9]\+\(-\(alpha\|beta\).[0-9]\+\)\?\)'': ''\(.*\)'',\?$')
         if !empty(l:matches)
-            let l:date = strftime(' %Y-%m-%d', strptime('%Y-%m-%dT%T', l:matches[3]))
+            let l:date = strftime(' %Y-%m-%d', strptime('%Y-%m-%dT%T', l:matches[-1]))
             call add(l:versions, {'word': l:matches[1], 'menu': l:date})
         endif
     endfor
