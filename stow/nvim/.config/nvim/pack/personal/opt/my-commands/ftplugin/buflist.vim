@@ -27,7 +27,7 @@ function s:buffer2line(buffer, alt)
 endfunction
 
 function s:line2name(line)
-    return split(a:line)[-1]
+    return matchstr(a:line, '^\d\+\s[#!+]*\s\+\zs\(.*\)$')
 endfunction
 
 function s:load_buflist()
@@ -81,6 +81,6 @@ nnoremap <buffer> <bs> <cmd>keepalt b#<cr>
 
 augroup buflist
     autocmd!
-    autocmd BufEnter <buffer> call s:load_buflist()
+    autocmd BufEnter <buffer> noautocmd call s:load_buflist()
     autocmd TextChanged <buffer> call s:set_listed(str2nr(expand('<abuf>')))
 augroup END

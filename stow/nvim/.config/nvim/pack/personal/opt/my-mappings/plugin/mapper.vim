@@ -83,6 +83,8 @@ endfunction
     nnoremap c* <cmd>let @/ = '\<'..expand('<cword>')..'\>'<cr>cgn
     nnoremap cg* <cmd>let @/ = expand('<cword>')<cr>cgn
 
+    " Escape terminal mode
+    tnoremap <c-\><c-\> <c-\><c-n>
 
 """ Viewport
     " Window resizing with the arrow keys
@@ -308,10 +310,14 @@ endfunction
     nmap <silent> gb <plug>(git-blame)
     vmap <silent> gb <plug>(git-blame)
 
+""" (?): Inspect
+    nnoremap <leader>?c <cmd>Compiler<cr>
+    nnoremap <leader>?l <cmd>LspInfo<cr>
+
 
 """ Potential Ad-hoc mappings or show <leader> mappings
-    nnoremap <leader>? <cmd>echo join(filter(split(execute('map <leader>'), "\n")[1:], {_, v -> v =~ '^\s*n\s*\\\S\S\s' }), "\n")<cr>
-    for letter in split('abcdefghijklmnopqrstuvwxyz*;!=', '\ze')
+    nnoremap <leader>?? <cmd>echo join(filter(split(execute('map <leader>'), "\n")[1:], {_, v -> v =~ '^\s*n\s*\\\S\S\s' }), "\n")<cr>
+    for letter in split('abcdefghijklmnopqrstuvwxyz*;!=?', '\ze')
         if empty(maparg('<leader>'..letter, 'n'))
             " Display all <leader>letter mappings but this one
             execute 'nnoremap <leader>'..letter..' <cmd>echo join(filter(split(execute(''map <leader>'..letter..'''), "\n"), {_, v -> v !~# ''^\s*n\s*\\'..letter..'\s'' }), "\n")<cr>'

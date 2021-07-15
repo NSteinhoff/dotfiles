@@ -5,10 +5,12 @@ return function(config)
         autostart = true,
         settings = {
             ["rust-analyzer"] = {
-                diagnostics = {
-                    -- Rust Analyzer does not handle procedural macros yet.
-                    disabled = { "missing-unsafe" },
+                cargo = {
+                    loadOutDirsFromCheck = true,
                 },
+                procMacro = {
+                    enabled = true,
+                }
             },
         },
     }

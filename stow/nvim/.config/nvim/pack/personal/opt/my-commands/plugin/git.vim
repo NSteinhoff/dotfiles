@@ -11,11 +11,11 @@ command! Ctags if finddir('.git', ';') != ''
     \| call jobstart(['git', 'ctags']) | else
     \| echo "'".getcwd()."' is not a git repository. Can only run Ctags from within a git repository." | endif
 
-function s:complete_file_revisions(...)
-    return commander#git#file_revisions()
+function s:complete_file_revisions(arglead, cmdline, cursorpos)
+    return filter(commander#git#file_revisions(), { _, v -> v =~ a:arglead})
 endfunction
-function s:complete_global_revisions(...)
-    return commander#git#global_revisions()
+function s:complete_global_revisions(arglead, cmdline, cursorpos)
+    return filter(commander#git#global_revisions(), { _, v -> v =~ a:arglead})
 endfunction
 
 function s:edit_args_msg()

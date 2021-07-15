@@ -83,4 +83,4 @@ function! MyTabLine()
 endfunction
 
 set tabline=%!MyTabLine()
-set showtabline=1
+set showtabline=2
