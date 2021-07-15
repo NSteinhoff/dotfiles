@@ -1,6 +1,5 @@
 if get(g:, 'loaded_showmarks')|finish|endif
 let g:loaded_showmarks = 1
-let g:marker_enabled = 1
 
 let s:sign_group = 'marks'
 let s:signs = split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', '\ze')
@@ -32,31 +31,20 @@ function s:place_signs()
 endfunction
 
 function s:enable()
-    let g:marker_enabled = 1
-    call s:update()
+    augroup my-showmarks
+        if !exists('#my-showmarks#BufEnter,CursorHold')
+            autocmd BufEnter,CursorHold * silent! call s:place_signs()
+        endif
+    augroup END
 endfunction
 
 function s:disable()
-    let g:marker_enabled = 0
-    call s:update()
-endfunction
-
-function s:update()
-    if get(g:, 'marker_enabled')
-        call s:place_signs()
-    else
+    if exists('#my-showmarks#BufEnter,CursorHold')
+        autocmd! my-showmarks
+        augroup! my-showmarks
         call sign_unplace(s:sign_group)
     endif
 endfunction
 
 command! NoShowMarks call s:disable()
 command! ShowMarks call s:enable()
-
-for sign in s:signs
-    execute 'nnoremap m'..sign[1:]..' <cmd>silent mark '..sign[1:]..' <bar> call <sid>update()<cr>'
-endfor
-
-augroup my-marker
-    autocmd!
-    autocmd BufEnter,CursorHold * silent! call s:update()
-augroup END
