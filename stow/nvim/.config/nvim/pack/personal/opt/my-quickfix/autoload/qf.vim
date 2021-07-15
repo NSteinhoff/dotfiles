@@ -71,18 +71,38 @@ function s:replace(items)
     call s:set([], 'r', this)
 endfunction
 
-function s:next()
-    let list = s:get({'idx': 0, 'size': 1})
+function s:first_and_last(items) abort
+    let items = map(copy(a:items), { i, v -> [i+1, v]})
+    let valid = filter(items, { _, v -> v[1].valid })
+    let first = get(valid, 0, [0, 0])[0]
+    let last = get(valid, -1, [0, 0])[0]
+    return [first, last]
+endfunction
+
+function s:here() abort
+    let list = s:get({'idx': 0, 'size': 1, 'items': 1})
     if list.size == 0|return|endif
-    let [advance, wrap] = ['next', 'first']
-    return (qf#isloc() ? 'l' : 'c')..(list.idx == list.size ? wrap : advance)
+    let lnum = line('.')
+    let num = list.items[lnum - 1].valid ? lnum : 0
+    return num ? num..(qf#isloc() ? 'll' : 'cc') : ''
+endfunction
+
+function s:next()
+    let list = s:get({'idx': 0, 'size': 1, 'items': 1})
+    let [first, last] = s:first_and_last(list.items)
+    if !first|return|endif
+    let advance = (qf#isloc() ? 'l' : 'c')..'next'
+    let wrap = first..(qf#isloc() ? 'll' : 'cc')
+    return last > list.idx ? advance : wrap
 endfunction
 
 function s:prev()
-    let list = s:get({'idx': 0, 'size': 1})
-    if list.size == 0|return|endif
-    let [advance, wrap] = ['prev', 'last']
-    return (qf#isloc() ? 'l' : 'c')..(list.idx == 1 ? wrap : advance)
+    let list = s:get({'idx': 0, 'size': 1, 'items': 1})
+    let [first, last] = s:first_and_last(list.items)
+    if !first|return|endif
+    let advance = (qf#isloc() ? 'l' : 'c')..'prev'
+    let wrap = last..(qf#isloc() ? 'll' : 'cc')
+    return first < list.idx ? advance : wrap
 endfunction
 
 function s:setmany(lists)
@@ -139,10 +159,10 @@ endfunction
 function qf#preview(direction)
     if !qf#isqf()|return|endif
 
-    let pref = qf#isloc() ? 'll' : 'cc'
-    let cmd = a:direction == 0 ? line('.')..pref
+    let cmd = a:direction == 0 ? s:here()
           \ : a:direction > 0 ? s:next()
           \ : s:prev()
+    if empty(cmd)|return|endif
     execute cmd
     let cul = &cursorline ? 'cursorline' : 'nocursorline'
     if !exists('#QfPreviewCul#BufEnter#<buffer>')
@@ -272,25 +292,25 @@ function qf#add() abort range
 endfunction
 
 function qf#cycle_loc(forward) abort
-    let loclist = getloclist(0, {'idx': 0, 'size': 1})
-    if loclist.size == 0
-        echo "No errors."
-        return
+    let list = getloclist(0, {'idx': 0, 'size': 1, 'items': 1})
+    let [first, last] = s:first_and_last(list.items)
+    if !first|echo "No errors."|return|endif
+    if a:forward
+        execute list.idx < last ? 'lnext' : first..'ll'
+    else
+        execute list.idx > first ? 'lprev' : last..'ll'
     endif
-    let [advance, wrap] = a:forward ? ['lnext', 'lfirst'] : ['lprevious', 'llast']
-    let at_end = a:forward ? loclist.idx == loclist.size : loclist.idx == 1
-    execute at_end ? wrap : advance
 endfunction
 
 function qf#cycle_qf(forward) abort
-    let qflist = getqflist({'idx': 0, 'size': 1})
-    if qflist.size == 0
-        echo "No errors."
-        return
+    let list = getqflist({'idx': 0, 'size': 1, 'items': 1})
+    let [first, last] = s:first_and_last(list.items)
+    if !first|echo "No errors."|return|endif
+    if a:forward
+        execute list.idx < last ? 'cnext' : first..'cc'
+    else
+        execute list.idx > first ? 'cprev' : last..'cc'
     endif
-    let [advance, wrap] = a:forward ? ['cnext', 'cfirst'] : ['cprevious', 'clast']
-    let at_end = a:forward ? qflist.idx == qflist.size : qflist.idx == 1
-    execute at_end ? wrap : advance
 endfunction
 
 " -------------------------------------------------------------------------- "
