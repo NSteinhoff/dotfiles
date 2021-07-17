@@ -7,8 +7,9 @@ function s:fakename()
     \ 'typescript': 'tmp.ts',
     \ 'javascriptreact': 'tmp.jsx',
     \ 'typescriptreact': 'tmp.tsx',
+    \ 'json': 'tmp.json',
     \}
-    return ext[&ft]
+    return get(ext, &ft, 'tmp.js')
 endfunction
 
 if executable('npx')
