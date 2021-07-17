@@ -26,10 +26,6 @@
 [submodule "3rd/pandoc-letter"]
 	path = 3rd/pandoc-letter
 	url = git@github.com:benedictdudel/pandoc-letter-din5008.git
-[submodule "3rd/pack/external/opt/nvim-lsp-ts-utils"]
-	path = 3rd/pack/external/opt/nvim-lsp-ts-utils
-	url = git@github.com:jose-elias-alvarez/nvim-lsp-ts-utils.git
-	branch = main
 [submodule "3rd/pack/external/opt/nvim-luaref"]
 	path = 3rd/pack/external/opt/nvim-luaref
 	url = git@github.com:milisims/nvim-luaref.git
