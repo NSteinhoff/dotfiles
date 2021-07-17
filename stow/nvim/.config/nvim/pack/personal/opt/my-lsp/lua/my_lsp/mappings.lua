@@ -26,9 +26,9 @@ local function on_attach(client)
     vim.cmd([[nnoremap <silent> <buffer> dca          <cmd>lua vim.lsp.buf.code_action()<CR>]])
     vim.cmd([[nnoremap <silent> <buffer> dcr          <cmd>lua vim.lsp.buf.rename()<CR>]])
 
-    if client.resolved_capabilities.document_formatting then
-        vim.cmd([[nnoremap <silent> <buffer> dcf          <cmd>lua vim.lsp.buf.formatting()<CR>]])
-    end
+    -- vim.cmd([[nnoremap <silent> <buffer> <>           <cmd>lua vim.lsp.buf.formatting_sync()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> dcf          <cmd>lua vim.lsp.buf.formatting()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> dcF          <cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>]])
 end
 
 return {

@@ -27,3 +27,9 @@
 	path = 3rd/pack/external/opt/nvim-luaref
 	url = git@github.com:milisims/nvim-luaref.git
 	ignore = untracked
+[submodule "3rd/pack/external/opt/null-ls.nvim"]
+	path = 3rd/pack/external/opt/null-ls.nvim
+	url = https://github.com/jose-elias-alvarez/null-ls.nvim.git
+[submodule "3rd/pack/external/opt/plenary.nvim"]
+	path = 3rd/pack/external/opt/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim.git

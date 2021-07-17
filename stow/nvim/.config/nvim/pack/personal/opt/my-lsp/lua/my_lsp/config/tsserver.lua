@@ -16,6 +16,12 @@ return function(config)
                 and git_root
                 or lsputil.root_pattern("tsconfig.json", "package.json")(fname)
         end,
+
+        on_attach = function (client, ...)
+            client.resolved_capabilities.document_formatting = false
+
+            config.on_attach(client, ...)
+        end
     }
 
     lspconfig["tsserver"].setup(vim.tbl_extend("keep", override, config))
