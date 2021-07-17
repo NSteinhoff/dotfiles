@@ -14,9 +14,6 @@
 [submodule "3rd/pack/external/opt/vim-eunuch"]
 	path = 3rd/pack/external/opt/vim-eunuch
 	url = git@github.com:tpope/vim-eunuch.git
-[submodule "3rd/pack/external/opt/nvim-treesitter"]
-	path = 3rd/pack/external/opt/nvim-treesitter
-	url = git@github.com:nvim-treesitter/nvim-treesitter.git
 [submodule "3rd/pack/external/opt/vim-commentary"]
 	path = 3rd/pack/external/opt/vim-commentary
 	url = git@github.com:tpope/vim-commentary.git

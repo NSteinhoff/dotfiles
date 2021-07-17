@@ -118,7 +118,6 @@
 
     " IDE Mode
     packadd! my-lsp                     " Language Server client configuration
-    " packadd! my-treesitter              " Semantic understanding of languages
 
 """ Development
     set packpath+=~/dev
