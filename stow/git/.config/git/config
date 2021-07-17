@@ -23,10 +23,11 @@
 	branches    = !git --no-pager branch --list
 
 	# Housekeeping
-	fresh       = !git remote update --prune && git checkout master && git pull --ff-only && git branch --merged | grep -v '\\*\\|master' | xargs git branch -d
+	main-branch = !git branch --list --format='%(refname:short)' | grep -E '^(main(line)?|trunk|root|master)$' | head -n 1
+	fresh       = !git remote update --prune && git checkout $(git main-branch) && git pull --ff-only && (git branch --merged | grep -v '\\*' | xargs git branch -d)
 
 	# Reviewing
-	review      = diff origin/master...
+	review      = !git diff "origin/$(git main-branch)"...
 
 	# External tools
 	tree        = !git ls-files | tree --fromfile --dirsfirst -C
