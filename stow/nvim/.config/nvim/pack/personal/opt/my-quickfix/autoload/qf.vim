@@ -65,9 +65,14 @@ endfunction
 
 function s:replace(items)
     let this = s:get({'all': 1})
-    let selected = this.items[this.idx]
+    let selected = this.items[this.idx - 1]
     let this.items = a:items
-    let this.idx = index(this.items, selected)
+    let idx = index(this.items, selected)
+    if idx > -1
+        let this.idx = idx + 1
+    else
+        let this.idx = this.idx > len(this.items) ? len(this.items) + 1 : this.idx
+    endif
     call s:set([], 'r', this)
 endfunction
 
