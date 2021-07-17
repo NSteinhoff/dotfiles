@@ -219,9 +219,15 @@ endfunction
     nnoremap <silent> <c-w>t <cmd>tab split<cr>
     nnoremap <silent> <c-w><c-t> <cmd>tab split<cr>
 
+    " Search for the currently selected text and set the search register
+    vmap <silent> * <plug>(search-selection)
+    vmap <silent> g* <plug>(search-g-selection)
+    vmap <silent> # <plug>(search-selection-reverse)
+    vmap <silent> g# <plug>(search-g-selection-reverse)
+
     " Grep, i.e. go-to-reference
-    nmap <silent> gr <plug>(search-word)
-    vmap <silent> gr <plug>(search-selection)
+    nmap <silent> gr <plug>(grep-word)
+    vmap <silent> gr <plug>(grep-selection)
 
     " Outline
     nmap gO <plug>(tag-toc)
@@ -286,13 +292,13 @@ endfunction
     nmap <leader>ff <plug>(filefinder-new)
 
     " Search: <leader>*
-    nmap <silent> <leader>*. <plug>(search-word-in-file)
-    nmap <silent> <leader>*g. <plug>(search-word-g-in-file)
-    vmap <silent> <leader>*. <plug>(search-selection-in-file)
+    nmap <silent> <leader>*. <plug>(grep-word-in-file)
+    nmap <silent> <leader>*g. <plug>(grep-word-g-in-file)
+    vmap <silent> <leader>*. <plug>(grep-selection-in-file)
 
-    nmap <silent> <leader>** <plug>(search-word)
-    nmap <silent> <leader>*g* <plug>(search-word-g)
-    vmap <silent> <leader>** <plug>(search-selection)
+    nmap <silent> <leader>** <plug>(grep-word)
+    nmap <silent> <leader>*g* <plug>(grep-word-g)
+    vmap <silent> <leader>** <plug>(grep-selection)
 
     " Livegrep: <leader>g
     nmap <leader>gg <plug>(livegrep-new)

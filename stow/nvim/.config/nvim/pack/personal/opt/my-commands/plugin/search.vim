@@ -31,14 +31,23 @@ function s:selected() abort
     return substitute(escape(@", '()\|.*+[]^$'), "'", '''\\''''', 'g')
 endfunction
 
+function s:selected2() abort
+    return trim(escape(@", '\.*[]^$'))
+endfunction
+
+vnoremap <silent> <plug>(search-selection) y:let @/ = '\<'..<sid>selected2()..'\>'<bar>call feedkeys('n')<cr>
+vnoremap <silent> <plug>(search-g-selection) y:let @/ = <sid>selected2()<bar>call feedkeys('n')<cr>
+vnoremap <silent> <plug>(search-selection-reverse) y:let @/ = '\<'..<sid>selected2()..'\>'<bar>call feedkeys('N')<cr>
+vnoremap <silent> <plug>(search-g-selection-reverse) y:let @/ = <sid>selected2()<bar>call feedkeys('N')<cr>
+
 nnoremap <silent> <plug>(livegrep-new) <cmd>LiveGrep!<cr>A
 nnoremap <silent> <plug>(livegrep-resume) <cmd>LiveGrep<cr>
 vnoremap <silent> <plug>(livegrep-selection) y:execute 'LiveGrep '..escape(@", '()\|.*+[]^$')<cr>
 
-nnoremap <silent> <plug>(search-word) <cmd>call <sid>grep(expand('<cword>'), 1)<cr>
-nnoremap <silent> <plug>(search-word-g) <cmd>call <sid>grep(expand('<cword>'), 0)<cr>
-vnoremap <silent> <plug>(search-selection) y:call <sid>grep(<sid>selected(), 0)<cr>
+nnoremap <silent> <plug>(grep-word) <cmd>call <sid>grep(expand('<cword>'), 1)<cr>
+nnoremap <silent> <plug>(grep-word-g) <cmd>call <sid>grep(expand('<cword>'), 0)<cr>
+vnoremap <silent> <plug>(grep-selection) y:call <sid>grep(<sid>selected(), 0)<cr>
 
-nnoremap <silent> <plug>(search-word-in-file) <cmd>call <sid>grep(expand('<cword>'), 1, '%')<cr>
-nnoremap <silent> <plug>(search-word-g-in-file) <cmd>call <sid>grep(expand('<cword>'), 0, '%')<cr>
-vnoremap <silent> <plug>(search-selection-in-file) y:call <sid>grep(<sid>selected(), 0, '%')<cr>
+nnoremap <silent> <plug>(grep-word-in-file) <cmd>call <sid>grep(expand('<cword>'), 1, '%')<cr>
+nnoremap <silent> <plug>(grep-word-g-in-file) <cmd>call <sid>grep(expand('<cword>'), 0, '%')<cr>
+vnoremap <silent> <plug>(grep-selection-in-file) y:call <sid>grep(<sid>selected(), 0, '%')<cr>
