@@ -51,6 +51,10 @@ endfunction
     " Toggle folds with <space>
     nnoremap <space> za
 
+    " Yank to clipboard with "" (Why would I ever explicitly need to target
+    " the unnamed register anyways?)
+    noremap "" "+
+
     " Make Y behave like C and D
     nnoremap Y y$
 
