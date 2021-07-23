@@ -1,46 +1,7 @@
 [user]
 	name = Niko Steinhoff
 	email = niko.steinhoff@gmail.com
-[alias]
-	# Simplified logs
-	lo          = log --graph --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'
-	loa         = log --graph --all --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'
-	lf          = log --graph --date=short --format='%C(auto)%h%d %s %C(green)(%cd) %C(blue)<%an>%Creset'
-	lfa         = log --graph --all --date=short --format='%C(auto)%h%d %s %C(green)(%cd) %C(blue)<%an>%Creset'
-
-	# Diffing
-	di          = diff
-	dis         = diff --staged
-	diffw       = diff --color-words
-
-	# Committing (crimes)
-	pave        = commit --all --amend --no-edit
-	nuke        = !git commit --all --amend --no-edit && git push -f
-	squeeze     = rebase -i --autosquash
-
-	# Listing
-	stashes     = !git --no-pager stash list
-	branches    = !git --no-pager branch --list
-
-	# Housekeeping
-	main-branch = !git branch --list --format='%(refname:short)' | grep -E '^(main(line)?|trunk|root|master)$' | head -n 1
-	fresh       = !git remote update --prune && git checkout $(git main-branch) && git pull --ff-only && (git branch --merged | grep -v '\\*' | xargs git branch -d)
-
-	# Reviewing
-	review      = !git diff "origin/$(git main-branch)"...
-
-	# External tools
-	tree        = !git ls-files | tree --fromfile --dirsfirst -C
-	ctags       = !.git/hooks/ctags
-	watch       = !git ls-files | entr
-
-	# Submodule management
-	subdate     = submodule update --remote --checkout
-	subclean    = submodule foreach 'git clean -f'
-
-	# Clone/Init with explicit template dir
-	tclone       = !git clone --template=$HOME/.config/git/template
-	tinit       = !git init --template=$HOME/.config/git/template
+	signingkey = niko.steinhoff@gmail.com
 
 [color]
 	pager = true
@@ -51,57 +12,44 @@
 	showBranch = auto
 	interactive = auto
 	grep = auto
+
 [core]
 	editor = nvim
-[commit]
-	verbose = true
+
 [init]
 	templatedir = ~/.config/git/template
 	defaultBranch = main
-[rerere]
-	enabled = true
+
+[commit]
+	verbose = true
+	gpgsign = true
+
 [pull]
 	ff = only
+
 [diff]
 	tool = nvimdiff
 	colorMoved = false
+
 [merge]
 	tool = nvimdiff2
 	conflictstyle = diff3
+
+[rerere]
+	enabled = true
+
 [difftool]
 	prompt = true
 	trustExitCode = true
+
 [mergetool]
 	prompt = true
 	trustExitCode = true
 	keepBackup = false
 
-[difftool "nvimdiff"]
-	cmd = nvim -d $LOCAL $REMOTE
-[mergetool "nvim"]
-	cmd = nvim -d $MERGED
-[mergetool "nvimdiff2"]
-	cmd = nvim -d $LOCAL $MERGED $REMOTE -c '2wincmd w' -c 'wincmd J'
-[mergetool "nvimdiff"]
-	cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '2wincmd w' -c '$wincmd w' -c 'wincmd J'
+[include]
+	path = ~/.config/git/config.alias
+; 	path = ~/.config/git/config.delta
 
 [includeIf "gitdir:~/dev/s2/"]
-	path = ~/.config/git/config-s2
-
-; [pager]
-; 	diff = delta
-; 	log = delta
-; 	reflog = delta
-; 	show = delta
-
-; [interactive]
-; 	diffFilter = delta --color-only
-
-; [delta]
-; 	features = side-by-side line-numbers decorations
-; 	whitespace-error-style = 22 reverse
-
-; [delta "decorations"]
-; 	file-style = bold yellow ul
-; 	commit-decoration-style = bold yellow box ul
-; 	file-decoration-style = none
+	path = ~/.config/git/config.s2

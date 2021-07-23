@@ -1,0 +1,40 @@
+[alias]
+	# Simplified logs
+	lo          = log --graph --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'
+	loa         = log --graph --all --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'
+	lf          = log --graph --date=short --format='%C(auto)%h%d %s %C(green)(%cd) %C(blue)<%an>%Creset'
+	lfa         = log --graph --all --date=short --format='%C(auto)%h%d %s %C(green)(%cd) %C(blue)<%an>%Creset'
+
+	# Diffing
+	di          = diff
+	dis         = diff --staged
+	diffw       = diff --color-words
+
+	# Committing (crimes)
+	pave        = commit --all --amend --no-edit
+	nuke        = !git commit --all --amend --no-edit && git push -f
+	squeeze     = rebase -i --autosquash
+
+	# Listing
+	stashes     = !git --no-pager stash list
+	branches    = !git --no-pager branch --list
+
+	# Housekeeping
+	main-branch = !git branch --list --format='%(refname:short)' | grep -E '^(main(line)?|trunk|root|master)$' | head -n 1
+	fresh       = !git remote update --prune && git checkout $(git main-branch) && git pull --ff-only && (git branch --merged | grep -v '\\*' | xargs git branch -d)
+
+	# Reviewing
+	review      = !git diff "origin/$(git main-branch)"...
+
+	# External tools
+	tree        = !git ls-files | tree --fromfile --dirsfirst -C
+	ctags       = !.git/hooks/ctags
+	watch       = !git ls-files | entr
+
+	# Submodule management
+	subdate     = submodule update --remote --checkout
+	subclean    = submodule foreach 'git clean -f'
+
+	# Clone/Init with explicit template dir
+	tclone       = !git clone --template=$HOME/.config/git/template
+	tinit       = !git init --template=$HOME/.config/git/template
