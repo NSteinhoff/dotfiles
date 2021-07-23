@@ -54,6 +54,7 @@ alias :e='$EDITOR'
 
 # Git
 alias g='git status'
+alias g-='git switch -'
 
 # Context aware information
 # TODO: Think of some useful commands here.

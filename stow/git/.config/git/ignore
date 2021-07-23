@@ -28,3 +28,6 @@ node_modules/
 
 # ASDF
 .tool-versions
+
+# JavaScript source maps
+*.js.map

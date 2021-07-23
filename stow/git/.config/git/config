@@ -37,6 +37,11 @@
 	# Submodule management
 	subdate     = submodule update --remote --checkout
 	subclean    = submodule foreach 'git clean -f'
+
+	# Clone/Init with explicit template dir
+	tclone       = !git clone --template=$HOME/.config/git/template
+	tinit       = !git init --template=$HOME/.config/git/template
+
 [color]
 	pager = true
 	ui = auto
@@ -59,7 +64,7 @@
 	ff = only
 [diff]
 	tool = nvimdiff
-	colorMoved = true
+	colorMoved = false
 [merge]
 	tool = nvimdiff2
 	conflictstyle = diff3
