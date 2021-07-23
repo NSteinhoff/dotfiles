@@ -1018,33 +1018,3 @@ function LispOmnifunc(findstart, base)
 endfunction
 
 setlocal omnifunc=LispOmnifunc
-
-" Go all in!
-nmap <buffer> <plug>SendAtom  m`<plug>ReplSendSelectioniw``
-nmap <buffer> <plug>SendForm  m`<plug>ReplSendSelectiona(``
-nmap <buffer> , <plug>SendAtom
-nmap <buffer> <space> <plug>SendForm
-nmap <buffer> <cr> <plug>ReplSendBlock
-nmap <buffer> <silent> <bs> :'a,'bReplSend<cr>
-
-
-" Debugging and Documentation
-command -buffer -nargs=1 Apropos ReplSend (apropos <q-args>)
-command -buffer -nargs=1 Describe ReplSend (describe '<args>)
-command -buffer -nargs=1 Inspect ReplSend (inspect <args>)
-nnoremap <buffer> sA :execute 'Apropos '.expand("<cword>")<cr>
-nnoremap <buffer> sD :execute 'Describe '.expand("<cword>")<cr>
-nnoremap <buffer> sI :execute 'Inspect '.expand("<cword>")<cr>
-setlocal keywordprg=:Describe
-
-" Macro Expansion
-command -buffer -nargs=1 Macroexpand ReplSend (macroexpand '<args>)
-command -buffer -nargs=1 Macroexpand1 ReplSend (macroexpand-1 '<args>)
-nnoremap <silent> <buffer> sM ya(:Macroexpand "<cr>
-nnoremap <silent> <buffer> sm ya(:Macroexpand1 "<cr>
-
-" Debugger
-command DebuggerAbort ReplSend ABORT
-execute 'command DebuggerExit ReplSend '.(b:repl == 'sbcl' ? 'TOPLEVEL' : 'QUIT')
-nnoremap <silent> <buffer> s<bs> :DebuggerAbort<cr>
-nnoremap <silent> <buffer> s<esc> :DebuggerExit<cr>

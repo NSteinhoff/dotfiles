@@ -1,1 +1,1 @@
-source <sfile>:h/typescript.vim
+source <sfile>:h/formatter/prettier.vim

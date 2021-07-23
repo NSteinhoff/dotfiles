@@ -153,9 +153,10 @@ let s:ui_styles.status_active            =  "HDarkProud"
 let s:ui_styles.status_focus             =  "HLightProud"
 let s:ui_styles.status_term              =  "HDarkHappy"
 let s:ui_styles.tabline_active           =  "PopBoldUnderlined"
-let s:ui_styles.tabline_inactive         =  "FadedUnderlined"
+let s:ui_styles.tabline_inactive         =  "NormalUnderlined"
 let s:ui_styles.tabline_fill             =  "FadedUnderlined"
 let s:ui_styles.tabline_focus            =  "ProudUnderlined"
+let s:ui_styles.tabline_directory        =  "SatisfiedUnderlined"
 let s:ui_styles.match                    =  "HExcited"
 let s:ui_styles.highlight                =  "HDarkPop"
 let s:ui_styles.highlight_dark           =  "HDarkLively"
@@ -281,6 +282,9 @@ let s:ui_groups.tabline_fill = [
 let s:ui_groups.tabline_focus = [
 \    "TabLineFocus",
 \ ]
+let s:ui_groups.tabline_directory = [
+\    "TabLineDirectory",
+\ ]
 ""}}}
 
 "" Diff {{{
@@ -378,6 +382,7 @@ let s:syntax_groups.underlined = [
 \    "LspReferenceText",
 \    "LspReferenceRead",
 \    "LspReferenceWrite",
+\    "LspSignatureActiveParameter",
 \ ]
 let s:syntax_groups.ignore = [
 \    "Ignore",

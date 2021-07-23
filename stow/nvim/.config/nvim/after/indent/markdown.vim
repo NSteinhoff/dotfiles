@@ -1,4 +1,1 @@
-if executable('npx')
-    setlocal formatexpr=
-    execute 'setlocal formatprg=npx\ prettier\ --stdin-filepath\ '.(empty(expand('%')) ? 'tmp.js' : '%').'\ --config-precedence=prefer-file\ --tab-width='.&sw
-endif
+source <sfile>:h/formatter/prettier.vim
