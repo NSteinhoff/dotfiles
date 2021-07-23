@@ -25,5 +25,6 @@ function s:editpackage(name, mods, split)
     execute a:mods . ' '.(a:split ? 'split' : 'edit').' ' . s:packpath() . paths[0]
 endfunction
 
+command! PackBrowse execute 'edit '..s:packpath()
 command! -nargs=? -complete=customlist,<sid>packfiles PackEdit call s:editpackage(<q-args>, '<mods>', 0)
 command! -nargs=? -complete=customlist,<sid>packfiles PackSplit call s:editpackage(<q-args>, '<mods>', 1)
