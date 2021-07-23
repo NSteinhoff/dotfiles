@@ -177,15 +177,15 @@ endfunction
     " Additional ins-completion modes
     " W,R,A,G,H,J,Z,C,B,M
     " Registers:
-    " imap <c-x><c-r> <plug>(ins-complete-register)
+    imap <c-x><c-r> <plug>(ins-complete-register)
     " Paths:
-    " imap <c-x><c-h> <plug>(ins-complete-path)
+    imap <c-x><c-h> <plug>(ins-complete-path)
 
 
 """ Running builds with `<key>
     nmap `<leader>   <plug>(maker-sync)
-    nmap `<cr>      <plug>(maker-split)
-    nmap `<bs>      <plug>(maker-background)
+    nmap `<cr>       <plug>(maker-split)
+    nmap `<bs>       <plug>(maker-background)
 
     " List, load, read errorfile contents
     nmap g> <plug>(maker-show-log)
