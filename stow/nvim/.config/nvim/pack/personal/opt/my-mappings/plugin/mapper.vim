@@ -245,8 +245,8 @@ endfunction
     nnoremap <silent> <leader>;c <cmd>PackEdit commander.vim<cr>
 
     " Bang: <leader>!
-    nnoremap <leader>!! <cmd>w !bash<cr>
-    vnoremap <leader>!! :w !bash<cr>
+    nnoremap <expr> <leader>!! '<cmd>w !'..get(b:, 'interpreter', 'bash')..'<cr>'
+    vnoremap <expr> <leader>!! ':w !'..get(b:, 'interpreter', 'bash')..'<cr>'
 
     " Shebang: <leader>#!
     nnoremap <leader>#! <cmd>!%:p<cr>
