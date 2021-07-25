@@ -1,6 +1,5 @@
 """ Defaults
     source $VIMRUNTIME/defaults.vim
-    delcommand DiffOrig
 
     " Disable netrw
     let g:loaded_netrw       = 1
