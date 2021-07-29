@@ -1,5 +1,5 @@
 """ Workspaces
-    command! -nargs=1 -complete=dir WorkOn tabnew | tcd <args>
+    command! -nargs=1 -complete=dir WorkOn tab split | tcd <args> | e .
 
 """ Open with default application
     function! s:uri(s)
