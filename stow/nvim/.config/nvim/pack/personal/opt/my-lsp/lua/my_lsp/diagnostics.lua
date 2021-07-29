@@ -53,7 +53,7 @@ local function set_loclist(client)
     vim.fn.setloclist(0, {}, action, {items = loc_items, title = title, quickfixtextfunc = 'qf#no_bufnames'})
 end
 
-local function set_qflist()
+local function set_qflist(open)
     local diagnostics = vim.lsp.diagnostic.get_all()
     local qf_items = {}
     for b, ds in pairs(diagnostics) do
@@ -74,7 +74,11 @@ local function set_qflist()
     local title = 'LSP Diagnostics'
     local curtitle = vim.fn.getqflist({title = 1}).title
     local action = title == curtitle and 'r' or ' '
-    vim.fn.setqflist({}, action, {items = qf_items, title = title, quickfixtextfunc = 'qf#no_bufnames'})
+    vim.fn.setqflist({}, action, {items = qf_items, title = title})
+
+    if open then
+        vim.api.nvim_command("cwindow")
+    end
 end
 
 local function setup_signs()
@@ -118,6 +122,7 @@ local function on_publish_diagnostics(...)
         virtual_text = false,
         update_in_insert = false,
     })(...)
+
     local result, error = pcall(set_loclist, client.name)
     if error then vim.api.nvim_err_writeln(error) end
 end

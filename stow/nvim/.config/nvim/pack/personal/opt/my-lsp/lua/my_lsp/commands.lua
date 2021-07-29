@@ -13,7 +13,7 @@ local function on_attach(client)
     vim.cmd([[command! -buffer LspDiagnosticsPrintAll lua require("my_lsp.diagnostics").print_all()]])
     vim.cmd([[command! -buffer LspDiagnosticsPrintLine lua require("my_lsp.diagnostics").print_line()]])
     vim.cmd([[command! -buffer LspDiagnosticsPrintBuffer lua require("my_lsp.diagnostics").print_buffer()]])
-    vim.cmd([[command! -buffer LspDiagnosticsSetQuickfix lua require("my_lsp.diagnostics").set_qflist()]])
+    vim.cmd([[command! -buffer LspDiagnosticsSetQuickfix lua require("my_lsp.diagnostics").set_qflist(true)]])
     vim.cmd([[command! -buffer LspDiagnosticsSetLoclist lua require("my_lsp.diagnostics").set_loclist()]])
 
     -- Clients
