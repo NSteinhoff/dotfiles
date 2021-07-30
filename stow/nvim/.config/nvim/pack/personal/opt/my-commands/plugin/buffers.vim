@@ -24,16 +24,28 @@ function s:is_last_buffer()
 endfunction
 
 function s:go_home(wipe)
-    return exists('b:dirvish') ? 'edit .' : 'edit . | '.(a:wipe ? 'bwipe' : 'bdelete').' #'
+    if exists('b:dirvish')
+        keepalt edit .
+    else
+        let bufname = @%
+        keepalt edit .
+        execute (a:wipe ? 'bwipe' : 'bdelete')..' '..bufname
+    endif
 endfunction
 
 function s:delete_buffer(wipe)
-    return exists('b:dirvish') ? 'bprevious' : 'bprevious | '.(a:wipe ? 'bwipe' : 'bdelete').' #'
+    if exists('b:dirvish')
+        keepalt bprevious
+    else
+        let bufname = @%
+        keepalt bprevious
+        execute (a:wipe ? 'bwipe' : 'bdelete')..' '..bufname
+    endif
 endfunction
 
 " Delete current buffer
-command! Bdelete execute s:is_last_buffer() ? s:go_home(0) : s:delete_buffer(0)
-command! Bwipe execute s:is_last_buffer() ? s:go_home(1) : s:delete_buffer(1)
+command! Bdelete if s:is_last_buffer() | call s:go_home(0) | else | call s:delete_buffer(0) | endif
+command! Bwipe if s:is_last_buffer() | call s:go_home(1) | else | call s:delete_buffer(1) | endif
 
 " Delete all but the current buffer
 command! -bang Bonly %bd<bang>|e#|bd#
