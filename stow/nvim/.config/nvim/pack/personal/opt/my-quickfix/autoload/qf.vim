@@ -143,9 +143,9 @@ function s:goto(nr)
     if steps == 0
         return
     elseif steps > 0
-        execute steps..(qf#isloc() ? 'l' : 'c')..'newer'
+        execute 'silent '..steps..(qf#isloc() ? 'l' : 'c')..'newer'
     else
-        execute -steps..(qf#isloc() ? 'l' : 'c')..'older'
+        execute 'silent '..-steps..(qf#isloc() ? 'l' : 'c')..'older'
     endif
 endfunction
 
@@ -216,6 +216,17 @@ function qf#swap(v) abort
     call s:replace(items)
 endfunction
 
+function s:where_am_i()
+    if !qf#isqf() || empty(s:get())
+        return
+    endif
+
+    let curr = s:get({'nr': 0}).nr
+    let last = s:get({'nr': '$'}).nr
+
+    return 'error list '..curr..' of '..last
+endfunction
+
 function qf#cycle_lists(forward)
     if !qf#isqf() || empty(s:get())
         return
@@ -223,14 +234,16 @@ function qf#cycle_lists(forward)
 
     let curr = s:get({'nr': 0}).nr
     let last = s:get({'nr': '$'}).nr
-    if last == 1 | return | endif
-    let rewind = last - 1
 
+    if last == 1 | echo s:where_am_i() | return | endif
+
+    let rewind = last - 1
     let prefix = qf#isloc() ? 'l' : 'c'
     let step = a:forward ? (curr == last ? 'older'..rewind : 'newer')
                        \ : (curr == 1    ? 'newer'..rewind : 'older')
 
-    execute prefix..step
+    execute 'silent '..prefix..step
+    echo s:where_am_i()
 endfunction
 
 function qf#yank() abort
