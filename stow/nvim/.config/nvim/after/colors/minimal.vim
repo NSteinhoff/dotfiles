@@ -157,6 +157,7 @@ let s:ui_styles.tabline_inactive         =  "NormalUnderlined"
 let s:ui_styles.tabline_fill             =  "FadedUnderlined"
 let s:ui_styles.tabline_focus            =  "ProudUnderlined"
 let s:ui_styles.tabline_directory        =  "SatisfiedUnderlined"
+let s:ui_styles.tabline_notice           =  "ForcefulUnderlined"
 let s:ui_styles.match                    =  "HExcited"
 let s:ui_styles.highlight                =  "HDarkPop"
 let s:ui_styles.highlight_dark           =  "HDarkLively"
@@ -284,6 +285,9 @@ let s:ui_groups.tabline_focus = [
 \ ]
 let s:ui_groups.tabline_directory = [
 \    "TabLineDirectory",
+\ ]
+let s:ui_groups.tabline_notice = [
+\    "TabLineNotice",
 \ ]
 ""}}}
 

@@ -1,8 +1,10 @@
 let g:show_buffers_in_tabline = 0
 
 function MyTabLabel(n)
-    if a:n != tabpagenr() && getcwd(-1, a:n) != getcwd()
-        return MyTabCwd(1, -1, a:n)
+    if a:n != tabpagenr() && getcwd(-1, a:n) != getcwd(-1, 0)
+        let cwd = substitute(fnamemodify(getcwd(-1, a:n), ":."), $HOME, '~', '')
+        let cwd = cwd == '~' ? '~/' : cwd
+        return '  '..pathshorten(cwd)
     else
         let buflist = tabpagebuflist(a:n)
         let winnr = tabpagewinnr(a:n)
@@ -24,10 +26,19 @@ function MyTabDiffTarget(n)
     return difftarget
 endfunction
 
-function MyTabCwd(short, ...)
-    let cwd = substitute(fnamemodify(call("getcwd", a:000), ":."), $HOME, '~', '')
+function MyTabCwd()
+    let win = fnamemodify(getcwd(), ":p")
+    let tab = fnamemodify(getcwd(-1, tabpagenr()), ":p")
+
+    let cwd = substitute(tab, $HOME, '~', '')
     let cwd = cwd == '~' ? '~/' : cwd
-    return '  '..(a:short ? pathshorten(cwd) : cwd)
+
+    if win != tab
+        let cwd .= '%#TabLineNotice#'
+        let cwd .= '['..substitute(substitute(win, tab, '', ''), $HOME, '~', '')..']'
+    endif
+
+    return '  '..cwd
 endfunction
 
 function MyBuffers()
@@ -51,7 +62,7 @@ function MyBuffers()
 endfunction
 
 function MyTabHighlights(n)
-    if a:n != tabpagenr() && getcwd(-1, a:n) != getcwd()
+    if a:n != tabpagenr() && getcwd(-1, a:n) != getcwd(-1, 0)
         return '%#TablineDirectory#'
     else
         return a:n == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
@@ -84,7 +95,7 @@ function MyTabLine()
         let s .= '%#TabLineFill#'
         let s .= '%='
         let s .= '%#TablineFocus#'
-        let s .= MyTabCwd(0, -1, tabpagenr())
+        let s .= MyTabCwd()
     endif
     return s
 endfunction

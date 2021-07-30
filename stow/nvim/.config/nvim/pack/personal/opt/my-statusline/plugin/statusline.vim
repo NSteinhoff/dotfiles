@@ -1,15 +1,3 @@
-function Cwd()
-    let windows = filter(getwininfo(), {_, v -> v.tabnr == tabpagenr()})
-    let directories = map(copy(windows), {_, v -> getcwd(v.winnr)})
-    if len(uniq(sort(directories))) > 1
-        let tabcwd = getcwd(-1, tabpagenr())
-        let relpath = substitute(getcwd(), '^'..tabcwd..'/', '', '')
-        return getcwd() != tabcwd  ? relpath..'/' : ''
-    endif
-
-    return ''
-endfunction
-
 function Errors()
     if winwidth(0) < 50
         return ''
@@ -134,7 +122,6 @@ function MyStatusline()
     let ft          = '%y'
     let pre         = '%w'
     let file        = '%{CurrentFile()}'
-    let cwd         = '%{Cwd()}'
     let branch      = '%{GitBranch()}'
     let review      = '%{GitDiffTarget()}'
     let mod         = '%m'
@@ -150,7 +137,6 @@ function MyStatusline()
     let stl .= branch
     let stl .= WRN
     let stl .= review
-    let stl .= cwd
     let stl .= OPT
     let stl .= ' '
     let stl .= file
@@ -158,7 +144,6 @@ function MyStatusline()
     let stl .= mod
     let stl .= args
     let stl .= SPC
-    " let stl .= tree
     let stl .= SEP
     let stl .= OPT
     let stl .= errors
