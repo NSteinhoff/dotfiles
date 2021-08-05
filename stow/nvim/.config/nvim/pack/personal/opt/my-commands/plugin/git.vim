@@ -38,6 +38,31 @@ command! -nargs=? -bang -complete=customlist,s:complete_global_revisions Changed
 command! -nargs=? -bang -complete=customlist,s:complete_global_revisions DiffTarget call call('commander#git#set_diff_target', <bang>1 ? [<q-args>] : [])
 command! -nargs=+ -complete=customlist,s:complete_global_revisions Review call commander#git#review(<q-args>)
 
+function s:track_changes()
+    augroup my-changed-files
+        autocmd!
+        autocmd VimResume,FocusGained * call commander#git#set_changed_args()
+        autocmd DirChanged * call commander#git#set_changed_args()
+        autocmd BufWritePost * call commander#git#set_changed_args()
+    augroup END
+
+    ChangedFiles
+endfunction
+
+function s:no_track_changes()
+    if !exists('#my-changed-files') | return | endif
+
+    augroup my-changed-files
+        autocmd!
+    augroup END
+
+    augroup! my-changed-files
+
+    argd *
+endfunction
+
+command -bang TrackChanges call s:track_changes()
+command -bang NoTrackChanges call s:no_track_changes()
 
 nnoremap <plug>(git-diff-split) <cmd>ChangeSplit<cr>
 nnoremap <plug>(git-patch-split) <cmd>ChangePatch<cr>

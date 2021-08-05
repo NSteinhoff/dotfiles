@@ -82,15 +82,14 @@
     " Speed up diff syntax highlighting by disabling localization
     let g:diff_translations = 0
 
-
 " --------------------------------- Plugins -----------------------------------
     if exists('g:vscode') | finish | endif
     packloadall     " load all default packages in 'start'
 
 """ Personal
     packadd my-abbreviations
-    packadd my-automations
     packadd my-commands
+    " packadd my-automations
     packadd my-completions
     packadd my-mappings
     packadd my-marks
