@@ -1,7 +1,7 @@
 setlocal textwidth=78
 setlocal shiftwidth=2
 setlocal formatoptions=tcroqlj
-setlocal nowrap
+setlocal wrap
 setlocal spell
 setlocal suffixesadd=.md
 
