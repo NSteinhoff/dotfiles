@@ -49,6 +49,7 @@
 
 [include]
 	path = ~/.config/git/config.alias
+	path = ~/.config/git/config.nvim
 ; 	path = ~/.config/git/config.delta
 
 [includeIf "gitdir:~/dev/s2/"]
