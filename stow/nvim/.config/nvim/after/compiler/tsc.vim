@@ -2,7 +2,9 @@ if exists("current_compiler") && current_compiler != 'tsc'
     finish
 endif
 
-let rcfile = findfile('tsconfig.json', ".;$HOME,;$HOME")
+let gitroot = finddir('.git', ".;$HOME,;$HOME")
+let rootrcfile = !empty(gitroot) ? findfile('tsconfig.json', fnamemodify(gitroot, ':p:h:h')) : ''
+let rcfile = empty(rootrcfile) ? findfile('tsconfig.json', ".;$HOME,;$HOME") : rootrcfile
 if rcfile == ''
     finish
 endif
