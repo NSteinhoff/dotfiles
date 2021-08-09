@@ -263,8 +263,7 @@ endfunction
     nnoremap <leader>st :tab sbuffer <c-z>
 
     " Buffers: <leader>b
-    nnoremap <leader>bb :buffer <c-z>
-    nmap <leader>be <plug>(buffers-edit-list)
+    nmap <leader>bb <plug>(buffers-edit-list)
     nmap <leader>bd <plug>(buffers-delete)
     nmap <leader>bw <plug>(buffers-wipe)
     nmap <leader>bs <plug>(buffers-scratch)
