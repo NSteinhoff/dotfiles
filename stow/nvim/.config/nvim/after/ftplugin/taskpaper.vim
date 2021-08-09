@@ -8,7 +8,3 @@ command! ToggleDone if getline('.') =~ '@done.*$' | execute 'TaskUndone' | else 
 nnoremap <buffer> <space> <cmd>ToggleDone<cr>
 command! ArchiveDone g/@done/move$ | nohlsearch
 nnoremap <buffer> <leader>ta :ArchiveDone<cr>
-
-if exists(':DD')
-    setlocal keywordprg=:DD
-endif

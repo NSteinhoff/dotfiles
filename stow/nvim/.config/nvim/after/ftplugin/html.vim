@@ -1,3 +1,1 @@
-if exists(':DD')
-    setlocal keywordprg=:DD
-endif
+source <sfile>:h/keywordprg/mdn.vim

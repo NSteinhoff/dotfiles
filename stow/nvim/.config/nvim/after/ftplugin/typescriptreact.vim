@@ -1,9 +1,5 @@
 source <sfile>:h/typescript.vim
 
-if exists(':DD')
-    setlocal keywordprg=:DD
-endif
-
 function s:is_start_of_line()
     let line = getline('.')
     return line =~ '^\w\+\s\?$'

@@ -1,3 +1,4 @@
+setlocal keywordprg=:Man
 setlocal nolist
 unmap <buffer> q
 nnoremap <buffer> u <c-u>

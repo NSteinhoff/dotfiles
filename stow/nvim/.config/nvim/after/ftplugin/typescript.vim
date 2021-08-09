@@ -1,3 +1,5 @@
+source <sfile>:h/keywordprg/mdn.vim
+
 " Execution
 let b:interpreter = 'ts-node'
 let b:repl = 'ts-node'
@@ -14,10 +16,6 @@ let &l:includeexpr="substitute(substitute(v:fname, '\\./', '', ''), '\\.', '../'
 let &l:define='^\s*\(export\s\)\?\(async\s\)\?\(function\|class\|interface\|type\|const\|let\|var\)\s\ze'
 
 compiler tsc
-
-if exists(':DD')
-    setlocal keywordprg=:DD
-endif
 
 iabbrev <buffer> exif export interface {}
 command -buffer Run !ts-node %

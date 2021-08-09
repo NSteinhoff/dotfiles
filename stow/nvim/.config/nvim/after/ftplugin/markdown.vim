@@ -1,13 +1,11 @@
-setlocal textwidth=78
+setlocal textwidth=0
 setlocal shiftwidth=2
 setlocal formatoptions=tcroqlj
 setlocal wrap
 setlocal spell
 setlocal suffixesadd=.md
 
-if exists(':DD')
-    setlocal keywordprg=:DD
-endif
+source <sfile>:h/keywordprg/ddg.vim
 
 function! s:render_html(open)
     !pandoc --standalone --self-contained --from=markdown --to=html --output /tmp/%:t:r.html %

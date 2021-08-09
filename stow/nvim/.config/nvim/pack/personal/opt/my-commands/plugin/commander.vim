@@ -10,6 +10,16 @@
     endfunction
     command -nargs=1 Open silent execute '!'..(system('uname') =~? 'darwin' ? 'open' : 'xdg-open')..' '..s:uri(<q-args>)
 
+""" Search with Duckduckgo
+    command -nargs=1 DuckDuckGo Open https://duckduckgo.com/?q=<args>
+    command -nargs=1 DuckDuckGoFt execute 'DuckDuckGo '..&ft..'+<args>'
+
+""" Search DevDocs.io
+    command -nargs=1 DevDocs Open https://devdocs.io/?q=<args>
+    command -nargs=1 DevDocsFt execute 'DevDocs '..&ft..'+<args>'
+
+"""
+
 """ Note-Taking and Journaling
     function! s:notes_dir()
         return expand(get(g:, 'notes_dir', get(environ(), 'NOTES_DIR', '~/notes')))

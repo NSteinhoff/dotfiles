@@ -82,7 +82,11 @@
     " Speed up diff syntax highlighting by disabling localization
     let g:diff_translations = 0
 
+""" Get help
+    set keywordprg=:DuckDuckGo
+
 " --------------------------------- Plugins -----------------------------------
+    " Stop here in case we are running in VSCode
     if exists('g:vscode') | finish | endif
     packloadall     " load all default packages in 'start'
 
