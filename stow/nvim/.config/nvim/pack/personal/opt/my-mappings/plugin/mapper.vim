@@ -179,7 +179,7 @@ endfunction
     " Registers:
     imap <c-x><c-r> <plug>(ins-complete-register)
     " Paths:
-    imap <c-x><c-h> <plug>(ins-complete-path)
+    imap <c-x><c-h> <plug>(ins-complete-local-path)
 
 
 """ Running builds with `<key>

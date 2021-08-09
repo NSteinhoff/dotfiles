@@ -47,6 +47,38 @@ function InsCompletePath()
 endfunction
 imap <plug>(ins-complete-path) <c-r>=InsCompletePath()<cr>
 
+function! CompleteLocalPath(findstart, base) abort
+    if a:findstart
+        let line = getline('.')
+        let start = col('.') - 1
+        while start > 0 && line[start - 1] =~ '[a-zA-Z0-9-./]'
+          let start -= 1
+        endwhile
+        return start + 1
+    endif
+
+    let curpath = expand('%:.:h')..'/'
+    let base = substitute(a:base, '^\./', curpath, '')
+    let base = base =~ '^'..curpath ? base : curpath..base
+    let pattern = base..'*'
+    let files = glob(pattern, 0, 1)
+    let files = filter(files, { _, fname -> fname =~ '^'..base })
+    let files = map(files, { _, fname -> substitute(fname, curpath, './', '') })
+    for suffix in split(&suffixesadd, ',')
+        let files = map(files, { _, fname -> substitute(fname, suffix..'$', '', '') })
+    endfor
+
+    return files
+endfunction
+function InsCompleteLocalPath()
+    let start = CompleteLocalPath(1, '')
+    let base = getline('.')[start-1:col('.') - 1]
+
+    call complete(start, CompleteLocalPath(0, base))
+    return ''
+endfunction
+imap <plug>(ins-complete-local-path) <c-r>=InsCompleteLocalPath()<cr>
+
 function CompleteCombined(findstart, base)
     if a:findstart
         " Always insert in the cursorcolumn
