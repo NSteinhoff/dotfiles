@@ -6,8 +6,8 @@
 	lfa         = log --graph --all --date=short --format='%C(auto)%h%d %s %C(green)(%cd) %C(blue)<%an>%Creset'
 
 	# Diffing
-	di          = diff
-	dis         = diff --staged
+	di          = diff -w
+	dis         = diff -w --staged
 	diffw       = diff --color-words
 
 	# Committing (crimes)
@@ -24,7 +24,7 @@
 	fresh       = !git remote update --prune && git checkout $(git main-branch) && git pull --ff-only && (git branch --merged | grep -v '\\*' | xargs git branch -d)
 
 	# Reviewing
-	review      = !git diff "origin/$(git main-branch)"...
+	review      = !git diff -w "origin/$(git main-branch)"...
 
 	# External tools
 	tree        = !git ls-files | tree --fromfile --dirsfirst -C
