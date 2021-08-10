@@ -1,11 +1,66 @@
 themes:
+  grayscale-light: &grayscale-light
+    primary:
+      background: '0xf7f7f7'
+      foreground: '0x464646'
+
+      text: '0xf7f7f7'
+      cursor: '0x464646'
+
+    normal:
+      black:   '0xf7f7f7'
+      red:     '0x7c7c7c'
+      green:   '0x8e8e8e'
+      yellow:  '0xa0a0a0'
+      blue:    '0x686868'
+      magenta: '0x747474'
+      cyan:    '0x868686'
+      white:   '0x464646'
+
+    bright:
+      black:   '0xababab'
+      red:     '0x999999'
+      green:   '0xe3e3e3'
+      yellow:  '0xb9b9b9'
+      blue:    '0x525252'
+      magenta: '0x252525'
+      cyan:    '0x5e5e5e'
+      white:   '0x101010'
+
+  grayscale-dark: &grayscale-dark
+    primary:
+      background: '0x101010'
+      foreground: '0xb9b9b9'
+
+    cursor:
+      text: '0x101010'
+      cursor: '0xb9b9b9'
+
+    normal:
+      black:   '0x101010'
+      red:     '0x7c7c7c'
+      green:   '0x8e8e8e'
+      yellow:  '0xa0a0a0'
+      blue:    '0x686868'
+      magenta: '0x747474'
+      cyan:    '0x868686'
+      white:   '0xb9b9b9'
+
+    bright:
+      black:   '0x525252'
+      red:     '0x999999'
+      green:   '0x252525'
+      yellow:  '0x464646'
+      blue:    '0xababab'
+      magenta: '0xe3e3e3'
+      cyan:    '0x5e5e5e'
+      white:   '0xf7f7f7'
+
   pop_os: &pop_os
-    # Default colors
     primary:
       background: '#333333'
       foreground: '#F2F2F2'
 
-    # Normal colors
     normal:
       black:   '#333333'
       red:     '#CC0000'
@@ -16,7 +71,6 @@ themes:
       cyan:    '#06989A'
       white:   '#D3D7CF'
 
-    # Bright colors
     bright:
       black:   '#88807C'
       red:     '#F15D22'
@@ -26,6 +80,7 @@ themes:
       magenta: '#AD7FA8'
       cyan:    '#34E2E2'
       white:   '#EEEEEC'
+
   breeze: &breeze
     primary:
       background: '0x232627'
@@ -100,33 +155,33 @@ themes:
       white:   '0xffffff'
 
   nord: &nord
-     primary:
-       background: '0x2E3440'
-       foreground: '0xD8DEE9'
+    primary:
+      background: '0x2E3440'
+      foreground: '0xD8DEE9'
 
-     cursor:
-       text:   '0xff3440'
-       cursor: '0x00DEE9'
+    cursor:
+      text:   '0xff3440'
+      cursor: '0x00DEE9'
 
-     normal:
-       black:   '0x3B4252'
-       red:     '0xBF616A'
-       green:   '0xA3BE8C'
-       yellow:  '0xEBCB8B'
-       blue:    '0x81A1C1'
-       magenta: '0xB48EAD'
-       cyan:    '0x88C0D0'
-       white:   '0xE5E9F0'
+    normal:
+      black:   '0x3B4252'
+      red:     '0xBF616A'
+      green:   '0xA3BE8C'
+      yellow:  '0xEBCB8B'
+      blue:    '0x81A1C1'
+      magenta: '0xB48EAD'
+      cyan:    '0x88C0D0'
+      white:   '0xE5E9F0'
 
-     bright:
-       black:   '0x4C566A'
-       red:     '0xBF616A'
-       green:   '0xA3BE8C'
-       yellow:  '0xEBCB8B'
-       blue:    '0x81A1C1'
-       magenta: '0xB48EAD'
-       cyan:    '0x8FBCBB'
-       white:   '0xECEFF4'
+    bright:
+      black:   '0x4C566A'
+      red:     '0xBF616A'
+      green:   '0xA3BE8C'
+      yellow:  '0xEBCB8B'
+      blue:    '0x81A1C1'
+      magenta: '0xB48EAD'
+      cyan:    '0x8FBCBB'
+      white:   '0xECEFF4'
 
   gruvbox-light: &gruvbox-light
     primary:
@@ -264,25 +319,25 @@ themes:
       background: '#161821'
       foreground: '#d2d4de'
 
-      normal:
-        black:   '#161821'
-        red:     '#e27878'
-        green:   '#b4be82'
-        yellow:  '#e2a478'
-        blue:    '#84a0c6'
-        magenta: '#a093c7'
-        cyan:    '#89b8c2'
-        white:   '#c6c8d1'
+    normal:
+      black:   '#161821'
+      red:     '#e27878'
+      green:   '#b4be82'
+      yellow:  '#e2a478'
+      blue:    '#84a0c6'
+      magenta: '#a093c7'
+      cyan:    '#89b8c2'
+      white:   '#c6c8d1'
 
-      bright:
-        black:   '#6b7089'
-        red:     '#e98989'
-        green:   '#c0ca8e'
-        yellow:  '#e9b189'
-        blue:    '#91acd1'
-        magenta: '#ada0d3'
-        cyan:    '#95c4ce'
-        white:   '#d2d4de'
+    bright:
+      black:   '#6b7089'
+      red:     '#e98989'
+      green:   '#c0ca8e'
+      yellow:  '#e9b189'
+      blue:    '#91acd1'
+      magenta: '#ada0d3'
+      cyan:    '#95c4ce'
+      white:   '#d2d4de'
 
   iceberg-light: &iceberg-light
     primary:
@@ -309,4 +364,7 @@ themes:
       cyan:    '#327698'
       white:   '#262a3f'
 
-colors: *one-dark
+colors: *grayscale-dark
+
+draw_bold_text_with_bright_colors: false
+custom_cursor_colors: true
