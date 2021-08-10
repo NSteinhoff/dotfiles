@@ -25,6 +25,7 @@ local custom = {
     tsserver = require("my_lsp.config.tsserver"),
     rust_analyzer = require("my_lsp.config.rust_analyzer"),
     sumneko_lua = require("my_lsp.config.sumneko_lua"),
+    jsonls = require("my_lsp.config.jsonls"),
     ["null-ls"] = require("my_lsp.config.null_ls"),
 }
 
