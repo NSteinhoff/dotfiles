@@ -14,7 +14,7 @@ return function(config)
             return git_root
                 and lsputil.path.is_file(lsputil.path.join(git_root, "tsconfig.json"))
                 and git_root
-                or lsputil.root_pattern("tsconfig.json", "package.json")(fname)
+                or lsputil.root_pattern("tsconfig.json", "package.json", ".git")(fname)
         end,
 
         on_attach = function (client, ...)
