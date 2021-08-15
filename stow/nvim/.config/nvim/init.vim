@@ -69,8 +69,8 @@
 
 """ Completions
     set wildmode=longest:full,full
-    set completeopt=menuone
-    " set completeopt=menuone,noinsert,noselect
+    " set completeopt=menuone
+    set completeopt=menuone,noinsert,noselect
     set shortmess+=c
 
 """ Path and files

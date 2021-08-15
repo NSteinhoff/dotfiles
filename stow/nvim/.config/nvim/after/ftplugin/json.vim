@@ -55,5 +55,5 @@ function! CompletePackageJson(findstart, base) abort
 endfunction
 
 if expand('%') =~ 'package.json'
-    setlocal omnifunc=CompletePackageJson
+    setlocal completefunc=CompletePackageJson
 endif
