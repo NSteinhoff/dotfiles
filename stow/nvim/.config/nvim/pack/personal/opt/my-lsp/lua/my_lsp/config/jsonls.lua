@@ -19,7 +19,7 @@ end
 
 return function(config)
     local override = {
-        autostart = true,
+        autostart = false,
         settings = {
             json = {
                 schemas = get_schemas(),
