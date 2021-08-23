@@ -6,7 +6,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 ORANGE='\033[0;33m'
 
-branch_only=true
+branch_only=false
 
 git_unstaged_changes() {
     [ -n "$(git diff --shortstat 2> /dev/null | tail -n1)" ]
@@ -56,9 +56,9 @@ main() {
         remote_name="${remote#*/}"
         status="$(branch_status)"
         if [ "$remote_name" = "$branch" ]; then
-            remote_indicator="->$status"
+            remote_indicator=":$status"
         else
-            remote_indicator="->$remote$status"
+            remote_indicator="->$remote:$status"
         fi
     else
         remote_indicator=''
