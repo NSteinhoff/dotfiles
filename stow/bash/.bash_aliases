@@ -105,7 +105,7 @@ _complete_tmux() {
 complete -F _complete_tmux tmux
 
 # ---------------------------------- PROMPT -----------------------------------
-starship_prompt=true
+starship_prompt=false
 fancy_prompt=true
 if $starship_prompt && (which starship &>/dev/null); then
     eval "$(starship init bash)"

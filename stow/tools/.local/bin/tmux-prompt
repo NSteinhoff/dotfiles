@@ -3,12 +3,24 @@
 
 [[ -n "${TMUX}" ]] || exit
 
-tmux show-options status | grep --silent "status off" || exit
+tmux show-options -g status | grep --silent "status off" || exit
 
-tmuxinfo="$(tmux lsw -F '#S:#I:#P #{window_active}' | grep '1$' | cut -d' ' -f1)"
+NOCOLOR='\033[0m'
+ORANGE='\033[0;33m'
+
+tmuxinfo="$(
+    tmux list-windows -F '#S:#I:#P #{window_active}' |
+    grep '1$' |
+    cut -d' ' -f1
+)"
+
 case $tmuxinfo in
-    default:*) shortinfo="*${tmuxinfo#default}" ;;
-    [0123456789]*:1:1) shortinfo="T" ;;
-    *) shortinfo="${tmuxinfo}" ;;
+    default:*)
+        shortinfo="*${tmuxinfo#default}" ;;
+    [0123456789]*:1:1)
+        shortinfo="T" ;;  # one the first window and pane of a numbered session
+    *)
+        shortinfo="${tmuxinfo}" ;;
 esac
-echo -en "[${cyan}${shortinfo}${reset}] "
+
+echo -en "[${ORANGE}${shortinfo}${NOCOLOR}] "
