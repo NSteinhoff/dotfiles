@@ -79,20 +79,16 @@ unpkg-%:
 # ---------------------------------- Crawl ------------------------------------
 crawld := $(share)/crawl
 crawl_key := $(crawld)/crawl_key
-crawl_repo := $(dev)/crawl
-crawl_bin := $(crawl_repo)/crawl-ref/source/crawl
+crawlrc := test
 
-ifdef BUILD
-crawl: $(crawl_key) $(crawl_bin)
-.PHONY: crawl
-else
 crawl: $(crawl_key)
-.PHONY: crawl
+ifeq ($(uname), Darwin)
+	ln -sf $(PWD)/stow/crawl/.config/crawl/crawlrc $(HOME)/Library/Application\ Support/Dungeon\ Crawl\ Stone\ Soup/init.txt
 endif
-
+.PHONY: crawl
 
 uncrawl:
-	rm -rf $(crawl_key) $(crawl_bin)
+	rm -rf $(crawld)
 .PHONY: uncrawl
 
 $(crawl_key): | $(crawld)
@@ -101,62 +97,6 @@ $(crawl_key): | $(crawld)
 
 $(crawld):
 	mkdir -p $(crawld)
-
-$(crawl_bin): crawl_pull
-	cd $(crawl_repo)/crawl-ref/source && make -j4
-
-crawl_pull: | $(crawl_repo)
-	cd $(crawl_repo) && git pull && git submodule update --init
-.PHONY: crawl_pull
-
-$(crawl_repo): | $(dev)
-	git clone git@github.com:crawl/crawl.git $(crawl_repo)
-
-# ---------------------------------- Brogue -----------------------------------
-brogued := $(share)/brogue
-brogue_url := https://github.com/tmewett/BrogueCE/releases/download/v1.8.3/BrogueCE-1.8.3-linux-x86_64.tar.gz
-brogue_tar := $(brogued)/brogue_ce.tar.gz
-brogue_bin := $(brogued)/brogue
-brogue_desktop := $(applications)/brogue.desktop
-
-brogue: $(brogue_desktop)
-.PHONY: brogue
-
-unbrogue:
-	rm -f $(brogue_desktop)
-	rm -rf $(brogued)
-.PHONY: unbrogue
-
-$(brogue_desktop): $(brogue_bin)
-	$(brogued)/make-link-for-desktop.sh
-	mv $(brogued)/brogue.desktop $@
-
-$(brogue_bin): $(brogue_tar) | $(brogued)
-	tar -C $(brogued) -xzf $<
-	touch $@
-
-$(brogue_tar): | $(brogued)
-	curl -sSfL $(brogue_url) -o $@
-
-$(brogued):
-	mkdir -p $(brogued)
-
-
-# ---------------------------------- Neovim -----------------------------------
-nvim_url := https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-nvim_bin := $(bin)/nvim
-
-nvim: $(nvim_bin)
-.PHONY: nvim
-
-unnvim:
-	rm -rf $(nvim_bin)
-.PHONY: unnvim
-
-$(nvim_bin): | $(bin)
-	curl -fsSL $(nvim_url) -o $@
-	chmod u+x $@
-
 
 # ----------------------------------- Dirs ------------------------------------
 $(bin):
