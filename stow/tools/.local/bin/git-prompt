@@ -29,7 +29,7 @@ remote_branch() {
 branch_status() {
     status=$(
         git status 2>/dev/null |
-        grep '^Your branch is ' |
+        grep '^Your branch ' |
         grep -o 'ahead\|behind\|diverged\|up to date'
     ) || return 1
 
