@@ -23,7 +23,8 @@ command! -count=50 -bang TTailErr
 
 
 nnoremap <silent> <plug>(maker-sync) <cmd>make<cr>
-nnoremap <silent> <plug>(maker-split) <cmd>vert TMake<cr>
+nnoremap <silent> <plug>(maker-sync-loc) <cmd>lmake<cr>
+nnoremap <silent> <plug>(maker-split) <cmd>33TMake<cr>
 nnoremap <silent> <plug>(maker-background) <cmd>TMake!<cr>
 
 nnoremap <expr> <plug>(maker-show-log) !empty(findfile(&errorfile)) ? '<cmd>!cat '.&errorfile.'<cr>' : '<cmd>echo "No errorfile"<cr>'

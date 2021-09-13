@@ -21,6 +21,7 @@ return function(config)
         return
     end
 
+
     local settings = {
         Lua = {
             runtime = {
@@ -48,7 +49,18 @@ return function(config)
     }
 
     local override = {
+        autostart = false,
         cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
+        root_dir = function(fname)
+            local init_files = vim.fn.findfile('init.lua', fname..';$HOME', -1)
+            if #init_files > 0 then
+                local root_init = init_files[#init_files]
+                local path = vim.fn.fnamemodify(root_init, ":p:h")
+                return path
+            else
+                return lsputil.find_git_ancestor(fname)
+            end
+        end,
         settings = settings,
     }
 

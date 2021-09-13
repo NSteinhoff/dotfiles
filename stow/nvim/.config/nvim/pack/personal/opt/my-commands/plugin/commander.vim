@@ -8,7 +8,7 @@
             \ : a:s =~ '^https\?://[a-zA-Z0-9\-./#?=&_ ]\+$' ? escape(substitute(a:s, ' ', '%20', 'g'), '#%')
             \ : expandcmd(a:s)
     endfunction
-    command -nargs=1 Open silent execute '!'..(system('uname') =~? 'darwin' ? 'open' : 'xdg-open')..' '..s:uri(<q-args>)
+    command -nargs=? Open silent execute '!'..(system('uname') =~? 'darwin' ? 'open' : 'xdg-open')..' '..s:uri(<q-args>)
 
 """ Search with Duckduckgo
     command -nargs=1 DuckDuckGo Open https://duckduckgo.com/?q=<args>

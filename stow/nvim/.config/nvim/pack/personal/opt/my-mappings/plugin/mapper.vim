@@ -183,9 +183,10 @@ endfunction
 
 
 """ Running builds with `<key>
-    nmap `<leader>   <plug>(maker-sync)
-    nmap `<cr>       <plug>(maker-split)
-    nmap `<bs>       <plug>(maker-background)
+    nmap <leader><leader>   <plug>(maker-sync-loc)
+    nmap `<leader>          <plug>(maker-sync)
+    nmap `<cr>              <plug>(maker-split)
+    nmap `<bs>              <plug>(maker-background)
 
     " List, load, read errorfile contents
     nmap g> <plug>(maker-show-log)

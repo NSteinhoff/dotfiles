@@ -37,9 +37,9 @@ function s:delete_buffer(wipe)
     if exists('b:dirvish')
         keepalt bprevious
     else
-        let bufname = @%
+        let bufnr = bufnr()
         keepalt bprevious
-        execute (a:wipe ? 'bwipe' : 'bdelete')..' '..bufname
+        execute (a:wipe ? 'bwipe' : 'bdelete')..' '..bufnr
     endif
 endfunction
 
