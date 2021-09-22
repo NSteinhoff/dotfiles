@@ -1,0 +1,27 @@
+#!/bin/bash
+config=$HOME/.config/alacritty/colors.yml
+
+available() {
+    [[ -z $1 ]] && return 1
+
+    for c in $colors; do
+        [[ $c == $1 ]] && return 0
+    done
+
+    echo "ERROR: Colorscheme '$1' not found. Please select one of the available colors."
+
+    return 1
+}
+
+colors=$(grep -E '^\s*.*:\s&.*$' "$config" | cut -d \& -f 2)
+color=$(grep -E '^colors:\s\*.*$' "$config" | cut -d \* -f 2)
+
+echo "Colorscheme: $color"
+
+[ $# == 1 ] && selected="$1"
+available "$selected" || select selected in $colors; do break; done
+
+( [ -z "$REPLY" ] || [[ "$selected" == "$color" ]] ) && echo "Okay then..." && exit 1
+
+echo -e "\nSetting colors to '$selected'"
+sed -i '' -E 's/^(colors: \*)(.*)$/\1'"$selected"'/' "$config"
