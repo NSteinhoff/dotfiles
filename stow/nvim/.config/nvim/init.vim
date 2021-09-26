@@ -1,127 +1,126 @@
 " --------------------------------- Options -----------------------------------
 """ Colors
-	colorscheme minimal
-	set background=dark
+        colorscheme minimal
+        set background=dark
 
 """ Appearance
-	set cmdheight=1
-	set inccommand=split
-	set laststatus=2
-	set showmode
-	set number
-	set rulerformat=%25(%l,%c%V%M%=%P\ %y%)
-	set scrolloff=5
-	set sidescrolloff=3
-	set showmatch
-	set fillchars=eob:~
-	set signcolumn=number
-	set hlsearch
-	set shortmess+=s
+        set cmdheight=1
+        set inccommand=split
+        set laststatus=2
+        set showmode
+        set number
+        set rulerformat=%25(%l,%c%V%M%=%P\ %y%)
+        set scrolloff=5
+        set sidescrolloff=3
+        set showmatch
+        set fillchars=eob:~
+        set signcolumn=number
+        set hlsearch
+        set shortmess+=s
 
 """ Behavior
-	set ttimeoutlen=25
-	set noswapfile
-	set updatetime=250
-	set foldenable
-	set foldmethod=indent
-	set foldlevelstart=99       " start with all folds opened
-	set foldcolumn=0
-	" set clipboard=unnamedplus   " always use clipboard
-	set mouse=nv                " enable mouse in normal and visual mode
-	set autoread
-	set hidden
-	set ignorecase              " ignore case in searches ...
-	set smartcase               " ... unless it includes capital letters
-	set tagcase=match           " ... but match case in :tag searches
-	set splitright              " open vertical splits on the right
-	set sessionoptions+=options " remember options and mappings
+        set ttimeoutlen=25
+        set noswapfile
+        set updatetime=250
+        set foldenable
+        set foldmethod=indent
+        set foldlevelstart=99       " start with all folds opened
+        set foldcolumn=0
+        " set clipboard=unnamedplus   " always use clipboard
+        set mouse=nv                " enable mouse in normal and visual mode
+        set autoread
+        set hidden
+        set ignorecase              " ignore case in searches ...
+        set smartcase               " ... unless it includes capital letters
+        set tagcase=match           " ... but match case in :tag searches
+        set splitright              " open vertical splits on the right
+        set sessionoptions+=options " remember options and mappings
 
 """ Special characters
-	set list
-	set listchars=
-	set listchars+=tab:‹┄›
-	set listchars+=lead:‸
-	set listchars+=trail:░
-	set listchars+=extends:»
-	set listchars+=precedes:«
-	set listchars+=nbsp:‗
+        set list
+        set listchars=
+        set listchars+=tab:›┄
+        set listchars+=trail:…
+        set listchars+=extends:»
+        set listchars+=precedes:«
+        set listchars+=nbsp:␣
 
 """ Text formatting
-	set smarttab
-	set noexpandtab
-	set tabstop=8
-	set shiftwidth=0
-	set softtabstop=-1
+        set smarttab
+        set expandtab
+        set tabstop=8
+        set shiftwidth=0
+        set softtabstop=-1
 
-	set nowrap
-	set linebreak
-	set breakindent             " indent wrapped lines
-	let &showbreak = '└'     " prepend wrapped lines with this
-	set smartindent
+        set nowrap
+        set linebreak
+        set breakindent             " indent wrapped lines
+        let &showbreak = '└'     " prepend wrapped lines with this
+        set smartindent
 
-	set formatoptions=
-	set formatoptions+=c        " wrap comments
-	set formatoptions+=j        " remove commentstring when joining comment lines
-	set formatoptions+=l        " don't wrap lines that were too long to begin with
-	set formatoptions+=n        " recognize numbered lists
-	set formatoptions+=q        " also format comments with 'gq'
-	set formatoptions+=r        " continue comments when hitting <Enter>
-	set nojoinspaces            " keep single spaces after sentences
+        set formatoptions=
+        set formatoptions+=c        " wrap comments
+        set formatoptions+=j        " remove commentstring when joining comment lines
+        set formatoptions+=l        " don't wrap lines that were too long to begin with
+        set formatoptions+=n        " recognize numbered lists
+        set formatoptions+=q        " also format comments with 'gq'
+        set formatoptions+=r        " continue comments when hitting <Enter>
+        set nojoinspaces            " keep single spaces after sentences
 
 """ Completions
-	set wildmode=longest:full,full
-	" set completeopt=menuone
-	set completeopt=menuone,noinsert,noselect
-	set shortmess+=c
+        set wildmode=longest:full,full
+        " set completeopt=menuone
+        set completeopt=menuone,noinsert,noselect
+        set shortmess+=c
 
 """ Path and files
-	set path=,,.
-	set wildignore+=**/target/**
-	set wildignore+=**/node_modules/**
+        set path=,,.
+        set wildignore+=**/target/**
+        set wildignore+=**/node_modules/**
 
 """ Diffing
-	" Speed up diff syntax highlighting by disabling localization
-	let g:diff_translations = 0
+        " Speed up diff syntax highlighting by disabling localization
+        let g:diff_translations = 0
 
 """ Get help
-	set keywordprg=:DuckDuckGo
+        set keywordprg=:DuckDuckGo
 
 " --------------------------------- Plugins -----------------------------------
-	" Stop here in case we are running in VSCode
-	if exists('g:vscode') | finish | endif
-	packloadall     " load all default packages in 'start'
+        " Stop here in case we are running in VSCode
+        if exists('g:vscode') | finish | endif
+        packloadall     " load all default packages in 'start'
 
 """ Personal
-	packadd my-abbreviations
-	packadd my-commands
-	packadd my-automations
-	packadd my-completions
-	packadd my-mappings
-	packadd my-marks
-	packadd my-quickfix
-	packadd my-statusline
-	packadd my-tabline
-	packadd my-tags
-	packadd my-zettelkasten
-	packadd my-lualib
+        packadd my-abbreviations
+        packadd my-commands
+        packadd my-automations
+        packadd my-completions
+        packadd my-mappings
+        packadd my-marks
+        packadd my-quickfix
+        packadd my-statusline
+        packadd my-tabline
+        packadd my-tags
+        packadd my-zettelkasten
+        packadd my-lualib
 
 """ External
-	" Finding / picking files
-	packadd! my-dirvish                 " file manager
+        " Finding / picking files
+        packadd! my-dirvish                 " file manager
 
-	" Lua documentation
-	packadd! nvim-luaref
+        " Lua documentation
+        packadd! nvim-luaref
 
-	" Mappings and commands
-	packadd! vim-unimpaired
-	packadd! vim-eunuch
-	packadd! vim-commentary
+        " Mappings and commands
+        packadd! vim-unimpaired
+        packadd! vim-eunuch
+        packadd! vim-commentary
 
-	" Filetypes / Syntax / Indent
-	packadd! editorconfig-vim           " ft settings based on local config
+        " Filetypes / Syntax / Indent
+        packadd! editorconfig-vim           " ft settings based on local config
 
-	" IDE Mode
-	packadd! my-lsp                     " Language Server client configuration
+        " IDE Mode
+        packadd! my-lsp                     " Language Server client configuration
 
 """ Development
-	set packpath+=~/dev
+        set packpath+=~/dev
