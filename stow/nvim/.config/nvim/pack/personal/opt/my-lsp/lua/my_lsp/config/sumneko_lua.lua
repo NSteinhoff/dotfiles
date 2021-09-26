@@ -58,7 +58,7 @@ return function(config)
                 local path = vim.fn.fnamemodify(root_init, ":p:h")
                 return path
             else
-                return lsputil.find_git_ancestor(fname)
+                return require("lspconfig/util").find_git_ancestor(fname)
             end
         end,
         settings = settings,
