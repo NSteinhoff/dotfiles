@@ -8,26 +8,14 @@ augroup my-autoread
     autocmd CursorMoved * silent! checktime
 augroup END
 
-" augroup my-tmux-window-name
-"     autocmd!
-"     autocmd FocusGained,VimEnter,WinEnter,DirChanged * if exists('$TMUX') && executable('tmux')
-"             \| silent! execute "!tmux rename-window "..shellescape('  '..fnamemodify(getcwd(), ':t'))
-"             \| endif
-"     autocmd VimLeave,FocusLost * if exists('$TMUX') && executable('tmux')
-"             \| silent! execute '!tmux set-option -w automatic-rename on'
-"             \| endif
-" augroup END
-
-function s:update_dir()
-    if !v:event.changed_window && v:event.scope == 'global'
-        let g:current_dir = v:event.cwd
-    endif
-endfunction
-
-augroup my-working-directories
+augroup my-tmux-window-name
     autocmd!
-    autocmd DirChanged * call s:update_dir()
-    autocmd VimEnter * let g:current_dir = getcwd()
+    autocmd FocusGained,VimEnter,WinEnter,DirChanged * if exists('$TMUX') && executable('tmux')
+            \| silent! execute "!tmux rename-window "..shellescape('  '..fnamemodify(getcwd(), ':t'))
+            \| endif
+    autocmd VimLeave,FocusLost * if exists('$TMUX') && executable('tmux')
+            \| silent! execute '!tmux set-option -w automatic-rename on'
+            \| endif
 augroup END
 
 augroup my-sessions
@@ -37,5 +25,7 @@ augroup my-sessions
                 \| let g:auto_session=1
                 \| echom "Resuming session from "..strftime("%c", getftime('Session.vim')..".")
                 \| endif
-    autocmd VimLeave * if exists('g:auto_session') && fnamemodify(v:this_session, ':t') == 'Session.vim' | mksession! | endif
+    autocmd VimLeave * if exists('g:auto_session') && fnamemodify(v:this_session, ':t') == 'Session.vim'
+                \| mksession!
+                \| endif
 augroup END
