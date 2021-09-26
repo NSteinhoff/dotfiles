@@ -252,14 +252,23 @@ themes:
       text:       CellForeground
       background: '#e5e5e6' # syntax-selection-color
     normal:
-      black:      '#696c77' # mono-2
+      black:      '#ffffff' # mono-2
       red:        '#e45649' # red 1
       green:      '#50a14f'
       yellow:     '#c18401' # orange 2
       blue:       '#4078f2'
       magenta:    '#a626a4'
       cyan:       '#0184bc'
-      white:      '#a0a1a7' # mono-3
+      white:      '#888888' # mono-3
+    bright:
+      black:      '#aaaaaa' # mono-2
+      red:        '#e45649' # red 1
+      green:      '#50a14f'
+      yellow:     '#c18401' # orange 2
+      blue:       '#4078f2'
+      magenta:    '#a626a4'
+      cyan:       '#0184bc'
+      white:      '#000000' # mono-3
 
   one-dark: &one-dark
     primary:
@@ -272,14 +281,23 @@ themes:
       text:       CellForeground
       background: '#3e4451' # syntax-selection-color
     normal:
-      black:      '#5c6370' # mono-3
+      black:      '#000000' # mono-3
       red:        '#e06c75' # red 1
       green:      '#98c379'
       yellow:     '#e5c07b' # orange 2
       blue:       '#61afef'
       magenta:    '#c678dd'
       cyan:       '#56b6c2'
-      white:      '#828997' # mono-2     white:    '0xaeadaf'  #  bright  white    variant
+      white:      '#aaaaaa' # mono-2     white:    '0xaeadaf'  #  bright  white    variant
+    bright:
+      black:      '#888888' # mono-3
+      red:        '#e06c75' # red 1
+      green:      '#98c379'
+      yellow:     '#e5c07b' # orange 2
+      blue:       '#61afef'
+      magenta:    '#c678dd'
+      cyan:       '#56b6c2'
+      white:      '#ffffff' # mono-2     white:    '0xaeadaf'  #  bright  white    variant
 
   spaceduck: &spaceduck
     primary:

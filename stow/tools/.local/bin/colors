@@ -19,9 +19,11 @@ color=$(grep -E '^colors:\s\*.*$' "$config" | cut -d \* -f 2)
 echo "Colorscheme: $color"
 
 [ $# == 1 ] && selected="$1"
-available "$selected" || select selected in $colors; do break; done
 
-( [ -z "$REPLY" ] || [[ "$selected" == "$color" ]] ) && echo "Okay then..." && exit 1
+if ! available "$selected"; then
+    select selected in $colors; do break; done
+    ( [ -z $selected ] || [ -z "$REPLY" ] || [[ "$selected" == "$color" ]] ) && echo "Okay then..." && exit 1
+fi
 
-echo -e "\nSetting colors to '$selected'"
+echo -e "Setting colors to '$selected'"
 sed -i '' -E 's/^(colors: \*)(.*)$/\1'"$selected"'/' "$config"

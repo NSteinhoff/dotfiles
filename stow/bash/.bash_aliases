@@ -104,6 +104,11 @@ _complete_tmux() {
 }
 complete -F _complete_tmux tmux
 
+_complete_colors() {
+    COMPREPLY=( $(compgen -W "$(grep -E '^\s*.*:\s&.*$' $HOME/.config/alacritty/colors.yml | cut -d \& -f 2)" $2) )
+}
+complete -F _complete_colors colors
+
 # ---------------------------------- PROMPT -----------------------------------
 starship_prompt=false
 fancy_prompt=true
