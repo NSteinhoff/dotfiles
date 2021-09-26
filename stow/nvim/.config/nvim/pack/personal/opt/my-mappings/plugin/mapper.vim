@@ -133,8 +133,8 @@ endfunction
     " The idea here is to have one mapping to get a peek at the current list
     " of entries and a second one to browse the list and pick an entry to
     " jump to.
-    nnoremap <silent> <expr> `<space>  qf#qfvisible() ? '<cmd>cclose<bar>lclose<cr>' : '<cmd>copen<cr>'
-    nnoremap <silent> <expr> <leader><space>  qf#locvisible() ? '<cmd>cclose<bar>lclose<cr>' : '<cmd>lopen<cr>'
+    nnoremap <silent> <expr> `<space>  qf#qfvisible() ? '<cmd>cclose<cr>' : '<cmd>copen<cr>'
+    nnoremap <silent> <expr> <leader><space>  qf#locvisible() ? '<cmd>lclose<cr>' : '<cmd>lopen<cr>'
 
     nnoremap <silent> <leader>qq       <cmd>clist<cr>
     nnoremap <silent> <leader>qo       <cmd>copen<cr>
@@ -219,7 +219,7 @@ endfunction
     nnoremap <expr> <bs> empty(expand('#:t')) \|\| (expand('#') == expand('%')) ? ':echoerr "No alternate file"<cr>' : '<c-^>'
 
     " Missing `:tab split` mapping
-    " Like <c-w>T, but without removing the window from the current pane.
+    " Like <c-w>T, but without removing the window from the current page.
     " Also works when there is only one window.
     nnoremap <silent> <c-w>t <cmd>tab split<cr>
     nnoremap <silent> <c-w><c-t> <cmd>tab split<cr>
@@ -230,7 +230,7 @@ endfunction
     vmap <silent> # <plug>(search-selection-reverse)
     vmap <silent> g# <plug>(search-g-selection-reverse)
 
-    " Grep, i.e. go-to-reference
+    " Grep, i.e. poor man's 'go-to-reference'
     nmap <silent> gr <plug>(grep-word)
     vmap <silent> gr <plug>(grep-selection)
 
@@ -242,12 +242,11 @@ endfunction
 
     " Open settings: <leader>;
     nnoremap <silent> <leader>;; <cmd>edit $MYVIMRC<cr>
-    nnoremap <silent> <leader>;m <cmd>PackEdit mapper.vim<cr>
-    nnoremap <silent> <leader>;c <cmd>PackEdit commander.vim<cr>
+    nnoremap <silent> <leader>;m <cmd>PackFind mapper.vim<cr>
+    nnoremap <silent> <leader>;c <cmd>PackFind commander.vim<cr>
 
     " Bang: <leader>!
-    nnoremap <expr> <leader>!! '<cmd>w !'..get(b:, 'interpreter', 'bash')..'<cr>'
-    vnoremap <expr> <leader>!! ':w !'..get(b:, 'interpreter', 'bash')..'<cr>'
+    map <silent> <leader>!! :Run<cr>
 
     " Shebang: <leader>#!
     nnoremap <leader>#! <cmd>!%:p<cr>
@@ -269,6 +268,8 @@ endfunction
     nmap <leader>bw <plug>(buffers-wipe)
     nmap <leader>bs <plug>(buffers-scratch)
     vmap <leader>bs <plug>(buffers-scratch)
+    nmap <leader>bn <plug>(buffers-new)
+    nmap <leader>bv <plug>(buffers-vnew)
 
     " Explore: <leader>e
     nnoremap <silent> <leader>ee <cmd>Explore<cr>
@@ -277,14 +278,11 @@ endfunction
     nnoremap <silent> <leader>et <cmd>Texplore<cr>
 
     " Arguments: <leader>a
-    function s:curarg()
-        return argv(argidx()) == bufname()
-    endfunction
     nnoremap <silent> <leader>a. <cmd>argument<cr>
     nnoremap <silent> <leader>al <cmd>arglocal<cr>
     nnoremap <silent> <leader>ag <cmd>argglobal<cr>
     nnoremap <silent> <leader>aa <cmd>argadd<cr>
-    nnoremap <silent> <expr> <leader>ad '<cmd>argdelete'..(<sid>curarg() ? '<bar>argument' : '')..'<cr>'
+    nnoremap <silent> <expr> <leader>ad '<cmd>argdelete'..(argv(argidx()) == bufname() ? '<bar>argument' : '')..'<cr>'
 
     " Open: <leader>o
     nnoremap <leader>oo <cmd>silent Open<cr>
@@ -292,7 +290,7 @@ endfunction
     nnoremap <leader>o. <cmd>silent Open .<cr>
     vnoremap <leader>oo y:Open "<cr>
 
-    " Find: <leader>f
+    " Fuzzy Find: <leader>f
     nmap <leader>ff <plug>(filefinder-new)
 
     " Search: <leader>*
@@ -323,11 +321,15 @@ endfunction
 """ (?): Inspect
     nnoremap <leader>?c <cmd>Compiler<cr>
     nnoremap <leader>?l <cmd>LspInfo<cr>
+    nnoremap <leader>?p <cmd>verbose set path?<cr>
 
 
-""" Potential Ad-hoc mappings or show <leader> mappings
-    nnoremap <leader>?? <cmd>echo join(filter(split(execute('map <leader>'), "\n")[1:], {_, v -> v =~ '^\s*n\s*\\\S\S\s' }), "\n")<cr>
-    for letter in split('abcdefghijklmnopqrstuvwxyz*;!=?', '\ze')
+""" Show <leader> mappings
+    nnoremap <leader>?? <cmd>echo join(filter(split(execute('map <leader>'), "\n"), {_, v -> v =~ '^\s*\(n\\|v\\|\s\)\s*\\\S[^ ?]\s' }), "\n")<cr>
+    nnoremap <leader>* <cmd>echo join(filter(split(execute('map <leader>*'), "\n"), {_, v -> v !~# '^\s*n\s*\\*\*\s' }), "\n")<cr>
+
+    " Show scoped mappings when last character is missing after short delay
+    for letter in split('abcdefghijklmnopqrstuvwxyz;!=?', '\ze')
         if empty(maparg('<leader>'..letter, 'n'))
             " Display all <leader>letter mappings but this one
             execute 'nnoremap <leader>'..letter..' <cmd>echo join(filter(split(execute(''map <leader>'..letter..'''), "\n"), {_, v -> v !~# ''^\s*n\s*\\'..letter..'\s'' }), "\n")<cr>'

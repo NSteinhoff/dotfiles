@@ -59,7 +59,7 @@ function s:set_listed(buf)
 
     for buffer in getbufinfo({'buflisted': 1})
         if !empty(buffer.name) && index(names, buffer.name) == -1
-            execute 'bdelete '.buffer.name
+            execute 'bdelete '.buffer.bufnr
         endif
     endfor
 endfunction
