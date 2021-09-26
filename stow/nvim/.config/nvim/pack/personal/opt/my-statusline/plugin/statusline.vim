@@ -15,12 +15,22 @@ endfunction
 
 function Compiler()
     let compiler = compiler#which()
-    let watching = !exists('*watcher#status') || empty(watcher#status()) ? '' : ' '..watcher#status()
     if compiler == 'NONE'|return ''|endif
     if winwidth(0) >= 100
-        return '[ '..compiler..']'..watching..' '
+        return '[ '..compiler..']'
     else
-        return ''..watching..' '
+        return ''
+    endif
+endfunction
+
+function Interpreter()
+    let interpreter = get(b:, 'interpreter', 'NONE')
+    let interpreter = matchstr(interpreter, '\w\+')
+    if interpreter == 'NONE'|return ''|endif
+    if winwidth(0) >= 100
+        return '[ '..interpreter..']'
+    else
+        return ''
     endif
 endfunction
 
@@ -127,6 +137,7 @@ function MyStatusline()
     let mod         = '%m'
     let spell       = '%{Spell()}'
     let compiler    = '%{Compiler()}'
+    let interpreter = '%{Interpreter()}'
     let errors      = '%{Errors()}'
     let position    = '☰ %l:%c | %p%%'
     let lsp         = '%{LspStatus()}'
@@ -150,6 +161,7 @@ function MyStatusline()
     let stl .= spell
     let stl .= lsp
     let stl .= compiler
+    let stl .= interpreter
     let stl .= BAR
     let stl .= ' '
     let stl .= position
