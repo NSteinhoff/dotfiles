@@ -68,7 +68,7 @@ fm += HP: \d+/\d+ \(-\d+\).*!+
 
 # Statuses
 fm += You feel strangely unstable
-fm += You are (confused|frozen|paralysed|sleeping|corroded|poisoned)
+fm += You are (confused|paralysed|sleeping|corroded|poisoned)
 
 # Threats
 fm += You feel you are being watched by something
