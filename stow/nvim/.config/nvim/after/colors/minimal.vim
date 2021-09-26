@@ -159,7 +159,8 @@ let s:ui_styles.tabline_focus            =  "ProudUnderlined"
 let s:ui_styles.tabline_directory        =  "SatisfiedUnderlined"
 let s:ui_styles.tabline_notice           =  "ForcefulUnderlined"
 let s:ui_styles.match                    =  "HExcited"
-let s:ui_styles.highlight                =  "HDarkPop"
+let s:ui_styles.match_paren              =  "Excited"
+let s:ui_styles.highlight                =  "NormalItalicBoldUnderlined"
 let s:ui_styles.highlight_dark           =  "HDarkLively"
 let s:ui_styles.highlight_fade           =  "HFadeLively"
 let s:ui_styles.menu                     =  "HFaded"
@@ -244,6 +245,8 @@ let s:ui_groups.match = [
 \    "IncSearch",
 \    "PmenuSel",
 \    "WildMenu",
+\ ]
+let s:ui_groups.match_paren = [
 \    "MatchParen",
 \ ]
 let s:ui_groups.ignore = [
@@ -252,6 +255,7 @@ let s:ui_groups.ignore = [
 \    "LineNr",
 \    "SignColumn",
 \    "VertSplit",
+\    "Whitespace",
 \ ]
 let s:ui_groups.status_active = [
 \    "StatusLine",
