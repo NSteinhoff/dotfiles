@@ -81,3 +81,5 @@ DCC
 CCS
 overridable
 submodule
+memoized
+tabularized
