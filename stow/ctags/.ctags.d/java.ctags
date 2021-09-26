@@ -1,0 +1,1 @@
+--regex-java=/^[ \t]*((public|private)[ \t]+)?record[ \t]+([A-Z][a-zA-Z0-9]+)/\3/r,record/
