@@ -1,10 +1,10 @@
 packadd vim-dirvish
 
 function s:path_sort()
-    let pd = '/$'
-    let ph = '/\@<=\.\([^/]\+/\?$\)\@='
-    let pf = '[^/.]\+$'
-    let pattern = pd..'\|'..ph..'\|'..pf
+    let pdir = '/$'
+    let phidden = '/\@<=\.\([^/]\+/\?$\)\@='
+    let pfile = '[^/.]\+$'
+    let pattern = pdir..'\|'..phidden..'\|'..pfile
 
     let grouped = {}
     for line in getline(0, '$')

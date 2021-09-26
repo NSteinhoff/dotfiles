@@ -22,8 +22,8 @@ command! -count=50 -bang TTailErr
     \|silent redraw | endif
 
 
-nnoremap <silent> <plug>(maker-sync) <cmd>make<cr>
 nnoremap <silent> <plug>(maker-sync-loc) <cmd>lmake<cr>
+nnoremap <silent> <plug>(maker-sync) <cmd>make<cr>
 nnoremap <silent> <plug>(maker-split) <cmd>33TMake<cr>
 nnoremap <silent> <plug>(maker-background) <cmd>TMake!<cr>
 

@@ -8,7 +8,7 @@ nnoremap <buffer> <c-space> <cmd>call dirvish#open('p', 1)<cr>
 nnoremap <buffer> <expr> <c-n> pumvisible() ? '<c-n>' : 'j<cmd>call dirvish#open("p", 1)<cr>'
 nnoremap <buffer> <expr> <c-p> pumvisible() ? '<c-p>' : 'k<cmd>call dirvish#open("p", 1)<cr>'
 
-nnoremap <buffer> R <cmd>e %<cr>
+nnoremap <buffer> R <cmd>let b:linesave=line('.')<bar>e %<bar>execute b:linesave<cr>
 nnoremap <buffer> cd <cmd>lcd %<cr>
 nnoremap <buffer> K <cmd>Tree<cr>
 nnoremap <buffer> zc <cmd>set conceallevel=2<cr>
