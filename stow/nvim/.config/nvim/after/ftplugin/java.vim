@@ -1,5 +1,9 @@
+setlocal keywordprg=:DevDocsFt
+
 let &l:include='^import\s*\zs\(\w\|[.]\)\+\ze;'
 let &l:define='^\s*\(public\)\?class\s*\ze\i\+\s{'
-let &l:path= 'src/' . ',' . &l:path
+if &path !~ 'src/'
+    let &l:path= 'src/' . ',' . &l:path
+endif
 
 compiler java
