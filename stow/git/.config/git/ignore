@@ -12,6 +12,7 @@ __pycache__/
 *.swp
 *.session
 Session.vim
+Sessionx.vim
 
 # VSCode utility files
 *.vscode/
