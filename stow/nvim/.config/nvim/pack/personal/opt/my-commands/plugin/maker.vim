@@ -31,3 +31,18 @@ nnoremap <expr> <plug>(maker-show-log) !empty(findfile(&errorfile)) ? '<cmd>!cat
 nnoremap <expr> <plug>(maker-load-errors) &ft == 'qf' ? '<cmd>cclose<cr>' : '<cmd>cfile<cr>'
 nnoremap <expr> <plug>(maker-local-load-errors) &ft == 'qf' ? '<cmd>lclose<cr>' : '<cmd>lfile<cr>'
 nnoremap <expr> <plug>(maker-edit-errors) !empty(findfile(&errorfile)) ? '<cmd>tab split '.&errorfile.'<cr>' : '<cmd>echo "No errorfile"<cr>'
+
+function s:ignore_make_errors()
+    if empty(&errorformat)|return|endif
+    if empty(&makeprg)|return|endif
+    if &makeprg !~ '^make'|return|endif
+    if &errorformat =~ '%-Gmake: \*\*\*%\.%#'|return|endif
+
+    let local = empty(&l:errorformat) ? '' : 'local'
+    execute 'set'..local..' errorformat^=%+Gmake:\ ***%.%#'
+endfunction
+
+augroup my-maker
+    autocmd!
+    autocmd QuickFixCmdPre * call s:ignore_make_errors()
+augroup END
