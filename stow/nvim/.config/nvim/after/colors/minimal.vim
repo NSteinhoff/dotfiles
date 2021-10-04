@@ -181,6 +181,7 @@ let s:syntax_styles.constant          = "Busy"
 let s:syntax_styles.statement         = "Pop"
 let s:syntax_styles.operator          = "PopBold"
 let s:syntax_styles.preproc           = "Happy"
+let s:syntax_styles.define            = "Intense"
 let s:syntax_styles.type              = "Peaceful"
 let s:syntax_styles.special           = "Satisfied"
 let s:syntax_styles.specialchar       = "SatisfiedBold"
@@ -211,7 +212,6 @@ let s:ui_groups.normal = [
 \    "Tooltip",
 \ ]
 let s:ui_groups.notice = [
-\    "NonText",
 \ ]
 let s:ui_groups.cursor = [
 \    "Cursor",
@@ -256,6 +256,7 @@ let s:ui_groups.ignore = [
 \    "SignColumn",
 \    "VertSplit",
 \    "Whitespace",
+\    "NonText",
 \ ]
 let s:ui_groups.status_active = [
 \    "StatusLine",
@@ -351,6 +352,10 @@ let s:syntax_groups.type = [
 \ ]
 let s:syntax_groups.preproc = [
 \    "PreProc",
+\ ]
+let s:syntax_groups.define = [
+\    "Define",
+\    "Macro",
 \ ]
 let s:syntax_groups.comment = [
 \    "Comment",

@@ -44,18 +44,21 @@
         set listchars+=extends:»
         set listchars+=precedes:«
         set listchars+=nbsp:␣
+        set listchars+=eol:¬
+        set listchars+=lead:\ 
+        set listchars+=multispace:\ •
 
 """ Text formatting
+        set tabstop=8
+        set shiftwidth=4
+        set softtabstop=-1
         set smarttab
         set expandtab
-        set tabstop=8
-        set shiftwidth=0
-        set softtabstop=-1
 
         set nowrap
         set linebreak
         set breakindent             " indent wrapped lines
-        let &showbreak = '└'     " prepend wrapped lines with this
+        set showbreak=└             " prepend wrapped lines with this
         set smartindent
 
         set formatoptions=
