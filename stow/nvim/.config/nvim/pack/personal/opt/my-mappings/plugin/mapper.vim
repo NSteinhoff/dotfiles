@@ -216,7 +216,7 @@ endfunction
     cnoremap ## #:h/
 
     " Switch to alternative buffer
-    nnoremap <expr> <bs> empty(expand('#:t')) \|\| (expand('#') == expand('%')) ? ':echoerr "No alternate file"<cr>' : '<c-^>'
+    nmap <bs> <plug>(buffers-alternative)
 
     " Missing `:tab split` mapping
     " Like <c-w>T, but without removing the window from the current page.

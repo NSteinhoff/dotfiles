@@ -1,3 +1,5 @@
+let s:last_failed = 'NONE'
+
 function s:scratch(lines)
     if @% ==# 'SCRATCH'|return|endif
 
@@ -43,6 +45,19 @@ function s:delete_buffer(wipe)
     endif
 endfunction
 
+function s:alternative()
+    if empty(expand('#:t')) || (expand('#') == expand('%'))
+        echo "No alternate file."
+    elseif empty(filter(getbufinfo({'buflisted': 1}), { _, v -> bufnr('#') == v.bufnr })) && !(s:last_failed == bufnr('%'))
+        echo "Alternative file <b"..bufnr('#').."> is not listed. Try again to open anyways."
+        let s:last_failed = bufnr('%')
+    else
+        let s:last_failed = 'NONE'
+        b #
+    endif
+endfunction
+command! Balternative call s:alternative()
+
 " Delete current buffer
 command! Bdelete if s:is_last_buffer() | call s:go_home(0) | else | call s:delete_buffer(0) | endif
 command! Bwipe if s:is_last_buffer() | call s:go_home(1) | else | call s:delete_buffer(1) | endif
@@ -65,3 +80,4 @@ nnoremap <silent> <plug>(buffers-scratch) <cmd>Scratch<cr>
 vnoremap <silent> <plug>(buffers-scratch) :Scratch<cr>
 nnoremap <silent> <plug>(buffers-new) <cmd>Bnew<cr>
 nnoremap <silent> <plug>(buffers-vnew) <cmd>Bvnew<cr>
+nnoremap <silent> <plug>(buffers-alternative) <cmd>Balternative<cr>
