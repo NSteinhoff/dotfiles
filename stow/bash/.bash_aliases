@@ -132,3 +132,9 @@ alias mypacks='cd ~/dev/dotfiles/stow/nvim/.config/nvim/pack/personal/opt'
 export CDPATH=~/dev:~/dev/s2
 export NOTES_DIR=~/Dropbox/Notes
 export ZETTELKASTEN=~/Dropbox/Zettel
+
+# --------------------------- C Compilation ---------------------------------
+export CC=clang
+export CFLAGS="-g -Wall -Werror -Wextra -pedantic"
+export LDFLAGS=
+export LDLIBS=
