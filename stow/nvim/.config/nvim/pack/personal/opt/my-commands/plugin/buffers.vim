@@ -28,15 +28,19 @@ endfunction
 function s:go_home(wipe)
     if exists('b:dirvish')
         keepalt edit .
-    else
-        let bufname = @%
+    elseif bufname() == 'BUFFERS'
         keepalt edit .
-        execute (a:wipe ? 'bwipe' : 'bdelete')..' '..bufname
+    else
+        let bufnr = bufnr()
+        keepalt edit .
+        execute (a:wipe ? 'bwipe' : 'bdelete')..' '..bufnr
     endif
 endfunction
 
 function s:delete_buffer(wipe)
     if exists('b:dirvish')
+        keepalt bprevious
+    elseif bufname() == 'BUFFERS'
         keepalt bprevious
     else
         let bufnr = bufnr()
