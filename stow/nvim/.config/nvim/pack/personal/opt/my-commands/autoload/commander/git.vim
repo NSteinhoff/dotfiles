@@ -60,7 +60,7 @@ function s:blame_mark(lnum)
     let text = get(get(b:, 'blame', []), lnum, '')
     let ns = nvim_create_namespace('git_blame')
     call nvim_buf_clear_namespace(0, ns, 0, -1)
-    call nvim_buf_set_virtual_text(0, ns, lnum, [['    '.text, 'Comment']], {})
+    call nvim_buf_set_extmark(0, ns, lnum, 0, {'virt_text': [['    '.text, 'Comment']]})
 endfunction
 
 function commander#git#blame_on()

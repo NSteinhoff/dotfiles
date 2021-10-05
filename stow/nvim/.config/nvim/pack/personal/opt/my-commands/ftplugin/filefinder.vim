@@ -31,9 +31,9 @@ function s:insert_separator(mode)
     let ns = nvim_create_namespace('filefinder_separator')
     call nvim_buf_clear_namespace(0, ns, 0, -1)
     if a:mode == 'i'
-        call nvim_buf_set_virtual_text(0, ns, 1, [['--- ', 'Comment'], [s:insert_help, 'Comment']], {})
+        call nvim_buf_set_extmark(0, ns, 1, 0, {'virt_text': [['--- ', 'Comment'], [s:insert_help, 'Comment']]})
     elseif a:mode == 'n'
-        call nvim_buf_set_virtual_text(0, ns, 1, [['--- ', 'Comment'], [s:normal_help, 'Comment']], {})
+        call nvim_buf_set_extmark(0, ns, 1, 0, {'virt_text': [['--- ', 'Comment'], [s:normal_help, 'Comment']]})
     endif
 endfunction
 
@@ -41,7 +41,7 @@ function s:placeholder()
     let ns = nvim_create_namespace('filefinder_placeholder')
     call nvim_buf_clear_namespace(0, ns, 0, -1)
     if getline(1) == ''
-        call nvim_buf_set_virtual_text(0, ns, 0, [[s:placeholder, 'Special']], {})
+        call nvim_buf_set_extmark(0, ns, 0, 0, {'virt_text': [[s:placeholder, 'Special']]})
     endif
 endfunction
 
@@ -65,7 +65,7 @@ function s:mark_selection(mode)
     let ns = nvim_create_namespace('filefinder_selection')
     call nvim_buf_clear_namespace(0, ns, 0, -1)
     if a:mode == 'i'
-        call nvim_buf_set_virtual_text(0, ns, line, [['<- ', 'Statement']], {})
+        call nvim_buf_set_extmark(0, ns, line, 0, {'virt_text': [['<- ', 'Statement']]})
     endif
 endfunction
 

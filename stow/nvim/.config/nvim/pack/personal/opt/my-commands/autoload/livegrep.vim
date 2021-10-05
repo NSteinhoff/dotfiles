@@ -33,9 +33,9 @@ function s:job.on_exit(job_id, data, event)
         let lines += self.err
         let lines += ['', '=================================== HELP =====================================']
         let lines += systemlist(s:grepprg..' --help')
-        call nvim_buf_set_virtual_text(self.buf, s:ns_results, 0, [['', 'Error']], {})
+        call nvim_buf_set_extmark(self.buf, s:ns_results, 0, 0, {'virt_text': [['', 'Error']]} )
     else
-        call nvim_buf_set_virtual_text(self.buf, s:ns_results, 0, [[printf('(%d)', len(self.data)), 'Special']], {})
+        call nvim_buf_set_extmark(self.buf, s:ns_results, 0, 0, {'virt_text': [[printf('(%d)', len(self.data)), 'Special']]})
     endif
 
     call s:wipe(self.buf)
@@ -58,7 +58,7 @@ endfunction
 function s:job.loading()
     call nvim_buf_clear_namespace(self.buf, s:ns_results, 0, -1)
     call nvim_buf_clear_namespace(self.buf, s:ns_loading, 0, -1)
-    call nvim_buf_set_virtual_text(self.buf, s:ns_loading, 0, [['', 'Special']], {})
+    call nvim_buf_set_extmark(self.buf, s:ns_loading, 0, 0, {'virt_text': [['', 'Special']]})
 endfunction
 
 function s:previous_query()
@@ -72,9 +72,9 @@ function livegrep#insert_separator(buf, mode)
     let l:ns = nvim_create_namespace('livegrep_separator')
     call nvim_buf_clear_namespace(a:buf, l:ns, 0, -1)
     if a:mode == 'i'
-        call nvim_buf_set_virtual_text(a:buf, l:ns, 1, [['--- ', 'Comment'], [s:insert_help, 'Comment']], {})
+        call nvim_buf_set_extmark(a:buf, l:ns, 1, 0, {'virt_text': [['--- ', 'Comment'], [s:insert_help, 'Comment']]})
     elseif a:mode == 'n'
-        call nvim_buf_set_virtual_text(a:buf, l:ns, 1, [['--- ', 'Comment'], [s:normal_help, 'Comment']], {})
+        call nvim_buf_set_extmark(a:buf, l:ns, 1, 0, {'virt_text': [['--- ', 'Comment'], [s:normal_help, 'Comment']]})
     endif
 endfunction
 
@@ -82,7 +82,7 @@ function s:placeholder(buf)
     let l:ns = nvim_create_namespace('livegrep_placeholder')
     call nvim_buf_clear_namespace(a:buf,  l:ns, 0, -1)
     if getbufline(a:buf, 1)[0] == ''
-        call nvim_buf_set_virtual_text(a:buf, l:ns, 0, [[s:placeholder, 'Special']], {})
+        call nvim_buf_set_extmark(a:buf, l:ns, 0, 0, {'virt_text': [[s:placeholder, 'Special']]})
     endif
 endfunction
 
