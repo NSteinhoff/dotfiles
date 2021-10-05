@@ -3,9 +3,6 @@ let s:clipboard = {}
 
 call sign_define(s:sign_name, {'text': '>', 'texthl': 'Error'})
 
-" Create the autocmd group for previewing errors
-augroup QfPreviewCul|augroup END
-
 function qf#locvisible()
     return !empty(filter(getwininfo(), { _, win -> win.tabnr == tabpagenr() && win.quickfix && win.loclist }))
 endfunction
@@ -161,22 +158,6 @@ function qf#mark()
     endif
 endfunction
 
-function qf#preview(direction)
-    if !qf#isqf()|return|endif
-
-    let cmd = a:direction == 0 ? s:here()
-          \ : a:direction > 0 ? s:next()
-          \ : s:prev()
-    if empty(cmd)|return|endif
-    execute cmd
-    let cul = &cursorline ? 'cursorline' : 'nocursorline'
-    if !exists('#QfPreviewCul#BufEnter#<buffer>')
-        set cursorline
-        execute 'autocmd QfPreviewCul BufEnter <buffer> set '..cul..' | autocmd! QfPreviewCul BufEnter <buffer>'
-    endif
-    wincmd p
-endfunction
-
 function qf#delete() range
     if !qf#isqf()|return|endif
 
@@ -217,8 +198,8 @@ function qf#swap(v) abort
 endfunction
 
 function s:where_am_i()
-    if !qf#isqf() || empty(s:get())
-        return
+    if !qf#isqf()
+        return 'not currently in a qf list window'
     endif
 
     let curr = s:get({'nr': 0}).nr
@@ -228,9 +209,7 @@ function s:where_am_i()
 endfunction
 
 function qf#cycle_lists(forward)
-    if !qf#isqf() || empty(s:get())
-        return
-    endif
+    if !qf#isqf()|return|endif
 
     let curr = s:get({'nr': 0}).nr
     let last = s:get({'nr': '$'}).nr
