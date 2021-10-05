@@ -1,10 +1,6 @@
-local handlers = require("my_lsp.handlers")
-vim.lsp.handlers["textDocument/documentSymbol"] = handlers.quickfix_symbols
-vim.lsp.handlers["textDocument/references"] = handlers.quickfix_references
-vim.lsp.handlers["textDocument/publishDiagnostics"] = handlers.loclist_diagnostics
+require("my_lsp.diagnostics").config()
 
 local function on_attach(...)
-    require("my_lsp.diagnostics").on_attach(...)
     require("my_lsp.options").on_attach(...)
     require("my_lsp.commands").on_attach(...)
     require("my_lsp.mappings").on_attach(...)

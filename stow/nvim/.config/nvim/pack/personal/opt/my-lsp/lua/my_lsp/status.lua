@@ -15,8 +15,9 @@ local function tiny()
 end
 
 local function short()
-    if #clients() > 0 then
-        return " " .. #clients()
+    local n = #clients()
+    if n > 0 then
+        return " " .. n
     else
         return ""
     end

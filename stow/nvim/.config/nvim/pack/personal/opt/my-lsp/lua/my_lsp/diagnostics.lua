@@ -1,139 +1,39 @@
 local severities = {
-    names = { "ERROR", "WARNING", "INFO", "HINT" },
-    symbols = { "", "", "כֿ", "" },
+    error = "",
+    warning = "",
+    info = "כֿ",
+    hint = "",
 }
-
-local function print_line()
-    local diagnostics = vim.lsp.diagnostic.get_line_diagnostics()
-    for i, d in ipairs(diagnostics) do
-        print(i .. ". " .. d.source .. " " .. severities.names[d.severity])
-        print(d.message)
-    end
-end
-
-local function print_buffer()
-    local diagnostics = vim.lsp.diagnostic.get()
-    for i, d in ipairs(diagnostics) do
-        print(i .. ". " .. "line " .. d.range.start.line .. " - " .. d.source .. " " .. severities.names[d.severity])
-        print(d.message)
-    end
-end
-
-local function print_all()
-    local diagnostics = vim.lsp.diagnostic.get_all()
-    for b, ds in pairs(diagnostics) do
-        local bufname = vim.fn.bufname(b)
-        print("--- " .. bufname)
-        for i, d in ipairs(ds) do
-            print(i .. ". " .. "line " .. d.range.start.line .. " - " .. d.source .. " " .. severities.names[d.severity])
-            print(d.message)
-        end
-    end
-end
-
-local function set_loclist(client)
-    local diagnostics = vim.lsp.diagnostic.get()
-    local loc_items = {}
-    local bufname = vim.fn.bufname()
-    for _, d in ipairs(diagnostics) do
-        local item = {
-            bufnr = b,
-            filename = bufname,
-            lnum = d.range.start.line + 1,
-            col = d.range.start.character + 1,
-            type = severities.names[d.severity or 1],
-            nr = d.code,
-            text = d.message,
-        }
-        table.insert(loc_items, item)
-    end
-    local title = 'LSP Diagnostics: '..client
-    local curtitle = vim.fn.getloclist(0, {title = 1}).title
-    local action = title == curtitle and 'r' or ' '
-    vim.fn.setloclist(0, {}, action, {items = loc_items, title = title, quickfixtextfunc = 'qf#no_bufnames'})
-end
-
-local function set_qflist(open)
-    local diagnostics = vim.lsp.diagnostic.get_all()
-    local qf_items = {}
-    for b, ds in pairs(diagnostics) do
-        local bufname = vim.fn.bufname(b)
-        for _, d in ipairs(ds) do
-            local item = {
-                bufnr = b,
-                filename = bufname,
-                lnum = d.range.start.line + 1,
-                col = d.range.start.character + 1,
-                type = severities.names[d.severity or 1],
-                nr = d.code,
-                text = d.message,
-            }
-            table.insert(qf_items, item)
-        end
-    end
-    local title = 'LSP Diagnostics'
-    local curtitle = vim.fn.getqflist({title = 1}).title
-    local action = title == curtitle and 'r' or ' '
-    vim.fn.setqflist({}, action, {items = qf_items, title = title})
-
-    if open then
-        vim.api.nvim_command("cwindow")
-    end
-end
 
 local function setup_signs()
     vim.fn.sign_define(
-        "LspDiagnosticsSignError",
-        { text = severities.symbols[1], texthl = "LspDiagnosticsSignError" }
+        "DiagnosticSignError",
+        { text = severities.error, texthl = "DiagnosticSignError" }
     )
     vim.fn.sign_define(
-        "LspDiagnosticsSignWarning",
-        { text = severities.symbols[2], texthl = "LspDiagnosticsSignWarning" }
+        "DiagnosticSignWarning",
+        { text = severities.warning, texthl = "DiagnosticSignWarning" }
     )
     vim.fn.sign_define(
-        "LspDiagnosticsSignInformation",
-        { text = severities.symbols[3], texthl = "LspDiagnosticsSignInformation" }
+        "DiagnosticSignInformation",
+        { text = severities.info, texthl = "DiagnosticSignInformation" }
     )
     vim.fn.sign_define(
-        "LspDiagnosticsSignHint",
-        { text = severities.symbols[4], texthl = "LspDiagnosticsSignHint" }
+        "DiagnosticSignHint",
+        { text = severities.hint, texthl = "DiagnosticSignHint" }
     )
 end
 
-local function on_attach()
-    setup_signs()
-end
-
-local function find(elements, predicate)
-    for _, h in ipairs(elements) do
-        if predicate(h) then return h end
-    end
-end
-
-local function on_publish_diagnostics(...)
-    local _, _, _, client_id = ...
-    local clients = vim.lsp.get_active_clients()
-    local client = find(clients, function(c) return c.id == client_id end)
-    if not client then return end
-
-    vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+local function config()
+    vim.diagnostic.config({
         signs = true,
         underline = false,
         virtual_text = false,
         update_in_insert = false,
-    })(...)
-
-    local result, error = pcall(set_loclist, client.name)
-    if error then vim.api.nvim_err_writeln(error) end
+    })
+    setup_signs()
 end
 
 return {
-    severities = severities,
-    print_line = print_line,
-    print_buffer = print_buffer,
-    print_all = print_all,
-    set_qflist = set_qflist,
-    set_loclist = set_loclist,
-    on_attach = on_attach,
-    on_publish_diagnostics = on_publish_diagnostics,
+    config = config,
 }

@@ -19,8 +19,9 @@ local function on_attach(client)
     vim.cmd([[nnoremap <silent> <buffer> gW           mZ<cmd>lua vim.lsp.buf.workspace_symbol()<CR>]])
 
     -- Diagnostics
-    vim.cmd([[nnoremap <silent> <buffer> gh           <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>]])
-    vim.cmd([[nnoremap <silent> <buffer> gH           <cmd>lua require("my_lsp.diagnostics").set_qflist(true)<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> dh           <cmd>lua vim.diagnostic.show_line_diagnostics()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> d]           <cmd>lua vim.diagnostic.goto_next()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> d[           <cmd>lua vim.diagnostic.goto_prev()<CR>]])
 
     -- Code actions,     i.e. (d)o (c)ode (a)ction
     vim.cmd([[nnoremap <silent> <buffer> dca          <cmd>lua vim.lsp.buf.code_action()<CR>]])

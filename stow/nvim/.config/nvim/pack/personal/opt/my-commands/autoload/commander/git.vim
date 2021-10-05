@@ -196,6 +196,8 @@ function commander#git#set_changed_args(...)
     let relative = map(resolved, { k, v -> fnamemodify(v, ':.') })
     let filepaths = filter(relative, { k, v -> findfile(v) != '' })
 
+    " FIXME: why are there no filepaths?
+
     %argd
     for path in filepaths
         execute 'argadd '.path
