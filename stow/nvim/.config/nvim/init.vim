@@ -43,7 +43,7 @@
         set listchars+=extends:»
         set listchars+=precedes:«
         set listchars+=nbsp:␣
-        set listchars+=eol:¬
+        " set listchars+=eol:¬
         set listchars+=lead:\ 
         set listchars+=multispace:\ •
 
