@@ -29,6 +29,7 @@
 	# External tools
 	tree        = !git ls-files | tree --fromfile --dirsfirst -C
 	ctags       = !.git/hooks/ctags
+	ctags-lib   = !.git/hooks/ctags-lib
 	watch       = !git ls-files | entr
 
 	# Submodule management

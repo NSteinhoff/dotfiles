@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+PATH="/usr/local/bin:$PATH"
+dir="`git rev-parse --git-dir`"
+
+trap 'rm -f "$dir/$$.tags.lib"' EXIT
+
+# Typescript dependencies
+find "$dir/.." -name '*.d.ts' -path '*/node_modules/*' | ctags --tag-relative=yes --sort=yes -L - -f"$dir/$$.tags.lib"
+
+mv "$dir/$$.tags.lib" "$dir/tags.lib"

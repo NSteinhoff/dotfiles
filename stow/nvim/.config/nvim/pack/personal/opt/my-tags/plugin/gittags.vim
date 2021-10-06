@@ -16,4 +16,15 @@ set tags+=./.git/tags
 set tags+=./.git/tags;
 set tags+=.git/tags
 set tags+=.git/tags;
-set tags+=*/.git/tags
+
+function s:lib_tags(remove)
+    let cmd = 'set tags'..(a:remove ? '-' : '+')..'='
+    execute cmd..'./git/tags.lib'
+    execute cmd..'./git/tags.lib;'
+    execute cmd..'.git/tags.lib'
+    execute cmd..'.git/tags.lib;'
+endfunction
+
+command -bang LibTags call s:lib_tags(<bang>0)
+
+LibTags

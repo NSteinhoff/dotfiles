@@ -19,3 +19,7 @@ compiler tsc
 
 iabbrev <buffer> exif export interface {}
 command -buffer Run !ts-node %
+
+if fnamemodify(bufname(), ':p') =~ '.*/node_modules/.*'|
+    setlocal nobuflisted noswapfile
+endif
