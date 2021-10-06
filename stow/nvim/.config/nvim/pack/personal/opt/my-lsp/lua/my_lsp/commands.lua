@@ -9,6 +9,9 @@ local function on_attach(client)
     vim.cmd([[command! -buffer LspListDocumentSymbols lua vim.lsp.buf.document_symbol()]])
     vim.cmd([[command! -buffer LspListWorkspaceSymbols lua vim.lsp.buf.workspace_symbol()]])
 
+    vim.cmd([[command! -buffer LspSetLocList lua vim.diagnostic.set_loclist()]])
+    vim.cmd([[command! -buffer LspSetQfList lua vim.diagnostic.set_qflist()]])
+
     -- Clients
     vim.cmd([[command! -buffer LspBufStop lua for _, client in pairs(vim.lsp.buf_get_clients(0)) do client.stop() end]])
     vim.cmd([[command! -buffer LspBufClients lua for _, client in pairs(vim.lsp.buf_get_clients(0)) do print("--- "..client.name.." ---") print(vim.inspect(client)) print("---") end]])

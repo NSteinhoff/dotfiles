@@ -20,6 +20,7 @@ local function on_attach(client)
 
     -- Diagnostics
     vim.cmd([[nnoremap <silent> <buffer> dh           <cmd>lua vim.diagnostic.show_line_diagnostics()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> dH           <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>]])
     vim.cmd([[nnoremap <silent> <buffer> d]           <cmd>lua vim.diagnostic.goto_next()<CR>]])
     vim.cmd([[nnoremap <silent> <buffer> d[           <cmd>lua vim.diagnostic.goto_prev()<CR>]])
 
