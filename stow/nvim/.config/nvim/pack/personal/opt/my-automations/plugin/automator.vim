@@ -25,7 +25,7 @@ augroup END
 
 augroup my-sessions
     autocmd!
-    autocmd VimEnter * if v:argv == ['nvim'] && findfile('Session.vim', '.') != ''
+    autocmd VimEnter * if v:argv == ['nvim'] && findfile('Session.vim', ',,') != ''
                 \| source Session.vim
                 \| let g:auto_session=1
                 \| echom "Resuming session from "..strftime("%c", getftime('Session.vim')..".")
