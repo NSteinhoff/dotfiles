@@ -8,8 +8,9 @@ nnoremap j j
 nnoremap k k
 nnoremap <buffer> - -
 nnoremap <buffer> <cr> <cr>
-nnoremap <buffer> <space> <space>
 nnoremap <buffer> <bs> <c-w>c
+
+nnoremap <buffer> <space> <cr>
 
 " Cycle through lists
 nnoremap <buffer> <nowait> > <cmd>call qf#cycle_lists(1)<cr>
