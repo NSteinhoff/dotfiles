@@ -168,10 +168,10 @@ let s:ui_styles.menu                     =  "HFaded"
 
 "" Some more text
 "" Diff Styles {{{
-let s:diff_styles.add                 = "Calm"
+let s:diff_styles.add                 = "CalmUnderlined"
 let s:diff_styles.delete              = "Forceful"
-let s:diff_styles.change              = "Busy"
-let s:diff_styles.text                = "LivelyBoldUnderlined"
+let s:diff_styles.change              = "BusyUnderlined"
+let s:diff_styles.text                = "HappyUnderlined"
 ""}}}
 
 "" Syntax Styles {{{
