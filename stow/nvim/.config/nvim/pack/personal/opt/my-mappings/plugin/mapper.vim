@@ -282,7 +282,7 @@ endfunction
     nnoremap <silent> <leader>al <cmd>arglocal<cr>
     nnoremap <silent> <leader>ag <cmd>argglobal<cr>
     nnoremap <silent> <leader>aa <cmd>argadd<cr>
-    nnoremap <silent> <expr> <leader>ad '<cmd>argdelete'..(argv(argidx()) == bufname() ? '<bar>argument' : '')..'<cr>'
+    nnoremap <silent> <leader>ad <cmd>execute 'argdelete '..bufname()<bar>if argc()<bar>argument<bar>endif<cr>
 
     " Open: <leader>o
     nnoremap <leader>oo <cmd>silent Open<cr>

@@ -1,3 +1,12 @@
+function IsArg()
+    for arg in argv()
+        if arg == bufname()
+            return '!'
+        endif
+    endfor
+    return ''
+endfunction
+
 function Errors()
     if winwidth(0) < 50
         return ''
@@ -128,7 +137,7 @@ function MyStatusline()
     let SEP         = '%='
     let FOC         = '%#StatusLineFocus#'
 
-    let args        = '%a'
+    let args        = '%a%{IsArg()}'
     let ft          = '%y'
     let pre         = '%w'
     let file        = '%{CurrentFile()}'
