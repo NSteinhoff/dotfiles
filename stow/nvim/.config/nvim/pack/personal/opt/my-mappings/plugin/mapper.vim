@@ -208,6 +208,10 @@ endfunction
     " cnoremap <c-h> <left>
     " cnoremap <c-l> <right>
 
+    " Not sure that these work everywhere
+    cnoremap <m-b> <s-left>
+    cnoremap <m-f> <s-right>
+
     " Favorite mark
     nnoremap gz `Z
 
