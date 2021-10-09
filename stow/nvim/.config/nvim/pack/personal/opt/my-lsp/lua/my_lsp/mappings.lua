@@ -1,4 +1,10 @@
-local function on_attach(client)
+local M = {}
+
+function M.setup()
+    vim.cmd([[nnoremap <leader>LSP    <cmd>LspStart<cr>]])
+end
+
+function M.on_attach(client)
     -- Completion
     vim.cmd([[inoremap <silent> <buffer> <c-space>    <C-X><C-O>]])
 
@@ -33,6 +39,4 @@ local function on_attach(client)
     vim.cmd([[nnoremap <silent> <buffer> dcF          <cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>]])
 end
 
-return {
-    on_attach = on_attach,
-}
+return M

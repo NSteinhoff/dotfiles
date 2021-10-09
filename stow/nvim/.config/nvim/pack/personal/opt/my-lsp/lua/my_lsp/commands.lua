@@ -1,4 +1,6 @@
-local function on_attach(client)
+local M = {}
+
+function M.on_attach(client)
     -- Code actions
     vim.cmd([[command! -buffer LspCodeAction lua vim.lsp.buf.code_action()]])
     vim.cmd([[command! -buffer LspCodeRename lua vim.lsp.buf.rename()]])
@@ -17,6 +19,4 @@ local function on_attach(client)
     vim.cmd([[command! -buffer LspBufClients lua for _, client in pairs(vim.lsp.buf_get_clients(0)) do print("--- "..client.name.." ---") print(vim.inspect(client)) print("---") end]])
 end
 
-return {
-    on_attach = on_attach,
-}
+return M

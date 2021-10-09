@@ -33,7 +33,7 @@
         set smartcase               " ... unless it includes capital letters
         set tagcase=match           " ... but match case in :tag searches
         set splitright              " open vertical splits on the right
-        " set sessionoptions+=options " remember options and mappings
+        set sessionoptions+=options " remember options and mappings
 
 """ Special characters
         set list
