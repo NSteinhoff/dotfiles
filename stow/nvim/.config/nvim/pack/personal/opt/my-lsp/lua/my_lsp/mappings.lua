@@ -2,6 +2,7 @@ local M = {}
 
 function M.setup()
     vim.cmd([[nnoremap <leader>LSP    <cmd>LspStart<cr>]])
+    vim.cmd([[nnoremap <leader>!LSP    <cmd>LspDetach<cr>]])
 end
 
 function M.on_attach(client)
@@ -37,6 +38,41 @@ function M.on_attach(client)
     -- vim.cmd([[nnoremap <silent> <buffer> <>           <cmd>lua vim.lsp.buf.formatting_sync()<CR>]])
     vim.cmd([[nnoremap <silent> <buffer> dcf          <cmd>lua vim.lsp.buf.formatting()<CR>]])
     vim.cmd([[nnoremap <silent> <buffer> dcF          <cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>]])
+end
+
+function M.on_detach(client)
+    -- Completion
+    vim.cmd([[iunmap <buffer> <c-space>]])
+
+    -- Get help
+    -- vim.cmd([[nunmap <buffer> K]])
+    vim.cmd([[nunmap <buffer> <c-space>]])
+    vim.cmd([[iunmap <buffer> <c-h>]])
+
+    -- Jump to symbols
+    vim.cmd([[nunmap <buffer> gd]])
+    vim.cmd([[nunmap <buffer> gD]])
+    vim.cmd([[nunmap <buffer> gi]])
+    vim.cmd([[nunmap <buffer> gy]])
+
+    -- Listing symbols
+    vim.cmd([[nunmap <buffer> gr]])
+    vim.cmd([[nunmap <buffer> gw]])
+    vim.cmd([[nunmap <buffer> gW]])
+
+    -- Diagnostics
+    vim.cmd([[nunmap <buffer> dh]])
+    vim.cmd([[nunmap <buffer> dH]])
+    vim.cmd([=[nunmap <buffer> d]]=])
+    vim.cmd([[nunmap <buffer> d[]])
+
+    -- Code actions,     i.e. (d)o (c)ode (a)ction
+    vim.cmd([[nunmap <buffer> dca]])
+    vim.cmd([[nunmap <buffer> dcr]])
+
+    -- vim.cmd([[nunmap <buffer> <>]])
+    vim.cmd([[nunmap <buffer> dcf]])
+    vim.cmd([[nunmap <buffer> dcF]])
 end
 
 return M
