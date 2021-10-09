@@ -168,6 +168,14 @@ function qf#delete() range
     execute min([a:firstline, line('$')])
 endfunction
 
+function qf#preview()
+    if !qf#isqf()|return|endif
+
+    let item = s:get()[line('.') - 1]
+    let lnum = item['lnum']
+    let @/='\%'..lnum..'l\S.*$'
+endfunction
+
 " ---------------------------------- Lists -----------------------------------
 function qf#clear_marks()
     if !qf#isqf()|return|endif

@@ -10,7 +10,9 @@ nnoremap <buffer> - -
 nnoremap <buffer> <cr> <cr>
 nnoremap <buffer> <bs> <c-w>c
 
-nnoremap <buffer> <space> <cr>
+nnoremap <buffer> <space> <cr><c-w>p<cmd>call qf#preview()<cr>
+" nnoremap <buffer> <c-k> k<cr><c-w>p<cmd>call qf#preview()<cr>
+" nnoremap <buffer> <c-j> j<cr><c-w>p<cmd>call qf#preview()<cr>
 
 " Cycle through lists
 nnoremap <buffer> <nowait> > <cmd>call qf#cycle_lists(1)<cr>
