@@ -108,8 +108,8 @@ endfunction
     nnoremap gs :%s/
     vnoremap gs :s/
 
-    nnoremap <expr> gS ':%s/\V\<'.expand('<cword>').'\>/'
-    vnoremap gS y:%s/\V<c-r>=escape(@", '\/')<cr>/
+    nnoremap <expr> gS ':%s/\C\V\<'.expand('<cword>').'\>/'
+    vnoremap gS y:%s/\C\V<c-r>=escape(@", '\/')<cr>/
 
     " Highlight matches
     nnoremap <expr> gm v:count <= 1 ? '<cmd>Match<cr>' : '<cmd>Match'.v:count.'<cr>'
@@ -347,3 +347,9 @@ endfunction
 
 """ TOC
     nmap gw <plug>(tag-toc)
+
+""" Hard mode
+" nmap j <NOP>
+" nmap k <NOP>
+" nmap h <NOP>
+" nmap l <NOP>

@@ -61,13 +61,21 @@
         set smartindent
 
         set formatoptions=
+        set formatoptions+=l        " don't wrap lines that were too long to begin with
+        " sentences
+        set formatoptions+=p        " don't wrap after . + single space
+        set cpoptions+=J            " require double space after sentences
+        set joinspaces              " double spaces after sentences
+        " comments
         set formatoptions+=c        " wrap comments
         set formatoptions+=j        " remove commentstring when joining comment lines
-        set formatoptions+=l        " don't wrap lines that were too long to begin with
-        set formatoptions+=n        " recognize numbered lists
         set formatoptions+=q        " also format comments with 'gq'
         set formatoptions+=r        " continue comments when hitting <Enter>
-        set nojoinspaces            " keep single spaces after sentences
+        " lists
+        set formatoptions+=n        " recognize numbered lists
+                                    " recognize * and - as list headers
+        set formatlistpat=^\\s*\\(\\d\\+[\\]:.)}\\t\ ]\\\|[*-][\\t\ ]\\)\\s*
+
 
 """ Completions
         set wildmode=longest:full,full

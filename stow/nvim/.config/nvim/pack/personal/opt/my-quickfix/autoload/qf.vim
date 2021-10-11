@@ -174,6 +174,7 @@ function qf#preview()
     let item = s:get()[line('.') - 1]
     let lnum = item['lnum']
     let @/='\%'..lnum..'l\S.*$'
+    set hlsearch
 endfunction
 
 " ---------------------------------- Lists -----------------------------------
