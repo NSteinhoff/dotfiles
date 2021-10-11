@@ -49,7 +49,7 @@
             echomsg "Abort: 'formatprg' unset"
             return
         endif
-        let formatprg = expandcmd(&formatprg)
+        let formatprg = expandcmd(escape(&formatprg, '{}'))
         let lines = getline(0, '$')
         let formatted = systemlist(formatprg, lines)
         if v:shell_error > 0
