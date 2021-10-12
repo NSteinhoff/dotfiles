@@ -150,8 +150,8 @@ endfunction
     nmap <silent> <leader>qa <plug>(qf-add)
     vmap <silent> <leader>qa <plug>(qf-add)
 
-    nmap <c-n> <plug>(cycle-loc-forward)
-    nmap <c-p> <plug>(cycle-loc-backward)
+    nmap <c-n> <plug>(cycle-visible-forward)
+    nmap <c-p> <plug>(cycle-visible-backward)
 
 
 """ Preview / Hover

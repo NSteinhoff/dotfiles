@@ -319,6 +319,16 @@ function qf#cycle_qf(forward) abort
     endif
 endfunction
 
+function qf#cycle_visible(forward) abort
+    if qf#locvisible()
+        call qf#cycle_loc(a:forward)
+    elseif qf#qfvisible()
+        call qf#cycle_qf(a:forward)
+    else
+        call qf#cycle_loc(a:forward)
+    endif
+endfunction
+
 " -------------------------------------------------------------------------- "
 "                         Quickfixtextfunc Callbacks                         "
 " -------------------------------------------------------------------------- "
