@@ -110,7 +110,7 @@ _complete_colorscheme() {
 complete -F _complete_colorscheme colorscheme
 
 # ---------------------------------- PROMPT -----------------------------------
-starship_prompt=false
+starship_prompt=true
 fancy_prompt=true
 if $starship_prompt && (which starship &>/dev/null); then
     eval "$(starship init bash)"
