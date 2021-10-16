@@ -1,7 +1,7 @@
 function s:compilers()
     return {
     \   'local': {
-    \     'name': get(b:, 'current_compiler', 'NONE'),
+    \     'name': !empty(&l:makeprg) ? get(b:, 'current_compiler', 'NONE') : 'NONE',
     \     'makeprg': &l:makeprg,
     \     'errorformat': &l:errorformat,
     \   },
