@@ -15,7 +15,7 @@ let &l:includeexpr="substitute(substitute(v:fname, '\\./', '', ''), '\\.', '../'
 
 let &l:define='^\s*\(export\s\)\?\(async\s\)\?\(function\|class\|interface\|type\|const\|let\|var\)\s\ze'
 
-compiler tsc
+execute 'compiler '..get(g:, &ft..'_compiler', 'tsc')
 
 iabbrev <buffer> exif export interface {}
 command -buffer Run !ts-node %

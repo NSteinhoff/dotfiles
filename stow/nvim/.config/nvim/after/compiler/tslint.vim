@@ -7,7 +7,7 @@ if exists(":CompilerSet") != 2
   command! -nargs=* CompilerSet setlocal <args>
 endif
 
-let rcfile = findfile('tsconfig.json', ".;$HOME")
+let rcfile = findfile('tsconfig.json', ".;$HOME,,;$HOME")
 if rcfile != ''
     let project_root = fnamemodify(rcfile, ":h")
     execute 'CompilerSet makeprg=npx\ tslint\ --project\ '.project_root.'\ $*'
