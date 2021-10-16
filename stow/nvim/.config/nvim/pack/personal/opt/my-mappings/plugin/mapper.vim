@@ -256,10 +256,13 @@ endfunction
     nnoremap <leader>#! <cmd>!%:p<cr>
 
     " Execute: <leader>x
+    nnoremap <leader>xb :.w !bash
     nnoremap <leader>xx :.w !xargs 
     vnoremap <leader>xx :w !xargs 
     nnoremap <leader>xf :.!xargs 
     vnoremap <leader>xf :!xargs 
+    nnoremap <leader>xr yyP:.!xargs 
+    vnoremap <leader>xr yPgv:!xargs 
 
     " Split: <leader>s
     nnoremap <leader>ss :sbuffer <c-z>
