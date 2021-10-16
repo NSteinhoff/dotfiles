@@ -71,10 +71,10 @@ endfunction
 
     " Move over sections
     " Taken from `help section`
-    " map [[ ?{<cr>w99[{
-    " map ][ /}<cr>b99]}
-    " map ]] j0[[%/{<cr>
-    " map [] k$][%?}<cr>
+    map [[ ?{<cr>w99[{
+    map ][ /}<cr>b99]}
+    map ]] j0[[%/{<cr>
+    map [] k$][%?}<cr>
 
     " Do something useful with the arrow keys:
     " Moving selected lines
