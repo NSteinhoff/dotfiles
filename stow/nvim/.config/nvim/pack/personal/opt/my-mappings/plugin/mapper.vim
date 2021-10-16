@@ -235,8 +235,8 @@ endfunction
     vmap <silent> g# <plug>(search-g-selection-reverse)
 
     " Grep, i.e. poor man's 'go-to-reference'
-    nmap <silent> gr <plug>(grep-word)
-    vmap <silent> gr <plug>(grep-selection)
+    nmap <silent> gr <plug>(grep-word-silent)<cmd>cwindow<cr>
+    vmap <silent> gr <plug>(grep-selection-silent)<cmd>cwindow<cr>
 
     " Outline
     nmap gO <plug>(tag-toc)

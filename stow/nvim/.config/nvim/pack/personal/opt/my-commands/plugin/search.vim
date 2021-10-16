@@ -27,6 +27,14 @@ function s:grep(pattern, word, ...) abort
     execute cmd..pattern..extra
 endfunction
 
+function s:grep_silent(pattern, word, ...) abort
+    let cmd = 'grep! '
+    let @/ = a:word ? '\<'..a:pattern..'\>' : a:pattern
+    let pattern = a:word ? '''\b'..a:pattern..'\b''' : "'"..a:pattern.."'"
+    let extra = a:0 ? ' '..join(a:000, ' ') : ''
+    execute 'silent '..cmd..pattern..extra
+endfunction
+
 function s:selected() abort
     return substitute(escape(@", '()\|.*+[]^$'), "'", '''\\''''', 'g')
 endfunction
@@ -47,6 +55,9 @@ vnoremap <silent> <plug>(livegrep-selection) y:execute 'LiveGrep '..escape(@", '
 nnoremap <silent> <plug>(grep-word) <cmd>call <sid>grep(expand('<cword>'), 1)<cr>
 nnoremap <silent> <plug>(grep-word-g) <cmd>call <sid>grep(expand('<cword>'), 0)<cr>
 vnoremap <silent> <plug>(grep-selection) y:call <sid>grep(<sid>selected(), 0)<cr>
+
+nnoremap <silent> <plug>(grep-word-silent) <cmd>call <sid>grep_silent(expand('<cword>'), 1)<cr>
+vnoremap <silent> <plug>(grep-selection-silent) y:call <sid>grep_silent(<sid>selected(), 0)<cr>
 
 nnoremap <silent> <plug>(grep-word-in-file) <cmd>call <sid>grep(expand('<cword>'), 1, '%')<cr>
 nnoremap <silent> <plug>(grep-word-g-in-file) <cmd>call <sid>grep(expand('<cword>'), 0, '%')<cr>
