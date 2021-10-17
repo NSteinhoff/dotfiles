@@ -22,7 +22,7 @@ command! -nargs=? -bang LiveGrep execute
 function s:grep(pattern, word, ...) abort
     let cmd = 'grep! '
     let @/ = a:word ? '\<'..a:pattern..'\>' : a:pattern
-    let pattern = a:word ? '''\b'..a:pattern..'\b''' : "'"..a:pattern.."'"
+    let pattern = a:word ? '''\b'..escape(a:pattern, '%#')..'\b''' : "'"..a:pattern.."'"
     let extra = a:0 ? ' '..join(a:000, ' ') : ''
     execute cmd..pattern..extra
 endfunction
@@ -30,7 +30,7 @@ endfunction
 function s:grep_silent(pattern, word, ...) abort
     let cmd = 'grep! '
     let @/ = a:word ? '\<'..a:pattern..'\>' : a:pattern
-    let pattern = a:word ? '''\b'..a:pattern..'\b''' : "'"..a:pattern.."'"
+    let pattern = a:word ? '''\b'..escape(a:pattern, '%#')..'\b''' : "'"..a:pattern.."'"
     let extra = a:0 ? ' '..join(a:000, ' ') : ''
     execute 'silent '..cmd..pattern..extra
 endfunction
