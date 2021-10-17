@@ -19,7 +19,7 @@ augroup my-tmux-window-name
             \| silent! execute "!tmux rename-window "..shellescape('  '..fnamemodify(getcwd(), ':t'))
             \| endif
     autocmd VimLeave,FocusLost * if exists('$TMUX') && executable('tmux')
-            \| silent! execute '!tmux set-option -w automatic-rename on'
+            \| silent! execute "!tmux set-option -w automatic-rename on"
             \| endif
 augroup END
 

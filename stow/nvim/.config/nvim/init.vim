@@ -102,8 +102,8 @@
 
 """ Personal
         packadd my-abbreviations
-        packadd my-commands
         packadd my-automations
+        packadd my-commands
         packadd my-completions
         packadd my-mappings
         packadd my-marks
@@ -116,18 +116,18 @@
 
 """ External
         " Finding / picking files
-        packadd! my-dirvish                 " file manager
+        packadd! my-dirvish                 " Minimalist file browser
 
         " Lua documentation
-        packadd! nvim-luaref
+        packadd! nvim-luaref                " Lua documentation as vim help files
 
         " Mappings and commands
-        packadd! vim-unimpaired
-        packadd! vim-eunuch
-        packadd! vim-commentary
+        packadd! vim-unimpaired             " Convenience mappings
+        packadd! vim-eunuch                 " Shell commmands
+        packadd! vim-commentary             " Comment out stuff
 
         " Filetypes / Syntax / Indent
-        packadd! editorconfig-vim           " ft settings based on local config
+        packadd! editorconfig-vim           " File type settings based on local config
 
         " IDE Mode
         packadd! my-lsp                     " Language Server client configuration

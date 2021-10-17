@@ -2,7 +2,7 @@ function! s:toc(...)
     let l:index = a:0 && a:1
     let l:fname = expand('%')
     let l:tags = filter(taglist('.*'), {_, v -> v.filename == l:fname})
-    let l:items = map(l:tags, {_, v -> s:tag2item(v, l:index)})
+    let l:items = map(l:tags, {_, v -> s:tag2item(v)})
     if l:index
         let l:tags = sort(l:items, {l, r -> char2nr(l.kind) - char2nr(r.kind)})
         let l:title = 'Index: '..l:fname
@@ -16,7 +16,7 @@ function! s:toc(...)
     endif
 endfunction
 
-function! s:tag2item(tag, index)
+function! s:tag2item(tag)
     let l:text = "["..a:tag.kind.."] "..a:tag.name
     return {
         \'bufnr': bufnr(a:tag.filename),
