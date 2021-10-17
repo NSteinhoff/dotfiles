@@ -42,16 +42,18 @@ endfunction
 
 function compiler#describe()
     let compilers = s:compilers()
-    echo "Compiler"
-    echo "========"
-    echo "\n"
-    echo "Global"
-    echo "\tName: "..compilers.global.name
-    echo "\tMakeprg: "..compilers.global.makeprg
-    echo "\tErrorformat: "..compilers.global.errorformat
-    echo "\n"
-    echo "Local"
-    echo "\tName: "..compilers.local.name
-    echo "\tMakeprg: "..compilers.local.makeprg
-    echo "\tErrorformat: "..compilers.local.errorformat
+    let description = "Compiler"
+    let description.= "\n========"
+    let description.= "\n"
+    let description.= "\nGlobal"
+    let description.= "\n\tName: "..compilers.global.name
+    let description.= "\n\tMakeprg: "..compilers.global.makeprg
+    let description.= "\n\tErrorformat:\n\t\t"..join(split(compilers.global.errorformat, '[^\\],'), ",\n\t\t")
+    let description.= "\n\n"
+    let description.= "\nLocal"
+    let description.= "\n\tName: "..compilers.local.name
+    let description.= "\n\tMakeprg: "..compilers.local.makeprg
+    let description.= "\n\tErrorformat:\n\t\t"..join(split(compilers.local.errorformat, '[^\\],'), ",\n\t\t")
+
+    echo description
 endfunction

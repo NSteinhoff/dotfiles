@@ -104,15 +104,16 @@
         packadd my-abbreviations
         packadd my-automations
         packadd my-commands
+        packadd my-compiler
         packadd my-completions
         packadd my-mappings
         packadd my-marks
+        packadd my-lualib
         packadd my-quickfix
         packadd my-statusline
         packadd my-tabline
         packadd my-tags
-        packadd my-zettelkasten
-        packadd my-lualib
+        " packadd my-zettelkasten
 
 """ External
         " Finding / picking files
