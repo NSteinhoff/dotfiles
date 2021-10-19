@@ -7,7 +7,11 @@ if exists(":CompilerSet") != 2
     command! -nargs=* CompilerSet setlocal <args>
 endif
 
-let rcfile = findfile('.eslintrc.js', ".;$HOME,,;$HOME")
+let buf = expand('%')
+
+let path = (isdirectory(buf) ? buf..';$HOME,' : '')..'.;$HOME,;$HOME,'
+
+let rcfile = findfile('.eslintrc.js', path)
 if rcfile != ''
     let project_root = fnamemodify(rcfile, ":h")
     let src_dir = project_root..'/src/'
