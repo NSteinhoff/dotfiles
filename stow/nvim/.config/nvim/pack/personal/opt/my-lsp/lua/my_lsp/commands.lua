@@ -39,6 +39,7 @@ function M.on_detach(client)
     -- Clients
     vim.cmd([[delcommand LspBufStop]])
     vim.cmd([[delcommand LspBufClients]])
+    vim.cmd([[delcommand LspDetach]])
 
     require("my_lsp.mappings").on_detach()
 end
