@@ -13,15 +13,15 @@ augroup my-autoread
     autocmd CursorMoved * silent! checktime
 augroup END
 
-augroup my-tmux-window-name
-    autocmd!
-    autocmd FocusGained,VimEnter,WinEnter,DirChanged * if exists('$TMUX') && executable('tmux')
-            \| silent! execute "!tmux rename-window "..shellescape('  '..fnamemodify(getcwd(), ':t'))
-            \| endif
-    autocmd VimLeave,FocusLost * if exists('$TMUX') && executable('tmux')
-            \| silent! execute "!tmux set-option -w automatic-rename on"
-            \| endif
-augroup END
+" augroup my-tmux-window-name
+"     autocmd!
+"     autocmd FocusGained,VimEnter,WinEnter,DirChanged * if exists('$TMUX') && executable('tmux')
+"             \| silent! execute "!tmux rename-window "..shellescape('  '..fnamemodify(getcwd(), ':t'))
+"             \| endif
+"     autocmd VimLeave,FocusLost * if exists('$TMUX') && executable('tmux')
+"             \| silent! execute "!tmux set-option -w automatic-rename on"
+"             \| endif
+" augroup END
 
 augroup my-sessions
     autocmd!

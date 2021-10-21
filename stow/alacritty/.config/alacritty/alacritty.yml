@@ -2,11 +2,4 @@ import:
   - ~/.config/alacritty/keybindings.yml
   - ~/.config/alacritty/font.yml
   - ~/.config/alacritty/colors.yml
-
-shell:
-  program: /usr/local/bin/tmux
-  args:
-    - new-session
-    - -A
-    - -s
-    - default
+  # - ~/.config/alacritty/tmux.yml

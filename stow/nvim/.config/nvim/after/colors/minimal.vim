@@ -117,6 +117,7 @@ for [k, v] in items(s:styles)
     let s:styles[k..'Italic']                  =  extend(copy(v), {'lig': 'italic'})
     let s:styles[k..'Bold']                    =  extend(copy(v), {'lig': 'bold'})
     let s:styles[k..'Underlined']              =  extend(copy(v), {'lig': 'underline'})
+    let s:styles[k..'ItalicBold']              =  extend(copy(v), {'lig': 'italic,bold'})
     let s:styles[k..'ItalicUnderlined']        =  extend(copy(v), {'lig': 'italic,underline'})
     let s:styles[k..'BoldUnderlined']          =  extend(copy(v), {'lig': 'bold,underline'})
     let s:styles[k..'ItalicBoldUnderlined']    =  extend(copy(v), {'lig': 'italic,bold,underline'})
@@ -175,9 +176,10 @@ let s:diff_styles.text                = "HappyUnderlined"
 ""}}}
 
 "" Syntax Styles {{{
-let s:syntax_styles.comment           = "Quiet"
+let s:syntax_styles.comment           = "QuietItalic"
 let s:syntax_styles.identifier        = "Calm"
 let s:syntax_styles.constant          = "Busy"
+let s:syntax_styles.string            = "BusyItalic"
 let s:syntax_styles.statement         = "Pop"
 let s:syntax_styles.operator          = "PopBold"
 let s:syntax_styles.preproc           = "Happy"
@@ -191,7 +193,7 @@ let s:syntax_styles.error             = "Forceful"
 let s:syntax_styles.ignore            = "Faded"
 
 let s:syntax_styles.trivial           = "Faded"
-let s:syntax_styles.emphasis          = "Pop"
+let s:syntax_styles.emphasis          = "NormalItalic"
 let s:syntax_styles.strong            = "NormalBold"
 let s:syntax_styles.heavy             = "PopBold"
 ""}}}
@@ -329,11 +331,13 @@ let s:syntax_groups.fixme = [
 \ ]
 let s:syntax_groups.constant = [
 \    "Constant",
-\    "String",
 \    "Number",
 \    "Directory",
 \    "markdownCode",
 \    "markdownCodeBlock",
+\ ]
+let s:syntax_groups.string = [
+\    "String",
 \ ]
 let s:syntax_groups.identifier = [
 \    "Identifier",
@@ -364,7 +368,6 @@ let s:syntax_groups.comment = [
 \    "LspDiagnosticsSignInformation",
 \ ]
 let s:syntax_groups.trivial = [
-\    "Ignore",
 \    "Conceal",
 \    "Noise",
 \    "LspDiagnosticsDefaultHint",
