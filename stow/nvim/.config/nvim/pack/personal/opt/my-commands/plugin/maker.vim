@@ -39,7 +39,7 @@ function s:ignore_make_errors()
     if &errorformat =~ '%-Gmake: \*\*\*%\.%#'|return|endif
 
     let local = empty(&l:errorformat) ? '' : 'local'
-    execute 'set'..local..' errorformat^=%+Gmake:\ ***%.%#'
+    execute 'set'..local..' errorformat^=%-Gmake:\ ***%.%#'
 endfunction
 
 augroup my-maker
