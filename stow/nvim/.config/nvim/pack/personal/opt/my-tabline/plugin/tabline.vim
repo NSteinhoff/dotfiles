@@ -8,8 +8,20 @@ function MyTabLabel(n)
     else
         let buflist = tabpagebuflist(a:n)
         let winnr = tabpagewinnr(a:n)
-        let bufname = fnamemodify(bufname(buflist[winnr-1]), ':t')
-        return empty(bufname) ? '[No Name]' : bufname
+        let name = bufname(buflist[winnr-1])
+        if empty(name)
+            return '[No Name]'
+        endif
+
+        if name =~ '^term:'
+            let [term, process, cmd] = split(name, ':')
+            let [directory, pid] = split(process, '//')
+            let procdir = fnamemodify(directory, ':p')
+            let windir = fnamemodify(getcwd(), ':p')
+            return '>_ '..(procdir == windir ? '' : directory..':')..fnamemodify(cmd, ':t')
+        else
+            return fnamemodify(name, ':t')
+        endif
     endif
 endfunction
 
