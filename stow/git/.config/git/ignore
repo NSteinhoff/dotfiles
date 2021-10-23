@@ -2,6 +2,12 @@
 tags
 tags.lib
 
+# Log files
+server.log
+build.log
+watch.log
+compile.log
+
 # Mac
 .DS_Store
 
