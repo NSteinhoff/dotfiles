@@ -174,6 +174,9 @@ endfunction
     inoremap <expr> <tab>   pumvisible() ? '<c-n>' : '<tab>'
     inoremap <expr> <s-tab> pumvisible() ? '<c-p>' : '<s-TAB>'
 
+    " Signature help via :ptag
+    inoremap <c-h> <cmd>ptag<cr>
+
     " Additional ins-completion modes
     " W,R,A,G,H,J,Z,C,B,M
     " Registers:

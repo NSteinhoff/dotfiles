@@ -11,7 +11,7 @@ function M.on_attach(client)
 
     -- Get help
     -- vim.cmd([[nnoremap <silent> <buffer> K            <cmd>lua vim.lsp.buf.hover()<CR>]])
-    vim.cmd([[nnoremap <silent> <buffer> <c-space>      <cmd>lua vim.lsp.buf.hover()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> <c-space>    <cmd>lua vim.lsp.buf.hover()<CR>]])
     vim.cmd([[inoremap <silent> <buffer> <c-h>        <cmd>lua vim.lsp.buf.signature_help()<CR>]])
 
     -- Jump to symbols
