@@ -1,6 +1,6 @@
 --langdef=TSX
 --langmap=TSX:.tsx
---regex-tsx=/^[ \t]*(export[ \t]+)?(default[ \t]+)?function[ \t]+([a-zA-Z][a-zA-Z0-9]+)/\3/f,function/
+--regex-tsx=/^[ \t]*(export[ \t]+)?(async[ \t]+)?(default[ \t]+)?function[ \t]+([a-zA-Z][a-zA-Z0-9]+)/\4/f,function/
 --regex-tsx=/^[ \t]*(export[ \t]+)?(default[ \t]+)?const[ \t]+([a-zA-Z][a-zA-Z0-9]+)/\3/C,constant/
 --regex-tsx=/^[ \t]*(export[ \t]+)?(default[ \t]+)?class[ \t]+([A-Z][a-zA-Z0-9]+)/\3/c,class/
 --regex-tsx=/^[ \t]*(export[ \t]+)?(default[ \t]+)?interface[ \t]+([A-Z][a-zA-Z0-9]+)/\3/i,interface/
