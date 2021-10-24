@@ -1,3 +1,6 @@
+" Add the :Cfilter and :Lfilter commands
+packadd cfilter
+
 command! -nargs=* -bang Cnew call qf#new(<q-args>, <bang>0)
 command! Cadd call qf#add()
 
