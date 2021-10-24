@@ -281,6 +281,9 @@ endfunction
     nmap <leader>bn <plug>(buffers-new)
     nmap <leader>bv <plug>(buffers-vnew)
 
+    " Terminal <leader>t
+    nmap <expr> <leader>t !empty(filter(getbufinfo(), {k,v -> v.name =~ '^term'})) ? ':b term<c-z>' : '<cmd>echo "No running terminal buffers."<cr>'
+
     " Explore: <leader>e
     nnoremap <silent> <leader>ee <cmd>Explore<cr>
     nnoremap <silent> <leader>ev <cmd>Vexplore<cr>
