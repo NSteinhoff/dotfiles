@@ -109,6 +109,11 @@ function Alt()
     return ' '..alt
 endfunction
 
+function Terminals()
+    let terminals = filter(getbufinfo(), { k, v -> v.name =~ '^term' })
+    return empty(terminals) ? '' : '[>_'..len(terminals)..']'
+endfunction
+
 function CurrentFile()
     if &ft == 'dirvish'
         let file = ' '..(empty(expand('%:.')) ? './' : '')..expand('%:.')
@@ -151,6 +156,7 @@ function MyStatusline()
     let position    = '☰ %l:%c | %p%%'
     let lsp         = '%{LspStatus()}'
     let tree        = '%{Tree()}'
+    let terminals   = '%{Terminals()}'
 
     let stl  = pre
     let stl .= ft
@@ -172,6 +178,7 @@ function MyStatusline()
     let stl .= compiler
     let stl .= interpreter
     let stl .= BAR
+    let stl .= terminals
     let stl .= ' '
     let stl .= position
 
