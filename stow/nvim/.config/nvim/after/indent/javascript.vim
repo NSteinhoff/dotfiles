@@ -1,4 +1,4 @@
-setlocal shiftwidth=2
+setlocal shiftwidth=4
 setlocal formatexpr&
 
 source <sfile>:h/formatter/prettier.vim
