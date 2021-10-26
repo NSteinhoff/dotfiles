@@ -10,12 +10,13 @@ if bufname() =~ 'timeline$'
     let s:help_msg .= ' p(i)eek/(o)pen/(p)atch file; <c-space> add to diff; '
     command -buffer PeekFile call b:peek_file()
     command -buffer OpenFile call b:open_file()
-    command -buffer PeekPatch call b:peek_patch()
+    command -range -buffer PeekPatch call b:peek_patch(<line1>, <line2>)
     command -buffer AddToDiff if b:peek_file() != -1 | diffthis | wincmd p | endif
 
     nnoremap <buffer> i <cmd>PeekFile<cr>
     nnoremap <buffer> o <cmd>OpenFile<cr>
     nnoremap <buffer> p <cmd>PeekPatch<cr>
+    vnoremap <buffer> p :PeekPatch<cr>
     nnoremap <buffer> <c-space> <cmd>AddToDiff<cr>
 endif
 

@@ -1,29 +1,46 @@
-function commander#lib#load_lines(lines, ...) abort
-    let b:alt_save = expand('#')
-    let l:exit_to = get(b:, 'exit_to', expand('%'))
-    try
-        enew | call append(0, a:lines) | $delete
-    catch /.*/
-        buffer # | bd # | let @# = b:alt_save
-        echoerr 'Unable to load lines: '.v:exception
-    endtry
-    let b:exit_to = l:exit_to
+function commander#lib#load_lines(lines, ...)
+    let l:home = get(b:, 'home', expand('%'))
+
+    let l:alt_save = expand('#')
+    enew
     set buftype=nofile bufhidden=wipe nobuflisted noswapfile
+
+    try
+        call append(0, a:lines) | $delete
+    catch
+        buffer #
+        let @# = l:alt_save
+        echo 'Unable to load lines: '.v:exception
+        return -1
+    endtry
+
+    let b:home = l:home
+    let @# = b:home
     0
-    nnoremap <buffer> <silent> q :execute 'buffer '.b:exit_to.' \| let @# = b:alt_save'<cr>
     return bufnr()
 endfunction
 
 function commander#lib#load_lines_in_split(lines, ...) abort
-    let l:splitcmd = a:0 ? a:1.' new' : 'new'
-    execute 'leftabove '.l:splitcmd
+    let l:home = get(b:, 'home', expand('%'))
+
+    let position =  a:0 && a:1 =~ 'left\|above' ? 'leftabove '
+                \ : a:0 && a:1 =~ 'right\|below' ? 'rightbelow '
+                \ : ''
+    let orientation = a:0 && a:1 =~ 'vert' ? 'vertical ' : ''
+    execute position..orientation..'new'
+
     set buftype=nofile bufhidden=wipe nobuflisted noswapfile
+
     try
         call append(0, a:lines) | $delete
     catch /.*/
         close
-        echoerr 'Unable to load lines in split: '.v:exception
+        echo 'Unable to load lines in split: '.v:exception
+        return -1
     endtry
+
+    let b:home = l:home
+    let @# = b:home
     0
     return bufnr()
 endfunction
