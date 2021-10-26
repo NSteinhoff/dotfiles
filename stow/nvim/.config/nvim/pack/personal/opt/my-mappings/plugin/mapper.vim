@@ -156,10 +156,10 @@ endfunction
 
 """ Preview / Hover
     " Preview definition
-    nnoremap          <c-space>         <c-w>}
-    nnoremap          g<c-space>        <c-w>g}
-    vnoremap <silent> <c-space>         y:ptag <c-r>"<cr>
-    vnoremap <silent> g<c-space>        y:ptselect <c-r>"<cr>
+    nnoremap <expr>         <c-space>         !(empty(tagfiles())) ? '<c-w>}' : ':psearch <c-r><c-w><cr>'
+    nnoremap <expr>         g<c-space>        !(empty(tagfiles())) ? '<c-w>g}' : ':psearch <c-r><c-w><cr>'
+    vnoremap <expr><silent> <c-space>         !(empty(tagfiles())) ? 'y:ptag <c-r>"<cr>' :'y:psearch /.*<c-r>".*/<cr>'
+    vnoremap <expr><silent> g<c-space>        !(empty(tagfiles())) ? 'y:ptselect <c-r>"<cr>' : 'y:psearch /.*<c-r>".*/<cr>'
 
     " Close the preview window
     nnoremap          <c-w><space>      <c-w>z
