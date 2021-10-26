@@ -84,14 +84,17 @@ function commander#git#blame_clear()
 endfunction
 
 function commander#git#load_diff_in_split(revision, ...)
-    let ft = &ft
     let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
+    let bufname = (a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD')).':'.fname
+    if !empty(getbufinfo(bufname))|return s:go_to_buf(bufname)|endif
+
+    let ft = &ft
     try
         let content = call('commander#git#local_file_revision', [a:revision] + a:000)
         diffthis
         call commander#lib#load_lines_in_split(content, 'vertical')
         diffthis
-        execute 'file '.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD')).':'.fname
+        execute 'file '.bufname
         let &ft=ft
         au BufWipeout <buffer> diffoff!
         wincmd p
@@ -102,19 +105,48 @@ function commander#git#load_diff_in_split(revision, ...)
 endfunction
 
 function commander#git#load_patch(revision, ...) abort
+    let bufname = expand('#').'.'.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
+    if !empty(getbufinfo(bufname))|return s:go_to_buf(bufname)|endif
+
     let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
     let ref = (a:revision != '' ? split(a:revision)[0] : get(t:, 'diff_target', 'HEAD'))
     let content = systemlist('git -C '.shellescape(fdir).' diff '.ref.' -- '.fname)
-    call commander#lib#load_lines(content)
-    execute 'file '.expand('#').'.'.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
+    call commander#lib#load_lines_in_split(content)
+    execute 'file '.bufname
     set ft=diff
+endfunction
+
+function commander#git#load_patch_for(revision, ...) abort
+    let bufname = expand('#').'.'.a:revision
+    if !empty(getbufinfo(bufname))|return s:go_to_buf(bufname)|endif
+
+    let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
+    let ref = split(a:revision)[0]
+    let content = systemlist('git -C '.shellescape(fdir).' diff '.ref.'~ '.ref.' -- '.fname)
+    call commander#lib#load_lines_in_split(content)
+    execute 'file '.bufname
+    set ft=diff
+endfunction
+
+function s:go_to_buf(bufname)
+    let tw = gettabinfo(tabpagenr())[0].windows
+    let bw = getbufinfo(a:bufname)[0].windows
+
+    let indeces = filter(map(bw, { _, w -> index(tw, w) }), { _, i -> i != -1 } )
+    if empty(indeces)
+        return -1
+    endif
+
+    execute indeces[0]+1..'wincmd w'
 endfunction
 
 function commander#git#load_timeline(split, line1, line2, range, ...)
     let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
+    let bufname = fname..(a:range ? ':'..a:line1..','..a:line2 : '')..'.timeline'
+    if !empty(getbufinfo(bufname))|return s:go_to_buf(bufname)|endif
+
     let ft=&ft
     let content = call('commander#git#line_revisions', [a:line1, a:line2] + a:000)
-    let bufname = fname..(a:range ? ':'..a:line1..','..a:line2 : '')..'.timeline'
     if a:split
         call commander#lib#load_lines_in_split(content, 'vertical')
     else
@@ -122,6 +154,7 @@ function commander#git#load_timeline(split, line1, line2, range, ...)
     endif
     execute 'file '.bufname
     set ft=gitlog
+    let b:peek_patch = { -> commander#git#load_patch_for(getline('.'), fdir.'/'.fname) }
     let b:open_file = { -> commander#git#load_file_revision(getline('.'), fdir.'/'.fname, ft) }
     let b:peek_file = { -> commander#git#load_file_revision_in_split(getline('.'), fdir.'/'.fname, ft) }
     let b:open_commit = { -> commander#git#load_revision(getline('.')) }
@@ -129,6 +162,9 @@ function commander#git#load_timeline(split, line1, line2, range, ...)
 endfunction
 
 function commander#git#load_log(split, ...)
+    let bufname = 'GITLOG'
+    if !empty(getbufinfo(bufname))|return s:go_to_buf(bufname)|endif
+
     let ft=&ft
     let content = commander#git#global_revisions()
     if a:split
@@ -136,33 +172,42 @@ function commander#git#load_log(split, ...)
     else
         call commander#lib#load_lines(content)
     endif
-    execute 'file GITLOG'
+    execute 'file '.bufname
     set ft=gitlog
     let b:open_commit = { -> commander#git#load_revision(getline('.')) }
     let b:peek_commit = { -> commander#git#load_revision_in_split(getline('.')) }
 endfunction
 
 function commander#git#load_revision(revision)
+    let bufname = a:revision
+    if !empty(getbufinfo(bufname))|return s:go_to_buf(bufname)|endif
+
     let content = commander#git#local_revision(a:revision)
     call commander#lib#load_lines(content)
     set ft=git
-    execute 'file '.a:revision
+    execute 'file '.bufname
 endfunction
 
 function commander#git#load_revision_in_split(revision)
+    let bufname = a:revision
+    if !empty(getbufinfo(bufname))|return s:go_to_buf(bufname)|endif
+
     let content = commander#git#local_revision(a:revision)
     call commander#lib#load_lines_in_split(content, 'vertical')
     set ft=git
-    execute 'file '.a:revision
+    execute 'file '.bufname
 endfunction
 
 function commander#git#load_file_revision(revision, ...)
+    let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
+    let bufname = fdir.'/'.fname.'@'.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
+    if !empty(getbufinfo(bufname))|return s:go_to_buf(bufname)|endif
+
     let ft = a:0 >= 2 ? a:2 : &ft
     try
         let content = call('commander#git#local_file_revision', [a:revision] + a:000)
         call commander#lib#load_lines(content)
-        let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
-        execute 'file '.fdir.'/'.fname.'@'.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
+        execute 'file '.bufname
         let &ft=ft
     catch
         echom v:exception
@@ -170,12 +215,15 @@ function commander#git#load_file_revision(revision, ...)
 endfunction
 
 function commander#git#load_file_revision_in_split(revision, ...)
+    let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
+    let bufname = fdir.'/'.fname.'@'.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
+    if !empty(getbufinfo(bufname))|return s:go_to_buf(bufname)|endif
+
     let ft = a:0 >= 2 ? a:2 : &ft
     try
         let content = call('commander#git#local_file_revision', [a:revision] + a:000)
         call commander#lib#load_lines_in_split(content, 'vertical')
-        let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
-        execute 'file '.fdir.'/'.fname.'@'.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
+        execute 'file '.bufname
         let &ft=ft
     catch
         echom v:exception

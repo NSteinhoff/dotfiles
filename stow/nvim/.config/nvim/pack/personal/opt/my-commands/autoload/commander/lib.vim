@@ -25,6 +25,7 @@ function commander#lib#load_lines_in_split(lines, ...) abort
         echoerr 'Unable to load lines in split: '.v:exception
     endtry
     0
+    return bufnr()
 endfunction
 
 function s:comment_affixes()
