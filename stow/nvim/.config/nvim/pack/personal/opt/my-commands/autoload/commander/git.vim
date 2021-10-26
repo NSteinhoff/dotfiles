@@ -186,7 +186,12 @@ function commander#git#set_changed_args(...)
     let ref = a:0 && !empty(a:1) ? split(a:1)[0] : get(t:, 'diff_target', 'HEAD')
     let cwd = getcwd()
     let gitdir = finddir('.git', ';')
-    if gitdir == ''
+    if empty(gitdir)
+        " We might be in a worktree where '.git' is not a directory
+        let gitdir = findfile('.git', ';')
+    endif
+    if empty(gitdir)
+        echoerr "You don't seem to be inside a git repository."
         return
     endif
     let gitroot = fnamemodify(gitdir, ':h')
@@ -218,6 +223,11 @@ function commander#git#review(ref)
     tab split
     call commander#git#set_diff_target(a:ref)
     arglocal
-    call commander#git#set_changed_args()
-    first
+    try
+        call commander#git#set_changed_args()
+        first
+    catch
+        echo v:exception
+        tabclose
+    endtry
 endfunction
