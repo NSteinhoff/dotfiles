@@ -25,10 +25,10 @@ function s:edit_args_msg()
     return "Editing the first of ".argc()." changed files."
 endfunction
 
-command! -bang -range=% GitLog call commander#git#load_log(<bang>0)
+command! -bang -range=% GitLog call commander#git#load_log(<bang>1)
 command! -bang -range=% Timeline call commander#git#load_timeline(<bang>1, <line1>, <line2>, <range>)
-command! -nargs=? -complete=customlist,s:complete_file_revisions ChangeSplit call commander#git#load_diff_in_split(<q-args>)
-command! -nargs=? -complete=customlist,s:complete_file_revisions ChangePatch call commander#git#load_patch(<q-args>)
+command! -bang -nargs=? -complete=customlist,s:complete_file_revisions DiffThis call commander#git#load_diff(<bang>1, <q-args>)
+command! -bang -nargs=? -complete=customlist,s:complete_file_revisions PatchThis call commander#git#load_patch(<bang>1, <q-args>)
 
 command! -nargs=? -bang -complete=customlist,s:complete_global_revisions ChangedFiles call commander#git#set_changed_args(<q-args>)
             \| if <bang>0 && argc()
@@ -64,9 +64,9 @@ endfunction
 command -bang TrackChanges call s:track_changes()
 command -bang NoTrackChanges call s:no_track_changes()
 
-nnoremap <plug>(git-diff-split) <cmd>ChangeSplit<cr>
-nnoremap <plug>(git-patch-split) <cmd>ChangePatch<cr>
-nnoremap <plug>(git-diff-split-ref) :ChangeSplit <c-z>
-nnoremap <plug>(git-patch-split-ref) :ChangePatch <c-z>
+nnoremap <plug>(git-diff-split) <cmd>DiffThis<cr>
+nnoremap <plug>(git-patch-split) <cmd>PatchThis<cr>
+nnoremap <plug>(git-diff-split-ref) :DiffThis <c-z>
+nnoremap <plug>(git-patch-split-ref) :PatchThis <c-z>
 nnoremap <plug>(git-blame) <cmd>Blame<cr>
 vnoremap <plug>(git-blame) :Blame<cr>

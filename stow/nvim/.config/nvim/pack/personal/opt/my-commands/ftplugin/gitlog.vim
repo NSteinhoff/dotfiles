@@ -1,14 +1,22 @@
-nnoremap <buffer> <space> <cmd>call b:peek_commit()<cr>
-nnoremap <buffer> <cr> <cmd>call b:open_commit()<cr>
-nnoremap <buffer> <expr> R '<cmd>Review '..getline('.')..'<cr>'
+command -buffer PeekCommit call b:peek_commit()
+command -buffer OpenCommit call b:open_commit()
+command -buffer ReviewCommit execute 'Review '..getline('.')
+nnoremap <buffer> <space> <cmd>PeekCommit<cr>
+nnoremap <buffer> <cr> <cmd>OpenCommit<cr>
+nnoremap <buffer> R <cmd>ReviewCommit<cr>
 
 let s:help_msg = 'Usage:'
 if bufname() =~ 'timeline$'
     let s:help_msg .= ' p(i)eek/(o)pen/(p)atch file; <c-space> add to diff; '
-    nnoremap <buffer> i <cmd>call b:peek_file()<cr>
-    nnoremap <buffer> o <cmd>call b:open_file()<cr>
-    nnoremap <buffer> p <cmd>call b:peek_patch()<cr>
-    nnoremap <buffer> <c-space> <cmd>if b:peek_file() != -1<bar>diffthis<bar>wincmd p<bar>endif<cr>
+    command -buffer PeekFile call b:peek_file()
+    command -buffer OpenFile call b:open_file()
+    command -buffer PeekPatch call b:peek_patch()
+    command -buffer AddToDiff if b:peek_file() != -1 | diffthis | wincmd p | endif
+
+    nnoremap <buffer> i <cmd>PeekFile<cr>
+    nnoremap <buffer> o <cmd>OpenFile<cr>
+    nnoremap <buffer> p <cmd>PeekPatch<cr>
+    nnoremap <buffer> <c-space> <cmd>AddToDiff<cr>
 endif
 
 let s:help_msg .= ' <space>/<cr> peek/open commit'

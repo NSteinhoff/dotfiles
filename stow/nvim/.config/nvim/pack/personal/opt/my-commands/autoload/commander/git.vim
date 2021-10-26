@@ -83,7 +83,7 @@ function commander#git#blame_clear()
     call nvim_buf_clear_namespace(0, ns, 0, -1)
 endfunction
 
-function commander#git#load_diff_in_split(revision, ...)
+function commander#git#load_diff(split, revision, ...)
     let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
     let bufname = (a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD')).':'.fname
     if !empty(getbufinfo(bufname))|return s:go_to_buf(bufname)|endif
@@ -92,7 +92,11 @@ function commander#git#load_diff_in_split(revision, ...)
     try
         let content = call('commander#git#local_file_revision', [a:revision] + a:000)
         diffthis
-        call commander#lib#load_lines_in_split(content, 'vertical')
+        if a:split
+            call commander#lib#load_lines_in_split(content, 'vertical')
+        else
+            call commander#lib#load_lines(content)
+        endif
         diffthis
         execute 'file '.bufname
         let &ft=ft
@@ -104,14 +108,18 @@ function commander#git#load_diff_in_split(revision, ...)
     endtry
 endfunction
 
-function commander#git#load_patch(revision, ...) abort
+function commander#git#load_patch(split, revision, ...) abort
     let bufname = expand('#').'.'.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
     if !empty(getbufinfo(bufname))|return s:go_to_buf(bufname)|endif
 
     let [fdir, fname] = s:pathsplit(a:0 ? a:1 : '%')
     let ref = (a:revision != '' ? split(a:revision)[0] : get(t:, 'diff_target', 'HEAD'))
     let content = systemlist('git -C '.shellescape(fdir).' diff '.ref.' -- '.fname)
-    call commander#lib#load_lines_in_split(content)
+    if a:split
+        call commander#lib#load_lines_in_split(content)
+    else
+        call commander#lib#load_lines(content)
+    endif
     execute 'file '.bufname
     set ft=diff
 endfunction
