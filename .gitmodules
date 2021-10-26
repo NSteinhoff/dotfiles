@@ -33,3 +33,6 @@
 [submodule "3rd/pack/external/opt/plenary.nvim"]
 	path = 3rd/pack/external/opt/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim.git
+[submodule "3rd/pack/external/opt/nvim-schema-store"]
+	path = 3rd/pack/external/opt/nvim-schema-store
+	url = https://github.com/b0o/SchemaStore.nvim.git
