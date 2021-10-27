@@ -3,7 +3,7 @@ let s:last_failed = 'NONE'
 function s:scratch(lines)
     if @% ==# 'SCRATCH'|return|endif
 
-    let winids = win_findbuf(bufnr('SCRATCH'))
+    let winids = win_findbuf(bufnr('^SCRATCH$'))
     if !empty(winids)
         call win_gotoid(winids[0])
     else
@@ -12,9 +12,9 @@ function s:scratch(lines)
     endif
 
     if !empty(a:lines)
-        let empty = line('$') == 1 && empty(getline(1))
+        let was_empty = line('$') == 1 && empty(getline(1))
         call append('$', a:lines)
-        if empty|0delete|endif
+        if was_empty|0delete|endif
     endif
 
     normal G

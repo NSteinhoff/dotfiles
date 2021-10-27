@@ -1,6 +1,6 @@
 " Return the window numbers of the current tab page where the buffer <bufname>
 " is visible. Does a full match on the buffer name.
-function s:tab_windows_showing_buffer(bufname, tabpagenr) abort
+function s:tab_win_findbuf(bufname, tabpagenr) abort
     let fullmatch = '^'..a:bufname..'$'
     let bs = getbufinfo(fullmatch)
     if len(bs) != 1|return []|endif
@@ -15,20 +15,15 @@ function s:tab_windows_showing_buffer(bufname, tabpagenr) abort
     return map(indeces, { _, idx -> idx + 1 })
 endfunction
 
-" Does the tabpage display the buffer <bufname>?
-function s:tab_shows_buffer(bufname, tabpagenr) abort
-    return !empty(s:tab_windows_showing_buffer(a:bufname, a:tabpagenr))
-endfunction
-
 " Go the the window in the tabpage that displays the buffer.
 " Returns the window number or '0' otherwise.
 "
 " Exmaple:
 "
-"     if s:go_to_buffer_in_tab(b, t)|return|endif
+"     if s:tab_win_gotobuf(b, t)|return|endif
 "
-function s:go_to_buffer_in_tab(bufname, tabpagenr)
-    let window = get(s:tab_windows_showing_buffer(a:bufname, a:tabpagenr), 0)
+function s:tab_win_gotobuf(bufname, tabpagenr)
+    let window = get(s:tab_win_findbuf(a:bufname, a:tabpagenr), 0)
     if window
         execute window..'wincmd w'
         return window
@@ -136,7 +131,7 @@ function commander#git#load_diff(split, revision, ...)
     if empty(path)|return|endif
     let [fdir, fname] = s:pathsplit(path)
     let bufname = (a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD')).':'.fname
-    if s:go_to_buffer_in_tab(bufname, tabpagenr())|return|endif
+    if s:tab_win_gotobuf(bufname, tabpagenr())|return|endif
 
     let ft = &ft
     try
@@ -160,7 +155,7 @@ endfunction
 
 function commander#git#load_patch(split, revision, ...) abort
     let bufname = expand('#').'.'.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
-    if s:go_to_buffer_in_tab(bufname, tabpagenr())|return|endif
+    if s:tab_win_gotobuf(bufname, tabpagenr())|return|endif
 
     let path = a:0 ? a:1 : expand('%')
     if empty(path)|return|endif
@@ -178,7 +173,7 @@ endfunction
 
 function commander#git#load_patch_for(revision, ...) abort
     let bufname = expand('#').'.'.a:revision
-    if s:go_to_buffer_in_tab(bufname, tabpagenr())|return|endif
+    if s:tab_win_gotobuf(bufname, tabpagenr())|return|endif
 
     let path = a:0 ? a:1 : expand('%')
     if empty(path)|return|endif
@@ -197,7 +192,7 @@ function commander#git#load_patch_between(last, first, ...) abort
     endif
 
     let bufname = expand('#').'.'.a:first.' -> '.a:last
-    if s:go_to_buffer_in_tab(bufname, tabpagenr())|return|endif
+    if s:tab_win_gotobuf(bufname, tabpagenr())|return|endif
 
     let path = a:0 ? a:1 : expand('%')
     if empty(path)|return|endif
@@ -220,7 +215,7 @@ function commander#git#load_timeline(split, line1, line2, range, ...)
 
     let [fdir, fname] = s:pathsplit(path)
     let bufname = 'TIMELINE: '..fname..(a:range ? ':'..a:line1..','..a:line2 : '')..' '..commander#git#get_head()
-    if s:go_to_buffer_in_tab(bufname, tabpagenr())|return|endif
+    if s:tab_win_gotobuf(bufname, tabpagenr())|return|endif
 
     let ft=&ft
     let content = call('commander#git#line_revisions', [a:line1, a:line2] + a:000)
@@ -240,7 +235,7 @@ endfunction
 
 function commander#git#load_log(split, ...)
     let bufname = 'GITLOG: '..commander#git#get_head()
-    if s:go_to_buffer_in_tab(bufname, tabpagenr())|return|endif
+    if s:tab_win_gotobuf(bufname, tabpagenr())|return|endif
 
     let ft=&ft
     let content = commander#git#global_revisions()
@@ -258,7 +253,7 @@ endfunction
 
 function commander#git#load_revision(revision)
     let bufname = a:revision
-    if s:go_to_buffer_in_tab(bufname, tabpagenr())|return|endif
+    if s:tab_win_gotobuf(bufname, tabpagenr())|return|endif
 
     let content = commander#git#local_revision(a:revision)
     call commander#lib#load_lines(content)
@@ -268,7 +263,7 @@ endfunction
 
 function commander#git#load_revision_in_split(revision)
     let bufname = a:revision
-    if s:go_to_buffer_in_tab(bufname, tabpagenr())|return|endif
+    if s:tab_win_gotobuf(bufname, tabpagenr())|return|endif
 
     let content = commander#git#local_revision(a:revision)
     call commander#lib#load_lines_in_split(content)
@@ -282,7 +277,7 @@ function commander#git#load_file_revision(revision, ...)
     let [fdir, fname] = s:pathsplit(path)
 
     let bufname = fdir.'/'.fname.'@'.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
-    if s:go_to_buffer_in_tab(bufname, tabpagenr())|return|endif
+    if s:tab_win_gotobuf(bufname, tabpagenr())|return|endif
 
     let ft = a:0 >= 2 ? a:2 : &ft
     try
@@ -300,7 +295,7 @@ function commander#git#load_file_revision_in_split(revision, ...)
     if empty(path)|return|endif
     let [fdir, fname] = s:pathsplit(path)
     let bufname = fdir.'/'.fname.'@'.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
-    if s:go_to_buffer_in_tab(bufname, tabpagenr())|return|endif
+    if s:tab_win_gotobuf(bufname, tabpagenr())|return|endif
 
     let ft = a:0 >= 2 ? a:2 : &ft
     try
