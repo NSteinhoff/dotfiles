@@ -8,10 +8,6 @@ else
     set grepprg=grep\ -nH
 endif
 
-command! -bang -nargs=+ -complete=file Grep execute (<bang>0 ? 'cgetexpr' : 'cexpr')..' system("grep -n -r '..expandcmd(<q-args>)..'")'
-command! -bang -nargs=+ -complete=file GitGrep execute (<bang>0 ? 'cgetexpr' : 'cexpr')..' system("git grep -n '..expandcmd(<q-args>)..'")'
-command! -bang -nargs=+ -complete=file RipGrep execute (<bang>0 ? 'cgetexpr' : 'cexpr')..' system("rg --vimgrep --smart-case '..expandcmd(<q-args>)..'")'
-
 " Live results
 command! -nargs=? -bang LiveGrep execute
             \ (empty(getbufinfo('^GREP$')) ? 'edit GREP' : 'buffer ^GREP$')
@@ -55,8 +51,6 @@ function s:text_to_grep_pattern(text, matchword)
 
     return pattern
 endfunction
-
-command -nargs=* Text2Pat echo <q-args>..' -> '..s:text_to_grep_pattern(<q-args>, 0)
 
 function s:grep(text, matchword, ...) abort
     let @/ = s:text_to_vim_pattern(a:text, a:matchword)
