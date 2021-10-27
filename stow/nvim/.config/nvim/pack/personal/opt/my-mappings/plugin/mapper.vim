@@ -233,9 +233,7 @@ endfunction
 
     " Search for the currently selected text and set the search register
     vmap <silent> * <plug>(search-selection)
-    vmap <silent> g* <plug>(search-g-selection)
     vmap <silent> # <plug>(search-selection-reverse)
-    vmap <silent> g# <plug>(search-g-selection-reverse)
 
     " Grep, i.e. poor man's 'go-to-reference'
     nmap <silent> gr <plug>(grep-word-silent)<cmd>cwindow<cr>
@@ -317,7 +315,6 @@ endfunction
 
     " Livegrep: <leader>g
     nmap <leader>gg <plug>(livegrep-new)
-    vmap <leader>gg <plug>(livegrep-selection)
     nmap <leader>gr <plug>(livegrep-resume)
 
 

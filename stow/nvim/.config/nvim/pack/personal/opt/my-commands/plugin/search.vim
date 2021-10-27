@@ -19,46 +19,73 @@ command! -nargs=? -bang LiveGrep execute
             \| call setline(1, <q-args>) | 1 | doau TextChanged
             \| endif
 
-function s:grep(pattern, word, ...) abort
-    let cmd = 'grep! '
-    let @/ = a:word ? '\<'..a:pattern..'\>' : a:pattern
-    let pattern = a:word ? '''\b'..escape(a:pattern, '%#')..'\b''' : "'"..a:pattern.."'"
-    let extra = a:0 ? ' '..join(a:000, ' ') : ''
-    execute cmd..pattern..extra
+function s:text_to_vim_pattern(text, matchword)
+    let pattern = a:text
+
+    let pattern = escape(pattern, '\')
+
+    if a:matchword
+        let pattern = '\<'..pattern..'\>'
+    endif
+
+    " Avoid having to escape all the special characters
+    let pattern = '\V'..pattern
+
+    return pattern
 endfunction
 
-function s:grep_silent(pattern, word, ...) abort
-    let cmd = 'grep! '
-    let @/ = a:word ? '\<'..a:pattern..'\>' : a:pattern
-    let pattern = a:word ? '''\b'..escape(a:pattern, '%#')..'\b''' : "'"..a:pattern.."'"
-    let extra = a:0 ? ' '..join(a:000, ' ') : ''
-    execute 'silent '..cmd..pattern..extra
+function s:text_to_grep_pattern(text, matchword)
+    let pattern = a:text
+
+    " The pipe needs to be escaped first, so that the corresponding \ is
+    " escaped as well
+    let pattern = escape(pattern, '|')
+
+    " Meta characters
+    let pattern = escape(pattern, '.*+?^$()[]\')
+
+    " Vim cmdline expansion
+    let pattern = escape(pattern, '%#')
+
+    if a:matchword
+        let pattern = '\b'..pattern..'\b'
+    endif
+
+    let pattern = shellescape(pattern)
+
+    return pattern
 endfunction
 
-function s:selected() abort
-    return substitute(escape(@", '()\|.*+[]^$'), "'", '''\\''''', 'g')
+command -nargs=* Text2Pat echo <q-args>..' -> '..s:text_to_grep_pattern(<q-args>, 0)
+
+function s:grep(text, matchword, ...) abort
+    let @/ = s:text_to_vim_pattern(a:text, a:matchword)
+    let pattern = s:text_to_grep_pattern(a:text, a:matchword)
+    let args = join([''] + a:000, ' ')
+    execute 'grep! '..pattern..args
 endfunction
 
-function s:selected2() abort
-    return trim(escape(@", '\.*[]^$'))
+function s:grep_silent(text, matchword, ...) abort
+    let @/ = s:text_to_vim_pattern(a:text, a:matchword)
+    let pattern = s:text_to_grep_pattern(a:text, a:matchword)
+    let args = join([''] + a:000, ' ')
+    execute 'silent grep! '..pattern..args
 endfunction
 
-vnoremap <silent> <plug>(search-selection) y:let @/ = '\<'..<sid>selected2()..'\>'<bar>call feedkeys('n')<cr>
-vnoremap <silent> <plug>(search-g-selection) y:let @/ = <sid>selected2()<bar>call feedkeys('n')<cr>
-vnoremap <silent> <plug>(search-selection-reverse) y:let @/ = '\<'..<sid>selected2()..'\>'<bar>call feedkeys('N')<cr>
-vnoremap <silent> <plug>(search-g-selection-reverse) y:let @/ = <sid>selected2()<bar>call feedkeys('N')<cr>
+vnoremap <silent> <plug>(search-selection) y:let @/ = <sid>text_to_vim_pattern(@", 0)<bar>call feedkeys('n')<cr>
+vnoremap <silent> <plug>(search-selection-reverse) y:let @/ = <sid>text_to_vim_pattern(@", 0)<bar>call feedkeys('N')<cr>
 
 nnoremap <silent> <plug>(livegrep-new) <cmd>LiveGrep!<cr>A
 nnoremap <silent> <plug>(livegrep-resume) <cmd>LiveGrep<cr>
-vnoremap <silent> <plug>(livegrep-selection) y:execute 'LiveGrep '..escape(@", '()\|.*+[]^$')<cr>
 
 nnoremap <silent> <plug>(grep-word) <cmd>call <sid>grep(expand('<cword>'), 1)<cr>
 nnoremap <silent> <plug>(grep-word-g) <cmd>call <sid>grep(expand('<cword>'), 0)<cr>
-vnoremap <silent> <plug>(grep-selection) y:call <sid>grep(<sid>selected(), 0)<cr>
+vnoremap <silent> <plug>(grep-selection) y:call <sid>grep(@", 0)<cr>
 
 nnoremap <silent> <plug>(grep-word-silent) <cmd>call <sid>grep_silent(expand('<cword>'), 1)<cr>
-vnoremap <silent> <plug>(grep-selection-silent) y:call <sid>grep_silent(<sid>selected(), 0)<cr>
+nnoremap <silent> <plug>(grep-word-g-silent) <cmd>call <sid>grep_silent(expand('<cword>'), 0)<cr>
+vnoremap <silent> <plug>(grep-selection-silent) y:call <sid>grep_silent(@", 0)<cr>
 
 nnoremap <silent> <plug>(grep-word-in-file) <cmd>call <sid>grep(expand('<cword>'), 1, '%')<cr>
 nnoremap <silent> <plug>(grep-word-g-in-file) <cmd>call <sid>grep(expand('<cword>'), 0, '%')<cr>
-vnoremap <silent> <plug>(grep-selection-in-file) y:call <sid>grep(<sid>selected(), 0, '%')<cr>
+vnoremap <silent> <plug>(grep-selection-in-file) y:call <sid>grep(@", 0, '%')<cr>
