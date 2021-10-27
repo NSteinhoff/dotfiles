@@ -1,9 +1,8 @@
 function commander#lib#load_lines(lines, ...)
-    let l:home = get(b:, 'home', expand('%'))
-
     let l:alt_save = expand('#')
     enew
     set buftype=nofile bufhidden=wipe nobuflisted noswapfile
+    nnoremap <buffer> q <cmd>bdelete<cr>
 
     try
         call append(0, a:lines) | $delete
@@ -14,22 +13,24 @@ function commander#lib#load_lines(lines, ...)
         return -1
     endtry
 
-    let b:home = l:home
-    let @# = b:home
+    if !empty(l:alt_save) && get(getbufinfo(l:alt_save), 0, {'listed': 0}).listed
+        let @# = l:alt_save
+    endif
+
     0
     return bufnr()
 endfunction
 
 function commander#lib#load_lines_in_split(lines, ...) abort
-    let l:home = get(b:, 'home', expand('%'))
-
     let position =  a:0 && a:1 =~ 'left\|above' ? 'leftabove '
                 \ : a:0 && a:1 =~ 'right\|below' ? 'rightbelow '
                 \ : ''
     let orientation = a:0 && a:1 =~ 'vert' ? 'vertical ' : ''
-    execute position..orientation..'new'
 
+    let l:alt_save = expand('#')
+    execute position..orientation..'new'
     set buftype=nofile bufhidden=wipe nobuflisted noswapfile
+    nnoremap <buffer> q <cmd>bdelete<cr>
 
     try
         call append(0, a:lines) | $delete
@@ -39,8 +40,10 @@ function commander#lib#load_lines_in_split(lines, ...) abort
         return -1
     endtry
 
-    let b:home = l:home
-    let @# = b:home
+    if !empty(l:alt_save) && get(getbufinfo(l:alt_save), 0, {'listed': 0}).listed
+        let @# = l:alt_save
+    endif
+
     0
     return bufnr()
 endfunction

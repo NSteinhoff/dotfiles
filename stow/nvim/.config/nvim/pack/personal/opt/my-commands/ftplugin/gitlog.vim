@@ -1,3 +1,5 @@
+setlocal cursorline
+
 command -buffer PeekCommit call b:peek_commit()
 command -buffer OpenCommit call b:open_commit()
 command -buffer ReviewCommit execute 'Review '..getline('.')
@@ -6,7 +8,7 @@ nnoremap <buffer> <cr> <cmd>OpenCommit<cr>
 nnoremap <buffer> R <cmd>ReviewCommit<cr>
 
 let s:help_msg = 'Usage:'
-if bufname() =~ 'timeline$'
+if bufname() =~ '^TIMELINE: '
     let s:help_msg .= ' p(i)eek/(o)pen/(p)atch file; <c-space> add to diff; '
     command -buffer PeekFile call b:peek_file()
     command -buffer OpenFile call b:open_file()
