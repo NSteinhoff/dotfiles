@@ -1,4 +1,8 @@
 function! s:toc(...)
+    if empty(tagfiles())
+        echo 'No tags file.'
+        return
+    endif
     let l:index = a:0 && a:1
     let l:fname = expand('%')
     let l:tags = filter(taglist('.*'), {_, v -> v.filename == l:fname})

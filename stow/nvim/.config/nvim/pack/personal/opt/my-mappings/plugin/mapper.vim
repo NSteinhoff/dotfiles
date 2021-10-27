@@ -8,32 +8,6 @@ augroup SANITIZER
 augroup END
 
 
-" Return the text selected by the operator motion
-"
-" This function can be called in operator functions to get the
-" selected text.
-"
-" :map-operator
-function s:opselect(type)
-    let sel_save = &selection
-    let &selection = "inclusive"
-    let reg_save = @@
-    try
-        if a:type ==# 'v' || a:type ==# 'V'
-            silent execute "normal! gvy"
-        elseif a:type == 'line'
-            silent execute "normal! '[V']y"
-        else
-            silent execute "normal! `[v`]y"
-        endif
-        let text = @@
-        return text
-    finally
-        let @@ = reg_save
-    endtry
-endfunction
-
-
 """ <leader> / Wildchar
     " Explicitly map the <leader> key. Otherwise some plugins use their own default.
     let mapleader = '\'
@@ -120,7 +94,7 @@ endfunction
 """ Format
     " Mnemonic:
     "   < and > change indentation
-    "   => 'indent all'
+    "   <> => 'indent all'
     nnoremap <silent> <> <cmd>Format<cr>
 
 """ Align: <leader>=
@@ -156,14 +130,14 @@ endfunction
 
 """ Preview / Hover
     " Preview definition
-    nnoremap <expr>         <c-space>         !(empty(tagfiles())) ? '<c-w>}' : ':psearch <c-r><c-w><cr>'
-    nnoremap <expr>         g<c-space>        !(empty(tagfiles())) ? '<c-w>g}' : ':psearch <c-r><c-w><cr>'
+    nnoremap <expr><silent> <c-space>         !(empty(tagfiles())) ? '<c-w>}' : ':psearch <c-r><c-w><cr>'
+    nnoremap <expr><silent> g<c-space>        !(empty(tagfiles())) ? '<c-w>g}' : ':psearch <c-r><c-w><cr>'
     vnoremap <expr><silent> <c-space>         !(empty(tagfiles())) ? 'y:ptag <c-r>"<cr>' :'y:psearch /.*<c-r>".*/<cr>'
     vnoremap <expr><silent> g<c-space>        !(empty(tagfiles())) ? 'y:ptselect <c-r>"<cr>' : 'y:psearch /.*<c-r>".*/<cr>'
 
     " Close the preview window
-    nnoremap          <c-w><space>      <c-w>z
-    nnoremap          <c-w><c-space>    <c-w>z
+    nnoremap <c-w><space>   <c-w>z
+    nnoremap <c-w><c-space> <c-w>z
 
 
 """ Completion
@@ -216,6 +190,7 @@ endfunction
     cnoremap <m-f> <s-right>
 
     " Favorite mark
+    nnoremap <leader>z mZ
     nnoremap gz `Z
 
     " Insert file's directory in command line
@@ -243,6 +218,7 @@ endfunction
     nmap gO <plug>(tag-toc)
 
 """ Scoped <leader> mappings
+    " Toggle between 3/4 and 1/4 viewport width
     nnoremap <silent> <leader><bar><bar> <cmd>execute 'vertical resize '..(winwidth(0) > &columns / 4 ? &columns / 4 : &columns / 4 * 3)<cr>
 
     " Open settings: <leader>;
@@ -353,9 +329,3 @@ endfunction
 
 """ TOC
     nmap gw <plug>(tag-toc)
-
-""" Hard mode
-" nmap j <NOP>
-" nmap k <NOP>
-" nmap h <NOP>
-" nmap l <NOP>

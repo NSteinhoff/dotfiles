@@ -40,11 +40,14 @@ command! -bang -range=% Timeline call s:timeline(<bang>0, <line1>, <line2>, <ran
 command! -bang -nargs=? -complete=customlist,s:complete_file_revisions DiffThis call commander#git#load_diff(<bang>1, <q-args>)
 command! -bang -nargs=? -complete=customlist,s:complete_file_revisions PatchThis call commander#git#load_patch(<bang>1, <q-args>)
 
-command! -nargs=? -bang -complete=customlist,s:complete_global_revisions ChangedFiles call commander#git#set_changed_args(<q-args>)
-            \| if <bang>0 && argc()
-            \|     echom s:edit_args_msg()
-            \|     call feedkeys("[A")
-            \| endif
+function s:changed_files(revision, goto)
+    call commander#git#set_changed_args(a:revision)
+    if a:goto && argc()
+        first
+    endif
+    args
+endfunction
+command! -nargs=? -bang -complete=customlist,s:complete_global_revisions ChangedFiles call s:changed_files(<q-args>, <bang>1)
 command! -nargs=? -bang -complete=customlist,s:complete_global_revisions DiffTarget call call('commander#git#set_diff_target', <bang>1 ? [<q-args>] : [])
 command! -nargs=+ -complete=customlist,s:complete_global_revisions Review call commander#git#review(<q-args>)
 
@@ -56,7 +59,7 @@ function s:track_changes()
         autocmd BufWritePost * call commander#git#set_changed_args()
     augroup END
 
-    ChangedFiles
+    call commander#git#set_changed_args()
 endfunction
 
 function s:no_track_changes()

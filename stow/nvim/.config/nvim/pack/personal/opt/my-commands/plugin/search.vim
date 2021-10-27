@@ -52,34 +52,33 @@ function s:text_to_grep_pattern(text, matchword)
     return pattern
 endfunction
 
-function s:grep(text, matchword, ...) abort
+function s:grep(text, matchword, silent, ...) abort
     let @/ = s:text_to_vim_pattern(a:text, a:matchword)
     let pattern = s:text_to_grep_pattern(a:text, a:matchword)
     let args = join([''] + a:000, ' ')
-    execute 'grep! '..pattern..args
+    let silent = a:silent ? 'silent ' : ''
+    execute silent..'grep! '..pattern..args
 endfunction
 
-function s:grep_silent(text, matchword, ...) abort
-    let @/ = s:text_to_vim_pattern(a:text, a:matchword)
-    let pattern = s:text_to_grep_pattern(a:text, a:matchword)
-    let args = join([''] + a:000, ' ')
-    execute 'silent grep! '..pattern..args
-endfunction
+" Start live grepping
+nnoremap <silent> <plug>(livegrep-new)      <cmd>LiveGrep!<cr>A
+nnoremap <silent> <plug>(livegrep-resume)   <cmd>LiveGrep<cr>
 
-vnoremap <silent> <plug>(search-selection) y:let @/ = <sid>text_to_vim_pattern(@", 0)<bar>call feedkeys('n')<cr>
-vnoremap <silent> <plug>(search-selection-reverse) y:let @/ = <sid>text_to_vim_pattern(@", 0)<bar>call feedkeys('N')<cr>
+" Extending '*' and '#' to visual selection
+vnoremap <silent> <plug>(search-selection)          y:let @/ = <sid>text_to_vim_pattern(@", 0)<bar>call feedkeys('n')<cr>
+vnoremap <silent> <plug>(search-selection-reverse)  y:let @/ = <sid>text_to_vim_pattern(@", 0)<bar>call feedkeys('N')<cr>
 
-nnoremap <silent> <plug>(livegrep-new) <cmd>LiveGrep!<cr>A
-nnoremap <silent> <plug>(livegrep-resume) <cmd>LiveGrep<cr>
+" Standard
+nnoremap <silent> <plug>(grep-word)             <cmd>call <sid>grep(expand('<cword>'), 1, 0)<cr>
+nnoremap <silent> <plug>(grep-word-g)           <cmd>call <sid>grep(expand('<cword>'), 0, 0)<cr>
+vnoremap <silent> <plug>(grep-selection)           y:call <sid>grep(@",                0, 0)<cr>
 
-nnoremap <silent> <plug>(grep-word) <cmd>call <sid>grep(expand('<cword>'), 1)<cr>
-nnoremap <silent> <plug>(grep-word-g) <cmd>call <sid>grep(expand('<cword>'), 0)<cr>
-vnoremap <silent> <plug>(grep-selection) y:call <sid>grep(@", 0)<cr>
+" Silent
+nnoremap <silent> <plug>(grep-word-silent)      <cmd>call <sid>grep(expand('<cword>'), 1, 1)<cr>
+nnoremap <silent> <plug>(grep-word-g-silent)    <cmd>call <sid>grep(expand('<cword>'), 0, 1)<cr>
+vnoremap <silent> <plug>(grep-selection-silent)    y:call <sid>grep(@",                0, 1)<cr>
 
-nnoremap <silent> <plug>(grep-word-silent) <cmd>call <sid>grep_silent(expand('<cword>'), 1)<cr>
-nnoremap <silent> <plug>(grep-word-g-silent) <cmd>call <sid>grep_silent(expand('<cword>'), 0)<cr>
-vnoremap <silent> <plug>(grep-selection-silent) y:call <sid>grep_silent(@", 0)<cr>
-
-nnoremap <silent> <plug>(grep-word-in-file) <cmd>call <sid>grep(expand('<cword>'), 1, '%')<cr>
-nnoremap <silent> <plug>(grep-word-g-in-file) <cmd>call <sid>grep(expand('<cword>'), 0, '%')<cr>
-vnoremap <silent> <plug>(grep-selection-in-file) y:call <sid>grep(@", 0, '%')<cr>
+" Local in current file
+nnoremap <silent> <plug>(grep-word-in-file)     <cmd>call <sid>grep(expand('<cword>'), 1, 0, '%')<cr>
+nnoremap <silent> <plug>(grep-word-g-in-file)   <cmd>call <sid>grep(expand('<cword>'), 0, 0, '%')<cr>
+vnoremap <silent> <plug>(grep-selection-in-file)   y:call <sid>grep(@",                0, 0, '%')<cr>
