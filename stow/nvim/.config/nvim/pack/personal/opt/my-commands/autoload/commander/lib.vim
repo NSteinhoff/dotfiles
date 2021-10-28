@@ -1,50 +1,61 @@
-function commander#lib#load_lines(lines, ...)
-    let l:alt_save = expand('#')
-    enew
-    set buftype=nofile bufhidden=wipe nobuflisted noswapfile
-    nnoremap <buffer> q <cmd>bdelete<cr>
+function s:can_be_alt(bufname)
+    return !empty(a:bufname) && buflisted(a:bufname)
+endfunction
+
+function commander#lib#temp_buffer(lines, name, filetype, ...)
+    let options = a:0 ? a:1 : {}
+
+    let bufnr = bufnr('^'..a:name..'$')
+    if bufnr > 0
+        execute 'buffer '..bufnr
+        return bufnr
+    endif
+
+    let create = get(options, 'cmd', 'enew')
+
+    let undosteps = []
+    if !empty(@%)
+        call add(undosteps, "buffer '"..@%.."'")
+    endif
+    if s:can_be_alt(@#)
+        call add(undosteps, "let @# = '"..@#.."'")
+    endif
+
+    let initsteps = []
+    if s:can_be_alt(@#)
+        call add(initsteps, "let @# = '"..@#.."'")
+    endif
+    call add(initsteps, "file "..a:name) 
+    call add(initsteps, "set ft="..a:filetype) 
+
+    try
+        execute create
+        set buftype=nofile bufhidden=wipe nobuflisted noswapfile
+    catch
+        echom 'Unable to create buffer: '.v:exception
+        for step in undosteps|execute step|endfor
+    endtry
 
     try
         call append(0, a:lines) | $delete
     catch
         echom 'Unable to load lines: '.v:exception
-        buffer #
-        let @# = l:alt_save
+        for step in undosteps|execute step|endfor
+
         return -1
     endtry
 
-    if !empty(l:alt_save) && get(getbufinfo(l:alt_save), 0, {'listed': 0}).listed
-        let @# = l:alt_save
-    endif
+    for step in initsteps
+        try
+            execute step
+        catch
+            echom "Error executing init step '"..step.."'"
+            for step in undosteps|execute step|endfor
+            return -1
+        endtry
+    endfor
 
-    0
-    return bufnr()
-endfunction
-
-function commander#lib#load_lines_in_split(lines, ...) abort
-    let position =  a:0 && a:1 =~ 'left\|above' ? 'leftabove '
-                \ : a:0 && a:1 =~ 'right\|below' ? 'rightbelow '
-                \ : ''
-    let orientation = a:0 && a:1 =~ 'vert' ? 'vertical ' : ''
-
-    let l:alt_save = expand('#')
-    execute position..orientation..'new'
-    set buftype=nofile bufhidden=wipe nobuflisted noswapfile
-    nnoremap <buffer> q <cmd>bdelete<cr>
-
-    try
-        call append(0, a:lines) | $delete
-    catch /.*/
-        echom 'Unable to load lines in split: '.v:exception
-        close
-        return -1
-    endtry
-
-    if !empty(l:alt_save) && get(getbufinfo(l:alt_save), 0, {'listed': 0}).listed
-        let @# = l:alt_save
-    endif
-
-    0
+    1 " Got to the first line
     return bufnr()
 endfunction
 
