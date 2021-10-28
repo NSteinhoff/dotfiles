@@ -23,6 +23,8 @@ endfunction
 "     if s:tab_win_gotobuf(b, t)|return|endif
 "
 function s:tab_win_gotobuf(bufname, tabpagenr)
+    " FIXME: This causes weird errors. Use the proper 'win_*' functions.
+    return 0
     let window = get(s:tab_win_findbuf(a:bufname, a:tabpagenr), 0)
     if window
         execute window..'wincmd w'

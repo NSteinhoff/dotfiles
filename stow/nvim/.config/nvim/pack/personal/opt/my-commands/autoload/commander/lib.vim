@@ -7,9 +7,9 @@ function commander#lib#load_lines(lines, ...)
     try
         call append(0, a:lines) | $delete
     catch
+        echom 'Unable to load lines: '.v:exception
         buffer #
         let @# = l:alt_save
-        echo 'Unable to load lines: '.v:exception
         return -1
     endtry
 
@@ -35,8 +35,8 @@ function commander#lib#load_lines_in_split(lines, ...) abort
     try
         call append(0, a:lines) | $delete
     catch /.*/
+        echom 'Unable to load lines in split: '.v:exception
         close
-        echo 'Unable to load lines in split: '.v:exception
         return -1
     endtry
 
