@@ -7,7 +7,7 @@ function commander#lib#temp_buffer(lines, name, filetype, ...)
 
     let bufnr = bufnr('^'..a:name..'$')
     if bufnr > 0
-        execute 'buffer '..bufnr
+        " execute 'buffer '..bufnr
         return bufnr
     endif
 

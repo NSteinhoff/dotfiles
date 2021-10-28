@@ -20,6 +20,12 @@ if bufname() =~ '^TIMELINE: '
     nnoremap <buffer> p <cmd>PeekPatch<cr>
     vnoremap <buffer> p :PeekPatch<cr>
     nnoremap <buffer> <c-space> <cmd>AddToDiff<cr>
+else
+    nnoremap <buffer> i <NOP>
+    nnoremap <buffer> o <NOP>
+    nnoremap <buffer> p <NOP>
+    vnoremap <buffer> p <NOP>
+    nnoremap <buffer> <c-space> <NOP>
 endif
 
 let s:help_msg .= ' <space>/<cr> peek/open commit'
