@@ -20,4 +20,3 @@ else
     CompilerSet makeprg=npx\ eslint\ --format\ compact\ %\ $*'
 endif
 CompilerSet errorformat=%f:\ line\ %l\\,\ col\ %c\\,\ %m,%-G%.%#
-command -buffer FixFile :make --fix %

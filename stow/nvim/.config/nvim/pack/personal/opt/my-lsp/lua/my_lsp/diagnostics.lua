@@ -28,7 +28,7 @@ local function config()
     vim.diagnostic.config({
         signs = true,
         underline = false,
-        virtual_text = true,
+        virtual_text = false,
         update_in_insert = false,
     })
     setup_signs()
