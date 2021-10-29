@@ -24,39 +24,39 @@ endfunction
 
 function s:log(bang)
     let open_in_split = !(a:bang || empty(@%))
-    call commander#git#load_log(open_in_split, getcwd())
+    call commander#git#show_log(open_in_split, getcwd())
 endfunction
 
 function s:timeline(bang, line1, line2, range)
     let open_in_split = !(a:bang || empty(@%))
-    call commander#git#load_timeline(open_in_split, a:line1, a:line2, a:range, @%)
+    call commander#git#show_timeline(open_in_split, a:line1, a:line2, a:range, @%)
 endfunction
 
 command! -bang -range=% GitLog call s:log(<bang>0)
 command! -bang -range=% Timeline call s:timeline(<bang>0, <line1>, <line2>, <range>)
-command! -nargs=? -complete=customlist,s:complete_file_log DiffThis call commander#git#diff_this(<q-args>, @%)
-command! -bang -nargs=? -complete=customlist,s:complete_file_log PatchThis call commander#git#patch_this(<bang>1, <q-args>, @%)
+command! -nargs=? -complete=customlist,s:complete_file_log DiffThis call commander#git#side_by_side_diff(<q-args>, @%)
+command! -bang -nargs=? -complete=customlist,s:complete_file_log PatchThis call commander#git#inline_diff(<bang>1, <q-args>, @%)
 
 function s:changed_files(revision, goto)
-    call commander#git#set_changed_args(a:revision)
+    call commander#git#load_changed_files(a:revision)
     if a:goto && argc()
         first
     endif
     args
 endfunction
 command! -nargs=? -bang -complete=customlist,s:complete_log ChangedFiles call s:changed_files(<q-args>, <bang>1)
-command! -nargs=? -bang -complete=customlist,s:complete_log DiffTarget call call('commander#git#set_diff_target', <bang>1 ? [<q-args>] : [])
-command! -nargs=+ -complete=customlist,s:complete_log Review call commander#git#review(<q-args>)
+command! -nargs=? -bang -complete=customlist,s:complete_log DiffTarget call commander#git#set_diff_target(<bang>0, <q-args>)
+command! -nargs=1 -complete=customlist,s:complete_log Review call commander#git#review(<q-args>)
 
 function s:track_changes()
     augroup my-changed-files
         autocmd!
-        autocmd VimResume,FocusGained * call commander#git#set_changed_args()
-        autocmd DirChanged * call commander#git#set_changed_args()
-        autocmd BufWritePost * call commander#git#set_changed_args()
+        autocmd VimResume,FocusGained * call commander#git#load_changed_files()
+        autocmd DirChanged * call commander#git#load_changed_files()
+        autocmd BufWritePost * call commander#git#load_changed_files()
     augroup END
 
-    call commander#git#set_changed_args()
+    call commander#git#load_changed_files()
 endfunction
 
 function s:no_track_changes()
