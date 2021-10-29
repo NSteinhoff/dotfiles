@@ -22,10 +22,10 @@ command! -count=50 -bang TTailErr
     \|silent redraw | endif
 
 
-nnoremap <silent> <plug>(maker-sync-loc) <cmd>lmake<cr>
-nnoremap <silent> <plug>(maker-sync) <cmd>make<cr>
-nnoremap <silent> <plug>(maker-split) <cmd>33TMake<cr>
-nnoremap <silent> <plug>(maker-background) <cmd>TMake!<cr>
+nnoremap <silent> <plug>(maker-sync-loc) <cmd>wall<bar>lmake<cr>
+nnoremap <silent> <plug>(maker-sync) <cmd>wall<bar>make<cr>
+nnoremap <silent> <plug>(maker-split) <cmd>wall<bar>33TMake<cr>
+nnoremap <silent> <plug>(maker-background) <cmd>wall<bar>TMake!<cr>
 
 nnoremap <expr> <plug>(maker-show-log) !empty(findfile(&errorfile, ',,')) ? '<cmd>!cat '.&errorfile.'<cr>' : '<cmd>echo "No errorfile"<cr>'
 nnoremap <expr> <plug>(maker-load-errors) &ft == 'qf' ? '<cmd>cclose<cr>' : '<cmd>cfile<cr>'
