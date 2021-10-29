@@ -1,42 +1,47 @@
+let s:revision_format = '%h\ %d\ %s\ \(%cr\)'
+
 " Split path into directory and filename
 function s:pathsplit(fpath)
     let fpath = expand(a:fpath)
     return [fnamemodify(fpath, ':p:h'), fnamemodify(fpath, ':t')]
 endfunction
 
+" -------------------------------- Revision ----------------------------------
 " HEAD revision
-function commander#git#get_head(directory)
-    return systemlist('git -C ' . shellescape(a:directory) . ' log @ --format=%h\ %d\ %s\ \(%cr\)')[0]
-endfunction
-
-" Get all revisions
-function commander#git#revisions(directory)
-    return systemlist('git -C ' . shellescape(a:directory) . ' log --format=%h\ %d\ %s\ \(%cr\)')
+function commander#git#head(directory)
+    return systemlist('git -C ' .. shellescape(a:directory) .. ' show @ --format='..s:revision_format)[0]
 endfunction
 
 " Get a single revision
 function commander#git#revision(revision, directory)
     let ref = (a:revision != '' ? split(a:revision)[0] : get(t:, 'diff_target', 'HEAD'))
-    return systemlist('git -C '.shellescape(a:directory).' show '.ref)
+    return systemlist('git -C '..shellescape(a:directory)..' show '..ref)
+endfunction
+
+" ----------------------------------- Log ------------------------------------
+" Get all revisions
+function commander#git#log(directory)
+    return systemlist('git -C ' .. shellescape(a:directory) .. ' log --format='..s:revision_format)
 endfunction
 
 " Get revisions for a file
-function commander#git#file_revisions(path)
+function commander#git#file_log(path)
     let [fdir, fname] = s:pathsplit(a:path)
-    return systemlist('git -C ' . shellescape(fdir) . ' log --no-patch --format=%h\ %d\ %s\ \(%cr\) -- ' . fname)
+    return systemlist('git -C ' .. shellescape(fdir) .. ' log --no-patch --format='..s:revision_format..' -- ' .. fname)
 endfunction
 
 " Get revisions for lines in a file
-function commander#git#line_revisions(line1, line2, path)
+function commander#git#line_log(line1, line2, path)
     let [fdir, fname] = s:pathsplit(a:path)
-    return systemlist('git -C ' . shellescape(fdir) . ' log -L '.a:line1.','.a:line2.':'.fname.' --no-patch --format=%h\ %d\ %s\ \(%cr\)')
+    return systemlist('git -C ' .. shellescape(fdir) .. ' log -L '..a:line1..','..a:line2..':'..fname..' --no-patch --format='..s:revision_format)
 endfunction
 
+" ------------------------------ File Version --------------------------------
 " Show a file revision
 function commander#git#file_version(revision, path)
     let [fdir, fname] = s:pathsplit(a:path)
     let ref = (a:revision != '' ? split(a:revision)[0] : get(t:, 'diff_target', 'HEAD'))
-    let lines = systemlist('git -C '.shellescape(fdir).' show '.ref.':./'.fname)
+    let lines = systemlist('git -C '..shellescape(fdir)..' show '..ref..':./'..fname)
     if v:shell_error
         echoerr join(lines, "\n")
     else
@@ -44,10 +49,14 @@ function commander#git#file_version(revision, path)
     endif
 endfunction
 
+
+" -------------------------------------------------------------------------- "
+"                                   Blame                                    "
+" -------------------------------------------------------------------------- "
 function commander#git#blame(line1, line2, ...)
     let path = a:0 ? a:1 : expand('%')
     let [fdir, fname] = s:pathsplit(path)
-    return systemlist('git -C '.shellescape(fdir).' blame -L '.a:line1.','.a:line2.' --date=short '.fname)
+    return systemlist('git -C '..shellescape(fdir)..' blame -L '..a:line1..','..a:line2..' --date=short '..fname)
 endfunction
 
 function s:blame_update()
@@ -59,7 +68,7 @@ function s:blame_mark(lnum)
     let text = get(get(b:, 'blame', []), lnum, '')
     let ns = nvim_create_namespace('git_blame')
     call nvim_buf_clear_namespace(0, ns, 0, -1)
-    call nvim_buf_set_extmark(0, ns, lnum, 0, {'virt_text': [['    '.text, 'Comment']]})
+    call nvim_buf_set_extmark(0, ns, lnum, 0, {'virt_text': [['    '..text, 'Comment']]})
 endfunction
 
 function commander#git#blame_on()
@@ -82,10 +91,11 @@ function commander#git#blame_clear()
     call nvim_buf_clear_namespace(0, ns, 0, -1)
 endfunction
 
+
 function commander#git#diff_this(revision, path)
     if empty(a:path)|return|endif
     let [fdir, fname] = s:pathsplit(a:path)
-    let bufname = a:path.'@'.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
+    let bufname = a:path..'@'..(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
     let lines = commander#git#file_version(a:revision, a:path)
     if empty(lines)|return -1|endif
     let bufnr = commander#lib#temp_buffer(lines, bufname, &ft, {'cmd': 'leftabove vertical new'})
@@ -103,9 +113,9 @@ endfunction
 function commander#git#patch_this(split, revision, path) abort
     if empty(a:path)|return|endif
     let [fdir, fname] = s:pathsplit(a:path)
-    let bufname = a:path.' VS '.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
+    let bufname = a:path..' VS '..(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
     let ref = (a:revision != '' ? split(a:revision)[0] : get(t:, 'diff_target', 'HEAD'))
-    let lines = systemlist('git -C '.shellescape(fdir).' diff '.ref.' -- '.fname)
+    let lines = systemlist('git -C '..shellescape(fdir)..' diff '..ref..' -- '..fname)
     if empty(lines)|return -1|endif
     let cmd = a:split ? 'leftabove new' : 'enew'
     let bufnr = commander#lib#temp_buffer(lines, bufname, 'diff', {'cmd': cmd})
@@ -117,9 +127,9 @@ function commander#git#load_patch_for(split, revision, path) abort
     if empty(a:path)|return|endif
     if empty(a:revision)|return|endif
     let [fdir, fname] = s:pathsplit(a:path)
-    let bufname = 'PATCH: '.a:path.'@'.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
+    let bufname = 'PATCH: '..a:path..'@'..(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
     let ref = split(a:revision)[0]
-    let lines = systemlist('git -C '.shellescape(fdir).' diff '.ref.'~ '.ref.' -- '.fname)
+    let lines = systemlist('git -C '..shellescape(fdir)..' diff '..ref..'~ '..ref..' -- '..fname)
     if empty(lines)|return -1|endif
     let cmd = a:split ? 'leftabove new' : 'enew'
     let bufnr = commander#lib#temp_buffer(lines, bufname, 'diff', {'cmd': cmd})
@@ -137,8 +147,8 @@ function commander#git#load_patch_between(split, last, first, path) abort
     let [fdir, fname] = s:pathsplit(a:path)
     let last_ref = split(a:last)[0]
     let first_ref = split(a:first)[0]
-    let bufname = 'PATCH: '.a:path.'@ '.first_ref.' -> '.last_ref
-    let lines = systemlist('git -C '.shellescape(fdir).' diff '.first_ref.'~ '.last_ref.' -- '.fname)
+    let bufname = 'PATCH: '..a:path..'@ '..first_ref..' -> '..last_ref
+    let lines = systemlist('git -C '..shellescape(fdir)..' diff '..first_ref..'~ '..last_ref..' -- '..fname)
     if empty(lines)|return -1|endif
     let cmd = a:split ? 'leftabove new' : 'enew'
     let bufnr = commander#lib#temp_buffer(lines, bufname, 'diff', {'cmd': cmd})
@@ -152,15 +162,15 @@ function commander#git#load_timeline(split, line1, line2, range, path)
     if !filereadable(a:path)|return commander#git#load_log(a:split, a:path)|endif
 
     let [fdir, fname] = s:pathsplit(a:path)
-    let bufname = 'TIMELINE: '..fname..(a:range ? ':'..a:line1..','..a:line2 : '')..' '..commander#git#get_head(fdir)
+    let bufname = 'TIMELINE: '..fname..(a:range ? ':'..a:line1..','..a:line2 : '')..' '..commander#git#head(fdir)
     let cmd = a:split ? 'leftabove vertical new' : 'enew'
     let ft=&ft
-    let lines = commander#git#line_revisions(a:line1, a:line2, a:path)
+    let lines = commander#git#line_log(a:line1, a:line2, a:path)
     let bufnr = commander#lib#temp_buffer(lines, bufname, 'gitlog', {'cmd': cmd})
     if bufnr > 0
-        let b:peek_patch = { line1, line2 -> commander#git#load_patch_between(1, getline(line1), getline(line2), fdir.'/'.fname) }
-        let b:open_file = { -> commander#git#load_file_version(getline('.'), fdir.'/'.fname, ft, 0) }
-        let b:peek_file = { -> commander#git#load_file_version(getline('.'), fdir.'/'.fname, ft, 1) }
+        let b:peek_patch = { line1, line2 -> commander#git#load_patch_between(1, getline(line1), getline(line2), fdir..'/'..fname) }
+        let b:open_file = { -> commander#git#load_file_version(getline('.'), fdir..'/'..fname, ft, 0) }
+        let b:peek_file = { -> commander#git#load_file_version(getline('.'), fdir..'/'..fname, ft, 1) }
         let b:open_commit = { -> commander#git#load_revision(getline('.'), fdir, 0) }
         let b:peek_commit = { -> commander#git#load_revision(getline('.'), fdir, 1) }
     endif
@@ -170,8 +180,8 @@ endfunction
 function commander#git#load_log(split, path)
     let path = isdirectory(a:path) ? a:path : getcwd()
     let cmd = a:split ? 'leftabove vertical new' : 'enew'
-    let bufname = 'GITLOG: '..commander#git#get_head(path)
-    let lines = commander#git#revisions(path)
+    let bufname = 'GITLOG: '..commander#git#head(path)
+    let lines = commander#git#log(path)
     let bufnr = commander#lib#temp_buffer(lines, bufname, 'gitlog', {'cmd': cmd})
     if bufnr > 0
         let b:open_commit = { -> commander#git#load_revision(getline('.'), path, 0) }
@@ -192,7 +202,7 @@ endfunction
 function commander#git#load_file_version(revision, path, filetype, split)
     let cmd = a:split ? 'vertical new' : 'enew'
     if empty(a:path)|return|endif
-    let bufname = a:path.'@'.(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
+    let bufname = a:path..'@'..(a:revision != '' ? a:revision : get(t:, 'diff_target', 'HEAD'))
     let lines = commander#git#file_version(a:revision, a:path)
     if empty(lines)|return -1|endif
     let bufnr = commander#lib#temp_buffer(lines, bufname, a:filetype, {'cmd': cmd})
@@ -212,15 +222,15 @@ function commander#git#set_changed_args(...)
         return
     endif
     let gitroot = fnamemodify(gitdir, ':h')
-    let changed = systemlist('git diff --name-only '.ref.' -- .')
-    let absolute = map(changed, { k, v -> gitroot.'/'.v })
+    let changed = systemlist('git diff --name-only '..ref..' -- .')
+    let absolute = map(changed, { k, v -> gitroot..'/'..v })
     let resolved = map(absolute, { k, v -> resolve(v) })
     let relative = map(resolved, { k, v -> fnamemodify(v, ':.') })
     let filepaths = filter(relative, { k, v -> findfile(v, ',,') != '' })
 
     %argd
     for path in filepaths
-        execute 'argadd '.path
+        execute 'argadd '..path
     endfor
 endfunction
 

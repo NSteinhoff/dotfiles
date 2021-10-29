@@ -8,11 +8,11 @@ command! Ctags if finddir('.git', ';') != ''
     \| call jobstart(['git', 'ctags']) | else
     \| echo "'".getcwd()."' is not a git repository. Can only run Ctags from within a git repository." | endif
 
-function s:complete_file_revisions(arglead, cmdline, cursorpos)
-    return filter(commander#git#file_revisions(@%), { _, v -> v =~ a:arglead})
+function s:complete_file_log(arglead, cmdline, cursorpos)
+    return filter(commander#git#file_log(@%), { _, v -> v =~ a:arglead})
 endfunction
-function s:complete_global_revisions(arglead, cmdline, cursorpos)
-    return filter(commander#git#revisions(getcwd()), { _, v -> v =~ a:arglead})
+function s:complete_log(arglead, cmdline, cursorpos)
+    return filter(commander#git#log(getcwd()), { _, v -> v =~ a:arglead})
 endfunction
 
 function s:edit_args_msg()
@@ -34,8 +34,8 @@ endfunction
 
 command! -bang -range=% GitLog call s:log(<bang>0)
 command! -bang -range=% Timeline call s:timeline(<bang>0, <line1>, <line2>, <range>)
-command! -nargs=? -complete=customlist,s:complete_file_revisions DiffThis call commander#git#diff_this(<q-args>, @%)
-command! -bang -nargs=? -complete=customlist,s:complete_file_revisions PatchThis call commander#git#patch_this(<bang>1, <q-args>, @%)
+command! -nargs=? -complete=customlist,s:complete_file_log DiffThis call commander#git#diff_this(<q-args>, @%)
+command! -bang -nargs=? -complete=customlist,s:complete_file_log PatchThis call commander#git#patch_this(<bang>1, <q-args>, @%)
 
 function s:changed_files(revision, goto)
     call commander#git#set_changed_args(a:revision)
@@ -44,9 +44,9 @@ function s:changed_files(revision, goto)
     endif
     args
 endfunction
-command! -nargs=? -bang -complete=customlist,s:complete_global_revisions ChangedFiles call s:changed_files(<q-args>, <bang>1)
-command! -nargs=? -bang -complete=customlist,s:complete_global_revisions DiffTarget call call('commander#git#set_diff_target', <bang>1 ? [<q-args>] : [])
-command! -nargs=+ -complete=customlist,s:complete_global_revisions Review call commander#git#review(<q-args>)
+command! -nargs=? -bang -complete=customlist,s:complete_log ChangedFiles call s:changed_files(<q-args>, <bang>1)
+command! -nargs=? -bang -complete=customlist,s:complete_log DiffTarget call call('commander#git#set_diff_target', <bang>1 ? [<q-args>] : [])
+command! -nargs=+ -complete=customlist,s:complete_log Review call commander#git#review(<q-args>)
 
 function s:track_changes()
     augroup my-changed-files
