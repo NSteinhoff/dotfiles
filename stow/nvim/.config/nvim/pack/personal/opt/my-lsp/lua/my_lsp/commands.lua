@@ -42,6 +42,7 @@ function M.on_detach(client)
     vim.cmd([[delcommand LspDetach]])
 
     require("my_lsp.mappings").on_detach()
+    require("my_lsp.options").on_detach()
 end
 
 return M
