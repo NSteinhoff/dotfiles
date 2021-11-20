@@ -1,4 +1,3 @@
-export SHELL=/usr/local/bin/bash
 source "$HOME/.bashrc"
 export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
 
@@ -6,5 +5,5 @@ export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
-source "/usr/local/opt/asdf/asdf.sh"
-source "/usr/local/opt/asdf/etc/bash_completion.d/asdf.bash"
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+. /opt/homebrew/opt/asdf/etc/bash_completion.d/asdf.bash

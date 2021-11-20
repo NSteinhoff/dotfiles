@@ -50,7 +50,7 @@ ifeq ($(uname), Linux)
     install := apt-get install -y
     uninstall := apt-get remove -y
 else ifeq ($(uname), Darwin)
-    install := brew install
+    install := arch -arm64 brew install
     uninstall := brew uninstall
 else
     install := echo unknown OS: trying to install
@@ -60,7 +60,7 @@ endif
 special-treatment:
 ifeq ($(uname), Darwin)
 	brew tap universal-ctags/universal-ctags
-	brew install --head universal-ctags
+	arch -arm64 brew install --head universal-ctags
 endif
 
 install-stow: .stamps/stow-installed
