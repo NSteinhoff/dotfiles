@@ -1,4 +1,4 @@
-set packpath+=~/dev/dotfiles/3rd
+set packpath+=~/dotfiles/3rd
 
 command -bang PackList call packer#printpacks(<bang>0)
 command -nargs=1 -complete=customlist,packer#completenames PackLocate echo packer#locatepack(<f-args>)
