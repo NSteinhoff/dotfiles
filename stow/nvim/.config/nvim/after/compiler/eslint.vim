@@ -16,7 +16,7 @@ let rcfile = findfile('.eslintrc.js', path)
 if rcfile != ''
     let project_root = fnamemodify(rcfile, ":h")
     let src_dir = project_root..'/src/'
-    execute 'CompilerSet makeprg='.cmd.'\ --config\ '.rcfile.'\ --format\ compact\ --ext\ .ts'
+    execute 'CompilerSet makeprg='.cmd.'\ --config\ '.rcfile.'\ --format\ compact\ --ext\ .js,.jsx,.ts,.tsx\ '..src_dir
 else
     execute 'CompilerSet makeprg='.cmd.'\ --format\ compact\ $*'
 endif
