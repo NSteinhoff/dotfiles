@@ -1,7 +1,7 @@
 setlocal buftype=nofile nobuflisted noswapfile
 setlocal errorformat=%f
 
-let s:fuzzy = executable('fzf') && 1
+let s:fuzzy = executable('fzf') && 0
 let s:insert_help = '<cr> selects <- ; <c-n>/<c-p> moves <-'..(s:fuzzy ? '' : ' ; <space> inserts wildcards')..' ; <c-c> to exit'
 let s:normal_help = '[1-9] open file ; <cr> go to file under cursor'
 let s:placeholder = s:fuzzy ? '  <<< fuzzy filename' : '  <<< some.*file.*pattern'
