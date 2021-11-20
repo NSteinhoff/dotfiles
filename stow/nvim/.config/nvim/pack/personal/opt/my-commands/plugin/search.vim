@@ -27,6 +27,9 @@ function s:text_to_vim_pattern(text, matchword)
     " Avoid having to escape all the special characters
     let pattern = '\V'..pattern
 
+    " Always match case
+    let pattern = '\C'..pattern
+
     return pattern
 endfunction
 
