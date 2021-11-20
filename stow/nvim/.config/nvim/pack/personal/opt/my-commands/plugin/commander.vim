@@ -136,3 +136,6 @@
     endfunction
 
     command! SendToTerm call s:send_to_term()
+
+""" List tagfiles
+    command! TagFiles echo join(tagfiles(), "\n")

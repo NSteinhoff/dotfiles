@@ -308,6 +308,7 @@ augroup END
     nnoremap <leader>?c <cmd>CompilerInfo<cr>
     nnoremap <leader>?l <cmd>LspInfo<cr>
     nnoremap <leader>?p <cmd>verbose set path?<cr>
+    nnoremap <leader>?t <cmd>TagFiles<cr>
 
 
 """ Show <leader> mappings
