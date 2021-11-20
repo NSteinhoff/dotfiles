@@ -13,7 +13,7 @@ local servers = {
     "clangd",
     "jsonls",
     "cssls",
-    "sumneko_lua",
+    -- "sumneko_lua",
     -- "null-ls",
     "java_language_server",
 }
