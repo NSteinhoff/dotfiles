@@ -92,6 +92,12 @@ ai += throwing nets?:=f =F
 ai += boomerangs? of dispersal:=f =F
 
 
+# Quivering
+# =========
+fire_order_spell = attack
+fire_order_ability = attack
+
+
 #---------------------------------------------------------------------------- #
 #                                     LUA                                     #
 #---------------------------------------------------------------------------- #
