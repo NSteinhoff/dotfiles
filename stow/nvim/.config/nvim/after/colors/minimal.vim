@@ -323,8 +323,7 @@ let s:syntax_groups.error = [
 \    "SpellBad",
 \    "NvimInternalError",
 \    "TelescopeMatching",
-\    "LspDiagnosticsDefaultError",
-\    "LspDiagnosticsSignError",
+\    "DiagnosticError",
 \ ]
 let s:syntax_groups.fixme = [
 \    "Todo",
@@ -346,6 +345,7 @@ let s:syntax_groups.identifier = [
 let s:syntax_groups.statement = [
 \    "Statement",
 \    "Keyword",
+\    "DiagnosticWarn",
 \ ]
 let s:syntax_groups.operator = [
 \    "Operator",
@@ -364,14 +364,16 @@ let s:syntax_groups.define = [
 let s:syntax_groups.comment = [
 \    "Comment",
 \    "Question",
-\    "LspDiagnosticsDefaultInformation",
-\    "LspDiagnosticsSignInformation",
+\    "DiagnosticInfo",
 \ ]
 let s:syntax_groups.trivial = [
 \    "Conceal",
 \    "Noise",
-\    "LspDiagnosticsDefaultHint",
-\    "LspDiagnosticsSignHint",
+\    "DiagnosticHint",
+\    "DiagnosticVirtualTextError",
+\    "DiagnosticVirtualTextWarn",
+\    "DiagnosticVirtualTextInfo",
+\    "DiagnosticVirtualTextHint",
 \ ]
 let s:syntax_groups.specialchar = [
 \    "SpecialChar",
@@ -390,15 +392,6 @@ let s:syntax_groups.special = [
 \ ]
 let s:syntax_groups.underlined = [
 \    "Underlined",
-\    "LspDiagnosticsUnderline",
-\    "LspDiagnosticsUnderlineError",
-\    "LspDiagnosticsUnderlineHint",
-\    "LspDiagnosticsUnderlineInformation",
-\    "LspDiagnosticsUnderlineWarning",
-\    "LspReferenceText",
-\    "LspReferenceRead",
-\    "LspReferenceWrite",
-\    "LspSignatureActiveParameter",
 \ ]
 let s:syntax_groups.ignore = [
 \    "Ignore",
@@ -409,8 +402,6 @@ let s:syntax_groups.emphasis = [
 \    "mkdLineBreak",
 \    "htmlItalic",
 \    "htmlUnderlineItalic",
-\    "LspDiagnosticsDefaultWarning",
-\    "LspDiagnosticsSignWarning",
 \ ]
 let s:syntax_groups.strong = [
 \   "markdownBold",
