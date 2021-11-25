@@ -132,6 +132,7 @@
 
         " IDE Mode
         packadd! my-lsp                     " Language Server client configuration
+        packadd! my-treesitter              " Language aware highlighting
 
 """ Development
         set packpath+=~/dev
