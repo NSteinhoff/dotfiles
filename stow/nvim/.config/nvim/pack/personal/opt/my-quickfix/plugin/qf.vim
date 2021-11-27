@@ -4,8 +4,8 @@ packadd cfilter
 command! -nargs=* -bang Cnew call qf#new(<q-args>, <bang>0)
 command! Cadd call qf#add()
 
-command! Ctab if getqflist({'nr': 0}).nr|tab split|copen|only|else|echo "No quickfix list."|endif
-command! Ltab if getloclist(0, {'nr': 0}).nr|tab split|lopen|only|else|echo "No location list."|endif
+command! Ctab if getqflist({'nr': 0}).nr|tab split|botright copen|only|else|echo "No quickfix list."|endif
+command! Ltab if getloclist(0, {'nr': 0}).nr|tab split|botright lopen|only|else|echo "No location list."|endif
 
 nnoremap <silent> <plug>(cycle-loc-forward) <cmd>call qf#cycle_loc(1)<cr>
 nnoremap <silent> <plug>(cycle-loc-backward) <cmd>call qf#cycle_loc(0)<cr>

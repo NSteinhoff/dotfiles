@@ -16,7 +16,7 @@ function! s:toc(...)
     endif
     if !empty(l:items)
         call setloclist(0, [], (getloclist(0, {'title': 1}).title == l:title ? 'r' : ' '), {'items': l:items, 'title': l:title})
-        lopen|wincmd p
+        botright lopen|wincmd p
     endif
 endfunction
 

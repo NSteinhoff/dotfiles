@@ -112,8 +112,8 @@ function s:on_attach(fname)
 endfunction
 
 command -nargs=1 -complete=customlist,<sid>complete_zettel Zettel call s:zettel(<q-args>)
-command -nargs=1 -complete=customlist,<sid>complete_tags Ztags cgetexpr s:find_tag(<q-args>)|cwindow
-command -nargs=? -complete=customlist,<sid>complete_zettel Ziblings cgetexpr s:related(<q-args>)|cwindow
+command -nargs=1 -complete=customlist,<sid>complete_tags Ztags cgetexpr s:find_tag(<q-args>)|botright cwindow
+command -nargs=? -complete=customlist,<sid>complete_zettel Ziblings cgetexpr s:related(<q-args>)|botright cwindow
 
 augroup zettelkasten
     autocmd!

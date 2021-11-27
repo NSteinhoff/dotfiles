@@ -107,18 +107,18 @@ augroup END
     " The idea here is to have one mapping to get a peek at the current list
     " of entries and a second one to browse the list and pick an entry to
     " jump to.
-    nnoremap <silent> <expr> `<space>  qf#qfvisible() ? '<cmd>cclose<cr>' : '<cmd>copen<cr>'
-    nnoremap <silent> <expr> <leader><space>  qf#locvisible() ? '<cmd>lclose<cr>' : '<cmd>lopen<cr>'
+    nnoremap <silent> <expr> `<space>  qf#qfvisible() ? '<cmd>cclose<cr>' : '<cmd>botright copen<cr>'
+    nnoremap <silent> <expr> <leader><space>  qf#locvisible() ? '<cmd>lclose<cr>' : '<cmd>botright lopen<cr>'
 
     nnoremap <silent> <leader>qq       <cmd>clist<cr>
-    nnoremap <silent> <leader>qo       <cmd>copen<cr>
+    nnoremap <silent> <leader>qo       <cmd>botright copen<cr>
     nnoremap <silent> <leader>qc       <cmd>cclose<cr>
-    nnoremap <silent> <leader>qw       <cmd>cwindow<cr>
+    nnoremap <silent> <leader>qw       <cmd>botright cwindow<cr>
 
     nnoremap <silent> <leader>ll       <cmd>llist<cr>
-    nnoremap <silent> <leader>lo       <cmd>lopen<cr>
+    nnoremap <silent> <leader>lo       <cmd>botright lopen<cr>
     nnoremap <silent> <leader>lc       <cmd>lclose<cr>
-    nnoremap <silent> <leader>lw       <cmd>lwindow<cr>
+    nnoremap <silent> <leader>lw       <cmd>botright lwindow<cr>
 
     nmap <silent> <leader>qn <plug>(qf-new)
     nmap <silent> <leader>qa <plug>(qf-add)
@@ -211,8 +211,8 @@ augroup END
     vmap <silent> # <plug>(search-selection-reverse)
 
     " Grep, i.e. poor man's 'go-to-reference'
-    nmap <silent> gr <plug>(grep-word-silent)<cmd>cwindow<cr>
-    vmap <silent> gr <plug>(grep-selection-silent)<cmd>cwindow<cr>
+    nmap <silent> gr <plug>(grep-word-silent)<cmd>botright cwindow<cr>
+    vmap <silent> gr <plug>(grep-selection-silent)<cmd>botright cwindow<cr>
 
     " Outline
     nmap gO <plug>(tag-toc)
