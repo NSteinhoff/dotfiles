@@ -17,6 +17,10 @@ function s:reload()
     lua require('my_lsp')
 endfunction
 
+aug my-lsp-set-diagnostics
+    autocmd DiagnosticChanged * lua vim.diagnostic.setloclist({open = false })
+aug END
+
 aug my-lsp-reload
     autocmd!
     execute 'autocmd BufWritePost '..join(s:patterns, ',')..' call s:reload()'
