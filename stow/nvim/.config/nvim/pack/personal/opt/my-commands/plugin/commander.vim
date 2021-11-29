@@ -68,6 +68,23 @@
     endfunction
     command! -bar Format call s:format()
 
+""" Fix the current buffer
+    function s:fix()
+        if empty(get(b:, 'fixprg', ''))
+            echomsg "Abort: 'b:fixprg' unset"
+            return
+        endif
+        let fixprg = expandcmd(escape(b:fixprg, '{}'))
+        let lines = getline(0, '$')
+        let result = systemlist(fixprg)
+        if v:shell_error > 0
+            echomsg "Error: fixprg '".fixprg."' exited with status ".v:shell_error
+        else
+            echo "Fixed buffer"
+        endif
+    endfunction
+    command! -bar Fix call s:fix()
+
 """ Align text
     " Using 'sed' and 'column' external tools
     command! -nargs=? -range Align execute
