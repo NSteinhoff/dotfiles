@@ -134,5 +134,8 @@
         packadd! my-lsp                     " Language Server client configuration
         packadd! my-treesitter              " Language aware highlighting
 
+        " Format quickfix
+        " packadd! my-pqf
+
 """ Development
         set packpath+=~/dev

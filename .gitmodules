@@ -39,3 +39,6 @@
 [submodule "3rd/pack/external/opt/nvim-treesitter"]
 	path = 3rd/pack/external/opt/nvim-treesitter
 	url = git@github.com:nvim-treesitter/nvim-treesitter.git
+[submodule "3rd/pack/external/opt/nvim-pqf"]
+	path = 3rd/pack/external/opt/nvim-pqf
+	url = https://gitlab.com/yorickpeterse/nvim-pqf.git
