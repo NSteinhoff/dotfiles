@@ -16,8 +16,8 @@ augroup END
 
 
 """ Basics / Improving standard mappings
-    " Clear search highlights with ESC in normal mode
-    nnoremap <silent> <esc> <cmd>nohlsearch<cr>
+    " Clear search highlights with ESC in normal mode and update diffs
+    nnoremap <silent> <esc> <cmd>nohlsearch<bar>diffupdate<cr>
 
     " Go home
     " noremap <expr> 0 col('.') == 1 ? '^' : '0'

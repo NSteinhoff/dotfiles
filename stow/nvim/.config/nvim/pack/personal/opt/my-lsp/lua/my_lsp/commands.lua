@@ -14,6 +14,10 @@ function M.on_attach(client)
     vim.cmd([[command! -buffer LspSetLocList lua vim.diagnostic.setloclist()]])
     vim.cmd([[command! -buffer LspSetQfList lua vim.diagnostic.setqflist()]])
 
+    -- Diagnostics
+    vim.cmd([[command! -buffer LspBufDisableDiagnostics lua vim.lsp.diagnostic.disable()]])
+    vim.cmd([[command! -buffer LspBufEnableDiagnostics lua vim.lsp.diagnostic.enable()]])
+
     -- Clients
     vim.cmd([[command! -buffer LspBufStop lua for _, client in pairs(vim.lsp.buf_get_clients(0)) do client.stop() end]])
     vim.cmd([[command! -buffer LspBufClients lua for _, client in pairs(vim.lsp.buf_get_clients(0)) do print("--- "..client.name.." ---") print(vim.inspect(client)) print("---") end]])
@@ -35,6 +39,10 @@ function M.on_detach(client)
 
     vim.cmd([[delcommand LspSetLocList]])
     vim.cmd([[delcommand LspSetQfList]])
+
+    -- Diagnostics
+    vim.cmd([[delcommand LspBufEnableDiagnostics]])
+    vim.cmd([[delcommand LspBufDisableDiagnostics]])
 
     -- Clients
     vim.cmd([[delcommand LspBufStop]])

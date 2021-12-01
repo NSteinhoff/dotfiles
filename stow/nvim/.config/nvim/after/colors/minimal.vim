@@ -193,7 +193,7 @@ let s:syntax_styles.error             = "Forceful"
 let s:syntax_styles.ignore            = "Faded"
 
 let s:syntax_styles.trivial           = "Faded"
-let s:syntax_styles.emphasis          = exists("$TMUX") ? "Pop" : "NormalItalic"
+let s:syntax_styles.emphasis          = "NormalItalic"
 let s:syntax_styles.strong            = "NormalBold"
 let s:syntax_styles.heavy             = "PopBold"
 ""}}}
@@ -241,6 +241,7 @@ let s:ui_groups.menu = [
 \ ]
 let s:ui_groups.highlight = [
 \    "Search",
+\    "LspSignatureActiveParameter",
 \ ]
 let s:ui_groups.match = [
 \    "Substitute",
