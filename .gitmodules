@@ -42,3 +42,27 @@
 [submodule "3rd/pack/external/opt/nvim-pqf"]
 	path = 3rd/pack/external/opt/nvim-pqf
 	url = https://gitlab.com/yorickpeterse/nvim-pqf.git
+[submodule "3rd/pack/external/opt/vim-endwise"]
+	path = 3rd/pack/external/opt/vim-endwise
+	url = git@github.com:tpope/vim-endwise.git
+[submodule "3rd/pack/external/opt/vim-capslock"]
+	path = 3rd/pack/external/opt/vim-capslock
+	url = git@github.com:tpope/vim-capslock.git
+[submodule "3rd/pack/external/opt/vim-obsession"]
+	path = 3rd/pack/external/opt/vim-obsession
+	url = git@github.com:tpope/vim-obsession.git
+[submodule "3rd/pack/external/opt/vim-projectionist"]
+	path = 3rd/pack/external/opt/vim-projectionist
+	url = git@github.com:tpope/vim-projectionist.git
+[submodule "3rd/pack/external/opt/vim-abolish"]
+	path = 3rd/pack/external/opt/vim-abolish
+	url = git@github.com:tpope/vim-abolish.git
+[submodule "3rd/pack/external/opt/vim-apathy"]
+	path = 3rd/pack/external/opt/vim-apathy
+	url = git@github.com:tpope/vim-apathy.git
+[submodule "3rd/pack/external/opt/vim-dispatch"]
+	path = 3rd/pack/external/opt/vim-dispatch
+	url = git@github.com:tpope/vim-dispatch.git
+[submodule "3rd/pack/external/opt/vim-surround"]
+	path = 3rd/pack/external/opt/vim-surround
+	url = git@github.com:tpope/vim-surround.git
