@@ -295,10 +295,8 @@ augroup END
 
 
 """ (c): Changes / Diffing
-    nmap <silent> cs <plug>(git-diff-split)
-    nmap <silent> cp <plug>(git-patch-split)
-    nmap cS <plug>(git-diff-split-ref)
-    nmap cP <plug>(git-patch-split-ref)
+    nmap <expr> dp (&diff ? '<cmd>diffput<cr>' : '<plug>(git-diff-split)')
+    nmap dP <plug>(git-diff-split-ref)
 
 """ (gb): Git Blame
     nmap <silent> gb <plug>(git-blame)
