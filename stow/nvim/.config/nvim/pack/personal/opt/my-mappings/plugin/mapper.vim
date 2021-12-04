@@ -166,10 +166,13 @@ augroup END
 
 
 """ Running builds with `<key>
-    nmap <leader><leader>   <plug>(maker-sync-loc)
-    nmap `<leader>          <plug>(maker-sync)
-    nmap `<cr>              <plug>(maker-split)
-    nmap `<bs>              <plug>(maker-background)
+    nmap m<space>           <plug>(maker-sync)
+    nmap m<cr>              <plug>(maker-split)
+    nmap m<bs>              <plug>(maker-background)
+    nmap m?                 <plug>(compiler-info)
+
+    nmap <leader><leader>   <plug>(compiler-with)
+    nmap <leader><cr>       :CompileWith<space>
 
     " List, load, read errorfile contents
     nmap g> <plug>(maker-show-log)

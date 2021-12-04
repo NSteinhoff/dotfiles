@@ -1,3 +1,6 @@
+let s:last_compiler = 'NONE'
+let s:last_args = ''
+
 function s:compilers()
     return {
     \   'local': {
@@ -19,17 +22,30 @@ function compiler#which()
 endfunction
 
 
-function compiler#with(local, name, ...)
+function compiler#with(local, name='last', ...) abort
     let [compiler_save, errorformat_save] = [get(b:, 'current_compiler'), &l:errorformat]
+    let name = a:name == 'last' ? s:last_compiler : a:name
+    let args = a:name == 'last' ? s:last_args : join(a:000, ' ')
+    if name != 'NONE'
+        try
+            execute 'compiler '..name
+            let s:last_compiler = name
+            let s:last_args = args
+        catch
+            echoerr v:exception
+            return
+        endtry
+    endif
     try
-        execute 'compiler '..a:name
-        execute (a:local ? 'l' : '')..'make '..join(a:000, ' ')
+        execute (a:local ? 'l' : '')..'make '..args
     finally
         if !empty(compiler_save)
             execute 'compiler '..compiler_save
         else
             setlocal makeprg&
-            unlet b:current_compiler
+            if exists('b:current_compiler')
+                unlet b:current_compiler
+            endif
         endif
         if !empty(errorformat_save)
             let &l:errorformat = errorformat_save
