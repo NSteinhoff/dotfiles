@@ -6,14 +6,14 @@
 	lfa         = log --graph --all --date=short --format='%C(auto)%h%d %s %C(green)(%cd) %C(blue)<%an>%Creset'
 
 	# Diffing
-	di          = diff -w
-	dis         = diff -w --staged
+	di          = diff --ignore-all-space
+	dis         = diff --ignore-all-space --staged
 	diffw       = diff --color-words
 
 	# Committing (crimes)
 	pave        = commit --all --amend --no-edit
-	nuke        = !git commit --all --amend --no-edit && git push -f
-	squeeze     = rebase -i --autosquash
+	nuke        = !git commit --all --amend --no-edit && git push --force
+	squeeze     = rebase --interactive --autosquash
 
 	# Listing
 	stashes     = !git --no-pager stash list
@@ -24,7 +24,7 @@
 	fresh       = !git remote update --prune && git checkout $(git main-branch) && git pull --ff-only && (git branch --merged | grep -v '\\*' | xargs git branch -d)
 
 	# Reviewing
-	review      = !git diff -w "origin/$(git main-branch)"...
+	review      = !git diff --ignore-all-space "origin/$(git main-branch)"...
 
 	# External tools
 	tree        = !git ls-files | tree --fromfile --dirsfirst -C
