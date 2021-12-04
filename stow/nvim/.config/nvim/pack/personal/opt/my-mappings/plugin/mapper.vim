@@ -97,6 +97,12 @@ augroup END
     "   <> => 'indent all'
     nnoremap <silent> <> <cmd>Format<cr>
 
+""" Fix
+    " Mnemonic:
+    "   ! change / modify / action
+    "   > into file
+    nnoremap <silent> !> <cmd>Fix<cr>
+
 """ Align: <leader>=
     noremap <silent> <leader>== :Align<cr>
     noremap <silent> <leader>=. :center<cr>

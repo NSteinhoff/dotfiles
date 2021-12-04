@@ -11,12 +11,10 @@ function s:fakename()
 endfunction
 
 if executable('npx')
-    setlocal formatexpr=
-
     let prettier = 'npx prettier'
     let prettier.= ' --stdin-filepath '..(empty(expand('%')) ? s:fakename() : expand('%'))
     let prettier.= ' --config-precedence=prefer-file'
     let prettier.= ' --tab-width='..&sw
 
-    let &l:formatprg = prettier
+    let b:formatprg = prettier
 endif

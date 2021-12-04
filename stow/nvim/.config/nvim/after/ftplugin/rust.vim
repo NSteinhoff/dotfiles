@@ -11,9 +11,4 @@ compiler cargo
 
 setlocal formatoptions-=o
 
-if executable('rustfmt')
-    setlocal formatexpr=
-    setlocal formatprg=rustfmt\ --emit=stdout
-endif
-
 command Docs call jobstart('cargo doc --open')

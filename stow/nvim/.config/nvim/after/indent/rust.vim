@@ -1,4 +1,3 @@
 if executable('rustfmt')
-    setlocal formatexpr=
-    setlocal formatprg=rustfmt\ --emit=stdout
+    let b:formatprg='rustfmt --emit=stdout'
 endif
