@@ -127,6 +127,7 @@
         packadd! vim-eunuch                 " Shell commmands
         packadd! vim-commentary             " Comment out stuff
         packadd! vim-surround               " Surround stuff
+        packadd! vim-abolish                " Smart substitutions and case conversions
 
         " Filetypes / Syntax / Indent
         packadd! editorconfig-vim           " File type settings based on local config

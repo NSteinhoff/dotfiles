@@ -30,7 +30,7 @@ nnoremap <silent> <plug>(maker-background) <cmd>wall<bar>TMake!<cr>
 nnoremap <expr> <plug>(maker-show-log) !empty(findfile(&errorfile, ',,')) ? '<cmd>!cat '.&errorfile.'<cr>' : '<cmd>echo "No errorfile"<cr>'
 nnoremap <expr> <plug>(maker-load-errors) &ft == 'qf' ? '<cmd>cclose<cr>' : '<cmd>cfile<cr>'
 nnoremap <expr> <plug>(maker-local-load-errors) &ft == 'qf' ? '<cmd>lclose<cr>' : '<cmd>lfile<cr>'
-nnoremap <expr> <plug>(maker-edit-errors) !empty(findfile(&errorfile), ',,') ? '<cmd>tab split '.&errorfile.'<cr>' : '<cmd>echo "No errorfile"<cr>'
+nnoremap <expr> <plug>(maker-edit-errors) !empty(findfile(&errorfile, ',,')) ? '<cmd>tab split '.&errorfile.'<cr>' : '<cmd>echo "No errorfile"<cr>'
 
 function s:ignore_make_errors()
     if empty(&errorformat)|return|endif
