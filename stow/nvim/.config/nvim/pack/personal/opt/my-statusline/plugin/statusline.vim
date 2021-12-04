@@ -44,7 +44,6 @@ function Interpreter()
 endfunction
 
 function Tree()
-    " if !exists('*nvim_treesitter#statusline') | return '' | endif
     let width = (winwidth(0) - 60) / 2
     if width < 40
         return ''
@@ -170,6 +169,7 @@ function MyStatusline()
     let stl .= mod
     let stl .= args
     let stl .= SPC
+    let stl .= tree
     let stl .= SEP
     let stl .= OPT
     let stl .= errors
