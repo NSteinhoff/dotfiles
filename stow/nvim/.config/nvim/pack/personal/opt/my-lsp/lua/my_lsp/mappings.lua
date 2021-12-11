@@ -28,8 +28,8 @@ function M.on_attach(client)
     -- Diagnostics
     vim.cmd([[nnoremap <silent> <buffer> dh           <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>]])
     vim.cmd([[nnoremap <silent> <buffer> dH           <cmd>lua vim.diagnostic.setloclist()<CR>]])
-    vim.cmd([[nnoremap <silent> <buffer> d]           <cmd>lua vim.diagnostic.goto_next()<CR>]])
-    vim.cmd([[nnoremap <silent> <buffer> d[           <cmd>lua vim.diagnostic.goto_prev()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> ]g           <cmd>lua vim.diagnostic.goto_next()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> [g           <cmd>lua vim.diagnostic.goto_prev()<CR>]])
 
     -- Code actions,     i.e. (d)o (c)ode [(a)ction | (r)ename | (f)ormat]
     vim.cmd([[nnoremap <silent> <buffer> dca          <cmd>lua vim.lsp.buf.code_action()<CR>]])
@@ -65,8 +65,8 @@ function M.on_detach(client)
     -- Diagnostics
     vim.cmd([[nunmap <buffer> dh]])
     vim.cmd([[nunmap <buffer> dH]])
-    vim.cmd([=[nunmap <buffer> d]]=])
-    vim.cmd([[nunmap <buffer> d[]])
+    vim.cmd([[nunmap <buffer> ]g]])
+    vim.cmd([[nunmap <buffer> [g]])
 
     -- Code actions,     i.e. (d)o (c)ode (a)ction
     vim.cmd([[nunmap <buffer> dca]])

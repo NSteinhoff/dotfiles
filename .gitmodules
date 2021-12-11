@@ -66,3 +66,15 @@
 [submodule "3rd/pack/external/opt/vim-surround"]
 	path = 3rd/pack/external/opt/vim-surround
 	url = git@github.com:tpope/vim-surround.git
+[submodule "3rd/pack/external/opt/nvim-treesitter-textobjects"]
+	path = 3rd/pack/external/opt/nvim-treesitter-textobjects
+	url = git@github.com:nvim-treesitter/nvim-treesitter-textobjects.git
+[submodule "3rd/pack/external/opt/nvim-treesitter-refactor"]
+	path = 3rd/pack/external/opt/nvim-treesitter-refactor
+	url = git@github.com:nvim-treesitter/nvim-treesitter-refactor.git
+[submodule "3rd/pack/external/opt/nvim-treesitter-commentstring"]
+	path = 3rd/pack/external/opt/nvim-treesitter-commentstring
+	url = git@github.com:JoosepAlviste/nvim-ts-context-commentstring.git
+[submodule "3rd/pack/external/opt/nvim-treesitter-rainbow"]
+	path = 3rd/pack/external/opt/nvim-treesitter-rainbow
+	url = git@github.com:p00f/nvim-ts-rainbow.git
