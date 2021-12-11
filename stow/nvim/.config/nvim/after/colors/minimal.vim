@@ -9,6 +9,29 @@ if exists("syntax_on")
 endif
 set t_Co=16
 
+// WIP
+let s:num2name = {
+    \ 'NONE': 'NONE',
+    \ 'bg': 'bg',
+    \ 'fg': 'fg',
+    \ 0:  'Black',
+    \ 1:  'Blue',
+    \ 2:  'Green',
+    \ 3:  'Cyan',
+    \ 4:  'Red',
+    \ 5:  'Magenta',
+    \ 6:  'Yellow',
+    \ 7:  'LightGray',
+    \ 8:  'DarkGray',
+    \ 9:  'LightBlue',
+    \ 10: 'LightGreen',
+    \ 11: 'LightCyan',
+    \ 12: 'LightRed',
+    \ 13: 'LightMagenta',
+    \ 14: 'LightYellow',
+    \ 15: 'White',
+    \ }
+
 set bg=dark
 let g:colors_name="minimal"
 let bg='NONE'
@@ -32,7 +55,7 @@ function! s:create_group(name, opts)
     let lig = get(a:opts, 'lig', 'NONE')
     let fg = get(a:opts, 'fg', 'NONE')
     let bg = get(a:opts, 'bg', 'NONE')
-    exec "highlight " . n . " cterm=" . lig . " ctermfg=" . fg . " ctermbg=" . bg
+    exec "highlight " . n . " cterm=" . lig . " ctermfg=" . fg . " ctermbg=" . bg . " guifg=" . s:num2name[fg] . " guibg=" . s:num2name[bg]
 endfunction
 
 " Highligh all items in a group with the configured style
