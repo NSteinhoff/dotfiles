@@ -5,5 +5,5 @@ compiler flake8
 
 iabbrev <buffer> ifmain if __name__ == "__main__":
 
-let b:repl = 'python'
-let b:interpreter = 'python'
+let b:repl = 'python3'
+let b:interpreter = 'python3'

@@ -9,7 +9,7 @@ if exists("syntax_on")
 endif
 set t_Co=16
 
-// WIP
+" WIP
 let s:num2name = {
     \ 'NONE': 'NONE',
     \ 'bg': 'bg',

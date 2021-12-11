@@ -114,6 +114,7 @@ augroup END
     " of entries and a second one to browse the list and pick an entry to
     " jump to.
     nnoremap <silent> <expr> `<space>  qf#qfvisible() ? '<cmd>cclose<cr>' : '<cmd>botright copen<cr>'
+    nnoremap <silent> <expr> q<space>  qf#qfvisible() ? '<cmd>cclose<cr>' : '<cmd>botright copen<cr>'
     nnoremap <silent> <expr> <leader><space>  qf#locvisible() ? '<cmd>lclose<cr>' : '<cmd>botright lopen<cr>'
 
     nnoremap <silent> <leader>qq       <cmd>clist<cr>
@@ -136,10 +137,10 @@ augroup END
 
 """ Preview / Hover
     " Preview definition
-    nnoremap <expr><silent> <c-space>         !(empty(tagfiles())) ? '<c-w>}' : ':psearch <c-r><c-w><cr>'
-    nnoremap <expr><silent> g<c-space>        !(empty(tagfiles())) ? '<c-w>g}' : ':psearch <c-r><c-w><cr>'
-    vnoremap <expr><silent> <c-space>         !(empty(tagfiles())) ? 'y:ptag <c-r>"<cr>' :'y:psearch /.*<c-r>".*/<cr>'
-    vnoremap <expr><silent> g<c-space>        !(empty(tagfiles())) ? 'y:ptselect <c-r>"<cr>' : 'y:psearch /.*<c-r>".*/<cr>'
+    nnoremap <expr><silent> <c-space>         !empty(tagfiles()) ? '<c-w>}' : !empty(expand('<cword>')) ? ':psearch <c-r><c-w><cr>' : ''
+    nnoremap <expr><silent> g<c-space>        !empty(tagfiles()) ? '<c-w>g}' : !empty(expand('<cword>')) ? ':psearch <c-r><c-w><cr>' : ''
+    vnoremap <expr><silent> <c-space>         !empty(tagfiles()) ? 'y:ptag <c-r>"<cr>' !empty(expand('<cword>')) ? : 'y:psearch /.*<c-r>".*/<cr>' : ''
+    vnoremap <expr><silent> g<c-space>        !empty(tagfiles()) ? 'y:ptselect <c-r>"<cr>' : !empty(expand('<cword>')) ? 'y:psearch /.*<c-r>".*/<cr>' : ''
 
     " Close the preview window
     nnoremap <c-w><space>   <c-w>z
@@ -164,6 +165,11 @@ augroup END
     " Paths:
     imap <c-x><c-h> <plug>(ins-complete-local-path)
 
+    " Replace an expression with c<motion> and <c-r><c-v> somewhere to define
+    " a variable for it
+    "
+    " e.g. let <c-v><c-r>
+    inoremap <c-r><c-v> <c-r>. = <c-r>"
 
 """ Running builds with `<key>
     nmap m<space>           <plug>(maker-sync)

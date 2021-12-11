@@ -10,7 +10,8 @@ endif
 let buf = expand('%')
 
 let path = (isdirectory(buf) ? buf..';$HOME,' : '')..'.;$HOME,;$HOME,'
-let cmd = executable('eslint_d') ? 'eslint_d' : 'npx\ eslint'
+" let cmd = executable('eslint_d') ? 'eslint_d' : 'npx\ eslint'
+let cmd = 'npx\ eslint'
 
 let rcfile = findfile('.eslintrc.js', path)
 if rcfile != ''
