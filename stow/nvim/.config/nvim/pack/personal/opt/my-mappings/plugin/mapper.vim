@@ -114,7 +114,7 @@ augroup END
     " of entries and a second one to browse the list and pick an entry to
     " jump to.
     nnoremap <silent> <expr> `<space>  qf#qfvisible() ? '<cmd>cclose<cr>' : '<cmd>botright copen<cr>'
-    nnoremap <silent> <expr> q<space>  qf#qfvisible() ? '<cmd>cclose<cr>' : '<cmd>botright copen<cr>'
+    " nnoremap <silent> <expr> q<space>  qf#qfvisible() ? '<cmd>cclose<cr>' : '<cmd>botright copen<cr>'
     nnoremap <silent> <expr> <leader><space>  qf#locvisible() ? '<cmd>lclose<cr>' : '<cmd>botright lopen<cr>'
 
     nnoremap <silent> <leader>qq       <cmd>clist<cr>
@@ -142,6 +142,9 @@ augroup END
     vnoremap <expr><silent> <c-space>         !empty(tagfiles()) ? 'y:ptag <c-r>"<cr>' !empty(expand('<cword>')) ? : 'y:psearch /.*<c-r>".*/<cr>' : ''
     vnoremap <expr><silent> g<c-space>        !empty(tagfiles()) ? 'y:ptselect <c-r>"<cr>' : !empty(expand('<cword>')) ? 'y:psearch /.*<c-r>".*/<cr>' : ''
 
+    " Signature help via :ptag
+    inoremap <expr><silent> <c-h> '<cmd>ptag '.expand('<cword>').'<cr>'
+
     " Close the preview window
     nnoremap <c-w><space>   <c-w>z
     nnoremap <c-w><c-space> <c-w>z
@@ -155,15 +158,13 @@ augroup END
     inoremap <expr> <tab>   pumvisible() ? '<c-n>' : '<tab>'
     inoremap <expr> <s-tab> pumvisible() ? '<c-p>' : '<s-TAB>'
 
-    " Signature help via :ptag
-    inoremap <c-h> <cmd>ptag<cr>
-
     " Additional ins-completion modes
     " W,R,A,G,H,J,Z,C,B,M
     " Registers:
     imap <c-x><c-r> <plug>(ins-complete-register)
     " Paths:
     imap <c-x><c-h> <plug>(ins-complete-local-path)
+    imap <c-l> <plug>(ins-complete-local-path)
 
     " Replace an expression with c<motion> and <c-r><c-v> somewhere to define
     " a variable for it
@@ -228,6 +229,8 @@ augroup END
     " Grep, i.e. poor man's 'go-to-reference'
     nmap <silent> gr <plug>(grep-word-silent)<cmd>botright cwindow<cr>
     vmap <silent> gr <plug>(grep-selection-silent)<cmd>botright cwindow<cr>
+    nmap gl <plug>(livegrep-new)
+    nmap gL <plug>(livegrep-resume)
 
     " Outline
     nmap gO <plug>(tag-toc)
@@ -303,10 +306,6 @@ augroup END
     nmap <silent> <leader>** <plug>(grep-word)
     nmap <silent> <leader>*g* <plug>(grep-word-g)
     vmap <silent> <leader>** <plug>(grep-selection)
-
-    " Livegrep: <leader>g
-    nmap <leader>gg <plug>(livegrep-new)
-    nmap <leader>gr <plug>(livegrep-resume)
 
 
 """ (c): Changes / Diffing

@@ -100,3 +100,5 @@ github
 terminfo
 Neovim
 NodeId
+unsetting
+readonly
