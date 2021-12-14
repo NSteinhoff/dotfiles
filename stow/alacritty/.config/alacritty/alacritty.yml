@@ -2,5 +2,5 @@ import:
   - ~/.config/alacritty/keybindings.yml
   - ~/.config/alacritty/font.yml
   - ~/.config/alacritty/colors.yml
-  - ~/.config/alacritty/tmux.yml
-  # - ~/.config/alacritty/bash.yml
+  # - ~/.config/alacritty/tmux.yml
+  - ~/.config/alacritty/bash.yml
