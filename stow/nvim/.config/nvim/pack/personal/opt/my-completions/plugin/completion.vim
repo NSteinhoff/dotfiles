@@ -67,12 +67,15 @@ function! CompleteLocalPath(findstart, base) abort
     for suffix in split(&suffixesadd, ',')
         let files = map(files, { _, fname -> substitute(fname, suffix..'$', '', '') })
     endfor
+    if !(a:base =~ '^\./')
+        let files = map(files, { _, fname -> substitute(fname, '^\./', '', '') })
+    endif
 
     return files
 endfunction
 function InsCompleteLocalPath()
     let start = CompleteLocalPath(1, '')
-    let base = getline('.')[start-1:col('.') - 1]
+    let base = getline('.')[start-1:col('.') - 2]
 
     call complete(start, CompleteLocalPath(0, base))
     return ''
