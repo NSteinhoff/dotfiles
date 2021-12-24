@@ -78,3 +78,6 @@
 [submodule "3rd/pack/external/opt/nvim-treesitter-rainbow"]
 	path = 3rd/pack/external/opt/nvim-treesitter-rainbow
 	url = git@github.com:p00f/nvim-ts-rainbow.git
+[submodule "3rd/pack/external/opt/litee.nvim"]
+	path = 3rd/pack/external/opt/litee.nvim
+	url = git@github.com:ldelossa/litee.nvim.git
