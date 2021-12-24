@@ -19,7 +19,7 @@ end
 
 local function config()
     vim.diagnostic.config({
-        signs = true,
+        signs = false,
         underline = false,
         virtual_text = false,
         update_in_insert = false,

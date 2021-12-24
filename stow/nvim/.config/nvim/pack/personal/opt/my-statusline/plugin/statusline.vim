@@ -16,8 +16,8 @@ function Errors()
     let nl = len(filter(getloclist(0), 'v:val.valid == 1'))
     let iq = getqflist({'idx': 0}).idx
     let il = getloclist(0, {'idx': 0}).idx
-    let q = nq ? iq..':'..nq : '-'
-    let l = nl ? il..':'..nl : '-'
+    let q = nq ? iq..':'..nq : ''
+    let l = nl ? il..':'..nl : ''
 
     return nl || nq ? '['..q..'|'..l..']' : ''
 endfunction

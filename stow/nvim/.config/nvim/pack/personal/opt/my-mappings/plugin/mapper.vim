@@ -114,7 +114,6 @@ augroup END
     " of entries and a second one to browse the list and pick an entry to
     " jump to.
     nnoremap <silent> <expr> `<space>  qf#qfvisible() ? '<cmd>cclose<cr>' : '<cmd>botright copen<cr>'
-    " nnoremap <silent> <expr> q<space>  qf#qfvisible() ? '<cmd>cclose<cr>' : '<cmd>botright copen<cr>'
     nnoremap <silent> <expr> <leader><space>  qf#locvisible() ? '<cmd>lclose<cr>' : '<cmd>botright lopen<cr>'
 
     nnoremap <silent> <leader>qq       <cmd>clist<cr>
