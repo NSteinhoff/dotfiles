@@ -2,10 +2,12 @@ let g:show_buffers_in_tabline = 0
 
 function MyTabLabel(n)
     if a:n != tabpagenr() && getcwd(-1, a:n) != getcwd(-1, 0)
+        " Inactive tabs
         let cwd = substitute(fnamemodify(getcwd(-1, a:n), ":."), $HOME, '~', '')
         let cwd = cwd == '~' ? '~/' : cwd
         return '  '..pathshorten(cwd)
     else
+        " Active tab
         let buflist = tabpagebuflist(a:n)
         let winnr = tabpagewinnr(a:n)
         let name = bufname(buflist[winnr-1])
@@ -20,7 +22,11 @@ function MyTabLabel(n)
             let windir = fnamemodify(getcwd(), ':p')
             return '>_ '..(procdir == windir ? '' : directory..':')..fnamemodify(cmd, ':t')
         else
-            return fnamemodify(name, ':t')
+            if name =~ '/$'
+                return fnamemodify(name, ':h:t')..'/'
+            else
+                return fnamemodify(name, ':t')
+            end
         endif
     endif
 endfunction
