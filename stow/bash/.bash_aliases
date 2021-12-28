@@ -7,22 +7,22 @@ stty -ixon
 HISTSIZE=100000
 HISTFILESIZE=200000
 
+# Prefer local binaries
 export PATH="~/.local/bin:$PATH"
 
 shopt -s histappend
 
 # Set Vim as default editor
-export EDITOR=vim
-which nvim &>/dev/null && export EDITOR=nvim
+which nvim &>/dev/null && export EDITOR=nvim || export EDITOR=vim
 
 case $OSTYPE in
     linux*) os="linux";;
     darwin*) os="mac";;
 esac
 
-# -----------------------------------------------------------------------------
-#  ALIASES
-# -----------------------------------------------------------------------------
+# --------------------------------------------------------------------------- #
+#                                   Aliases                                   #
+# --------------------------------------------------------------------------- #
 if [[ os == linux ]]; then
     opener=xdg-open
 else
@@ -35,8 +35,10 @@ alias rm='rm -i'
 # Listing files
 [ $os = "linux" ] && alias ls='ls --color=auto --group-directories-first'
 [ $os = "mac" ] && alias ls='ls -G'
+alias l='ls -CF'
+alias la='l -A'
 alias ll='ls -lFh'
-alias lla='ll -a'
+alias lla='ll -A'
 alias tree='tree -C --dirsfirst'
 
 # Listing dirs
@@ -60,7 +62,6 @@ alias g-='git switch -'
 # TODO: Think of some useful commands here.
 # Maybe this would be a nice place for the bashbot.
 alias ?='$QUESTION_MARK_PRG'
-export QUESTION_MARK_PRG='git status'
 export QUESTION_MARK_PRG='git status'
 
 # Read errors from stdin into a scratch buffer and load into quickfix list
@@ -135,6 +136,6 @@ export ZETTELKASTEN=~/Dropbox/Zettel
 
 # --------------------------- C Compilation ---------------------------------
 export CC=clang
-export CFLAGS="-g -Wall -Werror -Wextra -pedantic"
-export LDFLAGS=
-export LDLIBS=
+export CFLAGS="${CFLAGS:+${CFLAGS} }-g -Wall -Werror -Wextra -pedantic"
+export LDFLAGS="${LDFLAGS:+${LDFLAGS} }"
+export LDLIBS="${LDLIBS:+${LDLIBS} }"
