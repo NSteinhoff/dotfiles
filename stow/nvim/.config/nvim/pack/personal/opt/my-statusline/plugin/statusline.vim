@@ -14,8 +14,11 @@ function Errors()
 
     let nq = len(filter(getqflist(), 'v:val.valid == 1'))
     let nl = len(filter(getloclist(0), 'v:val.valid == 1'))
-    let iq = getqflist({'idx': 0}).idx
     let il = getloclist(0, {'idx': 0}).idx
+
+    let iq = nq ? index(filter(getqflist(), 'v:val.valid == 1'), getqflist()[max([0, getqflist({'idx': 0}).idx-1])]) + 1 : 0
+    let il = nl ? index(filter(getloclist(0), 'v:val.valid == 1'), getloclist(0)[max([0, getloclist(0, {'idx': 0}).idx-1])]) + 1 : 0
+
     let q = nq ? iq..':'..nq : ''
     let l = nl ? il..':'..nl : ''
 
