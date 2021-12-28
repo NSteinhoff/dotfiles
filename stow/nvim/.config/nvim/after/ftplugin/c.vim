@@ -1,3 +1,4 @@
+" Add Mac OS X development headers location
 if (executable('xcrun'))
         execute 'setlocal path+='..systemlist('xcrun --show-sdk-path')[0]..'/usr/include/'
 endif

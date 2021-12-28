@@ -37,7 +37,7 @@ function compiler#with(local, name='last', ...) abort
         endtry
     endif
     try
-        execute (a:local ? 'l' : '')..'make '..args
+        execute (a:local ? 'l' : '')..'make! '..args
     finally
         if !empty(compiler_save)
             execute 'compiler '..compiler_save
