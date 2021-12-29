@@ -7,6 +7,9 @@ if exists('current_compiler') && current_compiler != 'cargo'
     finish
 endif
 
+" Base this compiler on the 'rustc' compiler settings
+runtime compiler/rustc.vim
+
 " Parse test output failures
 " Ignore additional error details
 CompilerSet errorformat^=

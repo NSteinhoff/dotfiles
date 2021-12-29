@@ -10,11 +10,13 @@ function s:fakename()
     return get(ext, &ft, 'tmp.js')
 endfunction
 
-if executable('npx')
-    let prettier = 'npx prettier'
-    let prettier.= ' --stdin-filepath '..(empty(expand('%')) ? s:fakename() : expand('%'))
-    let prettier.= ' --config-precedence=prefer-file'
-    let prettier.= ' --tab-width='..&sw
+let buf = expand('%')
+let path = (!empty(buf) && isdirectory(buf) ? buf..';$HOME,' : '')..'.;$HOME,;$HOME,'
+let ispackage = !empty(findfile('package.json', path))
 
-    let b:formatprg = prettier
-endif
+let prettier = (ispackage && executable('npx') ? 'npx ' : ' ') .. 'prettier'
+let prettier.= ' --stdin-filepath '..(empty(expand('%')) ? s:fakename() : expand('%'))
+let prettier.= ' --config-precedence=prefer-file'
+let prettier.= ' --tab-width='..&sw
+
+let b:formatprg = prettier
