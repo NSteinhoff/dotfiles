@@ -4,7 +4,7 @@ return function(config)
     local override = {
         autostart = false,
         cmd = {
-            vim.fn.expand('$HOME') .. '/dev/java-language-server/dist/lang_server_mac.sh',
+            vim.fn.expand('$HOME') .. '/.local/share/java-language-server/dist/lang_server_mac.sh',
         },
     }
 

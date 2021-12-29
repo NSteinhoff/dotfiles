@@ -13,7 +13,7 @@ return function(config)
         return
     end
 
-    local sumneko_root_path = vim.fn.expand("$HOME") .. "/dev/lua-language-server"
+    local sumneko_root_path = vim.fn.expand("$HOME") .. "/.local/share/lua-language-server"
     local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
 
     if vim.fn.executable(sumneko_binary) == 0 then

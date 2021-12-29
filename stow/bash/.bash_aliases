@@ -39,7 +39,7 @@ alias l='ls -CF'
 alias la='l -A'
 alias ll='ls -lFh'
 alias lla='ll -A'
-alias tree='tree -C --dirsfirst'
+alias tree='tree -CF --dirsfirst'
 
 # Listing dirs
 alias dirs='dirs -v'
@@ -128,9 +128,7 @@ elif $fancy_prompt; then
 fi
 
 # --------------------------- Directory Shortcuts -----------------------------
-alias gopacks='cd ~/dev/dotfiles/stow/nvim/.config/nvim/pack/external/opt'
-alias mypacks='cd ~/dev/dotfiles/stow/nvim/.config/nvim/pack/personal/opt'
-export CDPATH=~/dev:~/dev/s2
+export CDPATH=~/Develop:~/Develop/s2
 export NOTES_DIR=~/Dropbox/Notes
 export ZETTELKASTEN=~/Dropbox/Zettel
 

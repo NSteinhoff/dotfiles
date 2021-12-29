@@ -12,7 +12,7 @@ ORANGE='\033[0;33m'
 
 RE_CD='cd.*'
 DEV="$HOME/dev"
-DEVELOPMENT="$HOME/Development"
+DEVELOP="$HOME/Develop"
 HOME="$HOME"
 
 post_cd() {
@@ -20,7 +20,7 @@ post_cd() {
 
     case $PWD in
         $HOME) _cd_home;;
-        $DEVELOPMENT|$DEV) _cd_dev;;
+        $DEVELOP|$DEV) _cd_dev;;
     esac
     [[ -d '.git' ]] && _cd_repo
 }
