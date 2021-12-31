@@ -1,8 +1,8 @@
 " Add Homebrew installed headers
-if !empty(finddir('/opt/homebrew/include/'))
-    setlocal path+=/opt/homebrew/include/
-    setlocal path+=/opt/homebrew/opt/*/include
-endif
+" if !empty(finddir('/opt/homebrew/include/'))
+"     setlocal path+=/opt/homebrew/include/
+"     setlocal path+=/opt/homebrew/opt/*/include
+" endif
 
 " Add Mac OS X development headers location
 if (executable('xcrun'))

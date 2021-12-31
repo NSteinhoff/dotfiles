@@ -133,7 +133,7 @@ export NOTES_DIR=~/Dropbox/Notes
 export ZETTELKASTEN=~/Dropbox/Zettel
 
 # --------------------------- C Compilation ---------------------------------
-export CC=clang
-export CFLAGS="${CFLAGS:+${CFLAGS} }-g -Wall -Werror -Wextra -pedantic"
-export LDFLAGS="${LDFLAGS:+${LDFLAGS} }"
-export LDLIBS="${LDLIBS:+${LDLIBS} }"
+# export CC=clang
+# export CFLAGS="${CFLAGS:+${CFLAGS} }-g -Wall -Werror -Wextra -pedantic"
+# export LDFLAGS="${LDFLAGS:+${LDFLAGS} }"
+# export LDLIBS="${LDLIBS:+${LDLIBS} }"
