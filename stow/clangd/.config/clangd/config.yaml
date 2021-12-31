@@ -1,0 +1,2 @@
+CompileFlags:
+  Add: [-Weverything, -pedantic, -Wno-padded, -Wno-gnu-empty-initializer]
