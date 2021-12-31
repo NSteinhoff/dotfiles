@@ -250,13 +250,17 @@ augroup END
     nnoremap <leader>#! <cmd>!%:p<cr>
 
     " Execute: <leader>x
-    nnoremap <leader>xb :.w !bash
+    " Run lines with bash
+    nnoremap <leader>xb <cmd>.w !bash<cr>
+    " Replace lines with results
+    nnoremap <leader>xf <cmd>.!bash<cr>
+    vnoremap <leader>xf :!bash<cr>
+    " Append result of running lines
+    nnoremap <leader>xr <cmd>execute 'read !'..getline('.')<cr>
+    vnoremap <leader>xr yPgv:!bash<cr>
+    " Pass lines as arguments
     nnoremap <leader>xx :.w !xargs 
     vnoremap <leader>xx :w !xargs 
-    nnoremap <leader>xf :.!xargs 
-    vnoremap <leader>xf :!xargs 
-    nnoremap <leader>xr yyP:.!xargs 
-    vnoremap <leader>xr yPgv:!xargs 
 
     " Split: <leader>s
     nnoremap <leader>ss :sbuffer <c-z>
