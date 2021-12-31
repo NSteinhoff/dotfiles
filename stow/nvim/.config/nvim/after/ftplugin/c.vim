@@ -17,3 +17,6 @@ iabbrev <buffer> #inc" #include ""<left>
 iabbrev <buffer> #inc< #include <><left>
 
 command -buffer -nargs=* CompileAndRun w|make %:r|!./%:r <args>
+
+" Switch between source and header files
+command -buffer A execute 'edit ' .. expand('%:r') .. (expand('%') =~ '.c$' ? '.h' : '.c')
