@@ -14,15 +14,11 @@ function Errors()
 
     let nq = len(filter(getqflist(), 'v:val.valid == 1'))
     let nl = len(filter(getloclist(0), 'v:val.valid == 1'))
-    let il = getloclist(0, {'idx': 0}).idx
 
-    let iq = nq ? index(filter(getqflist(), 'v:val.valid == 1'), getqflist()[max([0, getqflist({'idx': 0}).idx-1])]) + 1 : 0
-    let il = nl ? index(filter(getloclist(0), 'v:val.valid == 1'), getloclist(0)[max([0, getloclist(0, {'idx': 0}).idx-1])]) + 1 : 0
+    let q = nq ? nq : ''
+    let l = nl ? nl : ''
 
-    let q = nq ? iq..':'..nq : ''
-    let l = nl ? il..':'..nl : ''
-
-    return nl || nq ? '['..q..'|'..l..']' : ''
+    return '['..q..'|'..l..']'
 endfunction
 
 function Compiler()
@@ -31,7 +27,7 @@ function Compiler()
     if winwidth(0) >= 100
         return '[ '..compiler..']'
     else
-        return ''
+        return '[]'
     endif
 endfunction
 
@@ -42,7 +38,7 @@ function Interpreter()
     if winwidth(0) >= 100
         return '[ '..interpreter..']'
     else
-        return ''
+        return '[]'
     endif
 endfunction
 
@@ -71,7 +67,7 @@ function LspStatus()
     try
         let small = winwidth(0) < 100
         let status = luaeval('require("my_lsp.status").'..(small ? 'tiny' : 'long')..'()')
-        return !empty(status) ? small ? status..' ' : '['..status..']' : ''
+        return !empty(status) ? '['..status..']' : ''
     catch
         return ''
     endtry
