@@ -116,19 +116,16 @@
         packadd my-tags
         " packadd my-zettelkasten
 
-""" External
+""" Third Party
         " Finding / picking files
         packadd! my-dirvish                 " Minimalist file browser
-
-        " Lua documentation
-        packadd! nvim-luaref                " Lua documentation as vim help files
 
         " Mappings and commands
         packadd! vim-unimpaired             " Convenience mappings
         packadd! vim-eunuch                 " Shell commmands
         packadd! vim-commentary             " Comment out stuff
         packadd! vim-surround               " Surround stuff
-        packadd! vim-abolish                " Smart substitutions and case conversions
+        " packadd! vim-abolish                " Smart substitutions and case conversions
 
         " Filetypes / Syntax / Indent
         packadd! editorconfig-vim           " File type settings based on local config
@@ -139,6 +136,9 @@
 
         " Format quickfix
         " packadd! my-pqf
+
+        " Lua documentation
+        " packadd! nvim-luaref                " Lua documentation as vim help files
 
 """ Development
         set packpath+=~/Develop

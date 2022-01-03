@@ -209,8 +209,8 @@ augroup END
     nnoremap gz `Z
 
     " Insert file's directory in command line
-    cnoremap %% %:h/
-    cnoremap ## #:h/
+    " cnoremap %% %:h/
+    " cnoremap ## #:h/
 
     " Switch to alternative buffer
     nmap <bs> <plug>(buffers-alternative)

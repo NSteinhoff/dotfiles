@@ -1,5 +1,5 @@
 if exists('g:loaded_zettelkasten') && !get(g:, 'debug') | finish | endif
-" let g:loaded_zettelkasten = 1
+let g:loaded_zettelkasten = 1
 
 let g:zettelkasten = expand(get(g:, 'zettelkasten', get(environ(), 'ZETTELKASTEN', '~/zettel')))
 
