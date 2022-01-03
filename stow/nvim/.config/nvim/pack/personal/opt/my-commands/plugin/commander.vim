@@ -125,7 +125,7 @@
     command! -nargs=? -complete=color EditColorscheme call s:edit_settings('colors', <q-args>, <q-mods>)
 
 """ Run lines with interpreter
-    command! -range=% Run if get(b:, 'interpreter', 'NONE') != 'NONE'|execute '<line1>,<line2>w !'.get(b:, 'interpreter')|else|echo 'b:interpreter is unset'|endif
+    command! -range=% -bang Run if get(b:, 'interpreter', 'NONE') != 'NONE'| if <bang>0 | write | endif | execute '<line1>,<line2>w !'.get(b:, 'interpreter')|else|echo 'b:interpreter is unset'|endif
 
 """ Clear error lists
     command! -bar ClearQf call setqflist([], 'f')
