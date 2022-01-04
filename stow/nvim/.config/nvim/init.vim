@@ -103,7 +103,7 @@
 
 """ Personal
         packadd my-abbreviations
-        packadd my-automations
+        " packadd my-automations
         packadd my-commands
         packadd my-compiler
         packadd my-completions
