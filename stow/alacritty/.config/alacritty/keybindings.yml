@@ -86,3 +86,7 @@ key_bindings:
   - { key: J,   mods: Control,    mode: Vi, action: ScrollLineDown          }
   - { key: U,                     mode: Vi, action: ScrollHalfPageUp        }
   - { key: D,                     mode: Vi, action: ScrollHalfPageDown      }
+
+    # Create new window or new Instance
+  - { key: N,   mods: Command, action: CreateNewWindow }
+  - { key: N,   mods: Command|Shift, action: SpawnNewInstance }
