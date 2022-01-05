@@ -75,6 +75,8 @@ complete -F _complete_notes note
 alias note='_() { $EDITOR --cmd "cd $NOTES_DIR" $NOTES_DIR/$1 ; }; _'
 alias journal='nvim +Journal'
 alias t='$EDITOR +"map Q :wq<CR>" $NOTES_DIR/tasks.taskpaper'
+alias T='$EDITOR +"map Q :wq<CR>" $NOTES_DIR/todo.taskpaper'
+alias todo='$EDITOR +"map Q :wq<CR>" $NOTES_DIR/todo.taskpaper'
 
 # Open
 [[ $OSTYPE = linux* ]] && alias open='xdg-open'
