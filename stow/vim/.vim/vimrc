@@ -1,13 +1,11 @@
 """ Defaults
-    unlet! skip_defaults_vim
     source $VIMRUNTIME/defaults.vim
 
     " Disable netrw
     let g:loaded_netrw       = 1
     let g:loaded_netrwPlugin = 1
-
+ 
 """ Colors
-    colorscheme dim
     set background=dark
 
 """ Appearance
@@ -73,21 +71,6 @@
 
 """ Completions
     set wildmode=longest:full,full
-    " set completeopt=menuone
-    set completeopt=menuone,noinsert,noselect
-    set shortmess+=c
-
-""" Path and files
-    set path=,,.
-    set wildignore+=**/target/**
-    set wildignore+=**/node_modules/**
-
-""" Diffing
-    " Speed up diff syntax highlighting by disabling localization
-    let g:diff_translations = 0
 
 """ Maps
-    nnoremap <esc> <cmd>nohlsearch<cr>
-
-""" Packages
-    set packpath+=~/dev
+    nnoremap <space> :nohlsearch<cr>
