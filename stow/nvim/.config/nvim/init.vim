@@ -24,16 +24,16 @@
 	set updatetime=250
 	set foldenable
 	set foldmethod=indent
-	set foldlevelstart=99       " start with all folds opened
+	set foldlevelstart=99				" start with all folds opened
 	set foldcolumn=0
-	set mouse=nv                " enable mouse in normal and visual mode
+	set mouse=nv					" enable mouse in normal and visual mode
 	set autoread
 	set hidden
-	set ignorecase              " ignore case in searches ...
-	set smartcase               " ... unless it includes capital letters
-	set tagcase=match           " ... but match case in :tag searches
-	set splitright              " open vertical splits on the right
-	set sessionoptions+=options " remember options and mappings
+	set ignorecase					" ignore case in searches ...
+	set smartcase					" ... unless it includes capital letters
+	set tagcase=match				" ... but match case in :tag searches
+	set splitright					" open vertical splits on the right
+	set sessionoptions+=options			" remember options and mappings
 	set isfname-==
 
 """ Special characters
@@ -57,23 +57,23 @@
 
 	set nowrap
 	set linebreak
-	set breakindent             " indent wrapped lines
-	set showbreak=└             " prepend wrapped lines with this
+	set breakindent					" indent wrapped lines
+	set showbreak=└					" prepend wrapped lines with this
 	set smartindent
 
 	set formatoptions=
-	set formatoptions+=l        " don't wrap lines that were too long to begin with
+	set formatoptions+=l				" don't wrap lines that were too long to begin with
 	" sentences
-	set formatoptions+=p        " don't wrap after . + single space
-	set cpoptions+=J            " require double space after sentences
-	set joinspaces              " double spaces after sentences
+	set formatoptions+=p				" don't wrap after . + single space
+	set cpoptions+=J				" require double space after sentences
+	set joinspaces					" double spaces after sentences
 	" comments
-	set formatoptions+=c        " wrap comments
-	set formatoptions+=j        " remove commentstring when joining comment lines
-	set formatoptions+=q        " also format comments with 'gq'
-	set formatoptions+=r        " continue comments when hitting <Enter>
+	set formatoptions+=c				" wrap comments
+	set formatoptions+=j				" remove commentstring when joining comment lines
+	set formatoptions+=q				" also format comments with 'gq'
+	set formatoptions+=r				" continue comments when hitting <Enter>
 	" lists
-	set formatoptions+=n        " recognize numbered lists
+	set formatoptions+=n				" recognize numbered lists
 	" recognize * and - as list headers
 	set formatlistpat=^\\s*\\(\\d\\+[\\]:.)}\\t\ ]\\\|[*-][\\t\ ]\\)\\s*
 
@@ -102,7 +102,7 @@
 
 	" Stop here in case we are running in VSCode
 	if exists('g:vscode') | finish | endif
-	packloadall     " load all default packages in 'start'
+	packloadall					" load all default packages in 'start'
 
 """ Personal
 	packadd my-abbreviations
@@ -121,27 +121,27 @@
 
 """ Third Party
 	" Finding / picking files
-	packadd! my-dirvish                 " Minimalist file browser
+	packadd! my-dirvish				" Minimalist file browser
 
 	" Mappings and commands
-	packadd! vim-unimpaired             " Convenience mappings
-	packadd! vim-eunuch                 " Shell commmands
-	packadd! vim-commentary             " Comment out stuff
-	packadd! vim-surround               " Surround stuff
-	" packadd! vim-abolish                " Smart substitutions and case conversions
+	packadd! vim-unimpaired				" Convenience mappings
+	packadd! vim-eunuch				" Shell commmands
+	packadd! vim-commentary				" Comment out stuff
+	packadd! vim-surround				" Surround stuff
+	" packadd! vim-abolish				" Smart substitutions and case conversions
 
 	" Filetypes / Syntax / Indent
-	packadd! editorconfig-vim           " File type settings based on local config
+	packadd! editorconfig-vim			" File type settings based on local config
 
 	" IDE Mode
-	packadd! my-lsp                     " Language Server client configuration
-	packadd! my-treesitter              " Language aware highlighting
+	packadd! my-lsp					" Language Server client configuration
+	packadd! my-treesitter				" Language aware highlighting
 
 	" Format quickfix
 	" packadd! my-pqf
 
 	" Lua documentation
-	" packadd! nvim-luaref                " Lua documentation as vim help files
+	" packadd! nvim-luaref				" Lua documentation as vim help files
 
 """ Development
 	set packpath+=~/Develop
