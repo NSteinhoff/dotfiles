@@ -1,56 +1,59 @@
 [user]
-	name = Niko Steinhoff
-	email = niko.steinhoff@gmail.com
-	signingkey = niko.steinhoff@gmail.com
+	name		= Niko Steinhoff
+	email		= niko.steinhoff@gmail.com
+	signingkey	= niko.steinhoff@gmail.com
 
 [color]
-	pager = true
-	ui = auto
-	status = auto
-	diff = auto
-	branch = auto
-	showBranch = auto
-	interactive = auto
-	grep = auto
+	pager		= true
+	ui		= auto
+	status		= auto
+	diff		= auto
+	branch		= auto
+	showBranch	= auto
+	interactive	= auto
+	grep		= auto
 
 [core]
-	editor = vim
+	editor		= vim
 
 [init]
-	templatedir = ~/.config/git/template
-	defaultBranch = main
+	templatedir	= ~/.config/git/template
+	defaultBranch	= main
 
 [commit]
-	verbose = true
-	gpgsign = true
+	verbose		= true
+	gpgsign		= true
 
 [pull]
-	ff = only
+	ff		= only
 
 [diff]
-	tool = nvimdiff
-	colorMoved = false
+	tool		= nvimdiff
+	colorMoved	= false
 
 [merge]
-	tool = nvimdiff2
-	conflictstyle = diff3
+	tool		= nvimdiff2
+	conflictstyle	= diff3
 
 [rerere]
-	enabled = true
+	enabled		= true
 
 [difftool]
-	prompt = true
-	trustExitCode = true
+	prompt		= true
+	trustExitCode	= true
 
 [mergetool]
-	prompt = true
-	trustExitCode = true
-	keepBackup = false
+	prompt		= true
+	trustExitCode	= true
+	keepBackup	= false
 
 [include]
-	path = ~/.config/git/config.alias
-	path = ~/.config/git/config.nvim
-; 	path = ~/.config/git/config.delta
+	path		= ~/.config/git/config.alias
+	path		= ~/.config/git/config.nvim
+; 	path		= ~/.config/git/config.delta
 
 [includeIf "gitdir:~/dev/s2/"]
-	path = ~/.config/git/config.s2
+	path		= ~/.config/git/config.s2
+
+[includeIf "gitdir:~/Develop/s2/"]
+	path		= ~/.config/git/config.s2

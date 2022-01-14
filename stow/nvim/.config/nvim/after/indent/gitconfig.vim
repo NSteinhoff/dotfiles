@@ -1,4 +1,3 @@
-setlocal formatoptions-=o
 setlocal noexpandtab
 setlocal tabstop=8
 setlocal shiftwidth=0
