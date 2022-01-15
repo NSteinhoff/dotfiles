@@ -139,3 +139,5 @@ export ZETTELKASTEN=~/Dropbox/Zettel
 # export CFLAGS="${CFLAGS:+${CFLAGS} }-g -Wall -Werror -Wextra -pedantic"
 # export LDFLAGS="${LDFLAGS:+${LDFLAGS} }"
 # export LDLIBS="${LDLIBS:+${LDLIBS} }"
+
+alias neovide='neovide --multigrid'

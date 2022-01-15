@@ -145,3 +145,6 @@
 
 """ Development
 	set packpath+=~/Develop
+
+""" GUI
+	packadd my-neovide

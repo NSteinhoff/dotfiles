@@ -81,3 +81,9 @@
 [submodule "3rd/pack/external/opt/litee.nvim"]
 	path = 3rd/pack/external/opt/litee.nvim
 	url = git@github.com:ldelossa/litee.nvim.git
+[submodule "3rd/pack/external/opt/tokyonight.nvim"]
+	path = 3rd/pack/external/opt/tokyonight.nvim
+	url = git@github.com:folke/tokyonight.nvim.git
+[submodule "3rd/pack/external/opt/nvim-scrollview"]
+	path = 3rd/pack/external/opt/nvim-scrollview
+	url = git@github.com:dstein64/nvim-scrollview.git
