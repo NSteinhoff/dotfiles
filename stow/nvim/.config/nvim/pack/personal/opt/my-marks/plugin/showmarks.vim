@@ -48,3 +48,5 @@ endfunction
 
 command! NoShowMarks call s:disable()
 command! ShowMarks call s:enable()
+
+ShowMarks
