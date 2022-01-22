@@ -112,6 +112,14 @@ function Terminals()
     return empty(terminals) ? '' : '[>_'..len(terminals)..']'
 endfunction
 
+function s:bufidx()
+	let buffers = getbufinfo({'buflisted': 1})
+	let buffer = getbufinfo(bufnr())[0]
+	let n = len(buffers)
+	let pos = index(buffers, buffer) + 1
+	return n > 1 ? '['..pos..'/'..len(buffers)..'] ' : ''
+endfunction
+
 function CurrentFile()
     if &ft == 'dirvish'
         let file = ' '..(empty(expand('%:.')) ? './' : '')..expand('%:.')
@@ -124,7 +132,7 @@ function CurrentFile()
     elseif &ft == 'qfedit'
         let file = ' '..expand('%')
     else
-        let file = empty(expand('%')) ? '' : ' '..(winwidth(0) < 100 ? pathshorten(expand('%:.')) : expand('%:.'))
+        let file = empty(expand('%')) ? '' : ' '..s:bufidx()..(winwidth(0) < 100 ? pathshorten(expand('%:.')) : expand('%:.'))
     endif
 
     return file
