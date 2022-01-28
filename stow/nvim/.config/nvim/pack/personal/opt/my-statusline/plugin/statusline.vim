@@ -132,7 +132,7 @@ function CurrentFile()
     elseif &ft == 'qfedit'
         let file = ' '..expand('%')
     else
-        let file = empty(expand('%')) ? '' : ' '..s:bufidx()..(winwidth(0) < 100 ? pathshorten(expand('%:.')) : expand('%:.'))
+        let file = empty(expand('%')) ? '' : ' '..(winwidth(0) < 100 ? pathshorten(expand('%:.')) : expand('%:.'))
     endif
 
     return file
