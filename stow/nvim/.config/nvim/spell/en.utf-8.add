@@ -103,3 +103,5 @@ NodeId
 unsetting
 readonly
 Lua
+ACS
+disablePackageDetails
