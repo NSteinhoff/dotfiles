@@ -6,9 +6,19 @@
 
     make uninstall
 
+This will also install `stow` for you.
+
+To install any of the individual packages listed by `ls stow`:
+
+    stow -vvv <package>
+
+Or uninstall with:
+
+    stow -vvvD <package>
+
 
 ### Configuration files
-Configuration *"packages"* are managed with `[stow][]`.
+Configuration *"packages"* are managed with [`stow`][stow].
 
 
 ### Tag files

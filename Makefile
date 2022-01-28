@@ -10,6 +10,9 @@ ifeq ($(uname), Darwin)
     stowtargets += $(filter %-mac, $(stowlist))
 endif
 
+install: stow
+uninstall: unstow
+
 stow: install-stow
 	stow -vvv $(stowtargets)
 .PHONY: stow
