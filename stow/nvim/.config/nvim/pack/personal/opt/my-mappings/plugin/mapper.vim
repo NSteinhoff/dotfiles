@@ -40,8 +40,8 @@ augroup END
     vnoremap Q :normal @q<cr>
 
     " Move over visual lines unless a count is given
-    nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
-    nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+    " nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+    " nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 
     " Move over sections
     " Taken from `help section`
