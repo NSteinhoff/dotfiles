@@ -145,12 +145,19 @@ function livegrep#export(buf, ...)
     endif
 endfunction
 
-function livegrep#goto(line)
+function livegrep#goto(line, export = 0)
     if a:line <=2
         return
     endif
-    call livegrep#export('%')
-    execute 'keepalt cc '.(a:line - 2)
+    if a:export
+        call livegrep#export('%')
+        execute 'keepalt cc '.(a:line - 2)
+    else
+        let parts = split(getline(a:line), ':')
+        let fname = parts[0]
+        let line = parts[1]
+        execute 'edit +'..line..' '..fname
+    endif
 endfunction
 
 function livegrep#inspect()

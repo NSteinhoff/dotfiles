@@ -23,7 +23,7 @@ inoremap <buffer> <cr> <esc><cmd>call livegrep#goto(3)<cr>
 inoremap <buffer> <c-c> <esc><cmd>Cancel<cr>
 
 nnoremap <buffer> <space> <cmd>call livegrep#goto(line('.'))<cr>
-nnoremap <buffer> <cr> <cmd>call livegrep#goto(line('.'))<cr>
+nnoremap <buffer> <cr> <cmd>call livegrep#goto(line('.'), 1)<cr>
 nnoremap <buffer> <bs> <cmd>Cancel<cr>
 nnoremap <buffer> <expr> i line('.') == 1 ? 'i' : '1GI'
 nnoremap <buffer> <expr> I line('.') == 1 ? 'I' : '1GI'
