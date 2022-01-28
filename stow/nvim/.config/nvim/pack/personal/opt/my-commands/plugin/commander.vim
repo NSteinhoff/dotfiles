@@ -54,6 +54,9 @@
         let formatted = systemlist(formatprg, lines)
 
         if v:shell_error > 0
+            for line in formatted
+                echomsg line
+            endfor
             echomsg "Error: formatprg '".formatprg."' exited with status ".v:shell_error
             return
         endif
