@@ -28,7 +28,6 @@ if bufname() =~ '^TIMELINE: '
     nnoremap <buffer> i         <cmd>PeekFile<cr>
     nnoremap <buffer> o         <cmd>OpenFile<cr>
     nnoremap <buffer> <c-space> <cmd>AddToDiff<cr>
-    call add(s:banner, '" ===')
     call add(s:banner, '" o         Open file at revision.')
     call add(s:banner, '" i         Open file at revision in split.')
     call add(s:banner, '" <c-space> Add file revision to diff view.')

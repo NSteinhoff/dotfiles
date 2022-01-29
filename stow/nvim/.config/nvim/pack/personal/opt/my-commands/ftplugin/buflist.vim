@@ -1,5 +1,13 @@
 setlocal buftype=nofile bufhidden=unload nobuflisted noswapfile
 
+let s:banner = []
+call add(s:banner, '" =============================================================================')
+call add(s:banner, '" <space>/<cr>      Go to buffer')
+call add(s:banner, '" x                 Delete buffer')
+call add(s:banner, '" R                 Reload buffer list')
+call add(s:banner, '" <bs>              Exit')
+call add(s:banner, '" =============================================================================')
+
 let s:indent = 8
 
 function s:is_arg(fname)
@@ -30,10 +38,13 @@ function s:line2name(line)
     return matchstr(a:line, '^\d\+\s[#!+]*\s\+\zs\(.*\)$')
 endfunction
 
+function s:show_banner()
+endfunction
+
 function s:load_buflist()
     call deletebufline('', 1, '$')
 
-    let lines = []
+    let lines = copy(s:banner)
     let alt = get(getbufinfo('#'), 0)
     let cursorline = 1
 
@@ -54,7 +65,7 @@ function s:load_buflist()
 endfunction
 
 function s:set_listed(buf)
-    let lines = filter(getbufline(a:buf, 1, '$'), { _, v -> !empty(v) })
+    let lines = filter(getbufline(a:buf, len(s:banner) + 1, '$'), { _, v -> !empty(v) })
     let names = map(lines, { _, v -> s:line2name(v) })
 
     for buffer in getbufinfo({'buflisted': 1})

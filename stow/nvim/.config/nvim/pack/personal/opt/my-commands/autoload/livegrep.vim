@@ -1,5 +1,5 @@
 let s:insert_help = '<space> inserts wildcard ; <cr> go to first result ; <c-c> to exit'
-let s:normal_help = '<cr>/<space> jump to result ; e(X)port; (R)eload'
+let s:normal_help = '<space> jump to result; <cr> export and jump to result ; e(X)port; (R)eload'
 let s:placeholder = '  <<< some.*pattern.*in.*file.*contents'
 let s:grepprg = 'rg -n --smart-case --sort path --glob !.git/*'
 let s:errorformat = '%f:%l:%m'
