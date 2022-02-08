@@ -87,3 +87,6 @@
 [submodule "3rd/pack/external/opt/nvim-scrollview"]
 	path = 3rd/pack/external/opt/nvim-scrollview
 	url = git@github.com:dstein64/nvim-scrollview.git
+[submodule "3rd/pack/external/opt/fidget.nvim"]
+	path = 3rd/pack/external/opt/fidget.nvim
+	url = git@github.com:j-hui/fidget.nvim.git
