@@ -1,5 +1,10 @@
 """ Workspaces
-    command! -nargs=1 -complete=dir WorkOn tab split | tcd <args> | e .
+    command! -nargs=? -complete=dir -bang WorkOn if <bang>0 | tab split | endif
+            \ | if expand('<args>') == ''
+            \ |     execute 'cd '..getcwd(-1, -1)
+            \ | else
+            \ |     tcd <args> | e .
+            \ | endif
 
 """ Open with default application
     function! s:uri(s)
