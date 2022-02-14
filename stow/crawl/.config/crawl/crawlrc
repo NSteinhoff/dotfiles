@@ -9,7 +9,7 @@ bold_brightens_foreground = true
 # Quality of life
 # ===============
 default_manual_training = true
-auto_hide_spells = true
+# auto_hide_spells = true
 
 
 # Macros
@@ -64,7 +64,7 @@ fm := force_more_message
 # fm += You riposte
 
 # HP loss
-fm += HP: \d+/\d+ \(-\d+\).*!+
+# fm += HP: \d+/\d+ \(-\d+\).*!+
 
 # Statuses
 fm += You feel strangely unstable
