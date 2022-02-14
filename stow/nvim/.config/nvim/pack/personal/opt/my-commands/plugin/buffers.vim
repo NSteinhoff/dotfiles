@@ -1,70 +1,12 @@
-let s:last_failed = 'NONE'
+" Open scratch buffer (with selected lines)
+command! -range Scratch call buffers#scratch(<range> ? getline(<line1>, <line2>) : [])
 
-function s:scratch(lines)
-    if @% ==# 'SCRATCH'|return|endif
-
-    let winids = win_findbuf(bufnr('^SCRATCH$'))
-    if !empty(winids)
-        call win_gotoid(winids[0])
-    else
-        new SCRATCH
-        setlocal buftype=nofile noswapfile nobuflisted
-    endif
-
-    if !empty(a:lines)
-        let was_empty = line('$') == 1 && empty(getline(1))
-        call append('$', a:lines)
-        if was_empty|0delete|endif
-    endif
-
-    normal G
-endfunction
-command! -range Scratch call s:scratch(<range> ? getline(<line1>, <line2>) : [])
-
-function s:is_last_buffer()
-    return len(getbufinfo({'buflisted': 1})) <= 1
-endfunction
-
-function s:go_home(wipe)
-    if exists('b:dirvish')
-        keepalt edit .
-    elseif bufname() == 'BUFFERS'
-        keepalt edit .
-    else
-        let bufnr = bufnr()
-        keepalt edit .
-        execute (a:wipe ? 'bwipe' : 'bdelete')..' '..bufnr
-    endif
-endfunction
-
-function s:delete_buffer(wipe)
-    if exists('b:dirvish')
-        keepalt bprevious
-    elseif bufname() == 'BUFFERS'
-        keepalt bprevious
-    else
-        let bufnr = bufnr()
-        keepalt bprevious
-        execute (a:wipe ? 'bwipe' : 'bdelete')..' '..bufnr
-    endif
-endfunction
-
-function s:alternative()
-    if empty(expand('#:t')) || (expand('#') == expand('%'))
-        echo "No alternate file."
-    elseif empty(filter(getbufinfo({'buflisted': 1}), { _, v -> bufnr('#') == v.bufnr })) && !(s:last_failed == bufnr('%'))
-        echo "Alternative file <b"..bufnr('#').."> is not listed. Try again to open anyways."
-        let s:last_failed = bufnr('%')
-    else
-        let s:last_failed = 'NONE'
-        b #
-    endif
-endfunction
-command! Balternative call s:alternative()
+" Go to alternative buffer
+command! Balternative call buffers#alternative()
 
 " Delete current buffer
-command! Bdelete if s:is_last_buffer() | call s:go_home(0) | else | call s:delete_buffer(0) | endif
-command! Bwipe if s:is_last_buffer() | call s:go_home(1) | else | call s:delete_buffer(1) | endif
+command! Bdelete call buffers#delete(0)
+command! Bwipe call buffers#delete(1)
 
 " Delete all but the current buffer
 command! -bang Bonly %bd<bang>|e#|bd#
