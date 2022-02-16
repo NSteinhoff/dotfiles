@@ -7,6 +7,16 @@ function IsArg()
     return ''
 endfunction
 
+function HasAlt()
+    let alt = get(b:, 'alt', '')
+
+    if alt != '' && findfile(alt) != ''
+        return '*'
+    else
+        return ''
+    endif
+endfunction
+
 function Errors()
     if winwidth(0) < 50
         return ''
@@ -151,6 +161,7 @@ function MyStatusline()
     let args        = '%a%{IsArg()}'
     let ft          = '%y'
     let pre         = '%w'
+    let hasalt      = '%{HasAlt()}'
     let file        = '%{CurrentFile()}'
     let branch      = '%{GitBranch()}'
     let review      = '%{GitDiffTarget()}'
@@ -171,6 +182,7 @@ function MyStatusline()
     let stl .= review
     let stl .= OPT
     let stl .= ' '
+    let stl .= hasalt
     let stl .= file
     let stl .= ' '
     let stl .= mod

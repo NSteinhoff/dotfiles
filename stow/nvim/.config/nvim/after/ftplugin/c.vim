@@ -19,6 +19,7 @@ iabbrev <buffer> #inc< #include <><left>
 command -buffer -nargs=* CompileAndRun w|make %:r|!./%:r <args>
 
 " Switch between source and header files
-command -buffer A execute 'edit ' .. expand('%:r') .. (expand('%') =~ '.c$' ? '.h' : '.c')
+let b:alt =  expand('%:r')..(expand('%') =~ '.c$' ? '.h' : '.c')
+command -buffer A execute 'edit '..b:alt
 
 let b:interpreter = 'clang -include stdio.h -include stdlib.h -Weverything -o /tmp/'..expand('%:r')..' -xc - && /tmp/'..expand('%:r')

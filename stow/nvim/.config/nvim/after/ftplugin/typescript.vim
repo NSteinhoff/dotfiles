@@ -23,3 +23,6 @@ command -buffer Run !ts-node %
 if fnamemodify(bufname(), ':p') =~ '.*/node_modules/.*'|
     setlocal nobuflisted noswapfile
 endif
+
+let b:alt = ftutils#javascript#get_alt(expand('%'))
+command -buffer A execute 'edit '..b:alt
