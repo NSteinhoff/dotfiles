@@ -1,7 +1,7 @@
 [difftool "nvimdiff"]
 	cmd 		= nvim -d $LOCAL $REMOTE
 [mergetool "nvim"]
-	cmd 		= nvim -d $MERGED
+	cmd 		= nvim $MERGED
 [mergetool "nvimdiff2"]
 	cmd 		= nvim -d $LOCAL $MERGED $REMOTE -c '2wincmd w' -c 'wincmd J'
 [mergetool "nvimdiff"]
