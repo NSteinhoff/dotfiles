@@ -10,6 +10,7 @@ bold_brightens_foreground = true
 # ===============
 default_manual_training = true
 # auto_hide_spells = true
+menu_arrow_control = false
 
 
 # Macros
