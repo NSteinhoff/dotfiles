@@ -127,8 +127,6 @@
     packadd! vim-unimpaired                         " Convenience mappings
     packadd! vim-eunuch                             " Shell commmands
     packadd! vim-commentary                         " Comment out stuff
-    packadd! vim-surround                           " Surround stuff
-    " packadd! vim-abolish                          " Smart substitutions and case conversions
 
     " Filetypes / Syntax / Indent
     packadd! editorconfig-vim                       " File type settings based on local config
@@ -137,9 +135,6 @@
     packadd! my-lsp                                 " Language Server client configuration
     packadd! my-treesitter                          " Language aware highlighting
     packadd! my-fidget                              " LSP status updates
-
-    " Format quickfix
-    " packadd! my-pqf
 
     " Lua documentation
     " packadd! nvim-luaref                          " Lua documentation as vim help files
