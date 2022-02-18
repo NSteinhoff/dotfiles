@@ -14,7 +14,6 @@ local servers = {
     "jsonls",
     "cssls",
     -- "sumneko_lua",
-    -- "null-ls",
     "java_language_server",
 }
 for _, server in ipairs(servers) do

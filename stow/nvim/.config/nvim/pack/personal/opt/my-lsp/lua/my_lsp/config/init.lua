@@ -26,7 +26,6 @@ local custom = {
     rust_analyzer = require("my_lsp.config.rust_analyzer"),
     sumneko_lua = require("my_lsp.config.sumneko_lua"),
     jsonls = require("my_lsp.config.jsonls"),
-    ["null-ls"] = require("my_lsp.config.null_ls"),
     java_language_server = require("my_lsp.config.java_language_server"),
     clangd = require("my_lsp.config.clangd"),
 }
