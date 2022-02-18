@@ -20,7 +20,8 @@ execute 'compiler '..get(g:, &ft..'_compiler', 'tsc')
 iabbrev <buffer> exif export interface {}
 command -buffer Run !ts-node %
 
-if fnamemodify(bufname(), ':p') =~ '.*/node_modules/.*'|
+" Don't include files in node_modules in the buffer list
+if fnamemodify(bufname(), ':p') =~ '.*/node_modules/.*'
     setlocal nobuflisted noswapfile
 endif
 

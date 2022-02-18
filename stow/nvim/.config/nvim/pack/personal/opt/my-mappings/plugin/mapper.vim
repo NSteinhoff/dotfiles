@@ -39,6 +39,9 @@ augroup END
     nnoremap Q @q
     vnoremap Q :normal @q<cr>
 
+    " Repeat '.' in range
+    xnoremap . :normal .<cr>
+
     " Move over visual lines unless a count is given
     " nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
     " nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
@@ -130,8 +133,8 @@ augroup END
     nmap <silent> <leader>qa <plug>(qf-add)
     vmap <silent> <leader>qa <plug>(qf-add)
 
-    nmap <c-n> <plug>(cycle-visible-forward)
-    nmap <c-p> <plug>(cycle-visible-backward)
+    nmap <c-n> <plug>(cycle-loc-forward)
+    nmap <c-p> <plug>(cycle-loc-backward)
 
 
 """ Preview / Hover
