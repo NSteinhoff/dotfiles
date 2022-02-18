@@ -136,7 +136,7 @@
     " IDE Mode
     packadd! my-lsp                                 " Language Server client configuration
     packadd! my-treesitter                          " Language aware highlighting
-    packadd! my-fidget
+    packadd! my-fidget                              " LSP status updates
 
     " Format quickfix
     " packadd! my-pqf
