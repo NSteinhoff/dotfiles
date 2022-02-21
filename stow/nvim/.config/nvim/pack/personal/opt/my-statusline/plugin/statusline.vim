@@ -141,8 +141,10 @@ function CurrentFile()
         let file = ' '..expand('%')
     elseif &ft == 'qfedit'
         let file = ' '..expand('%')
+    elseif empty(expand('%'))
+        let file = &l:buftype == 'nofile' ? '[Scratch]' : ''
     else
-        let file = empty(expand('%')) ? '' : ' '..(winwidth(0) < 100 ? pathshorten(expand('%:.')) : expand('%:.'))
+        let file = ' '..(winwidth(0) < 100 ? pathshorten(expand('%:.')) : expand('%:.'))
     endif
 
     return file
