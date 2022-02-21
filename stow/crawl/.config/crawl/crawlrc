@@ -1,16 +1,20 @@
 ##### Crawl Init file ###############################################
 
+# Console Visuals
+# ===============
 # Stop using dark blue for unseen tiles
 # by telling the game that the terminal
 # can render dark grey
 bold_brightens_foreground = true
+# Remove the menu selector, it always selects the first item in any
+# selection (w,W,q,r,Q,z,Z)
+menu_arrow_control = false
 
 
 # Quality of life
 # ===============
 default_manual_training = true
-# auto_hide_spells = true
-menu_arrow_control = false
+auto_hide_spells = true
 
 
 # Macros
@@ -70,6 +74,7 @@ fm := force_more_message
 # Statuses
 fm += You feel strangely unstable
 fm += You are (confused|paralysed|sleeping|corroded|poisoned)
+fm += You feel sluggish
 
 # Threats
 fm += You feel you are being watched by something
@@ -97,6 +102,7 @@ ai += boomerangs? of dispersal:=f =F
 # =========
 fire_order_spell = attack
 fire_order_ability = attack
+launcher_autoquiver = true
 
 
 #---------------------------------------------------------------------------- #
@@ -140,13 +146,14 @@ function announce_damage()
         local mp_diff = mp_curr - prev_mp
 
         local message = nil
-        if hp_diff == 0 and mp_diff < 0 then
-            message = string.format("MP: %s/%s (%s)", mp_curr, mp_max, mp_diff)
-        elseif hp_diff < 0 and mp_diff == 0 then
-            message = string.format("HP: %s/%s (%s)", hp_curr, hp_max, hp_diff)
-        elseif hp_diff < 0 and mp_diff < 0 then
-            message = string.format("HP: %s/%s (%s)", hp_curr, hp_max, hp_diff)
-            message = message .. string.format(" MP: %s/%s (%s)", mp_curr, mp_max, mp_diff)
+        if hp_diff < 0 then
+            message = string.format("<red>HP: %s/%s (%s)</red>", hp_curr, hp_max, hp_diff)
+        end
+        if mp_diff < 0 then
+            if hp_diff < 0 and mp_diff < 0 then
+                message = message .. ' '
+            end
+            message = (message or '') .. string.format("<blue>MP: %s/%s (%s)</blue>", mp_curr, mp_max, mp_diff)
         end
 
         if message ~= nil then

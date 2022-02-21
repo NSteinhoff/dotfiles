@@ -1,7 +1,11 @@
 #!/bin/bash
 
-[[ -x /usr/games/crawl ]] && \
+if [[ -x /usr/games/crawl ]]; then
     /usr/games/crawl \
         -dir $HOME/Dropbox/Documents/crawl \
-        -rc $HOME/.config/crawl/crawlrc $@ || \
+        -rc $HOME/.config/crawl/crawlrc $@
+elif [[ -x "/Applications/Dungeon Crawl Stone Soup - Console.app/Contents/MacOS/Dungeon Crawl Stone Soup - Console" ]]; then
+    /Applications/Dungeon\ Crawl\ Stone\ Soup\ -\ Console.app/Contents/MacOS/Dungeon\ Crawl\ Stone\ Soup\ -\ Console
+else
     echo "Crawl is not installed."
+fi
