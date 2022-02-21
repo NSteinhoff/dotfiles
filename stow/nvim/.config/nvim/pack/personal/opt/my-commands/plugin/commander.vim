@@ -1,7 +1,7 @@
 """ Workspaces
-    command! -nargs=? -complete=dir -bang WorkOn if <bang>0 | tab split | endif
+    command! -nargs=? -complete=dir -bang WorkOn if <bang>1 | tab split | endif
             \ | if expand('<args>') == ''
-            \ |     execute 'cd '..getcwd(-1, -1)
+            \ |     execute 'tcd '..getcwd(-1, -1)
             \ | else
             \ |     tcd <args> | e .
             \ | endif
