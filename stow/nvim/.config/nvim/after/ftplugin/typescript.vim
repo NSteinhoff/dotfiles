@@ -26,4 +26,4 @@ if fnamemodify(bufname(), ':p') =~ '.*/node_modules/.*'
 endif
 
 let b:alt = ftutils#javascript#get_alt(expand('%'))
-command -buffer A execute 'edit '..b:alt
+command! -buffer A execute 'edit '..b:alt

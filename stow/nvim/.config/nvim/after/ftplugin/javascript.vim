@@ -10,4 +10,4 @@ let &l:define='^\s*\(export\s\)\?\(function\|class\)\s\ze'
 set omnifunc&
 
 let b:alt = ftutils#javascript#get_alt(expand('%'))
-command -buffer A execute 'edit '..b:alt
+command! -buffer A execute 'edit '..b:alt

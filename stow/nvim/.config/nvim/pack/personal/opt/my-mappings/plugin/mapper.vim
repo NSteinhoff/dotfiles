@@ -40,7 +40,7 @@ augroup END
     vnoremap Q :normal @q<cr>
 
     " Repeat '.' in range
-    xnoremap . :normal .<cr>
+    vnoremap . :normal .<cr>
 
     " Move over visual lines unless a count is given
     " nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
