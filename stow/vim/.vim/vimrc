@@ -1,23 +1,22 @@
 """ Defaults
     source $VIMRUNTIME/defaults.vim
+    " Stop assuming that I care about C header files
+    set path-=/usr/include
 
     " Disable netrw
     let g:loaded_netrw       = 1
     let g:loaded_netrwPlugin = 1
- 
+
 """ Colors
-    set background=dark
+    colorscheme minimal
 
 """ Appearance
     set cmdheight=1
-    set laststatus=2
     set showmode
-    set number
     set rulerformat=%25(%l,%c%V%M%=%P\ %y%)
-    set scrolloff=5
-    set sidescrolloff=3
+    set scrolloff=3
+    set sidescrolloff=2
     set showmatch
-    set fillchars=diff:-,fold:-
     set signcolumn=number
     set hlsearch
     set shortmess+=s
@@ -37,6 +36,7 @@
     set tagcase=match           " ... but match case in :tag searches
     set splitright              " open vertical splits on the right
     set sessionoptions+=options " save global mappings and options
+    set completeopt=menuone,noinsert,noselect
 
 """ Special characters
     set list
@@ -71,6 +71,57 @@
 
 """ Completions
     set wildmode=longest:full,full
+    set wildignore=*/node_modules/*
 
-""" Maps
-    nnoremap <space> :nohlsearch<cr>
+""" External programs
+    if executable('rg')
+        set grepprg=rg\ --vimgrep
+        set grepformat=%f:%l:%c:%m
+    endif
+
+""" Commands
+    " Open a scratch buffer
+    command Scratch 10split SCRATCH | setlocal buftype=nofile bufhidden=hide noswapfile
+
+    " Free all quickfix lists
+    command Cfree call setqflist([], 'f')
+    " Create a new quickfix list to be filled with an quickfix-add command
+    command -nargs=? Cnew call setqflist([], ' ', {'nr': '$', 'title': '<args>' == '' ? strftime('%a %r') : '<args>'})
+
+""" Mappings
+    " Backspace clears search highlights and updates diffs
+    nnoremap <c-l> <cmd>nohlsearch<bar>diffupdate<cr><c-l>
+
+    " Space toggles folds
+    nnoremap <space> za
+
+    " Make Y behave like C and D
+    nnoremap Y y$
+
+    " Yank to system clipboard with
+    noremap "" "+
+
+    " Repetition
+    vnoremap . :normal .<cr>
+    nnoremap Q @q
+    vnoremap Q :normal @q<cr>
+
+    " Cycling lists
+    nnoremap <silent> ]a <cmd>next<cr>
+    nnoremap <silent> [a <cmd>previous<cr>
+
+    nnoremap <silent> ]b <cmd>bnext<cr>
+    nnoremap <silent> [b <cmd>bprevious<cr>
+
+    nnoremap <silent> ]q <cmd>cnext<cr>
+    nnoremap <silent> [q <cmd>cprevious<cr>
+
+    nnoremap <silent> ]l <cmd>lnext<cr>
+    nnoremap <silent> [l <cmd>lprevious<cr>
+
+    " Make it easier to leave terminal mode
+    tnoremap <c-\><c-\> <c-\><c-n>
+
+    " Cycle through quickfix history
+    autocmd Filetype qf nnoremap <buffer> < <cmd>colder<cr>
+    autocmd Filetype qf nnoremap <buffer> > <cmd>cnewer<cr>
