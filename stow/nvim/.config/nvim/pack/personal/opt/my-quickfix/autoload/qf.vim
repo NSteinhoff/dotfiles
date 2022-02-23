@@ -224,6 +224,7 @@ function qf#cycle_lists(forward)
     let last = s:get({'nr': '$'}).nr
 
     if last == 1 | echo s:where_am_i() | return | endif
+    call qf#clear_marks()
 
     let rewind = last - 1
     let prefix = qf#isloc() ? 'l' : 'c'
@@ -244,6 +245,7 @@ endfunction
 
 function qf#cut() abort
     if !qf#isqf()|return|endif
+    call qf#clear_marks()
 
     let lists = s:lists()
     let this = s:get({'all': 1})
