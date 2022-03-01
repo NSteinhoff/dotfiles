@@ -16,11 +16,7 @@ augroup END
 
 
 """ Basics / Improving standard mappings
-    " Clear search highlights with ESC in normal mode and update diffs
-    nnoremap <silent> <esc> <cmd>nohlsearch<bar>diffupdate<cr>
-
-    " Go home
-    " noremap <expr> 0 col('.') == 1 ? '^' : '0'
+    nnoremap <esc> <cmd>nohlsearch<bar>diffupdate<cr>
 
     " Toggle folds with <space>
     nnoremap <space> za
@@ -28,9 +24,6 @@ augroup END
     " Yank to clipboard with "" (Why would I ever explicitly need to target
     " the unnamed register anyways?)
     noremap "" "+
-
-    " Make Y behave like C and D
-    nnoremap Y y$
 
     " Close all folds but show the cursorline
     nnoremap zV <cmd>normal zMzv<cr>
@@ -43,22 +36,15 @@ augroup END
     vnoremap . :normal .<cr>
 
     " Move over visual lines unless a count is given
-    " nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
-    " nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+    nnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+    nnoremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
 
     " Move over sections
     " Taken from `help section`
-    map [[ ?{<cr>w99[{
-    map ][ /}<cr>b99]}
-    map ]] j0[[%/{<cr>
-    map [] k$][%?}<cr>
-
-    " Do something useful with the arrow keys:
-    " Moving selected lines
-     vnoremap <left> <gv
-     vnoremap <right> >gv
-     vmap <up> [egv
-     vmap <down> ]egv
+    map <silent> [[ ?{<cr>w99[{
+    map <silent> ][ /}<cr>b99]}
+    map <silent> ]] j0[[%/{<cr>
+    map <silent> [] k$][%?}<cr>
 
      " Change word under cursor and make it repeatable
     nnoremap c* <cmd>let @/ = '\<'..expand('<cword>')..'\>'<cr>cgn
@@ -74,12 +60,22 @@ augroup END
     nnoremap <up>    2<c-w>+
     nnoremap <down>  2<c-w>-
 
-    " Scrolling the window with CTRL-HJKL
-    nnoremap <c-j> 5<c-e>
-    nnoremap <c-k> 5<c-y>
-    nnoremap <c-h> 10zh
-    nnoremap <c-l> 10zl
 
+""" Cycling lists
+    nnoremap [a <cmd>previous<cr>
+    nnoremap ]a <cmd>next<cr>
+
+    nnoremap [b <cmd>bprevious<cr>
+    nnoremap ]b <cmd>bnext<cr>
+
+    nnoremap [q <cmd>cprevious<cr>
+    nnoremap ]q <cmd>cnext<cr>
+
+    nnoremap [l <cmd>lprevious<cr>
+    nnoremap ]l <cmd>lnext<cr>
+
+    nnoremap [t <cmd>tprevious<cr>
+    nnoremap ]t <cmd>tnext<cr>
 
 """ Search and replace
     nnoremap gs :%s/
@@ -136,6 +132,10 @@ augroup END
     nmap <c-n> <plug>(cycle-loc-forward)
     nmap <c-p> <plug>(cycle-loc-backward)
 
+""" Close all utility windows
+    nnoremap <silent> <c-w><space>   <cmd>cclose<bar>lclose<cr><c-w>z
+    nnoremap <silent> <c-w><c-space> <cmd>cclose<bar>lclose<cr><c-w>z
+
 
 """ Preview / Hover
     " Preview definition
@@ -146,11 +146,6 @@ augroup END
 
     " Signature help via :ptag
     inoremap <expr><silent> <c-h> '<cmd>ptag '.expand('<cword>').'<cr>'
-
-    " Close the preview window
-    nnoremap <c-w><space>   <c-w>z
-    nnoremap <c-w><c-space> <c-w>z
-
 
 """ Completion
     " <c-space> is used for smart completion.
@@ -167,12 +162,6 @@ augroup END
     " Paths:
     imap <c-x><c-h> <plug>(ins-complete-local-path)
     imap <c-l> <plug>(ins-complete-local-path)
-
-    " Replace an expression with c<motion> and <c-r><c-v> somewhere to define
-    " a variable for it
-    "
-    " e.g. let <c-v><c-r>
-    inoremap <c-r><c-v> <c-r>. = <c-r>"
 
 """ Running builds with `<key>
     nmap m<space>           <plug>(maker-sync)
@@ -210,10 +199,6 @@ augroup END
     " Favorite mark
     nnoremap <leader>z mZ
     nnoremap gz `Z
-
-    " Insert file's directory in command line
-    " cnoremap %% %:h/
-    " cnoremap ## #:h/
 
     " Switch to alternative buffer
     nmap <bs> <plug>(buffers-alternative)
@@ -278,6 +263,7 @@ augroup END
     vmap <leader>bs <plug>(buffers-scratch)
     nmap <leader>bn <plug>(buffers-new)
     nmap <leader>bv <plug>(buffers-vnew)
+    nmap <leader>bt <plug>(buffers-tnew)
 
     " Terminal <leader>t
     nmap <expr> <leader>t !empty(filter(getbufinfo(), {k,v -> v.name =~ '^term'})) ? ':b term<c-z>' : '<cmd>echo "No running terminal buffers."<cr>'

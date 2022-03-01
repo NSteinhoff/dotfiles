@@ -14,7 +14,8 @@ let buf = expand('%')
 let path = (!empty(buf) && isdirectory(buf) ? buf..';$HOME,' : '')..'.;$HOME,;$HOME,'
 let ispackage = !empty(findfile('package.json', path))
 
-let prettier = (ispackage && executable('npx') ? 'npx ' : ' ') .. 'prettier'
+let prettier = (ispackage && executable('npx') ? 'npx ' : '')
+let prettier.= 'prettier'
 let prettier.= ' --stdin-filepath '..(empty(expand('%')) ? s:fakename() : expand('%'))
 let prettier.= ' --config-precedence=prefer-file'
 let prettier.= ' --tab-width='..&sw

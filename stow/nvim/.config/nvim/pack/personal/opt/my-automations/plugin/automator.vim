@@ -1,20 +1,10 @@
-augroup my-settings
+augroup my-automations
     autocmd!
     autocmd BufWritePost vimrc,.vimrc,init.vim source <afile>
-augroup END
-
-augroup my-highlights
-    autocmd!
     autocmd TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
-augroup END
-
-augroup my-autoread
-    autocmd!
     autocmd CursorMoved * silent! checktime
-augroup END
 
-augroup my-sessions
-    autocmd!
+    " Automatic session loading
     autocmd VimEnter * if v:argv == ['nvim'] && findfile('Session.vim', ',,') != ''
                 \| source Session.vim
                 \| let g:auto_session=1

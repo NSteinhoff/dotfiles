@@ -12,4 +12,5 @@ packadd nvim-scrollview
 let g:scrollview_winblend=75
 let g:scrollview_current_only=1
 
-nnoremap <leader>F <cmd>let g:neovide_fullscreen = !g:neovide_fullscreen<cr>
+command! Fullscreen let g:neovide_fullscreen = !g:neovide_fullscreen
+nnoremap <leader>F <cmd>Fullscreen<cr>

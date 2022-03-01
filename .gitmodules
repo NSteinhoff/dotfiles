@@ -8,12 +8,6 @@
 	path = 3rd/pack/external/opt/nvim-lspconfig
 	url = git@github.com:neovim/nvim-lspconfig.git
 	ignore = untracked
-[submodule "3rd/pack/external/opt/vim-unimpaired"]
-	path = 3rd/pack/external/opt/vim-unimpaired
-	url = git@github.com:tpope/vim-unimpaired.git
-[submodule "3rd/pack/external/opt/vim-eunuch"]
-	path = 3rd/pack/external/opt/vim-eunuch
-	url = git@github.com:tpope/vim-eunuch.git
 [submodule "3rd/pack/external/opt/vim-commentary"]
 	path = 3rd/pack/external/opt/vim-commentary
 	url = git@github.com:tpope/vim-commentary.git

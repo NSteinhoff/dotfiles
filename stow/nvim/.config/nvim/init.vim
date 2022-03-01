@@ -22,6 +22,7 @@
     set ttimeoutlen=25
     set noswapfile
     set updatetime=250
+    set lazyredraw
     set foldenable
     set foldmethod=indent
     set foldlevelstart=99                           " start with all folds opened
@@ -55,7 +56,7 @@
     set smarttab
     set expandtab
 
-    set nowrap
+    set wrap
     set linebreak
     set breakindent                                 " indent wrapped lines
     set showbreak=└                                 " prepend wrapped lines with this
@@ -80,14 +81,13 @@
 
 """ Completions
     set wildmode=longest:full,full
-    " set completeopt=menuone
     set completeopt=menuone,noinsert,noselect
     set shortmess+=c
 
 """ Path and files
     set path=,,.
-    set wildignore+=**/target/**
-    set wildignore+=**/node_modules/**
+    set wildignore+=*/target/*
+    set wildignore+=*/node_modules/*
 
 """ Diffing
     " Speed up diff syntax highlighting by disabling localization
@@ -107,9 +107,9 @@
 """ Personal
     packadd my-abbreviations
     packadd my-automations
+    packadd my-completions
     packadd my-commands
     packadd my-compiler
-    packadd my-completions
     packadd my-mappings
     packadd my-marks
     packadd my-lualib
@@ -117,27 +117,15 @@
     packadd my-statusline
     packadd my-tabline
     packadd my-tags
-    " packadd my-zettelkasten
 
 """ Third Party
-    " Finding / picking files
-    packadd! my-dirvish                             " Minimalist file browser
-
-    " Mappings and commands
-    packadd! vim-unimpaired                         " Convenience mappings
-    packadd! vim-eunuch                             " Shell commmands
+    packadd! my-dirvish                             " Minimalist file browser (customized)
     packadd! vim-commentary                         " Comment out stuff
-
-    " Filetypes / Syntax / Indent
     packadd! editorconfig-vim                       " File type settings based on local config
 
     " IDE Mode
     packadd! my-lsp                                 " Language Server client configuration
-    packadd! my-treesitter                          " Language aware highlighting
-    packadd! my-fidget                              " LSP status updates
-
-    " Lua documentation
-    " packadd! nvim-luaref                          " Lua documentation as vim help files
+    packadd! my-treesitter                          " Language aware highlighting etc.
 
 """ Development
     set packpath+=~/Develop

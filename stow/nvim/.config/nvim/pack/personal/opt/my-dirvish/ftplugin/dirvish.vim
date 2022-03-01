@@ -46,3 +46,5 @@ function! s:add_segment()
         call setline(lnum, head..segment)
     endif
 endfunction
+
+silent normal $

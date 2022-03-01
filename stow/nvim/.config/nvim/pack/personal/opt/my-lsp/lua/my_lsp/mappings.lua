@@ -10,7 +10,6 @@ function M.on_attach(client)
     vim.cmd([[inoremap <silent> <buffer> <c-space>    <C-X><C-O>]])
 
     -- Get help
-    -- vim.cmd([[nnoremap <silent> <buffer> K            <cmd>lua vim.lsp.buf.hover()<CR>]])
     vim.cmd([[nnoremap <silent> <buffer> <c-space>    <cmd>lua vim.lsp.buf.hover()<CR>]])
     vim.cmd([[inoremap <silent> <buffer> <c-h>        <cmd>lua vim.lsp.buf.signature_help()<CR>]])
 
@@ -28,8 +27,8 @@ function M.on_attach(client)
     -- Diagnostics
     vim.cmd([[nnoremap <silent> <buffer> dh           <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>]])
     vim.cmd([[nnoremap <silent> <buffer> dH           <cmd>lua vim.diagnostic.setloclist()<CR>]])
-    vim.cmd([[nnoremap <silent> <buffer> ]g           <cmd>lua vim.diagnostic.goto_next()<CR>]])
-    vim.cmd([[nnoremap <silent> <buffer> [g           <cmd>lua vim.diagnostic.goto_prev()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> ]e           <cmd>lua vim.diagnostic.goto_next()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> [e           <cmd>lua vim.diagnostic.goto_prev()<CR>]])
 
     -- Code actions,     i.e. (d)o (c)ode [(a)ction | (r)ename | (f)ormat]
     vim.cmd([[nnoremap <silent> <buffer> dca          <cmd>lua vim.lsp.buf.code_action()<CR>]])
@@ -42,12 +41,11 @@ function M.on_attach(client)
     -- vim.cmd([[nnoremap <silent> <buffer> <>           <cmd>lua vim.lsp.buf.formatting_sync()<CR>]])
 end
 
-function M.on_detach(client)
+function M.on_detach()
     -- Completion
     vim.cmd([[iunmap <buffer> <c-space>]])
 
     -- Get help
-    -- vim.cmd([[nunmap <buffer> K]])
     vim.cmd([[nunmap <buffer> <c-space>]])
     vim.cmd([[iunmap <buffer> <c-h>]])
 
@@ -65,8 +63,8 @@ function M.on_detach(client)
     -- Diagnostics
     vim.cmd([[nunmap <buffer> dh]])
     vim.cmd([[nunmap <buffer> dH]])
-    vim.cmd([[nunmap <buffer> ]g]])
-    vim.cmd([[nunmap <buffer> [g]])
+    vim.cmd([[nunmap <buffer> ]e]])
+    vim.cmd([[nunmap <buffer> [e]])
 
     -- Code actions,     i.e. (d)o (c)ode (a)ction
     vim.cmd([[nunmap <buffer> dca]])

@@ -1,5 +1,9 @@
 lua require('my_lsp')
 
+" LSP status updates in bottom right corner
+packadd fidget.nvim
+lua require"fidget".setup{}
+
 let s:dir = resolve(expand('<sfile>:h:h')..'/lua')
 let s:paths = glob(copy(s:dir)..'/**/*.lua', 1, 1)
 let s:files = map(copy(s:paths), { _, p -> substitute(p, '^'..s:dir..'/', '', '') })

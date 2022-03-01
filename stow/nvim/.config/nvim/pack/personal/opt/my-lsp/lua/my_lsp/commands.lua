@@ -23,12 +23,18 @@ function M.on_attach(client)
     -- Clients
     vim.cmd([[command! -buffer LspBufStop lua for _, client in pairs(vim.lsp.buf_get_clients(0)) do client.stop() end]])
     vim.cmd([[command! -buffer LspBufClients lua for _, client in pairs(vim.lsp.buf_get_clients(0)) do print("--- "..client.name.." ---") print(vim.inspect(client)) print("---") end]])
-    vim.cmd([[command! -buffer LspDetach lua require("my_lsp.commands").on_detach()]])
+    vim.cmd([[command! -buffer LspDetach lua require("my_lsp.commands").detach()]])
 end
 
-function M.on_detach(client)
+function M.detach()
     vim.cmd([[LspStop]])
 
+    require("my_lsp.commands").on_detach()
+    require("my_lsp.mappings").on_detach()
+    require("my_lsp.options").on_detach()
+end
+
+function M.on_detach()
     -- Code actions
     vim.cmd([[delcommand LspCodeAction]])
     vim.cmd([[delcommand LspCodeRename]])
@@ -52,9 +58,6 @@ function M.on_detach(client)
     vim.cmd([[delcommand LspBufStop]])
     vim.cmd([[delcommand LspBufClients]])
     vim.cmd([[delcommand LspDetach]])
-
-    require("my_lsp.mappings").on_detach()
-    require("my_lsp.options").on_detach()
 end
 
 return M
