@@ -177,7 +177,6 @@ augroup END
     " List, load, read errorfile contents
     nmap g> <plug>(maker-show-log)
     nmap g! <plug>(maker-load-errors)
-    nmap g± <plug>(maker-local-load-errors)
     nmap g? <plug>(maker-edit-errors)
 
 

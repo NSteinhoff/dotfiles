@@ -56,7 +56,7 @@
     set smarttab
     set expandtab
 
-    set wrap
+    set nowrap
     set linebreak
     set breakindent                                 " indent wrapped lines
     set showbreak=└                                 " prepend wrapped lines with this
