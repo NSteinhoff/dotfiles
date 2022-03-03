@@ -24,6 +24,10 @@ nnoremap <silent> <buffer> <s-tab> <cmd>call qf#clear_marks()<cr>
 nnoremap <silent> <buffer> zn <cmd>call qf#filter(0, 1)<cr>
 nnoremap <silent> <buffer> zN <cmd>call qf#filter(1, 1)<cr>
 
+" Filter based on regex
+nnoremap <buffer> <expr> cf qf#isqf() ? (qf#isloc() ? ':L' : ':C')..'filter<space>' : ''
+nnoremap <buffer> <expr> Cf qf#isqf() ? (qf#isloc() ? ':L' : ':C')..'filter!<space>' : ''
+
 " Manage lists
 nnoremap <silent> <buffer> !! <cmd>call qf#only()<cr>
 nnoremap <silent> <buffer> X <cmd>call qf#cut()<cr>

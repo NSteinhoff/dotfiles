@@ -112,7 +112,6 @@
     packadd my-compiler
     packadd my-mappings
     packadd my-marks
-    packadd my-lualib
     packadd my-quickfix
     packadd my-statusline
     packadd my-tabline
