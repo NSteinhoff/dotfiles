@@ -1,7 +1,7 @@
 " Show the author who last changed the selected line
-command! -range Blame echo join(commander#git#blame(<line1>, <line2>), "\n")
-command! ShowBlame call commander#git#blame_on()
-command! NoShowBlame call commander#git#blame_off()
+command! -range Blame echo join(git#blame(<line1>, <line2>), "\n")
+command! ShowBlame call git#blame_on()
+command! NoShowBlame call git#blame_off()
 
 " Regenerate the git ctags kept under .git/tags
 command! Ctags if finddir('.git', ';') != ''
@@ -9,10 +9,10 @@ command! Ctags if finddir('.git', ';') != ''
     \| echo "'".getcwd()."' is not a git repository. Can only run Ctags from within a git repository." | endif
 
 function s:complete_file_log(arglead, cmdline, cursorpos)
-    return filter(commander#git#file_log(@%), { _, v -> v =~ a:arglead})
+    return filter(git#file_log(@%), { _, v -> v =~ a:arglead})
 endfunction
 function s:complete_log(arglead, cmdline, cursorpos)
-    return filter(commander#git#log(getcwd()), { _, v -> v =~ a:arglead})
+    return filter(git#log(getcwd()), { _, v -> v =~ a:arglead})
 endfunction
 
 function s:edit_args_msg()
@@ -24,39 +24,39 @@ endfunction
 
 function s:log(bang)
     let open_in_split = !(a:bang || empty(@%))
-    call commander#git#show_log(open_in_split, getcwd())
+    call git#show_log(open_in_split, getcwd())
 endfunction
 
 function s:timeline(bang, line1, line2, range)
     let open_in_split = !(a:bang || empty(@%))
-    call commander#git#show_timeline(open_in_split, a:line1, a:line2, a:range, @%)
+    call git#show_timeline(open_in_split, a:line1, a:line2, a:range, @%)
 endfunction
 
 command! -bang -range=% GitLog call s:log(<bang>0)
 command! -bang -range=% Timeline call s:timeline(<bang>0, <line1>, <line2>, <range>)
-command! -nargs=? -complete=customlist,s:complete_file_log DiffThis call commander#git#side_by_side_diff(<q-args>, @%)
-command! -bang -nargs=? -complete=customlist,s:complete_file_log PatchThis call commander#git#inline_diff(<bang>1, <q-args>, @%)
+command! -nargs=? -complete=customlist,s:complete_file_log DiffThis call git#side_by_side_diff(<q-args>, @%)
+command! -bang -nargs=? -complete=customlist,s:complete_file_log PatchThis call git#inline_diff(<bang>1, <q-args>, @%)
 
 function s:changed_files(revision, goto)
-    call commander#git#load_changed_files(a:revision)
+    call git#load_changed_files(a:revision)
     if a:goto && argc()
         first
     endif
     args
 endfunction
 command! -nargs=? -bang -complete=customlist,s:complete_log ChangedFiles call s:changed_files(<q-args>, <bang>1)
-command! -nargs=? -bang -complete=customlist,s:complete_log DiffTarget call commander#git#set_diff_target(<bang>0, <q-args>)
-command! -nargs=1 -complete=customlist,s:complete_log Review call commander#git#review(<q-args>)
+command! -nargs=? -bang -complete=customlist,s:complete_log DiffTarget call git#set_diff_target(<bang>0, <q-args>)
+command! -nargs=1 -complete=customlist,s:complete_log Review call git#review(<q-args>)
 
 function s:track_changes()
     augroup my-changed-files
         autocmd!
-        autocmd VimResume,FocusGained * call commander#git#load_changed_files()
-        autocmd DirChanged * call commander#git#load_changed_files()
-        autocmd BufWritePost * call commander#git#load_changed_files()
+        autocmd VimResume,FocusGained * call git#load_changed_files()
+        autocmd DirChanged * call git#load_changed_files()
+        autocmd BufWritePost * call git#load_changed_files()
     augroup END
 
-    call commander#git#load_changed_files()
+    call git#load_changed_files()
 endfunction
 
 function s:no_track_changes()

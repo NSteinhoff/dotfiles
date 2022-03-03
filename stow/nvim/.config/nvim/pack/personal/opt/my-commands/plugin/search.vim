@@ -8,13 +8,6 @@ else
     set grepprg=grep\ -nH
 endif
 
-" Live results
-command! -nargs=? -bang LiveGrep execute
-            \ (empty(getbufinfo('^GREP$')) ? 'edit GREP' : 'buffer ^GREP$')
-            \| if !empty(<q-args>) || <bang>0 || empty(getline(1))
-            \| call setline(1, <q-args>) | 1 | doau TextChanged
-            \| endif
-
 function s:text_to_vim_pattern(text, matchword)
     let pattern = a:text
 
@@ -62,10 +55,6 @@ function s:grep(text, matchword, silent, ...) abort
     let silent = a:silent ? 'silent ' : ''
     execute silent..'grep! '..pattern..args
 endfunction
-
-" Start live grepping
-nnoremap <silent> <plug>(livegrep-new)      <cmd>LiveGrep!<cr>A
-nnoremap <silent> <plug>(livegrep-resume)   <cmd>LiveGrep<cr>
 
 " Extending '*' and '#' to visual selection
 vnoremap <silent> <plug>(search-selection)          y:let @/ = <sid>text_to_vim_pattern(@", 0)<bar>call feedkeys('n')<cr>

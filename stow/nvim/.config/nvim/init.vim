@@ -107,15 +107,21 @@
 """ Personal
     packadd my-abbreviations
     packadd my-automations
-    packadd my-completions
-    packadd my-commands
-    packadd my-compiler
-    packadd my-mappings
+    packadd my-tags
     packadd my-marks
+    packadd my-completions
+
     packadd my-quickfix
     packadd my-statusline
     packadd my-tabline
-    packadd my-tags
+
+    packadd my-commands
+    packadd my-mappings
+
+    packadd my-git
+    packadd my-buffers
+    packadd my-filefinder
+    packadd my-compiler
 
 """ Third Party
     packadd! my-dirvish                             " Minimalist file browser (customized)

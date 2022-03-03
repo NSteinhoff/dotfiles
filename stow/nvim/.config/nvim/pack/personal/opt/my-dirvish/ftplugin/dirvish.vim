@@ -29,12 +29,12 @@ execute 'setlocal path='..expand('%')
 command -buffer -bang PathAdd execute 'set path'..(<bang>0 ? '' : '+')..'='..expand('%')
 command -buffer PathRemove execute 'set path-='..expand('%')
 " Tree prints the input path, so we can just filter the lines
-command -buffer -range -nargs=* -bang Tree execute '<line1>,<line2>!xargs tree -afiF -L 1'..(<bang>0 ? 'a' : '')..' --noreport <args>'
+command -buffer -range -nargs=* -bang Tree execute '<line1>,<line2>!xargs tree -afiF -L 1'..(<bang>0 ? 'a' : '')..' --noreport <args>'|normal $
 
-highlight default link DirvishPathHead Normal
-syn clear DirvishPathHead
-execute 'syn match DirvishPathHead ='..expand('%:p'..(get(g:, 'dirvish_relative_paths') ? ':.' : ''))..'\ze.\+=  conceal'
-autocmd! dirvish_buflocal TextChanged,TextChangedI
+" highlight default link DirvishPathHead Normal
+" syn clear DirvishPathHead
+" execute 'syn match DirvishPathHead ='..expand('%:p'..(get(g:, 'dirvish_relative_paths') ? ':.' : ''))..'\ze.\+=  conceal'
+" autocmd! dirvish_buflocal TextChanged,TextChangedI
 
 function! s:add_segment()
     let lnum = line('.')

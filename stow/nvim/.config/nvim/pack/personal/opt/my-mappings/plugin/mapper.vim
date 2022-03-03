@@ -156,7 +156,9 @@ augroup END
     inoremap <expr> <s-tab> pumvisible() ? '<c-p>' : '<s-TAB>'
 
     " Additional ins-completion modes
-    " W,R,A,G,H,J,Z,C,B,M
+    "
+    "   w,r,a,g,h,j,z,c,b,m
+    "
     " Registers:
     imap <c-x><c-r> <plug>(ins-complete-register)
     " Paths:
