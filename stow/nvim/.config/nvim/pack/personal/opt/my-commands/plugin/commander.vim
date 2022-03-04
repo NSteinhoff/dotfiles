@@ -133,11 +133,6 @@
 """ Run lines with interpreter
     command! -range=% -bang Run if get(b:, 'interpreter', 'NONE') != 'NONE'| if <bang>0 | write | endif | execute '<line1>,<line2>w !'.get(b:, 'interpreter')|else|echo 'b:interpreter is unset'|endif
 
-""" Clear error lists
-    command! -bar ClearQf call setqflist([], 'f')
-    command! -bar ClearLoc call setloclist(0, [], 'f')
-    command! -bar ClearErr ClearQf | ClearLoc
-
 """ Matches
     command! -nargs=? Match execute 'match Error /'..(empty(<q-args>) ? '\<'..expand('<cword>')..'\>' : escape(<q-args>, '/')).'/'
     command! -nargs=? Match2 execute '2match Todo /'..(empty(<q-args>) ? '\<'..expand('<cword>')..'\>' : escape(<q-args>, '/')).'/'

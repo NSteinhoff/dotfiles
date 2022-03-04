@@ -337,4 +337,4 @@ themes:
       cyan:    '#327698'
       white:   '#262a3f'
 
-colors: *spaceduck
+colors: *one-dark
