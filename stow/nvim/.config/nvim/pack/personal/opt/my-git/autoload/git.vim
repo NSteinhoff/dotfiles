@@ -10,8 +10,8 @@ endfunction
 
 function s:temp_buffer(lines, name, filetype, ...)
     let options = a:0 ? a:1 : {}
-
-    let bufnr = bufnr('^'..a:name..'$')
+    let name = escape(a:name, '"#%')
+    let bufnr = bufnr('^'..name..'$')
     if bufnr > 0
         " execute 'buffer '..bufnr
         return bufnr
@@ -21,8 +21,9 @@ function s:temp_buffer(lines, name, filetype, ...)
 
     let undosteps = []
     if !empty(@%)
-        call add(undosteps, "buffer '"..@%.."'")
+        call add(undosteps, "buffer "..bufnr('%').."")
     endif
+
     if s:can_be_alt(@#)
         call add(undosteps, "let @# = '"..@#.."'")
     endif
@@ -31,7 +32,7 @@ function s:temp_buffer(lines, name, filetype, ...)
     if s:can_be_alt(@#)
         call add(initsteps, "let @# = '"..@#.."'")
     endif
-    call add(initsteps, "file "..a:name) 
+    call add(initsteps, "file "..name) 
     call add(initsteps, "set ft="..a:filetype) 
 
     try
@@ -83,8 +84,6 @@ function s:git(dir, cmd)
     endif
     return result
 endfunction
-
-command -nargs=* Test echo s:git(getcwd(), <q-args>)
 
 " -------------------------------- Revision ----------------------------------
 " HEAD revision
