@@ -95,6 +95,7 @@ alias zettel='_() { nvim "+Zettel $*"; }; _'
 # [check for executable] && [ensure exists] && [source completions]
 [ -d ~/.config/bash-completion ] || mkdir -p ~/.config/bash-completion
 [ -r ~/.config/bash-completion/git ] || curl -sS https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash > ~/.config/bash-completion/git
+[ -r ~/.config/bash-completion/tmuxinator ] || curl -sS https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.bash > ~/.config/bash-completion/tmuxinator
 
 if [ -n "$(ls ~/.config/bash-completion/)" ]; then
     for file in ~/.config/bash-completion/*; do source "$file"; done
