@@ -6,6 +6,7 @@
 # by telling the game that the terminal
 # can render dark grey
 bold_brightens_foreground = true
+
 # Remove the menu selector, it always selects the first item in any
 # selection (w,W,q,r,Q,z,Z)
 menu_arrow_control = false
@@ -63,39 +64,33 @@ autofight_warning = 100
 # Force More Messages
 # ===================
 show_more = false
-fm := force_more_message
-
-# Events
-# fm += You riposte
 
 # HP loss
-# fm += HP: \d+/\d+ \(-\d+\).*!+
+# force_more_message += HP: \d+/\d+ \(-\d+\).*!+
 
 # Statuses
-fm += You feel strangely unstable
-fm += You are (confused|paralysed|sleeping|corroded|poisoned)
-fm += You feel sluggish
+force_more_message += You feel strangely unstable
+force_more_message += You are (confused|paralysed|sleeping|corroded|poisoned)
+force_more_message += You feel sluggish
 
 # Threats
-fm += You feel you are being watched by something
-fm += wielding.*(distortion|chaos|electrocution|venom)
-fm += quivering.*tipped darts
-fm += carrying a wand
+force_more_message += You feel you are being watched by something
+force_more_message += wielding.*(distortion|chaos|electrocution|venom)
+force_more_message += quivering.*tipped darts
+force_more_message += carrying a wand
 
 
 # Autoinscriptions
 # ================
-ai := autoinscribe
+autoinscribe += potions? of curing:@q1
+autoinscribe += potions? of heal wounds:@q2
 
-ai += potions? of curing:@q1
-ai += potions? of heal wounds:@q2
+autoinscribe += scrolls? of identify:@r1
+autoinscribe += scrolls? of teleportation:@r2
 
-ai += scrolls? of identify:@r1
-ai += scrolls? of teleportation:@r2
-
-ai += .*-tipped darts?:=f =F
-ai += throwing nets?:=f =F
-ai += boomerangs? of dispersal:=f =F
+autoinscribe += .*-tipped darts?:=f =F
+autoinscribe += throwing nets?:=f =F
+autoinscribe += boomerangs? of dispersal:=f =F
 
 
 # Quivering
