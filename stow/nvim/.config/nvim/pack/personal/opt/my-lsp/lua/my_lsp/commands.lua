@@ -17,8 +17,8 @@ function M.on_attach(client)
     vim.cmd([[command! -buffer LspSetQfList lua vim.diagnostic.setqflist()]])
 
     -- Diagnostics
-    vim.cmd([[command! -buffer LspBufDisableDiagnostics lua vim.lsp.diagnostic.disable()]])
-    vim.cmd([[command! -buffer LspBufEnableDiagnostics lua vim.lsp.diagnostic.enable()]])
+    vim.cmd([[command! -buffer LspBufDisableDiagnostics lua vim.diagnostic.hide()]])
+    vim.cmd([[command! -buffer LspBufEnableDiagnostics lua vim.diagnostic.show()]])
 
     -- Clients
     vim.cmd([[command! -buffer LspBufStop lua for _, client in pairs(vim.lsp.buf_get_clients(0)) do client.stop() end]])

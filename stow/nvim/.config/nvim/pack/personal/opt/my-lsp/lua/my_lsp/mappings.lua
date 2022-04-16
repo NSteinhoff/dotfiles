@@ -25,7 +25,7 @@ function M.on_attach(client)
     vim.cmd([[nnoremap <silent> <buffer> gW           mZ<cmd>lua vim.lsp.buf.workspace_symbol()<CR>]])
 
     -- Diagnostics
-    vim.cmd([[nnoremap <silent> <buffer> dh           <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> dh           <cmd>lua vim.diagnostic.open_float()<CR>]])
     vim.cmd([[nnoremap <silent> <buffer> dH           <cmd>lua vim.diagnostic.setloclist()<CR>]])
     vim.cmd([[nnoremap <silent> <buffer> ]e           <cmd>lua vim.diagnostic.goto_next()<CR>]])
     vim.cmd([[nnoremap <silent> <buffer> [e           <cmd>lua vim.diagnostic.goto_prev()<CR>]])
