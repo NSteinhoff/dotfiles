@@ -11,7 +11,7 @@ function HasAlt()
     let alt = get(b:, 'alt', '')
 
     if alt != '' && findfile(alt) != ''
-        return '*'
+        return 'ﭾ '
     else
         return ''
     endif

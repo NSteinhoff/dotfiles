@@ -129,8 +129,8 @@ augroup END
     nmap <silent> <leader>qa <plug>(qf-add)
     vmap <silent> <leader>qa <plug>(qf-add)
 
-    nmap <c-n> <plug>(cycle-loc-forward)
-    nmap <c-p> <plug>(cycle-loc-backward)
+    nmap <c-n> <plug>(cycle-visible-forward)
+    nmap <c-p> <plug>(cycle-visible-backward)
 
 """ Close all utility windows
     nnoremap <silent> <c-w><space>   <cmd>cclose<bar>lclose<cr><c-w>z
@@ -153,7 +153,7 @@ augroup END
     " or LSP completion for supported languages or filetypes.
     inoremap <expr> <c-space> empty(&omnifunc) ? '<c-x><c-]>' : '<c-x><c-o>'
     inoremap <expr> <tab>   pumvisible() ? '<c-n>' : '<tab>'
-    inoremap <expr> <s-tab> pumvisible() ? '<c-p>' : '<s-TAB>'
+    inoremap <expr> <s-tab> pumvisible() ? '<c-p>' : '<s-tab>'
 
     " Additional ins-completion modes
     "
@@ -207,8 +207,7 @@ augroup END
     " Missing `:tab split` mapping
     " Like <c-w>T, but without removing the window from the current page.
     " Also works when there is only one window.
-    nnoremap <silent> <c-w>t <cmd>tab split<cr>
-    nnoremap <silent> <c-w><c-t> <cmd>tab split<cr>
+    nnoremap <silent> <c-w>t <cmd>tab split<bar>diffoff<cr>
 
     " Search for the currently selected text and set the search register
     vmap <silent> * <plug>(search-selection)
