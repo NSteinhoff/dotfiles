@@ -44,6 +44,9 @@ alias tree='tree -CF --dirsfirst'
 # Listing dirs
 alias dirs='dirs -v'
 
+# Listing ports
+alias lsop='_() { lsof -i -nP $@ | grep LISTEN; }; _'
+
 # Grep with color
 alias grep='grep --color=auto'
 
