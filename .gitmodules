@@ -51,3 +51,12 @@
 [submodule "3rd/pack/external/opt/fidget.nvim"]
 	path = 3rd/pack/external/opt/fidget.nvim
 	url = git@github.com:j-hui/fidget.nvim.git
+[submodule "3rd/pack/external/opt/litee.nvim"]
+	path = 3rd/pack/external/opt/litee.nvim
+	url = git@github.com:ldelossa/litee.nvim.git
+[submodule "3rd/pack/external/opt/litee-calltree.nvim"]
+	path = 3rd/pack/external/opt/litee-calltree.nvim
+	url = git@github.com:ldelossa/litee-calltree.nvim.git
+[submodule "3rd/pack/external/opt/litee-symboltree.nvim"]
+	path = 3rd/pack/external/opt/litee-symboltree.nvim
+	url = git@github.com:ldelossa/litee-symboltree.nvim.git
