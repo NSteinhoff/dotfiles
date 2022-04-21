@@ -389,15 +389,15 @@ let s:syntax_groups.comment = [
 \    "Comment",
 \    "Question",
 \    "DiagnosticInfo",
-\ ]
-let s:syntax_groups.trivial = [
-\    "Conceal",
-\    "Noise",
 \    "DiagnosticHint",
 \    "DiagnosticVirtualTextError",
 \    "DiagnosticVirtualTextWarn",
 \    "DiagnosticVirtualTextInfo",
 \    "DiagnosticVirtualTextHint",
+\ ]
+let s:syntax_groups.trivial = [
+\    "Conceal",
+\    "Noise",
 \ ]
 let s:syntax_groups.specialchar = [
 \    "SpecialChar",
