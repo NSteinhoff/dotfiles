@@ -45,3 +45,7 @@ node_modules/
 
 # Local tmuxinator configs
 .tmuxinator.yml
+
+# C artifacts
+a.out
+a.out.dSYM/
