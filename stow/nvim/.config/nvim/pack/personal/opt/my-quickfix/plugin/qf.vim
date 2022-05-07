@@ -21,3 +21,14 @@ nnoremap <silent> <plug>(cycle-visible-backward) <cmd>call qf#cycle_visible(0)<c
 nnoremap <silent> <plug>(qf-new) <cmd>call qf#new('', v:count)<cr>
 nnoremap <silent> <plug>(qf-add) <cmd>call qf#add()<cr>
 vnoremap <silent> <plug>(qf-add) :call qf#add()<cr>
+
+augroup my-qf
+    autocmd!
+    if exists('##QuitPre')
+        " Close the corresponding location list when a window is closed
+        autocmd QuitPre * nested if &filetype != 'qf' | silent! lclose | endif
+    endif
+    " Open an appropriately sized list after running quickfix commands
+    autocmd QuickFixCmdPost make,grep,grepadd,vimgrep,vimgrepadd,cfile,cgetfile,caddfile,cexpr,cgetexpr,caddexpr,cbuffer,cgetbuffer,caddbuffer execute 'cclose|'..min([10, len(getqflist())])..'cwindow'
+    autocmd QuickFixCmdPost lmake,lgrep,lgrepadd,lvimgrep,lvimgrepadd,lfile,lgetfile,laddfile,lexpr,lgetexpr,laddexpr,lbuffer,lgetbuffer,laddbuffer execute 'lclose|'..min([10, len(getloclist(0))])..'lwindow'
+augroup END

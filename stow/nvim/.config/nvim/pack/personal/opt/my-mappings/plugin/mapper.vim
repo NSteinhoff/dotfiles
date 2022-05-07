@@ -112,8 +112,8 @@ augroup END
     " The idea here is to have one mapping to get a peek at the current list
     " of entries and a second one to browse the list and pick an entry to
     " jump to.
-    nnoremap <silent> <expr> `<space>  qf#qfvisible() ? '<cmd>cclose<cr>' : '<cmd>botright copen<cr>'
-    nnoremap <silent> <expr> <leader><space>  qf#locvisible() ? '<cmd>lclose<cr>' : '<cmd>botright lopen<cr>'
+    nnoremap <silent> `<space>  <cmd>call qf#ctoggle()<cr>
+    nnoremap <silent> <leader><space>  <cmd>call qf#ltoggle()<cr>
 
     nnoremap <silent> <leader>qq       <cmd>clist<cr>
     nnoremap <silent> <leader>qo       <cmd>botright copen<cr>

@@ -3,6 +3,40 @@ let s:clipboard = {}
 
 call sign_define(s:sign_name, {'text': '>', 'texthl': 'Error'})
 
+function qf#ltoggle()
+    if qf#locvisible()
+        lclose
+    else
+        call qf#lopen()
+    endif
+endfunction
+
+function qf#ctoggle()
+    if qf#qfvisible()
+        cclose
+    else
+        call qf#copen()
+    endif
+endfunction
+
+function qf#copen()
+        execute len(getqflist())..'cwindow'
+endfunction
+
+function qf#lopen()
+    execute len(getloclist(0))..'lwindow'
+endfunction
+
+function qf#cresize()
+    cclose
+    call qf#copen()
+endfunction
+
+function qf#lresize()
+    lclose
+    call qf#lopen(a:loc)
+endfunction
+
 function qf#locvisible()
     return !empty(filter(getwininfo(), { _, win -> win.tabnr == tabpagenr() && win.quickfix && win.loclist }))
 endfunction

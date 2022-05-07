@@ -1,7 +1,7 @@
 setlocal cursorline
 setlocal scrolloff=0
 setlocal nolist
-setlocal wrap
+setlocal nowrap
 
 " Remove some global mappings that do not make sense in the quickfix list
 nnoremap j j
