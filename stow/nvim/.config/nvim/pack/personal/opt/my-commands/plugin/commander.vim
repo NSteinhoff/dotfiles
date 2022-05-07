@@ -40,7 +40,9 @@
     command! -count=10 -bang Lorem call commander#lorem#insert(<count>, <bang>0)
 
 """ Browse old files
+    " using :pattern: instead of /pattern/ to make matching file paths easier
     command -nargs=* Broldfiles execute 'browse '..(<q-args> != '' ? 'filter :'..<q-args>..': ' : '')..'oldfiles'
+    cnoreabbrev <expr> old (getcmdtype() ==# ':' && getcmdline() ==# 'old')  ? 'Broldfiles'  : 'oldfiles'
 
 """ Show global marks
     command -nargs=* Marks execute 'try | '(<q-args> != '' ? 'filter :'..<q-args>..':' : '')..' marks ABCDEFGHIJKLMNOPQRSTUVWXYZ | catch | endtry'
