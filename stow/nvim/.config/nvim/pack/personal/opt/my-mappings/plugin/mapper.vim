@@ -193,6 +193,10 @@ augroup END
     " cnoremap <c-h> <left>
     " cnoremap <c-l> <right>
 
+    " Change indentation of selected lines
+    vnoremap <TAB> >gv
+    vnoremap <S-TAB> <gv
+
     " Not sure that these work everywhere
     cnoremap <m-b> <s-left>
     cnoremap <m-f> <s-right>
