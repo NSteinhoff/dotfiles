@@ -33,7 +33,6 @@
 
 [merge]
 	tool		= nvimdiff2
-	conflictstyle	= diff3
 
 [rerere]
 	enabled		= true
