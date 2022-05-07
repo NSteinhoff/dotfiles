@@ -1,4 +1,5 @@
-command! CompilerInfo call compiler#describe()
+command! CompilerDescribe call compiler#describe()
+command! CompilerInfo call compiler#info()
 command! -nargs=* -complete=compiler CompileWith call compiler#with(0, <f-args>)
 command! -nargs=* -complete=compiler LCompileWith call compiler#with(1, <f-args>)
 

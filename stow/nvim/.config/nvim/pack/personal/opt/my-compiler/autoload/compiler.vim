@@ -55,11 +55,24 @@ function compiler#with(local, name='last', ...) abort
     endtry
 endfunction
 
+function compiler#info()
+    let compilers = s:compilers()
+    let description = ''
+    if s:last_compiler != 'NONE'
+        let description.= "Focus: "..s:last_compiler.."\n"
+    endif
+    let description.= "Global: "..compilers.global.name.."\n"
+    let description.= "Local: "..compilers.local.name
+    echo description
+endfunction
 
 function compiler#describe()
     let compilers = s:compilers()
     let description = "Compiler"
     let description.= "\n========"
+    if s:last_compiler != 'NONE'
+        let description.="\nFocus: "..s:last_compiler
+    endif
     let description.= "\n"
     let description.= "\nGlobal"
     let description.= "\n\tName: "..compilers.global.name
