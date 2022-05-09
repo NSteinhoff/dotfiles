@@ -127,6 +127,7 @@
     packadd! my-dirvish                             " Minimalist file browser (customized)
     packadd! vim-commentary                         " Comment out stuff
     packadd! editorconfig-vim                       " File type settings based on local config
+    packadd! undotree                               " Undo tree visualizer
 
     " IDE Mode
     packadd! my-lsp                                 " Language Server client configuration

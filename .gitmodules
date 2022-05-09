@@ -60,3 +60,6 @@
 [submodule "3rd/pack/external/opt/litee-symboltree.nvim"]
 	path = 3rd/pack/external/opt/litee-symboltree.nvim
 	url = git@github.com:ldelossa/litee-symboltree.nvim.git
+[submodule "3rd/pack/external/opt/undotree"]
+	path = 3rd/pack/external/opt/undotree
+	url = git@github.com:mbbill/undotree.git
