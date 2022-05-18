@@ -121,9 +121,9 @@ augroup END
     nnoremap <silent> <leader>qw       <cmd>botright cwindow<cr>
 
     nnoremap <silent> <leader>ll       <cmd>llist<cr>
-    nnoremap <silent> <leader>lo       <cmd>botright lopen<cr>
+    nnoremap <silent> <leader>lo       <cmd>lopen<cr>
     nnoremap <silent> <leader>lc       <cmd>lclose<cr>
-    nnoremap <silent> <leader>lw       <cmd>botright lwindow<cr>
+    nnoremap <silent> <leader>lw       <cmd>lwindow<cr>
 
     nmap <silent> <leader>qn <plug>(qf-new)
     nmap <silent> <leader>qa <plug>(qf-add)

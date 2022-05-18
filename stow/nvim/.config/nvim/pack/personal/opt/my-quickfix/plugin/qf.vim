@@ -11,6 +11,10 @@ command! Ltab if getloclist(0, {'nr': 0}).nr|tab split|botright lopen|only|else|
 command! -bar Cfree call setqflist([], 'f')
 command! -bar Lfree call setloclist(0, [], 'f')
 
+""" Resize list windows
+command! -bar Cresize call qf#cresize()
+command! -bar Lresize call qf#lresize()
+
 nnoremap <silent> <plug>(cycle-loc-forward) <cmd>call qf#cycle_loc(1)<cr>
 nnoremap <silent> <plug>(cycle-loc-backward) <cmd>call qf#cycle_loc(0)<cr>
 nnoremap <silent> <plug>(cycle-qf-forward) <cmd>call qf#cycle_qf(1)<cr>
@@ -29,6 +33,6 @@ augroup my-qf
         autocmd QuitPre * nested if &filetype != 'qf' | silent! lclose | endif
     endif
     " Open an appropriately sized list after running quickfix commands
-    autocmd QuickFixCmdPost make,grep,grepadd,vimgrep,vimgrepadd,cfile,cgetfile,caddfile,cexpr,cgetexpr,caddexpr,cbuffer,cgetbuffer,caddbuffer execute 'cclose|'..min([10, len(getqflist())])..'cwindow'
-    autocmd QuickFixCmdPost lmake,lgrep,lgrepadd,lvimgrep,lvimgrepadd,lfile,lgetfile,laddfile,lexpr,lgetexpr,laddexpr,lbuffer,lgetbuffer,laddbuffer execute 'lclose|'..min([10, len(getloclist(0))])..'lwindow'
+    autocmd QuickFixCmdPost make,grep,grepadd,vimgrep,vimgrepadd,cfile,cgetfile,caddfile,cexpr,cgetexpr,caddexpr,cbuffer,cgetbuffer,caddbuffer call qf#cresize()
+    autocmd QuickFixCmdPost lmake,lgrep,lgrepadd,lvimgrep,lvimgrepadd,lfile,lgetfile,laddfile,lexpr,lgetexpr,laddexpr,lbuffer,lgetbuffer,laddbuffer call qf#lresize()
 augroup END

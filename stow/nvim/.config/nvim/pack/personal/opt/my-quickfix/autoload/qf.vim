@@ -1,5 +1,6 @@
 let s:sign_name = 'qf-mark'
 let s:clipboard = {}
+let s:max_lines = 10
 
 call sign_define(s:sign_name, {'text': '>', 'texthl': 'Error'})
 
@@ -20,11 +21,11 @@ function qf#ctoggle()
 endfunction
 
 function qf#copen()
-        execute len(getqflist())..'cwindow'
+        execute 'botright '..min([s:max_lines, len(getqflist())])..'cwindow'
 endfunction
 
 function qf#lopen()
-    execute len(getloclist(0))..'lwindow'
+    execute min([s:max_lines, len(getloclist(0))])..'lwindow'
 endfunction
 
 function qf#cresize()
@@ -34,7 +35,7 @@ endfunction
 
 function qf#lresize()
     lclose
-    call qf#lopen(a:loc)
+    call qf#lopen()
 endfunction
 
 function qf#locvisible()
