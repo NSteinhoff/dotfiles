@@ -5,6 +5,6 @@ PATH="/usr/local/bin:$PATH"
 trap 'rm -f "$$.tags.lib"' EXIT
 
 # Typescript dependencies
-find . -name '*.d.ts' -path '*/node_modules/*' | ctags --tag-relative=yes --sort=yes -L - -f"$$.tags.lib"
+find . -name '*.d.ts' -path '*/node_modules/*' | ctags --tag-relative=no --sort=yes -L - -f".git/hooks/$$.tags.lib"
 
-mv "$$.tags.lib" tags.lib
+mv ".git/hooks/$$.tags.lib" tags.lib
