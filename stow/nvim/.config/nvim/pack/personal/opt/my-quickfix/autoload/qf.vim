@@ -30,12 +30,18 @@ endfunction
 
 function qf#cresize()
     cclose
-    call qf#copen()
+    if (len(getqflist()))
+        call qf#copen()
+        wincmd p
+    endif
 endfunction
 
 function qf#lresize()
     lclose
-    call qf#lopen()
+    if (len(getloclist(0)))
+        call qf#lopen()
+        wincmd p
+    endif
 endfunction
 
 function qf#locvisible()

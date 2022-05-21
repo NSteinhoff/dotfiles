@@ -572,4 +572,4 @@ themes:
       cyan:    '0x8b6c37'
       white:   '0xf8f8f8'
 
-colors: *solarized-dark
+colors: *base16-default-dark

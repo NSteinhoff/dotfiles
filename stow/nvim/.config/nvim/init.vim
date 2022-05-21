@@ -81,6 +81,7 @@
 
 """ Completions
     set wildmode=longest:full,full
+    set wildoptions=pum
     set completeopt=menuone,noinsert,noselect
     set shortmess+=c
 
@@ -130,9 +131,9 @@
     packadd! undotree                               " Undo tree visualizer
 
     " IDE Mode
+    packadd! my-treesitter                          " Language awareness
     packadd! my-lsp                                 " Language Server client configuration
-    packadd! my-treesitter                          " Language aware highlighting etc.
-    packadd! my-litee
+    packadd! my-litee                               " Language Server UI
 
 """ Development
     set packpath+=~/Develop

@@ -72,6 +72,7 @@
 """ Completions
     set wildmode=longest:full,full
     set wildignore=*/node_modules/*
+    set wildoptions=pum
 
 """ External programs
     if executable('rg')
