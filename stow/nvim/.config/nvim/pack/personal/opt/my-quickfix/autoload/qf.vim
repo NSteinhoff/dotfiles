@@ -25,7 +25,11 @@ function qf#copen()
 endfunction
 
 function qf#lopen()
-    execute min([s:max_lines, len(getloclist(0))])..'lwindow'
+    let items = len(getloclist(0))
+    if !items
+        return
+    endif
+    execute min([s:max_lines, items])..'lwindow'
 endfunction
 
 function qf#cresize()

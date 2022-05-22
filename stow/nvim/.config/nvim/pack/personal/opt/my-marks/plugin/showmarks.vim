@@ -1,5 +1,5 @@
 if get(g:, 'loaded_showmarks')|finish|endif
-let g:loaded_showmarks = 1
+" let g:loaded_showmarks = 1
 
 let s:sign_group = 'marks'
 let s:signs = split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', '\ze')
@@ -12,6 +12,10 @@ function s:marks()
     let marks = local + global
     let marks = map(marks, { _, v -> {'mark': v.mark, 'line': v.pos[1], 'col': v.pos[2]}})
     return marks
+endfunction
+
+function s:complete_marks(arglead, cmdline, cursorpos)
+    return filter(map(getmarklist(), { _, m -> m.mark[1:] }), {_, m -> m =~ "[A-Z]" })
 endfunction
 
 function s:mark2sign(mark)
@@ -48,5 +52,11 @@ endfunction
 
 command! NoShowMarks call s:disable()
 command! ShowMarks call s:enable()
+
+""" Show global marks
+command! -nargs=* Marks execute 'try | '(<q-args> != '' ? 'filter :'..<q-args>..':' : '')..' marks ABCDEFGHIJKLMNOPQRSTUVWXYZ | catch | endtry'
+command! -nargs=* -bang -complete=customlist,s:complete_marks Delmarks execute 'delmarks '..(<bang>0 ? 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' : <q-args>)
+
+nnoremap <plug>(list-marks) <cmd>Marks<cr>
 
 ShowMarks

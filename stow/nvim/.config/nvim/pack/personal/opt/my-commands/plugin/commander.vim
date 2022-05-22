@@ -44,10 +44,6 @@
     command -nargs=* Broldfiles execute 'browse '..(<q-args> != '' ? 'filter :'..<q-args>..': ' : '')..'oldfiles'
     cnoreabbrev <expr> old (getcmdtype() ==# ':' && getcmdline() ==# 'old')  ? 'Broldfiles'  : 'oldfiles'
 
-""" Show global marks
-    command -nargs=* Marks execute 'try | '(<q-args> != '' ? 'filter :'..<q-args>..':' : '')..' marks ABCDEFGHIJKLMNOPQRSTUVWXYZ | catch | endtry'
-    command -nargs=* -bang Delmarks execute 'delmarks '..(<bang>0 ? 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' : <q-args>)
-
 """ Format the current buffer
     function s:format()
         let formatprg = get(b:, 'formatprg', &formatprg)

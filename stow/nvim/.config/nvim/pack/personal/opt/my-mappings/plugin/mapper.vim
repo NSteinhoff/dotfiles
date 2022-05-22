@@ -194,14 +194,15 @@ augroup END
     " cnoremap <c-l> <right>
 
     " Change indentation of selected lines
-    vnoremap <TAB> >gv
-    vnoremap <S-TAB> <gv
+    vnoremap <tab> >gv
+    vnoremap <s-tab> <gv
 
     " Not sure that these work everywhere
     cnoremap <m-b> <s-left>
     cnoremap <m-f> <s-right>
 
     " Favorite mark
+    nmap <s-tab> <plug>(list-marks)
     nnoremap <leader>z mZ
     nnoremap gz `Z
 
