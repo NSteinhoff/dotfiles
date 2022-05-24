@@ -41,13 +41,13 @@
     set list
     set listchars=
     set listchars+=tab:¦\ 
-    set listchars+=trail:…
+    set listchars+=trail:·
     set listchars+=extends:»
     set listchars+=precedes:«
     set listchars+=nbsp:␣
     " set listchars+=eol:¬
     set listchars+=lead:\ 
-    set listchars+=multispace:\ •
+    set listchars+=multispace:\ \ \ ·               " Add markers for every 4 spaces
 
 """ Text formatting
     set tabstop=8
@@ -106,19 +106,20 @@
     packloadall                                     " load all default packages in 'start'
 
 """ Personal
+    " Passive
     packadd my-abbreviations
     packadd my-automations
-    packadd my-tags
     packadd my-marks
     packadd my-completions
-
     packadd my-quickfix
     packadd my-statusline
     packadd my-tabline
-
     packadd my-commands
     packadd my-mappings
 
+    " Active
+    packadd my-tags
+    packadd my-zettelkasten
     packadd my-git
     packadd my-buffers
     packadd my-filefinder

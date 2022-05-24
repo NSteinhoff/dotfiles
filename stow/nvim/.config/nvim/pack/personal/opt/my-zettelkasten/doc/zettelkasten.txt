@@ -42,11 +42,18 @@ USAGE
     timestamp.
 
 
-:Ztags [tagname]
+                                                  *:Ztag* *zettelkasten-:Ztag*
+:Ztag [tagname]
 
     Load all occurrences of [tagname] into the quickfix list.
 
+                                            *:Ztagadd* *zettelkasten-:Ztagadd*
+:Ztagadd [tagname]
 
+    Append all occurrences of [tagname] to the quickfix list.
+
+
+                                          *:Ziblings* *zettelkasten-:Ziblings*
 :Ziblings [name]
 
     Find all `Zettel` that contain the same `#tags` as the `Zettel` called
