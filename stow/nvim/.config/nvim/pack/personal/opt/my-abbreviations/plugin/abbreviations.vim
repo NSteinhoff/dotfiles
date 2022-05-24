@@ -1,3 +1,7 @@
+" ------------------------------- Command Line --------------------------------
+" Open man pages
+cabbrev man Man
+
 " ---------------------------------- Dates ------------------------------------
 " Local date
 iabbrev <expr> ddd strftime("%Y-%m-%d")
