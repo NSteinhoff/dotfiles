@@ -134,7 +134,7 @@ elif $fancy_prompt; then
 fi
 
 # --------------------------- Directory Shortcuts -----------------------------
-export CDPATH=~/Develop:~/Develop/s2
+export CDPATH=.:~/Develop:~/Develop/s2
 export NOTES_DIR=~/Dropbox/Notes
 export ZETTELKASTEN=~/Dropbox/Zettel
 

@@ -1,9 +1,11 @@
 #!/bin/bash
 
+# Debian
 if [[ -x /usr/games/crawl ]]; then
     /usr/games/crawl \
         -dir $HOME/Dropbox/Documents/crawl \
         -rc $HOME/.config/crawl/crawlrc $@
+# Mac OSX / Brew installed Crawl
 elif [[ -x "/Applications/Dungeon Crawl Stone Soup - Console.app/Contents/MacOS/Dungeon Crawl Stone Soup - Console" ]]; then
     /Applications/Dungeon\ Crawl\ Stone\ Soup\ -\ Console.app/Contents/MacOS/Dungeon\ Crawl\ Stone\ Soup\ -\ Console
 else
