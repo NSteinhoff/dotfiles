@@ -72,7 +72,7 @@ alias quickfix='vim +"set bt=nofile" +cbuffer -'
 
 # Open notes for editing
 _complete_notes() {
-    COMPREPLY=( $(compgen -W "$(ls $NOTES_DIR/)" $2) )
+    COMPREPLY=( $(compgen -W "$(ls $NOTES_DIR)" $2) )
 }
 complete -F _complete_notes note
 alias note='_() { $EDITOR --cmd "cd $NOTES_DIR" $NOTES_DIR/$1 ; }; _'

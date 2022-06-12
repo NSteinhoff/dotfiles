@@ -18,6 +18,10 @@ export PATH=/opt/homebrew/bin:$PATH
 # Setup cargo environment
 . "$HOME/.cargo/env"
 
+# ----------------------------------- Go --------------------------------------
+# Setup Go environment
+export PATH="$HOME/go/bin:$PATH"
+
 # ----------------------------------- GPG -------------------------------------
 # Inform GPG about the current terminal device
 export GPG_TTY=$(tty)
