@@ -104,10 +104,10 @@
     packloadall                                     " load all default packages in 'start'
 
 """ Personal
-    packadd my-grep
-    packadd my-tags
-    packadd my-quickfix
-    packadd my-filefinder
+    packadd my-grep                                 " Grep with :gg
+    packadd my-filefinder                           " Start simple file finder with :ff
+    packadd my-tags                                 " Create a tags based TOC with :tt
+    packadd my-quickfix                             " Quickfix niceties, mostly limited to quickfix windows
 
     " packadd my-abbreviations
     " packadd my-automations

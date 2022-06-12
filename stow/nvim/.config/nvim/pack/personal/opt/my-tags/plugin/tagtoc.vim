@@ -1,4 +1,2 @@
-command TagToc call tags#toc()
-command TagIndex call tags#toc(1)
-
-nnoremap <plug>(tag-toc) <cmd>TagToc<cr>
+command -bang TagToc call tags#toc(<bang>0)
+cnoreabbrev <expr> tt    (getcmdtype() ==# ':' && getcmdline() ==# 'tt') ? 'TagToc' : 'tt'

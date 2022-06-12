@@ -8,12 +8,9 @@ else
     set grepprg=grep\ -nH
 endif
 
-command! -nargs=+ -complete=file_in_path -bar Grep   silent grep! <args>
-command! -nargs=+ -complete=file_in_path -bar Lgrep  silent lgrep! <args>
-
-cnoreabbrev <expr> gr    (getcmdtype() ==# ':' && getcmdline() ==# 'gr')    ? 'Grep'  : 'gr'
-cnoreabbrev <expr> lgr   (getcmdtype() ==# ':' && getcmdline() ==# 'lgr')   ? 'Lgrep' : 'lgr'
+cnoreabbrev <expr> gg (getcmdtype() ==# ':' && getcmdline() ==# 'gg') ? 'silent grep!' : 'gg'
 
 augroup grep
-        au QuickfixCmdPost grep,lgrep botright cwindow
+        au QuickfixCmdPost grep botright cwindow
+        au QuickfixCmdPost lgrep botright lwindow
 augroup END

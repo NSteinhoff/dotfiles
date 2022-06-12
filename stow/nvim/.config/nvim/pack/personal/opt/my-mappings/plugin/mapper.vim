@@ -125,13 +125,6 @@ augroup END
     nnoremap <silent> <leader>lc       <cmd>lclose<cr>
     nnoremap <silent> <leader>lw       <cmd>lwindow<cr>
 
-    nmap <silent> <leader>qn <plug>(qf-new)
-    nmap <silent> <leader>qa <plug>(qf-add)
-    vmap <silent> <leader>qa <plug>(qf-add)
-
-    nmap <c-n> <plug>(cycle-visible-forward)
-    nmap <c-p> <plug>(cycle-visible-backward)
-
 """ Close all utility windows
     nnoremap <silent> <c-w><space>   <cmd>cclose<bar>lclose<cr><c-w>z
     nnoremap <silent> <c-w><c-space> <cmd>cclose<bar>lclose<cr><c-w>z
@@ -214,15 +207,9 @@ augroup END
     " Also works when there is only one window.
     nnoremap <silent> <c-w>t <cmd>tab split<bar>diffoff<cr>
 
-    " Search for the currently selected text and set the search register
-    vmap <silent> * <plug>(search-selection)
-    vmap <silent> # <plug>(search-selection-reverse)
-
     " Grep, i.e. poor man's 'go-to-reference'
-    nmap <silent> gr <plug>(grep-word-silent)<cmd>botright cwindow<cr>
-    vmap <silent> gr <plug>(grep-selection-silent)<cmd>botright cwindow<cr>
-    nmap gl <plug>(livegrep-new)
-    nmap gL <plug>(livegrep-resume)
+    nmap <silent> gr :silent grep! <c-r><c-w><bar>botright cwindow<cr>
+    vmap <silent> gr y:silent grep! <c-r>"<bar>botright cwindow<cr>
 
     " Outline
     nmap gO <plug>(tag-toc)
@@ -293,15 +280,6 @@ augroup END
     vnoremap <leader>oo y:Open "<cr>
 
     " Fuzzy Find: <leader>f
-
-    " Search: <leader>*
-    nmap <silent> <leader>*. <plug>(grep-word-in-file)
-    nmap <silent> <leader>*g. <plug>(grep-word-g-in-file)
-    vmap <silent> <leader>*. <plug>(grep-selection-in-file)
-
-    nmap <silent> <leader>** <plug>(grep-word)
-    nmap <silent> <leader>*g* <plug>(grep-word-g)
-    vmap <silent> <leader>** <plug>(grep-selection)
     nmap <leader>ff <plug>(filefinder)
 
 
