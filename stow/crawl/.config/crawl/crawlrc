@@ -97,7 +97,7 @@ autoinscribe += boomerangs? of dispersal:=f =F
 # =========
 fire_order_spell = attack
 fire_order_ability = attack
-launcher_autoquiver = true
+launcher_autoquiver = false
 
 
 #---------------------------------------------------------------------------- #
