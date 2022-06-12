@@ -15,6 +15,7 @@ local servers = {
     "cssls",
     -- "sumneko_lua",
     "java_language_server",
+    "gopls",
 }
 for _, server in ipairs(servers) do
     require("my_lsp.config")[server]({

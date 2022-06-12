@@ -28,6 +28,7 @@ local custom = {
     jsonls = require("my_lsp.config.jsonls"),
     java_language_server = require("my_lsp.config.java_language_server"),
     clangd = require("my_lsp.config.clangd"),
+    gopls = require("my_lsp.config.gopls"),
 }
 
 return setmetatable(custom, default)
