@@ -104,10 +104,11 @@
     packloadall                                     " load all default packages in 'start'
 
 """ Personal
-    packadd my-grep                                 " Grep with :gg
-    packadd my-filefinder                           " Start simple file finder with :ff
-    packadd my-tags                                 " Create a tags based TOC with :tt
-    packadd my-quickfix                             " Quickfix niceties, mostly limited to quickfix windows
+    packadd! my-grep                                 " Grep with :gg
+    packadd! my-filefinder                           " Start simple file finder with :ff
+    packadd! my-tags                                 " Create a tags based TOC with :tt
+    packadd! my-quickfix                             " Quickfix niceties, mostly limited to quickfix windows
+    packadd! my-lsp                                 " Language Server configurations
 
     " packadd my-abbreviations
     " packadd my-automations
@@ -126,9 +127,6 @@
     packadd! editorconfig-vim                       " File type settings based on local config
     packadd! my-dirvish                             " Minimalist file browser (customized)
     packadd! vim-commentary                         " Comment out stuff
-
-    " IDE Mode
-    packadd! my-lsp                                 " Language Server client configuration
 
 """ GUI
     " packadd my-neovide

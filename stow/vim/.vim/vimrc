@@ -76,3 +76,6 @@
         set grepprg=rg\ --vimgrep
         set grepformat=%f:%l:%c:%m
     endif
+
+""" Mappings
+    nnoremap <c-l> <cmd>nohlsearch<bar>diffupdate<bar>normal! <c-l><cr>
