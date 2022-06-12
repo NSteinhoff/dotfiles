@@ -101,43 +101,34 @@
     " Stop here when runnign as git editor
     if exists('$GIT_INDEX_FILE') | finish | endif
 
-    " Stop here in case we are running in VSCode
-    if exists('g:vscode') | finish | endif
     packloadall                                     " load all default packages in 'start'
 
 """ Personal
-    " Passive
-    packadd my-abbreviations
-    packadd my-automations
-    packadd my-marks
-    packadd my-completions
-    packadd my-quickfix
-    packadd my-statusline
-    packadd my-tabline
-    packadd my-commands
-    packadd my-mappings
-
-    " Active
+    packadd my-grep
     packadd my-tags
-    packadd my-zettelkasten
-    packadd my-git
-    packadd my-buffers
+    packadd my-quickfix
     packadd my-filefinder
-    packadd my-compiler
+
+    " packadd my-abbreviations
+    " packadd my-automations
+    " packadd my-marks
+    " packadd my-completions
+    " packadd my-statusline
+    " packadd my-tabline
+    " packadd my-commands
+    " packadd my-mappings
+    " packadd my-zettelkasten
+    " packadd my-git
+    " packadd my-buffers
+    " packadd my-compiler
 
 """ Third Party
+    packadd! editorconfig-vim                       " File type settings based on local config
     packadd! my-dirvish                             " Minimalist file browser (customized)
     packadd! vim-commentary                         " Comment out stuff
-    packadd! editorconfig-vim                       " File type settings based on local config
-    packadd! undotree                               " Undo tree visualizer
 
     " IDE Mode
-    packadd! my-treesitter                          " Language awareness
     packadd! my-lsp                                 " Language Server client configuration
-    packadd! my-litee                               " Language Server UI
-
-""" Development
-    set packpath+=~/Develop
 
 """ GUI
-    packadd my-neovide
+    " packadd my-neovide
