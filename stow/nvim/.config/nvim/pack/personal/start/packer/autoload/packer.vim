@@ -2,17 +2,11 @@ function s:listpaths()
     return globpath(&packpath, 'pack/*/*/*', 0, 1)
 endfunction
 
-function s:listfiles()
-    let vimscript = globpath(&packpath, 'pack/**/*.vim', 0, 1)
-    let lua = globpath(&packpath, 'pack/**/*.lua', 0, 1)
-    return sort(vimscript + lua)
-endfunction
-
 function s:listnames()
     return map(s:listpaths(), { _, path -> fnamemodify(path, ":t") })
 endfunction
 
-function s:locatepack(name)
+function s:find(name)
     let paths = filter(s:listpaths(), 'v:val =~ "/" .. a:name .. "$"')
 
     if empty(paths)
@@ -23,24 +17,9 @@ function s:locatepack(name)
     return paths[0]
 endfunction
 
-function s:findfile(name)
-    let paths = filter(s:listfiles(), 'v:val =~ a:name .. "$"')
-
-    if empty(paths)
-        echo "File '" .. a:name .. "' not found."
-        return ''
-    endif
-
-    return paths[0]
-endfunction
-
 " -------------------------------------------------------------------------- "
 "                                   Public                                   "
 " -------------------------------------------------------------------------- "
-function packer#locatepack(name)
-    return s:locatepack(a:name)
-endfunction
-
 function packer#printpacks(fullpath)
     let packs = a:fullpath ? s:listpaths() : s:listnames()
     for p in packs
@@ -49,14 +28,7 @@ function packer#printpacks(fullpath)
 endfunction
 
 function packer#openpack(name)
-    let path = s:locatepack(a:name)
-    if !empty(path)
-        execute "edit " .. path
-    endif
-endfunction
-
-function packer#findfile(name)
-    let path = s:findfile(a:name)
+    let path = s:find(a:name)
     if !empty(path)
         execute "edit " .. path
     endif
