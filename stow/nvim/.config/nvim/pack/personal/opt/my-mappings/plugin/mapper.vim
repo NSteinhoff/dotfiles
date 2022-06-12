@@ -293,7 +293,6 @@ augroup END
     vnoremap <leader>oo y:Open "<cr>
 
     " Fuzzy Find: <leader>f
-    nmap <leader>ff <plug>(filefinder-new)
 
     " Search: <leader>*
     nmap <silent> <leader>*. <plug>(grep-word-in-file)
@@ -303,6 +302,7 @@ augroup END
     nmap <silent> <leader>** <plug>(grep-word)
     nmap <silent> <leader>*g* <plug>(grep-word-g)
     vmap <silent> <leader>** <plug>(grep-selection)
+    nmap <leader>ff <plug>(filefinder)
 
 
 """ (c): Changes / Diffing
