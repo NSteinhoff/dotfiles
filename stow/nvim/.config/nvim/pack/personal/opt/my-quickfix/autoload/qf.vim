@@ -8,7 +8,7 @@ function qf#ltoggle()
     if qf#locvisible()
         lclose
     else
-        call qf#lopen()
+        lopen
     endif
 endfunction
 
@@ -16,35 +16,7 @@ function qf#ctoggle()
     if qf#qfvisible()
         cclose
     else
-        call qf#copen()
-    endif
-endfunction
-
-function qf#copen()
-        execute 'botright '..min([s:max_lines, len(getqflist())])..'cwindow'
-endfunction
-
-function qf#lopen()
-    let items = len(getloclist(0))
-    if !items
-        return
-    endif
-    execute min([s:max_lines, items])..'lwindow'
-endfunction
-
-function qf#cresize()
-    cclose
-    if (len(getqflist()))
-        call qf#copen()
-        wincmd p
-    endif
-endfunction
-
-function qf#lresize()
-    lclose
-    if (len(getloclist(0)))
-        call qf#lopen()
-        wincmd p
+        copen
     endif
 endfunction
 
@@ -54,10 +26,6 @@ endfunction
 
 function qf#qfvisible()
     return !empty(filter(getwininfo(), { _, win -> win.tabnr == tabpagenr() && win.quickfix && !win.loclist }))
-endfunction
-
-function qf#anyvisible()
-    return !empty(filter(getwininfo(), { _, win -> win.tabnr == tabpagenr() && win.quickfix }))
 endfunction
 
 function qf#isqf()
@@ -322,92 +290,3 @@ function qf#only() abort
     call s:set([], 'f')
     call s:set([], ' ', this)
 endfunction
-
-
-" -------------------------------------------------------------------------- "
-"                                   Global                                   "
-" -------------------------------------------------------------------------- "
-function qf#new(...) abort
-    let title = a:0 && !empty(a:1) ? a:1 : 'Bookmarks'
-    call setqflist([], ' ', {'title': title, 'nr': (a:0 >= 2 && a:2 ? 0 : '$')})
-endfunction
-
-function qf#add() abort range
-    let this = getqflist({'all': 1})
-    let this.title = empty(this.title) ? 'Bookmarks' : this.title
-    let lnum = a:firstline
-    while lnum <= a:lastline
-        let item = {'bufnr': bufnr(), 'lnum': lnum, 'col': 1, 'text': getline(lnum)}
-        call add(this.items, item)
-        let lnum += 1
-    endwhile
-    call setqflist([], this.nr == 0 ? ' ' : 'r', this)
-endfunction
-
-function qf#cycle_loc(forward) abort
-    let list = getloclist(0, {'idx': 0, 'size': 1, 'items': 1})
-    let [first, last] = s:first_and_last(list.items)
-    if !first|echo "No errors."|return|endif
-    if a:forward
-        execute list.idx < last ? 'lnext' : first..'ll'
-    else
-        execute list.idx > first ? 'lprev' : last..'ll'
-    endif
-endfunction
-
-function qf#cycle_qf(forward) abort
-    let list = getqflist({'idx': 0, 'size': 1, 'items': 1})
-    let [first, last] = s:first_and_last(list.items)
-    if !first|echo "No errors."|return|endif
-    if a:forward
-        execute list.idx < last ? 'cnext' : first..'cc'
-    else
-        execute list.idx > first ? 'cprev' : last..'cc'
-    endif
-endfunction
-
-function qf#cycle_visible(forward) abort
-    if qf#locvisible()
-        call qf#cycle_loc(a:forward)
-    elseif qf#qfvisible()
-        call qf#cycle_qf(a:forward)
-    else
-        call qf#cycle_loc(a:forward)
-    endif
-endfunction
-
-" -------------------------------------------------------------------------- "
-"                         Quickfixtextfunc Callbacks                         "
-" -------------------------------------------------------------------------- "
-function qf#text_only(info)
-    let items = s:get({'id' : a:info.id, 'items' : 1}).items
-    let lines = []
-    for idx in range(a:info.start_idx - 1, a:info.end_idx - 1)
-      call add(lines, items[idx].text)
-    endfor
-    return lines
-endfunc
-
-function qf#no_bufnames(info)
-    let items = s:get({'id' : a:info.id, 'items' : 1}).items
-    let lines = []
-    for idx in range(a:info.start_idx - 1, a:info.end_idx - 1)
-        let item = items[idx]
-        let line = '|'..item.lnum
-        let line .= item.col ? ' col '..item.col : ''
-        let line .= item.nr != -1 && !empty(item.type) ? ' '..item.type..' '..item.nr : ''
-        let line .= '|'..item.text
-        call add(lines, line)
-    endfor
-    return lines
-endfunc
-
-function qf#bufnames(info)
-    let items = s:get({'id' : a:info.id, 'items' : 1}).items
-    let lines = []
-    for idx in range(a:info.start_idx - 1, a:info.end_idx - 1)
-        " use the simplified file name
-        call add(lines, fnamemodify(bufname(items[idx].bufnr), ':p:.'))
-    endfor
-    return lines
-endfunc
