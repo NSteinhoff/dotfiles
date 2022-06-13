@@ -134,7 +134,7 @@ elif $fancy_prompt; then
 fi
 
 # --------------------------- Directory Shortcuts -----------------------------
-export CDPATH=.:~/Develop:~/Develop/s2  # include the explicit '.' to support bash < 4.2
+# export CDPATH=.:~/Develop:~/Develop/s2  # include the explicit '.' to support bash < 4.2
 export NOTES_DIR=~/Dropbox/Notes
 export ZETTELKASTEN=~/Dropbox/Zettel
 
