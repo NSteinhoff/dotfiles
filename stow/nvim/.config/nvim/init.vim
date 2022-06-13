@@ -104,11 +104,12 @@
     packloadall                                     " load all default packages in 'start'
 
 """ Personal
-    packadd! my-grep                                 " Grep with :gg
-    packadd! my-filefinder                           " Start simple file finder with :ff
-    packadd! my-tags                                 " Create a tags based TOC with :tt
-    packadd! my-quickfix                             " Quickfix niceties, mostly limited to quickfix windows
+    packadd! my-grep                                " Grep with :gg
+    packadd! my-tags                                " Create a tags based TOC with :tt
+    packadd! my-quickfix                            " Quickfix niceties, mostly limited to quickfix windows
     packadd! my-lsp                                 " Language Server configurations
+    packadd! my-filefinder                          " Start simple file finder with :ff
+    packadd! my-git                                 " Git utilities (bloated)
 
     " packadd my-abbreviations
     " packadd my-automations
@@ -119,7 +120,6 @@
     " packadd my-commands
     " packadd my-mappings
     " packadd my-zettelkasten
-    " packadd my-git
     " packadd my-buffers
     " packadd my-compiler
 
