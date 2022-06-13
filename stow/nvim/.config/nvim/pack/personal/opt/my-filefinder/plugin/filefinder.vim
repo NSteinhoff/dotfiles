@@ -1,6 +1,4 @@
-command! -nargs=? -complete=file FileFinder execute
-            \ (empty(getbufinfo('^FILES$')) ? 'edit FILES' : 'buffer ^FILES$')
-            \| call setline(1, <q-args>) | 1 | doau TextChanged | call feedkeys('A')
+command! -nargs=? -complete=file FileFinder call filefinder#start(<q-args>)
 cnoreabbrev <expr> ff  (getcmdtype() ==# ':' && getcmdline() ==# 'ff')  ? 'FileFinder'  : 'ff'
 
 nnoremap <silent> <plug>(filefinder) <cmd>FileFinder<cr>
