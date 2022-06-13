@@ -110,6 +110,7 @@
     packadd! my-lsp                                 " Language Server configurations
     packadd! my-filefinder                          " Start simple file finder with :ff
     packadd! my-git                                 " Git utilities (bloated)
+    packadd! my-formatter                           " Code formatting and fixing using external tools
 
     " packadd my-abbreviations
     " packadd my-automations
