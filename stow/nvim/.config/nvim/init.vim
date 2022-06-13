@@ -109,8 +109,9 @@
     packadd! my-quickfix                            " Quickfix niceties, mostly limited to quickfix windows
     packadd! my-lsp                                 " Language Server configurations
     packadd! my-filefinder                          " Start simple file finder with :ff
-    packadd! my-git                                 " Git utilities (bloated)
+    packadd! my-git                                 " Git utilities (bloated): Show diff with :dd
     packadd! my-formatter                           " Code formatting and fixing using external tools
+    " packadd! my-treesitter                          " Language aware highlighting
 
     " packadd my-abbreviations
     " packadd my-automations

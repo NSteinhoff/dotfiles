@@ -10,7 +10,7 @@ local default = {
                 -- Servers with custom on_attach use the default value
                 -- and must deactivate formatting themselves if required.
                 on_attach = function(client, ...)
-                    client.resolved_capabilities.document_formatting = false
+                    client.server_capabilities.documentFormattingProvider = false
 
                     config.on_attach(client, ...)
                 end,

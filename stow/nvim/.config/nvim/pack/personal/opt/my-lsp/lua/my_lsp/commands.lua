@@ -4,7 +4,7 @@ function M.on_attach(client)
     -- Code actions
     vim.cmd([[command! -buffer LspCodeAction lua vim.lsp.buf.code_action()]])
     vim.cmd([[command! -buffer LspCodeRename lua vim.lsp.buf.rename()]])
-    vim.cmd([[command! -buffer LspCodeFormat lua vim.lsp.buf.formatting()]])
+    vim.cmd([[command! -buffer LspCodeFormat lua vim.lsp.buf.format()]])
 
     -- Listings
     vim.cmd([[command! -buffer LspListReferences lua vim.lsp.buf.references()]])
