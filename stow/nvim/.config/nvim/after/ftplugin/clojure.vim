@@ -1,2 +1,2 @@
 setlocal lisp
-setlocal keywordprg=:DevDocsFt
+setlocal keywordprg=:Search\ devdocs\ clojure

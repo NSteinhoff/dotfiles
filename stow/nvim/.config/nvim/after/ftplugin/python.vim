@@ -1,4 +1,4 @@
-setlocal keywordprg=:DevDocsFt
+setlocal keywordprg=:Search\ devdocs\ python
 set define=^\\s*\\(def\\\|class\\)
 
 compiler flake8

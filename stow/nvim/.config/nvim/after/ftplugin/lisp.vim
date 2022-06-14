@@ -1,4 +1,4 @@
-setlocal keywordprg=:DevDocsFt
+setlocal keywordprg=:Search\ devdocs\ lisp
 
 setlocal sw=2
 setlocal fo=croqlj

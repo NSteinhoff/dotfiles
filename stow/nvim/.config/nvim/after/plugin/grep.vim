@@ -1,4 +1,3 @@
-" Global
 if executable('rg')
     set grepprg=rg\ --vimgrep\ --hidden\ --glob=!.git/*
     set grepformat=%f:%l:%c:%m

@@ -95,7 +95,7 @@
     let g:diff_translations = 0
 
 """ Get help
-    set keywordprg=:DuckDuckGo
+    set keywordprg=:Search\ ddg
 
 " --------------------------------- Plugins -----------------------------------
     " Stop here when runnign as git editor
@@ -104,13 +104,12 @@
     packloadall                                     " load all default packages in 'start'
 
 """ Personal
-    packadd! my-grep                                " Grep with :gg
-    packadd! my-tags                                " Create a tags based TOC with :tt
     packadd! my-quickfix                            " Quickfix niceties, mostly limited to quickfix windows
     packadd! my-lsp                                 " Language Server configurations
     packadd! my-filefinder                          " Start simple file finder with :ff
     packadd! my-git                                 " Git utilities (bloated): Show diff with :dd
     packadd! my-formatter                           " Code formatting and fixing using external tools
+
     " packadd! my-treesitter                          " Language aware highlighting
 
     " packadd my-abbreviations

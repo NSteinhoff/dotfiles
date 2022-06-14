@@ -1,1 +1,1 @@
-source <sfile>:h/keywordprg/mdn.vim
+setlocal keywordprg=:Search\ mdn

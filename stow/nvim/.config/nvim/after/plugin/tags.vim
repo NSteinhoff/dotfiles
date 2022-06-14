@@ -16,4 +16,8 @@ endfunction
 command -bang TagLibs call s:lib_tags(<bang>0)
 command TagReset call s:tags()
 
+command -bang TagToc call tags#toc(<bang>0)
+cnoreabbrev <expr> tt    (getcmdtype() ==# ':' && getcmdline() ==# 'tt') ? 'TagToc' : 'tt'
+
+" Activate
 TagReset

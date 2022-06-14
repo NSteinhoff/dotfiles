@@ -1,7 +1,4 @@
-if exists(':Open')
-    command -buffer -nargs=1 RustStd Open https://doc.rust-lang.org/std/index.html?search=<args>
-    setlocal keywordprg=:RustStd
-endif
+setlocal keywordprg=:Search\ rustdoc
 
 set define=^\\v(pub\\s+)?(fn\|struct\|const\|type)\\ze\\s+\\i+
 set include=\\v^(pub\\s+)?(mod\|use)\\s+\\zs(\\w+(::)?)+\\ze(::\\{\|::\\*)?.*;

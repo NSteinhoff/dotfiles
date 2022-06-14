@@ -5,7 +5,7 @@ setlocal wrap
 setlocal spell
 setlocal suffixesadd=.md
 
-source <sfile>:h/keywordprg/ddg.vim
+setlocal keywordprg=:Search\ devdocs\ markdown
 
 function! s:render_html(open)
     !pandoc --standalone --self-contained --from=markdown --to=html --output /tmp/%:t:r.html %

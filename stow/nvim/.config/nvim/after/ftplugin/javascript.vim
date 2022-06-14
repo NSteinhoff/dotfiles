@@ -1,4 +1,4 @@
-source <sfile>:h/keywordprg/mdn.vim
+setlocal keywordprg=:Search\ devdocs\ javascript
 
 " Execution
 let b:interpreter = 'node -'
