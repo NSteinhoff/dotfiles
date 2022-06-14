@@ -1,11 +1,14 @@
-" Upward search from current file, then 'tags' in the working directory
-" -> files dir (./xyz)
-" -> upwards from file (./xyz;)
-" -> cwd (xyz)
-" -> upwards from cwd (xyz;)
-" plain tags -> .git/tags
+" Set 'tags' option
 function s:tags()
-    set tags =./tags,./tags;,tags,tags;
+    set tags=
+    " next to file
+    set tags+=./tags
+    " upwards from file
+    set tags+=./tags;
+    " in CWD
+    set tags+=tags
+    " in parent directories
+    set tags+=tags;
 endfunction
 
 function s:lib_tags(remove)

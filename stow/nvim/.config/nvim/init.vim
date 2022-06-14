@@ -1,12 +1,10 @@
 " --------------------------------- Options -----------------------------------
 """ Colors
     colorscheme minimal
-    set background=dark
 
 """ Appearance
     set cmdheight=1
     set inccommand=split
-    set laststatus=2
     set showmode
     set number
     set rulerformat=%25(%l,%c%V%M%=%P\ %y%)
@@ -15,7 +13,6 @@
     set showmatch
     set fillchars=eob:~
     set signcolumn=number
-    set hlsearch
     set shortmess+=s
 
 """ Behavior
@@ -28,8 +25,6 @@
     set foldlevelstart=99                           " start with all folds opened
     set foldcolumn=0
     set mouse=nv                                    " enable mouse in normal and visual mode
-    set autoread
-    set hidden
     set ignorecase                                  " ignore case in searches ...
     set smartcase                                   " ... unless it includes capital letters
     set tagcase=match                               " ... but match case in :tag searches
@@ -53,7 +48,6 @@
     set tabstop=8
     set shiftwidth=4
     set softtabstop=-1
-    set smarttab
     set expandtab
 
     set nowrap
@@ -108,7 +102,7 @@
     packadd! my-lsp                                 " Language Server configurations
     packadd! my-filefinder                          " Start simple file finder with :ff
     packadd! my-git                                 " Git utilities (bloated): Show diff with :dd
-    packadd! my-formatter                           " Code formatting and fixing using external tools
+    packadd! my-formatter                           " Code formatting and fixing using external tools with :fmt and :fix
 
     " packadd! my-treesitter                          " Language aware highlighting
 

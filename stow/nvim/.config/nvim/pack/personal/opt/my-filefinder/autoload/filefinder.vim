@@ -32,11 +32,11 @@ function s:wipe(mode)
     call filefinder#insert_separator(a:mode)
 endfunction
 
-function s:search()
-    if empty(s:query())
+function s:search(pattern)
+    if empty(a:pattern)
         let files = systemlist(s:finder())
     else
-        let files = systemlist(s:finder()..' | '..s:matcherprg..' '.shellescape(s:query()))
+        let files = systemlist(s:finder()..' | '..s:matcherprg..' '.shellescape(a:pattern))
     endif
 
     call append('$', files)
@@ -52,6 +52,12 @@ function s:files()
 endfunction
 
 function filefinder#start(pattern)
+    let files = systemlist(s:finder()..' | '..s:matcherprg..' '.shellescape(a:pattern))
+    if len(files) == 1
+        execute 'edit '..files[0]
+        return
+    endif
+
     edit FILES
     augroup file-finder
         autocmd!
@@ -105,7 +111,7 @@ function filefinder#update()
     endif
 
     call s:wipe(mode())
-    call s:search()
+    call s:search(s:query())
     call s:reset_selection()
     call filefinder#mark_selection(mode())
 endfunction

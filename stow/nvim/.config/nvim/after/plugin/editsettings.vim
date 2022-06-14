@@ -1,11 +1,12 @@
 function s:edit_settings(type, selected, mods)
     let defaults = {
-    \   'compiler': compiler#which(),
+    \   'compiler': get(b:, 'current_compiler', get(g:, 'current_compiler', '')),
     \   'colors': g:colors_name,
     \}
     let selected = empty(a:selected) ? get(defaults, a:type, &ft) : a:selected
+    let selected = empty(selected) ? selected : selected..'.vim'
 
-    exe 'keepj '..a:mods..(a:mods =~ 'vert\|tab' ? ' split' : ' edit')..' $HOME/.config/nvim/after/'.a:type.'/'.selected.'.vim'
+    exe 'keepj '..a:mods..(a:mods =~ 'vert\|tab' ? ' split' : ' edit')..' $HOME/.config/nvim/after/'.a:type.'/'.selected
 endfunction
 
 command! -nargs=? -complete=compiler EditCompiler call s:edit_settings('compiler', <q-args>, <q-mods>)

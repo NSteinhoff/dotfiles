@@ -20,7 +20,7 @@ function M.on_attach(client)
     vim.cmd([[nnoremap <silent> <buffer> gy           <cmd>lua vim.lsp.buf.type_definition()<CR>]])
 
     -- Listing symbols
-    vim.cmd([[nnoremap <silent> <buffer> gR           mZ<cmd>lua vim.lsp.buf.references()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> gr           mZ<cmd>lua vim.lsp.buf.references()<CR>]])
     vim.cmd([[nnoremap <silent> <buffer> gw           mZ<cmd>lua vim.lsp.buf.document_symbol()<CR>]])
     vim.cmd([[nnoremap <silent> <buffer> gW           mZ<cmd>lua vim.lsp.buf.workspace_symbol()<CR>]])
 
@@ -56,7 +56,7 @@ function M.on_detach()
     vim.cmd([[nunmap <buffer> gy]])
 
     -- Listing symbols
-    vim.cmd([[nunmap <buffer> gR]])
+    vim.cmd([[nunmap <buffer> gr]])
     vim.cmd([[nunmap <buffer> gw]])
     vim.cmd([[nunmap <buffer> gW]])
 
