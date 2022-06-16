@@ -1,5 +1,5 @@
-function formatter#fmt()
-    let formatprg = get(b:, 'formatprg', &formatprg)
+function fmt#fmt()
+    let formatprg = get(b:, 'formatprg', &equalprg)
     if empty(formatprg)
         echomsg "Abort: 'formatprg' unset"
         return
@@ -30,7 +30,7 @@ function formatter#fmt()
     echo "Formatted buffer"
 endfunction
 
-function formatter#fix()
+function fmt#fix()
     if empty(get(b:, 'fixprg', ''))
         echomsg "Abort: 'fixprg' unset"
         return

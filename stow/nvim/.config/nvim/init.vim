@@ -105,18 +105,9 @@
     packadd! my-formatter                           " Code formatting and fixing using external tools with :fmt and :fix
 
     " packadd! my-treesitter                          " Language aware highlighting
-
-    " packadd my-abbreviations
-    " packadd my-automations
     " packadd my-marks
-    " packadd my-completions
     " packadd my-statusline
     " packadd my-tabline
-    " packadd my-commands
-    " packadd my-mappings
-    " packadd my-zettelkasten
-    " packadd my-buffers
-    " packadd my-compiler
 
 """ Third Party
     packadd! editorconfig-vim                       " File type settings based on local config

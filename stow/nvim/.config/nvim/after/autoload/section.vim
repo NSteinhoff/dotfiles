@@ -6,7 +6,7 @@ endfunction
 
 " Create an 80 column wide section header with lines above
 " and below the text wrapped in a comment.
-function commander#lib#section(words)
+function section#header(words)
     let [prefix, suffix] = s:comment_affixes()
     let suffix = suffix == "" ? " ".prefix : " ".suffix
     let prefix = prefix..' '
@@ -38,7 +38,7 @@ endfunction
 " header text can be passed as an arguments or left blank to use the entire
 " line. With no argument and an empty line, will simply draw the separator
 " line.
-function commander#lib#header(words)
+function section#subheader(words)
     let [prefix, suffix] = s:comment_affixes()
     let suffix = suffix == "" ? "" : " ".suffix
     let prefix = prefix..' '
