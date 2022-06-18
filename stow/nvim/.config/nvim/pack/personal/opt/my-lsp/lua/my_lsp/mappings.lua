@@ -31,11 +31,8 @@ function M.on_attach(client)
     vim.cmd([[nnoremap <silent> <buffer> [e           <cmd>lua vim.diagnostic.goto_prev()<CR>]])
 
     -- Code actions,     i.e. (d)o (c)ode [(a)ction | (r)ename | (f)ormat]
-    vim.cmd([[nnoremap <silent> <buffer> dca          <cmd>lua vim.lsp.buf.code_action()<CR>]])
-    vim.cmd([[nnoremap <silent> <buffer> dcr          <cmd>lua vim.lsp.buf.rename()<CR>]])
-
-    vim.cmd([[nnoremap <silent> <buffer> dcf          <cmd>lua vim.lsp.buf.formatting()<CR>]])
-    vim.cmd([[nnoremap <silent> <buffer> dcF          <cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> gA          <cmd>lua vim.lsp.buf.code_action()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> gR          <cmd>lua vim.lsp.buf.rename()<CR>]])
 
     -- Overwrite the standard 'formatprg' based formatting
     -- vim.cmd([[nnoremap <silent> <buffer> <>           <cmd>lua vim.lsp.buf.formatting_sync()<CR>]])
@@ -67,12 +64,8 @@ function M.on_detach()
     vim.cmd([[nunmap <buffer> [e]])
 
     -- Code actions,     i.e. (d)o (c)ode (a)ction
-    vim.cmd([[nunmap <buffer> dca]])
-    vim.cmd([[nunmap <buffer> dcr]])
-
-    -- vim.cmd([[nunmap <buffer> <>]])
-    vim.cmd([[nunmap <buffer> dcf]])
-    vim.cmd([[nunmap <buffer> dcF]])
+    vim.cmd([[nunmap <buffer> gA]])
+    vim.cmd([[nunmap <buffer> gR]])
 end
 
 return M
