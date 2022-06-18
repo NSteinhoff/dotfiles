@@ -60,9 +60,13 @@ augroup END
     nnoremap <up>    2<c-w>+
     nnoremap <down>  2<c-w>-
 
-    " Toggle between 3/4 and 1/4 viewport width
-    nnoremap <silent> <expr> <bar> v:count == 0 ? '<cmd>vertical resize '..(winwidth(0) > &columns / 4 ? &columns / 4 : &columns / 4 * 3)..'<cr>' : '<bar>'
-
+    " Open split and toggle between 3/4 and 1/4 viewport width
+    nnoremap <silent> <expr> <bar>
+                \ v:count == 0
+                \ ? winlayout()[0] == 'leaf'
+                \   ? '<c-w>v'
+                \   : '<cmd>vertical resize '..(winwidth(0) > &columns / 4 ? &columns / 4 : &columns / 4 * 3)..'<cr>'
+                \ : '<bar>'
 
 """ Cycling lists
     nnoremap [a <cmd>previous<cr>
