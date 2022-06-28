@@ -26,12 +26,13 @@ onoremap <buffer> a/ <cmd>normal! F/vf/<cr>
 nnoremap <buffer> / /\ze[^/]*[/]\=$<Home>
 nnoremap <buffer> ? ?\ze[^/]*[/]\=$<Home>
 
-execute 'setlocal path='..expand('%')
-
 command -buffer -bang PathAdd execute 'set path'..(<bang>0 ? '' : '+')..'='..expand('%')
 command -buffer PathRemove execute 'set path-='..expand('%')
 " Tree prints the input path, so we can just filter the lines
 command -buffer -range -nargs=* -bang Tree execute '<line1>,<line2>!xargs tree -afiF -L 1'..(<bang>0 ? 'a' : '')..' --noreport <args>'|normal $
+command -buffer -range -nargs=* -bang Mv if <range> < 2| echo ":Mv command needs a range." | else | execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'mv <args>' | endif
+command -buffer -range -nargs=* -bang Cp if <range> < 2| echo ":Cp command needs a range." | else | execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'cp <args>' | endif
+command -buffer -range -nargs=* -bang Rm execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'rm <args>'
 
 " highlight default link DirvishPathHead Normal
 " syn clear DirvishPathHead

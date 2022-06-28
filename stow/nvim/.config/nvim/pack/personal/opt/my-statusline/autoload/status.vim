@@ -32,6 +32,14 @@ function status#comp()
         return ''
     endif
 
+    if empty(lsp)
+        return '['..compiler..']'
+    endif
+
+    if empty(compiler)
+        return '['..lsp..']'
+    endif
+
     return '['..lsp..'|'..compiler..']'
 endfunction
 

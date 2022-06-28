@@ -101,16 +101,12 @@
     packadd! my-lsp                                 " Language Server configurations
     packadd! my-filefinder                          " Start simple file finder with :ff
     packadd! my-git                                 " Git utilities (bloated): Show diff with :dd
-    packadd! my-formatter                           " Code formatting and fixing using external tools with :fmt and :fix
     packadd! my-treesitter                          " Language aware highlighting
-    packadd my-marks
-    packadd my-statusline
-    packadd my-tabline
+    packadd! my-marks
+    packadd! my-statusline
+    packadd! my-tabline
 
 """ Third Party
     packadd! editorconfig-vim                       " File type settings based on local config
     packadd! my-dirvish                             " Minimalist file browser (customized)
     packadd! vim-commentary                         " Comment out stuff
-
-""" GUI
-    " packadd my-neovide

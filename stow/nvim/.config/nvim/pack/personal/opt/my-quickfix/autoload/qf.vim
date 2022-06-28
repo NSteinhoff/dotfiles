@@ -16,7 +16,7 @@ function qf#ctoggle()
     if qf#qfvisible()
         cclose
     else
-        copen
+        botright copen
     endif
 endfunction
 

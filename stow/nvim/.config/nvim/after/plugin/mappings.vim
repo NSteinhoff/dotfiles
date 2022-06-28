@@ -17,6 +17,7 @@ augroup END
 
 """ Basics / Improving standard mappings
     nnoremap <esc> <cmd>nohlsearch<bar>diffupdate<cr>
+    nnoremap <c-w><c-o> <cmd>diffoff!<bar>only<cr>
 
     " Toggle folds with <space>
     nnoremap <space> za
@@ -131,7 +132,7 @@ augroup END
     inoremap <expr> <c-space> empty(&omnifunc) ? '<c-x><c-]>' : '<c-x><c-o>'
 
     " Paths:
-    imap <c-x><c-h> <c-r>=complete#localpath()<cr>
+    " imap <c-x><c-h> <c-r>=complete#localpath()<cr>
     imap <c-l> <c-r>=complete#localpath()<cr>
 
 """ Running builds with `<key>
@@ -171,7 +172,11 @@ augroup END
     nnoremap <leader>e <cmd>Explore<cr>
 
     " Fuzzy Find: <leader>f
-    nmap <leader>f <cmd>FileFinder<cr>
+    nnoremap <leader>f <cmd>FileFinder<cr>
+
+    " Grep
+    nnoremap <leader>g :silent grep! <c-r>=expand("<cword>")<cr>
+    vnoremap <leader>g y:silent grep! <c-r>=shellescape(@")<cr>
 
 """ (c): Changes / Diffing
     nmap <expr> dp (&diff ? '<cmd>diffput<cr>' : '<cmd>DiffThis<cr>')

@@ -11,4 +11,4 @@ endif
 runtime compiler/gcc.vim
 let current_compiler = "clang"
 
-CompilerSet makeprg=clang\ -Werror\ -Wall\ -Wextra\ -pedantic\ -fsyntax-only\ %\ $*
+CompilerSet makeprg=clang\ $CFLAGS\ -fsyntax-only\ %\ $*

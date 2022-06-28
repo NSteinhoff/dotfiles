@@ -5,5 +5,6 @@ packadd fidget.nvim
 lua require"fidget".setup{}
 
 aug my-lsp-set-diagnostics
+    autocmd!
     autocmd DiagnosticChanged * lua vim.diagnostic.setloclist({open = false })
 aug END
