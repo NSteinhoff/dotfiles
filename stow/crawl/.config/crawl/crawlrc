@@ -35,8 +35,7 @@ view_max_height = 60
 # ========
 tile_display_mode = tiles
 tile_web_mouse_control = false
-tile_cell_pixels = 42
-
+tile_viewport_scale = 1.5
 
 # HP/MP Colors/Warnings
 # ==================
@@ -88,9 +87,9 @@ autoinscribe += potions? of heal wounds:@q2
 autoinscribe += scrolls? of identify:@r1
 autoinscribe += scrolls? of teleportation:@r2
 
-autoinscribe += .*-tipped darts?:=f =F
-autoinscribe += throwing nets?:=f =F
-autoinscribe += boomerangs? of dispersal:=f =F
+autoinscribe += .*-tipped darts?:=f=F
+autoinscribe += throwing nets?:=f=F
+autoinscribe += boomerangs? of dispersal:=f=F
 
 
 # Quivering
@@ -98,12 +97,13 @@ autoinscribe += boomerangs? of dispersal:=f =F
 fire_order_spell = attack
 fire_order_ability = attack
 launcher_autoquiver = false
+quiver_menu_focus = false
 
 
 #---------------------------------------------------------------------------- #
 #                                     LUA                                     #
 #---------------------------------------------------------------------------- #
-{
+<
 local prev_hp = nil
 local prev_mp = nil
 
@@ -177,4 +177,4 @@ function ready()
     -- Display damage taken in log
     announce_damage()
 end
-}
+>
