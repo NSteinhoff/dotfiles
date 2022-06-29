@@ -2,7 +2,7 @@ import:
   - ~/.config/alacritty/keybindings.yml
   - ~/.config/alacritty/font.yml
   - ~/.config/alacritty/colors.yml
-  #
+
   # Use one of these
   # - ~/.config/alacritty/tmux.yml
   - ~/.config/alacritty/bash.yml

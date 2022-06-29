@@ -1,81 +1,100 @@
-""" Defaults
-    source $VIMRUNTIME/defaults.vim
-    " Stop assuming that I care about C header files
-    set path-=/usr/include
+"{{{ Basic
+source $VIMRUNTIME/defaults.vim
+" Stop assuming that I care about C header files
+set path-=/usr/include
 
-    " Disable netrw
-    let g:loaded_netrw       = 1
-    let g:loaded_netrwPlugin = 1
+" Disable netrw
+let g:loaded_netrw       = 1
+let g:loaded_netrwPlugin = 1
 
-""" Appearance
-    set cmdheight=1
-    set showmode
-    set rulerformat=%25(%l,%c%V%M%=%P\ %y%)
-    set scrolloff=3
-    set sidescrolloff=2
-    set showmatch
-    set signcolumn=number
-    set hlsearch
-    set shortmess+=s
+""" Colors
+colorscheme minimal
+"}}}
 
-""" Behavior
-    set noswapfile
-    set updatetime=250
-    set foldenable
-    set foldmethod=indent
-    set foldlevelstart=99       " start with all folds opened
-    set foldcolumn=0
-    set mouse=nv                " enable mouse in normal and visual mode
-    set autoread
-    set hidden
-    set ignorecase              " ignore case in searches ...
-    set smartcase               " ... unless it includes capital letters
-    set tagcase=match           " ... but match case in :tag searches
-    set splitright              " open vertical splits on the right
-    set sessionoptions+=options " save global mappings and options
-    set completeopt=menuone,noinsert,noselect
+"{{{ Appearance
+set cmdheight=1
+set showmode
+set rulerformat=%25(%l,%c%V%M%=%P\ %y%)
+set scrolloff=3
+set sidescrolloff=2
+set showmatch
+set signcolumn=number
+set hlsearch
+set shortmess+=s
+"}}}
 
-""" Special characters
-    set list
-    set listchars=
-    set listchars+=tab:>-
-    set listchars+=trail:-
-    set listchars+=extends:>
-    set listchars+=precedes:<
-    set listchars+=nbsp:+
+"{{{ Behavior
+set noswapfile
+set updatetime=250
+set foldenable
+set foldmethod=indent
+set foldlevelstart=99       " start with all folds opened
+set foldcolumn=0
+set mouse=nv                " enable mouse in normal and visual mode
+set autoread
+set hidden
+set ignorecase              " ignore case in searches ...
+set smartcase               " ... unless it includes capital letters
+set tagcase=match           " ... but match case in :tag searches
+set splitright              " open vertical splits on the right
+set sessionoptions+=options " save global mappings and options
+set completeopt=menuone,noinsert,noselect
 
-""" Text formatting
-    set smarttab
-    set tabstop=4
-    set shiftwidth=0
-    set softtabstop=-1          " use the value of 'shiftwidth'
-    set expandtab               " spaces instead of tabs
+""" Special characters (disabled by default)
+set nolist
+set listchars=
+set listchars+=tab:¦\ 
+set listchars+=trail:·
+set listchars+=extends:»
+set listchars+=precedes:«
+set listchars+=nbsp:␣
+" set listchars+=eol:¬
+set listchars+=lead:\ 
+set listchars+=multispace:\ \ \ ·               " Add markers for every 4 spaces
+"}}}
 
-    set nowrap
-    set linebreak
-    set breakindent             " indent wrapped lines
-    let &showbreak = '... '     " prepend wrapped lines with this
-    set smartindent
+"{{{ Text formatting
+set smarttab
+set tabstop=4
+set shiftwidth=0
+set softtabstop=-1          " use the value of 'shiftwidth'
+set expandtab               " spaces instead of tabs
 
-    set formatoptions=
-    set formatoptions+=c        " wrap comments
-    set formatoptions+=j        " remove commentstring when joining comment lines
-    set formatoptions+=l        " don't wrap lines that were too long to begin with
-    set formatoptions+=n        " recognize numbered lists
-    set formatoptions+=q        " also format comments with 'gq'
-    set formatoptions+=r        " continue comments when hitting <Enter>
-    set nojoinspaces            " keep single spaces after sentences
+set nowrap
+set linebreak
+set breakindent             " indent wrapped lines
+let &showbreak = '... '     " prepend wrapped lines with this
+set smartindent
 
-""" Completions
-    set wildmode=longest:full,full
-    set wildignore=*/node_modules/*
-    set wildoptions=pum
+set formatoptions=
+set formatoptions+=c        " wrap comments
+set formatoptions+=j        " remove commentstring when joining comment lines
+set formatoptions+=l        " don't wrap lines that were too long to begin with
+set formatoptions+=n        " recognize numbered lists
+set formatoptions+=q        " also format comments with 'gq'
+set formatoptions+=r        " continue comments when hitting <Enter>
+set nojoinspaces            " keep single spaces after sentences
+"}}}
 
-""" External programs
-    if executable('rg')
-        set grepprg=rg\ --vimgrep
-        set grepformat=%f:%l:%c:%m
-    endif
+"{{{ Completions
+set wildmode=longest:full,full
+set wildignore=*/node_modules/*
+set wildoptions=pum
+"}}}
 
-""" Mappings
-    nnoremap <c-l> <cmd>nohlsearch<bar>diffupdate<bar>normal! <c-l><cr>
+"{{{ External programs
+if executable('rg')
+    set grepprg=rg\ --vimgrep\ --hidden\ --glob=!.git/*
+    set grepformat=%f:%l:%c:%m
+else
+    " 'grep' on Ubuntu and MacOS support the '-H' option for showing filenames
+    " for single files. This makes the '/dev/null' hack unnecessary.
+    set grepprg=grep\ -nH
+endif
+"}}}
+
+"{{{ Mappings
+nnoremap <c-l> <cmd>nohlsearch<bar>diffupdate<bar>normal! <c-l><cr>
+"}}}
+
+" vim: foldmethod=marker

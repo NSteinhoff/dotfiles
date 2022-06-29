@@ -8,6 +8,7 @@ else
 endif
 
 cnoreabbrev <expr> gg (getcmdtype() ==# ':' && getcmdline() ==# 'gg') ? 'silent grep!' : 'gg'
+cnoreabbrev <expr> grep (getcmdtype() ==# ':' && getcmdline() ==# 'grep') ? 'silent grep!' : 'grep'
 
 augroup grep
         au QuickfixCmdPost grep botright cwindow
