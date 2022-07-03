@@ -14,6 +14,7 @@ shopt -s histappend
 
 # Set Vim as default editor
 which nvim &>/dev/null && export EDITOR=nvim || export EDITOR=vim
+which nvim &>/dev/null && export MANPAGER='nvim +Man!'
 
 case $OSTYPE in
     linux*) os="linux";;
