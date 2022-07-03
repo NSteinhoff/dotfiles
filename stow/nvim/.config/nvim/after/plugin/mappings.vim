@@ -118,8 +118,8 @@ nnoremap <silent> !> <cmd>Fix<cr>
 "}}}
 
 "{{{  Errors: Quickfix / Location Lists
-nnoremap <silent> `<space>  <cmd>call qf#ctoggle()<cr>
-nnoremap <silent> <leader><space>  <cmd>call qf#ltoggle()<cr>
+nnoremap <silent> `<space>  <cmd>clist<cr>
+nnoremap <silent> <leader><space>  <cmd>llist<cr>
 "}}}
 
 "{{{ Close all utility windows

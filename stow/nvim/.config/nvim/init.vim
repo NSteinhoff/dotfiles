@@ -110,17 +110,17 @@ packloadall                                     " load all default packages in '
 
 "{{{ Personal
 packadd! my-lsp                                 " Language Server configurations
-packadd! my-quickfix                            " Quickfix niceties, mostly limited to quickfix windows
 packadd! my-filefinder                          " Start simple file finder with :ff
 packadd! my-git                                 " Git utilities (bloated): Show diff with :dd
-packadd! my-treesitter                          " Language aware highlighting
-packadd! my-marks
+" packadd! my-quickfix                            " Quickfix niceties, mostly limited to quickfix windows
+" packadd! my-marks
+" packadd! my-treesitter                          " Language aware highlighting
 packadd! my-statusline
 packadd! my-tabline
 "}}}
 
 "{{{ Third Party
-" packadd! editorconfig-vim                       " File type settings based on local config
+packadd! editorconfig-vim                       " File type settings based on local config
 packadd! my-dirvish                             " Minimalist file browser (customized)
 packadd! vim-commentary                         " Comment out stuff
 "}}}
