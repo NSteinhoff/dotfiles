@@ -8,7 +8,14 @@ function qf#ltoggle()
     if qf#locvisible()
         lclose
     else
-        lopen
+        try
+            lopen
+        catch /E776: No location list/
+            " pass
+        endtry
+        if qf#isloc()
+            wincmd p
+        endif
     endif
 endfunction
 
@@ -17,6 +24,9 @@ function qf#ctoggle()
         cclose
     else
         botright copen
+        if qf#isqf()
+            wincmd p
+        endif
     endif
 endfunction
 

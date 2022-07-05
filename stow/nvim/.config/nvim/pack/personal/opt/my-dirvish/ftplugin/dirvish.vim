@@ -34,11 +34,6 @@ command -buffer -range -nargs=* -bang Mv if <range> < 2| echo ":Mv command needs
 command -buffer -range -nargs=* -bang Cp if <range> < 2| echo ":Cp command needs a range." | else | execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'cp <args>' | endif
 command -buffer -range -nargs=* -bang Rm execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'rm <args>'
 
-" highlight default link DirvishPathHead Normal
-" syn clear DirvishPathHead
-" execute 'syn match DirvishPathHead ='..expand('%:p'..(get(g:, 'dirvish_relative_paths') ? ':.' : ''))..'\ze.\+=  conceal'
-" autocmd! dirvish_buflocal TextChanged,TextChangedI
-
 function! s:add_segment()
     let lnum = line('.')
     let head = getline(lnum)
@@ -49,5 +44,7 @@ function! s:add_segment()
         call setline(lnum, head..segment)
     endif
 endfunction
+
+autocmd! dirvish_buflocal TextChanged,TextChangedI
 
 silent normal $

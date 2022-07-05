@@ -1,6 +1,6 @@
 " ------------------------------- Command Line --------------------------------
 " Open man pages
-cnoreabbrev <expr> man (getcmdtype() ==# ':' && getcmdline() ==# 'man') ? 'Man' : 'man'
+cnoreabbrev <expr> man getcmdtype() ==# ':' && getcmdline() ==# 'man' ? 'Man' : 'man'
 
 " ---------------------------------- Dates ------------------------------------
 " Local date

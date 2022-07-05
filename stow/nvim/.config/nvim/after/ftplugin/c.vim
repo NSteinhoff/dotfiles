@@ -9,7 +9,9 @@ if (executable('xcrun'))
         execute 'setlocal path+='..systemlist('xcrun --show-sdk-path')[0]..'/usr/include/'
 endif
 
-setlocal commentstring=//\ %s
+setlocal commentstring=//%s
+" Add Rust style 'internal' doc comments for module level documentation.
+setlocal comments+=://!
 setlocal keywordprg=:Man\ 3
 iabbrev <buffer> :pr: printf("");<c-o>F"
 iabbrev <buffer> :prn: printf("\n");<c-o>F\

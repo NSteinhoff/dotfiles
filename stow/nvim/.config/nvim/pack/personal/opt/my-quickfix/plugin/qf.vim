@@ -8,6 +8,12 @@ command! Ltab if getloclist(0, {'nr': 0}).nr|tab split|botright lopen|only|else|
 command! -bar Cfree call setqflist([], 'f')
 command! -bar Lfree call setloclist(0, [], 'f')
 
+""" Mappings
+nnoremap <leader>q <cmd>call qf#ctoggle()<cr>
+nnoremap <leader>l <cmd>call qf#ltoggle()<cr>
+nnoremap <leader>Q <cmd>Ctab<cr>
+nnoremap <leader>L <cmd>Ltab<cr>
+
 augroup my-qf
     autocmd!
     if exists('##QuitPre')

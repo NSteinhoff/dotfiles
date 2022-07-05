@@ -1,8 +1,8 @@
 local M = {}
 
 function M.setup()
-    vim.cmd([[nnoremap <leader>LSP    <cmd>LspStart<cr>]])
-    vim.cmd([[nnoremap <leader>!LSP    <cmd>LspDetach<cr>]])
+    -- vim.cmd([[nnoremap <leader>LSP    <cmd>LspStart<cr>]])
+    -- vim.cmd([[nnoremap <leader>!LSP    <cmd>LspDetach<cr>]])
 end
 
 function M.on_attach(client)

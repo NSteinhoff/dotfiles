@@ -168,6 +168,9 @@ nnoremap <c-^> <cmd>call buffers#alternative()<cr>
 " Like <c-w>T, but without removing the window from the current page.
 " Also works when there is only one window.
 nnoremap <silent> <c-w>t <cmd>tab split<bar>diffoff<cr>
+nmap <c-w><c-t> <c-w>t
+nnoremap <c-n> gt
+nnoremap <c-p> gT
 
 " Grep, i.e. poor man's 'go-to-reference'
 nmap <silent> gr :silent grep! <c-r><c-w><cr>
