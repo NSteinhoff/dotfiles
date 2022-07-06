@@ -54,3 +54,6 @@
 [submodule "3rd/pack/external/opt/undotree"]
 	path = 3rd/pack/external/opt/undotree
 	url = git@github.com:mbbill/undotree.git
+[submodule "3rd/pack/external/opt/editorconfig.nvim"]
+	path = 3rd/pack/external/opt/editorconfig.nvim
+	url = git@github.com:gpanders/editorconfig.nvim.git

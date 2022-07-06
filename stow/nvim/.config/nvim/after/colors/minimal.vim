@@ -28,10 +28,10 @@ highlight Menu                         cterm=NONE                   ctermfg=NONE
 highlight Noise                        cterm=NONE                   ctermfg=8     ctermbg=NONE  guifg=DarkGray      guibg=NONE
 highlight NonText                      cterm=NONE                   ctermfg=8     ctermbg=NONE  guifg=DarkGray      guibg=NONE
 highlight NormalNc                     cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE          guibg=NONE
-highlight Pmenu                        cterm=NONE                   ctermfg=NONE  ctermbg=8     guifg=NONE          guibg=DarkGray
-highlight PmenuSbar                    cterm=NONE                   ctermfg=NONE  ctermbg=8     guifg=NONE          guibg=DarkGray
+highlight Pmenu                        cterm=NONE                   ctermfg=15    ctermbg=8     guifg=NONE          guibg=DarkGray
+highlight PmenuSbar                    cterm=NONE                   ctermfg=NONE  ctermbg=15    guifg=NONE          guibg=DarkGray
 highlight PmenuSel                     cterm=NONE                   ctermfg=NONE  ctermbg=5     guifg=NONE          guibg=Magenta
-highlight PmenuThumb                   cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE          guibg=NONE
+highlight PmenuThumb                   cterm=NONE                   ctermfg=NONE  ctermbg=11    guifg=NONE          guibg=NONE
 highlight Question                     cterm=italic                 ctermfg=7     ctermbg=NONE  guifg=LightGray     guibg=NONE
 highlight Scrollbar                    cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE          guibg=NONE
 highlight SpecialKey                   cterm=bold                   ctermfg=12    ctermbg=NONE  guifg=LightRed      guibg=NONE
@@ -110,6 +110,14 @@ highlight String                       cterm=NONE                   ctermfg=3   
 highlight Todo                         cterm=NONE                   ctermfg=1     ctermbg=15    guifg=Blue          guibg=White
 highlight Type                         cterm=NONE                   ctermfg=6     ctermbg=NONE  guifg=Yellow        guibg=NONE
 highlight Underlined                   cterm=underline              ctermfg=NONE  ctermbg=NONE  guifg=NONE          guibg=NONE
+"}}}
+
+"{{{ Links
+highlight link LspSignatureActiveParameter      Search
+highlight link DiagnosticFloatingError          Normal
+highlight link DiagnosticFloatingWarn           Normal
+highlight link DiagnosticFloatingInfo           Normal
+highlight link DiagnosticFloatingHint           Normal
 "}}}
 
 " --- Outro

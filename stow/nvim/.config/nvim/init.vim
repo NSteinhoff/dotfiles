@@ -120,7 +120,7 @@ packadd! my-tabline
 "}}}
 
 "{{{ Third Party
-packadd! editorconfig-vim                       " File type settings based on local config
+packadd! editorconfig.nvim                       " File type settings based on local config
 packadd! my-dirvish                             " Minimalist file browser (customized)
 packadd! vim-commentary                         " Comment out stuff
 "}}}
