@@ -3,6 +3,7 @@
 
 [[ -n "${TMUX}" ]] || exit
 
+# Only show the prompt when the statusline is disabled
 tmux show-options -g status | grep --silent "status off" || exit
 
 NOCOLOR='\033[0m'

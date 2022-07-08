@@ -118,16 +118,14 @@ _complete_colorscheme() {
 complete -F _complete_colorscheme colorscheme
 
 # ---------------------------------- PROMPT -----------------------------------
-starship_prompt=true
+starship_prompt=false
 fancy_prompt=true
 if $starship_prompt && (which starship &>/dev/null); then
     eval "$(starship init bash)"
 elif $fancy_prompt; then
     case "$TERM" in
     xterm*|rxvt*|tmux*|screen*)
-        PS1_tail='\$ '
-        PS1_head="${PS1%'\$ '} "
-        [[ $PS1 == *git-prompt* ]] || export PS1='$(tmux-prompt)'"$PS1_head"'$(git-prompt)[\j]'"\n$PS1_tail"
+        PS1='$(tmux-prompt)'"\[\033[01;34m\]\w\[\033[00m\]"'$(git-prompt)'" (\j)\n$ "
         ;;
     *)
         ;;
