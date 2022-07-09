@@ -14,7 +14,7 @@ shopt -s histappend
 
 # Set Vim as default editor
 which nvim &>/dev/null && export EDITOR=nvim || export EDITOR=vim
-which nvim &>/dev/null && export MANPAGER='nvim +Man!'
+# which nvim &>/dev/null && export MANPAGER='nvim +Man!'
 
 case $OSTYPE in
     linux*) os="linux";;
@@ -125,7 +125,7 @@ if $starship_prompt && (which starship &>/dev/null); then
 elif $fancy_prompt; then
     case "$TERM" in
     xterm*|rxvt*|tmux*|screen*)
-        PS1='$(tmux-prompt)'"\[\033[01;34m\]\w\[\033[00m\]"'$(git-prompt)'" (\j)\n$ "
+        PS1='$(tmux-prompt)\[\033[1;34m\]\w\[\033[m\]$(git-prompt)\n\j:\[\033[1;32m\]\$\[\033[m\] '
         ;;
     *)
         ;;

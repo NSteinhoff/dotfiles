@@ -1,11 +1,6 @@
 #!/bin/bash
 # vim: ft=sh
 
-NOCOLOR='\033[00m'
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-ORANGE='\033[0;33m'
-
 branch_only=false
 brackets=false
 
@@ -15,6 +10,10 @@ git_unstaged_changes() {
 
 git_uncommitted_changes() {
     [ -n "$(git diff --shortstat --staged 2> /dev/null | tail -n1)" ]
+}
+
+git_stashed_changes() {
+    [ -n "$(git stash list 2> /dev/null | tail -n1)" ]
 }
 
 branch_name() {
@@ -35,9 +34,9 @@ branch_status() {
     ) || return 1
 
     case $status in
-        diverged) echo -n "<>" ;;
-        ahead) echo -n ">" ;;
-        behind) echo -n "<" ;;
+        diverged) echo -n " <>" ;;
+        ahead) echo -n " >" ;;
+        behind) echo -n " <" ;;
         'up to date') ;;
         # 'up to date') echo -n "*" ;;
     esac
@@ -58,25 +57,20 @@ main() {
         remote_name="${remote#*/}"
         remote_indicator="$(branch_status)"
         if [ "$remote_name" != "$branch" ]; then
-            remote_indicator="$remote_indicator($remote_name)"
+            remote_indicator="$remote_indicator $remote_name"
         fi
     fi
 
-    if $(git_unstaged_changes) && $(git_uncommitted_changes); then
-        COLOR="${ORANGE}"
-    elif $(git_unstaged_changes); then
-        COLOR="${RED}"
-    elif $(git_uncommitted_changes); then
-        COLOR="${GREEN}"
-    else
-        COLOR="${NOCOLOR}"
-    fi
+    if $(git_unstaged_changes); then unstaged="\033[0;31m +"; fi
+    if $(git_uncommitted_changes); then uncommitted="\033[0;32m +"; fi
+    if $(git_stashed_changes); then stashed="\033[0;33m $"; fi
 
     $brackets && echo -n "[" || echo -n " on "
-    echo -en "\001${COLOR}\002"
-    echo -n "${branch}"
-    echo -n "${remote_indicator}"
-    echo -en "\001${NOCOLOR}\002"
+    echo -en "\033[1;35m"
+    echo -en "${branch}"
+    echo -en "${remote_indicator}"
+    echo -en "$unstaged$uncommitted$stashed"
+    echo -en "\033[0m"
     $brackets && echo -n "]"
 }
 
