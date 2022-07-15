@@ -21,6 +21,7 @@ command TagReset call s:tags()
 
 command -bang TagToc call tags#toc(<bang>0)
 cnoreabbrev <expr> tt    (getcmdtype() ==# ':' && getcmdline() ==# 'tt') ? 'TagToc' : 'tt'
+cnoreabbrev <expr> ctags    (getcmdtype() ==# ':' && getcmdline() ==# 'ctags') ? 'Ctags' : 'ctags'
 
 " Activate
 TagReset

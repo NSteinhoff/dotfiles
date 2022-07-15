@@ -13,6 +13,10 @@ nnoremap <leader>q <cmd>call qf#ctoggle()<cr>
 nnoremap <leader>l <cmd>call qf#ltoggle()<cr>
 nnoremap <leader>Q <cmd>Ctab<cr>
 nnoremap <leader>L <cmd>Ltab<cr>
+nnoremap <c-p> <cmd> call qf#cycle_qf(0)<cr>
+nnoremap <c-n> <cmd> call qf#cycle_qf(1)<cr>
+nnoremap <c-k> <cmd> call qf#cycle_loc(0)<cr>
+nnoremap <c-j> <cmd> call qf#cycle_loc(1)<cr>
 
 augroup my-qf
     autocmd!

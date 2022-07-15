@@ -1,9 +1,6 @@
 #!/bin/bash
 # vim: ft=sh
 
-branch_only=false
-brackets=false
-
 git_unstaged_changes() {
     [ -n "$(git diff --shortstat 2> /dev/null | tail -n1)" ]
 }
@@ -34,30 +31,23 @@ branch_status() {
     ) || return 1
 
     case $status in
-        diverged) echo -n " <>" ;;
-        ahead) echo -n " >" ;;
-        behind) echo -n " <" ;;
-        'up to date') ;;
-        # 'up to date') echo -n "*" ;;
+        diverged) echo -n "<>" ;;
+        ahead) echo -n ">" ;;
+        behind) echo -n "<" ;;
+        'up to date') echo -n "*";;
     esac
 }
 
 main() {
     branch=$(branch_name) || return 0
     [ -n "$branch" ] || return 1
-    if $branch_only; then
-        echo -n "["
-        echo -n "${branch}"
-        echo -n "]"
-        return 0
-    fi
 
     remote=$(remote_branch)
     if [ -n "$remote" ]; then
         remote_name="${remote#*/}"
-        remote_indicator="$(branch_status)"
+        remote_indicator="\033[0;36m$(branch_status)"
         if [ "$remote_name" != "$branch" ]; then
-            remote_indicator="$remote_indicator $remote_name"
+            remote_indicator="$remote_indicator($remote_name)"
         fi
     fi
 
@@ -65,13 +55,12 @@ main() {
     if $(git_uncommitted_changes); then uncommitted="\033[0;32m +"; fi
     if $(git_stashed_changes); then stashed="\033[0;33m $"; fi
 
-    $brackets && echo -n "[" || echo -n " on "
+    echo -n " on "
     echo -en "\033[1;35m"
     echo -en "${branch}"
     echo -en "${remote_indicator}"
     echo -en "$unstaged$uncommitted$stashed"
     echo -en "\033[0m"
-    $brackets && echo -n "]"
 }
 
 main || exit 1

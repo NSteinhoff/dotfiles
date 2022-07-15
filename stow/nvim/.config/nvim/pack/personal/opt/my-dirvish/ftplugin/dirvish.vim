@@ -7,8 +7,8 @@ nnoremap <nowait><buffer><silent> dax  :<C-U>arglocal<Bar>silent! argdelete *<Ba
 nnoremap <buffer> <cr> <cmd>call dirvish#open('edit', 0)<cr>
 nnoremap <buffer> <space> <cmd>call dirvish#open('edit', 0)<cr>
 nnoremap <buffer> <c-space> <cmd>call dirvish#open('p', 1)<cr>
-nnoremap <buffer> <expr> <c-n> pumvisible() ? '<c-n>' : 'j<cmd>call dirvish#open("p", 1)<cr>'
-nnoremap <buffer> <expr> <c-p> pumvisible() ? '<c-p>' : 'k<cmd>call dirvish#open("p", 1)<cr>'
+nnoremap <buffer> <c-j> j<cmd>call dirvish#open("p", 1)<cr>
+nnoremap <buffer> <c-k> k<cmd>call dirvish#open("p", 1)<cr>
 
 nnoremap <buffer> R <cmd>let b:linesave=line('.')<bar>e %<bar>execute b:linesave<cr>
 nnoremap <buffer> cd <cmd>lcd %<cr>

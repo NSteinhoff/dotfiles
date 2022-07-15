@@ -11,6 +11,7 @@ cnoreabbrev <expr> gg (getcmdtype() ==# ':' && getcmdline() ==# 'gg') ? 'silent 
 cnoreabbrev <expr> grep (getcmdtype() ==# ':' && getcmdline() ==# 'grep') ? 'silent grep!' : 'grep'
 
 augroup grep
-        au QuickfixCmdPost grep botright cwindow
-        au QuickfixCmdPost lgrep botright lwindow
+    autocmd!
+    autocmd QuickfixCmdPost grep botright cwindow
+    autocmd QuickfixCmdPost lgrep botright lwindow
 augroup END

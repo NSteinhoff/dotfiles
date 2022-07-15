@@ -11,17 +11,19 @@ return function(config)
             -- in the root tsconfig.json, or when typescript is only used in a subdirectory.
             local lsputil = require("lspconfig/util")
             local git_root = lsputil.find_git_ancestor(fname)
-            return git_root
-                and lsputil.path.is_file(lsputil.path.join(git_root, "tsconfig.json"))
-                and git_root
-                or lsputil.root_pattern("tsconfig.json", "package.json", ".git")(fname)
+
+            if git_root and lsputil.path.is_file(lsputil.path.join(git_root, "tsconfig.json")) then
+                return git_root
+            else
+                return lsputil.root_pattern("tsconfig.json", "package.json", ".git")(fname)
+            end
         end,
 
-        on_attach = function (client, ...)
+        on_attach = function(client, ...)
             client.server_capabilities.documentFormattingProvider = false
 
             config.on_attach(client, ...)
-        end
+        end,
     }
 
     lspconfig["tsserver"].setup(vim.tbl_extend("keep", override, config))

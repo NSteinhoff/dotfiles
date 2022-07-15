@@ -46,6 +46,28 @@ function qf#isloc()
     return qf#isqf() && getwininfo(win_getid())[0].loclist == 1
 endfunction
 
+function qf#cycle_loc(forward) abort
+    let list = getloclist(0, {'idx': 0, 'size': 1, 'items': 1})
+    let [first, last] = s:first_and_last(list.items)
+    if !first|echo "No errors."|return|endif
+    if a:forward
+        execute list.idx < last ? 'lnext' : first..'ll'
+    else
+        execute list.idx > first ? 'lprev' : last..'ll'
+    endif
+endfunction
+
+function qf#cycle_qf(forward) abort
+    let list = getqflist({'idx': 0, 'size': 1, 'items': 1})
+    let [first, last] = s:first_and_last(list.items)
+    if !first|echo "No errors."|return|endif
+    if a:forward
+        execute list.idx < last ? 'cnext' : first..'cc'
+    else
+        execute list.idx > first ? 'cprev' : last..'cc'
+    endif
+endfunction
+
 function s:set(...)
     if qf#isloc()
         return call('setloclist', [0] + a:000)

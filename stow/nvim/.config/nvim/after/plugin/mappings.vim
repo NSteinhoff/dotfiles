@@ -18,10 +18,14 @@ set wildcharm=<c-z>
 
 "{{{ Basics / Improving standard mappings
 nnoremap <esc> <cmd>nohlsearch<bar>diffupdate<cr>
+nnoremap <c-h> <cmd>nohlsearch<bar>diffupdate<cr>
 nnoremap <c-w><c-o> <cmd>diffoff!<bar>only<cr>
 
 " Toggle folds with <space>
 nnoremap <space> za
+
+" Insert tabs as spaces after the first non-blank character
+" inoremap <expr> <tab> getline('.')[:col('.')-2] =~ '^\s*$' ? '<tab>' : repeat(' ', &sw - (virtcol('.') - 1) % &sw)
 
 " Yank to clipboard with "" (Why would I ever explicitly need to target
 " the unnamed register anyways?)
@@ -81,9 +85,13 @@ nnoremap ]b <cmd>bnext<cr>
 
 nnoremap [q <cmd>cprevious<cr>
 nnoremap ]q <cmd>cnext<cr>
+if empty(maparg("<c-p>", "n"))|nnoremap <c-p> <cmd>cprevious<cr>|endif
+if empty(maparg("<c-n>", "n"))|nnoremap <c-n> <cmd>cnext<cr>|endif
 
 nnoremap [l <cmd>lprevious<cr>
 nnoremap ]l <cmd>lnext<cr>
+if empty(maparg("<c-k>", "n"))|nnoremap <c-k> <cmd>lprevious<cr>|endif
+if empty(maparg("<c-j>", "n"))|nnoremap <c-j> <cmd>lnext<cr>|endif
 
 nnoremap [t <cmd>tprevious<cr>
 nnoremap ]t <cmd>tnext<cr>
@@ -169,8 +177,8 @@ nnoremap <c-^> <cmd>call buffers#alternative()<cr>
 " Also works when there is only one window.
 nnoremap <silent> <c-w>t <cmd>tab split<bar>diffoff<cr>
 nmap <c-w><c-t> <c-w>t
-nnoremap <c-n> gt
-nnoremap <c-p> gT
+" nnoremap <c-n> gt
+" nnoremap <c-p> gT
 
 " Grep, i.e. poor man's 'go-to-reference'
 nmap <silent> gr :silent grep! <c-r><c-w><cr>
