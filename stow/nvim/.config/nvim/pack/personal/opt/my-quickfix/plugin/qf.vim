@@ -3,10 +3,14 @@ packadd cfilter
 
 command! Ctab if getqflist({'nr': 0}).nr|tab split|botright copen|only|else|echo "No quickfix list."|endif
 command! Ltab if getloclist(0, {'nr': 0}).nr|tab split|botright lopen|only|else|echo "No location list."|endif
+cnoreabbrev <expr> ctab (getcmdtype() ==# ':' && getcmdline() ==# 'ctab') ? 'Ctab' : 'ctab'
+cnoreabbrev <expr> ltab (getcmdtype() ==# ':' && getcmdline() ==# 'ltab') ? 'Ltab' : 'ltab'
 
 """ Free error lists
 command! -bar Cfree call setqflist([], 'f')
 command! -bar Lfree call setloclist(0, [], 'f')
+cnoreabbrev <expr> cfree (getcmdtype() ==# ':' && getcmdline() ==# 'cfree') ? 'Cfree' : 'cfree'
+cnoreabbrev <expr> lfree (getcmdtype() ==# ':' && getcmdline() ==# 'lfree') ? 'Lfree' : 'lfree'
 
 """ Mappings
 nnoremap <leader>q <cmd>call qf#ctoggle()<cr>

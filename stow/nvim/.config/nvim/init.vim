@@ -15,6 +15,7 @@ set showmatch
 set fillchars=eob:~
 set signcolumn=number
 set shortmess+=s
+set concealcursor=n
 "}}}
 
 "{{{ Behavior
@@ -36,7 +37,7 @@ set isfname-==
 "}}}
 
 "{{{ Special characters
-set list
+set nolist
 set listchars=
 set listchars+=tab:¦\ 
 set listchars+=trail:·

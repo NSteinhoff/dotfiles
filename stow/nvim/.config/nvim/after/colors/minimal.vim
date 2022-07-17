@@ -88,7 +88,8 @@ highlight Search                       cterm=bold,underline         ctermfg=NONE
 "}}}
 
 "{{{ Syntax
-highlight Comment                      cterm=italic                 ctermfg=7     ctermbg=NONE  guifg=LightGray     guibg=NONE
+" highlight Comment                      cterm=italic                 ctermfg=7     ctermbg=NONE  guifg=LightGray     guibg=NONE
+highlight Comment                      cterm=NONE                   ctermfg=8     ctermbg=NONE  guifg=DarkGray      guibg=NONE
 highlight Constant                     cterm=NONE                   ctermfg=3     ctermbg=NONE  guifg=Cyan          guibg=NONE
 highlight Define                       cterm=NONE                   ctermfg=9     ctermbg=NONE  guifg=LightBlue     guibg=NONE
 highlight Delimiter                    cterm=bold                   ctermfg=12    ctermbg=NONE  guifg=LightRed      guibg=NONE
@@ -96,6 +97,7 @@ highlight Error                        cterm=NONE                   ctermfg=1   
 highlight Exception                    cterm=bold                   ctermfg=15    ctermbg=NONE  guifg=White         guibg=NONE
 highlight Function                     cterm=NONE                   ctermfg=2     ctermbg=NONE  guifg=Green         guibg=NONE
 highlight Identifier                   cterm=NONE                   ctermfg=2     ctermbg=NONE  guifg=Green         guibg=NONE
+highlight Conceal                      cterm=NONE                   ctermfg=8     ctermbg=NONE  guifg=DarkGray      guibg=NONE
 highlight Ignore                       cterm=NONE                   ctermfg=8     ctermbg=NONE  guifg=DarkGray      guibg=NONE
 highlight Keyword                      cterm=NONE                   ctermfg=15    ctermbg=NONE  guifg=White         guibg=NONE
 highlight Macro                        cterm=NONE                   ctermfg=9     ctermbg=NONE  guifg=LightBlue     guibg=NONE

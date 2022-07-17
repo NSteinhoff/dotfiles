@@ -656,4 +656,4 @@ themes:
       cyan:    '#686f9a'  # dark purple 2
       white:   '#ffffff'  # pure white
 
-colors: *solarized-light
+colors: *github

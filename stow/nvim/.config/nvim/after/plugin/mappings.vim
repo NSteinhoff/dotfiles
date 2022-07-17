@@ -214,6 +214,10 @@ nmap <silent> gb <plug>(git-blame)
 vmap <silent> gb <plug>(git-blame)
 "}}}
 
+"{{{ (gh): Stealth Mode
+nnoremap <silent> gh <cmd>StealthToggle<cr>
+"}}}
+
 "{{{ Theme and Colors
 nnoremap <F7> <cmd>silent !toggle-light-dark<cr>
 nnoremap <F8> <cmd>CycleColorNext<cr>
