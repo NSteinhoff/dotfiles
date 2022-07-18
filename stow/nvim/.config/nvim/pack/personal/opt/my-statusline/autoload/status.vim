@@ -1,7 +1,7 @@
 function status#yang()
     let alt = get(b:, 'alt', '')
 
-    return alt != '' && findfile(alt) != '' ? ' ﭾ ' : ''
+    return alt != '' && findfile(alt) != '' ? ' A ' : ''
 endfunction
 
 function status#err()
@@ -12,8 +12,8 @@ function status#err()
 
     if (!nq && !nl)|return ''|endif
 
-    let q = nq ? nq : ''
-    let l = nl ? nl : ''
+    let q = nq ? nq : '-'
+    let l = nl ? nl : '-'
 
     return '['..q..'|'..l..']'
 endfunction
@@ -26,7 +26,7 @@ function status#comp()
     endtry
 
     let compiler = get(b:, 'current_compiler', get(g:, 'current_compiler', ''))
-    let compiler = !empty(compiler) ? winwidth(0) >= 100 ? ' '..compiler : '' : ''
+    let compiler = !empty(compiler) ? winwidth(0) >= 100 ? '$'..compiler : '$' : ''
 
     if empty(compiler) && empty(lsp)
         return ''
@@ -48,14 +48,14 @@ function status#tree()
     if width < 40|return ''|endif
     let opts = {
         \   'indicator_size': width,
-        \   'separator': '  ',
+        \   'separator': ' > ',
         \}
     try
         let pos = nvim_treesitter#statusline(opts)
     catch
         let pos = ''
     endtry
-    return empty(pos) || pos ==? 'null' ? '' : ' '..pos
+    return empty(pos) || pos ==? 'null' ? '' : ' > '..pos
 endfunction
 
 function status#spell()
@@ -67,7 +67,7 @@ function status#alt()
     if empty(alt) || expand('#') == expand('%')
         return ''
     endif
-    return '  '..alt
+    return '^'..alt
 endfunction
 
 function status#term()

@@ -24,7 +24,12 @@ command! -buffer -nargs=* CompileAndRun w|make %:r|!./%:r <args>
 let b:alt =  expand('%:r')..(expand('%') =~ '.c$' ? '.h' : '.c')
 command! -buffer A execute 'edit '..b:alt
 
-let b:interpreter = 'clang -include stdio.h -include stdlib.h -Wall -Wextra -Werror -pedantic -o /tmp/'..expand('%:t:r')..' -xc - && /tmp/'..expand('%:t:r')
+let b:interpreter  = 'clang -include stdio.h -include stdlib.h'
+let b:interpreter .= ' '..$CFLAGS
+let b:interpreter .= ' -Wno-error'
+let b:interpreter .= ' -o /tmp/'..expand('%:t:r')
+let b:interpreter .= ' -xc -'
+let b:interpreter .= ' && /tmp/'..expand('%:t:r')
 
 if findfile('Makefile') == ""
     compiler clang

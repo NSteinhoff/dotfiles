@@ -1,9 +1,9 @@
-function tab#label(n)
+function! tab#label(n)
     if a:n != tabpagenr() && getcwd(-1, a:n) != getcwd(-1, 0)
         " Inactive tabs
         let cwd = substitute(fnamemodify(getcwd(-1, a:n), ":."), $HOME, '~', '')
-        let cwd = cwd == '~' ? '~/' : cwd
-        return '  '..pathshorten(cwd)
+        let cwd = cwd == '~' ? '~' : cwd
+        return pathshorten(cwd)..'/'
     else
         " Active tab
         let buflist = tabpagebuflist(a:n)
@@ -29,20 +29,20 @@ function tab#label(n)
     endif
 endfunction
 
-function tab#indicator(n)
+function! tab#indicator(n)
     let buflist = tabpagebuflist(a:n)
     let nbuffers = len(buflist)
     let modified = empty(filter(buflist, {_, v -> getbufinfo(v)[0].changed})) ? '' : '+'
     return nbuffers..modified
 endfunction
 
-function tab#diff(n)
+function! tab#diff(n)
     let difftarget = gettabvar(a:n, 'diff_target')
-    let difftarget = !empty(difftarget) ? ' ( '..difftarget..')' : ''
+    let difftarget = !empty(difftarget) ? ' (<> '..difftarget..')' : ''
     return difftarget
 endfunction
 
-function tab#cwd()
+function! tab#cwd()
     let win = fnamemodify(getcwd(), ":p")
     let tab = fnamemodify(getcwd(-1, tabpagenr()), ":p")
 
@@ -54,10 +54,10 @@ function tab#cwd()
         let cwd .= '['..substitute(substitute(win, tab, '', ''), $HOME, '~', '')..']'
     endif
 
-    return '  '..cwd
+    return cwd
 endfunction
 
-function tab#highlights(n)
+function! tab#highlights(n)
     if a:n != tabpagenr() && getcwd(-1, a:n) != getcwd(-1, 0)
         return '%#TablineDirectory#'
     else
@@ -65,7 +65,7 @@ function tab#highlights(n)
     endif
 endfunction
 
-function tab#tabs()
+function! tab#tabs()
     let s = ''
     for i in range(1, tabpagenr('$'))
         if i > 1|let s .= '|'|endif
@@ -81,7 +81,7 @@ function tab#tabs()
     return s
 endfunction
 
-function tab#line()
+function! tab#line()
     let s = ''
     let s .= '%#TabLine#'
     let s .= tab#tabs()

@@ -1,3 +1,4 @@
+local symbol = "*"
 local function clients()
     local results = {}
     for _, c in pairs(vim.lsp.buf_get_clients()) do
@@ -8,7 +9,7 @@ end
 
 local function tiny()
     if #clients() > 0 then
-        return ""
+        return symbol
     else
         return ""
     end
@@ -17,7 +18,7 @@ end
 local function short()
     local n = #clients()
     if n > 0 then
-        return " " .. n
+        return symbol .. n
     else
         return ""
     end
@@ -28,7 +29,7 @@ local function long()
     if #names == 0 then
         return ""
     else
-        return " " .. table.concat(names, ",")
+        return symbol .. table.concat(names, ",")
     end
 end
 
