@@ -189,10 +189,11 @@ nmap gO <cmd>TagToc<cr>
 "}}}
 
 "{{{ Leader mappings
-" Splits
-nnoremap <leader>s :sbuffer <c-z>
-nnoremap <leader>v :vert sbuffer <c-z>
-nnoremap <leader>t :tab sbuffer <c-z>
+" Buffer Switching
+nnoremap <leader>b :call buffers#recent()<cr>:buffer<space>
+nnoremap <leader>s :call buffers#recent()<cr>:sbuffer<space>
+nnoremap <leader>v :call buffers#recent()<cr>:vert sbuffer<space>
+nnoremap <leader>t :call buffers#recent()<cr>:tab sbuffer<space>
 
 nnoremap <leader>e <cmd>Explore<cr>
 

@@ -12,3 +12,12 @@ function buffers#alternative()
         b #
     endif
 endfunction
+
+function buffers#recent(n = 0)
+    let n = a:n
+    if n == 0
+        let n = min([max([&lines - 10, 10]), 10])
+    endif
+    echo "Recent Buffers:"
+    echo execute('ls t')->split("\n")[:n]->join("\n")
+endfunction
