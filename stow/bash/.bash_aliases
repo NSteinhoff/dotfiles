@@ -62,6 +62,10 @@ alias :e='$EDITOR'
 alias g='git status'
 alias g-='git switch -'
 
+# Dirs
+alias p='pushd'
+alias pp='popd'
+
 # Context aware information
 # TODO: Think of some useful commands here.
 # Maybe this would be a nice place for the bashbot.

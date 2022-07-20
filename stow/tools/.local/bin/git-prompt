@@ -14,13 +14,13 @@ git_stashed_changes() {
 }
 
 branch_name() {
-    name="$(git branch 2>/dev/null)" || return 1
-    echo "$name" | sed -e '/^[^*]/d' -e 's/^* //'
+    name="$(git branch --show-current 2>/dev/null)" || return 1
+    echo -n "$name"
 }
 
-remote_branch() {
-    remote=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)
-    echo -n "$remote"
+upstream_branch() {
+    upstream=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)
+    echo -n "$upstream"
 }
 
 branch_status() {
@@ -34,7 +34,7 @@ branch_status() {
         diverged) echo -n "<>" ;;
         ahead) echo -n ">" ;;
         behind) echo -n "<" ;;
-        'up to date') echo -n "*";;
+        'up to date') echo -n "=";;
     esac
 }
 
@@ -42,12 +42,12 @@ main() {
     branch=$(branch_name) || return 0
     [ -n "$branch" ] || return 1
 
-    remote=$(remote_branch)
-    if [ -n "$remote" ]; then
-        remote_name="${remote#*/}"
-        remote_indicator="\033[0;36m$(branch_status)"
-        if [ "$remote_name" != "$branch" ]; then
-            remote_indicator="$remote_indicator($remote_name)"
+    upstream=$(upstream_branch)
+    if [ -n "$upstream" ]; then
+        upstream_name="${upstream#*/}"
+        upstream_indicator="\033[0;36m$(branch_status)"
+        if [ "$upstream_name" != "$branch" ]; then
+            upstream_indicator="$upstream_indicator($upstream_name)"
         fi
     fi
 
@@ -58,7 +58,7 @@ main() {
     echo -n " on "
     echo -en "\033[1;35m"
     echo -en "${branch}"
-    echo -en "${remote_indicator}"
+    echo -en "${upstream_indicator}"
     echo -en "$unstaged$uncommitted$stashed"
     echo -en "\033[0m"
 }
