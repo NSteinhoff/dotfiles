@@ -42,9 +42,6 @@ alias ll='ls -lFh'
 alias lla='ll -A'
 alias tree='tree -CF --dirsfirst'
 
-# Listing dirs
-alias dirs='dirs -v'
-
 # Listing ports
 alias lsop='_() { lsof -i -nP $@ | grep LISTEN; }; _'
 
@@ -63,8 +60,12 @@ alias g='git status'
 alias g-='git switch -'
 
 # Dirs
+alias d='dirs'
 alias p='pushd'
 alias pp='popd'
+# Go forwards and backwards
+alias o='pushd +1'
+alias i='pushd -0'
 
 # Context aware information
 # TODO: Think of some useful commands here.
