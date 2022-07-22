@@ -4,11 +4,12 @@
 	loa		= log --graph --all --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'
 	lf		= log --graph --date=short --format='%C(auto)%h%d %s %C(green)(%cd) %C(blue)<%an>%Creset'
 	lfa		= log --graph --all --date=short --format='%C(auto)%h%d %s %C(green)(%cd) %C(blue)<%an>%Creset'
+	loga		= log --graph --all
 
 	# Diffing
 	di		= diff --ignore-all-space
 	dis		= diff --ignore-all-space --staged
-	diffw		= diff --color-words
+	diw		= diff --color-words
 
 	# Committing (crimes)
 	pave		= commit --all --amend --no-edit

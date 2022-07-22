@@ -14,12 +14,11 @@ git_stashed_changes() {
 }
 
 branch_name() {
-    name="$(git branch --show-current 2>/dev/null)" || return 1
-    echo -n "$name"
+    echo -n "$(git branch --show-current 2>/dev/null)"
 }
 
 upstream_branch() {
-    upstream=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)
+    upstream="$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)" || return 1
     echo -n "$upstream"
 }
 
