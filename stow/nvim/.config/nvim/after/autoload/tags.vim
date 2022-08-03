@@ -4,8 +4,8 @@ function! tags#toc(...)
         return
     endif
     let l:index = a:0 && a:1
-    let l:fname = expand('%')
-    let l:tags = filter(taglist('.*'), {_, v -> v.filename == l:fname})
+    let l:fname = expand('%:p')
+    let l:tags = filter(taglist('.*'), {_, v -> fnamemodify(v.filename, ':p') == l:fname})
     let l:items = map(l:tags, {_, v -> s:tag2item(v)})
     if l:index
         let l:tags = sort(l:items, {l, r -> char2nr(l.kind) - char2nr(r.kind)})
