@@ -1,5 +1,6 @@
-" if exists('g:loaded_zettelkasten') && !get(g:, 'debug') | finish | endif
+if exists('g:loaded_zettelkasten') | finish | endif
 let g:loaded_zettelkasten = 1
+
 let g:zettelkasten = expand(get(g:, 'zettelkasten', get(environ(), 'ZETTELKASTEN', '~/zettel')))
 
 command -nargs=1 -complete=customlist,zettelkasten#complete_zettel Zettel call zettelkasten#zettel(<q-args>)
