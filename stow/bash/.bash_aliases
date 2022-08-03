@@ -144,7 +144,7 @@ export ZETTELKASTEN=~/Dropbox/Zettel
 
 # --------------------------- C Compilation ---------------------------------
 # export CC=clang
-export CFLAGS="${CFLAGS:+${CFLAGS} }-Wall -Werror -Wextra -pedantic -Weverything -Wno-padded -Wno-declaration-after-statement -Wno-strict-prototypes"
+export CFLAGS="${CFLAGS:+${CFLAGS} }-Wall -Werror -Wextra -pedantic -Weverything -Wno-declaration-after-statement -Wno-strict-prototypes -Wno-shadow -Wno-padded"
 # export LDFLAGS="${LDFLAGS:+${LDFLAGS} }"
 # export LDLIBS="${LDLIBS:+${LDLIBS} }"
 
