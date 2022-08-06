@@ -1,3 +1,5 @@
+let s:add_timestamp_to_file = 1
+
 " Zettel timestamp
 function s:timestamp()
     return strftime('%Y%m%d%H%M')
@@ -108,12 +110,14 @@ function zettelkasten#zettel(zettel)
         execute 'edit '..g:zettelkasten..'/'..fname
     else
         " Ensure timestamp
-        let fname = (fname =~ '^\d\{12}_' ? '' : s:timestamp()..'_')..fname
+        if s:add_timestamp_to_file
+            let fname = (fname =~ '^\d\{12}_' ? '' : s:timestamp()..'_')..fname
+        endif
         " Ensure markdown extension
         let fname = fname..(fname =~ '\.md$' ? '' : '.md')
 
         execute 'edit '..g:zettelkasten..'/'..fname
-        if empty(getline(1))|call setline(1, '# '..s:header(fname))|endif
+        if empty(getline(1))|call setline(1, ['# '..s:header(fname), 'Created: '..strftime('%c')])|endif
     endif
 endfunction
 

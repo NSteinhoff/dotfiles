@@ -76,6 +76,9 @@ export QUESTION_MARK_PRG='git status'
 # Read errors from stdin into a scratch buffer and load into quickfix list
 alias quickfix='vim +"set bt=nofile" +cbuffer -'
 
+# Run neovide with the multigrid feature by default
+alias neovide='neovide --multigrid'
+
 # Open notes for editing
 _complete_notes() {
     COMPREPLY=( $(compgen -W "$(ls $NOTES_DIR)" $2) )
@@ -148,4 +151,5 @@ export CFLAGS="${CFLAGS:+${CFLAGS} }-Wall -Werror -Wextra -pedantic -Weverything
 # export LDFLAGS="${LDFLAGS:+${LDFLAGS} }"
 # export LDLIBS="${LDLIBS:+${LDLIBS} }"
 
-alias neovide='neovide --multigrid'
+# ---------------------------- Pandoc CSS Styles ------------------------------
+export PANDOC_CSS="$HOME/.local/styles/markdown.css"

@@ -37,7 +37,7 @@ set isfname-==
 "}}}
 
 "{{{ Special characters
-set nolist
+set list
 set listchars=
 set listchars+=tab:¦\ 
 set listchars+=trail:·
@@ -118,6 +118,7 @@ packadd! my-quickfix                            " Quickfix niceties, mostly limi
 " packadd! my-treesitter                          " Language aware highlighting
 packadd! my-statusline
 packadd! my-tabline
+packadd! my-zettelkasten                        " Note-taking
 "}}}
 
 "{{{ Third Party

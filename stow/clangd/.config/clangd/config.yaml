@@ -1,2 +1,12 @@
 CompileFlags:
-  Add: [-Weverything, -pedantic, -Wno-padded, -Wno-gnu-empty-initializer]
+  Add:
+    - -Werror
+    - -Wall
+    - -Wextra
+    - -Weverything
+    - -pedantic
+    - -Wno-padded
+    - -Wno-shadow
+    - -Wno-declaration-after-statement
+    - -Wno-strict-prototypes
+    - -Wno-gnu-empty-initializer

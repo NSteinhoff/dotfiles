@@ -28,10 +28,10 @@ highlight Menu                         cterm=NONE                   ctermfg=NONE
 highlight Noise                        cterm=NONE                   ctermfg=8     ctermbg=NONE  guifg=DarkGray      guibg=NONE
 highlight NonText                      cterm=NONE                   ctermfg=8     ctermbg=NONE  guifg=DarkGray      guibg=NONE
 highlight NormalNc                     cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE          guibg=NONE
-highlight Pmenu                        cterm=NONE                   ctermfg=NONE  ctermbg=8     guifg=NONE          guibg=DarkGray
-highlight PmenuSbar                    cterm=NONE                   ctermfg=NONE  ctermbg=8     guifg=NONE          guibg=DarkGray
+highlight Pmenu                        cterm=NONE                   ctermfg=15    ctermbg=8     guifg=NONE          guibg=DarkGray
+highlight PmenuSbar                    cterm=NONE                   ctermfg=NONE  ctermbg=15    guifg=NONE          guibg=DarkGray
 highlight PmenuSel                     cterm=NONE                   ctermfg=NONE  ctermbg=5     guifg=NONE          guibg=Magenta
-highlight PmenuThumb                   cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE          guibg=NONE
+highlight PmenuThumb                   cterm=NONE                   ctermfg=NONE  ctermbg=11    guifg=NONE          guibg=NONE
 highlight Question                     cterm=italic                 ctermfg=7     ctermbg=NONE  guifg=LightGray     guibg=NONE
 highlight Scrollbar                    cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE          guibg=NONE
 highlight SpecialKey                   cterm=bold                   ctermfg=12    ctermbg=NONE  guifg=LightRed      guibg=NONE
@@ -88,7 +88,7 @@ highlight Search                       cterm=bold,underline         ctermfg=NONE
 "}}}
 
 "{{{ Syntax
-highlight Comment                      cterm=italic                 ctermfg=7     ctermbg=NONE  guifg=LightGray     guibg=NONE
+highlight Comment                      cterm=italic                   ctermfg=8     ctermbg=NONE  guifg=DarkGray      guibg=NONE
 highlight Constant                     cterm=NONE                   ctermfg=3     ctermbg=NONE  guifg=Cyan          guibg=NONE
 highlight Define                       cterm=NONE                   ctermfg=9     ctermbg=NONE  guifg=LightBlue     guibg=NONE
 highlight Delimiter                    cterm=bold                   ctermfg=12    ctermbg=NONE  guifg=LightRed      guibg=NONE
@@ -96,6 +96,7 @@ highlight Error                        cterm=NONE                   ctermfg=1   
 highlight Exception                    cterm=bold                   ctermfg=15    ctermbg=NONE  guifg=White         guibg=NONE
 highlight Function                     cterm=NONE                   ctermfg=2     ctermbg=NONE  guifg=Green         guibg=NONE
 highlight Identifier                   cterm=NONE                   ctermfg=2     ctermbg=NONE  guifg=Green         guibg=NONE
+highlight Conceal                      cterm=NONE                   ctermfg=8     ctermbg=NONE  guifg=DarkGray      guibg=NONE
 highlight Ignore                       cterm=NONE                   ctermfg=8     ctermbg=NONE  guifg=DarkGray      guibg=NONE
 highlight Keyword                      cterm=NONE                   ctermfg=15    ctermbg=NONE  guifg=White         guibg=NONE
 highlight Macro                        cterm=NONE                   ctermfg=9     ctermbg=NONE  guifg=LightBlue     guibg=NONE
