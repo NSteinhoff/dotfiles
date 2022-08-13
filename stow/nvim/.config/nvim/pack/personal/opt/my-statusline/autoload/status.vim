@@ -1,5 +1,5 @@
 function! status#yang()
-    let alt = get(b:, 'alt', '')
+    let alt = get(b:, 'yang', '')
 
     return alt != '' && findfile(alt) != '' ? ' A ' : ''
 endfunction

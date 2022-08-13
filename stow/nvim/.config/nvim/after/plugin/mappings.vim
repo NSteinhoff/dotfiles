@@ -171,6 +171,7 @@ cnoremap <m-f> <s-right>
 " Switch to alternative buffer
 nmap <bs> <c-^>
 nnoremap <c-^> <cmd>call buffers#alternative()<cr>
+nnoremap <leader>a <cmd>call buffers#yang()<cr>
 
 " Missing `:tab split` mapping
 " Like <c-w>T, but without removing the window from the current page.
@@ -194,6 +195,7 @@ nnoremap <leader>b :call buffers#recent()<cr>:buffer<space>
 nnoremap <leader>s :call buffers#recent()<cr>:sbuffer<space>
 nnoremap <leader>v :call buffers#recent()<cr>:vert sbuffer<space>
 nnoremap <leader>t :call buffers#recent()<cr>:tab sbuffer<space>
+nnoremap <leader>d :call buffers#recent()<cr>:bdelete<space>
 
 nnoremap <leader>e <cmd>Explore<cr>
 

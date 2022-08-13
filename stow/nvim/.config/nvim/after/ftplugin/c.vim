@@ -21,8 +21,7 @@ iabbrev <buffer> #inc< #include <><left>
 command! -buffer -nargs=* CompileAndRun w|make %:r|!./%:r <args>
 
 " Switch between source and header files
-let b:alt =  expand('%:r')..(expand('%') =~ '.c$' ? '.h' : '.c')
-command! -buffer A execute 'edit '..b:alt
+let b:yang =  expand('%:r')..(expand('%') =~ '.c$' ? '.h' : '.c')
 
 let b:interpreter  = 'clang '..$CFLAGS
 let b:interpreter .= ' -Wno-error'

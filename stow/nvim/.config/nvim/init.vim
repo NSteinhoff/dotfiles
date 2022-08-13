@@ -111,14 +111,14 @@ packloadall                                     " load all default packages in '
 
 "{{{ Personal
 packadd! my-lsp                                 " Language Server configurations
-packadd! my-filefinder                          " Start simple file finder with :ff
 packadd! my-git                                 " Git utilities (bloated): Show diff with :dd
 packadd! my-quickfix                            " Quickfix niceties, mostly limited to quickfix windows
-" packadd! my-marks
-" packadd! my-treesitter                          " Language aware highlighting
 packadd! my-statusline
 packadd! my-tabline
-packadd! my-zettelkasten                        " Note-taking
+" packadd! my-filefinder                          " Start simple file finder with :ff
+" packadd! my-zettelkasten                        " Note-taking
+" packadd! my-marks
+" packadd! my-treesitter                          " Language aware highlighting
 "}}}
 
 "{{{ Third Party

@@ -21,3 +21,11 @@ function buffers#recent(n = 0)
     echo "Recent Buffers:"
     echo execute('ls t')->split("\n")[:n]->join("\n")
 endfunction
+
+function buffers#yang()
+    if exists('b:yang')
+        execute 'edit '..b:yang
+    else
+        echo "No yang to this yin."
+    endif
+endfunction
