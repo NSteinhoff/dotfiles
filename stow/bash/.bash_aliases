@@ -40,7 +40,7 @@ alias l='ls -CF'
 alias la='l -A'
 alias ll='ls -lFh'
 alias lla='ll -A'
-alias tree='tree -CF --dirsfirst'
+alias tree='tree -CF --dirsfirst --gitignore'
 
 # Listing ports
 alias lsop='_() { lsof -i -nP $@ | grep LISTEN; }; _'

@@ -12,7 +12,7 @@ nnoremap <buffer> <c-k> k<cmd>call dirvish#open("p", 1)<cr>
 
 nnoremap <buffer> R <cmd>let b:linesave=line('.')<bar>e %<bar>execute b:linesave<cr>
 nnoremap <buffer> cd <cmd>lcd %<cr>
-nnoremap <buffer> K <cmd>Tree<cr>
+nnoremap <buffer> K <cmd>Expand<cr>
 nnoremap <buffer> zc <cmd>set conceallevel=2<cr>
 nnoremap <buffer> zo <cmd>set conceallevel=0<cr>
 nnoremap <buffer> <expr> za '<cmd>set conceallevel='..(&conceallevel == 0 ? '2' : '0')..'<cr>'
@@ -29,7 +29,7 @@ nnoremap <buffer> ? ?\ze[^/]*[/]\=$<Home>
 command -buffer -bang PathAdd execute 'set path'..(<bang>0 ? '' : '+')..'='..expand('%')
 command -buffer PathRemove execute 'set path-='..expand('%')
 " Tree prints the input path, so we can just filter the lines
-command -buffer -range -nargs=* -bang Tree execute '<line1>,<line2>!xargs tree -afiF -L 1'..(<bang>0 ? 'a' : '')..' --noreport <args>'|normal $
+command -buffer -range -nargs=* -bang Expand execute '<line1>,<line2>!xargs tree -afiF -L 1'..(<bang>0 ? 'a' : '')..' --noreport <args>'|normal $
 command -buffer -range -nargs=* -bang Mv if <range> < 2| echo ":Mv command needs a range." | else | execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'mv <args>' | endif
 command -buffer -range -nargs=* -bang Cp if <range> < 2| echo ":Cp command needs a range." | else | execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'cp <args>' | endif
 command -buffer -range -nargs=* -bang Rm execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'rm <args>'

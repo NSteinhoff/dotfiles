@@ -2,9 +2,11 @@ setlocal noexpandtab
 setlocal tabstop=8
 setlocal shiftwidth=8
 
+" There is also a .clang-format with the same settings, but this allows
+" changing the indentation settings on the fly.
 let s:style = '"{'
 let s:style.= 'BasedOnStyle: llvm'
-let s:style.= ', UseTab: ForContinuationAndIndentation'
+let s:style.= ', UseTab: '..(&expandtab ? 'Never' : 'ForContinuationAndIndentation')
 let s:style.= ', IndentWidth: '..(&shiftwidth ? &shiftwidth : &tabstop)
 let s:style.= ', ContinuationIndentWidth: '..(&shiftwidth ? &shiftwidth : &tabstop)
 let s:style.= ', AllowShortIfStatementsOnASingleLine: WithoutElse'
