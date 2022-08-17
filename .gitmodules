@@ -1,6 +1,3 @@
-[submodule "3rd/pack/external/opt/editorconfig-vim"]
-	path = 3rd/pack/external/opt/editorconfig-vim
-	url = git@github.com:editorconfig/editorconfig-vim.git
 [submodule "3rd/pack/external/opt/vim-dirvish"]
 	path = 3rd/pack/external/opt/vim-dirvish
 	url = git@github.com:justinmk/vim-dirvish.git
@@ -11,19 +8,9 @@
 [submodule "3rd/pack/external/opt/vim-commentary"]
 	path = 3rd/pack/external/opt/vim-commentary
 	url = git@github.com:tpope/vim-commentary.git
-[submodule "3rd/pack/external/opt/nvim-web-devicons"]
-	path = 3rd/pack/external/opt/nvim-web-devicons
-	url = git@github.com:kyazdani42/nvim-web-devicons.git
 [submodule "3rd/pandoc-letter"]
 	path = 3rd/pandoc-letter
 	url = git@github.com:benedictdudel/pandoc-letter-din5008.git
-[submodule "3rd/pack/external/opt/nvim-luaref"]
-	path = 3rd/pack/external/opt/nvim-luaref
-	url = git@github.com:milisims/nvim-luaref.git
-	ignore = untracked
-[submodule "3rd/pack/external/opt/plenary.nvim"]
-	path = 3rd/pack/external/opt/plenary.nvim
-	url = https://github.com/nvim-lua/plenary.nvim.git
 [submodule "3rd/pack/external/opt/nvim-schema-store"]
 	path = 3rd/pack/external/opt/nvim-schema-store
 	url = https://github.com/b0o/SchemaStore.nvim.git
@@ -42,18 +29,6 @@
 [submodule "3rd/pack/external/opt/nvim-treesitter-rainbow"]
 	path = 3rd/pack/external/opt/nvim-treesitter-rainbow
 	url = git@github.com:p00f/nvim-ts-rainbow.git
-[submodule "3rd/pack/external/opt/tokyonight.nvim"]
-	path = 3rd/pack/external/opt/tokyonight.nvim
-	url = git@github.com:folke/tokyonight.nvim.git
-[submodule "3rd/pack/external/opt/nvim-scrollview"]
-	path = 3rd/pack/external/opt/nvim-scrollview
-	url = git@github.com:dstein64/nvim-scrollview.git
 [submodule "3rd/pack/external/opt/fidget.nvim"]
 	path = 3rd/pack/external/opt/fidget.nvim
 	url = git@github.com:j-hui/fidget.nvim.git
-[submodule "3rd/pack/external/opt/undotree"]
-	path = 3rd/pack/external/opt/undotree
-	url = git@github.com:mbbill/undotree.git
-[submodule "3rd/pack/external/opt/editorconfig.nvim"]
-	path = 3rd/pack/external/opt/editorconfig.nvim
-	url = git@github.com:gpanders/editorconfig.nvim.git

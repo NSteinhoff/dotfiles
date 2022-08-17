@@ -3,7 +3,7 @@ command! -range Blame echo join(git#blame(<line1>, <line2>), "\n")
 command! ShowBlame call git#blame_on()
 command! NoShowBlame call git#blame_off()
 
-" Regenerate the git ctags kept under .git/tags
+" Regenerate the git ctags
 command! Ctags if finddir('.git', ';') != ''
     \| call jobstart(['git', 'ctags']) | else
     \| echo "'".getcwd()."' is not a git repository. Can only run Ctags from within a git repository." | endif
