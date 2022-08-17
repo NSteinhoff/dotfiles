@@ -1,5 +1,5 @@
 if get(g:, 'loaded_showmarks')|finish|endif
-" let g:loaded_showmarks = 1
+let g:loaded_showmarks = 1
 
 let s:sign_group = 'marks'
 let s:signs = split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', '\ze')
@@ -7,10 +7,9 @@ let s:signs = map(s:signs, {_, v -> "'"..v})
 call sign_define(map(copy(s:signs), { i, v -> {'name': v, 'text': v, 'texthl': 'Special'} }))
 
 function s:marks()
-    let global = filter(getmarklist(), {_, v -> index(s:signs, v.mark) != -1 && v.pos[0] == bufnr()})
-    let local = filter(getmarklist(''), {_, v -> index(s:signs, v.mark) != -1})
-    let marks = local + global
-    let marks = map(marks, { _, v -> {'mark': v.mark, 'line': v.pos[1], 'col': v.pos[2]}})
+    let global = getmarklist()->filter({_, v -> index(s:signs, v.mark) != -1 && v.pos[0] == bufnr()})
+    let local = getmarklist('')->filter({_, v -> index(s:signs, v.mark) != -1})
+    let marks = (local + global)->map({ _, v -> {'mark': v.mark, 'line': v.pos[1], 'col': v.pos[2]}})
     return marks
 endfunction
 
