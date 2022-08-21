@@ -14,10 +14,10 @@ function M.on_attach(client)
     vim.cmd([[inoremap <silent> <buffer> <c-h>        <cmd>lua vim.lsp.buf.signature_help()<CR>]])
 
     -- Jump to symbols
-    vim.cmd([[nnoremap <silent> <buffer> gd           <cmd>lua vim.lsp.buf.definition()<CR>]])
-    vim.cmd([[nnoremap <silent> <buffer> gD           <cmd>lua vim.lsp.buf.declaration()<CR>]])
-    vim.cmd([[nnoremap <silent> <buffer> gi           <cmd>lua vim.lsp.buf.implementation()<CR>]])
-    vim.cmd([[nnoremap <silent> <buffer> gy           <cmd>lua vim.lsp.buf.type_definition()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> gd           mZ<cmd>lua vim.lsp.buf.definition()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> gD           mZ<cmd>lua vim.lsp.buf.declaration()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> gi           mZ<cmd>lua vim.lsp.buf.implementation()<CR>]])
+    vim.cmd([[nnoremap <silent> <buffer> gy           mZ<cmd>lua vim.lsp.buf.type_definition()<CR>]])
 
     -- Listing symbols
     vim.cmd([[nnoremap <silent> <buffer> gr           mZ<cmd>lua vim.lsp.buf.references()<CR>]])

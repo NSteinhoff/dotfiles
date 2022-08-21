@@ -115,10 +115,10 @@ packadd! my-git                                 " Git utilities (bloated): Show 
 packadd! my-quickfix                            " Quickfix niceties, mostly limited to quickfix windows
 packadd! my-statusline
 packadd! my-tabline
+packadd! my-marks                               " Show marks in the gutter
 " packadd! my-filefinder                          " Start simple file finder with :ff
 " packadd! my-zettelkasten                        " Note-taking
-" packadd! my-marks                               " Show marks in the gutter
-" packadd! my-treesitter                          " Language aware highlighting
+packadd! my-treesitter                          " Language aware highlighting
 "}}}
 
 "{{{ Third Party

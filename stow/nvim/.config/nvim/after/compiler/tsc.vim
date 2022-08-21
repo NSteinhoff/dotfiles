@@ -7,6 +7,7 @@ let rootrcfile = !empty(gitroot) ? findfile('tsconfig.json', fnamemodify(gitroot
 let rcfile = empty(rootrcfile) ? findfile('tsconfig.json', ".;$HOME,;$HOME") : rootrcfile
 " let rcfile = findfile('tsconfig.json', ".;$HOME,;$HOME")
 if rcfile == ''
+    CompilerSet makeprg=npx\ tsc\ --noEmit\ $*\ %
     finish
 endif
 

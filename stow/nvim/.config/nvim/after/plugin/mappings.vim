@@ -203,8 +203,8 @@ nnoremap <leader>e <cmd>Explore<cr>
 nnoremap <leader>f <cmd>FileFinder<cr>
 
 " Grep
-nnoremap <leader>g :silent grep! <c-r>=expand("<cword>")<cr>
-vnoremap <leader>g y:silent grep! <c-r>=shellescape(@")<cr>
+nnoremap <leader>g :silent grep! <c-r>=expand("<cword>")<cr><cr>
+vnoremap <leader>g y:silent grep! <c-r>=shellescape(@")<cr><cr>
 "}}}
 
 "{{{ (c): Changes / Diffing

@@ -25,7 +25,7 @@ Session.vim
 Sessionx.vim
 
 # VSCode utility files
-*.vscode/
+.vscode/settings.json
 *.code-workspace
 
 # Error files (compiler errors)

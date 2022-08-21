@@ -23,6 +23,8 @@ return function(config)
             client.server_capabilities.documentFormattingProvider = false
 
             config.on_attach(client, ...)
+
+            vim.bo.formatexpr = ""
         end,
     }
 
