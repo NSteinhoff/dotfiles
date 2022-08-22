@@ -1,18 +1,9 @@
 require("nvim-treesitter.configs").setup({
-    -- ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    ensure_installed = "all",
     sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
-    ignore_install = {}, -- List of parsers to ignore installing
-    highlight = {
-        enable = true, -- false will disable the whole extension
-        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-        -- Using this option may slow down your editor, and you may see some duplicate highlights.
-        -- Instead of true it can also be a list of languages
-        additional_vim_regex_highlighting = false,
-    },
-    indent = {
-        enabled = false,
-    },
+    ignore_install = {"phpdoc"},
+    highlight = { enable = true },
+    indent = { enabled = false },
     incremental_selection = {
         enable = false,
         keymaps = {
@@ -22,9 +13,8 @@ require("nvim-treesitter.configs").setup({
             node_decremental = "<leader>gmn",
         },
     },
-    context_commentstring = {
-        enable = true,
-    },
+    context_commentstring = { enable = true },
+    rainbow = { enable = false },
     textobjects = {
         move = {
             enable = true,
@@ -70,6 +60,7 @@ require("nvim-treesitter.configs").setup({
         },
     },
     refactor = {
+        enable = false,
         highlight_definitions = { enable = false },
         highlight_current_scope = { enable = false },
         navigation = {
@@ -79,8 +70,5 @@ require("nvim-treesitter.configs").setup({
                 list_definitions_toc = "gO",
             },
         },
-    },
-    rainbow = {
-        enable = false,
     },
 })

@@ -12,12 +12,6 @@ function s:path_sort()
         let grouped[suffix] = add(get(grouped, suffix, []), line)
     endfor
 
-    " for [m, ls] in items(grouped)
-    "     echo 'Suffix: '..m
-    "     echo '- '..join(ls, "\n- ")
-    "     echo "\n"
-    " endfor
-
     let lnum = 1
     if has_key(grouped, '/')
         let dirs = remove(grouped, '/')
