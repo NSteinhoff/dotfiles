@@ -9,6 +9,14 @@ autocmd CmdwinEnter * nnoremap <buffer> <c-p> <c-p>
 augroup END
 "}}}
 
+"{{{ Open Settings
+nnoremap <leader>,, <cmd>edit $MYVIMRC<cr>
+nnoremap <leader>,m <cmd>EditPlugin mappings<cr>
+nnoremap <leader>,f <cmd>EditFtplugin<cr>
+nnoremap <leader>,i <cmd>EditIndent<cr>
+nnoremap <leader>,c <cmd>EditColorscheme<cr>
+"}}}
+
 "{{{ <leader> / Wildchar
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
 let mapleader = '\'
@@ -195,17 +203,12 @@ nnoremap <leader>b :call buffers#recent()<cr>:buffer<space>
 nnoremap <leader>s :call buffers#recent()<cr>:sbuffer<space>
 nnoremap <leader>v :call buffers#recent()<cr>:vert sbuffer<space>
 nnoremap <leader>t :call buffers#recent()<cr>:tab sbuffer<space>
-nnoremap <leader>d :call buffers#recent()<cr>:bdelete<space>
 
-nnoremap <leader>e <cmd>Explore<cr>
+nnoremap <leader>d :call buffers#recent()<cr>:bdelete<space>
+nnoremap <leader>D :call buffers#recent()<cr>:bdelete<c-b>
 
 " Fuzzy Find: <leader>f
 nnoremap <leader>f <cmd>FileFinder<cr>
-
-" Grep
-nnoremap <leader>g :silent grep! <c-r>=expand("<cword>")<cr><cr>
-vnoremap <leader>g y:silent grep! <c-r>=shellescape(@")<cr><cr>
-"}}}
 
 "{{{ (c): Changes / Diffing
 nmap <expr> dp (&diff ? '<cmd>diffput<cr>' : '<cmd>DiffThis<cr>')
@@ -224,10 +227,6 @@ nnoremap <silent> gh <cmd>StealthToggle<cr>
 "{{{ Theme and Colors
 nnoremap <F7> <cmd>silent !toggle-light-dark<cr>
 nnoremap <F8> <cmd>CycleColorNext<cr>
-"}}}
-
-"{{{ TOC / Document symbols based on tags
-nmap gw <cmd>TagToc<cr>
 "}}}
 
 " vim: foldmethod=marker
