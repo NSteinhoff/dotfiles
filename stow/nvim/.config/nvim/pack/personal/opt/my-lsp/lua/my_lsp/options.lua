@@ -1,16 +1,17 @@
-local function on_attach()
-    vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
-    -- 'tagfunc' is now set by default. Disable that!
-    if vim.bo.tagfunc == "v:lua.vim.lsp.tagfunc" then
-        vim.bo.tagfunc = ""
-    end
-end
-
-local function on_detach()
-    vim.bo.omnifunc = ""
-end
+local opts = {
+    omnifunc = "v:lua.vim.lsp.omnifunc",
+    tagfunc = nil, -- force unset to avoid default
+}
 
 return {
-    on_attach = on_attach,
-    on_detach = on_detach,
+    on_attach = function()
+        for opt, val in pairs(opts) do
+            vim.bo[opt] = val
+        end
+    end,
+    on_detach = function()
+        for opt, _ in pairs(opts) do
+            vim.bo[opt] = nil
+        end
+    end,
 }

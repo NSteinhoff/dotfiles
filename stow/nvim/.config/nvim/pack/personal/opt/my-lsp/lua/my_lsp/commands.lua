@@ -1,63 +1,50 @@
 local M = {}
 
+local cmds = {
+    ["LspCodeAction"] = vim.lsp.buf.code_action,
+    ["LspCodeRename"] = vim.lsp.buf.rename,
+    ["LspCodeFormat"] = vim.lsp.buf.format,
+    ["LspListReferences"] = vim.lsp.buf.references,
+    ["LspListDocumentSymbols"] = vim.lsp.buf.document_symbol,
+    ["LspListWorkspaceSymbols"] = vim.lsp.buf.workspace_symbol,
+    ["LspListOutgoingCalls"] = vim.lsp.buf.outgoing_calls,
+    ["LspListIncomingCalls"] = vim.lsp.buf.incoming_calls,
+    ["LspSetLocList"] = vim.diagnostic.setloclist,
+    ["LspSetQfList"] = vim.diagnostic.setqflist,
+    ["LspBufDisableDiagnostics"] = vim.diagnostic.hide,
+    ["LspBufEnableDiagnostics"] = vim.diagnostic.show,
+    ["LspBufStop"] = function()
+        for _, client in pairs(vim.lsp.buf_get_clients(0)) do
+            client.stop()
+        end
+    end,
+    ["LspBufClients"] = function()
+        for _, client in pairs(vim.lsp.buf_get_clients(0)) do
+            print("--- " .. client.name .. " ---")
+            print(vim.inspect(client))
+            print("---")
+        end
+    end,
+    ["LspDetach"] = function() require("my_lsp.commands").detach() end,
+}
+
 function M.on_attach(client)
-    -- Code actions
-    vim.cmd([[command! -buffer LspCodeAction lua vim.lsp.buf.code_action()]])
-    vim.cmd([[command! -buffer LspCodeRename lua vim.lsp.buf.rename()]])
-    vim.cmd([[command! -buffer LspCodeFormat lua vim.lsp.buf.format()]])
-
-    -- Listings
-    vim.cmd([[command! -buffer LspListReferences lua vim.lsp.buf.references()]])
-    vim.cmd([[command! -buffer LspListDocumentSymbols lua vim.lsp.buf.document_symbol()]])
-    vim.cmd([[command! -buffer LspListWorkspaceSymbols lua vim.lsp.buf.workspace_symbol()]])
-    vim.cmd([[command! -buffer LspListOutgoingCalls lua vim.lsp.buf.outgoing_calls()]])
-    vim.cmd([[command! -buffer LspListIncomingCalls lua vim.lsp.buf.incoming_calls()]])
-
-    vim.cmd([[command! -buffer LspSetLocList lua vim.diagnostic.setloclist()]])
-    vim.cmd([[command! -buffer LspSetQfList lua vim.diagnostic.setqflist()]])
-
-    -- Diagnostics
-    vim.cmd([[command! -buffer LspBufDisableDiagnostics lua vim.diagnostic.hide()]])
-    vim.cmd([[command! -buffer LspBufEnableDiagnostics lua vim.diagnostic.show()]])
-
-    -- Clients
-    vim.cmd([[command! -buffer LspBufStop lua for _, client in pairs(vim.lsp.buf_get_clients(0)) do client.stop() end]])
-    vim.cmd([[command! -buffer LspBufClients lua for _, client in pairs(vim.lsp.buf_get_clients(0)) do print("--- "..client.name.." ---") print(vim.inspect(client)) print("---") end]])
-    vim.cmd([[command! -buffer LspDetach lua require("my_lsp.commands").detach()]])
-end
-
-function M.detach()
-    vim.cmd([[LspStop]])
-
-    require("my_lsp.commands").on_detach()
-    require("my_lsp.mappings").on_detach()
-    require("my_lsp.options").on_detach()
+    for name, cmd in pairs(cmds) do
+        vim.api.nvim_buf_create_user_command(0, name, cmd, {})
+    end
 end
 
 function M.on_detach()
-    -- Code actions
-    vim.cmd([[delcommand LspCodeAction]])
-    vim.cmd([[delcommand LspCodeRename]])
-    vim.cmd([[delcommand LspCodeFormat]])
+    for name, _ in pairs(cmds) do
+        vim.api.nvim_buf_del_user_command(0, name)
+    end
+end
 
-    -- Listings
-    vim.cmd([[delcommand LspListReferences]])
-    vim.cmd([[delcommand LspListDocumentSymbols]])
-    vim.cmd([[delcommand LspListWorkspaceSymbols]])
-    vim.cmd([[delcommand LspListOutgoingCalls]])
-    vim.cmd([[delcommand LspListIncomingCalls]])
-
-    vim.cmd([[delcommand LspSetLocList]])
-    vim.cmd([[delcommand LspSetQfList]])
-
-    -- Diagnostics
-    vim.cmd([[delcommand LspBufEnableDiagnostics]])
-    vim.cmd([[delcommand LspBufDisableDiagnostics]])
-
-    -- Clients
-    vim.cmd([[delcommand LspBufStop]])
-    vim.cmd([[delcommand LspBufClients]])
-    vim.cmd([[delcommand LspDetach]])
+function M.detach()
+    vim.cmd.LspBufStop()
+    require("my_lsp.commands").on_detach()
+    require("my_lsp.mappings").on_detach()
+    require("my_lsp.options").on_detach()
 end
 
 return M
