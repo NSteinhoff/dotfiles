@@ -5,7 +5,7 @@ colorscheme minimal
 "}}}
 
 "{{{ Appearance
-set cmdheight=1
+set cmdheight=0
 set inccommand=split
 set showmode
 set number
@@ -16,6 +16,8 @@ set fillchars=eob:~
 set signcolumn=number
 set shortmess+=s
 set concealcursor=n
+set laststatus=2
+set showtabline=1
 "}}}
 
 "{{{ Behavior
@@ -28,6 +30,7 @@ set foldmethod=indent
 set foldlevelstart=99                           " start with all folds opened
 set foldcolumn=0
 set mouse=nv                                    " enable mouse in normal and visual mode
+set mousemodel=extend
 set ignorecase                                  " ignore case in searches ...
 set smartcase                                   " ... unless it includes capital letters
 set tagcase=match                               " ... but match case in :tag searches
@@ -110,7 +113,7 @@ if exists('$GIT_INDEX_FILE') | finish | endif
 packloadall                                     " load all default packages in 'start'
 
 "{{{ Personal
-packadd! my-lsp                                 " Language Server configurations
+packadd my-lsp                                 " Language Server configurations
 packadd! my-git                                 " Git utilities (bloated): Show diff with :dd
 packadd! my-quickfix                            " Quickfix niceties, mostly limited to quickfix windows
 packadd! my-statusline

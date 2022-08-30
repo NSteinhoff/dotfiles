@@ -14,5 +14,3 @@ let &stl .= '%{status#stealth()}'
 let &stl .= '%{status#term()}'
 let &stl .= ' '
 let &stl .= '☰ %l:%c | %p%%'
-
-set laststatus=2

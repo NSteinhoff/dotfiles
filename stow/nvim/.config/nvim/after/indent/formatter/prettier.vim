@@ -19,6 +19,7 @@ let prettier.= 'prettier'
 let prettier.= ' --stdin-filepath '..(empty(expand('%')) ? s:fakename() : expand('%'))
 let prettier.= ' --config-precedence=prefer-file'
 let prettier.= ' --arrow-parens=avoid'
+let prettier.= ' --trailing-comma=all'
 let prettier.= ' --tab-width='..&sw
 
 let b:formatprg = prettier

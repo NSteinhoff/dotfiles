@@ -1,7 +1,7 @@
 setlocal keywordprg=:Search\ devdocs\ javascript
 
 " Execution
-let b:interpreter = 'node -'
+let b:interpreter = 'node --input-type=module -'
 let b:repl = 'node'
 
 let &l:include='\(^import\s\|^}\).*\sfrom\s\''\zs\.\/\(\w\|[/.-]\)\+\ze'
