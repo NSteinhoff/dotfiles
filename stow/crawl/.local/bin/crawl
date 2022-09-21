@@ -7,7 +7,7 @@ if [[ -x /usr/games/crawl ]]; then
         -rc $HOME/.config/crawl/crawlrc $@
 # Mac OSX / Brew installed Crawl
 elif [[ -x "/Applications/Dungeon Crawl Stone Soup - Console.app/Contents/MacOS/Dungeon Crawl Stone Soup - Console" ]]; then
-    /Applications/Dungeon\ Crawl\ Stone\ Soup\ -\ Console.app/Contents/MacOS/Dungeon\ Crawl\ Stone\ Soup\ -\ Console
+    echo "Launch crawl via the Applications shortcut!"
 else
     echo "Crawl is not installed."
 fi

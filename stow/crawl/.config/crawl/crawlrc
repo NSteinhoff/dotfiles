@@ -60,23 +60,24 @@ autofight_stop = 50
 autofight_warning = 100
 
 
-# Force More Messages
-# ===================
+# Force More Messages / Flash Screen
+# ==================================
 show_more = false
 
 # HP loss
-# force_more_message += HP: \d+/\d+ \(-\d+\).*!+
+flash_screen_message += HP: \d+/\d+ \(-\d+\).*!+
 
 # Statuses
 force_more_message += You feel strangely unstable
-force_more_message += You are (confused|paralysed|sleeping|corroded|poisoned)
-force_more_message += You feel sluggish
+flash_screen_message += You are (confused|paralysed|sleeping|corroded|poisoned)
+flash_screen_message += You feel sluggish
 
 # Threats
-force_more_message += You feel you are being watched by something
 force_more_message += wielding.*(distortion|chaos|electrocution|venom)
 force_more_message += quivering.*tipped darts
 force_more_message += carrying a wand
+flash_screen_message += You feel you are being watched by something
+flash_screen_message += The.*attacks as you move away!
 
 
 # Autoinscriptions

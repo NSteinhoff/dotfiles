@@ -1,1 +1,1 @@
-au BufNewFile,BufRead */.config/git/config.*		setf gitconfig
+autocmd BufFilePost,BufNewFile,BufRead */.config/git/config.* setf gitconfig

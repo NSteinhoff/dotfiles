@@ -20,10 +20,8 @@ iabbrev <buffer> #inc< #include <><left>
 
 command! -buffer -nargs=* CompileAndRun w|make %:r|!./%:r <args>
 
-" Switch between source and header files
-let b:yang =  expand('%:r')..(expand('%') =~ '.c$' ? '.h' : '.c')
-
-let b:interpreter  = 'clang '..$CFLAGS
+let b:interpreter  = 'clang'
+let b:interpreter .= ' -Wall -Wextra -pedantic -Weverything -Wno-declaration-after-statement -Wno-strict-prototypes -Wno-shadow -Wno-padded'
 let b:interpreter .= ' -Wno-error'
 let b:interpreter .= ' -o /tmp/'..expand('%:t:r')
 let b:interpreter .= ' -xc -'

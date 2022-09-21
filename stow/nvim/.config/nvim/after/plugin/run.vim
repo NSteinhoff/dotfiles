@@ -1,1 +1,1 @@
-command! Run call run#interpret()
+command! -nargs=* Run call run#interpret(<f-args>)

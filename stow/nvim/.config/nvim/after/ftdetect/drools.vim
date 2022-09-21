@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead *.drl setf drools
+autocmd BufFilePost,BufNewFile,BufRead *.drl setf drools

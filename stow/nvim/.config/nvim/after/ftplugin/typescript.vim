@@ -24,5 +24,3 @@ command -buffer Run !ts-node %
 if fnamemodify(bufname(), ':p') =~ '.*/node_modules/.*'
     setlocal nobuflisted noswapfile
 endif
-
-let b:yang = ftutils#javascript#get_alt(expand('%'))

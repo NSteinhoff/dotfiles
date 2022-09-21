@@ -6,10 +6,11 @@
 " some-file.{js,ts} <---> some-file.test.{js,ts}
 "                         __tests__/some-file.test.{js,ts}
 function ftutils#javascript#get_alt(path)
-    let is_test = a:path =~ '\.test\.'..fnamemodify(a:path, ':e')..'$'
+    let path = fnamemodify(a:path, ':p')
+    let is_test = path =~ '\.test\.'..fnamemodify(path, ':e')..'$' || path =~ '__tests__'
 
-    let dir = fnamemodify(a:path, ':h')
-    let tail = fnamemodify(a:path, ':t')
+    let dir = fnamemodify(path, ':h')
+    let tail = fnamemodify(path, ':t')
     let name = fnamemodify(tail, ':r'..(is_test ? ':r' : ''))
     let ext = fnamemodify(tail, ':e')
 

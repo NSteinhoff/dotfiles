@@ -29,3 +29,11 @@ function buffers#yang()
         echo "No yang to this yin."
     endif
 endfunction
+
+function buffers#pos(pos) abort
+    let nums = getbufinfo({'buflisted': 1})->map({ _, b -> b.bufnr })
+    if a:pos > len(nums)
+        return
+    endif
+    execute 'buffer '..nums[a:pos - 1]
+endfunction

@@ -9,6 +9,9 @@ autocmd CmdwinEnter * nnoremap <buffer> <c-p> <c-p>
 augroup END
 "}}}
 
+" Execute script
+nnoremap <cr> <cmd>w<bar>Run<cr>
+
 "{{{ Open Settings
 nnoremap <leader>,, <cmd>edit $MYVIMRC<cr>
 nnoremap <leader>,m <cmd>EditPlugin mappings<cr>
@@ -38,6 +41,7 @@ nnoremap <space> za
 " Yank to clipboard with "" (Why would I ever explicitly need to target
 " the unnamed register anyways?)
 noremap "" "+
+nnoremap "? <cmd>registers<cr>
 
 " Close all folds but show the cursorline
 nnoremap zV <cmd>normal zMzv<cr>
@@ -50,8 +54,8 @@ vnoremap Q :normal @q<cr>
 vnoremap . :normal .<cr>
 
 " Move over visual lines unless a count is given
-nnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
-nnoremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+" nnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+" nnoremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
 
 " Move over sections
 " Taken from `help section`
@@ -198,7 +202,7 @@ nmap gO <cmd>TagToc<cr>
 "}}}
 
 "{{{ Leader mappings
-" Buffer Switching
+"{{{ Buffer Switching
 nnoremap <leader>b :call buffers#recent()<cr>:buffer<space>
 nnoremap <leader>s :call buffers#recent()<cr>:sbuffer<space>
 nnoremap <leader>v :call buffers#recent()<cr>:vert sbuffer<space>
@@ -206,6 +210,16 @@ nnoremap <leader>t :call buffers#recent()<cr>:tab sbuffer<space>
 
 nnoremap <leader>d :call buffers#recent()<cr>:bdelete<space>
 nnoremap <leader>D :call buffers#recent()<cr>:bdelete<c-b>
+nnoremap <leader>1 <cmd>call buffers#pos(1)<cr>
+nnoremap <leader>2 <cmd>call buffers#pos(2)<cr>
+nnoremap <leader>3 <cmd>call buffers#pos(3)<cr>
+nnoremap <leader>4 <cmd>call buffers#pos(4)<cr>
+nnoremap <leader>5 <cmd>call buffers#pos(5)<cr>
+nnoremap <leader>6 <cmd>call buffers#pos(6)<cr>
+nnoremap <leader>7 <cmd>call buffers#pos(7)<cr>
+nnoremap <leader>8 <cmd>call buffers#pos(8)<cr>
+nnoremap <leader>9 <cmd>call buffers#pos(9)<cr>
+"}}}
 
 " Fuzzy Find: <leader>f
 nnoremap <leader>f <cmd>FileFinder<cr>

@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead *.lox setf lox
+autocmd BufFilePost,BufNewFile,BufRead *.lox setf lox

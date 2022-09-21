@@ -5,7 +5,8 @@ colorscheme minimal
 "}}}
 
 "{{{ Appearance
-set cmdheight=0
+set noshowcmd
+set cmdheight=1
 set inccommand=split
 set showmode
 set number
@@ -24,7 +25,6 @@ set showtabline=1
 set ttimeoutlen=25
 set noswapfile
 set updatetime=250
-set lazyredraw
 set foldenable
 set foldmethod=indent
 set foldlevelstart=99                           " start with all folds opened
@@ -103,17 +103,19 @@ let g:diff_translations = 0
 set keywordprg=:Search\ ddg
 "}}}
 
+"{{{ Prefer C over C++ for header files
+let g:c_syntax_for_h = 1
+"}}}
+
 "}}}
 
 "{{{ --------------------------------- Plugins -----------------------------------
-
 " Stop here when runnign as git editor
 if exists('$GIT_INDEX_FILE') | finish | endif
-
-packloadall                                     " load all default packages in 'start'
+packadd packer                                  " Package utilities and paths
 
 "{{{ Personal
-packadd my-lsp                                 " Language Server configurations
+packadd my-lsp                                  " Language Server configurations
 packadd! my-git                                 " Git utilities (bloated): Show diff with :dd
 packadd! my-quickfix                            " Quickfix niceties, mostly limited to quickfix windows
 packadd! my-statusline

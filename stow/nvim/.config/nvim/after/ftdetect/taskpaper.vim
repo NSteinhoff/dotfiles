@@ -1,1 +1,1 @@
-autocmd BufRead,BufNewFile *.taskpaper setf taskpaper
+autocmd BufFilePost,BufRead,BufNewFile *.taskpaper setf taskpaper

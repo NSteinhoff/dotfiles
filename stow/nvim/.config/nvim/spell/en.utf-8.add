@@ -122,3 +122,7 @@ AWS
 CloudFormation
 D6
 direnv
+Pathfinding
+WASM
+#ramless
+roguelike
