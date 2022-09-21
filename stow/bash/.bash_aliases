@@ -121,7 +121,7 @@ _complete_tmux() {
 complete -F _complete_tmux tmux
 
 _complete_colorscheme() {
-    COMPREPLY=( $(compgen -W "$(grep -E '^\s*.*:\s&.*$' $HOME/.config/alacritty/colors.yml | cut -d \& -f 2)" $2) )
+    COMPREPLY=( $(compgen -W "$(colorscheme -l)" $2) )
 }
 complete -F _complete_colorscheme colorscheme
 
@@ -147,7 +147,7 @@ export ZETTELKASTEN=~/Dropbox/Zettel
 
 # --------------------------- C Compilation ---------------------------------
 # export CC=clang
-export CFLAGS="${CFLAGS:+${CFLAGS} }-Wall -Werror -Wextra -pedantic -Weverything -Wno-declaration-after-statement -Wno-strict-prototypes -Wno-shadow -Wno-padded"
+# export CFLAGS="${CFLAGS:+${CFLAGS} }-Wall -Werror -Wextra -pedantic -Weverything -Wno-declaration-after-statement -Wno-strict-prototypes -Wno-shadow -Wno-padded"
 # export LDFLAGS="${LDFLAGS:+${LDFLAGS} }"
 # export LDLIBS="${LDLIBS:+${LDLIBS} }"
 

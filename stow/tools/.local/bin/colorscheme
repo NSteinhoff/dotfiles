@@ -16,6 +16,11 @@ available() {
 colors=$(grep -E '^\s*.*:\s&.*$' "$config" | cut -d \& -f 2)
 color=$(grep -E '^colors:\s\*.*$' "$config" | cut -d \* -f 2)
 
+if [[ $1 == -l || $1 == --list ]]; then
+    for c in $colors; do echo $c; done
+    exit 0;
+fi
+
 echo "Colorscheme: $color"
 
 [ $# == 1 ] && selected="$1"
