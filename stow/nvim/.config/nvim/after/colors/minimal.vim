@@ -64,15 +64,15 @@ highlight DiffDelete                   cterm=NONE                   ctermfg=1   
 highlight DiffText                     cterm=underline              ctermfg=13    ctermbg=NONE  guifg=LightMagenta  guibg=NONE
 "}}}
 
-"{{{ Statusline
+"{{{ Status line
 highlight StatusLine                   cterm=NONE                   ctermfg=0     ctermbg=4     guifg=Black         guibg=Red
-highlight StatusLineFocus              cterm=NONE                   ctermfg=4     ctermbg=15    guifg=Red           guibg=White
 highlight StatusLineNC                 cterm=NONE                   ctermfg=4     ctermbg=8     guifg=Red           guibg=DarkGray
+highlight StatusLineFocus              cterm=NONE                   ctermfg=4     ctermbg=15    guifg=Red           guibg=White
 highlight StatusLineTerm               cterm=NONE                   ctermfg=0     ctermbg=13    guifg=Black         guibg=LightMagenta
 highlight StatusLineTermNC             cterm=NONE                   ctermfg=4     ctermbg=8     guifg=Red           guibg=DarkGray
 "}}}
 
-"{{{ Tabline
+"{{{ Tab line
 highlight TabLine                      cterm=underline              ctermfg=NONE  ctermbg=NONE  guifg=NONE          guibg=NONE
 highlight TabLineDirectory             cterm=underline              ctermfg=12    ctermbg=NONE  guifg=LightRed      guibg=NONE
 highlight TabLineFill                  cterm=underline              ctermfg=8     ctermbg=NONE  guifg=DarkGray      guibg=NONE
@@ -81,6 +81,12 @@ highlight TabLineNotice                cterm=underline              ctermfg=1   
 highlight TabLineSel                   cterm=italic,bold,underline  ctermfg=15    ctermbg=NONE  guifg=White         guibg=NONE
 "}}}
 
+"{{{ Win bar
+highlight WinBar                       cterm=NONE                   ctermfg=0     ctermbg=4     guifg=Black         guibg=Red
+highlight WinBarNC                     cterm=NONE                   ctermfg=4     ctermbg=8     guifg=Red           guibg=DarkGray
+"}}}
+
+
 "{{{ Searching/Matches
 highlight IncSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=5     guifg=NONE          guibg=Magenta
 highlight MatchParen                   cterm=NONE                   ctermfg=5     ctermbg=NONE  guifg=Magenta       guibg=NONE
@@ -88,7 +94,7 @@ highlight Search                       cterm=bold,underline         ctermfg=NONE
 "}}}
 
 "{{{ Syntax
-highlight Comment                      cterm=italic                   ctermfg=8     ctermbg=NONE  guifg=DarkGray      guibg=NONE
+highlight Comment                      cterm=italic                 ctermfg=8     ctermbg=NONE  guifg=DarkGray      guibg=NONE
 highlight Constant                     cterm=NONE                   ctermfg=3     ctermbg=NONE  guifg=Cyan          guibg=NONE
 highlight Define                       cterm=NONE                   ctermfg=9     ctermbg=NONE  guifg=LightBlue     guibg=NONE
 highlight Delimiter                    cterm=bold                   ctermfg=12    ctermbg=NONE  guifg=LightRed      guibg=NONE

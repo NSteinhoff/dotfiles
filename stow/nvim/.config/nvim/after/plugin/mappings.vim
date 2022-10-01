@@ -194,8 +194,8 @@ nmap <c-w><c-t> <c-w>t
 " nnoremap <c-p> gT
 
 " Grep, i.e. poor man's 'go-to-reference'
-nmap <silent> gr :silent grep! <c-r><c-w><cr>
-vmap <silent> gr y:silent grep! <c-r>"<cr>
+nnoremap <silent> gr :silent grep! <c-r><c-w><cr>
+vnoremap <silent> gr y:silent grep! <c-r>"<cr>
 
 " Outline
 nmap gO <cmd>TagToc<cr>
@@ -210,15 +210,9 @@ nnoremap <leader>t :call buffers#recent()<cr>:tab sbuffer<space>
 
 nnoremap <leader>d :call buffers#recent()<cr>:bdelete<space>
 nnoremap <leader>D :call buffers#recent()<cr>:bdelete<c-b>
-nnoremap <leader>1 <cmd>call buffers#pos(1)<cr>
-nnoremap <leader>2 <cmd>call buffers#pos(2)<cr>
-nnoremap <leader>3 <cmd>call buffers#pos(3)<cr>
-nnoremap <leader>4 <cmd>call buffers#pos(4)<cr>
-nnoremap <leader>5 <cmd>call buffers#pos(5)<cr>
-nnoremap <leader>6 <cmd>call buffers#pos(6)<cr>
-nnoremap <leader>7 <cmd>call buffers#pos(7)<cr>
-nnoremap <leader>8 <cmd>call buffers#pos(8)<cr>
-nnoremap <leader>9 <cmd>call buffers#pos(9)<cr>
+for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    execute 'nnoremap <leader>'.i.' <cmd>call buffers#pos('.i.')<cr>'
+endfor
 "}}}
 
 " Fuzzy Find: <leader>f

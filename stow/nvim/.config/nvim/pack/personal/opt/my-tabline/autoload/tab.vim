@@ -59,7 +59,7 @@ endfunction
 
 function! tab#highlights(n)
     if a:n != tabpagenr() && getcwd(-1, a:n) != getcwd(-1, 0)
-        return '%#TablineDirectory#'
+        return '%#TabLineDirectory#'
     else
         return a:n == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
     endif
@@ -70,7 +70,7 @@ function! tab#tabs()
     for i in range(1, tabpagenr('$'))
         if i > 1|let s .= '|'|endif
         let s .= '%'..i..'T '
-        let s .= '%#TablineFocus#'
+        let s .= '%#TabLineFocus#'
         let s .= tab#indicator(i)
         let s .= tab#highlights(i)
         let s .= ' '..tab#label(i)
@@ -87,7 +87,7 @@ function! tab#line()
     let s .= tab#tabs()
     let s .= '%#TabLineFill#'
     let s .= '%='
-    let s .= '%#TablineFocus#'
+    let s .= '%#TabLineFocus#'
     let s .= tab#cwd()
     return s
 endfunction
