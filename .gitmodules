@@ -35,3 +35,6 @@
 [submodule "3rd/pack/external/opt/editorconfig.nvim"]
 	path = 3rd/pack/external/opt/editorconfig.nvim
 	url = git@github.com:gpanders/editorconfig.nvim.git
+[submodule "3rd/pack/external/opt/nvim-dap"]
+	path = 3rd/pack/external/opt/nvim-dap
+	url = git@github.com:mfussenegger/nvim-dap.git
