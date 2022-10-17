@@ -2,7 +2,9 @@ require("nvim-treesitter.configs").setup({
     ensure_installed = "all",
     sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
     ignore_install = {"phpdoc"},
-    highlight = { enable = true },
+    highlight = {
+        enable = true,
+    },
     indent = { enabled = false },
     incremental_selection = {
         enable = false,

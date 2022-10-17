@@ -47,6 +47,7 @@
 	keepBackup = false
 
 [include]
+	path = ~/.config/git/config.advice
 	path = ~/.config/git/config.alias
 	path = ~/.config/git/config.nvim
 	path = ~/.config/git/config.delta

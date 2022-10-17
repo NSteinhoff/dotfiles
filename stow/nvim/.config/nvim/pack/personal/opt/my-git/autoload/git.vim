@@ -10,7 +10,7 @@ endfunction
 
 function s:temp_buffer(lines, name, filetype, ...)
     let options = a:0 ? a:1 : {}
-    let name = escape(a:name, '"#%')
+    let name = 'my-git://'..escape(a:name, '"#%')
     let bufnr = bufnr('^'..name..'$')
     if bufnr > 0
         " execute 'buffer '..bufnr

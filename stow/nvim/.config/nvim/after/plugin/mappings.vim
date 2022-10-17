@@ -181,7 +181,7 @@ cnoremap <m-b> <s-left>
 cnoremap <m-f> <s-right>
 
 " Switch to alternative buffer
-nmap <bs> <c-^>
+" nmap <bs> <c-^>
 nnoremap <c-^> <cmd>call buffers#alternative()<cr>
 nnoremap <leader>a <cmd>call buffers#yang()<cr>
 

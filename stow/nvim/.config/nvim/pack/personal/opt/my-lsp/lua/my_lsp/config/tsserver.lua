@@ -12,10 +12,19 @@ return function(config)
             local lsputil = require("lspconfig/util")
             local git_root = lsputil.find_git_ancestor(fname)
 
-            if git_root and lsputil.path.is_file(lsputil.path.join(git_root, "tsconfig.json")) then
+            if
+                git_root
+                and lsputil.path.is_file(
+                    lsputil.path.join(git_root, "tsconfig.json")
+                )
+            then
                 return git_root
             else
-                return lsputil.root_pattern("tsconfig.json", "package.json", ".git")(fname)
+                return lsputil.root_pattern(
+                    "tsconfig.json",
+                    "package.json",
+                    ".git"
+                )(fname)
             end
         end,
 
@@ -26,6 +35,12 @@ return function(config)
 
             vim.bo.formatexpr = ""
         end,
+
+        init_options = {
+            preferences = {
+                disableSuggestions = true,
+            },
+        },
     }
 
     lspconfig["tsserver"].setup(vim.tbl_extend("keep", override, config))

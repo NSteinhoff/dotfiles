@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead GREP setf livegrep
+autocmd BufNewFile,BufRead livegrep://* setf livegrep

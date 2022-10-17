@@ -88,9 +88,10 @@ highlight WinBarNC                     cterm=NONE                   ctermfg=4   
 
 
 "{{{ Searching/Matches
-highlight IncSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=5     guifg=NONE          guibg=Magenta
-highlight MatchParen                   cterm=NONE                   ctermfg=5     ctermbg=NONE  guifg=Magenta       guibg=NONE
 highlight Search                       cterm=bold,underline         ctermfg=NONE  ctermbg=NONE  guifg=NONE          guibg=NONE
+highlight IncSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=5     guifg=NONE          guibg=Magenta
+highlight CurSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=5     guifg=NONE          guibg=Magenta
+highlight MatchParen                   cterm=NONE                   ctermfg=5     ctermbg=NONE  guifg=Magenta       guibg=NONE
 "}}}
 
 "{{{ Syntax

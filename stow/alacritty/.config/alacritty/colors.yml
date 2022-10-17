@@ -492,4 +492,4 @@ themes:
       cyan:    '#96d0ff'
       white:   '#adbac7'
 
-colors: *one-light
+colors: *one-dark

@@ -1,5 +1,5 @@
 command! -nargs=? -bang LiveGrep execute
-            \ (empty(getbufinfo('^GREP$')) ? 'edit GREP' : 'buffer ^GREP$')
+            \ (empty(getbufinfo('^livegrep://'..getcwd()..'$')) ? 'edit livegrep://'..getcwd() : 'buffer ^livegrep://'..getcwd()..'$')
             \| if !empty(<q-args>) || <bang>0 || empty(getline(1))
             \| call setline(1, <q-args>) | 1 | doau TextChanged
             \| endif

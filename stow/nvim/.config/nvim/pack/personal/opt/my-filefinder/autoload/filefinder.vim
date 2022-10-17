@@ -58,7 +58,7 @@ function filefinder#start(pattern)
         return
     endif
 
-    edit FILES
+    execute 'edit filefinder://'..getcwd()
     augroup file-finder
         autocmd!
         autocmd TextChanged,TextChangedI <buffer> call filefinder#update()
