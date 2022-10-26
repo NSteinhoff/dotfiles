@@ -5,5 +5,3 @@ augroup buffers
 augroup END
 
 command A call buffers#yang()
-command -nargs=1 -complete=file Rename saveas <args> | silent bd # | silent !rm #
-command Remove bd | silent !rm #

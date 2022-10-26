@@ -27,6 +27,9 @@
 [pull]
 	ff = only
 
+[push]
+	useForceIfIncludes = true
+
 [diff]
 	tool = nvimdiff
 	colorMoved = false
@@ -46,8 +49,10 @@
 	trustExitCode = true
 	keepBackup = false
 
+[advice]
+	skippedCherryPicks = true
+
 [include]
-	path = ~/.config/git/config.advice
 	path = ~/.config/git/config.alias
 	path = ~/.config/git/config.nvim
 	path = ~/.config/git/config.delta

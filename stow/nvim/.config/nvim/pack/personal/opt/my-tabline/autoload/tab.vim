@@ -1,8 +1,14 @@
 function! tab#label(n)
     if a:n != tabpagenr() && getcwd(-1, a:n) != getcwd(-1, 0)
         " Inactive tabs
-        let cwd = substitute(fnamemodify(getcwd(-1, a:n), ":."), $HOME, '~', '')
-        let cwd = cwd == '~' ? '~' : cwd
+
+        let gcwd = fnamemodify(getcwd(-1, -1), ":.")
+        let tcwd = fnamemodify(getcwd(-1, a:n), ":.")
+        " Make tab paths relative to global working directory
+        let cwd = substitute(tcwd, gcwd, gcwd == $HOME ? '~' : '.', '')
+        " If it's outside the global working directory, just abbreviate $HOME
+        let cwd = substitute(cwd, $HOME, '~', '')
+
         return pathshorten(cwd)..'/'
     else
         " Active tab
@@ -20,11 +26,10 @@ function! tab#label(n)
             let windir = fnamemodify(getcwd(), ':p')
             return '>_ '..(procdir == windir ? '' : directory..':')..fnamemodify(cmd, ':t')
         else
-            if name =~ '/$'
-                return fnamemodify(name, ':h:t')..'/'
-            else
-                return fnamemodify(name, ':t')
-            end
+            let label = name =~ '/$'
+                \ ? fnamemodify(name, ':h:t')..'/'
+                \ : fnamemodify(name, ':t')
+            return a:n != tabpagenr() ? label : '[' .. label .. ']'
         endif
     endif
 endfunction

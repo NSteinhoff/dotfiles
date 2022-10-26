@@ -22,6 +22,18 @@ upstream_branch() {
     echo -n "$upstream"
 }
 
+detached_head() {
+    detached=$(git status 2>/dev/null | grep '^HEAD detached ')
+    if [ -n "$detached" ]
+    then
+        echo -en "\033[1;31m"
+        echo -n " $detached"
+        echo -en "\033[0m"
+        return 0
+    fi
+    return 1
+}
+
 branch_status() {
     status=$(
         git status 2>/dev/null |
@@ -38,8 +50,9 @@ branch_status() {
 }
 
 main() {
-    branch=$(branch_name) || return 0
-    [ -n "$branch" ] || return 1
+    detached_head           && return 0
+    branch=$(branch_name)   || return 0
+    [ -n "$branch" ]        || return 1
 
     upstream=$(upstream_branch)
     if [ -n "$upstream" ]; then

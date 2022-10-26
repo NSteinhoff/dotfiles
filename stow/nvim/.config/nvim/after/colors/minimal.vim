@@ -76,9 +76,9 @@ highlight StatusLineTermNC             cterm=NONE                   ctermfg=4   
 highlight TabLine                      cterm=underline              ctermfg=NONE  ctermbg=NONE  guifg=NONE          guibg=NONE
 highlight TabLineDirectory             cterm=underline              ctermfg=12    ctermbg=NONE  guifg=LightRed      guibg=NONE
 highlight TabLineFill                  cterm=underline              ctermfg=8     ctermbg=NONE  guifg=DarkGray      guibg=NONE
-highlight TabLineFocus                 cterm=underline              ctermfg=4     ctermbg=NONE  guifg=Red           guibg=NONE
+highlight TabLineFocus                 cterm=underline              ctermfg=3     ctermbg=NONE  guifg=Red           guibg=NONE
 highlight TabLineNotice                cterm=underline              ctermfg=1     ctermbg=NONE  guifg=Blue          guibg=NONE
-highlight TabLineSel                   cterm=italic,bold,underline  ctermfg=15    ctermbg=NONE  guifg=White         guibg=NONE
+highlight TabLineSel                   cterm=bold,underline         ctermfg=15    ctermbg=NONE  guifg=White         guibg=NONE
 "}}}
 
 "{{{ Win bar

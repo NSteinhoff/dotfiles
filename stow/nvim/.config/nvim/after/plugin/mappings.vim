@@ -181,7 +181,7 @@ cnoremap <m-b> <s-left>
 cnoremap <m-f> <s-right>
 
 " Switch to alternative buffer
-" nmap <bs> <c-^>
+nmap <bs> <c-^>
 nnoremap <c-^> <cmd>call buffers#alternative()<cr>
 nnoremap <leader>a <cmd>call buffers#yang()<cr>
 
@@ -210,13 +210,32 @@ nnoremap <leader>t :call buffers#recent()<cr>:tab sbuffer<space>
 
 nnoremap <leader>d :call buffers#recent()<cr>:bdelete<space>
 nnoremap <leader>D :call buffers#recent()<cr>:bdelete<c-b>
-for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    execute 'nnoremap <leader>'.i.' <cmd>call buffers#pos('.i.')<cr>'
-endfor
+" for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
+"     execute 'nnoremap <leader>'.i.' <cmd>call buffers#pos('.i.')<cr>'
+" endfor
 "}}}
+
+" Cycle buffers and tabs with META
+nnoremap <m-j> <cmd>bnext<cr>
+nnoremap <m-k> <cmd>bprevious<cr>
+nnoremap <m-h> gT
+nnoremap <m-l> gt
+
+" Scratch buffer
+nnoremap <leader>S <cmd>Scratch<cr>
+
+" Journal
+nnoremap <leader>J <cmd>Journal<cr>G
 
 " Fuzzy Find: <leader>f
 nnoremap <leader>f <cmd>FileFinder<cr>
+
+" Switching tabs
+nnoremap <c-\> gt
+nnoremap <m-\> gT
+for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    execute 'nnoremap <leader>'.i.' '.i.'gt'
+endfor
 
 "{{{ (c): Changes / Diffing
 nmap <expr> dp (&diff ? '<cmd>diffput<cr>' : '<cmd>DiffThis<cr>')
