@@ -4,7 +4,7 @@ command! ShowBlame call git#blame_on()
 command! NoShowBlame call git#blame_off()
 
 " Regenerate the git ctags
-command! Ctags if finddir('.git', ';') != ''
+command! Ctags if finddir('.git', ';') != '' || findfile('.git', ';') != ''
     \| call jobstart(['git', 'ctags']) | else
     \| echo "'".getcwd()."' is not a git repository. Can only run Ctags from within a git repository." | endif
 
@@ -13,13 +13,6 @@ function s:complete_file_log(arglead, cmdline, cursorpos)
 endfunction
 function s:complete_log(arglead, cmdline, cursorpos)
     return filter(git#log(getcwd()), { _, v -> v =~ a:arglead})
-endfunction
-
-function s:edit_args_msg()
-    if argc() == 1
-        return "Editing the only changed file."
-    endif
-    return "Editing the first of ".argc()." changed files."
 endfunction
 
 function s:log(bang)
