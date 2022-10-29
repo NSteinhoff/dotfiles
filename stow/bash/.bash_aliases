@@ -139,7 +139,7 @@ elif $fancy_prompt; then
 fi
 
 # --------------------------- Directory Shortcuts -----------------------------
-export CDPATH=.:~/Develop:~/Develop/S2  # include the explicit '.' to support bash < 4.2
+export CDPATH=.:~/Develop # include the explicit '.' to support bash < 4.2
 export NOTES_DIR=~/Dropbox/Notes
 export ZETTELKASTEN=~/Dropbox/Zettel
 
@@ -151,3 +151,7 @@ export ZETTELKASTEN=~/Dropbox/Zettel
 
 # ---------------------------- Pandoc CSS Styles ------------------------------
 export PANDOC_CSS="$HOME/.local/styles/markdown.css"
+
+# --------------------------------- Go Path -----------------------------------
+# I don't like go/ cluttering up my home directory
+export GOPATH="$HOME/.local/opt/go"
