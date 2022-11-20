@@ -1,7 +1,7 @@
 #!/bin/bash
 
-[[ -x ~/Develop/crawl/crawl-ref/source/crawl ]] && \
-    cd $HOME/Develop/crawl/crawl-ref/source && \
+[[ -x ~/Develop/Game/crawl/crawl-ref/source/crawl ]] && \
+    cd $HOME/Develop/Game/crawl/crawl-ref/source && \
     ./crawl \
         -dir $HOME/Dropbox/Documents/crawl \
         -rc $HOME/.config/crawl/crawlrc $@ || \

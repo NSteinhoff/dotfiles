@@ -194,7 +194,7 @@ nmap <c-w><c-t> <c-w>t
 " nnoremap <c-p> gT
 
 " Grep, i.e. poor man's 'go-to-reference'
-nnoremap <silent> gr :silent grep! <c-r><c-w><cr>
+nnoremap <silent> gr <cmd>execute "silent grep! '\\b"..expand("<cword>").."\\b'"<cr>
 vnoremap <silent> gr y:silent grep! <c-r>"<cr>
 
 " Outline
@@ -214,12 +214,6 @@ nnoremap <leader>D :call buffers#recent()<cr>:bdelete<c-b>
 "     execute 'nnoremap <leader>'.i.' <cmd>call buffers#pos('.i.')<cr>'
 " endfor
 "}}}
-
-" Cycle buffers and tabs with META
-nnoremap <m-j> <cmd>bnext<cr>
-nnoremap <m-k> <cmd>bprevious<cr>
-nnoremap <m-h> gT
-nnoremap <m-l> gt
 
 " Scratch buffer
 nnoremap <leader>S <cmd>Scratch<cr>

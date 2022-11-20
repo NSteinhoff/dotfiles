@@ -2,7 +2,7 @@ local lspconfig = require("lspconfig")
 
 return function(config)
     local override = {
-        autostart = true,
+        autostart = false,
     }
 
     lspconfig["gopls"].setup(vim.tbl_extend('keep', override, config))

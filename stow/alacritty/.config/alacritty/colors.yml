@@ -442,4 +442,136 @@ themes:
       cyan:    '#96d0ff'
       white:   '#adbac7'
 
-colors: *github
+  harmonic-light: &harmonic-light
+    # Default colors
+    primary:
+      background: '0xf7f9fb'
+      foreground: '0x405c79'
+
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0xf7f9fb'
+      cursor: '0x405c79'
+
+    # Normal colors
+    normal:
+      black:   '0xf7f9fb'
+      red:     '0xbf8b56'
+      green:   '0x56bf8b'
+      yellow:  '0x8bbf56'
+      blue:    '0x8b56bf'
+      magenta: '0xbf568b'
+      cyan:    '0x568bbf'
+      white:   '0x405c79'
+
+    # Bright colors
+    bright:
+      black:   '0xaabcce'
+      red:     '0xbfbf56'
+      green:   '0xe5ebf1'
+      yellow:  '0xcbd6e2'
+      blue:    '0x627e99'
+      magenta: '0x223b54'
+      cyan:    '0xbf5656'
+      white:   '0x0b1c2c'
+
+  horizon-light: &horizon-light
+    # Default colors
+    primary:
+      background: '0xfdf0ed'
+      foreground: '0x403c3d'
+
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0xfdf0ed'
+      cursor: '0x403c3d'
+
+    # Normal colors
+    normal:
+      black:   '0xfdf0ed'
+      red:     '0xf7939b'
+      green:   '0x94e1b0'
+      yellow:  '0xfbe0d9'
+      blue:    '0xda103f'
+      magenta: '0x1d8991'
+      cyan:    '0xdc3318'
+      white:   '0x403c3d'
+
+    # Bright colors
+    bright:
+      black:   '0xbdb3b1'
+      red:     '0xf6661e'
+      green:   '0xfadad1'
+      yellow:  '0xf9cbbe'
+      blue:    '0x948c8a'
+      magenta: '0x302c2d'
+      cyan:    '0xe58c92'
+      white:   '0x201c1d'
+
+  harmonic-dark: &harmonic-dark
+    # Default colors
+    primary:
+      background: '0x0b1c2c'
+      foreground: '0xcbd6e2'
+
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0x0b1c2c'
+      cursor: '0xcbd6e2'
+
+    # Normal colors
+    normal:
+      black:   '0x0b1c2c'
+      red:     '0xbf8b56'
+      green:   '0x56bf8b'
+      yellow:  '0x8bbf56'
+      blue:    '0x8b56bf'
+      magenta: '0xbf568b'
+      cyan:    '0x568bbf'
+      white:   '0xcbd6e2'
+
+    # Bright colors
+    bright:
+      black:   '0x627e99'
+      red:     '0xbfbf56'
+      green:   '0x223b54'
+      yellow:  '0x405c79'
+      blue:    '0xaabcce'
+      magenta: '0xe5ebf1'
+      cyan:    '0xbf5656'
+      white:   '0xf7f9fb'
+
+  horizon-dark: &horizon-dark
+    # Default colors
+    primary:
+      background: '0x1c1e26'
+      foreground: '0xcbced0'
+
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0x1c1e26'
+      cursor: '0xcbced0'
+
+    # Normal colors
+    normal:
+      black:   '0x1c1e26'
+      red:     '0xe93c58'
+      green:   '0xefaf8e'
+      yellow:  '0xefb993'
+      blue:    '0xdf5273'
+      magenta: '0xb072d1'
+      cyan:    '0x24a8b4'
+      white:   '0xcbced0'
+
+    # Bright colors
+    bright:
+      black:   '0x6f6f70'
+      red:     '0xe58d7d'
+      green:   '0x232530'
+      yellow:  '0x2e303e'
+      blue:    '0x9da0a2'
+      magenta: '0xdcdfe4'
+      cyan:    '0xe4a382'
+      white:   '0xe3e6ee'
+
+colors: *harmonic-dark
