@@ -475,39 +475,6 @@ themes:
       cyan:    '0xbf5656'
       white:   '0x0b1c2c'
 
-  horizon-light: &horizon-light
-    # Default colors
-    primary:
-      background: '0xfdf0ed'
-      foreground: '0x403c3d'
-
-    # Colors the cursor will use if `custom_cursor_colors` is true
-    cursor:
-      text: '0xfdf0ed'
-      cursor: '0x403c3d'
-
-    # Normal colors
-    normal:
-      black:   '0xfdf0ed'
-      red:     '0xf7939b'
-      green:   '0x94e1b0'
-      yellow:  '0xfbe0d9'
-      blue:    '0xda103f'
-      magenta: '0x1d8991'
-      cyan:    '0xdc3318'
-      white:   '0x403c3d'
-
-    # Bright colors
-    bright:
-      black:   '0xbdb3b1'
-      red:     '0xf6661e'
-      green:   '0xfadad1'
-      yellow:  '0xf9cbbe'
-      blue:    '0x948c8a'
-      magenta: '0x302c2d'
-      cyan:    '0xe58c92'
-      white:   '0x201c1d'
-
   harmonic-dark: &harmonic-dark
     # Default colors
     primary:
@@ -540,6 +507,39 @@ themes:
       magenta: '0xe5ebf1'
       cyan:    '0xbf5656'
       white:   '0xf7f9fb'
+
+  horizon-light: &horizon-light
+    # Default colors
+    primary:
+      background: '0xfdf0ed'
+      foreground: '0x403c3d'
+
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0xfdf0ed'
+      cursor: '0x403c3d'
+
+    # Normal colors
+    normal:
+      black:   '0xfdf0ed'
+      red:     '0xf7939b'
+      green:   '0x94e1b0'
+      yellow:  '0xfbe0d9'
+      blue:    '0xda103f'
+      magenta: '0x1d8991'
+      cyan:    '0xdc3318'
+      white:   '0x403c3d'
+
+    # Bright colors
+    bright:
+      black:   '0xbdb3b1'
+      red:     '0xf6661e'
+      green:   '0xfadad1'
+      yellow:  '0xf9cbbe'
+      blue:    '0x948c8a'
+      magenta: '0x302c2d'
+      cyan:    '0xe58c92'
+      white:   '0x201c1d'
 
   horizon-dark: &horizon-dark
     # Default colors
@@ -574,4 +574,4 @@ themes:
       cyan:    '0xe4a382'
       white:   '0xe3e6ee'
 
-colors: *harmonic-dark
+colors: *nord
