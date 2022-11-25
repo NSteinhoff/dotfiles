@@ -90,8 +90,8 @@ set shortmess+=c
 
 "{{{ Path and files
 set path=,,.
-set wildignore+=*/target/*
-set wildignore+=*/node_modules/*
+" set wildignore+=*/target/*
+" set wildignore+=*/node_modules/*
 "}}}
 
 "{{{ Diffing
@@ -110,7 +110,7 @@ let g:c_syntax_for_h = 1
 "}}}
 
 "{{{ --------------------------------- Plugins -----------------------------------
-" Stop here when runnign as git editor
+" Stop here when running as git editor
 if exists('$GIT_INDEX_FILE') | finish | endif
 packadd packer                                  " Package utilities and paths
 
