@@ -574,4 +574,4 @@ themes:
       cyan:    '0xe4a382'
       white:   '0xe3e6ee'
 
-colors: *one-dark
+colors: *base16-default-dark
