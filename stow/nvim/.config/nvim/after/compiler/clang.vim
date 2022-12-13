@@ -11,4 +11,18 @@ endif
 runtime compiler/gcc.vim
 let current_compiler = "clang"
 
-CompilerSet makeprg=clang\ -Werror\ -Wall\ -Wextra\ -pedantic\ -Wno-declaration-after-statement\ -Wno-strict-prototypes\ -Wno-shadow\ -Wno-padded\ -Wno-implicit-fallthrough\ -fsyntax-only\ %\ $*
+CompilerSet makeprg=clang
+            \\ -Werror
+            \\ -Wall
+            \\ -Wextra
+            \\ -Weverything
+            \\ -pedantic
+            \\ -Wno-declaration-after-statement
+            \\ -Wno-strict-prototypes
+            \\ -Wno-shadow
+            \\ -Wno-padded
+            \\ -Wno-implicit-fallthrough
+            \\ -Wno-vla
+            \\ -fsyntax-only
+            \\ %
+            \\ $*

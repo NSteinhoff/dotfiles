@@ -310,8 +310,10 @@ function git#set_diff_target(reset, revision)
 endfunction
 
 function git#review(revision)
+    let l:revision = a:revision == '' ? 'origin/master' : a:revision
+
     tab split
-    call git#set_diff_target(0, a:revision)
+    call git#set_diff_target(0, l:revision)
     arglocal
     try
         call git#load_changed_files()

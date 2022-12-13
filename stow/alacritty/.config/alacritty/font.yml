@@ -1,14 +1,14 @@
 font:
   normal:
-    family: Iosevka Nerd Font Mono
+    family: Victor Mono
     style: Regular
   bold:
-    family: Iosevka Nerd Font Mono
+    family: Victor Mono
     style: Bold
   italic:
-    family: Iosevka Nerd Font Mono
+    family: Victor Mono
     style: Italic
-  size: 17
+  size: 16
   offset:
     x: 0
     y: 0

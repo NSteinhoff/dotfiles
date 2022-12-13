@@ -195,7 +195,7 @@ nmap <c-w><c-t> <c-w>t
 
 " Grep, i.e. poor man's 'go-to-reference'
 nnoremap <silent> gr <cmd>execute "silent grep! '\\b"..expand("<cword>").."\\b'"<cr>
-vnoremap <silent> gr y:silent grep! <c-r>"<cr>
+vnoremap <silent> gr y:execute 'silent grep! '..shellescape(escape(escape(@", '\|'), '\|'))<cr>
 
 " Outline
 nmap gO <cmd>TagToc<cr>

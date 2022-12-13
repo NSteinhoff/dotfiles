@@ -39,6 +39,7 @@ set tagcase=match           " ... but match case in :tag searches
 set splitright              " open vertical splits on the right
 set sessionoptions+=options " save global mappings and options
 set completeopt=menuone,noinsert,noselect
+set spell
 
 """ Special characters (disabled by default)
 set nolist

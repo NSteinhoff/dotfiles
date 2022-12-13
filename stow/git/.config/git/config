@@ -51,6 +51,7 @@
 
 [advice]
 	skippedCherryPicks = true
+	addEmptyPathspec = false
 
 [include]
 	path = ~/.config/git/config.alias
