@@ -27,7 +27,12 @@ echo "Colorscheme: $color"
 
 if ! available "$selected"; then
     select selected in $colors; do break; done
-    ( [ -z $selected ] || [ -z "$REPLY" ] || [[ "$selected" == "$color" ]] ) && echo "Okay then..." && exit 1
+    ( [ -z $selected ] || [ -z "$REPLY" ] ) && echo "Okay then..." && exit 1
+fi
+
+if [[ "$selected" == "$color" ]]; then
+    echo "You are already using '$selected'."
+    exit 1
 fi
 
 echo -e "Setting colors to '$selected'"
