@@ -1,18 +1,17 @@
 require("nvim-treesitter.configs").setup({
     ensure_installed = "all",
-    sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
-    ignore_install = {"phpdoc"},
+    sync_install = false,
+    ignore_install = { "phpdoc" },
     highlight = {
         enable = true,
     },
     indent = { enabled = false },
     incremental_selection = {
-        enable = false,
+        enable = true,
         keymaps = {
-            init_selection = "<leader>gnn",
-            node_incremental = "<leader>grn",
-            scope_incremental = "<leader>grc",
-            node_decremental = "<leader>gmn",
+            init_selection = "v<leader>",
+            node_incremental = "v<leader>",
+            node_decremental = "v<bs>",
         },
     },
     context_commentstring = { enable = true },

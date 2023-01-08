@@ -11,6 +11,8 @@ let s:style.= ', IndentWidth: '..(&shiftwidth ? &shiftwidth : &tabstop)
 let s:style.= ', ContinuationIndentWidth: '..(&shiftwidth ? &shiftwidth : &tabstop)
 let s:style.= ', AllowShortIfStatementsOnASingleLine: WithoutElse'
 let s:style.= ', AllowShortCaseLabelsOnASingleLine: true'
+let s:style.= ', AllowShortLoopsOnASingleLine: true'
+let s:style.= ', AllowShortBlocksOnASingleLine: Never'
 let s:style.= ', AlignOperands: AlignAfterOperator'
 let s:style.= '}"'
 

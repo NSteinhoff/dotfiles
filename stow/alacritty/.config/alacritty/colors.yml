@@ -660,4 +660,176 @@ themes:
       cyan: '#108774'
       white: '#afb1b3'
 
-colors: *lucid-dark
+  themer-default-dark: &themer-dark
+    primary:
+      background: '#282629'
+      foreground: '#e0dce0'
+
+    cursor:
+      text: '#282629'
+      cursor: '#cc78fa'
+
+    selection:
+      text: '#282629'
+      background: '#66bfff'
+
+    normal:
+      black: '#656066'
+      red: '#ff4050'
+      green: '#a4cc35'
+      yellow: '#ffd24a'
+      blue: '#66bfff'
+      magenta: '#f553bf'
+      cyan: '#26c99e'
+      white: '#e0dce0'
+
+    bright:
+      black: '#847e85'
+      red: '#FF6673'
+      green: '#B6D65D'
+      yellow: '#FFDA6E'
+      blue: '#85CBFF'
+      magenta: '#F775CC'
+      cyan: '#51D3B1'
+      white: '#fffcff'
+
+    dim:
+      black: '#474247'
+      red: '#D43B48'
+      green: '#8BAB33'
+      yellow: '#D4B043'
+      blue: '#5AA0D4'
+      magenta: '#CC4AA1'
+      cyan: '#26A887'
+      white: '#c1bcc2'
+
+  themer-default-light: &themer-light
+    primary:
+      background: '#fffcff'
+      foreground: '#474247'
+
+    cursor:
+      text: '#fffcff'
+      cursor: '#bf65f0'
+
+    selection:
+      text: '#fffcff'
+      background: '#53a6e1'
+
+    normal:
+      black: '#474247'
+      red: '#f03e4d'
+      green: '#97bd2d'
+      yellow: '#eeba21'
+      blue: '#53a6e1'
+      magenta: '#ee4eb8'
+      cyan: '#1fc598'
+      white: '#c1bcc2'
+
+    bright:
+      black: '#656066'
+      red: '#F36471'
+      green: '#ACCA57'
+      yellow: '#F1C74D'
+      blue: '#75B7E7'
+      magenta: '#F171C6'
+      cyan: '#4CD0AD'
+      white: '#e0dce0'
+
+    dim:
+      black: '#282629'
+      red: '#C83946'
+      green: '#819F2C'
+      yellow: '#C69C23'
+      blue: '#4A8CBC'
+      magenta: '#C6469B'
+      cyan: '#21A582'
+      white: '#a29da3'
+
+  right-in-the-teals-dark: &right-in-the-teals-dark
+    primary:
+      background: '#171d1d'
+      foreground: '#b3c2c2'
+
+    cursor:
+      text: '#171d1d'
+      cursor: '#32a0ac'
+
+    selection:
+      text: '#171d1d'
+      background: '#1a9ba6'
+
+    normal:
+      black: '#4b5454'
+      red: '#f18cb1'
+      green: '#00acbd'
+      yellow: '#c57b67'
+      blue: '#1a9ba6'
+      magenta: '#fca188'
+      cyan: '#208490'
+      white: '#b3c2c2'
+
+    bright:
+      black: '#657070'
+      red: '#EA9CBA'
+      green: '#29B6C4'
+      yellow: '#C78F7F'
+      blue: '#3EA8B1'
+      magenta: '#F3AD99'
+      cyan: '#4396A0'
+      white: '#cddede'
+
+    dim:
+      black: '#313939'
+      red: '#C57693'
+      green: '#058F9D'
+      yellow: '#A26858'
+      blue: '#19828B'
+      magenta: '#CE8773'
+      cyan: '#1E6F79'
+      white: '#99a7a7'
+
+  right-in-the-teals-light: &right-in-the-teals-light
+    primary:
+      background: '#f8fdfe'
+      foreground: '#28454b'
+
+    cursor:
+      text: '#f8fdfe'
+      cursor: '#4797a7'
+
+    selection:
+      text: '#f8fdfe'
+      background: '#0e7481'
+
+    normal:
+      black: '#28454b'
+      red: '#d75971'
+      green: '#1d7e66'
+      yellow: '#aa582d'
+      blue: '#0e7481'
+      magenta: '#c87d4f'
+      cyan: '#14808c'
+      white: '#b3c0c2'
+
+    bright:
+      black: '#4a6369'
+      red: '#DE7A8D'
+      green: '#499784'
+      yellow: '#BA7957'
+      blue: '#3D8F9A'
+      magenta: '#D29772'
+      cyan: '#4299A3'
+      white: '#d5dee0'
+
+    dim:
+      black: '#05262d'
+      red: '#AD4F63'
+      green: '#186C5B'
+      yellow: '#894E2D'
+      blue: '#0C6470'
+      magenta: '#A16C48'
+      cyan: '#116E79'
+      white: '#90a1a4'
+
+colors: *one-dark

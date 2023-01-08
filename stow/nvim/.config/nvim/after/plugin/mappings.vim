@@ -219,7 +219,7 @@ nnoremap <leader>D :call buffers#recent()<cr>:bdelete<c-b>
 nnoremap <leader>S <cmd>Scratch<cr>
 
 " Journal
-nnoremap <leader>J <cmd>Journal<cr>G
+nnoremap <leader>J <cmd>Journal<cr>
 
 " Fuzzy Find: <leader>f
 nnoremap <leader>f <cmd>FileFinder<cr>
@@ -248,6 +248,11 @@ nnoremap <silent> gh <cmd>StealthToggle<cr>
 "{{{ Theme and Colors
 nnoremap <F7> <cmd>silent !toggle-light-dark<cr>
 nnoremap <F8> <cmd>CycleColorNext<cr>
+"}}}
+
+"{{{ Open
+nnoremap <silent> <leader>o <cmd>Open <cWORD><cr>
+vnoremap <silent> <leader>o y:<C-U>Open <C-R>"<cr>
 "}}}
 
 " vim: foldmethod=marker

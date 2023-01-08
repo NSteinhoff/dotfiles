@@ -1,6 +1,7 @@
 # Tags
 tags
 tags.lib
+*.tags
 
 # Log files
 server.log

@@ -4,4 +4,6 @@ ContinuationIndentWidth: 8
 UseTab: ForContinuationAndIndentation
 AllowShortIfStatementsOnASingleLine: WithoutElse
 AllowShortCaseLabelsOnASingleLine: true
+AllowShortBlocksOnASingleLine: Never
+AllowShortLoopsOnASingleLine: true
 AlignOperands: AlignAfterOperator

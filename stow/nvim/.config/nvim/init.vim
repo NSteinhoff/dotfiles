@@ -94,17 +94,17 @@ set path=,,.
 " set wildignore+=*/node_modules/*
 "}}}
 
-"{{{ Diffing
+"{{{ Plugin Customization
 " Speed up diff syntax highlighting by disabling localization
 let g:diff_translations = 0
+" Prefer C over C++ for header files
+let g:c_syntax_for_h = 1
+" Better folding for markdown.
+let g:markdown_folding = 1
 "}}}
 
 "{{{ Get help
 set keywordprg=:Search\ ddg
-"}}}
-
-"{{{ Prefer C over C++ for header files
-let g:c_syntax_for_h = 1
 "}}}
 
 "}}}

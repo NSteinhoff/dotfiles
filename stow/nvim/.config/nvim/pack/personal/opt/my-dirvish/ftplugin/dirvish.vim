@@ -26,6 +26,8 @@ onoremap <buffer> a/ <cmd>normal! F/vf/<cr>
 nnoremap <buffer> / /\ze[^/]*[/]\=$<Home>
 nnoremap <buffer> ? ?\ze[^/]*[/]\=$<Home>
 
+nnoremap <buffer> g? <cmd>map <buffer><cr>
+
 command -buffer -bang PathAdd execute 'set path'..(<bang>0 ? '' : '+')..'='..expand('%')
 command -buffer PathRemove execute 'set path-='..expand('%')
 " Tree prints the input path, so we can just filter the lines

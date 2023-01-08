@@ -32,4 +32,10 @@ end
 
 setlocal formatoptions-=o
 
+if (expand('%') =~ '/bin/')
+    command! -buffer Run !cargo run --bin %:t:r
+else
+    command! -buffer Run !cargo run
+endif
+
 command Docs call jobstart('cargo doc --open')

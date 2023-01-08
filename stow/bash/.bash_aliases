@@ -11,6 +11,7 @@ HISTFILESIZE=200000
 export PATH="~/.local/bin:$PATH"
 
 shopt -s histappend
+shopt -s histverify
 
 # Set Vim as default editor
 which nvim &>/dev/null && export EDITOR=nvim || export EDITOR=vim
@@ -85,7 +86,7 @@ _complete_notes() {
 }
 complete -F _complete_notes note
 alias note='_() { $EDITOR --cmd "cd $NOTES_DIR" $NOTES_DIR/$1 ; }; _'
-alias j='nvim +Journal!'
+alias j='nvim +DevDiary!'
 alias t='nvim +Tasks!'
 
 # Open

@@ -17,7 +17,7 @@ let &l:define='^\s*\(export\s\)\?\(async\s\)\?\(function\|class\|interface\|type
 execute 'compiler '..get(g:, &ft..'_compiler', 'tsc')
 
 iabbrev <buffer> exif export interface {}
-command -buffer Run !ts-node %
+" command -buffer Run !ts-node %
 
 " Don't include files in node_modules in the buffer list
 if fnamemodify(bufname(), ':p') =~ '.*/node_modules/.*'

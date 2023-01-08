@@ -8,4 +8,5 @@ function s:journal(replace, mods, fpath)
 endfunction
 
 command! -bang -bar Journal call s:journal(<bang>0, '<mods>', '~/Dropbox/Notes/journal.md')
+command! -bang -bar DevDiary call s:journal(<bang>0, '<mods>', '~/Dropbox/Notes/dev-diary.md')
 command! -bang -bar Tasks call s:journal(<bang>0, '<mods>', '~/Dropbox/Notes/tasks.md')
