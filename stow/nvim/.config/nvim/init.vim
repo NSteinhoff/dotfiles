@@ -127,7 +127,6 @@ packadd! my-treesitter                          " Language aware highlighting
 "}}}
 
 "{{{ Third Party
-packadd! editorconfig.nvim                       " File type settings based on local config
 packadd! my-dirvish                             " Minimalist file browser (customized)
 packadd! vim-commentary                         " Comment out stuff
 "}}}
