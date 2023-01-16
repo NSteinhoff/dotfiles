@@ -2,8 +2,9 @@ BasedOnStyle: LLVM
 IndentWidth: 8
 ContinuationIndentWidth: 8
 UseTab: ForContinuationAndIndentation
+AlignOperands: AlignAfterOperator
 AllowShortIfStatementsOnASingleLine: WithoutElse
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortBlocksOnASingleLine: Never
 AllowShortLoopsOnASingleLine: true
-AlignOperands: AlignAfterOperator
+AllowShortFunctionsOnASingleLine: Empty

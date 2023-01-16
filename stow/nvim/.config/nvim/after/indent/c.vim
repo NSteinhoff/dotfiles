@@ -9,11 +9,12 @@ let s:style.= 'BasedOnStyle: llvm'
 let s:style.= ', UseTab: '..(&expandtab ? 'Never' : 'ForContinuationAndIndentation')
 let s:style.= ', IndentWidth: '..(&shiftwidth ? &shiftwidth : &tabstop)
 let s:style.= ', ContinuationIndentWidth: '..(&shiftwidth ? &shiftwidth : &tabstop)
-let s:style.= ', AllowShortIfStatementsOnASingleLine: WithoutElse'
+let s:style.= ', AllowShortIfStatementsOnASingleLine: AllIfsAndElse'
 let s:style.= ', AllowShortCaseLabelsOnASingleLine: true'
 let s:style.= ', AllowShortLoopsOnASingleLine: true'
-let s:style.= ', AllowShortBlocksOnASingleLine: Never'
+let s:style.= ', AllowShortBlocksOnASingleLine: Empty'
 let s:style.= ', AlignOperands: AlignAfterOperator'
+let s:style.= ', AllowShortFunctionsOnASingleLine: Empty'
 let s:style.= '}"'
 
 if executable('clang-format')

@@ -33,6 +33,7 @@ let b:interpreter .= ' -Wno-shadow'
 let b:interpreter .= ' -Wno-padded'
 let b:interpreter .= ' -Wno-implicit-fallthrough'
 let b:interpreter .= ' -Wno-vla'
+let b:interpreter .= ' -Wno-cast-qual'
 let b:interpreter .= ' -Wno-error' " run anyways
 let b:interpreter .= ' -o /tmp/'..expand('%:t:r')
 let b:interpreter .= ' -xc -'

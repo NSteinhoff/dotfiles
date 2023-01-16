@@ -2,7 +2,7 @@ local lspconfig = require("lspconfig")
 
 return function(config)
     local override = {
-        autostart = false,
+        autostart = true,
         settings = {
             ["rust-analyzer"] = {
                 cargo = {

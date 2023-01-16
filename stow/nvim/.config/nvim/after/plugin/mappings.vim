@@ -10,7 +10,7 @@ augroup END
 "}}}
 
 " Execute script
-nnoremap <cr> <cmd>w<bar>Run<cr>
+nnoremap <leader><leader> <cmd>w<bar>Run<cr>
 
 "{{{ Open Settings
 nnoremap <leader>,, <cmd>edit $MYVIMRC<cr>
