@@ -54,8 +54,8 @@ vnoremap Q :normal @q<cr>
 vnoremap . :normal .<cr>
 
 " Move over visual lines unless a count is given
-" nnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
-" nnoremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
 
 " Move over sections
 " Taken from `help section`
