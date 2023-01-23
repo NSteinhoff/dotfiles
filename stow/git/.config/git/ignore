@@ -29,6 +29,9 @@ Sessionx.vim
 .vscode/settings.json
 *.code-workspace
 
+# Yarn
+yarn-error.log
+
 # Error files (compiler errors)
 *.err
 

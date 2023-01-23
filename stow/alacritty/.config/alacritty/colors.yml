@@ -803,24 +803,24 @@ themes:
       background: '#0e7481'
 
     normal:
-      black: '#28454b'
+      black: '#f8fdfe'
       red: '#d75971'
       green: '#1d7e66'
       yellow: '#aa582d'
       blue: '#0e7481'
       magenta: '#c87d4f'
       cyan: '#14808c'
-      white: '#b3c0c2'
+      white: '#38555b'
 
     bright:
-      black: '#4a6369'
+      black: '#a8adae'
       red: '#DE7A8D'
       green: '#499784'
       yellow: '#BA7957'
       blue: '#3D8F9A'
       magenta: '#D29772'
       cyan: '#4299A3'
-      white: '#d5dee0'
+      white: '#18353b'
 
     dim:
       black: '#05262d'
@@ -832,4 +832,4 @@ themes:
       cyan: '#116E79'
       white: '#90a1a4'
 
-colors: *gruvbox-dark
+colors: *right-in-the-teals-dark
