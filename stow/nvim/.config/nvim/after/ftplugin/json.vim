@@ -54,6 +54,7 @@ function! CompletePackageJson(findstart, base) abort
     return reverse(l:versions)
 endfunction
 
-if expand('%') =~ 'package.json'
-    setlocal completefunc=CompletePackageJson
-endif
+augroup package-json
+    autocmd!
+    autocmd BufEnter package.json setlocal completefunc=CompletePackageJson
+augroup END
