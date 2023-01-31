@@ -213,6 +213,7 @@ nnoremap <leader>D :call buffers#recent()<cr>:bdelete<c-b>
 " for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
 "     execute 'nnoremap <leader>'.i.' <cmd>call buffers#pos('.i.')<cr>'
 " endfor
+nnoremap <leader>T :buffer term://<c-z>
 "}}}
 
 " Scratch buffer

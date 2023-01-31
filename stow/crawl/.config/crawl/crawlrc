@@ -65,6 +65,7 @@ autofight_warning = 100
 show_more = false
 
 # HP loss
+force_more_message += LOW HITPOINT WARNING
 flash_screen_message += HP: \d+/\d+ \(-\d+\).*!+
 
 # Statuses
