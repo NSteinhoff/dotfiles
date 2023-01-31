@@ -60,6 +60,11 @@ alias :e='$EDITOR'
 alias g='git status'
 alias g-='git switch -'
 
+# Tmux
+alias t='tmux'
+alias t-='tmux attach'
+alias tt='tmux attach -t'
+
 # Dirs
 alias d='dirs'
 alias p='pushd'
@@ -87,7 +92,7 @@ _complete_notes() {
 complete -F _complete_notes note
 alias note='_() { $EDITOR --cmd "cd $NOTES_DIR" $NOTES_DIR/$1 ; }; _'
 alias j='nvim +DevDiary!'
-alias t='nvim +Tasks!'
+# alias t='nvim +Tasks!'
 
 # Open
 [[ $OSTYPE = linux* ]] && alias open='xdg-open'
