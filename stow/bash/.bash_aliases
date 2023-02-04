@@ -61,8 +61,7 @@ alias g='git status'
 alias g-='git switch -'
 
 # Tmux
-alias t='tmux'
-alias t-='tmux attach'
+alias t='tmux ls'
 alias tt='tmux attach -t'
 
 # Dirs
