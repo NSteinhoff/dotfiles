@@ -1,6 +1,7 @@
 local opts = {
     omnifunc = "v:lua.vim.lsp.omnifunc",
     tagfunc = nil, -- force unset to avoid default
+    formatexpr = "",
 }
 
 return {

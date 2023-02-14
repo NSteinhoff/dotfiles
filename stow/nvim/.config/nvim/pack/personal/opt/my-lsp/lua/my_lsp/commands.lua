@@ -25,7 +25,6 @@ local cmds = {
             print("---")
         end
     end,
-    ["LspDetach"] = function() require("my_lsp.commands").detach() end,
 }
 
 function M.on_attach(client)
@@ -38,13 +37,6 @@ function M.on_detach()
     for name, _ in pairs(cmds) do
         vim.api.nvim_buf_del_user_command(0, name)
     end
-end
-
-function M.detach()
-    vim.cmd.LspBufStop()
-    require("my_lsp.commands").on_detach()
-    require("my_lsp.mappings").on_detach()
-    require("my_lsp.options").on_detach()
 end
 
 return M

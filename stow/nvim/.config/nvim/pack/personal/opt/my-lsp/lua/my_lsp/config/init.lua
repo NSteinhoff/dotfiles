@@ -5,20 +5,7 @@ local lspconfig = require("lspconfig")
 local default = {
     __index = function(_, server)
         return function(config)
-            local override = {
-                -- Deactivate formatting for all servers by default
-                -- Servers with custom on_attach use the default value
-                -- and must deactivate formatting themselves if required.
-                on_attach = function(client, ...)
-                    client.server_capabilities.documentFormattingProvider = false
-
-                    config.on_attach(client, ...)
-
-                    vim.bo.formatexpr = ""
-                end,
-            }
-
-            lspconfig[server].setup(vim.tbl_extend("keep", override, config))
+            lspconfig[server].setup(config)
         end
     end,
 }

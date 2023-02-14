@@ -7,6 +7,7 @@ local maps = {
         ["<c-h>"] = vim.lsp.buf.signature_help,
     },
     ["n"] = {
+        -- ["<s-k>"] = vim.lsp.buf.hover,
         ["<c-space>"] = vim.lsp.buf.hover,
         -- Jumps
         ["gd"] = vim.lsp.buf.definition,

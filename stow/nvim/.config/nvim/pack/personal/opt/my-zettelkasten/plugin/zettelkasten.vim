@@ -7,6 +7,8 @@ command -nargs=1 -complete=customlist,zettelkasten#complete_zettel Zettel call z
 command -nargs=1 -complete=customlist,zettelkasten#complete_tags Ztag cgetexpr zettelkasten#find_tag(<q-args>)
 command -nargs=1 -complete=customlist,zettelkasten#complete_tags Ztagadd caddexpr zettelkasten#find_tag(<q-args>)
 command -nargs=? -complete=customlist,zettelkasten#complete_zettel Ziblings cgetexpr zettelkasten#related(<q-args>)
+command -nargs=? Zgrep execute 'silent grep! '..expand("<args>")..' '..g:zettelkasten
+command -nargs=? Zgrepadd execute 'silent grepadd! '..expand("<args>")..' '..g:zettelkasten
 
 augroup zettelkasten
     autocmd!
