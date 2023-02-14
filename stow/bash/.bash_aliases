@@ -62,6 +62,7 @@ alias g-='git switch -'
 
 # Tmux
 alias t='tmux ls'
+alias tn='tmux new -s ${PWD##*/}'
 alias tt='tmux attach -t'
 
 # Dirs

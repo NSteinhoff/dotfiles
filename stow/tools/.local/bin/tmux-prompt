@@ -16,7 +16,7 @@ case $tmuxinfo in
     default:*)
         shortinfo="*${tmuxinfo#default}" ;;
     [0123456789]*:1:1)
-        shortinfo="T" ;;  # one the first window and pane of a numbered session
+        shortinfo="T" ;;  # on the first window and pane of a numbered session
     *)
         shortinfo="${tmuxinfo}" ;;
 esac
