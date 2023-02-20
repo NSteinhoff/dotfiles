@@ -2,10 +2,15 @@ require("nvim-treesitter.configs").setup({
     ensure_installed = "all",
     sync_install = false,
     ignore_install = { "phpdoc" },
-    highlight = {
-        enable = true,
-    },
+
+    highlight = { enable = true },
+
     indent = { enabled = false },
+
+    context_commentstring = { enable = false },
+
+    rainbow = { enable = false },
+
     incremental_selection = {
         enable = true,
         keymaps = {
@@ -14,8 +19,7 @@ require("nvim-treesitter.configs").setup({
             node_decremental = "<BS>",
         },
     },
-    context_commentstring = { enable = true },
-    rainbow = { enable = false },
+
     textobjects = {
         move = {
             enable = true,
@@ -60,6 +64,7 @@ require("nvim-treesitter.configs").setup({
             },
         },
     },
+
     refactor = {
         enable = false,
         highlight_definitions = { enable = false },
