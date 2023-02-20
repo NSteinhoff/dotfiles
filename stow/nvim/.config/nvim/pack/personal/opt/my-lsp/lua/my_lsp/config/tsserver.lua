@@ -28,14 +28,6 @@ return function(config)
             end
         end,
 
-        on_attach = function(client, ...)
-            client.server_capabilities.documentFormattingProvider = false
-
-            config.on_attach(client, ...)
-
-            vim.bo.formatexpr = ""
-        end,
-
         init_options = {
             preferences = {
                 disableSuggestions = true,
