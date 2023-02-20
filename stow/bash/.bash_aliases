@@ -25,15 +25,12 @@ esac
 # --------------------------------------------------------------------------- #
 #                                   Aliases                                   #
 # --------------------------------------------------------------------------- #
-if [[ os == linux ]]; then
-    opener=xdg-open
-else
-    opener=open
-fi
-
-# Safer delete
+################
+### Safer delete
 alias rm='rm -i'
 
+#################
+### Listing
 # Listing files
 [ $os = "linux" ] && alias ls='ls --color=auto --group-directories-first'
 [ $os = "mac" ] && alias ls='ls -G'
@@ -46,26 +43,40 @@ alias tree='tree -CF --dirsfirst --gitignore'
 # Listing ports
 alias lsop='_() { lsof -i -nP $@ | grep LISTEN; }; _'
 
-# Grep with color
+###################
+### Grep with color
 alias grep='grep --color=auto'
 
-# Web search
+##############
+### Web search
+[[ os == linux ]] && opener=xdg-open || opener=open
 alias q='_() { q="${@:1}"; '$opener' "https://duckduckgo.com/?q=${q}"; }; _'
 
-# Why not
+###########
+### Why not
 alias :q='exit'
 alias :e='$EDITOR'
 
-# Git
+#######
+### Git
 alias g='git status'
 alias g-='git switch -'
 
-# Tmux
-alias t='tmux ls'
-alias tn='tmux new -s ${PWD##*/}'
+########
+### Tmux
+# t     List sessions or execute tmux commands
+# tn    Create a new session named after the directory
+# tt    Attach to a session
+alias t='_() { if (( $# == 0 )); then tmux ls; else tmux $@; fi; }; _'
+alias tn='_() { (( $# == 0 )) && tmux new -s "$(basename $PWD)" || tmux new -s "$(basename $1)" -c $1; }; _'
 alias tt='tmux attach -t'
+complete -F _complete_tmux t
+complete -d tn
+complete -F _complete_tt tt
+_complete_tt() { COMPREPLY=( $(compgen -W "$(tmux ls -F '#S')" $2) ); }
 
-# Dirs
+########
+### Dirs
 alias d='dirs'
 alias p='pushd'
 alias pp='popd'
@@ -73,36 +84,32 @@ alias pp='popd'
 alias o='pushd +1'
 alias i='pushd -0'
 
-# Context aware information
-# TODO: Think of some useful commands here.
-# Maybe this would be a nice place for the bashbot.
-alias ?='$QUESTION_MARK_PRG'
-export QUESTION_MARK_PRG='git status'
-
 # Read errors from stdin into a scratch buffer and load into quickfix list
 alias quickfix='vim +"set bt=nofile" +cbuffer -'
 
 # Run neovide with the multigrid feature by default
 alias neovide='neovide --multigrid'
 
-# Open notes for editing
-_complete_notes() {
-    COMPREPLY=( $(compgen -W "$(ls $NOTES_DIR)" $2) )
-}
-complete -F _complete_notes note
+###############
+### Note-Taking
 alias note='_() { $EDITOR --cmd "cd $NOTES_DIR" $NOTES_DIR/$1 ; }; _'
+complete -F _complete_notes note
+_complete_notes() { COMPREPLY=( $(compgen -W "$(ls $NOTES_DIR)" $2) ); }
 alias j='nvim +DevDiary!'
 # alias t='nvim +Tasks!'
+# Journaling
+alias zettel='_() { nvim "+Zettel $*"; }; _'
 
-# Open
+########
+### Open
 [[ $OSTYPE = linux* ]] && alias open='xdg-open'
 
-# Syntax highlighting (no need for 'bat')
+#######################
+### Syntax highlighting
+### (no need for 'bat')
 alias hi='highlight -O ansi --force'
 alias hil='_() { highlight -O ansi --force $@ | less -R; }; _'
 
-# Journaling
-alias zettel='_() { nvim "+Zettel $*"; }; _'
 
 # ---------- Java Version ---------
 [[ -z $JAVA_HOME && "$os" == linux && -x $(which java) ]] && JAVA_HOME=$(readlink -f $(which java) | sed "s:/bin/java::")
