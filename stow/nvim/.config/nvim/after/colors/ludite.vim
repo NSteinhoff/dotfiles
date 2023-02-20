@@ -95,29 +95,28 @@ highlight MatchParen                   cterm=NONE                   ctermfg=5   
 "}}}
 
 "{{{ Syntax
-highlight Comment                      cterm=italic                 ctermfg=8     ctermbg=NONE  guifg=NONE guibg=NONE
-highlight Constant                     cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight Define                       cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight Delimiter                    cterm=bold                   ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight Error                        cterm=NONE                   ctermfg=1     ctermbg=NONE  guifg=NONE guibg=NONE
-highlight Exception                    cterm=bold                   ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight Function                     cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight Identifier                   cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight Conceal                      cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight Ignore                       cterm=NONE                   ctermfg=8     ctermbg=NONE  guifg=NONE guibg=NONE
-highlight Keyword                      cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight Macro                        cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight Number                       cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight Operator                     cterm=bold                   ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight PreProc                      cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight Special                      cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight SpecialChar                  cterm=bold                   ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight SpecialComment               cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight Statement                    cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight String                       cterm=NONE                   ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight Todo                         cterm=inverse                ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight Type                         cterm=bold                   ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
-highlight Underlined                   cterm=underline              ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Comment                      cterm=italic     ctermfg=8     ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Constant                     cterm=NONE       ctermfg=15    ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Define                       cterm=NONE       ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Delimiter                    cterm=NONE       ctermfg=15    ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Error                        cterm=NONE       ctermfg=1     ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Exception                    cterm=bold       ctermfg=15    ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Function                     cterm=NONE       ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Identifier                   cterm=NONE       ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Conceal                      cterm=NONE       ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Ignore                       cterm=NONE       ctermfg=8     ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Keyword                      cterm=NONE       ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Macro                        cterm=NONE       ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Number                       cterm=NONE       ctermfg=15    ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Float                        cterm=NONE       ctermfg=15    ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Operator                     cterm=NONE       ctermfg=15    ctermbg=NONE  guifg=NONE guibg=NONE
+highlight PreProc                      cterm=NONE       ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Special                      cterm=bold       ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Statement                    cterm=NONE       ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
+highlight String                       cterm=NONE       ctermfg=15    ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Todo                         cterm=inverse    ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Type                         cterm=bold       ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
+highlight Underlined                   cterm=underline  ctermfg=NONE  ctermbg=NONE  guifg=NONE guibg=NONE
 "}}}
 
 "{{{ Links
