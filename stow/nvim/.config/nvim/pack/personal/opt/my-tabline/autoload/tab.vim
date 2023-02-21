@@ -92,6 +92,7 @@ function! tab#line()
     let s .= tab#tabs()
     let s .= '%#TabLineFill#'
     let s .= '%='
+    let s .= '%S '
     let s .= '%#TabLineFocus#'
     let s .= tab#cwd()
     return s
