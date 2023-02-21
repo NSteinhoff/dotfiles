@@ -21,8 +21,13 @@
 	branches	= !git --no-pager branch --list
 
 	# Housekeeping
-	main-branch	= !git branch --list --format='%(refname:short)' | grep -E '^(main(line)?|trunk|root|master)$' | head -n 1
-	fresh		= !git remote update --prune && git switch $(git main-branch) && git pull --ff-only && (git branch --merged | grep -v '\\*' | grep -v '+' | xargs git branch -d)
+	branch-main		= "!git branch --list --format='%(refname:short)' | grep -E '^(main(line)?|trunk|root|master)$' | head -n 1"
+	branch-behind		= "!git branch --list --format='%(refname:short) %(upstream:track)' | grep '\\[behind' | while read branch _; do echo "$branch"; done"
+	branch-stale	 	= "!git branch --list --format='%(refname:short) %(upstream:track)' | grep '\\[gone\\]' | while read branch _; do echo "$branch"; done"
+	branch-remove-stale	= "!git branch-stale | (while read branch; do git branch --delete --force $branch; done)"
+	branch-update-behind	= "!git branch-behind | (while read branch; do git switch $branch && git pull --ff-only; done)"
+	branch-switch-main	= "!git switch $(git branch-main)"
+	fresh			= "!git remote update --prune && git branch-remove-stale && git branch-update-behind && git branch-switch-main"
 
 	# Reviewing
 	review		= !git diff --ignore-all-space "origin/$(git main-branch)"...
