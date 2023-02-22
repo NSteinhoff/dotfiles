@@ -86,4 +86,6 @@ endfunction
 augroup package-json
     autocmd!
     autocmd BufEnter package.json setlocal completefunc=CompletePackageJson
+    autocmd BufEnter package.json command! -buffer Why execute "normal yi\"" | execute "!yarn why \""..@".."\""
+    autocmd BufEnter package.json map <buffer> <leader>w <cmd>Why<cr>
 augroup END

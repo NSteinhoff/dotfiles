@@ -59,7 +59,7 @@ highlight SpellRare                    cterm=NONE                   ctermfg=12  
 
 "{{{ Diff
 highlight DiffAdd                      cterm=underline              ctermfg=2     ctermbg=NONE
-highlight DiffChange                   cterm=underline              ctermfg=3     ctermbg=NONE
+highlight DiffChange                   cterm=underline              ctermfg=NONE  ctermbg=NONE
 highlight DiffDelete                   cterm=NONE                   ctermfg=1     ctermbg=NONE
 highlight DiffText                     cterm=underline              ctermfg=13    ctermbg=NONE
 

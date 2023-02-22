@@ -22,8 +22,8 @@
 
 	# Housekeeping
 	branch-main		= "!git branch --list --format='%(refname:short)' | grep -E '^(main(line)?|trunk|root|master)$' | head -n 1"
-	branch-behind		= "!git branch --list --format='%(refname:short) %(upstream:track)' | grep '\\[behind' | while read branch _; do echo "$branch"; done"
-	branch-stale	 	= "!git branch --list --format='%(refname:short) %(upstream:track)' | grep '\\[gone\\]' | while read branch _; do echo "$branch"; done"
+	branch-behind		= "!git branch --list --format='%(refname:short) %(upstream:track)' | grep '\\[behind' | while read branch _; do echo $branch; done"
+	branch-stale	 	= "!git branch --list --format='%(refname:short) %(upstream:track)' | grep '\\[gone\\]' | while read branch _; do echo $branch; done"
 	branch-remove-stale	= "!git branch-stale | (while read branch; do git branch --delete --force $branch; done)"
 	branch-update-behind	= "!git branch-behind | (while read branch; do git switch $branch && git pull --ff-only; done)"
 	branch-switch-main	= "!git switch $(git branch-main)"

@@ -16,7 +16,7 @@ let ispackage = !empty(findfile('package.json', path))
 
 let prettier = (ispackage && executable('npx') ? 'npx ' : '')
 let prettier.= 'prettier'
-let prettier.= ' --stdin-filepath '..(empty(expand('%')) ? s:fakename() : expand('%'))
+let prettier.= ' --stdin-filepath '..(empty(expand('%:t')) ? s:fakename() : expand('%:t'))
 let prettier.= ' --config-precedence=prefer-file'
 let prettier.= ' --arrow-parens=avoid'
 let prettier.= ' --trailing-comma=all'

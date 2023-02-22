@@ -109,7 +109,9 @@ nnoremap [t <cmd>tprevious<cr>
 nnoremap ]t <cmd>tnext<cr>
 "}}}
 
+
 "{{{ Search and replace
+vnoremap * y<cmd>let @/=@"<cr>n
 nnoremap gs :%s/
 vnoremap gs :s/
 
