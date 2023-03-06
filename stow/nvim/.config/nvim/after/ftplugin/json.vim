@@ -83,9 +83,18 @@ function! CompletePackageJson(findstart, base) abort
                 \->map({_, v -> {'word': '"'..l:base_range..v..'"'}})
 endfunction
 
+function s:package_under_cursor()
+    return matchstr(getline('.'), '^\s*"\zs.\{-}\ze":\s')
+endfunction
+
+function s:why(...)
+    let l:package = a:0 > 0 ?  a:1 : s:package_under_cursor()
+    echo system(['yarn', 'why', l:package])
+endfunction
+
 augroup package-json
     autocmd!
     autocmd BufEnter package.json setlocal completefunc=CompletePackageJson
-    autocmd BufEnter package.json command! -buffer Why execute "normal yi\"" | execute "!yarn why \""..@".."\""
+    autocmd BufEnter package.json command! -buffer -nargs=? Why call s:why(<f-args>)
     autocmd BufEnter package.json map <buffer> <leader>w <cmd>Why<cr>
 augroup END

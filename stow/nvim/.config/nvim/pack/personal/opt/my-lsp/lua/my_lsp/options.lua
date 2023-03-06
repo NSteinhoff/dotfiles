@@ -14,9 +14,9 @@ return {
             end
         end
     end,
-    on_detach = function()
+    on_detach = function(buf)
         for opt, _ in pairs(opts) do
-            vim.cmd("setlocal " .. opt .. "<")
+            vim.bo[buf][opt] = nil
         end
     end,
 }

@@ -45,10 +45,14 @@ function M.on_attach(client)
     end
 end
 
-function M.on_detach()
+function M.on_detach(buf)
     for mode, map in pairs(maps) do
         for lhs, _ in pairs(map) do
-            vim.keymap.del(mode, lhs, opts)
+            vim.keymap.del(
+                mode,
+                lhs,
+                vim.tbl_extend("keep", { buffer = buf }, opts)
+            )
         end
     end
 end

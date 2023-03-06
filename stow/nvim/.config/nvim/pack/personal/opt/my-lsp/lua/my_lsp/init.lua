@@ -28,8 +28,8 @@ end
 
 vim.api.nvim_create_autocmd("LspDetach", {
     callback = function(args)
-        require("my_lsp.commands").on_detach()
-        require("my_lsp.mappings").on_detach()
-        require("my_lsp.options").on_detach()
+        require("my_lsp.commands").on_detach(args.buf)
+        require("my_lsp.mappings").on_detach(args.buf)
+        require("my_lsp.options").on_detach(args.buf)
     end,
 })

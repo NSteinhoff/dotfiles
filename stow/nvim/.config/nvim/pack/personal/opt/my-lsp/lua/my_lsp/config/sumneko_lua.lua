@@ -49,7 +49,7 @@ return function(config)
     }
 
     local override = {
-        autostart = true,
+        autostart = false,
         cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
         root_dir = function(fname)
             local init_files = vim.fn.findfile('init.lua', fname..';$HOME', -1)

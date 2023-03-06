@@ -94,7 +94,7 @@ highlight WinBarNC                     cterm=NONE                   ctermfg=4   
 highlight Search                       cterm=bold,underline         ctermfg=NONE  ctermbg=NONE
 highlight IncSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=5
 highlight CurSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=5
-highlight MatchParen                   cterm=NONE                   ctermfg=5     ctermbg=NONE
+highlight MatchParen                   cterm=NONE                   ctermfg=12    ctermbg=NONE
 "}}}
 
 "{{{ Syntax

@@ -33,9 +33,9 @@ function M.on_attach(client)
     end
 end
 
-function M.on_detach()
+function M.on_detach(buf)
     for name, _ in pairs(cmds) do
-        vim.api.nvim_buf_del_user_command(0, name)
+        vim.api.nvim_buf_del_user_command(buf, name)
     end
 end
 

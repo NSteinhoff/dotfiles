@@ -5,7 +5,7 @@ colorscheme ludite
 "}}}
 
 "{{{ Appearance
-set showcmd
+set noshowcmd
 set showcmdloc=last
 set cmdheight=1
 set inccommand=split
@@ -117,6 +117,7 @@ packadd packer                                  " Package utilities and paths
 
 "{{{ Personal
 packadd my-lsp                                  " Language Server configurations
+packadd my-livegrep                            " Start simple file finder with :ff
 packadd! my-git                                 " Git utilities (bloated): Show diff with :dd
 packadd! my-quickfix                            " Quickfix niceties, mostly limited to quickfix windows
 packadd! my-statusline

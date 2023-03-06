@@ -27,7 +27,7 @@
 	branch-remove-stale	= "!git branch-stale | (while read branch; do git branch --delete --force $branch; done)"
 	branch-update-behind	= "!git branch-behind | (while read branch; do git switch $branch && git pull --ff-only; done)"
 	branch-switch-main	= "!git switch $(git branch-main)"
-	fresh			= "!git remote update --prune && git branch-remove-stale && git branch-update-behind && git branch-switch-main"
+	fresh			= "!git remote update --prune && git branch-update-behind && git branch-switch-main && git branch-remove-stale"
 
 	# Reviewing
 	review		= !git diff --ignore-all-space "origin/$(git main-branch)"...

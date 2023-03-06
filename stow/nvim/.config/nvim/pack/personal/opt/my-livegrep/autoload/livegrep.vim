@@ -30,10 +30,11 @@ function s:job.on_exit(job_id, data, event)
     let lines = self.data
     if !empty(self.err)
         let lines += ['', '=================================== ERROR ====================================']
+        let lines += ['$ '..s:grepprg..' '..b:query]
         let lines += self.err
         let lines += ['', '=================================== HELP =====================================']
         let lines += systemlist(s:grepprg..' --help')
-        call nvim_buf_set_extmark(self.buf, s:ns_results, 0, 0, {'virt_text': [['', 'Error']]} )
+        call nvim_buf_set_extmark(self.buf, s:ns_results, 0, 0, {'virt_text': [['!!!', 'Error']]} )
     else
         call nvim_buf_set_extmark(self.buf, s:ns_results, 0, 0, {'virt_text': [[printf('(%d)', len(self.data)), 'Special']]})
     endif
@@ -58,7 +59,7 @@ endfunction
 function s:job.loading()
     call nvim_buf_clear_namespace(self.buf, s:ns_results, 0, -1)
     call nvim_buf_clear_namespace(self.buf, s:ns_loading, 0, -1)
-    call nvim_buf_set_extmark(self.buf, s:ns_loading, 0, 0, {'virt_text': [['', 'Special']]})
+    call nvim_buf_set_extmark(self.buf, s:ns_loading, 0, 0, {'virt_text': [['?', 'Special']]})
 endfunction
 
 function s:previous_query()

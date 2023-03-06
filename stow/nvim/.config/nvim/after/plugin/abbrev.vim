@@ -1,6 +1,7 @@
 " ------------------------------- Command Line --------------------------------
 " Open man pages
-cnoreabbrev <expr> man getcmdtype() ==# ':' && getcmdline() ==# 'man' ? 'Man' : 'man'
+cnoreabbrev <expr> man getcmdtype() ==# ':' && getcmdline() =~# '^\(tab\s\\|vert\s\)\?man' ? 'Man' : 'man'
+cnoreabbrev <expr> cfilter getcmdtype() ==# ':' && getcmdline() ==# 'cfilter' ? 'Cfilter' : 'man'
 
 " ---------------------------------- Dates ------------------------------------
 " Local date
