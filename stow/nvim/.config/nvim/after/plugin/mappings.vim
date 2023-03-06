@@ -199,6 +199,10 @@ nmap <c-w><c-t> <c-w>t
 nnoremap <silent> gr <cmd>let @/=expand("<cword>")<bar>execute "silent grep! '\\b"..@/.."\\b'"<bar>set hlsearch<cr>
 vnoremap <silent> gr y:let @/=escape(@", '\|/')<bar>execute 'silent grep! '..shellescape(@/, '\|')<bar>set hlsearch<cr>
 
+" LiveGrep
+nmap <leader>G <plug>(livegrep-resume)
+nmap <leader>g <plug>(livegrep-new)
+
 " Outline
 nmap gO <cmd>TagToc<cr>
 "}}}
