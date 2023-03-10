@@ -3,7 +3,7 @@ function! tags#refresh_buf(filename)
     if len(tagfiles) == 0|return|endif
     let tagfile = tagfiles[0]
     let opt = {'cwd': fnamemodify(tagfile, ":h")}
-    let cmd = ["ctags", "--tag-relative=no", a:filename]
+    let cmd = ["ctags", "--append", "--tag-relative=no", a:filename]
     call jobstart(cmd, opt)
 endfunction
 
