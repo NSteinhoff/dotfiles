@@ -264,4 +264,13 @@ nnoremap <silent> <leader>o <cmd>Open <cWORD><cr>
 vnoremap <silent> <leader>o y:<C-U>Open <C-R>"<cr>
 "}}}
 
+"{{{ Toggle Options
+nnoremap yow <cmd>execute 'set '..(&wrap ? 'no': '')..'wrap'<cr>
+nnoremap yol <cmd>execute 'set '..(&list ? 'no': '')..'list'<cr>
+nnoremap yon <cmd>execute 'set '..(&number ? 'no': '')..'number'<cr>
+nnoremap yos <cmd>execute 'set laststatus='..(&laststatus == 2 ? 0: 2)<cr>
+nnoremap yot <cmd>execute 'set showtabline='..(&showtabline == 2 ? 0: 2)<cr>
+nnoremap yov <cmd>execute 'set virtualedit='..(&virtualedit == '' ? 'all' : '')<cr>
+"}}}
+
 " vim: foldmethod=marker
