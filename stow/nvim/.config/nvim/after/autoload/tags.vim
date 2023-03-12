@@ -12,9 +12,18 @@ function! tags#toc(index, ...)
         echo 'No tags file.'
         return
     endif
-    let l:kind = a:0 ? a:1 : ''
+    let l:filter_kinds = a:0 > 0
+    let l:exclude_kinds = l:filter_kinds && a:1 == '!'
+    let l:kinds = a:000
     let l:fname = expand('%:p')
-    let l:items = filter(taglist('.*'), { _, v -> fnamemodify(v.filename, ':p') == l:fname && (l:kind == '' || v.kind == l:kind) })
+    let l:items = filter(taglist('.*'), { _, v ->
+                \   fnamemodify(v.filename, ':p') == l:fname &&
+                \   (
+                \     !l:filter_kinds ||
+                \     (l:exclude_kinds ? index(l:kinds, v.kind) == -1
+                \                      : index(l:kinds, v.kind) != -1)
+                \   )
+                \ })
     let l:items = map(l:items, {_, v -> s:tag2item(v)})
     if a:index
         let l:items = sort(l:items, {l, r -> char2nr(l.kind) - char2nr(r.kind)})
@@ -22,10 +31,10 @@ function! tags#toc(index, ...)
         let l:items = sort(l:items, {l, r -> l.lnum - r.lnum})
     endif
 
-    let l:title = (a:index ? 'Index' : 'TOC')..(l:kind == '' ? '' : '|'..l:kind..'|')..': '..l:fname
+    let l:title = (a:index ? 'Index' : 'TOC')..(l:filter_kinds ? '|'..join(l:kinds, ',')..'|' : '')..': '..l:fname
     if !empty(l:items)
-        call setqflist([], (getqflist({'title': 1}).title == l:title ? 'r' : ' '), {'items': l:items, 'title': l:title})
-        botright copen|wincmd p
+        call setloclist(0, [], (getloclist(0, {'title': 1}).title == l:title ? 'r' : ' '), {'items': l:items, 'title': l:title})
+        botright lopen|wincmd p
     endif
 endfunction
 
