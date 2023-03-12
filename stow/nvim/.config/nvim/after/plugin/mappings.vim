@@ -198,6 +198,8 @@ nmap <c-w><c-t> <c-w>t
 " Grep, i.e. poor man's 'go-to-reference'
 nnoremap <silent> gr <cmd>let @/=expand("<cword>")<bar>execute "silent grep! '\\b"..@/.."\\b'"<bar>set hlsearch<cr>
 vnoremap <silent> gr y:let @/=escape(@", '\|/')<bar>execute 'silent grep! '..shellescape(@/, '\|')<bar>set hlsearch<cr>
+nnoremap <silent> ga <cmd>let @/=expand("<cword>")<bar>execute "silent grepadd! '\\b"..@/.."\\b'"<bar>set hlsearch<cr>
+vnoremap <silent> ga y:let @/=escape(@", '\|/')<bar>execute 'silent grepadd! '..shellescape(@/, '\|')<bar>set hlsearch<cr>
 
 " LiveGrep
 nmap <leader>G <plug>(livegrep-resume)
