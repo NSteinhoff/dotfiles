@@ -1,25 +1,25 @@
 local function setup_signs()
     vim.fn.sign_define(
         "DiagnosticSignError",
-        { text = "", texthl = "DiagnosticSignError" }
+        { text = "E", texthl = "DiagnosticSignError" }
     )
     vim.fn.sign_define(
         "DiagnosticSignWarn",
-        { text = "", texthl = "DiagnosticSignWarn" }
+        { text = "W", texthl = "DiagnosticSignWarn" }
     )
     vim.fn.sign_define(
         "DiagnosticSignInfo",
-        { text = "כֿ", texthl = "DiagnosticSignInfo" }
+        { text = "I", texthl = "DiagnosticSignInfo" }
     )
     vim.fn.sign_define(
         "DiagnosticSignHint",
-        { text = "", texthl = "DiagnosticSignHint" }
+        { text = "H", texthl = "DiagnosticSignHint" }
     )
 end
 
 local function config()
     vim.diagnostic.config({
-        signs = false,
+        signs = true,
         underline = false,
         virtual_text = false,
         update_in_insert = false,
