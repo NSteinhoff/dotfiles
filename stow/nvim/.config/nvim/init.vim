@@ -6,7 +6,6 @@ colorscheme ludite
 
 "{{{ Appearance
 set noshowcmd
-set showcmdloc=last
 set cmdheight=1
 set inccommand=split
 set showmode
