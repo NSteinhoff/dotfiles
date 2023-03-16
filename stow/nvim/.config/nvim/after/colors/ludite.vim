@@ -84,12 +84,6 @@ highlight TabLineNotice                cterm=underline              ctermfg=1   
 highlight TabLineSel                   cterm=bold,underline         ctermfg=15    ctermbg=NONE
 "}}}
 
-"{{{ Win bar
-highlight WinBar                       cterm=NONE                   ctermfg=0     ctermbg=4
-highlight WinBarNC                     cterm=NONE                   ctermfg=4     ctermbg=8
-"}}}
-
-
 "{{{ Searching/Matches
 highlight Search                       cterm=bold,underline         ctermfg=NONE  ctermbg=NONE
 highlight IncSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=5
@@ -120,6 +114,13 @@ highlight String                       cterm=NONE       ctermfg=15    ctermbg=NO
 highlight Todo                         cterm=inverse    ctermfg=NONE  ctermbg=NONE
 highlight Type                         cterm=bold       ctermfg=NONE  ctermbg=NONE
 highlight Underlined                   cterm=underline  ctermfg=NONE  ctermbg=NONE
+"}}}
+
+" --- Neovim specific stuff ---
+
+"{{{ Win bar
+highlight WinBar                       cterm=NONE                   ctermfg=0     ctermbg=4
+highlight WinBarNC                     cterm=NONE                   ctermfg=4     ctermbg=8
 "}}}
 
 "{{{ Links

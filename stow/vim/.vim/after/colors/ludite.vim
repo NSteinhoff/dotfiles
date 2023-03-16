@@ -59,7 +59,7 @@ highlight SpellRare                    cterm=NONE                   ctermfg=12  
 
 "{{{ Diff
 highlight DiffAdd                      cterm=underline              ctermfg=2     ctermbg=NONE
-highlight DiffChange                   cterm=underline              ctermfg=3     ctermbg=NONE
+highlight DiffChange                   cterm=underline              ctermfg=NONE  ctermbg=NONE
 highlight DiffDelete                   cterm=NONE                   ctermfg=1     ctermbg=NONE
 highlight DiffText                     cterm=underline              ctermfg=13    ctermbg=NONE
 
@@ -67,27 +67,28 @@ highlight diffAdded                    cterm=NONE                   ctermfg=2   
 highlight diffRemoved                  cterm=NONE                   ctermfg=1     ctermbg=NONE
 "}}}
 
-"{{{ Statusline
+"{{{ Status line
 highlight StatusLine                   cterm=NONE                   ctermfg=0     ctermbg=4
-highlight StatusLineFocus              cterm=NONE                   ctermfg=4     ctermbg=15
 highlight StatusLineNC                 cterm=NONE                   ctermfg=4     ctermbg=8
+highlight StatusLineFocus              cterm=NONE                   ctermfg=4     ctermbg=15
 highlight StatusLineTerm               cterm=NONE                   ctermfg=0     ctermbg=13
 highlight StatusLineTermNC             cterm=NONE                   ctermfg=4     ctermbg=8
 "}}}
 
-"{{{ Tabline
+"{{{ Tab line
 highlight TabLine                      cterm=underline              ctermfg=NONE  ctermbg=NONE
 highlight TabLineDirectory             cterm=underline              ctermfg=12    ctermbg=NONE
 highlight TabLineFill                  cterm=underline              ctermfg=8     ctermbg=NONE
-highlight TabLineFocus                 cterm=underline              ctermfg=4     ctermbg=NONE
+highlight TabLineFocus                 cterm=underline              ctermfg=3     ctermbg=NONE
 highlight TabLineNotice                cterm=underline              ctermfg=1     ctermbg=NONE
-highlight TabLineSel                   cterm=italic,bold,underline  ctermfg=15    ctermbg=NONE
+highlight TabLineSel                   cterm=bold,underline         ctermfg=15    ctermbg=NONE
 "}}}
 
 "{{{ Searching/Matches
-highlight IncSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=5
-highlight MatchParen                   cterm=NONE                   ctermfg=5     ctermbg=NONE
 highlight Search                       cterm=bold,underline         ctermfg=NONE  ctermbg=NONE
+highlight IncSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=5
+highlight CurSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=5
+highlight MatchParen                   cterm=NONE                   ctermfg=12    ctermbg=NONE
 "}}}
 
 "{{{ Syntax
@@ -95,7 +96,7 @@ highlight Comment                      cterm=italic     ctermfg=8     ctermbg=NO
 highlight Constant                     cterm=NONE       ctermfg=15    ctermbg=NONE
 highlight Define                       cterm=NONE       ctermfg=NONE  ctermbg=NONE
 highlight Delimiter                    cterm=NONE       ctermfg=15    ctermbg=NONE
-highlight Error                        cterm=NONE       ctermfg=1     ctermbg=NONE
+highlight Error                        cterm=inverse    ctermfg=1     ctermbg=NONE
 highlight Exception                    cterm=bold       ctermfg=15    ctermbg=NONE
 highlight Function                     cterm=NONE       ctermfg=NONE  ctermbg=NONE
 highlight Identifier                   cterm=NONE       ctermfg=NONE  ctermbg=NONE
