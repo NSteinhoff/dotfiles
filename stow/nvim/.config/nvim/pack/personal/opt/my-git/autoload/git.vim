@@ -323,3 +323,12 @@ function git#review(revision)
         tabclose
     endtry
 endfunction
+
+function git#ctags(lib)
+    let l:cmd = a:lib ? 'ctags' : 'ctags-lib'
+    if finddir('.git', ';') != '' || findfile('.git', ';') != ''
+        call jobstart(['git', l:cmd])
+    else 
+        echo "Unable to call 'ctags' Git hook'"..getcwd().."' is not a git repository."
+    endif
+endfunction

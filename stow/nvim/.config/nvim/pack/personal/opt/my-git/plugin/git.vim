@@ -4,10 +4,8 @@ command! ShowBlame call git#blame_on()
 command! NoShowBlame call git#blame_off()
 
 " Regenerate the git ctags
-command! Ctags if finddir('.git', ';') != '' || findfile('.git', ';') != ''
-    \| call jobstart(['git', 'ctags']) | else
-    \| echo "'".getcwd()."' is not a git repository. Can only run Ctags from within a git repository." | endif
-
+command! Ctags call git#ctags(0)
+command! CtagsLib call git#ctags(1)
 function s:complete_file_log(arglead, cmdline, cursorpos)
     return filter(git#file_log(@%), { _, v -> v =~ a:arglead})
 endfunction
