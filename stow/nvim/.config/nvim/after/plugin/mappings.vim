@@ -214,7 +214,6 @@ nmap gO <cmd>TagToc<cr>
 "{{{ Leader mappings
 "{{{ Buffer Switching
 nnoremap <leader>b :call buffers#recent()<cr>:buffer<space>
-nnoremap <leader>s :call buffers#recent()<cr>:sbuffer<space>
 nnoremap <leader>v :call buffers#recent()<cr>:vert sbuffer<space>
 nnoremap <leader>t :call buffers#recent()<cr>:tab sbuffer<space>
 
@@ -227,7 +226,7 @@ nnoremap <leader>T :buffer term://<c-z>
 "}}}
 
 " Scratch buffer
-nnoremap <leader>S <cmd>Scratch<cr>
+nnoremap <leader>s <cmd>Scratch<cr>
 
 " Journal
 nnoremap <leader>J <cmd>Journal<cr>
