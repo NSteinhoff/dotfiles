@@ -227,8 +227,10 @@ function git#show_timeline(split, line1, line2, range, path)
     let bufname = 'TIMELINE: '..fname..(a:range ? ':'..a:line1..','..a:line2 : '')..' '..git#head(fdir)
     let cmd = a:split ? 'leftabove vertical new' : 'enew'
     let ft=&ft
-    let lines = git#line_log(a:line1, a:line2, a:path)
-    let bufnr = s:temp_buffer(lines, bufname, 'gitlog', {'cmd': cmd})
+    let file_log = git#file_log(a:path)
+    let line_log = git#line_log(a:line1, a:line2, a:path)
+    let line_log = map(line_log, { _, v -> index(file_log, v) == -1 ? v .. ' [RENAMED]' : v })
+    let bufnr = s:temp_buffer(line_log, bufname, 'gitlog', {'cmd': cmd})
     if bufnr > 0
         let b:peek_patch  = { line1, line2 -> git#show_diff(1, getline(line2), getline(line1), fdir..'/'..fname) }
         let b:open_file   = { -> git#show_file_version(getline('.'), fdir..'/'..fname, ft, 0) }
@@ -325,7 +327,7 @@ function git#review(revision)
 endfunction
 
 function git#ctags(lib)
-    let l:cmd = a:lib ? 'ctags' : 'ctags-lib'
+    let l:cmd = a:lib ? 'ctags-lib' : 'ctags'
     if finddir('.git', ';') != '' || findfile('.git', ';') != ''
         call jobstart(['git', l:cmd])
     else 
