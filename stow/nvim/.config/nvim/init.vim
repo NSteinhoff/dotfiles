@@ -116,6 +116,7 @@ packadd packer                                  " Package utilities and paths
 
 "{{{ Personal
 packadd my-lsp                                  " Language Server configurations
+packadd my-dap                                  " Debug Adapter configurations
 packadd my-livegrep                             " Start grepping live with :lg
 packadd! my-git                                 " Git utilities (bloated): Show diff with :dd
 packadd! my-quickfix                            " Quickfix niceties, mostly limited to quickfix windows

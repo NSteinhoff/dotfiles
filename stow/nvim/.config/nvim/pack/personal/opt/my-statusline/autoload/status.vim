@@ -78,3 +78,11 @@ endfunction
 function! status#stealth()
     return exists('*stealth#status') ? stealth#status() : ''
 endfunction
+
+function! status#dap()
+    try
+        return v:lua.require'dap'.status()
+    catch
+        return ""
+    endtry
+endfunction

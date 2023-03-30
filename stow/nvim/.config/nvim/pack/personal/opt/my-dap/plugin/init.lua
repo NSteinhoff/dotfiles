@@ -6,10 +6,13 @@ local opts = { buffer = false, silent = false }
 local maps = {
     ["n"] = {
         ["dK"] = ui.hover,
+        ["<leader>d."] = dap.run_to_cursor,
         ["<leader>dc"] = dap.continue,
         ["<leader>ds"] = dap.step_into,
         ["<leader>dn"] = dap.step_over,
         ["<leader>df"] = dap.step_out,
+        ["<leader>d<"] = dap.up,
+        ["<leader>d>"] = dap.down,
         ["<leader>db"] = dap.toggle_breakpoint,
         ["<leader>dB"] = function()
             dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
@@ -17,9 +20,13 @@ local maps = {
         ["<leader>dB"] = function()
             dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
         end,
-        ["<leader>dr"] = dap.repl.open,
-        ["<leader>dd"] = dap.run_last,
+        ["<leader>dr"] = dap.repl.toggle,
+        ["<leader>dD"] = dap.run_last,
         ["<leader>dt"] = dap.terminate,
+        ["<leader>dd"] = function() 
+            dap.disconnect()
+            dap.close()
+        end,
         ["<leader>dl"] = function()
             dap.list_breakpoints()
             vim.cmd.cwindow()
@@ -67,7 +74,7 @@ dap.configurations.c = {
             )
         end,
         cwd = "${workspaceFolder}",
-        stopOnEntry = false,
+        stopOnEntry = true,
         args = {},
         env = function()
             local variables = {}
@@ -76,6 +83,14 @@ dap.configurations.c = {
             end
             return variables
         end,
+    },
+    {
+        name = "Attach",
+        type = "lldb",
+        request = "attach",
+        stopOnEntry = true,
+        pid = require('dap.utils').pick_process,
+        args = {},
     },
 }
 
