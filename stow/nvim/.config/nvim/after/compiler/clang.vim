@@ -24,6 +24,7 @@ CompilerSet makeprg=clang
             \\ -Wno-implicit-fallthrough
             \\ -Wno-vla
             \\ -Wno-cast-qual
+            \\ -Wno-unsafe-buffer-usage
             \\ -fsyntax-only
             \\ %
             \\ $*
