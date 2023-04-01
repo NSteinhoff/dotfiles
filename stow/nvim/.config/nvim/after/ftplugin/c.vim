@@ -25,7 +25,6 @@ command! -buffer -nargs=* CompileAndRun w|make %:r|!./%:r <args>
 let b:interpreter  = 'clang'
 let b:interpreter .= ' -Wall'
 let b:interpreter .= ' -Wextra'
-let b:interpreter .= ' -Weverything'
 let b:interpreter .= ' -pedantic'
 let b:interpreter .= ' -Wno-declaration-after-statement'
 let b:interpreter .= ' -Wno-strict-prototypes'
