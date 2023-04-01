@@ -81,8 +81,11 @@ endfunction
 
 function! status#dap()
     try
-        return v:lua.require'dap'.status()
+        let active = luaeval('require("dap").session() ~= nil')
+        let status = luaeval('require("dap").status()')
     catch
         return ""
     endtry
+
+    return active ? "DGB" .. (status != "" ? " "..status : "") : ""
 endfunction
