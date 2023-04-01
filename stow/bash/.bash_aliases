@@ -8,7 +8,7 @@ HISTSIZE=100000
 HISTFILESIZE=200000
 
 # Prefer local binaries
-export PATH="~/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 shopt -s histappend
 shopt -s histverify
