@@ -235,7 +235,7 @@ dap.configurations.c = {
         name = "Attach",
         type = "lldb",
         request = "attach",
-        stopOnEntry = true,
+        stopOnEntry = false,
         pid = require("dap.utils").pick_process,
         args = {},
     },
