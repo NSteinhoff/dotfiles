@@ -50,6 +50,18 @@ local keymaps = {
             rhs = dap.clear_breakpoints,
             opts = { desc = "DAP Clear all breakpoints" },
         },
+        ["<leader>dC"] = {
+            rhs = function()
+                dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
+            end,
+            opts = { desc = "DAP Set breakpoint condition" },
+        },
+        ["<leader>dL"] = {
+            rhs = function()
+                dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+            end,
+            opts = { desc = "DAP Set log point" },
+        },
 
         -- Navigate stack frame
         ["<leader>d<"] = {
