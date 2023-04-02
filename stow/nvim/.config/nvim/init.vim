@@ -37,6 +37,7 @@ set tagcase=match                               " ... but match case in :tag sea
 set splitright                                  " open vertical splits on the right
 set sessionoptions+=options                     " remember options and mappings
 set isfname-==
+set jumpoptions=stack
 "}}}
 
 "{{{ Special characters
