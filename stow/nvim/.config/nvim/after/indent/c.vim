@@ -13,12 +13,18 @@ let s:style.= ', UseTab: '..use_tab
 let s:style.= ', TabWidth: '..&tabstop
 let s:style.= ', IndentWidth: '..indend_width
 let s:style.= ', ContinuationIndentWidth: '..indend_width
-let s:style.= ', AllowShortIfStatementsOnASingleLine: AllIfsAndElse'
-let s:style.= ', AllowShortCaseLabelsOnASingleLine: true'
-let s:style.= ', AllowShortLoopsOnASingleLine: true'
-let s:style.= ', AllowShortBlocksOnASingleLine: Empty'
+let s:style.= ', AlwaysBreakBeforeMultilineStrings: true'
+let s:style.= ', BreakBeforeTernaryOperators: true'
+let s:style.= ', IndentGotoLabels: true'
+let s:style.= ', ReflowComments: false'
+let s:style.= ', AlignAfterOpenBracket: AlwaysBreak'
+let s:style.= ', AlignArrayOfStructures: Right'
 let s:style.= ', AlignOperands: AlignAfterOperator'
-let s:style.= ', AllowShortFunctionsOnASingleLine: Empty'
+let s:style.= ', AllowShortBlocksOnASingleLine: Never'
+let s:style.= ', AllowShortCaseLabelsOnASingleLine: true'
+let s:style.= ', AllowShortFunctionsOnASingleLine: false'
+let s:style.= ', AllowShortIfStatementsOnASingleLine: AllIfsAndElse'
+let s:style.= ', AllowShortLoopsOnASingleLine: true'
 let s:style.= '}"'
 
 if executable('clang-format')

@@ -19,6 +19,7 @@ set shortmess+=s
 set concealcursor=n
 set laststatus=2
 set showtabline=2
+set title
 "}}}
 
 "{{{ Behavior
@@ -91,7 +92,7 @@ set shortmess+=c
 
 "{{{ Path and files
 set path=,,.
-" set wildignore+=*/target/*
+set wildignore+=*.dSym/
 " set wildignore+=*/node_modules/*
 "}}}
 
@@ -117,7 +118,6 @@ packadd packer                                  " Package utilities and paths
 
 "{{{ Personal
 packadd my-lsp                                  " Language Server configurations
-packadd my-dap                                  " Debug Adapter configurations
 packadd my-livegrep                             " Start grepping live with :lg
 packadd! my-git                                 " Git utilities (bloated): Show diff with :dd
 packadd! my-quickfix                            " Quickfix niceties, mostly limited to quickfix windows
@@ -130,6 +130,7 @@ packadd! my-filefinder                          " Start simple file finder with 
 "}}}
 
 "{{{ Third Party
+packadd my-dap                                  " Debug Adapter configurations
 packadd! my-dirvish                             " Minimalist file browser (customized)
 packadd! vim-commentary                         " Comment out stuff
 "}}}

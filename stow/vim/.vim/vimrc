@@ -56,7 +56,7 @@ set listchars+=multispace:\ \ \ ·               " Add markers for every 4 space
 
 "{{{ Text formatting
 set smarttab
-set tabstop=4
+set tabstop=8
 set shiftwidth=0
 set softtabstop=-1          " use the value of 'shiftwidth'
 set expandtab               " spaces instead of tabs
@@ -79,7 +79,9 @@ set nojoinspaces            " keep single spaces after sentences
 
 "{{{ Completions
 set wildmode=longest:full,full
-set wildignore=*/node_modules/*
+set wildignore=
+set wildignore+=*/node_modules/*
+set wildignore+=*.dSYM/
 set wildoptions=pum
 "}}}
 
