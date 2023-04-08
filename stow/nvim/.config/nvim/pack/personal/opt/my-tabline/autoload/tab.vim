@@ -43,8 +43,10 @@ endfunction
 
 function! tab#diff(n)
     let difftarget = gettabvar(a:n, 'diff_target')
-    let difftarget = !empty(difftarget) ? ' (<> '..difftarget..')' : ''
-    return difftarget
+
+    if empty(difftarget) | return "" | endif
+
+    return printf(' (<> %s)', difftarget)
 endfunction
 
 function! tab#cwd()
@@ -55,8 +57,9 @@ function! tab#cwd()
     let cwd = cwd == '~' ? '~/' : cwd
 
     if win != tab
+        let relative_path = substitute(substitute(win, tab, '', ''), $HOME, '~', '')
         let cwd .= '%#TabLineNotice#'
-        let cwd .= '['..substitute(substitute(win, tab, '', ''), $HOME, '~', '')..']'
+        let cwd .= printf('[%s]', relative_path)
     endif
 
     return cwd
@@ -80,14 +83,35 @@ function! tab#tabs()
         let s .= tab#highlights(i)
         let s .= ' '..tab#label(i)
         let s .= ' '..tab#diff(i)
-        let s .= ' %T'
+        let s .= '%T'
         let s .= '%#TabLine#'
     endfor
     return s
 endfunction
 
+function! tab#tmux_choose_tree(...)
+    echo system("tmux choose-tree")
+endfunction
+
+function! tab#tmux_session()
+    if !exists('$TMUX') | return "" | endif
+    if system('tmux show-options -g status') !~ 'status off' | return "" | endif
+
+    let windowinfo = systemlist("tmux list-windows -F '#S:#I:#P #{window_active}'")
+    for info in windowinfo
+        let [window, active] = split(info, ' ')
+        if active == '0' | continue | endif
+        let [session, window, pane] = split(window, ':')
+        return printf("%%@tab#tmux_choose_tree@[%s:%d:%d]%%T", session, window, pane)
+    endfor
+
+    return ""
+endfunction
+
 function! tab#line()
     let s = ''
+    let s .= '%#TabLineContext#'
+    let s .= tab#tmux_session()
     let s .= '%#TabLine#'
     let s .= tab#tabs()
     let s .= '%#TabLineFill#'

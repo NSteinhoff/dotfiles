@@ -78,6 +78,7 @@ highlight StatusLineTermNC             cterm=NONE                   ctermfg=4   
 "{{{ Tab line
 highlight TabLine                      cterm=underline              ctermfg=NONE  ctermbg=NONE
 highlight TabLineDirectory             cterm=underline              ctermfg=12    ctermbg=NONE
+highlight TabLineContext               cterm=bold,underline         ctermfg=2     ctermbg=NONE
 highlight TabLineFill                  cterm=underline              ctermfg=8     ctermbg=NONE
 highlight TabLineFocus                 cterm=underline              ctermfg=3     ctermbg=NONE
 highlight TabLineNotice                cterm=underline              ctermfg=1     ctermbg=NONE

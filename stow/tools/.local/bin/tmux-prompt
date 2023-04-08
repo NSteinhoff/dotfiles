@@ -9,16 +9,13 @@ tmux show-options -g status | grep --silent "status off" || exit
 tmuxinfo="$(
     tmux list-windows -F '#S:#I:#P #{window_active}' |
     grep '1$' |
-    cut -d' ' -f1
+    cut -w -f1
 )"
 
-case $tmuxinfo in
-    default:*)
-        shortinfo="*${tmuxinfo#default}" ;;
-    [0123456789]*:1:1)
-        shortinfo="T" ;;  # on the first window and pane of a numbered session
-    *)
-        shortinfo="${tmuxinfo}" ;;
-esac
+session="$(echo $tmuxinfo | cut -d : -f1)"
+window="$(echo $tmuxinfo | cut -d : -f2)"
+pane="$(echo $tmuxinfo | cut -d : -f3)"
 
-echo -en "[\033[1;33m${shortinfo}\033[0m] "
+echo -en "\033[1;33m"
+echo -n "[${session}:${window}:${pane}]"
+echo -en "\033[0m "
