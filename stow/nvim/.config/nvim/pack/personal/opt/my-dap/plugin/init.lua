@@ -1,7 +1,64 @@
 vim.cmd([[packadd nvim-dap]])
 local dap = require("dap")
+
+local keep_commands = { "DapShowLog", "DapContinue", "DapSetLogLevel" }
+
+for name, _ in pairs(vim.api.nvim_get_commands({})) do
+    if
+        string.match(name, "Dap%u%a*")
+        and not vim.tbl_contains(keep_commands, name)
+    then
+        vim.api.nvim_del_user_command(name)
+    end
+end
+
+-- Adapters
+dap.adapters.lldb = {
+    type = "executable",
+    command = "/opt/homebrew/opt/llvm/bin/lldb-vscode", -- adjust as needed, must be absolute path
+    name = "lldb",
+}
+
+-- Configurations
+dap.configurations.c = {
+    {
+        name = "Launch",
+        type = "lldb",
+        request = "launch",
+        program = function()
+            return vim.fn.input(
+                "Path to executable: ",
+                vim.fn.getcwd() .. "/",
+                "file"
+            )
+        end,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = true,
+        args = {},
+        env = function()
+            local variables = {}
+            for k, v in pairs(vim.fn.environ()) do
+                table.insert(variables, string.format("%s=%s", k, v))
+            end
+            return variables
+        end,
+    },
+    {
+        name = "Attach",
+        type = "lldb",
+        request = "attach",
+        stopOnEntry = false,
+        pid = require("dap.utils").pick_process,
+        args = {},
+    },
+}
+
+dap.configurations.rust = dap.configurations.c
+dap.configurations.cpp = dap.configurations.c
+
+-- Mappings and Commands
 local ui = require("dap.ui.widgets")
-local default_opts = { buffer = false, silent = false }
+
 local keymaps = {
     ["n"] = {
         -- Inspect / Hover
@@ -58,7 +115,11 @@ local keymaps = {
         },
         ["<leader>dL"] = {
             rhs = function()
-                dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+                dap.set_breakpoint(
+                    nil,
+                    nil,
+                    vim.fn.input("Log point message: ")
+                )
             end,
             opts = { desc = "DAP Set log point" },
         },
@@ -117,6 +178,10 @@ local keymaps = {
             rhs = dap.terminate,
             opts = { desc = "DAP Terminate Debugee and Adapter" },
         },
+        ["<Leader>dF"] = {
+            rhs = dap.focus_frame,
+            opts = { desc = "DAP Focus current Frame" },
+        },
     },
 }
 
@@ -166,6 +231,10 @@ local commands = {
         cmd = dap.terminate,
         opts = { desc = "DAP Terminate Debugee and Adapter" },
     },
+    ["DapFrameFocus"] = {
+        cmd = dap.focus_frame,
+        opts = { desc = "DAP Focus current Frame" },
+    },
 
     -- Widgets
     ["DapShowPreview"] = {
@@ -190,6 +259,8 @@ local commands = {
     },
 }
 
+local default_opts = { buffer = false, silent = false }
+
 function on_attach(client)
     for mode, mode_map in pairs(keymaps) do
         for lhs, mapping in pairs(mode_map) do
@@ -203,7 +274,7 @@ function on_attach(client)
 end
 
 function on_detach()
-    for mode, mode_map in pairs(maps) do
+    for mode, mode_map in pairs(keymaps) do
         for lhs, _ in pairs(mode_map) do
             vim.keymap.del(mode, lhs, default_opts)
         end
@@ -213,47 +284,5 @@ function on_detach()
     end
 end
 
-dap.adapters.lldb = {
-    type = "executable",
-    command = "/opt/homebrew/opt/llvm/bin/lldb-vscode", -- adjust as needed, must be absolute path
-    name = "lldb",
-}
-
-local dap = require("dap")
-dap.configurations.c = {
-    {
-        name = "Launch",
-        type = "lldb",
-        request = "launch",
-        program = function()
-            return vim.fn.input(
-                "Path to executable: ",
-                vim.fn.getcwd() .. "/",
-                "file"
-            )
-        end,
-        cwd = "${workspaceFolder}",
-        stopOnEntry = true,
-        args = {},
-        env = function()
-            local variables = {}
-            for k, v in pairs(vim.fn.environ()) do
-                table.insert(variables, string.format("%s=%s", k, v))
-            end
-            return variables
-        end,
-    },
-    {
-        name = "Attach",
-        type = "lldb",
-        request = "attach",
-        stopOnEntry = false,
-        pid = require("dap.utils").pick_process,
-        args = {},
-    },
-}
-
-dap.configurations.rust = dap.configurations.c
-dap.configurations.cpp = dap.configurations.c
-
-on_attach()
+dap.listeners.after.event_initialized["my-dap"] = on_attach
+dap.listeners.before.event_exited["my-dap"] = on_detach

@@ -130,7 +130,7 @@ packadd! my-filefinder                          " Start simple file finder with 
 "}}}
 
 "{{{ Third Party
-packadd my-dap                                  " Debug Adapter configurations
+packadd! my-dap                                  " Debug Adapter configurations
 packadd! my-dirvish                             " Minimalist file browser (customized)
 packadd! vim-commentary                         " Comment out stuff
 "}}}
