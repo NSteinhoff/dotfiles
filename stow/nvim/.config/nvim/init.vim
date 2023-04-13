@@ -70,8 +70,8 @@ set formatoptions=
 set formatoptions+=l                            " don't wrap lines that were too long to begin with
 " sentences
 set formatoptions+=p                            " don't wrap after . + single space
-set cpoptions+=J                                " require double space after sentences
-set joinspaces                                  " double spaces after sentences
+" set cpoptions+=J                                " require double space after sentences
+" set joinspaces                                  " double spaces after sentences
 " comments
 set formatoptions+=c                            " wrap comments
 set formatoptions+=j                            " remove commentstring when joining comment lines

@@ -1,76 +1,43 @@
 let s:insert_help = '<cr> selects <- ; <c-n>/<c-p> moves <- ; <space> inserts wildcards ; <c-c> to exit'
 let s:normal_help = '<cr> go to file under cursor'
 let s:placeholder = '  <<< some.*file.*pattern'
-let s:matcherprg = 'rg --smart-case'
+let s:matcherprg = 'rg --smart-case --'
 
-function s:finder()
-    if finddir('.git', ';') != ''
-        return 'git ls-files'
-    endif
+" -------------------------------------------------------------------------- "
+"                              Public Functions                              "
+" -------------------------------------------------------------------------- "
+function filefinder#start(pattern, clean)
+    let files = s:get_matching_files(a:pattern)
 
-    return 'rg --files'
-endfunction
+"     " Short circuit if there is only one match
+"     if len(files) == 1
+"         execute 'edit '..files[0]
+"         return
+"     endif
 
-function s:query()
-    return getline(1)
-endfunction
+    let b = 'filefinder://'..getcwd()
+    let winnr = bufwinnr(bufnr(b))
 
-function s:editing()
-    return line('.') == 1
-endfunction
-
-function s:placeholder()
-    let ns = nvim_create_namespace('filefinder_placeholder')
-    call nvim_buf_clear_namespace(0, ns, 0, -1)
-    if getline(1) == ''
-        call nvim_buf_set_extmark(0, ns, 0, 0, {'virt_text': [[s:placeholder, 'Special']]})
-    endif
-endfunction
-
-function s:wipe(mode)
-    call deletebufline('', 2, '$')
-    call filefinder#insert_separator(a:mode)
-endfunction
-
-function s:search(pattern)
-    if empty(a:pattern)
-        let files = systemlist(s:finder())
+    if winnr == -1
+        execute 'edit '..b
+        augroup file-finder
+            autocmd!
+            autocmd TextChanged,TextChangedI <buffer> call filefinder#update(0)
+            autocmd InsertEnter <buffer> call filefinder#insert_separator('i')
+            autocmd InsertLeave <buffer> call filefinder#insert_separator('n')
+            autocmd InsertEnter <buffer> call filefinder#mark_selection('i')
+            autocmd InsertLeave <buffer> call filefinder#mark_selection('n')
+        augroup END
+        setf filefinder
     else
-        let files = systemlist(s:finder()..' | '..s:matcherprg..' '.shellescape(a:pattern))
+        execute winnr .. 'wincmd w'
     endif
 
-    call append('$', files)
-    let b:num_results = len(files)
-endfunction
-
-function s:reset_selection()
-    let b:selected = 0
-endfunction
-
-function s:files()
-    return getline(3, '$')
-endfunction
-
-function filefinder#start(pattern)
-    let files = systemlist(s:finder()..' | '..s:matcherprg..' '.shellescape(a:pattern))
-    if len(files) == 1
-        execute 'edit '..files[0]
-        return
+    if !empty(a:pattern) || a:clean
+        call setline(1, a:pattern)
+        call filefinder#update(1)
     endif
 
-    execute 'edit filefinder://'..getcwd()
-    augroup file-finder
-        autocmd!
-        autocmd TextChanged,TextChangedI <buffer> call filefinder#update()
-        autocmd InsertEnter <buffer> call filefinder#insert_separator('i')
-        autocmd InsertLeave <buffer> call filefinder#insert_separator('n')
-        autocmd InsertEnter <buffer> call filefinder#mark_selection('i')
-        autocmd InsertLeave <buffer> call filefinder#mark_selection('n')
-    augroup END
-    setf filefinder
-
-    call setline(1, a:pattern)
-    call filefinder#update()
     call feedkeys('A')
 endfunction
 
@@ -104,9 +71,9 @@ function filefinder#move_selection(step)
     call filefinder#mark_selection(mode())
 endfunction
 
-function filefinder#update()
+function filefinder#update(force)
     call s:placeholder()
-    if !s:editing()
+    if !s:editing() && !a:force
         return
     endif
 
@@ -129,4 +96,58 @@ function filefinder#open() range
         execute 'badd '..files[i]
     endfor
     execute 'buffer '..files[indices[0]]
+endfunction
+
+" -------------------------------------------------------------------------- "
+"                          Private Helper Functions                          "
+" -------------------------------------------------------------------------- "
+function s:listerprg()
+    if finddir('.git', ';') != ''
+        return 'git ls-files'
+    endif
+
+    return 'rg --files'
+endfunction
+
+function s:query()
+    return getline(1)
+endfunction
+
+function s:editing()
+    return line('.') == 1
+endfunction
+
+function s:placeholder()
+    let ns = nvim_create_namespace('filefinder_placeholder')
+    call nvim_buf_clear_namespace(0, ns, 0, -1)
+    if getline(1) == ''
+        call nvim_buf_set_extmark(0, ns, 0, 0, {'virt_text': [[s:placeholder, 'Special']]})
+    endif
+endfunction
+
+function s:wipe(mode)
+    call deletebufline('', 2, '$')
+    call filefinder#insert_separator(a:mode)
+endfunction
+
+function s:get_matching_files(pattern)
+    if empty(a:pattern)
+        return systemlist(s:listerprg())
+    else
+        return systemlist(s:listerprg()..' | '..s:matcherprg..' '.shellescape(a:pattern))
+    endif
+endfunction
+
+function s:search(pattern)
+    let files = s:get_matching_files(a:pattern)
+    call append('$', files)
+    let b:num_results = len(files)
+endfunction
+
+function s:reset_selection()
+    let b:selected = 0
+endfunction
+
+function s:files()
+    return getline(3, '$')
 endfunction

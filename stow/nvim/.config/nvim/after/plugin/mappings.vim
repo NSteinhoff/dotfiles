@@ -232,7 +232,7 @@ nnoremap <leader>s <cmd>Scratch<cr>
 nnoremap <leader>J <cmd>Journal<cr>
 
 " Fuzzy Find: <leader>f
-nnoremap <leader>f <cmd>FileFinder<cr>
+nnoremap <leader>f <Plug>(filefinder)
 
 " Switching tabs
 nnoremap <c-\> gt
