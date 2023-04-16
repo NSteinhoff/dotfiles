@@ -3,9 +3,18 @@ let s:matches = {}
 function stealth#on()
     let m = get(s:matches, win_getid(), {})
     if (!empty(m))|return|endif
-    let pattern = '\(^\|\s\)\s*\zs'..substitute(escape(&commentstring, '*$~|.')..'$', '%s', '.\*', '')
-    let m = {'id': matchadd('Conceal', pattern, 99, -1, {'conceal': '~'}), 'cole': &l:cole}
-    let s:matches[win_getid()] = m
+
+    let start_markers = &comments
+        \->split(',')
+        \->filter({ _, v -> v =~ '^:' })
+        \->map({_, v -> strcharpart(v, 1)})
+
+    for marker in start_markers
+        let pattern = '\(^\|\s\)\s*\zs'..escape(marker, '*$~|.')..'.*$'
+        let m = {'id': matchadd('Conceal', pattern, 99, -1, {'conceal': '~'}), 'cole': &l:cole}
+        let s:matches[win_getid()] = m
+    endfor
+
     let &l:cole = 1
 endfunction
 

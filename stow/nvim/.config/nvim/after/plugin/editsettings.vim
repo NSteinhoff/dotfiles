@@ -1,7 +1,7 @@
 function s:edit_settings(type, selected, mods)
     let defaults = {
     \   'compiler': get(b:, 'current_compiler', get(g:, 'current_compiler', '')),
-    \   'colors': g:colors_name,
+    \   'colors': get(g:, 'colors_name'),
     \   'plugin': '',
     \}
     let selected = empty(a:selected) ? get(defaults, a:type, &ft) : a:selected

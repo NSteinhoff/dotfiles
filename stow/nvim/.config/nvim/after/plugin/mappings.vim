@@ -244,8 +244,6 @@ endfor
 "{{{ (c): Changes / Diffing
 nmap <expr> dp (&diff ? '<cmd>diffput<cr>' : '<cmd>DiffThis<cr>')
 nmap dP :DiffThis <c-z>
-nnoremap <leader>c <cmd>ChangedFiles<cr>
-nnoremap <leader>C :ChangedFiles <c-z>
 "}}}
 
 "{{{ (gb): Git Blame
