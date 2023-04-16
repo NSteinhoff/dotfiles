@@ -28,6 +28,8 @@ nnoremap <buffer> ? ?\ze[^/]*[/]\=$<Home>
 
 nnoremap <buffer> g? <cmd>map <buffer><cr>
 
+nnoremap <buffer> gO <cmd>Open .<cr>
+
 command -buffer -bang PathAdd execute 'set path'..(<bang>0 ? '' : '+')..'='..expand('%')
 command -buffer PathRemove execute 'set path-='..expand('%')
 " Tree prints the input path, so we can just filter the lines
