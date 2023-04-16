@@ -23,7 +23,6 @@ CompilerSet makeprg=clang
             \\ -Wno-padded
             \\ -Wno-implicit-fallthrough
             \\ -Wno-vla
-            \\ -Wno-cast-qual
             \\ -Wno-unsafe-buffer-usage
             \\ -fsyntax-only
             \\ %
