@@ -266,6 +266,7 @@ vnoremap <silent> <leader>o y:<C-U>Open <C-R>"<cr>
 "}}}
 
 "{{{ Toggle Options
+nnoremap yoy <cmd>Noyo<cr>
 nnoremap yow <cmd>execute 'set '..(&wrap ? 'no': '')..'wrap'<cr>
 nnoremap yol <cmd>execute 'set '..(&list ? 'no': '')..'list'<cr>
 nnoremap yon <cmd>execute 'set '..(&number ? 'no': '')..'number'<cr>
