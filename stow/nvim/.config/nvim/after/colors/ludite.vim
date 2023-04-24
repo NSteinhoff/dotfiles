@@ -97,7 +97,7 @@ highlight Comment                      cterm=italic     ctermfg=8     ctermbg=NO
 highlight Constant                     cterm=NONE       ctermfg=15    ctermbg=NONE
 highlight Define                       cterm=NONE       ctermfg=NONE  ctermbg=NONE
 highlight Delimiter                    cterm=NONE       ctermfg=15    ctermbg=NONE
-highlight Error                        cterm=inverse    ctermfg=1     ctermbg=NONE
+highlight Error                        cterm=bold       ctermfg=1     ctermbg=NONE
 highlight Exception                    cterm=bold       ctermfg=15    ctermbg=NONE
 highlight Function                     cterm=NONE       ctermfg=NONE  ctermbg=NONE
 highlight Identifier                   cterm=NONE       ctermfg=NONE  ctermbg=NONE
@@ -112,7 +112,7 @@ highlight PreProc                      cterm=NONE       ctermfg=NONE  ctermbg=NO
 highlight Special                      cterm=bold       ctermfg=NONE  ctermbg=NONE
 highlight Statement                    cterm=NONE       ctermfg=NONE  ctermbg=NONE
 highlight String                       cterm=NONE       ctermfg=15    ctermbg=NONE
-highlight Todo                         cterm=inverse    ctermfg=NONE  ctermbg=NONE
+highlight Todo                         cterm=bold       ctermfg=2     ctermbg=15
 highlight Type                         cterm=bold       ctermfg=NONE  ctermbg=NONE
 highlight Underlined                   cterm=underline  ctermfg=NONE  ctermbg=NONE
 "}}}
