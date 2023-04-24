@@ -1,14 +1,22 @@
 mapclear <buffer>
 
 nnoremap <buffer> - <cmd>exe 'Dirvish %:h'.repeat(':h',v:count1)<cr>
-vmap <buffer> x <Plug>(dirvish_arg)
 nnoremap <nowait><buffer><silent> dax  :<C-U>arglocal<Bar>silent! argdelete *<Bar>echo "arglist: cleared"<Bar>Dirvish %<CR>
+
+nmap <nowait> <buffer> X <Plug>(dirvish_arg)
+xmap <nowait> <buffer> X <Plug>(dirvish_arg)
+
+nmap <nowait> <buffer> gh <Plug>(dirvish_K)
+xmap <nowait> <buffer> gh <Plug>(dirvish_K)
 
 nnoremap <buffer> <cr> <cmd>call dirvish#open('edit', 0)<cr>
 nnoremap <buffer> <space> <cmd>call dirvish#open('edit', 0)<cr>
 nnoremap <buffer> <c-space> <cmd>call dirvish#open('p', 1)<cr>
 nnoremap <buffer> <c-j> j<cmd>call dirvish#open("p", 1)<cr>
 nnoremap <buffer> <c-k> k<cmd>call dirvish#open("p", 1)<cr>
+
+nnoremap <buffer> o <cmd>call <sid>add_line_below()<cr>
+nnoremap <buffer> O <cmd>call <sid>add_line_above()<cr>
 
 nnoremap <buffer> R <cmd>let b:linesave=line('.')<bar>e %<bar>execute b:linesave<cr>
 nnoremap <buffer> cd <cmd>lcd %<cr>
@@ -33,14 +41,18 @@ nnoremap <buffer> gO <cmd>Open .<cr>
 command -buffer -bang PathAdd execute 'set path'..(<bang>0 ? '' : '+')..'='..expand('%')
 command -buffer PathRemove execute 'set path-='..expand('%')
 " Tree prints the input path, so we can just filter the lines
-command -buffer -range -nargs=* -bang Expand execute '<line1>,<line2>!xargs tree -afiF -L 1'..(<bang>0 ? 'a' : '')..' --noreport <args>'|normal $
-command -buffer -range -nargs=* -bang Mv if <range> < 2| echo ":Mv command needs a range." | else | execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'mv <args>' | endif
-command -buffer -range -nargs=* -bang Cp if <range> < 2| echo ":Cp command needs a range." | else | execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'cp <args>' | endif
-command -buffer -range -nargs=* -bang Rm execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'rm <args>'
+command -buffer -range -bang -nargs=* Expand execute '<line1>,<line2>!xargs tree -afiF -L 1'..(<bang>0 ? 'a' : '')..' --noreport <args>'|normal $
+command -buffer -range -bang Touch execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'touch'
+command -buffer -range -bang -nargs=* Mv if <range> < 2| echo ":Mv command needs a range." | else | execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'mv <args>' | endif
+command -buffer -range -bang -nargs=* Cp if <range> < 2| echo ":Cp command needs a range." | else | execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'cp <args>' | endif
+command -buffer -range -bang -nargs=* Rm execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'rm <args>'
 
-cnoreabbrev <buffer> <expr> mv (getcmdtype() ==# ':' && getcmdline() ==# 'mv') ? 'Mv' : 'mv'
-cnoreabbrev <buffer> <expr> cp (getcmdtype() ==# ':' && getcmdline() ==# 'cp') ? 'Cp' : 'cp'
-cnoreabbrev <buffer> <expr> rm (getcmdtype() ==# ':' && getcmdline() ==# 'rm') ? 'Rm' : 'rm'
+cnoreabbrev <buffer> <expr> mv    (getcmdtype() ==# ':' && getcmdline() =~# '\(''<,''>\)\?mv')    ? 'Mv'    : 'mv'
+cnoreabbrev <buffer> <expr> cp    (getcmdtype() ==# ':' && getcmdline() =~# '\(''<,''>\)\?cp')    ? 'Cp'    : 'cp'
+cnoreabbrev <buffer> <expr> rm    (getcmdtype() ==# ':' && getcmdline() =~# '\(''<,''>\)\?rm')    ? 'Rm'    : 'rm'
+cnoreabbrev <buffer> <expr> touch (getcmdtype() ==# ':' && getcmdline() =~# '\(''<,''>\)\?touch') ? 'Touch' : 'touch'
+
+command! -range -buffer Test echo "'".getcmdline()."'"
 
 
 function! s:add_segment()
@@ -52,6 +64,18 @@ function! s:add_segment()
         let segment = matchstr(tail, '^.\{-}/')
         call setline(lnum, head..segment)
     endif
+endfunction
+
+function! s:add_line_below()
+    let lnum = line('.')
+    call append(lnum, @%)
+    call feedkeys('jA')
+endfunction
+
+function! s:add_line_above()
+    let lnum = line('.') - 1
+    call append(lnum, @%)
+    call feedkeys('kA')
 endfunction
 
 autocmd! dirvish_buflocal TextChanged,TextChangedI
