@@ -7,7 +7,7 @@ let b:repl = 'node'
 " './some-file'
 " '../some-file'
 " '.../some-file'
-let &l:include='\(^import\s\|^}\).*\sfrom\s\''\zs\.\+\/\(\w\|[/.-]\)\+\ze'
+let &l:include='\(^\(import\|export\)\s\|^}\).*\sfrom\s\''\zs\.\+\/\(\w\|[/.-]\)\+\ze'
 " ./some-file -> some-file
 " ../some-file -> ../some-file
 " .../some-file -> ../../some-file
