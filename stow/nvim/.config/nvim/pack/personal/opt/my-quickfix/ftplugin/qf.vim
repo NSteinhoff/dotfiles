@@ -13,7 +13,7 @@ nnoremap <silent> <buffer> zN <cmd>call qf#filter(1, 1)<cr>
 
 " Filter based on regex
 nnoremap <buffer> <expr> cf qf#isqf() ? (qf#isloc() ? ':L' : ':C')..'filter<space>' : ''
-nnoremap <buffer> <expr> Cf qf#isqf() ? (qf#isloc() ? ':L' : ':C')..'filter!<space>' : ''
+nnoremap <buffer> <expr> cF qf#isqf() ? (qf#isloc() ? ':L' : ':C')..'filter!<space>' : ''
 
 " Manage lists
 nnoremap <silent> <buffer> !! <cmd>call qf#only()<cr>
