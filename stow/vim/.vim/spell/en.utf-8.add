@@ -12,3 +12,4 @@ backends
 ECS
 Tmux
 tabline
+config

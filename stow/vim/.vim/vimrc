@@ -1,5 +1,6 @@
 "{{{ Basic
 source $VIMRUNTIME/defaults.vim
+
 " Stop assuming that I care about C header files
 set path-=/usr/include
 

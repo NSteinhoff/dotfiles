@@ -2,7 +2,7 @@ custom_cursor_colors: true
 draw_bold_text_with_bright_colors: false
 
 themes:
-  base16-default-light: &base16-default-light
+  default-light: &default-light
     primary:
       background: '0xf8f8f8'
       foreground: '0x383838'
@@ -31,7 +31,7 @@ themes:
       cyan:    '0xa16946'
       white:   '0x181818'
 
-  base16-default-dark: &base16-default-dark
+  default-dark: &default-dark
     primary:
       background: '0x181818'
       foreground: '0xd8d8d8'
@@ -832,4 +832,4 @@ themes:
       cyan: '#116E79'
       white: '#90a1a4'
 
-colors: *themer-dark
+colors: *default-light
