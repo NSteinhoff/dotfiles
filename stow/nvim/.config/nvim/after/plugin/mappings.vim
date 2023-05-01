@@ -36,7 +36,7 @@ nnoremap <c-w><c-o> <cmd>diffoff!<bar>only<cr>
 nnoremap <space> za
 
 " Insert tabs as spaces after the first non-blank character
-" inoremap <expr> <tab> getline('.')[:col('.')-2] =~ '^\s*$' ? '<tab>' : repeat(' ', &sw - (virtcol('.') - 1) % &sw)
+imap <Tab> <Plug>(smarttab)
 
 " Yank to clipboard with "" (Why would I ever explicitly need to target
 " the unnamed register anyways?)
