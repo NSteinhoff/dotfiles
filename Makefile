@@ -38,7 +38,6 @@ install-stow: .stamps/stow-installed
 # ---------------------------------- Crawl ------------------------------------
 crawld := $(share)/crawl
 crawl_key := $(crawld)/crawl_key
-crawlrc := test
 
 crawl: $(crawl_key)
 ifeq ($(uname), Darwin)

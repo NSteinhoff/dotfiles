@@ -13,7 +13,7 @@ endfunction
 
 function s:lib_tags(remove)
     let cmd = 'set tags'..(a:remove ? '-' : '+')..'='
-    execute cmd..'./tags-lib,./tags-lib;,tags-lib,tags-lib;'
+    execute cmd..'./tags.lib,./tags.lib;,tags.lib,tags.lib;'
 endfunction
 
 command -bang TagLibs call s:lib_tags(<bang>0)

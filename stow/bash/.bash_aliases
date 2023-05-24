@@ -143,7 +143,7 @@ if $starship_prompt && (which starship &>/dev/null); then
     eval "$(starship init bash)"
 elif $fancy_prompt; then
     case "$TERM" in
-    xterm*|rxvt*|tmux*|screen*)
+    xterm*|rxvt*|tmux*|screen*|alacritty*)
         PS1='$(tmux-prompt)\[\033[1;34m\]\w\[\033[m\]$(git-prompt)\n\j:\[\033[1;32m\]\$\[\033[m\] '
         ;;
     *)

@@ -18,7 +18,7 @@ let prettier = (ispackage && executable('npx') ? 'npx ' : '')
 let prettier.= 'prettier'
 let prettier.= ' --stdin-filepath '..(empty(expand('%:t')) ? s:fakename() : expand('%:t'))
 let prettier.= ' --config-precedence=prefer-file'
-let prettier.= ' --arrow-parens=avoid'
+let prettier.= ' --arrow-parens=always'
 let prettier.= ' --trailing-comma=all'
 let prettier.= ' --tab-width='..&sw
 

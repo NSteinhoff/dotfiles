@@ -1,7 +1,7 @@
 "{{{ --------------------------------- Options -----------------------------------
 
 "{{{ Colors
-colorscheme ludite
+colorscheme minimal
 "}}}
 
 "{{{ Appearance
@@ -34,7 +34,7 @@ set mouse=nv                                    " enable mouse in normal and vis
 set mousemodel=extend
 set ignorecase                                  " ignore case in searches ...
 set smartcase                                   " ... unless it includes capital letters
-set tagcase=match                               " ... but match case in :tag searches
+set tagcase=match                               " Match case in :tag searches
 set splitright                                  " open vertical splits on the right
 set sessionoptions+=options                     " remember options and mappings
 set isfname-==
