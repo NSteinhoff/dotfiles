@@ -24,3 +24,9 @@ nnoremap <silent> <buffer> P <cmd>call qf#paste()<cr>
 " Edit current list
 nnoremap <silent> <buffer> dd <cmd>call qf#delete()<cr>
 vnoremap <silent> <buffer> d :call qf#delete()<cr>
+
+" Search and Replace entries
+nnoremap gs :cdo s/
+
+nnoremap <expr> gS ':cdo s/\C\V\<'.expand('<cword>').'\>/'
+vnoremap gS y:cdo s/\C\V<c-r>=escape(@", '\/')<cr>/

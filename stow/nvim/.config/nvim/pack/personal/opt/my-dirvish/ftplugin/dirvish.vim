@@ -47,10 +47,10 @@ command -buffer -range -bang -nargs=* Mv if <range> < 2| echo ":Mv command needs
 command -buffer -range -bang -nargs=* Cp if <range> < 2| echo ":Cp command needs a range." | else | execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'cp <args>' | endif
 command -buffer -range -bang -nargs=* Rm execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'rm <args>'
 
-cnoreabbrev <buffer> <expr> mv    (getcmdtype() ==# ':' && getcmdline() =~# '\(''<,''>\)\?mv')    ? 'Mv'    : 'mv'
-cnoreabbrev <buffer> <expr> cp    (getcmdtype() ==# ':' && getcmdline() =~# '\(''<,''>\)\?cp')    ? 'Cp'    : 'cp'
-cnoreabbrev <buffer> <expr> rm    (getcmdtype() ==# ':' && getcmdline() =~# '\(''<,''>\)\?rm')    ? 'Rm'    : 'rm'
-cnoreabbrev <buffer> <expr> touch (getcmdtype() ==# ':' && getcmdline() =~# '\(''<,''>\)\?touch') ? 'Touch' : 'touch'
+cnoreabbrev <buffer> <expr> mv    (getcmdtype() ==# ':' && getcmdline() =~# '^\(''<,''>\)\?mv')    ? 'Mv'    : 'mv'
+cnoreabbrev <buffer> <expr> cp    (getcmdtype() ==# ':' && getcmdline() =~# '^\(''<,''>\)\?cp')    ? 'Cp'    : 'cp'
+cnoreabbrev <buffer> <expr> rm    (getcmdtype() ==# ':' && getcmdline() =~# '^\(''<,''>\)\?rm')    ? 'Rm'    : 'rm'
+cnoreabbrev <buffer> <expr> touch (getcmdtype() ==# ':' && getcmdline() =~# '^\(''<,''>\)\?touch') ? 'Touch' : 'touch'
 
 command! -range -buffer Test echo "'".getcmdline()."'"
 

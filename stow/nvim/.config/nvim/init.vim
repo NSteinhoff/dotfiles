@@ -39,6 +39,7 @@ set splitright                                  " open vertical splits on the ri
 set sessionoptions+=options                     " remember options and mappings
 set isfname-==
 set jumpoptions=stack
+set fileformats=unix                            " show <CR><NL>
 "}}}
 
 "{{{ Special characters
@@ -130,7 +131,7 @@ packadd! my-filefinder                          " Start simple file finder with 
 "}}}
 
 "{{{ Third Party
-packadd! my-dap                                  " Debug Adapter configurations
+" packadd! my-dap                                  " Debug Adapter configurations
 packadd! my-dirvish                             " Minimalist file browser (customized)
 packadd! vim-commentary                         " Comment out stuff
 "}}}

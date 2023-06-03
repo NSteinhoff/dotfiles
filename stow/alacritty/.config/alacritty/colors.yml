@@ -832,4 +832,4 @@ themes:
       cyan: '#116E79'
       white: '#90a1a4'
 
-colors: *one-dark
+colors: *right-in-the-teals-dark

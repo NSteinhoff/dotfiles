@@ -322,3 +322,58 @@ function qf#only() abort
     call s:set([], 'f')
     call s:set([], ' ', this)
 endfunction
+
+function qf#textfunc(info)
+    let items = getqflist({'id' : a:info.id, 'items' : 1}).items
+
+    let new_items = []
+    let max_length = {'file': 0, 'lnum': 0, 'col': 0, 'text': 0}
+    for idx in range(a:info.start_idx - 1, a:info.end_idx - 1)
+        let item = items[idx]
+
+        let file  = fnamemodify(bufname(item.bufnr), ':p:.')
+        if get(g:, 'quickfix_pathshorten', 0)
+            let file  = pathshorten(file)
+        endif
+        let lnum  = string(item.lnum)
+        let col   = string(item.col)
+        let text  = item.text
+
+        let new_item = {}
+        let new_item.file  = [file, len(file)]
+        let new_item.lnum  = [lnum, len(lnum)]
+        let new_item.col   = [col, len(col)]
+        let new_item.text  = [text, len(text)]
+
+        for k in ['file', 'lnum', 'col', 'text']
+            if new_item[k][1] > max_length[k]
+                let max_length[k] = new_item[k][1]
+            endif
+        endfor
+
+        call add(new_items, new_item)
+    endfor
+
+    let display_lines = []
+    for item in new_items
+        let [file, len_file]  = item.file
+        let [lnum, len_lnum]  = item.lnum
+        let [col,  len_col]   = item.col
+        let [text, len_text]  = item.text
+
+        let s  = file
+        let s .= repeat(' ', max_length['file'] - len_file)
+        let s .= '|'
+        let s .= repeat(' ', max_length['lnum'] - len_lnum)
+        let s .= lnum
+        let s .= ' col '
+        let s .= repeat(' ', max_length['col'] - len_col)
+        let s .= col
+        let s .= '| '
+        let s .= text
+
+        call add(display_lines, s)
+    endfor
+
+    return display_lines
+endfunction

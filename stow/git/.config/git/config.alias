@@ -30,7 +30,7 @@
 	fresh			= "!git remote update --prune && git branch-update-behind && git branch-switch-main && git branch-remove-stale"
 
 	# Reviewing
-	review		= !git diff --ignore-all-space "origin/$(git main-branch)"...
+	review		= !git diff --ignore-all-space "origin/$(git branch-main)"...
 
 	# Versions
 	semver		= tag --list --sort=-v:refname

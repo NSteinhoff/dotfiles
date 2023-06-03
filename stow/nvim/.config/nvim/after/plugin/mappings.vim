@@ -273,6 +273,7 @@ nnoremap yon <cmd>execute 'set '..(&number ? 'no': '')..'number'<cr>
 nnoremap yos <cmd>execute 'set laststatus='..(&laststatus == 2 ? 0: 2)<cr>
 nnoremap yot <cmd>execute 'set showtabline='..(&showtabline == 2 ? 0: 2)<cr>
 nnoremap yov <cmd>execute 'set virtualedit='..(&virtualedit == '' ? 'all' : '')<cr>
+nnoremap yoc <cmd>execute 'colorscheme ' . (colors_name == 'ludite' ? 'minimal' : 'ludite')<cr>
 "}}}
 
 " vim: foldmethod=marker
