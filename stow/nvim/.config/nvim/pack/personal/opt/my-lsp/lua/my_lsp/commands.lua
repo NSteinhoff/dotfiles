@@ -77,7 +77,17 @@ end
 
 function M.on_detach(buf)
     for name, _ in pairs(commands) do
-        vim.api.nvim_buf_del_user_command(buf, name)
+        local res, err = pcall(vim.api.nvim_buf_del_user_command, buf, name)
+        if not res then
+            vim.api.nvim_err_writeln(
+                "Error deleting command "
+                    .. name
+                    .. " for buffer "
+                    .. buf
+                    .. ": "
+                    .. err
+            )
+        end
     end
 end
 

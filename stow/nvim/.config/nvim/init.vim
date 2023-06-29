@@ -1,7 +1,7 @@
 "{{{ --------------------------------- Options -----------------------------------
 
 "{{{ Colors
-colorscheme minimal
+colorscheme ludite
 "}}}
 
 "{{{ Appearance
@@ -38,7 +38,6 @@ set tagcase=match                               " Match case in :tag searches
 set splitright                                  " open vertical splits on the right
 set sessionoptions+=options                     " remember options and mappings
 set isfname-==
-set jumpoptions=stack
 set fileformats=unix                            " show <CR><NL>
 "}}}
 

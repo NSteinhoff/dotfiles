@@ -1,6 +1,14 @@
-if exists("current_compiler") && current_compiler != 'tsc'
-    finish
+if exists("current_compiler")
+  finish
 endif
+let current_compiler = "tsc-js"
+
+" CompilerSet makeprg=npx\ tsc
+
+CompilerSet makeprg=tsc
+CompilerSet errorformat=%f\ %#(%l\\,%c):\ %trror\ TS%n:\ %m,
+		       \%trror\ TS%n:\ %m,
+		       \%-G%.%#
 
 CompilerSet errorformat^=
             \%-GDone%.%#,
@@ -10,9 +18,8 @@ CompilerSet errorformat^=
             \%-Ginfo\ Visit%.%#,
 
 let gitroot = finddir('.git', ".;$HOME,;$HOME")
-let rootrcfile = !empty(gitroot) ? findfile('tsconfig.json', fnamemodify(gitroot, ':p:h:h')) : ''
-let rcfile = empty(rootrcfile) ? findfile('tsconfig.json', ".;$HOME,;$HOME") : rootrcfile
-" let rcfile = findfile('tsconfig.json', ".;$HOME,;$HOME")
+let rootrcfile = !empty(gitroot) ? findfile('jsconfig.json', fnamemodify(gitroot, ':p:h:h')) : ''
+let rcfile = empty(rootrcfile) ? findfile('jsconfig.json', ".;$HOME,;$HOME") : rootrcfile
 
 if rcfile == ''
     CompilerSet makeprg=npx\ tsc\ --noEmit\ $*\ %

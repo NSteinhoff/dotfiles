@@ -7,8 +7,8 @@
 	loga		= log --graph --all
 
 	# Diffing
-	di		= diff --ignore-all-space
-	dis		= diff --ignore-all-space --staged
+	di		= diff
+	dis		= diff --staged
 	diw		= diff --color-words
 
 	# Committing (crimes)

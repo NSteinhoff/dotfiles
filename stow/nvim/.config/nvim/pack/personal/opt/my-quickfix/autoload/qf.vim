@@ -324,7 +324,11 @@ function qf#only() abort
 endfunction
 
 function qf#textfunc(info)
-    let items = getqflist({'id' : a:info.id, 'items' : 1}).items
+    if a:info.quickfix
+        let items = getqflist({'id' : a:info.id, 'items' : 1}).items
+    else
+        let items = getloclist(a:info.winid, {'id' : a:info.id, 'items' : 1}).items
+    endif
 
     let new_items = []
     let max_length = {'file': 0, 'lnum': 0, 'col': 0, 'text': 0}

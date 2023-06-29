@@ -1,8 +1,8 @@
 " Add the :Cfilter and :Lfilter commands
 packadd cfilter
 
-set quickfixtextfunc=qf#textfunc
-command! QuickfixPathshorten let g:quickfix_pathshorten = !get(g:, 'quickfix_pathshorten', 0)
+" set quickfixtextfunc=qf#textfunc
+" command! QuickfixPathshorten let g:quickfix_pathshorten = !get(g:, 'quickfix_pathshorten', 0)
 
 command! Ctab if getqflist({'nr': 0}).nr|tab split|botright copen|only|else|echo "No quickfix list."|endif
 command! Ltab if getloclist(0, {'nr': 0}).nr|tab split|botright lopen|only|else|echo "No location list."|endif

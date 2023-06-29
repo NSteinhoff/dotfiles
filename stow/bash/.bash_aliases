@@ -43,6 +43,9 @@ alias tree='tree -CF --dirsfirst --gitignore'
 # Listing ports
 alias lsop='_() { lsof -i -nP $@ | grep LISTEN; }; _'
 
+# Find my IP on local network
+alias lip='_() { ifconfig | grep "inet " | grep -v 127.0.0.1 | grep "broadcast" | cut -d " " -f2 ; }; _'
+
 ###################
 ### Grep with color
 alias grep='grep --color=auto'
@@ -67,9 +70,31 @@ alias g-='git switch -'
 # t     List sessions or execute tmux commands
 # tn    Create a new session named after the directory
 # tt    Attach to a session
-alias t='_() { if (( $# == 0 )); then tmux ls; else tmux $@; fi; }; _'
-alias tn='_() { (( $# == 0 )) && tmux new -s "$(basename $PWD)" || tmux new -s "$(basename $1)" -c $1; }; _'
-alias tt='tmux attach -t'
+tmux_ls_or_cmd() {
+    if (( $# == 0 )); then
+        tmux ls
+    else
+        tmux $@
+    fi
+}
+tmux_new_session_in_dir() {
+    if (( $# == 0 )); then
+        tmux new -s "$(basename $PWD)"
+    else
+        tmux new -s "$(basename $1)" -c $1
+    fi
+}
+tmux_smart_attach() {
+    if (( $# == 0 )); then
+        tmux attach
+    else
+        tmux attach -t $@
+    fi
+}
+
+alias t='tmux_ls_or_cmd'
+alias tn='tmux_new_session_in_dir'
+alias tt='tmux_smart_attach'
 complete -F _complete_tmux t
 complete -d tn
 complete -F _complete_tt tt
