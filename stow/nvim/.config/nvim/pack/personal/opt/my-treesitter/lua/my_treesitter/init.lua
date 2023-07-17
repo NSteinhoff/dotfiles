@@ -5,13 +5,23 @@ require("nvim-treesitter.configs").setup({
 
     ignore_install = { "phpdoc" },
 
-    highlight = { enable = false },
+    highlight = {
+        enable = true,
+        -- Disable in syntax help to show 'group-name' highlights
+        disable = function(lang, bufnr)
+            return lang == "vimdoc"
+                and vim.endswith(
+                    vim.api.nvim_buf_get_name(bufnr),
+                    "runtime/doc/syntax.txt"
+                )
+        end,
+    },
 
-    indent = { enabled = false },
+    indent = { enabled = true },
 
-    context_commentstring = { enable = false },
+    context_commentstring = { enable = true },
 
-    rainbow = { enable = false },
+    rainbow = { enable = true },
 
     incremental_selection = {
         enable = true,
