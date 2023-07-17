@@ -99,7 +99,7 @@ highlight Define                       cterm=NONE       ctermfg=NONE  ctermbg=NO
 highlight Delimiter                    cterm=NONE       ctermfg=15    ctermbg=NONE
 highlight Error                        cterm=bold       ctermfg=1     ctermbg=NONE
 highlight Exception                    cterm=bold       ctermfg=15    ctermbg=NONE
-highlight Function                     cterm=NONE       ctermfg=NONE  ctermbg=NONE
+highlight Function                     cterm=bold       ctermfg=NONE  ctermbg=NONE
 highlight Identifier                   cterm=NONE       ctermfg=NONE  ctermbg=NONE
 highlight Conceal                      cterm=NONE       ctermfg=NONE  ctermbg=NONE
 highlight Ignore                       cterm=NONE       ctermfg=8     ctermbg=NONE

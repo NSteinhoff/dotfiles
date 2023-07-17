@@ -1,7 +1,7 @@
 "{{{ --------------------------------- Options -----------------------------------
 
 "{{{ Colors
-colorscheme ludite
+colorscheme minimal
 "}}}
 
 "{{{ Appearance

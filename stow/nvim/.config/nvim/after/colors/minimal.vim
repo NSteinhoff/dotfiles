@@ -101,16 +101,16 @@ highlight MatchParen                   cterm=NONE                   ctermfg=5   
 "{{{ Syntax
 highlight Comment                      cterm=italic                 ctermfg=8     ctermbg=NONE
 highlight Constant                     cterm=NONE                   ctermfg=3     ctermbg=NONE
-highlight Define                       cterm=NONE                   ctermfg=15     ctermbg=NONE
+highlight Define                       cterm=NONE                   ctermfg=15    ctermbg=NONE
 highlight Delimiter                    cterm=bold                   ctermfg=12    ctermbg=NONE
 highlight Error                        cterm=NONE                   ctermfg=1     ctermbg=NONE
 highlight Exception                    cterm=bold                   ctermfg=15    ctermbg=NONE
-highlight Function                     cterm=NONE                   ctermfg=2     ctermbg=NONE
-highlight Identifier                   cterm=NONE                   ctermfg=2     ctermbg=NONE
+highlight Function                     cterm=bold                   ctermfg=NONE  ctermbg=NONE
+highlight Identifier                   cterm=NONE                   ctermfg=NONE  ctermbg=NONE
 highlight Conceal                      cterm=NONE                   ctermfg=8     ctermbg=NONE
 highlight Ignore                       cterm=NONE                   ctermfg=8     ctermbg=NONE
 highlight Keyword                      cterm=NONE                   ctermfg=15    ctermbg=NONE
-highlight Macro                        cterm=NONE                   ctermfg=15     ctermbg=NONE
+highlight Macro                        cterm=NONE                   ctermfg=15    ctermbg=NONE
 highlight Number                       cterm=NONE                   ctermfg=3     ctermbg=NONE
 highlight Operator                     cterm=bold                   ctermfg=15    ctermbg=NONE
 highlight PreProc                      cterm=NONE                   ctermfg=13    ctermbg=NONE
