@@ -124,6 +124,27 @@ function s:search(buf)
     endif
 endfunction
 
+function livegrep#start(query, bang)
+        let b = 'livegrep://'..getcwd()
+        let bb = '^'..b..'$'
+        let bn = bufnr(bb)
+        let wn = bufwinnr(bn)
+
+        if bufnr() == bn
+            " nothing
+        elseif bn == -1
+            execute 'edit '..b
+        elseif wn == -1
+            execute 'buffer '..bb
+        else
+            execute wn .. 'wincmd w'
+        endif
+
+        if !empty(a:query) || a:bang || empty(getline(1))
+            call setline(1, a:query) | 1 | doau TextChanged
+        endif
+endfunction
+
 function livegrep#update(live, buf, ...)
     call s:placeholder(a:buf)
     let force_update = a:0
