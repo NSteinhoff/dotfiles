@@ -1,17 +1,19 @@
 BasedOnStyle: LLVM
+UseTab: AlignWithSpaces
+TabWidth: 8
 IndentWidth: 8
 ContinuationIndentWidth: 8
-UseTab: AlignWithSpaces
 AlwaysBreakBeforeMultilineStrings: true
 BreakBeforeTernaryOperators: true
 IndentGotoLabels: true
 ReflowComments: false
-AlignAfterOpenBracket: AlwaysBreak
-AlignArrayOfStructures: Right
+BreakStringLiterals: false
+AlignArrayOfStructures: Left
+# AlignAfterOpenBracket: AlwaysBreak
 AlignOperands: AlignAfterOperator
 AllowShortBlocksOnASingleLine: Never
-AllowShortCaseLabelsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: Never
-AllowShortLoopsOnASingleLine: false
-AllowShortEnumsOnASingleLine: false
+AllowShortLoopsOnASingleLine: true
+AllowShortEnumsOnASingleLine: true

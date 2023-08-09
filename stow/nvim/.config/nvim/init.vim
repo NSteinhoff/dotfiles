@@ -111,9 +111,11 @@ set keywordprg=:Search\ ddg
 
 "}}}
 
-"{{{ --------------------------------- Plugins -----------------------------------
 " Stop here when running as git editor
 if exists('$GIT_INDEX_FILE') | finish | endif
+
+"{{{ --------------------------------- Plugins -----------------------------------
+
 packadd packer                                  " Package utilities and paths
 
 "{{{ Personal

@@ -13,3 +13,5 @@ ECS
 Tmux
 tabline
 config
+enums
+struct
