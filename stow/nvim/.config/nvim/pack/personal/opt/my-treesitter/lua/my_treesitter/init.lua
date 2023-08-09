@@ -1,28 +1,26 @@
 require("nvim-treesitter.configs").setup({
-    ensure_installed = {},
-
+    ensure_installed = "all",
     sync_install = false,
-
     ignore_install = { "phpdoc" },
-
     highlight = {
         enable = true,
         -- Disable in syntax help to show 'group-name' highlights
         disable = function(lang, bufnr)
-            return lang == "vimdoc"
-                and vim.endswith(
-                    vim.api.nvim_buf_get_name(bufnr),
-                    "runtime/doc/syntax.txt"
-                )
+            if lang == "markdown" then
+                return true
+            end
+
+            return lang == "markdown"
+                or lang == "vimdoc"
+                    and vim.endswith(
+                        vim.api.nvim_buf_get_name(bufnr),
+                        "runtime/doc/syntax.txt"
+                    )
         end,
     },
-
-    indent = { enabled = true },
-
-    context_commentstring = { enable = true },
-
-    rainbow = { enable = true },
-
+    indent = { enabled = false },
+    context_commentstring = { enable = false },
+    rainbow = { enable = false },
     incremental_selection = {
         enable = true,
         keymaps = {
@@ -32,7 +30,6 @@ require("nvim-treesitter.configs").setup({
             node_decremental = "<BS>",
         },
     },
-
     textobjects = {
         move = {
             enable = true,
@@ -55,7 +52,7 @@ require("nvim-treesitter.configs").setup({
             },
         },
         select = {
-            enable = true,
+            enable = false,
 
             -- Automatically jump forward to textobj, similar to targets.vim
             lookahead = true,
@@ -77,7 +74,6 @@ require("nvim-treesitter.configs").setup({
             },
         },
     },
-
     refactor = {
         enable = false,
         highlight_definitions = { enable = false },

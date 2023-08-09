@@ -50,7 +50,7 @@
 	keepBackup = false
 
 [advice]
-	skippedCherryPicks = true
+	skippedCherryPicks = false
 	addEmptyPathspec = false
 
 [include]

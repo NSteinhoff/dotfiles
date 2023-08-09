@@ -116,7 +116,7 @@ nnoremap gs :%s/
 vnoremap gs :s/
 
 nnoremap <expr> gS ':%s/\C\V\<'.expand('<cword>').'\>/'
-vnoremap gS y:%s/\C\V<c-r>=escape(@", '\/')<cr>/
+vnoremap gS y:%s/\C\V<c-r>=escape(@", '\/.')<cr>/
 "}}}
 
 "{{{ Highlight matches
@@ -206,6 +206,7 @@ vnoremap <silent> ga y:let @/=escape(@", '\|')<bar>execute 'silent grepadd! '..s
 " LiveGrep
 nmap <leader>G <plug>(livegrep-resume)
 nmap <leader>g <plug>(livegrep-new)
+vmap <leader>g <plug>(livegrep-selection)
 
 " Outline
 nmap gO <cmd>TagToc<cr>
@@ -230,6 +231,9 @@ nnoremap <leader>s <cmd>Scratch<cr>
 
 " Journal
 nnoremap <leader>J <cmd>Journal<cr>
+
+" Changed Files
+nnoremap <leader>c <cmd>ChangedFiles<cr>
 
 " Fuzzy Find: <leader>f
 nnoremap <leader>f <Plug>(filefinder)
