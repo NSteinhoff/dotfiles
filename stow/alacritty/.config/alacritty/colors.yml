@@ -12,7 +12,7 @@ themes:
       cursor: '0x383838'
 
     normal:
-      black:   '0xf8f8f8'
+      black:   '0xffffff'
       red:     '0xab4642'
       green:   '0xa1b56c'
       yellow:  '0xf7ca88'
@@ -29,7 +29,7 @@ themes:
       blue:    '0x585858'
       magenta: '0x282828'
       cyan:    '0xa16946'
-      white:   '0x181818'
+      white:   '0x000000'
 
   default-dark: &default-dark
     primary:
@@ -41,7 +41,7 @@ themes:
       cursor: '0xd8d8d8'
 
     normal:
-      black:   '0x181818'
+      black:   '0x000000'
       red:     '0xab4642'
       green:   '0xa1b56c'
       yellow:  '0xf7ca88'
@@ -58,7 +58,7 @@ themes:
       blue:    '0xb8b8b8'
       magenta: '0xe8e8e8'
       cyan:    '0xa16946'
-      white:   '0xf8f8f8'
+      white:   '0xffffff'
 
   grayscale-light: &grayscale-light
     primary:
@@ -66,7 +66,7 @@ themes:
       foreground: '0x464646'
 
     normal:
-      black:   '0xf7f7f7'
+      black:   '0xffffff'
       red:     '0x7c7c7c'
       green:   '0x8e8e8e'
       yellow:  '0xa0a0a0'
@@ -83,7 +83,7 @@ themes:
       blue:    '0x525252'
       magenta: '0x252525'
       cyan:    '0x5e5e5e'
-      white:   '0x101010'
+      white:   '0x000000'
 
   grayscale-dark: &grayscale-dark
     primary:
@@ -91,7 +91,7 @@ themes:
       foreground: '0xb9b9b9'
 
     normal:
-      black:   '0x101010'
+      black:   '0x000000'
       red:     '0x7c7c7c'
       green:   '0x8e8e8e'
       yellow:  '0xa0a0a0'
@@ -108,7 +108,7 @@ themes:
       blue:    '0xababab'
       magenta: '0xe3e3e3'
       cyan:    '0x5e5e5e'
-      white:   '0xf7f7f7'
+      white:   '0xffffff'
 
   gruvbox-light: &gruvbox-light
     primary:
@@ -120,7 +120,7 @@ themes:
       cursor: '0x504945'
 
     normal:
-      black:   '0xf9f5d7'
+      black:   '0xffffff'
       red:     '0x9d0006'
       green:   '0x79740e'
       yellow:  '0xb57614'
@@ -137,7 +137,7 @@ themes:
       blue:    '0x665c54'
       magenta: '0x3c3836'
       cyan:    '0xd65d0e'
-      white:   '0x282828'
+      white:   '0x000000'
 
   gruvbox-dark: &gruvbox-dark
     primary:
@@ -145,7 +145,7 @@ themes:
       foreground: '0xebdbb2'
 
     normal:
-      black:   '0x282828'
+      black:   '0x000000'
       red:     '0xcc241d'
       green:   '0x98971a'
       yellow:  '0xd79921'
@@ -162,11 +162,11 @@ themes:
       blue:    '0x83a598'
       magenta: '0xd3869b'
       cyan:    '0x8ec07c'
-      white:   '0xebdbb2'
+      white:   '0xffffff'
 
   one-light: &one-light
     primary:
-      background: '#fafafa'
+      background: '#f0f0f0'
       foreground: '#383a42'
 
     normal:
@@ -178,6 +178,7 @@ themes:
       magenta:    '#a626a4'
       cyan:       '#0184bc'
       white:      '#888888' # mono-3
+
     bright:
       black:      '#aaaaaa' # mono-2
       red:        '#e45649' # red 1
@@ -202,6 +203,7 @@ themes:
       magenta:    '#c678dd'
       cyan:       '#56b6c2'
       white:      '#aaaaaa' # mono-2     white:    '0xaeadaf'  #  bright  white    variant
+
     bright:
       black:      '#888888' # mono-3
       red:        '#e06c75' # red 1
@@ -218,11 +220,11 @@ themes:
       foreground: '#657b83' # base00
 
     cursor:
-      text:   '#fdf6e3' # base3
-      cursor: '#657b83' # base00
+      text:   '#fdf6e3'  # base3
+      cursor: '#2aa198'  # base1
 
     normal:
-      black:   '#073642' # base02
+      black:   '#eee8d5' # base2
       red:     '#dc322f' # red
       green:   '#859900' # green
       yellow:  '#b58900' # yellow
@@ -248,7 +250,7 @@ themes:
 
     cursor:
       text:   '#002b36' # base03
-      cursor: '#839496' # base0
+      cursor: '#2aa198' # base0
 
     normal:
       black:   '#073642' # base02
@@ -275,6 +277,10 @@ themes:
     primary:
       background: '#0f111b'
       foreground: '#ecf0c1'
+
+    cursor:
+      text:   '#0f111b' # base03
+      cursor: '#00a3cc' # base0
 
     normal:
       black:   '#000000'  # pure black
@@ -382,11 +388,6 @@ themes:
       background: '0x232627'
       foreground: '0xfcfcfc'
 
-      dim_foreground: '0xeff0f1'
-      bright_foreground: '0xffffff'
-      dim_background: '0x31363b'
-      bright_background: '0x000000'
-
     normal:
       black: '0x232627'
       red: '0xed1515'
@@ -406,16 +407,6 @@ themes:
       magenta: '0x8e44ad'
       cyan: '0x16a085'
       white: '0xffffff'
-
-    dim:
-      black: '0x31363b'
-      red: '0x783228'
-      green: '0x17a262'
-      yellow: '0xb65619'
-      blue: '0x1b668f'
-      magenta: '0x614a73'
-      cyan: '0x186c60'
-      white: '0x63686d'
 
   github: &github
     primary:
@@ -455,7 +446,7 @@ themes:
 
     # Normal colors
     normal:
-      black:   '0xf7f9fb'
+      black:   '0xffffff'
       red:     '0xbf8b56'
       green:   '0x56bf8b'
       yellow:  '0x8bbf56'
@@ -473,7 +464,7 @@ themes:
       blue:    '0x627e99'
       magenta: '0x223b54'
       cyan:    '0xbf5656'
-      white:   '0x0b1c2c'
+      white:   '0x000000'
 
   harmonic-dark: &harmonic-dark
     # Default colors
@@ -488,7 +479,7 @@ themes:
 
     # Normal colors
     normal:
-      black:   '0x0b1c2c'
+      black:   '0x000000'
       red:     '0xbf8b56'
       green:   '0x56bf8b'
       yellow:  '0x8bbf56'
@@ -506,7 +497,7 @@ themes:
       blue:    '0xaabcce'
       magenta: '0xe5ebf1'
       cyan:    '0xbf5656'
-      white:   '0xf7f9fb'
+      white:   '0xffffff'
 
   horizon-light: &horizon-light
     # Default colors
@@ -521,7 +512,7 @@ themes:
 
     # Normal colors
     normal:
-      black:   '0xfdf0ed'
+      black:   '0xffffff'
       red:     '0xf7939b'
       green:   '0x94e1b0'
       yellow:  '0xfbe0d9'
@@ -539,7 +530,7 @@ themes:
       blue:    '0x948c8a'
       magenta: '0x302c2d'
       cyan:    '0xe58c92'
-      white:   '0x201c1d'
+      white:   '0x000000'
 
   horizon-dark: &horizon-dark
     # Default colors
@@ -554,7 +545,7 @@ themes:
 
     # Normal colors
     normal:
-      black:   '0x1c1e26'
+      black:   '0x000000'
       red:     '0xe93c58'
       green:   '0xefaf8e'
       yellow:  '0xefb993'
@@ -572,7 +563,7 @@ themes:
       blue:    '0x9da0a2'
       magenta: '0xdcdfe4'
       cyan:    '0xe4a382'
-      white:   '0xe3e6ee'
+      white:   '0xffffff'
 
   lucid-dark: &lucid-dark
     primary:
@@ -588,7 +579,7 @@ themes:
       background: '#80bbe7'
 
     normal:
-      black: '#77818d'
+      black: '#000000'
       red: '#ff8e7d'
       green: '#a3d971'
       yellow: '#ffdf67'
@@ -607,19 +598,9 @@ themes:
       cyan: '#77C9B9'
       white: '#ffffff'
 
-    dim:
-      black: '#505c6a'
-      red: '#D88074'
-      green: '#8FBC6B'
-      yellow: '#D8C163'
-      blue: '#73A4C9'
-      magenta: '#D19EB0'
-      cyan: '#50A496'
-      white: '#cdced1'
-
   lucid-light: &lucid-light
     primary:
-      background: '#ffffff'
+      background: '#e6e6e6'
       foreground: '#505c6a'
 
     cursor:
@@ -631,7 +612,7 @@ themes:
       background: '#007dbc'
 
     normal:
-      black: '#505c6a'
+      black: '#ffffff'
       red: '#cb2735'
       green: '#79b63f'
       yellow: '#fec31d'
@@ -648,17 +629,7 @@ themes:
       blue: '#3397C9'
       magenta: '#E67D9D'
       cyan: '#37AC97'
-      white: '#505c6a'
-
-    dim:
-      black: '#3d4752'
-      red: '#AF2D3B'
-      green: '#6DA043'
-      yellow: '#D7AA28'
-      blue: '#0C72A7'
-      magenta: '#BF587A'
-      cyan: '#108774'
-      white: '#afb1b3'
+      white: '#000000'
 
   themer-default-dark: &themer-dark
     primary:
@@ -693,16 +664,6 @@ themes:
       cyan: '#51D3B1'
       white: '#fffcff'
 
-    dim:
-      black: '#474247'
-      red: '#D43B48'
-      green: '#8BAB33'
-      yellow: '#D4B043'
-      blue: '#5AA0D4'
-      magenta: '#CC4AA1'
-      cyan: '#26A887'
-      white: '#c1bcc2'
-
   themer-default-light: &themer-light
     primary:
       background: '#fffcff'
@@ -717,7 +678,7 @@ themes:
       background: '#53a6e1'
 
     normal:
-      black: '#474247'
+      black: '#e0dce0'
       red: '#f03e4d'
       green: '#97bd2d'
       yellow: '#eeba21'
@@ -734,17 +695,7 @@ themes:
       blue: '#75B7E7'
       magenta: '#F171C6'
       cyan: '#4CD0AD'
-      white: '#e0dce0'
-
-    dim:
-      black: '#282629'
-      red: '#C83946'
-      green: '#819F2C'
-      yellow: '#C69C23'
-      blue: '#4A8CBC'
-      magenta: '#C6469B'
-      cyan: '#21A582'
-      white: '#a29da3'
+      white: '#847e85'
 
   right-in-the-teals-dark: &right-in-the-teals-dark
     primary:
@@ -779,16 +730,6 @@ themes:
       cyan: '#4396A0'
       white: '#cddede'
 
-    dim:
-      black: '#313939'
-      red: '#C57693'
-      green: '#058F9D'
-      yellow: '#A26858'
-      blue: '#19828B'
-      magenta: '#CE8773'
-      cyan: '#1E6F79'
-      white: '#99a7a7'
-
   right-in-the-teals-light: &right-in-the-teals-light
     primary:
       background: '#f8fdfe'
@@ -803,7 +744,7 @@ themes:
       background: '#0e7481'
 
     normal:
-      black: '#f8fdfe'
+      black: '#b3c2c2'
       red: '#d75971'
       green: '#1d7e66'
       yellow: '#aa582d'
@@ -822,14 +763,4 @@ themes:
       cyan: '#4299A3'
       white: '#18353b'
 
-    dim:
-      black: '#05262d'
-      red: '#AD4F63'
-      green: '#186C5B'
-      yellow: '#894E2D'
-      blue: '#0C6470'
-      magenta: '#A16C48'
-      cyan: '#116E79'
-      white: '#90a1a4'
-
-colors: *one-dark
+colors: *spaceduck

@@ -28,9 +28,9 @@ highlight Menu                         cterm=NONE                   ctermfg=NONE
 highlight Noise                        cterm=NONE                   ctermfg=8     ctermbg=NONE
 highlight NonText                      cterm=NONE                   ctermfg=8     ctermbg=NONE
 highlight NormalNc                     cterm=NONE                   ctermfg=NONE  ctermbg=NONE
-highlight Pmenu                        cterm=NONE                   ctermfg=15    ctermbg=8
+highlight Pmenu                        cterm=NONE                   ctermfg=NONE  ctermbg=0
 highlight PmenuSbar                    cterm=NONE                   ctermfg=NONE  ctermbg=15
-highlight PmenuSel                     cterm=NONE                   ctermfg=NONE  ctermbg=5
+highlight PmenuSel                     cterm=NONE                   ctermfg=0     ctermbg=6
 highlight PmenuThumb                   cterm=NONE                   ctermfg=NONE  ctermbg=11
 highlight Question                     cterm=italic                 ctermfg=7     ctermbg=NONE
 highlight Scrollbar                    cterm=NONE                   ctermfg=NONE  ctermbg=NONE
@@ -107,7 +107,7 @@ highlight Keyword                      cterm=NONE       ctermfg=NONE  ctermbg=NO
 highlight Macro                        cterm=NONE       ctermfg=NONE  ctermbg=NONE
 highlight Number                       cterm=NONE       ctermfg=15    ctermbg=NONE
 highlight Float                        cterm=NONE       ctermfg=15    ctermbg=NONE
-highlight Operator                     cterm=bold       ctermfg=15     ctermbg=NONE
+highlight Operator                     cterm=bold       ctermfg=15    ctermbg=NONE
 highlight PreProc                      cterm=NONE       ctermfg=NONE  ctermbg=NONE
 highlight Special                      cterm=bold       ctermfg=NONE  ctermbg=NONE
 highlight Statement                    cterm=NONE       ctermfg=NONE  ctermbg=NONE
