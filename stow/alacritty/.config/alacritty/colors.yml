@@ -1,4 +1,3 @@
-custom_cursor_colors: true
 draw_bold_text_with_bright_colors: false
 
 themes:
@@ -6,10 +5,6 @@ themes:
     primary:
       background: '0xf8f8f8'
       foreground: '0x383838'
-
-    cursor:
-      text: '0xf8f8f8'
-      cursor: '0x383838'
 
     normal:
       black:   '0xffffff'
@@ -35,10 +30,6 @@ themes:
     primary:
       background: '0x181818'
       foreground: '0xd8d8d8'
-
-    cursor:
-      text: '0x181818'
-      cursor: '0xd8d8d8'
 
     normal:
       black:   '0x000000'
@@ -114,10 +105,6 @@ themes:
     primary:
       background: '0xf9f5d7'
       foreground: '0x504945'
-
-    cursor:
-      text: '0xf9f5d7'
-      cursor: '0x504945'
 
     normal:
       black:   '0xffffff'
@@ -219,12 +206,8 @@ themes:
       background: '#fdf6e3' # base3
       foreground: '#657b83' # base00
 
-    cursor:
-      text:   '#fdf6e3'  # base3
-      cursor: '#2aa198'  # base1
-
     normal:
-      black:   '#eee8d5' # base2
+      black:   '#fdf6f9' # base2
       red:     '#dc322f' # red
       green:   '#859900' # green
       yellow:  '#b58900' # yellow
@@ -241,19 +224,15 @@ themes:
       blue:    '#839496' # base0
       magenta: '#6c71c4' # violet
       cyan:    '#93a1a1' # base1
-      white:   '#657b83' # base3
+      white:   '#758b93' # base3
 
   solarized-dark: &solarized-dark
     primary:
       background: '#002b36' # base03
       foreground: '#839496' # base0
 
-    cursor:
-      text:   '#002b36' # base03
-      cursor: '#2aa198' # base0
-
     normal:
-      black:   '#073642' # base02
+      black:   '#001b26' # base02
       red:     '#dc322f' # red
       green:   '#859900' # green
       yellow:  '#b58900' # yellow
@@ -270,17 +249,13 @@ themes:
       blue:    '#839496' # base0
       magenta: '#6c71c4' # violet
       cyan:    '#93a1a1' # base1
-      white:   '#fdf6e3' # base3
+      white:   '#93a4a6' # base3
 
   # Dark only Colorschemes
   spaceduck: &spaceduck
     primary:
       background: '#0f111b'
       foreground: '#ecf0c1'
-
-    cursor:
-      text:   '#0f111b' # base03
-      cursor: '#00a3cc' # base0
 
     normal:
       black:   '#000000'  # pure black
@@ -356,10 +331,6 @@ themes:
     primary:
       background: '#3C4C55'
       foreground: '#C5D4DD'
-
-    cursor:
-      text: '#212121'
-      cursor: '#C0C5CE'
 
     # Normal colors
     normal:
@@ -439,11 +410,6 @@ themes:
       background: '0xf7f9fb'
       foreground: '0x405c79'
 
-    # Colors the cursor will use if `custom_cursor_colors` is true
-    cursor:
-      text: '0xf7f9fb'
-      cursor: '0x405c79'
-
     # Normal colors
     normal:
       black:   '0xffffff'
@@ -471,11 +437,6 @@ themes:
     primary:
       background: '0x0b1c2c'
       foreground: '0xcbd6e2'
-
-    # Colors the cursor will use if `custom_cursor_colors` is true
-    cursor:
-      text: '0x0b1c2c'
-      cursor: '0xcbd6e2'
 
     # Normal colors
     normal:
@@ -505,11 +466,6 @@ themes:
       background: '0xfdf0ed'
       foreground: '0x403c3d'
 
-    # Colors the cursor will use if `custom_cursor_colors` is true
-    cursor:
-      text: '0xfdf0ed'
-      cursor: '0x403c3d'
-
     # Normal colors
     normal:
       black:   '0xffffff'
@@ -538,11 +494,6 @@ themes:
       background: '0x1c1e26'
       foreground: '0xcbced0'
 
-    # Colors the cursor will use if `custom_cursor_colors` is true
-    cursor:
-      text: '0x1c1e26'
-      cursor: '0xcbced0'
-
     # Normal colors
     normal:
       black:   '0x000000'
@@ -569,10 +520,6 @@ themes:
     primary:
       background: '#3d4752'
       foreground: '#e6e6e6'
-
-    cursor:
-      text: '#3d4752'
-      cursor: '#b490b6'
 
     selection:
       text: '#3d4752'
@@ -603,10 +550,6 @@ themes:
       background: '#e6e6e6'
       foreground: '#505c6a'
 
-    cursor:
-      text: '#ffffff'
-      cursor: '#843f88'
-
     selection:
       text: '#ffffff'
       background: '#007dbc'
@@ -635,10 +578,6 @@ themes:
     primary:
       background: '#282629'
       foreground: '#e0dce0'
-
-    cursor:
-      text: '#282629'
-      cursor: '#cc78fa'
 
     selection:
       text: '#282629'
@@ -669,10 +608,6 @@ themes:
       background: '#fffcff'
       foreground: '#474247'
 
-    cursor:
-      text: '#fffcff'
-      cursor: '#bf65f0'
-
     selection:
       text: '#fffcff'
       background: '#53a6e1'
@@ -701,10 +636,6 @@ themes:
     primary:
       background: '#171d1d'
       foreground: '#b3c2c2'
-
-    cursor:
-      text: '#171d1d'
-      cursor: '#32a0ac'
 
     selection:
       text: '#171d1d'
@@ -735,10 +666,6 @@ themes:
       background: '#f8fdfe'
       foreground: '#28454b'
 
-    cursor:
-      text: '#f8fdfe'
-      cursor: '#4797a7'
-
     selection:
       text: '#f8fdfe'
       background: '#0e7481'
@@ -763,4 +690,4 @@ themes:
       cyan: '#4299A3'
       white: '#18353b'
 
-colors: *spaceduck
+colors: *solarized-dark
