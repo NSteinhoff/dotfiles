@@ -3,153 +3,103 @@ draw_bold_text_with_bright_colors: false
 themes:
   default-light: &default-light
     primary:
-      background: '0xf8f8f8'
-      foreground: '0x383838'
+      background: '#f8f8f8'
+      foreground: '#383838'
 
     normal:
-      black:   '0xffffff'
-      red:     '0xab4642'
-      green:   '0xa1b56c'
-      yellow:  '0xf7ca88'
-      blue:    '0x7cafc2'
-      magenta: '0xba8baf'
-      cyan:    '0x86c1b9'
-      white:   '0x383838'
+      black:   '#ffffff'
+      red:     '#ab4642'
+      green:   '#a1b56c'
+      yellow:  '#f7ca88'
+      blue:    '#7cafc2'
+      magenta: '#ba8baf'
+      cyan:    '#86c1b9'
+      white:   '#404040'
 
     bright:
-      black:   '0xb8b8b8'
-      red:     '0xdc9656'
-      green:   '0xe8e8e8'
-      yellow:  '0xd8d8d8'
-      blue:    '0x585858'
-      magenta: '0x282828'
-      cyan:    '0xa16946'
-      white:   '0x000000'
+      black:   '#bfbfbf'
+      red:     '#dc9656'
+      green:   '#e8e8e8'
+      yellow:  '#d8d8d8'
+      blue:    '#585858'
+      magenta: '#282828'
+      cyan:    '#a16946'
+      white:   '#000000'
 
   default-dark: &default-dark
     primary:
-      background: '0x181818'
-      foreground: '0xd8d8d8'
+      background: '#181818'
+      foreground: '#d8d8d8'
 
     normal:
-      black:   '0x000000'
-      red:     '0xab4642'
-      green:   '0xa1b56c'
-      yellow:  '0xf7ca88'
-      blue:    '0x7cafc2'
-      magenta: '0xba8baf'
-      cyan:    '0x86c1b9'
-      white:   '0xd8d8d8'
+      black:   '#000000'
+      red:     '#ab4642'
+      green:   '#a1b56c'
+      yellow:  '#f7ca88'
+      blue:    '#7cafc2'
+      magenta: '#ba8baf'
+      cyan:    '#86c1b9'
+      white:   '#bfbfbf'
 
     bright:
-      black:   '0x585858'
-      red:     '0xdc9656'
-      green:   '0x282828'
-      yellow:  '0x383838'
-      blue:    '0xb8b8b8'
-      magenta: '0xe8e8e8'
-      cyan:    '0xa16946'
-      white:   '0xffffff'
+      black:   '#404040'
+      red:     '#dc9656'
+      green:   '#282828'
+      yellow:  '#383838'
+      blue:    '#b8b8b8'
+      magenta: '#e8e8e8'
+      cyan:    '#a16946'
+      white:   '#ffffff'
 
   grayscale-light: &grayscale-light
     primary:
-      background: '0xf7f7f7'
-      foreground: '0x464646'
+      background: '#f7f7f7'
+      foreground: '#464646'
 
     normal:
-      black:   '0xffffff'
-      red:     '0x7c7c7c'
-      green:   '0x8e8e8e'
-      yellow:  '0xa0a0a0'
-      blue:    '0x686868'
-      magenta: '0x747474'
-      cyan:    '0x868686'
-      white:   '0x464646'
+      black:   '#ffffff'
+      red:     '#7c7c7c'
+      green:   '#8e8e8e'
+      yellow:  '#a0a0a0'
+      blue:    '#686868'
+      magenta: '#747474'
+      cyan:    '#868686'
+      white:   '#404040'
 
     bright:
-      black:   '0xababab'
-      red:     '0x999999'
-      green:   '0xe3e3e3'
-      yellow:  '0xb9b9b9'
-      blue:    '0x525252'
-      magenta: '0x252525'
-      cyan:    '0x5e5e5e'
-      white:   '0x000000'
+      black:   '#bfbfbf'
+      red:     '#999999'
+      green:   '#e3e3e3'
+      yellow:  '#b9b9b9'
+      blue:    '#525252'
+      magenta: '#252525'
+      cyan:    '#5e5e5e'
+      white:   '#000000'
 
   grayscale-dark: &grayscale-dark
     primary:
-      background: '0x101010'
-      foreground: '0xb9b9b9'
+      background: '#202020'
+      foreground: '#b9b9b9'
 
     normal:
-      black:   '0x000000'
-      red:     '0x7c7c7c'
-      green:   '0x8e8e8e'
-      yellow:  '0xa0a0a0'
-      blue:    '0x686868'
-      magenta: '0x747474'
-      cyan:    '0x868686'
-      white:   '0xb9b9b9'
+      black:   '#000000'
+      red:     '#7c7c7c'
+      green:   '#8e8e8e'
+      yellow:  '#a0a0a0'
+      blue:    '#686868'
+      magenta: '#747474'
+      cyan:    '#868686'
+      white:   '#bfbfbf'
 
     bright:
-      black:   '0x525252'
-      red:     '0x999999'
-      green:   '0x252525'
-      yellow:  '0x464646'
-      blue:    '0xababab'
-      magenta: '0xe3e3e3'
-      cyan:    '0x5e5e5e'
-      white:   '0xffffff'
-
-  gruvbox-light: &gruvbox-light
-    primary:
-      background: '0xf9f5d7'
-      foreground: '0x504945'
-
-    normal:
-      black:   '0xffffff'
-      red:     '0x9d0006'
-      green:   '0x79740e'
-      yellow:  '0xb57614'
-      blue:    '0x076678'
-      magenta: '0x8f3f71'
-      cyan:    '0x427b58'
-      white:   '0x504945'
-
-    bright:
-      black:   '0xbdae93'
-      red:     '0xaf3a03'
-      green:   '0xebdbb2'
-      yellow:  '0xd5c4a1'
-      blue:    '0x665c54'
-      magenta: '0x3c3836'
-      cyan:    '0xd65d0e'
-      white:   '0x000000'
-
-  gruvbox-dark: &gruvbox-dark
-    primary:
-      background: '0x282828'
-      foreground: '0xebdbb2'
-
-    normal:
-      black:   '0x000000'
-      red:     '0xcc241d'
-      green:   '0x98971a'
-      yellow:  '0xd79921'
-      blue:    '0x458588'
-      magenta: '0xb16286'
-      cyan:    '0x689d6a'
-      white:   '0xa89984'
-
-    bright:
-      black:   '0x928374'
-      red:     '0xfb4934'
-      green:   '0xb8bb26'
-      yellow:  '0xfabd2f'
-      blue:    '0x83a598'
-      magenta: '0xd3869b'
-      cyan:    '0x8ec07c'
-      white:   '0xffffff'
+      black:   '#404040'
+      red:     '#999999'
+      green:   '#252525'
+      yellow:  '#464646'
+      blue:    '#ababab'
+      magenta: '#e3e3e3'
+      cyan:    '#5e5e5e'
+      white:   '#ffffff'
 
   one-light: &one-light
     primary:
@@ -164,10 +114,10 @@ themes:
       blue:       '#4078f2'
       magenta:    '#a626a4'
       cyan:       '#0184bc'
-      white:      '#888888' # mono-3
+      white:      '#404040' # mono-3
 
     bright:
-      black:      '#aaaaaa' # mono-2
+      black:      '#bfbfbf' # mono-2
       red:        '#e45649' # red 1
       green:      '#50a14f'
       yellow:     '#c18401' # orange 2
@@ -189,17 +139,17 @@ themes:
       blue:       '#61afef'
       magenta:    '#c678dd'
       cyan:       '#56b6c2'
-      white:      '#aaaaaa' # mono-2     white:    '0xaeadaf'  #  bright  white    variant
+      white:      '#bfbfbf' # mono-2     white:    '#aeadaf'  #  bright  white    variant
 
     bright:
-      black:      '#888888' # mono-3
+      black:      '#404040' # mono-3
       red:        '#e06c75' # red 1
       green:      '#98c379'
       yellow:     '#e5c07b' # orange 2
       blue:       '#61afef'
       magenta:    '#c678dd'
       cyan:       '#56b6c2'
-      white:      '#ffffff' # mono-2     white:    '0xaeadaf'  #  bright  white    variant
+      white:      '#ffffff' # mono-2     white:    '#aeadaf'  #  bright  white    variant
 
   solarized-light: &solarized-light
     primary:
@@ -214,17 +164,17 @@ themes:
       blue:    '#268bd2' # blue
       magenta: '#d33682' # magenta
       cyan:    '#2aa198' # cyan
-      white:   '#bbbbbb' # base2
+      wite:    '#758b93' # base00
 
     bright:
-      black:   '#002b36' # base03
+      black:   '#ddd6b3' # base3
       red:     '#cb4b16' # orange
       green:   '#586e75' # base01
       yellow:  '#657b83' # base00
       blue:    '#839496' # base0
       magenta: '#6c71c4' # violet
       cyan:    '#93a1a1' # base1
-      white:   '#758b93' # base3
+      white:   '#859ba3' # base3
 
   solarized-dark: &solarized-dark
     primary:
@@ -239,7 +189,7 @@ themes:
       blue:    '#268bd2' # blue
       magenta: '#d33682' # magenta
       cyan:    '#2aa198' # cyan
-      white:   '#eee8d5' # base2
+      white:   '#a3b4b6' # base0
 
     bright:
       black:   '#294752' # base03
@@ -249,7 +199,7 @@ themes:
       blue:    '#839496' # base0
       magenta: '#6c71c4' # violet
       cyan:    '#93a1a1' # base1
-      white:   '#93a4a6' # base3
+      white:   '#c3d4d6' # base3
 
   # Dark only Colorschemes
   spaceduck: &spaceduck
@@ -277,244 +227,30 @@ themes:
       cyan:    '#686f9a'  # dark purple 2
       white:   '#ffffff'  # pure white
 
-  iterm2: &iterm2
-    primary:
-      background: '0x101421'
-      foreground: '0xfffbf6'
-
-    normal:
-      black:   '0x2e2e2e'
-      red:     '0xeb4129'
-      green:   '0xabe047'
-      yellow:  '0xf6c744'
-      blue:    '0x47a0f3'
-      magenta: '0x7b5cb0'
-      cyan:    '0x64dbed'
-      white:   '0xe5e9f0'
-
-    bright:
-      black:   '0x565656'
-      red:     '0xec5357'
-      green:   '0xc0e17d'
-      yellow:  '0xf9da6a'
-      blue:    '0x49a4f8'
-      magenta: '0xa47de9'
-      cyan:    '0x99faf2'
-      white:   '0xffffff'
-
   nord: &nord
     primary:
-      background: '0x2E3440'
-      foreground: '0xD8DEE9'
+      background: '#2E3440'
+      foreground: '#D8DEE9'
 
     normal:
-      black:   '0x3B4252'
-      red:     '0xBF616A'
-      green:   '0xA3BE8C'
-      yellow:  '0xEBCB8B'
-      blue:    '0x81A1C1'
-      magenta: '0xB48EAD'
-      cyan:    '0x88C0D0'
-      white:   '0xE5E9F0'
+      black:   '#1E2430'
+      red:     '#BF616A'
+      green:   '#A3BE8C'
+      yellow:  '#EBCB8B'
+      blue:    '#81A1C1'
+      magenta: '#B48EAD'
+      cyan:    '#88C0D0'
+      white:   '#E5E9F0'
 
     bright:
-      black:   '0x4C566A'
-      red:     '0xBF616A'
-      green:   '0xA3BE8C'
-      yellow:  '0xEBCB8B'
-      blue:    '0x81A1C1'
-      magenta: '0xB48EAD'
-      cyan:    '0x8FBCBB'
-      white:   '0xECEFF4'
-
-  nova: &nova
-    primary:
-      background: '#3C4C55'
-      foreground: '#C5D4DD'
-
-    # Normal colors
-    normal:
-      black:   '#3C4C55'
-      red:     '#DF8C8C'
-      green:   '#A8CE93'
-      yellow:  '#DADA93'
-      blue:    '#83AFE5'
-      magenta: '#9A93E1'
-      cyan:    '#7FC1CA'
-      white:   '#C5D4DD'
-
-    # Bright colors
-    bright:
-      black:   '#899BA6'
-      red:     '#F2C38F'
-      green:   '#A8CE93'
-      yellow:  '#DADA93'
-      blue:    '#83AFE5'
-      magenta: '#D18EC2'
-      cyan:    '#7FC1CA'
-      white:   '#E6EEF3'
-
-  breeze: &breeze
-    primary:
-      background: '0x232627'
-      foreground: '0xfcfcfc'
-
-    normal:
-      black: '0x232627'
-      red: '0xed1515'
-      green: '0x11d116'
-      yellow: '0xf67400'
-      blue: '0x1d99f3'
-      magenta: '0x9b59b6'
-      cyan: '0x1abc9c'
-      white: '0xfcfcfc'
-
-    bright:
-      black: '0x7f8c8d'
-      red: '0xc0392b'
-      green: '0x1cdc9a'
-      yellow: '0xfdbc4b'
-      blue: '0x3daee9'
-      magenta: '0x8e44ad'
-      cyan: '0x16a085'
-      white: '0xffffff'
-
-  github: &github
-    primary:
-      background: '#2d333b'
-      foreground: '#adbac7'
-
-    normal:
-      black:   '#2d333b'
-      red:     '#f47067'
-      green:   '#8ddb8c'
-      yellow:  '#f69d50'
-      blue:    '#6cb6ff'
-      magenta: '#dcbdfb'
-      cyan:    '#96d0ff'
-      white:   '#adbac7'
-
-    bright:
-      black:   '#768390'
-      red:     '#f47067'
-      green:   '#8ddb8c'
-      yellow:  '#f69d50'
-      blue:    '#6cb6ff'
-      magenta: '#dcbdfb'
-      cyan:    '#96d0ff'
-      white:   '#adbac7'
-
-  harmonic-light: &harmonic-light
-    # Default colors
-    primary:
-      background: '0xf7f9fb'
-      foreground: '0x405c79'
-
-    # Normal colors
-    normal:
-      black:   '0xffffff'
-      red:     '0xbf8b56'
-      green:   '0x56bf8b'
-      yellow:  '0x8bbf56'
-      blue:    '0x8b56bf'
-      magenta: '0xbf568b'
-      cyan:    '0x568bbf'
-      white:   '0x405c79'
-
-    # Bright colors
-    bright:
-      black:   '0xaabcce'
-      red:     '0xbfbf56'
-      green:   '0xe5ebf1'
-      yellow:  '0xcbd6e2'
-      blue:    '0x627e99'
-      magenta: '0x223b54'
-      cyan:    '0xbf5656'
-      white:   '0x000000'
-
-  harmonic-dark: &harmonic-dark
-    # Default colors
-    primary:
-      background: '0x0b1c2c'
-      foreground: '0xcbd6e2'
-
-    # Normal colors
-    normal:
-      black:   '0x000000'
-      red:     '0xbf8b56'
-      green:   '0x56bf8b'
-      yellow:  '0x8bbf56'
-      blue:    '0x8b56bf'
-      magenta: '0xbf568b'
-      cyan:    '0x568bbf'
-      white:   '0xcbd6e2'
-
-    # Bright colors
-    bright:
-      black:   '0x627e99'
-      red:     '0xbfbf56'
-      green:   '0x223b54'
-      yellow:  '0x405c79'
-      blue:    '0xaabcce'
-      magenta: '0xe5ebf1'
-      cyan:    '0xbf5656'
-      white:   '0xffffff'
-
-  horizon-light: &horizon-light
-    # Default colors
-    primary:
-      background: '0xfdf0ed'
-      foreground: '0x403c3d'
-
-    # Normal colors
-    normal:
-      black:   '0xffffff'
-      red:     '0xf7939b'
-      green:   '0x94e1b0'
-      yellow:  '0xfbe0d9'
-      blue:    '0xda103f'
-      magenta: '0x1d8991'
-      cyan:    '0xdc3318'
-      white:   '0x403c3d'
-
-    # Bright colors
-    bright:
-      black:   '0xbdb3b1'
-      red:     '0xf6661e'
-      green:   '0xfadad1'
-      yellow:  '0xf9cbbe'
-      blue:    '0x948c8a'
-      magenta: '0x302c2d'
-      cyan:    '0xe58c92'
-      white:   '0x000000'
-
-  horizon-dark: &horizon-dark
-    # Default colors
-    primary:
-      background: '0x1c1e26'
-      foreground: '0xcbced0'
-
-    # Normal colors
-    normal:
-      black:   '0x000000'
-      red:     '0xe93c58'
-      green:   '0xefaf8e'
-      yellow:  '0xefb993'
-      blue:    '0xdf5273'
-      magenta: '0xb072d1'
-      cyan:    '0x24a8b4'
-      white:   '0xcbced0'
-
-    # Bright colors
-    bright:
-      black:   '0x6f6f70'
-      red:     '0xe58d7d'
-      green:   '0x232530'
-      yellow:  '0x2e303e'
-      blue:    '0x9da0a2'
-      magenta: '0xdcdfe4'
-      cyan:    '0xe4a382'
-      white:   '0xffffff'
+      black:   '#4C566A'
+      red:     '#BF616A'
+      green:   '#A3BE8C'
+      yellow:  '#EBCB8B'
+      blue:    '#81A1C1'
+      magenta: '#B48EAD'
+      cyan:    '#8FBCBB'
+      white:   '#E8EEF9'
 
   lucid-dark: &lucid-dark
     primary:
@@ -533,10 +269,10 @@ themes:
       blue: '#80bbe7'
       magenta: '#f6b4c8'
       cyan: '#55bba7'
-      white: '#e6e6e6'
+      white: '#bfbfbf'
 
     bright:
-      black: '#a5a5a5'
+      black: '#303030'
       red: '#FFA597'
       green: '#B5E18D'
       yellow: '#FFE585'
@@ -562,10 +298,10 @@ themes:
       blue: '#007dbc'
       magenta: '#e05c84'
       cyan: '#05977d'
-      white: '#cdced1'
+      white: '#404040'
 
     bright:
-      black: '#77818d'
+      black: '#bfbfbf'
       red: '#D5525D'
       green: '#94C565'
       yellow: '#FECF4A'
@@ -573,64 +309,6 @@ themes:
       magenta: '#E67D9D'
       cyan: '#37AC97'
       white: '#000000'
-
-  themer-default-dark: &themer-dark
-    primary:
-      background: '#282629'
-      foreground: '#e0dce0'
-
-    selection:
-      text: '#282629'
-      background: '#66bfff'
-
-    normal:
-      black: '#656066'
-      red: '#ff4050'
-      green: '#a4cc35'
-      yellow: '#ffd24a'
-      blue: '#66bfff'
-      magenta: '#f553bf'
-      cyan: '#26c99e'
-      white: '#e0dce0'
-
-    bright:
-      black: '#847e85'
-      red: '#FF6673'
-      green: '#B6D65D'
-      yellow: '#FFDA6E'
-      blue: '#85CBFF'
-      magenta: '#F775CC'
-      cyan: '#51D3B1'
-      white: '#fffcff'
-
-  themer-default-light: &themer-light
-    primary:
-      background: '#fffcff'
-      foreground: '#474247'
-
-    selection:
-      text: '#fffcff'
-      background: '#53a6e1'
-
-    normal:
-      black: '#e0dce0'
-      red: '#f03e4d'
-      green: '#97bd2d'
-      yellow: '#eeba21'
-      blue: '#53a6e1'
-      magenta: '#ee4eb8'
-      cyan: '#1fc598'
-      white: '#c1bcc2'
-
-    bright:
-      black: '#656066'
-      red: '#F36471'
-      green: '#ACCA57'
-      yellow: '#F1C74D'
-      blue: '#75B7E7'
-      magenta: '#F171C6'
-      cyan: '#4CD0AD'
-      white: '#847e85'
 
   right-in-the-teals-dark: &right-in-the-teals-dark
     primary:
@@ -642,28 +320,28 @@ themes:
       background: '#1a9ba6'
 
     normal:
-      black: '#4b5454'
+      black: '#070d0d'
       red: '#f18cb1'
       green: '#00acbd'
       yellow: '#c57b67'
       blue: '#1a9ba6'
       magenta: '#fca188'
       cyan: '#208490'
-      white: '#b3c2c2'
+      white: '#c3d2d2'
 
     bright:
-      black: '#657070'
+      black: '#272d2d'
       red: '#EA9CBA'
       green: '#29B6C4'
       yellow: '#C78F7F'
       blue: '#3EA8B1'
       magenta: '#F3AD99'
       cyan: '#4396A0'
-      white: '#cddede'
+      white: '#ffffff'
 
   right-in-the-teals-light: &right-in-the-teals-light
     primary:
-      background: '#f8fdfe'
+      background: '#e8edee'
       foreground: '#28454b'
 
     selection:
@@ -671,23 +349,23 @@ themes:
       background: '#0e7481'
 
     normal:
-      black: '#b3c2c2'
+      black: '#ffffff'
       red: '#d75971'
       green: '#1d7e66'
       yellow: '#aa582d'
       blue: '#0e7481'
       magenta: '#c87d4f'
       cyan: '#14808c'
-      white: '#38555b'
+      white: '#404040'
 
     bright:
-      black: '#a8adae'
+      black: '#c8cdce'
       red: '#DE7A8D'
       green: '#499784'
       yellow: '#BA7957'
       blue: '#3D8F9A'
       magenta: '#D29772'
       cyan: '#4299A3'
-      white: '#18353b'
+      white: '#000000'
 
 colors: *solarized-dark

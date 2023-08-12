@@ -112,7 +112,7 @@ highlight PreProc                      cterm=NONE       ctermfg=NONE  ctermbg=NO
 highlight Special                      cterm=bold       ctermfg=NONE  ctermbg=NONE
 highlight Statement                    cterm=NONE       ctermfg=NONE  ctermbg=NONE
 highlight String                       cterm=NONE       ctermfg=15    ctermbg=NONE
-highlight Todo                         cterm=bold       ctermfg=2     ctermbg=15
+highlight Todo                         cterm=bold       ctermfg=2     ctermbg=8
 highlight Type                         cterm=bold       ctermfg=NONE  ctermbg=NONE
 highlight Underlined                   cterm=underline  ctermfg=NONE  ctermbg=NONE
 "}}}

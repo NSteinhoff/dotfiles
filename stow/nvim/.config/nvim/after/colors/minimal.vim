@@ -28,9 +28,9 @@ highlight Menu                         cterm=NONE                   ctermfg=NONE
 highlight Noise                        cterm=NONE                   ctermfg=8     ctermbg=NONE
 highlight NonText                      cterm=NONE                   ctermfg=8     ctermbg=NONE
 highlight NormalNc                     cterm=NONE                   ctermfg=NONE  ctermbg=NONE
-highlight Pmenu                        cterm=NONE                   ctermfg=15    ctermbg=8
+highlight Pmenu                        cterm=NONE                   ctermfg=NONE  ctermbg=0
 highlight PmenuSbar                    cterm=NONE                   ctermfg=NONE  ctermbg=15
-highlight PmenuSel                     cterm=NONE                   ctermfg=NONE  ctermbg=5
+highlight PmenuSel                     cterm=NONE                   ctermfg=0     ctermbg=6
 highlight PmenuThumb                   cterm=NONE                   ctermfg=NONE  ctermbg=11
 highlight Question                     cterm=italic                 ctermfg=7     ctermbg=NONE
 highlight Scrollbar                    cterm=NONE                   ctermfg=NONE  ctermbg=NONE
@@ -85,17 +85,11 @@ highlight TabLineNotice                cterm=underline              ctermfg=1   
 highlight TabLineSel                   cterm=bold,underline         ctermfg=15    ctermbg=NONE
 "}}}
 
-"{{{ Win bar
-highlight WinBar                       cterm=NONE                   ctermfg=0     ctermbg=4
-highlight WinBarNC                     cterm=NONE                   ctermfg=4     ctermbg=8
-"}}}
-
-
 "{{{ Searching/Matches
 highlight Search                       cterm=bold,underline         ctermfg=NONE  ctermbg=NONE
 highlight IncSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=5
 highlight CurSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=5
-highlight MatchParen                   cterm=NONE                   ctermfg=5     ctermbg=NONE
+highlight MatchParen                   cterm=NONE                   ctermfg=12    ctermbg=NONE
 "}}}
 
 "{{{ Syntax
@@ -119,9 +113,16 @@ highlight SpecialChar                  cterm=bold                   ctermfg=12  
 highlight SpecialComment               cterm=NONE                   ctermfg=12    ctermbg=NONE
 highlight Statement                    cterm=NONE                   ctermfg=15    ctermbg=NONE
 highlight String                       cterm=NONE                   ctermfg=3     ctermbg=NONE
-highlight Todo                         cterm=NONE                   ctermfg=2     ctermbg=15
+highlight Todo                         cterm=bold                   ctermfg=2     ctermbg=8
 highlight Type                         cterm=NONE                   ctermfg=6     ctermbg=NONE
 highlight Underlined                   cterm=underline              ctermfg=NONE  ctermbg=NONE
+"}}}
+
+" --- Neovim specific stuff ---
+
+"{{{ Win bar
+highlight WinBar                       cterm=NONE                   ctermfg=0     ctermbg=4
+highlight WinBarNC                     cterm=NONE                   ctermfg=4     ctermbg=8
 "}}}
 
 "{{{ Links
