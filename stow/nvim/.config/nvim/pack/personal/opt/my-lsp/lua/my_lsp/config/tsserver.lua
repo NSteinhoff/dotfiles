@@ -2,7 +2,7 @@ local lspconfig = require("lspconfig")
 
 return function(config)
     local override = {
-        autostart = true,
+        autostart = false,
 
         root_dir = function(fname)
             -- Prefer the repository root for typescript

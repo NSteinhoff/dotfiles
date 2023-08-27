@@ -178,7 +178,7 @@ local keymaps = {
             rhs = dap.terminate,
             opts = { desc = "DAP Terminate Debugee and Adapter" },
         },
-        ["<Leader>dF"] = {
+        ["<Leader>d,"] = {
             rhs = dap.focus_frame,
             opts = { desc = "DAP Focus current Frame" },
         },
@@ -237,10 +237,12 @@ local commands = {
     },
 
     -- Widgets
+    ["DapShowRepl"] = {
+        rhs = dap.repl.toggle,
+        opts = { desc = "DAP Toggle REPL" },
+    },
     ["DapShowPreview"] = {
-        cmd = function()
-            require("dap.ui.widgets").preview()
-        end,
+        cmd = require("dap.ui.widgets").preview,
         opts = { desc = "DAP Preview" },
     },
     ["DapShowFrames"] = {
