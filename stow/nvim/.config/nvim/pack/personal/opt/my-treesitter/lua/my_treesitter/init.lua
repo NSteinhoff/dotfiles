@@ -1,3 +1,9 @@
+vim.cmd([[packadd nvim-treesitter]])
+vim.cmd([[packadd nvim-treesitter-commentstring]])
+vim.cmd([[packadd nvim-treesitter-rainbow]])
+-- vim.cmd([[packadd nvim-treesitter-textobjects]])
+-- vim.cmd([[packadd nvim-treesitter-refactor]])
+
 require("nvim-treesitter.configs").setup({
     ensure_installed = "all",
     sync_install = false,
@@ -19,8 +25,8 @@ require("nvim-treesitter.configs").setup({
         end,
     },
     indent = { enabled = false },
-    context_commentstring = { enable = false },
-    rainbow = { enable = false },
+    context_commentstring = { enable = true },
+    rainbow = { enable = true },
     incremental_selection = {
         enable = true,
         keymaps = {
