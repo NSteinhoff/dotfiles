@@ -1,8 +1,8 @@
 vim.cmd([[packadd nvim-dap]])
 local dap = require("dap")
 
+-- Remove most of the default :Dap* commands
 local keep_commands = { "DapShowLog", "DapContinue", "DapSetLogLevel" }
-
 for name, _ in pairs(vim.api.nvim_get_commands({})) do
     if
         string.match(name, "Dap%u%a*")
@@ -58,6 +58,7 @@ dap.configurations.cpp = dap.configurations.c
 
 -- Mappings and Commands
 local ui = require("dap.ui.widgets")
+local scopes_sidebar = ui.sidebar(ui.scopes, { width = 30 }, "leftabove vertical split")
 
 local keymaps = {
     ["n"] = {
@@ -142,21 +143,19 @@ local keymaps = {
 
         ["<leader>dP"] = {
             rhs = function()
-                require("dap.ui.widgets").preview()
+                ui.preview()
             end,
             opts = { desc = "DAP Preview" },
         },
         ["<Leader>dF"] = {
             rhs = function()
-                local widgets = require("dap.ui.widgets")
-                widgets.centered_float(widgets.frames)
+                ui.centered_float(ui.frames)
             end,
             opts = { desc = "DAP Show frames" },
         },
         ["<Leader>dS"] = {
             rhs = function()
-                local widgets = require("dap.ui.widgets")
-                widgets.centered_float(widgets.scopes)
+                ui.centered_float(ui.scopes)
             end,
             opts = { desc = "DAP Show scopes" },
         },
@@ -238,24 +237,26 @@ local commands = {
 
     -- Widgets
     ["DapShowRepl"] = {
-        rhs = dap.repl.toggle,
+        cmd = function()
+            dap.repl.toggle()
+        end,
         opts = { desc = "DAP Toggle REPL" },
     },
     ["DapShowPreview"] = {
-        cmd = require("dap.ui.widgets").preview,
+        cmd = function()
+            ui.preview()
+        end,
         opts = { desc = "DAP Preview" },
     },
     ["DapShowFrames"] = {
         cmd = function()
-            local widgets = require("dap.ui.widgets")
-            widgets.centered_float(widgets.frames)
+            ui.centered_float(ui.frames)
         end,
         opts = { desc = "DAP Show frames" },
     },
     ["DapShowScopes"] = {
         cmd = function()
-            local widgets = require("dap.ui.widgets")
-            widgets.centered_float(widgets.scopes)
+            scopes_sidebar.open()
         end,
         opts = { desc = "DAP Show scopes" },
     },
