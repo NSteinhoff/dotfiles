@@ -48,7 +48,17 @@ dap.configurations.c = {
         type = "lldb",
         request = "attach",
         stopOnEntry = false,
-        pid = require("dap.utils").pick_process,
+        pid = "${command:pickProcess}",
+        args = {},
+    },
+    {
+        name = "RdThr",
+        type = "lldb",
+        request = "attach",
+        stopOnEntry = false,
+        pid = function()
+            return require("dap.utils").pick_process({ filter = "rdthr" })
+        end,
         args = {},
     },
 }
@@ -274,6 +284,7 @@ function on_attach(client)
     for name, command in pairs(commands) do
         vim.api.nvim_create_user_command(name, command.cmd, command.opts)
     end
+    scopes_sidebar.open()
 end
 
 function on_detach()
@@ -285,7 +296,9 @@ function on_detach()
     for name, _ in pairs(commands) do
         vim.api.nvim_del_user_command(name)
     end
+    scopes_sidebar.close()
 end
 
 dap.listeners.after.event_initialized["my-dap"] = on_attach
+dap.listeners.before.event_terminated["my-dap"] = on_detach
 dap.listeners.before.event_exited["my-dap"] = on_detach
