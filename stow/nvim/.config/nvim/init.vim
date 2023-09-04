@@ -129,11 +129,11 @@ packadd! my-tabline
 packadd! my-marks                               " Show marks in the gutter
 packadd! my-filefinder                          " Start simple file finder with :ff
 " packadd! my-zettelkasten                        " Note-taking
-packadd! my-treesitter                          " Language aware highlighting
+" packadd! my-treesitter                          " Language aware highlighting
 "}}}
 
 "{{{ Third Party
-packadd! my-dap                                  " Debug Adapter configurations
+" packadd! my-dap                                  " Debug Adapter configurations
 packadd! my-dirvish                             " Minimalist file browser (customized)
 packadd! vim-commentary                         " Comment out stuff
 "}}}

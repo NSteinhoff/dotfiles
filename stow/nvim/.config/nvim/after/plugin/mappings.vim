@@ -58,11 +58,9 @@ noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
 
 " Move over sections
-" Taken from `help section`
-map <silent> [[ ?{<cr>w99[{
-map <silent> ][ /}<cr>b99]}
+" Adapted from `help section`
+map <silent> [[ ?{<cr>0[{
 map <silent> ]] j0[[%/{<cr>
-map <silent> [] k$][%?}<cr>
 
  " Change word under cursor and make it repeatable
 nnoremap c* <cmd>let @/ = '\<'..expand('<cword>')..'\>'<cr>cgn
