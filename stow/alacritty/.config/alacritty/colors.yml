@@ -334,4 +334,4 @@ themes:
       cyan:    '#686f9a'  # dark purple 2
       white:   '#ffffff'  # pure white
 
-colors: *right-in-the-teals-dark
+colors: *right-in-the-teals-light

@@ -99,8 +99,8 @@ endfunction
 
 " ----------------------------------- Log ------------------------------------
 " Get all revisions
-function git#log(directory)
-    return s:git(a:directory, ' log --format='..s:revision_format)
+function git#log(directory, args)
+    return s:git(a:directory, ' log --format='..s:revision_format..' '..a:args)
 endfunction
 
 " Get revisions for a file
@@ -241,11 +241,11 @@ function git#show_timeline(split, line1, line2, range, path)
     return bufnr
 endfunction
 
-function git#show_log(split, path)
+function git#show_log(split, path, args)
     let path = isdirectory(a:path) ? a:path : getcwd()
     let cmd = a:split ? 'leftabove vertical new' : 'enew'
     let bufname = 'GITLOG: '..git#head(path)
-    let lines = git#log(path)
+    let lines = git#log(path, a:args)
     let bufnr = s:temp_buffer(lines, bufname, 'gitlog', {'cmd': cmd})
     if bufnr > 0
         let b:peek_patch  = { line1, line2 -> git#show_diff(1, getline(line2), getline(line1), path) }

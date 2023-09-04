@@ -13,9 +13,9 @@ function s:complete_log(arglead, cmdline, cursorpos)
     return filter(git#log(getcwd()), { _, v -> v =~ a:arglead})
 endfunction
 
-function s:log(bang)
+function s:log(bang, args)
     let open_in_split = !(a:bang || empty(@%))
-    call git#show_log(open_in_split, getcwd())
+    call git#show_log(open_in_split, getcwd(), a:args)
 endfunction
 
 function s:timeline(bang, line1, line2, range)
@@ -23,7 +23,7 @@ function s:timeline(bang, line1, line2, range)
     call git#show_timeline(open_in_split, a:line1, a:line2, a:range, @%)
 endfunction
 
-command! -bang -range=% GitLog call s:log(<bang>0)
+command! -bang -nargs=* GitLog call s:log(<bang>0, <q-args>)
 command! -bang -range=% Timeline call s:timeline(<bang>0, <line1>, <line2>, <range>)
 command! -nargs=? -complete=customlist,s:complete_file_log DiffThis call git#side_by_side_diff(<q-args>, @%)
 command! -bang -nargs=? -complete=customlist,s:complete_file_log PatchThis call git#inline_diff(<bang>1, <q-args>, @%)
