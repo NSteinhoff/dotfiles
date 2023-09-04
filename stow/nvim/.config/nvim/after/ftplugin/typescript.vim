@@ -11,7 +11,7 @@ let &l:include='\(^\(import\|export\)\s\|^}\).*\sfrom\s\''\zs\.\+\/\(\w\|[/.-]\)
 " ./some-file -> some-file
 " ../some-file -> ../some-file
 " .../some-file -> ../../some-file
-let &l:includeexpr="substitute(substitute(v:fname, '\\./', '', ''), '\\.', '../', 'g')"
+let &l:includeexpr="substitute(substitute(substitute(v:fname, '\\.\\(m\\?js\\|ts\\)$' , '', ''), '\\./', '', ''), '\\.', '../', 'g')"
 let &l:define='^\s*\(export\s\)\?\(async\s\)\?\(function\|class\|interface\|type\|const\|let\|var\)\s\ze'
 
 execute 'compiler '..get(g:, &ft..'_compiler', 'tsc')
