@@ -16,3 +16,5 @@ config
 enums
 struct
 debugees
+grabbable
+salesgroup
