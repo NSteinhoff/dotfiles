@@ -1,7 +1,7 @@
 " ------------------------------- Command Line --------------------------------
 " Open man pages
-cnoreabbrev <expr> man getcmdtype() ==# ':' && getcmdline() =~# '^\(tab\s\\|vert\s\)\?man' ? 'Man' : 'man'
-cnoreabbrev <expr> cfilter getcmdtype() ==# ':' && getcmdline() ==# 'cfilter' ? 'Cfilter' : 'man'
+call abbrev#cmdline('man', 'Man', {'prefix': '\(\(tab\\|vert\)\s\)\?'})
+call abbrev#cmdline('cfilter', 'Cfilter')
 
 " ---------------------------------- Dates ------------------------------------
 " Local date

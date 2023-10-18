@@ -20,8 +20,8 @@ command -bang TagLibs call s:lib_tags(<bang>0)
 command TagReset call s:tags()
 
 command -bang -nargs=* TagToc call tags#toc(<bang>0, <f-args>)
-cnoreabbrev <expr> tt    (getcmdtype() ==# ':' && getcmdline() ==# 'tt') ? 'TagToc' : 'tt'
-cnoreabbrev <expr> ctags    (getcmdtype() ==# ':' && getcmdline() ==# 'ctags') ? 'Ctags' : 'ctags'
+call abbrev#cmdline('tt', 'TagToc')
+call abbrev#cmdline('ctags', 'Ctags')
 
 " Activate
 TagReset

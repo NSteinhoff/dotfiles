@@ -7,9 +7,9 @@ else
     set grepprg=grep\ -nH
 endif
 
-cnoreabbrev <expr> gg (getcmdtype() ==# ':' && getcmdline() ==# 'gg') ? 'silent grep!' : 'gg'
-cnoreabbrev <expr> grep (getcmdtype() ==# ':' && getcmdline() ==# 'grep') ? 'silent grep!' : 'grep'
-cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'silent lgrep!' : 'lgrep'
+call abbrev#cmdline('gg', 'silent grep!')
+call abbrev#cmdline('grep', 'silent grep!')
+call abbrev#cmdline('lgrep', 'silent lgrep!')
 
 function s:lastqf()
     return getwininfo(win_getid())[0].quickfix == 1 && len(getwininfo()) <= 1

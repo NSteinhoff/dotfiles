@@ -5,8 +5,9 @@ vim.cmd([[packadd nvim-treesitter-rainbow]])
 -- vim.cmd([[packadd nvim-treesitter-refactor]])
 
 require("nvim-treesitter.configs").setup({
-    ensure_installed = "all",
+    ensure_installed = {},
     sync_install = false,
+    auto_install = false,
     ignore_install = { "phpdoc" },
     highlight = {
         enable = true,

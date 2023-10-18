@@ -3,17 +3,12 @@ packadd cfilter
 
 " set quickfixtextfunc=qf#textfunc
 " command! QuickfixPathshorten let g:quickfix_pathshorten = !get(g:, 'quickfix_pathshorten', 0)
-
 command! Ctab if getqflist({'nr': 0}).nr|tab split|botright copen|only|else|echo "No quickfix list."|endif
 command! Ltab if getloclist(0, {'nr': 0}).nr|tab split|botright lopen|only|else|echo "No location list."|endif
-cnoreabbrev <expr> ctab (getcmdtype() ==# ':' && getcmdline() ==# 'ctab') ? 'Ctab' : 'ctab'
-cnoreabbrev <expr> ltab (getcmdtype() ==# ':' && getcmdline() ==# 'ltab') ? 'Ltab' : 'ltab'
 
 """ Free error lists
 command! -bar Cfree call setqflist([], 'f')
 command! -bar Lfree call setloclist(0, [], 'f')
-cnoreabbrev <expr> cfree (getcmdtype() ==# ':' && getcmdline() ==# 'cfree') ? 'Cfree' : 'cfree'
-cnoreabbrev <expr> lfree (getcmdtype() ==# ':' && getcmdline() ==# 'lfree') ? 'Lfree' : 'lfree'
 
 """ Mappings
 nnoremap <leader>q <cmd>call qf#ctoggle()<cr>
@@ -32,3 +27,8 @@ augroup my-qf
         autocmd QuitPre * nested if &filetype != 'qf' | silent! lclose | endif
     endif
 augroup END
+
+call abbrev#cmdline('ctab', 'Ctab')
+call abbrev#cmdline('ltab', 'Ltab')
+call abbrev#cmdline('cfree', 'Cfree')
+call abbrev#cmdline('lfree', 'Lfree')

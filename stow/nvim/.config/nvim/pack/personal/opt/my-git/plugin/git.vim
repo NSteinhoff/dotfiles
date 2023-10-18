@@ -72,4 +72,4 @@ nnoremap <plug>(git-patch-split-ref) :PatchThis <c-z>
 nnoremap <plug>(git-blame) <cmd>Blame<cr>
 vnoremap <plug>(git-blame) :Blame<cr>
 
-cnoreabbrev <expr> dd (getcmdtype() ==# ':' && getcmdline() ==# 'dd') ? 'DiffThis' : 'dd'
+call abbrev#cmdline('dd', 'DiffThis')
