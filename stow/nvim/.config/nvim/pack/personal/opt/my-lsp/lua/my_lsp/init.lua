@@ -4,9 +4,9 @@ require("my_lsp.3rd.fidget").setup()
 
 local function on_attach(...)
     require("my_lsp.capabilities").on_attach(...)
-    require("my_lsp.options").on_attach(...)
-    require("my_lsp.commands").on_attach(...)
-    require("my_lsp.mappings").on_attach(...)
+    require("my_lsp.options").on_attach()
+    require("my_lsp.commands").on_attach()
+    require("my_lsp.mappings").on_attach()
 end
 
 local servers = {
@@ -15,7 +15,7 @@ local servers = {
     "clangd",
     "jsonls",
     "cssls",
-    -- "sumneko_lua",
+    "lua_ls",
     "java_language_server",
     "gopls",
 }

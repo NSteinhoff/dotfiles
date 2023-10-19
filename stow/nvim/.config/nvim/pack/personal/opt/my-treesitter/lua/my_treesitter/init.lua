@@ -1,28 +1,42 @@
 vim.cmd([[packadd nvim-treesitter]])
 vim.cmd([[packadd nvim-treesitter-commentstring]])
-vim.cmd([[packadd nvim-treesitter-rainbow]])
+-- vim.cmd([[packadd nvim-treesitter-rainbow]])
 -- vim.cmd([[packadd nvim-treesitter-textobjects]])
 -- vim.cmd([[packadd nvim-treesitter-refactor]])
 
 require("nvim-treesitter.configs").setup({
-    ensure_installed = {},
+    ensure_installed = {
+        "c",
+        "lua",
+        "python",
+        "bash",
+        "javascript",
+        "typescript",
+    },
     sync_install = false,
-    auto_install = false,
+    auto_install = true,
     ignore_install = { "phpdoc" },
     highlight = {
         enable = true,
-        -- Disable in syntax help to show 'group-name' highlights
         disable = function(lang, bufnr)
+            --[[
             if lang == "markdown" then
                 return true
             end
+            --]]
 
-            return lang == "markdown"
-                or lang == "vimdoc"
-                    and vim.endswith(
-                        vim.api.nvim_buf_get_name(bufnr),
-                        "runtime/doc/syntax.txt"
-                    )
+            -- Disable in syntax help to show 'group-name' highlights
+            if
+                lang == "vimdoc"
+                and vim.endswith(
+                    vim.api.nvim_buf_get_name(bufnr),
+                    "runtime/doc/syntax.txt"
+                )
+            then
+                return true
+            end
+
+            return false
         end,
     },
     indent = { enabled = false },

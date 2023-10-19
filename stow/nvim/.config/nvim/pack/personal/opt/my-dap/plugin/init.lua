@@ -2,7 +2,8 @@ vim.cmd([[packadd nvim-dap]])
 local dap = require("dap")
 
 -- Remove most of the default :Dap* commands
-local keep_commands = { "DapShowLog", "DapContinue", "DapSetLogLevel" }
+local keep_commands =
+    { "DapStart", "DapShowLog", "DapContinue", "DapSetLogLevel" }
 for name, _ in pairs(vim.api.nvim_get_commands({})) do
     if
         string.match(name, "Dap%u%a*")
@@ -62,9 +63,6 @@ dap.configurations.c = {
         args = {},
     },
 }
-
-dap.configurations.rust = dap.configurations.c
-dap.configurations.cpp = dap.configurations.c
 
 -- Mappings and Commands
 local ui = require("dap.ui.widgets")
@@ -266,7 +264,13 @@ local commands = {
     },
     ["DapShowScopes"] = {
         cmd = function()
-            scopes_sidebar.open()
+            ui.centered_float(ui.scopes)
+        end,
+        opts = { desc = "DAP Show scopes" },
+    },
+    ["DapToggleScopes"] = {
+        cmd = function()
+            scopes_sidebar.toggle()
         end,
         opts = { desc = "DAP Show scopes" },
     },

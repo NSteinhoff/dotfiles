@@ -51,7 +51,7 @@ local commands = {
     },
     ["LspBufStop"] = {
         cmd = function()
-            for _, client in pairs(vim.lsp.buf_get_clients(0)) do
+            for _, client in pairs(vim.lsp.buf_clients()) do
                 client.stop()
             end
         end,
@@ -59,7 +59,7 @@ local commands = {
     },
     ["LspBufClients"] = {
         cmd = function()
-            for _, client in pairs(vim.lsp.buf_get_clients(0)) do
+            for _, client in pairs(vim.lsp.get_clients()) do
                 print("--- " .. client.name .. " ---")
                 print(vim.inspect(client))
                 print("---")
@@ -69,7 +69,7 @@ local commands = {
     },
 }
 
-function M.on_attach(client)
+function M.on_attach()
     for name, command in pairs(commands) do
         vim.api.nvim_buf_create_user_command(0, name, command.cmd, command.opts)
     end

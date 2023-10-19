@@ -1,7 +1,7 @@
 local symbol = "*"
 local function clients()
     local results = {}
-    for _, c in pairs(vim.lsp.buf_get_clients()) do
+    for _, c in pairs(vim.lsp.get_clients()) do
         table.insert(results, c.name)
     end
     return results

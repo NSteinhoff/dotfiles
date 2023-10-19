@@ -88,7 +88,7 @@ local keymaps = {
 
 function M.setup() end
 
-function M.on_attach(client)
+function M.on_attach()
     for mode, mode_map in pairs(keymaps) do
         for lhs, mapping in pairs(mode_map) do
             local opts = vim.tbl_extend("force", default_opts, mapping.opts)
