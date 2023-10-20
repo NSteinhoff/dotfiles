@@ -15,8 +15,8 @@ nnoremap <buffer> <c-space> <cmd>call dirvish#open('p', 1)<cr>
 nnoremap <buffer> <c-j> j<cmd>call dirvish#open("p", 1)<cr>
 nnoremap <buffer> <c-k> k<cmd>call dirvish#open("p", 1)<cr>
 
-nnoremap <buffer> o <cmd>call <sid>add_line_below()<cr>
-nnoremap <buffer> O <cmd>call <sid>add_line_above()<cr>
+nnoremap <buffer> o <cmd>call mydirvish#add_line_below()<cr>
+nnoremap <buffer> O <cmd>call mydirvish#add_line_above()<cr>
 
 nnoremap <buffer> R <cmd>let b:linesave=line('.')<bar>e %<bar>execute b:linesave<cr>
 nnoremap <buffer> cd <cmd>lcd %<cr>
@@ -25,7 +25,7 @@ nnoremap <buffer> zc <cmd>set conceallevel=2<cr>
 nnoremap <buffer> zo <cmd>set conceallevel=0<cr>
 nnoremap <buffer> <expr> za '<cmd>set conceallevel='..(&conceallevel == 0 ? '2' : '0')..'<cr>'
 nnoremap <buffer> <nowait> < $T/D
-nnoremap <buffer> <nowait> > <cmd>call <sid>add_segment()<cr>$
+nnoremap <buffer> <nowait> > <cmd>call mydirvish#add_segment()<cr>$
 
 onoremap <buffer> i/ <cmd>normal! T/vt/<cr>
 onoremap <buffer> a/ <cmd>normal! F/vf/<cr>
@@ -38,43 +38,16 @@ nnoremap <buffer> g? <cmd>map <buffer><cr>
 
 nnoremap <buffer> gO <cmd>Open .<cr>
 
-command -buffer -bang PathAdd execute 'set path'..(<bang>0 ? '' : '+')..'='..expand('%')
-command -buffer PathRemove execute 'set path-='..expand('%')
+command! -buffer -bang PathAdd execute 'set path'..(<bang>0 ? '' : '+')..'='..expand('%')
+command! -buffer PathRemove execute 'set path-='..expand('%')
 " Tree prints the input path, so we can just filter the lines
-command -buffer -range -bang -nargs=* Expand execute '<line1>,<line2>!xargs tree -afiF -L 1'..(<bang>0 ? 'a' : '')..' --noreport <args>'|normal $
-command -buffer -range -bang Touch execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'touch'
-command -buffer -range -bang -nargs=* Mv if <range> < 2| echo ":Mv command needs a range." | else | execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'mv <args>' | endif
-command -buffer -range -bang -nargs=* Cp if <range> < 2| echo ":Cp command needs a range." | else | execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'cp <args>' | endif
-command -buffer -range -bang -nargs=* Rm execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : '')..'rm <args>'
+command! -buffer -range -bang -nargs=* Expand execute '<line1>,<line2>!xargs tree -afiF -L 1'..(<bang>0 ? 'a' : '')..' --noreport <args>'|normal $
+call abbrev#cmdline('expand', 'Expand', {'buffer': v:true, 'prefix': '\(''<,''>\)\?'})
 
-call abbrev#cmdline('mv', 'Mv', {'buffer': v:true, 'prefix': '\(''<,''>\)\?'})
-call abbrev#cmdline('cp', 'Cp', {'buffer': v:true, 'prefix': '\(''<,''>\)\?'})
-call abbrev#cmdline('rm', 'Rm', {'buffer': v:true, 'prefix': '\(''<,''>\)\?'})
-call abbrev#cmdline('touch', 'Touch', {'buffer': v:true, 'prefix': '\(''<,''>\)\?'})
-
-function! s:add_segment()
-    let lnum = line('.')
-    let head = getline(lnum)
-    let path = expand('%:p'..(get(g:, 'dirvish_relative_paths') ? ':.' : ''))
-    if path =~# '^'..escape(head, '/.')
-        let tail = substitute(path, escape(head, '/.'), '', '')
-        let segment = matchstr(tail, '^.\{-}/')
-        call setline(lnum, head..segment)
-    endif
-endfunction
-
-function! s:add_line_below()
-    let lnum = line('.')
-    call append(lnum, @%)
-    call feedkeys('jA')
-endfunction
-
-function! s:add_line_above()
-    let lnum = line('.') - 1
-    call append(lnum, @%)
-    call feedkeys('kA')
-endfunction
-
-autocmd! dirvish_buflocal TextChanged,TextChangedI
+call mydirvish#create_range_edit_command('Mv',    'mv',    {'destructive': 1, 'require_range': 1})
+call mydirvish#create_range_edit_command('Cp',    'cp',    {'destructive': 1, 'require_range': 1})
+call mydirvish#create_range_edit_command('Rm',    'rm',    {'destructive': 1})
+call mydirvish#create_range_edit_command('Mkdir', 'mkdir', {'destructive': 1})
+call mydirvish#create_range_edit_command('Touch', 'touch')
 
 silent normal $
