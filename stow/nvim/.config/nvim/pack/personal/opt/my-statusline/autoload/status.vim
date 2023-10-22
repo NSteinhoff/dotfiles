@@ -45,16 +45,22 @@ endfunction
 
 function! status#tree()
     let width = (winwidth(0) - 60) / 2
-    if width < 40|return ''|endif
+
+    if width < 40
+        return ''
+    endif
+
     let opts = {
         \   'indicator_size': width,
         \   'separator': ' > ',
         \}
+
     try
         let pos = nvim_treesitter#statusline(opts)
     catch
         let pos = ''
     endtry
+
     return empty(pos) || pos ==? 'null' ? '' : ' > '..pos
 endfunction
 
