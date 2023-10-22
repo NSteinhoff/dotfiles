@@ -19,7 +19,6 @@ nnoremap <buffer> o <cmd>call mydirvish#add_line_below()<cr>
 nnoremap <buffer> O <cmd>call mydirvish#add_line_above()<cr>
 
 nnoremap <buffer> R <cmd>let b:linesave=line('.')<bar>e %<bar>execute b:linesave<cr>
-nnoremap <buffer> cd <cmd>lcd %<cr>
 nnoremap <buffer> K <cmd>Expand<cr>
 nnoremap <buffer> zc <cmd>set conceallevel=2<cr>
 nnoremap <buffer> zo <cmd>set conceallevel=0<cr>
@@ -27,8 +26,14 @@ nnoremap <buffer> <expr> za '<cmd>set conceallevel='..(&conceallevel == 0 ? '2' 
 nnoremap <buffer> <nowait> < $T/D
 nnoremap <buffer> <nowait> > <cmd>call mydirvish#add_segment()<cr>$
 
+nnoremap <buffer> <nowait> <expr> . ':<C-u>'.(v:count ? 'Shdo'.(v:count?'!':'').' {}' : ('! '.shellescape(empty(fnamemodify(getline('.'),':.')) ? '.' : fnamemodify(getline('.'),':.')))).'<Home><C-Right>'
+xnoremap <buffer> <nowait> <expr> . ':Shdo'..(v:count ? '!' : ' ')..' {}<Left><Left><Left>'
+nnoremap <buffer> <nowait> <expr> cd ':<C-u>'..(v:count ? 'cd' : 'lcd')..' %<Bar>pwd<CR>'
+
 onoremap <buffer> i/ <cmd>normal! T/vt/<cr>
 onoremap <buffer> a/ <cmd>normal! F/vf/<cr>
+
+inoremap <buffer> <c-space> <c-x><c-f>
 
 " Buffer-local / and ? mappings to skip the concealed path fragment.
 nnoremap <buffer> / /\ze[^/]*[/]\=$<Home>
@@ -41,7 +46,7 @@ nnoremap <buffer> gO <cmd>Open .<cr>
 command! -buffer -bang PathAdd execute 'set path'..(<bang>0 ? '' : '+')..'='..expand('%')
 command! -buffer PathRemove execute 'set path-='..expand('%')
 " Tree prints the input path, so we can just filter the lines
-command! -buffer -range -bang -nargs=* Expand execute '<line1>,<line2>!xargs tree -afiF -L 1'..(<bang>0 ? 'a' : '')..' --noreport <args>'|normal $
+command! -buffer -range -bang -nargs=* Expand execute '<line1>,<line2>!xargs tree -afiF'..(<bang>0 ? '' : ' -L 1')..' --noreport <args>'|normal $
 call abbrev#cmdline('expand', 'Expand', {'buffer': v:true, 'prefix': '\(''<,''>\)\?'})
 
 call mydirvish#create_range_edit_command('Mv',    'mv',    {'destructive': 1, 'require_range': 1})

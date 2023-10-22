@@ -5,7 +5,7 @@ function! mydirvish#create_range_edit_command(name, cmd, opts = {})
     let cmd = a:name
 
     if require_range
-        let cmd .= " if <range> < 2 | echo ':"..a:name.." command needs a range.' | else | "
+        let cmd .= " if <range> < 2 || <line1> == <line2> | echo ':"..a:name.." command needs a range.' | else | "
     endif
 
     let cmd .= " execute '<line1>,<line2>w !xargs '..(<bang>"..(destructive ? '0' : '1').." ? ' ' : 'echo ')..'"..a:cmd.." <args>'"
@@ -23,11 +23,14 @@ function! mydirvish#add_segment()
     let lnum = line('.')
     let head = getline(lnum)
     let path = expand('%:p'..(get(g:, 'dirvish_relative_paths') ? ':.' : ''))
-    if path =~# '^'..escape(head, '/.')
-        let tail = substitute(path, escape(head, '/.'), '', '')
-        let segment = matchstr(tail, '^.\{-}/')
-        call setline(lnum, head..segment)
+
+    if head == path || path !~# '^'..escape(head, '/.')
+        return
     endif
+
+    let tail = substitute(path, escape(head, '/.'), '', '')
+    let segment = matchstr(tail, '^.\{-}/')
+    call setline(lnum, head..segment)
 endfunction
 
 function! mydirvish#add_line_below()
