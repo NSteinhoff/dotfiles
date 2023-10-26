@@ -271,13 +271,13 @@ vnoremap <silent> <leader>o y:<C-U>Open <C-R>"<cr>
 
 "{{{ Toggle Options
 nnoremap yoy <cmd>Noyo<cr>
-nnoremap yow <cmd>execute 'set '..(&wrap ? 'no': '')..'wrap'<cr>
-nnoremap yol <cmd>execute 'set '..(&list ? 'no': '')..'list'<cr>
-nnoremap yon <cmd>execute 'set '..(&number ? 'no': '')..'number'<cr>
-nnoremap yos <cmd>execute 'set laststatus='..(&laststatus == 2 ? 0: 2)<cr>
-nnoremap yot <cmd>execute 'set showtabline='..(&showtabline == 2 ? 0: 2)<cr>
-nnoremap yov <cmd>execute 'set virtualedit='..(&virtualedit == '' ? 'all' : '')<cr>
-nnoremap yoc <cmd>execute 'colorscheme ' . (colors_name == 'ludite' ? 'minimal' : 'ludite')<cr>
+nnoremap yow <cmd>call options#toggle('wrap')<cr>
+nnoremap yol <cmd>call options#toggle('list')<cr>
+nnoremap yon <cmd>call options#toggle('number')<cr>
+nnoremap yos <cmd>call options#toggle('laststatus', 2, 0)<cr>
+nnoremap yot <cmd>call options#toggle('showtabline', 2, 0)<cr>
+nnoremap yov <cmd>call options#toggle('virtualedit', 'all', '')<cr>
+nnoremap yoc <cmd>execute 'colorscheme ' . (colors_name == 'ludite' ? 'minimal' : 'ludite')..'\|colorscheme'<cr>
 "}}}
 
 " vim: foldmethod=marker
