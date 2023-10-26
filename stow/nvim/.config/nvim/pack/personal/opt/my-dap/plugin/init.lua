@@ -278,7 +278,7 @@ local commands = {
 
 local default_opts = { buffer = false, silent = false }
 
-function on_attach(client)
+local function on_attach(_)
     for mode, mode_map in pairs(keymaps) do
         for lhs, mapping in pairs(mode_map) do
             local opts = vim.tbl_extend("force", default_opts, mapping.opts)
@@ -291,7 +291,9 @@ function on_attach(client)
     scopes_sidebar.open()
 end
 
-function on_detach()
+local function on_detach(_, payload)
+    if not payload then return end
+
     for mode, mode_map in pairs(keymaps) do
         for lhs, _ in pairs(mode_map) do
             vim.keymap.del(mode, lhs, default_opts)
@@ -304,5 +306,5 @@ function on_detach()
 end
 
 dap.listeners.after.event_initialized["my-dap"] = on_attach
-dap.listeners.before.event_terminated["my-dap"] = on_detach
-dap.listeners.before.event_exited["my-dap"] = on_detach
+dap.listeners.after.event_terminated["my-dap"] = on_detach
+dap.listeners.after.event_exited["my-dap"] = on_detach
