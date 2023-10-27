@@ -32,10 +32,8 @@ local function on_init(client)
 end
 
 return function(config)
-    local override = {
-        autostart = true,
-        on_init = on_init,
-    }
+    config.autostart = true
+    config.on_init = on_init
 
-    lspconfig["lua_ls"].setup(vim.tbl_extend("keep", override, config))
+    lspconfig["lua_ls"].setup(config)
 end

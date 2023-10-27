@@ -1,9 +1,7 @@
 local lspconfig = require("lspconfig")
 
 return function(config)
-    local override = {
-        autostart = false,
-    }
+    config.autostart = true;
 
-    lspconfig["clangd"].setup(vim.tbl_extend("keep", override, config))
+    lspconfig["clangd"].setup(config)
 end
