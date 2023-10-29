@@ -13,7 +13,6 @@ set number
 set scrolloff=5
 set sidescrolloff=3
 set showmatch
-set fillchars=eob:~
 set signcolumn=number
 set shortmess+=s
 set concealcursor=n
@@ -43,10 +42,11 @@ set jumpoptions=stack
 "}}}
 
 "{{{ Special characters
+set fillchars=eob:·
 set list
 set listchars=
 set listchars+=tab:¦\ 
-set listchars+=trail:·
+set listchars+=trail:…
 set listchars+=extends:»
 set listchars+=precedes:«
 set listchars+=nbsp:␣

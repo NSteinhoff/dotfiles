@@ -20,7 +20,7 @@ highlight Visual                       cterm=NONE                   ctermfg=0   
 
 "{{{ Basic UI Elements
 highlight Directory                    cterm=NONE                   ctermfg=3     ctermbg=NONE
-highlight EndOfBuffer                  cterm=NONE                   ctermfg=0     ctermbg=NONE
+highlight EndOfBuffer                  cterm=NONE                   ctermfg=8     ctermbg=NONE
 highlight ErrorMsg                     cterm=NONE                   ctermfg=1     ctermbg=NONE
 highlight Folded                       cterm=NONE                   ctermfg=8     ctermbg=NONE
 highlight LineNr                       cterm=NONE                   ctermfg=8     ctermbg=NONE

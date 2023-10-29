@@ -120,10 +120,11 @@ alias neovide='neovide --multigrid'
 alias note='_() { $EDITOR --cmd "cd $NOTES_DIR" $NOTES_DIR/$1 ; }; _'
 complete -F _complete_notes note
 _complete_notes() { COMPREPLY=( $(compgen -W "$(ls $NOTES_DIR)" $2) ); }
-alias j='nvim +DevDiary!'
-# alias t='nvim +Tasks!'
-# Journaling
+alias journal='nvim +DevDiary!'
+alias task='nvim +Tasks!'
 alias zettel='_() { nvim "+Zettel $*"; }; _'
+alias j=journal
+alias z=zettel
 
 ########
 ### Open
