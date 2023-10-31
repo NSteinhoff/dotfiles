@@ -219,7 +219,7 @@ function git#show_diff(split, from, until, path) abort
 endfunction
 
 function git#show_timeline(split, line1, line2, range, path)
-    " When we don't have a path, we cannot create a timeline. Just show the
+    " When we don't have a file, we cannot create a timeline. Just show the
     " log for path the instead.
     if !filereadable(a:path)|return git#show_log(a:split, a:path)|endif
 

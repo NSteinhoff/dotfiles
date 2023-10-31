@@ -13,7 +13,7 @@ nnoremap <buffer> R         <cmd>ReviewCommit<cr>
 let s:banner = []
 
 " let s:help_msg = 'Usage:'
-if bufname() =~ '^TIMELINE: '
+if bufname() =~ '^my-git://TIMELINE: '
     call add(s:banner, '"============================== TIMELINE ======================================')
     call add(s:banner, '" --- File')
     call add(s:banner, '"  i         Split view file at revision')

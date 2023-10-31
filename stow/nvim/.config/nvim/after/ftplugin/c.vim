@@ -18,6 +18,8 @@ iabbrev <buffer> :pr: printf("");<c-o>F"
 iabbrev <buffer> :prn: printf("\n");<c-o>F\
 iabbrev <buffer> #inc" #include ""<left>
 iabbrev <buffer> #inc< #include <><left>
+iabbrev <buffer> :err: if (err) return err;
+iabbrev <buffer> :errgo: if (err) goto error;
 
 command! -buffer -nargs=* CompileAndRun w|make %:r|!./%:r <args>
 
