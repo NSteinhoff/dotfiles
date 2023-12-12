@@ -9,11 +9,13 @@ IndentGotoLabels: true
 ReflowComments: false
 BreakStringLiterals: false
 AlignArrayOfStructures: Left
-# AlignAfterOpenBracket: AlwaysBreak
 AlignOperands: AlignAfterOperator
 AllowShortBlocksOnASingleLine: Never
 AllowShortFunctionsOnASingleLine: false
 AllowShortCaseLabelsOnASingleLine: true
-AllowShortIfStatementsOnASingleLine: Never
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
 AllowShortLoopsOnASingleLine: true
 AllowShortEnumsOnASingleLine: true
+# AlignConsecutiveDeclarations: Consecutive
+# AlignConsecutiveAssignments: Consecutive
+# AlignAfterOpenBracket: AlwaysBreak

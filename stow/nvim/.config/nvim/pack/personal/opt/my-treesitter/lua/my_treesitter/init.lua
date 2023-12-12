@@ -21,10 +21,10 @@ local function init()
             enable = true,
             disable = function(lang, bufnr)
                 --[[
-            if lang == "markdown" then
-                return true
-            end
-            --]]
+                if lang == "markdown" then
+                    return true
+                end
+                --]]
 
                 -- Disable in syntax help to show 'group-name' highlights
                 if
@@ -40,7 +40,7 @@ local function init()
                 return false
             end,
         },
-        indent = { enabled = false },
+        indent = { enable = false },
         context_commentstring = { enable = true },
         rainbow = { enable = true },
         incremental_selection = {
@@ -83,8 +83,6 @@ local function init()
                     -- You can use the capture groups defined in textobjects.scm
                     ["af"] = "@function.outer",
                     ["if"] = "@function.inner",
-                    ["ac"] = "@class.outer",
-                    ["ic"] = "@class.inner",
                     ["ab"] = "@block.outer",
                     ["ib"] = "@block.inner",
                     ["ac"] = "@conditional.outer",
@@ -93,6 +91,8 @@ local function init()
                     ["il"] = "@loop.inner",
                     ["aF"] = "@frame.outer",
                     ["iF"] = "@frame.inner",
+                    ["aC"] = "@class.outer",
+                    ["iC"] = "@class.inner",
                 },
             },
         },

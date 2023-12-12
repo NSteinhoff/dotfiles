@@ -22,18 +22,26 @@ unstow: install-stow
 .PHONY: unstow
 
 ifeq ($(uname), Linux)
-install := apt-get install -y
+install_cmd := apt-get install -y
 else ifeq ($(uname), Darwin)
-install := brew install
+install_cmd := brew install
+install: clangd
 else
-install := @echo unknown OS: trying to install
+install_cmd := @echo unknown OS: trying to install
 endif
 
 install-stow: .stamps/stow-installed
 .PHONY: install-stow
 .stamps/stow-installed: | .stamps/
-	$(install) stow
+	$(install_cmd) stow
 	@touch $@
+
+clangd: $(crawl_key)
+ifeq ($(uname), Darwin)
+	mkdir -p $(HOME)/Library/Preferences/clangd
+	ln -sf $(PWD)/stow/clang/.config/clangd/config.yaml $(HOME)/Library/Preferences/clangd/config.yaml
+endif
+.PHONY: clangd
 
 # ---------------------------------- Crawl ------------------------------------
 crawld := $(share)/crawl

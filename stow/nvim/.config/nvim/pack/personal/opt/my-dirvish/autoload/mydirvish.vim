@@ -1,16 +1,13 @@
-function! mydirvish#create_range_edit_command(name, cmd, opts = {})
-    let require_range = get(a:opts, 'require_range', 0)
-    let destructive = get(a:opts, 'destructive', 0)
-
+function! mydirvish#create_range_edit_command(name, cmd, require_range = v:false)
     let cmd = a:name
 
-    if require_range
-        let cmd .= " if <range> < 2 || <line1> == <line2> | echo ':"..a:name.." command needs a range.' | else | "
+    if a:require_range
+        let cmd .= printf(" if <range> < 2 || <line1> == <line2> | echo 'Command :%s needs a range. Abort!' | else | ", a:name)
     endif
 
-    let cmd .= " execute '<line1>,<line2>w !xargs '..(<bang>"..(destructive ? '0' : '1').." ? ' ' : 'echo ')..'"..a:cmd.." <args>'"
+    let cmd .= printf(" execute '<line1>,<line2>w !xargs '..(<bang>0 ? ' ' : 'echo ')..'%s <args>'", a:cmd)
 
-    if require_range
+    if a:require_range
         let cmd .= " | endif"
     endif
 

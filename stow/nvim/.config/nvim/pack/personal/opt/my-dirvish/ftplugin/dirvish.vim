@@ -41,6 +41,7 @@ nnoremap <buffer> ? ?\ze[^/]*[/]\=$<Home>
 
 nnoremap <buffer> g? <cmd>map <buffer><cr>
 
+nnoremap <buffer> go <cmd>Open %<cr>
 nnoremap <buffer> gO <cmd>Open .<cr>
 
 command! -buffer -bang PathAdd execute 'set path'..(<bang>0 ? '' : '+')..'='..expand('%')
@@ -49,10 +50,10 @@ command! -buffer PathRemove execute 'set path-='..expand('%')
 command! -buffer -range -bang -nargs=* Expand execute '<line1>,<line2>!xargs tree -afiF'..(<bang>0 ? '' : ' -L 1')..' --noreport <args>'|normal $
 call abbrev#cmdline('expand', 'Expand', {'buffer': v:true, 'prefix': '\(''<,''>\)\?'})
 
-call mydirvish#create_range_edit_command('Mv',    'mv',    {'destructive': 1, 'require_range': 1})
-call mydirvish#create_range_edit_command('Cp',    'cp',    {'destructive': 1, 'require_range': 1})
-call mydirvish#create_range_edit_command('Rm',    'rm',    {'destructive': 1})
-call mydirvish#create_range_edit_command('Mkdir', 'mkdir', {'destructive': 1})
+call mydirvish#create_range_edit_command('Mv',    'mv', v:true)
+call mydirvish#create_range_edit_command('Cp',    'cp', v:true)
+call mydirvish#create_range_edit_command('Rm',    'rm')
+call mydirvish#create_range_edit_command('Mkdir', 'mkdir')
 call mydirvish#create_range_edit_command('Touch', 'touch')
 
 silent normal $

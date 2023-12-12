@@ -99,7 +99,7 @@ endfunction
 
 " ----------------------------------- Log ------------------------------------
 " Get all revisions
-function git#log(directory, args)
+function git#log(directory, args = '')
     return s:git(a:directory, ' log --format='..s:revision_format..' '..a:args)
 endfunction
 

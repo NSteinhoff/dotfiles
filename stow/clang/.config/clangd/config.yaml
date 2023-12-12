@@ -1,5 +1,7 @@
 CompileFlags:
   Add:
+    - -xc
+    - -std=c17
     - -Werror
     - -Wall
     - -Wextra
@@ -10,3 +12,4 @@ CompileFlags:
     - -Wno-declaration-after-statement
     - -Wno-strict-prototypes
     - -Wno-gnu-empty-initializer
+    - -Wno-unsafe-buffer-usage

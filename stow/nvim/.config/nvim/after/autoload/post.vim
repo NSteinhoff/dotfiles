@@ -19,11 +19,17 @@ function post#post()
     endif
 
     let request = getline(1, req_end)
+    let requeset = filter(request, 'v:val !~ "^#.*$"')
     let request = join(request, " ")
     " Remove whitespace before joined URL params
     let request = substitute(request, '\s\([&?=]\)', '\1', 'g')
     " Wrap URL in single quotes
     let request = substitute(request, '\s\(http.\+\)\(\s\|$\)', ' ''\1'' ', '')
+
+    if request !~ '^curl'
+        let request = 'curl --silent --fail --show-error '..request
+    endif
+
     echo 'Request: '..request
 
     call deletebufline(buf, req_end + 1, '$')
