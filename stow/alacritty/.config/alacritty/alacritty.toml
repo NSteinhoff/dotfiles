@@ -1,0 +1,12 @@
+import = [
+    "/Users/niko.steinhoff/.config/alacritty/font.toml",
+    "/Users/niko.steinhoff/.config/alacritty/bash.toml",
+    # "/Users/niko.steinhoff/.config/alacritty/keybindings.toml",
+    "/Users/niko.steinhoff/.config/alacritty/colors/right-in-the-teals-dark.toml",
+]
+
+[window]
+dynamic_title = true
+
+[colors]
+draw_bold_text_with_bright_colors = false

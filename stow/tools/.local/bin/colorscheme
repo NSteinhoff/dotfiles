@@ -1,5 +1,6 @@
 #!/bin/bash
-config=$HOME/.config/alacritty/colors.yml
+config=$HOME/.config/alacritty/alacritty.toml
+colorsd=$HOME/.config/alacritty/colors
 
 available() {
     [[ -z $1 ]] && return 1
@@ -13,8 +14,13 @@ available() {
     return 1
 }
 
-colors=$(grep -E '^\s*.*:\s&.*$' "$config" | cut -d \& -f 2)
-color=$(grep -E '^colors:\s\*.*$' "$config" | cut -d \* -f 2)
+colors=$(for f in $(ls $colorsd); do echo "${f%%.toml}"; done)
+color=$(grep -E "$colorsdir"'/colors/.*.toml"' "$config" | cut -d \" -f 2 | rev | cut -d / -f 1 | rev | cut -d '.' -f 1)
+
+if [[ $1 == -p || $1 == --print ]]; then
+    echo "$color"
+    exit 0;
+fi
 
 if [[ $1 == -l || $1 == --list ]]; then
     for c in $colors; do echo $c; done
@@ -36,4 +42,4 @@ if [[ "$selected" == "$color" ]]; then
 fi
 
 echo -e "Setting colors to '$selected'"
-sed -i '' -E 's/^(colors: \*)(.*)$/\1'"$selected"'/' "$config"
+sed -i '' -E 's:(colors/)(.*)(.toml):\1'"$selected"'\3:' "$config"

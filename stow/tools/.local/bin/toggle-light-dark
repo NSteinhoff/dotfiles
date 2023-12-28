@@ -1,17 +1,17 @@
 #!/bin/bash
-config=$HOME/.config/alacritty/colors.yml
+color=$(colorscheme -p)
+echo $color
 
-if [ -z "$(grep -E '^colors:\s.*-(light|dark)$' "$config")" ]; then
-    colors=$(grep '^colors: .\+$' "$config")
-    colorscheme="${colors#colors: \*}"
-    echo "Colorscheme '$colorscheme' has no light/dark variants."
-    exit
+mode=unknown
+if [[ "$color" == *-light ]]; then
+    mode=light
+elif [[ "$color" == *-dark ]]; then
+    mode=dark
 fi
 
-if grep '^colors:\s.*-light$' "$config" &>/dev/null; then
-    mode=light
-elif grep '^colors:\s.*-dark$' "$config" &>/dev/null; then
-    mode=dark
+if [[ "$mode" == unknown ]]; then
+    echo "Colorscheme '$color' has no light/dark variants."
+    exit 1
 fi
 
 if [[ $mode == light ]]; then
@@ -25,6 +25,6 @@ if [[ $newmode == toggle ]]; then
     newmode=$othermode
 fi
 
-[[ $newmode == $mode ]] && exit
-
-sed -i '' -E 's/^(colors: .+-)(light|dark)/\1'"$newmode"'/' "$config"
+if [[ $newmode != $mode ]]; then
+    colorscheme "${color%-${mode}}-$newmode"
+fi
