@@ -64,6 +64,11 @@ alias :e='$EDITOR'
 ### Git
 alias g='git status'
 alias g-='git switch -'
+alias gg='g && echo "git switch ..." \
+    && select branch in $(git branch --format="%(refname:strip=2)"); do break; done \
+    && [ -n "$branch" ] \
+    && git switch "$branch" \
+    || echo "Okay then..."'
 
 ########
 ### Tmux
@@ -120,11 +125,9 @@ alias neovide='neovide --multigrid'
 alias note='_() { $EDITOR --cmd "cd $NOTES_DIR" $NOTES_DIR/$1 ; }; _'
 complete -F _complete_notes note
 _complete_notes() { COMPREPLY=( $(compgen -W "$(ls $NOTES_DIR)" $2) ); }
-alias journal='nvim +DevDiary!'
-alias task='nvim +Tasks!'
+alias journal='nvim +Journal!'
+alias todo='nvim +Todo!'
 alias zettel='_() { nvim "+Zettel $*"; }; _'
-alias j=journal
-alias z=zettel
 
 ########
 ### Open
