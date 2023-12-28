@@ -1,12 +1,13 @@
 #!/bin/bash
 color=$(colorscheme -p)
-echo $color
 
 mode=unknown
 if [[ "$color" == *-light ]]; then
     mode=light
+    othermode=dark
 elif [[ "$color" == *-dark ]]; then
     mode=dark
+    othermode=light
 fi
 
 if [[ "$mode" == unknown ]]; then
@@ -14,17 +15,7 @@ if [[ "$mode" == unknown ]]; then
     exit 1
 fi
 
-if [[ $mode == light ]]; then
-    othermode=dark
-else
-    othermode=light
-fi
-
-newmode=${1:-toggle}
-if [[ $newmode == toggle ]]; then
-    newmode=$othermode
-fi
-
+newmode=${1:-$othermode}
 if [[ $newmode != $mode ]]; then
-    colorscheme "${color%-${mode}}-$newmode"
+    colorscheme "${color%-$mode}-$newmode"
 fi

@@ -17,3 +17,15 @@ endfunction
 if executable('pandoc')
     command -buffer -bang RenderHTML silent call s:render_html(<bang>0)
 endif
+
+function s:toggle_completed(lnum)
+    let text = getline(a:lnum)
+    if text =~ '^\s*-\s\[x\]'
+        execute a:lnum.'s$\[x\]$[ ]'
+    elseif text =~ '^\s*-\s\[ \]'
+        execute a:lnum.'s$\[ \]$[x]'
+    endif
+endfunction
+
+nnoremap <buffer> <silent> <space> :call <sid>toggle_completed(line('.'))<cr>
+vnoremap <buffer> <silent> <space> :call <sid>toggle_completed(line('.'))<cr>

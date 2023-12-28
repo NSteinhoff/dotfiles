@@ -1,9 +1,10 @@
 vim.cmd([[packadd nvim-dap]])
 local dap = require("dap")
+local colorsave = vim.fn.execute('colorscheme'):gsub('\n', '')
 
 -- Remove most of the default :Dap* commands
 local keep_commands =
-    { "DapStart", "DapShowLog", "DapContinue", "DapSetLogLevel" }
+    { "DapStart", "DapShowLog", "DapContinue", "DapSetLogLevel", "DapToggleBreakpoint", "DapRunLast"}
 for name, _ in pairs(vim.api.nvim_get_commands({})) do
     if
         string.match(name, "Dap%u%a*")
@@ -34,7 +35,23 @@ dap.configurations.c = {
             )
         end,
         cwd = "${workspaceFolder}",
-        stopOnEntry = true,
+        stopOnEntry = false,
+        args = {},
+        env = function()
+            local variables = {}
+            for k, v in pairs(vim.fn.environ()) do
+                table.insert(variables, string.format("%s=%s", k, v))
+            end
+            return variables
+        end,
+    },
+    {
+        name = "LaunchThisFile",
+        type = "lldb",
+        request = "launch",
+        program = "${fileBasenameNoExtension}",
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
         args = {},
         env = function()
             local variables = {}
@@ -73,56 +90,56 @@ local keymaps = {
         -- Inspect / Hover
         ["dK"] = { rhs = ui.hover, opts = { desc = "DAP Hover" } },
 
-        ["<leader>dc"] = {
+        ["dc"] = {
             rhs = dap.continue,
             opts = { desc = "DAP Continue / Start" },
         },
 
         -- Stepping
-        ["<leader>d."] = {
+        ["d."] = {
             rhs = dap.run_to_cursor,
             opts = { desc = "DAP Run to cursor" },
         },
-        ["<leader>ds"] = {
+        ["s"] = {
             rhs = dap.step_into,
             opts = { desc = "DAP Step into" },
         },
-        ["<leader>dn"] = {
+        ["ds"] = {
+            rhs = dap.step_into,
+            opts = { desc = "DAP Step into" },
+        },
+        ["dn"] = {
             rhs = dap.step_over,
             opts = { desc = "DAP Step over" },
         },
-        ["<leader>dd"] = {
-            rhs = dap.step_over,
-            opts = { desc = "DAP Step over" },
-        },
-        ["<leader>df"] = {
+        ["df"] = {
             rhs = dap.step_out,
             opts = { desc = "DAP Step out / Finish" },
         },
 
         -- Breakpoints
-        ["<leader>db"] = {
+        ["db"] = {
             rhs = dap.toggle_breakpoint,
             opts = { desc = "DAP Toggle breakpoint" },
         },
-        ["<leader>dl"] = {
+        ["dl"] = {
             rhs = function()
                 dap.list_breakpoints()
                 vim.cmd.cwindow()
             end,
             opts = { desc = "DAP List all breakpoints in quickfix list" },
         },
-        ["<leader>dB"] = {
+        ["dB"] = {
             rhs = dap.clear_breakpoints,
             opts = { desc = "DAP Clear all breakpoints" },
         },
-        ["<leader>dC"] = {
+        ["dC"] = {
             rhs = function()
                 dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
             end,
             opts = { desc = "DAP Set breakpoint condition" },
         },
-        ["<leader>dL"] = {
+        ["dL"] = {
             rhs = function()
                 dap.set_breakpoint(
                     nil,
@@ -134,45 +151,45 @@ local keymaps = {
         },
 
         -- Navigate stack frame
-        ["<leader>d<"] = {
+        ["d<"] = {
             rhs = dap.up,
             opts = { desc = "DAP Go up one stack frame" },
         },
-        ["<leader>d>"] = {
+        ["d>"] = {
             rhs = dap.down,
             opts = { desc = "DAP Go down one stack frame" },
         },
 
         -- Widgets
-        ["<leader>dr"] = {
+        ["dr"] = {
             rhs = dap.repl.toggle,
             opts = { desc = "DAP Toggle REPL" },
         },
 
-        ["<leader>dP"] = {
+        ["dP"] = {
             rhs = function()
                 ui.preview()
             end,
             opts = { desc = "DAP Preview" },
         },
-        ["<Leader>dF"] = {
+        ["dF"] = {
             rhs = function()
                 ui.centered_float(ui.frames)
             end,
             opts = { desc = "DAP Show frames" },
         },
-        ["<Leader>dS"] = {
+        ["dS"] = {
             rhs = function()
                 ui.centered_float(ui.scopes)
             end,
             opts = { desc = "DAP Show scopes" },
         },
         -- Session management
-        ["<Leader>dR"] = {
+        ["dR"] = {
             rhs = dap.run_last,
             opts = { desc = "DAP Run last" },
         },
-        ["<Leader>dD"] = {
+        ["dD"] = {
             rhs = function()
                 dap.disconnect()
                 dap.close()
@@ -181,11 +198,11 @@ local keymaps = {
                 desc = "DAP Disconnect from Debugee and close Debug Adapter",
             },
         },
-        ["<Leader>dT"] = {
+        ["dT"] = {
             rhs = dap.terminate,
             opts = { desc = "DAP Terminate Debugee and Adapter" },
         },
-        ["<Leader>d,"] = {
+        ["d,"] = {
             rhs = dap.focus_frame,
             opts = { desc = "DAP Focus current Frame" },
         },
@@ -193,6 +210,15 @@ local keymaps = {
 }
 
 local commands = {
+    ["DapRunLast"] = {
+        cmd = dap.run_last,
+        opts = { desc = "DAP Run last" },
+    },
+    ["DapFrameFocus"] = {
+        cmd = dap.focus_frame,
+        opts = { desc = "DAP Focus current Frame" },
+    },
+
     -- Breakpoints / Logpoints
     ["DapBreakpointToggle"] = {
         cmd = dap.toggle_breakpoint,
@@ -230,17 +256,9 @@ local commands = {
         end,
         opts = { desc = "DAP Disconnect from Debugee and close Debug Adapter" },
     },
-    ["DapSessionRunLast"] = {
-        cmd = dap.run_last,
-        opts = { desc = "DAP Run last" },
-    },
     ["DapSessionTerminate"] = {
         cmd = dap.terminate,
         opts = { desc = "DAP Terminate Debugee and Adapter" },
-    },
-    ["DapFrameFocus"] = {
-        cmd = dap.focus_frame,
-        opts = { desc = "DAP Focus current Frame" },
     },
 
     -- Widgets
@@ -279,6 +297,8 @@ local commands = {
 local default_opts = { buffer = false, silent = false }
 
 local function on_attach(_)
+    colorsave = vim.fn.execute('colorscheme'):gsub('\n', '')
+    vim.fn.execute('colorscheme default')
     for mode, mode_map in pairs(keymaps) do
         for lhs, mapping in pairs(mode_map) do
             local opts = vim.tbl_extend("force", default_opts, mapping.opts)
@@ -293,6 +313,7 @@ end
 
 local function on_detach(_, payload)
     if not payload then return end
+    vim.fn.execute('colorscheme '..colorsave)
 
     for mode, mode_map in pairs(keymaps) do
         for lhs, _ in pairs(mode_map) do
@@ -300,11 +321,26 @@ local function on_detach(_, payload)
         end
     end
     for name, _ in pairs(commands) do
-        vim.api.nvim_del_user_command(name)
+        if not vim.tbl_contains(keep_commands, name) then
+            vim.api.nvim_del_user_command(name)
+        end
     end
     scopes_sidebar.close()
+    vim.cmd[[redraw]]
 end
 
 dap.listeners.after.event_initialized["my-dap"] = on_attach
 dap.listeners.after.event_terminated["my-dap"] = on_detach
 dap.listeners.after.event_exited["my-dap"] = on_detach
+
+vim.fn.sign_define('DapBreakpoint', {text='B', texthl='Special', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpointCondition', {text='C', texthl='Special', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpointRejected', {text='R', texthl='Error', linehl='', numhl=''})
+vim.fn.sign_define('DapLogPoint', {text='R', texthl='Special', linehl='', numhl=''})
+vim.fn.sign_define('DapStopped', {text='→', texthl='Todo', linehl='Underlined', numhl=''})
+
+vim.api.nvim_create_autocmd("User", {
+  group = vim.api.nvim_create_augroup("dap-status", { clear = true }),
+  pattern = "DapProgressUpdate",
+  command = "redrawstatus"
+})

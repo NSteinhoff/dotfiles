@@ -2,6 +2,9 @@
 config=$HOME/.config/alacritty/alacritty.toml
 colorsd=$HOME/.config/alacritty/colors
 
+colors=$(for f in $(ls $colorsd); do echo "${f%%.toml}"; done)
+color=$(grep -E "$colorsdir"'/colors/.*.toml"' "$config" | cut -d \" -f 2 | rev | cut -d / -f 1 | rev | cut -d '.' -f 1)
+
 available() {
     [[ -z $1 ]] && return 1
 
@@ -13,9 +16,6 @@ available() {
 
     return 1
 }
-
-colors=$(for f in $(ls $colorsd); do echo "${f%%.toml}"; done)
-color=$(grep -E "$colorsdir"'/colors/.*.toml"' "$config" | cut -d \" -f 2 | rev | cut -d / -f 1 | rev | cut -d '.' -f 1)
 
 if [[ $1 == -p || $1 == --print ]]; then
     echo "$color"

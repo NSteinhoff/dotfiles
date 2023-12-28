@@ -1,10 +1,10 @@
-function! status#yang()
+function status#yang()
     let alt = get(b:, 'yang', '')
 
     return alt != '' && findfile(alt) != '' ? ' A ' : ''
 endfunction
 
-function! status#err()
+function status#err()
     if winwidth(0) < 50|return ''|endif
 
     let nq = len(filter(getqflist(), 'v:val.valid == 1'))
@@ -18,7 +18,7 @@ function! status#err()
     return '['..q..'|'..l..']'
 endfunction
 
-function! status#comp()
+function status#comp()
     try
         let lsp = luaeval('require("my_lsp.status").'..(winwidth(0) < 100 ? 'tiny' : 'long')..'()')
     catch
@@ -43,7 +43,7 @@ function! status#comp()
     return '['..lsp..'|'..compiler..']'
 endfunction
 
-function! status#tree()
+function status#tree()
     let width = (winwidth(0) - 60) / 2
 
     if width < 40
@@ -64,11 +64,11 @@ function! status#tree()
     return empty(pos) || pos ==? 'null' ? '' : ' > '..pos
 endfunction
 
-function! status#spell()
+function status#spell()
     return &spell ? '[spell]' : ''
 endfunction
 
-function! status#alt()
+function status#alt()
     let alt = expand('#:t')
     if empty(alt) || expand('#') == expand('%')
         return ''
@@ -76,16 +76,16 @@ function! status#alt()
     return '^'..alt
 endfunction
 
-function! status#term()
+function status#term()
     let terminals = filter(getbufinfo(), { k, v -> v.name =~ '^term' })
     return empty(terminals) ? '' : '[>_'..len(terminals)..']'
 endfunction
 
-function! status#stealth()
+function status#stealth()
     return exists('*stealth#status') ? stealth#status() : ''
 endfunction
 
-function! status#dap()
+function status#dap()
     try
         let active = luaeval('require("dap").session() ~= nil')
         let status = luaeval('require("dap").status()')

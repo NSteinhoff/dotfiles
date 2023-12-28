@@ -2,7 +2,7 @@ import = [
     "/Users/niko.steinhoff/.config/alacritty/font.toml",
     "/Users/niko.steinhoff/.config/alacritty/bash.toml",
     # "/Users/niko.steinhoff/.config/alacritty/keybindings.toml",
-    "/Users/niko.steinhoff/.config/alacritty/colors/right-in-the-teals-dark.toml",
+    "/Users/niko.steinhoff/.config/alacritty/colors/default-dark.toml",
 ]
 
 [window]
