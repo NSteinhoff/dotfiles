@@ -2,13 +2,10 @@
 color=$(colorscheme -p)
 
 mode=unknown
-if [[ "$color" == *-light ]]; then
-    mode=light
-    othermode=dark
-elif [[ "$color" == *-dark ]]; then
-    mode=dark
-    othermode=light
-fi
+case $color in
+    *-light) mode=light; othermode=dark;;
+    *-dark ) mode=dark;  othermode=light;;
+esac
 
 if [[ "$mode" == unknown ]]; then
     echo "Colorscheme '$color' has no light/dark variants."

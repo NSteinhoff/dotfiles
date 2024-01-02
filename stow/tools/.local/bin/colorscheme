@@ -7,35 +7,25 @@ color=$(grep -E "$colorsdir"'/colors/.*.toml"' "$config" | cut -d \" -f 2 | rev 
 
 available() {
     [[ -z $1 ]] && return 1
-
     for c in $colors; do
         [[ $c == $1 ]] && return 0
     done
-
     echo "ERROR: Colorscheme '$1' not found. Please select one of the available colors."
-
     return 1
 }
 
-if [[ $1 == -p || $1 == --print ]]; then
-    echo "$color"
-    exit 0;
-fi
-
-if [[ $1 == -l || $1 == --list ]]; then
-    for c in $colors; do echo $c; done
-    exit 0;
-fi
+case $1 in
+    -p | --print) echo "$color"; exit 0;;
+    -l | --list) for c in $colors; do echo $c; done; exit 0;;
+esac
 
 echo "Colorscheme: $color"
-
 [ $# == 1 ] && selected="$1"
 
 if ! available "$selected"; then
     select selected in $colors; do break; done
     ( [ -z $selected ] || [ -z "$REPLY" ] ) && echo "Okay then..." && exit 1
 fi
-
 if [[ "$selected" == "$color" ]]; then
     echo "You are already using '$selected'."
     exit 1
