@@ -1,3 +1,0 @@
-[shell]
-args = ["--login"]
-program = "/opt/homebrew/bin/bash"

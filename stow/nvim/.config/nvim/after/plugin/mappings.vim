@@ -84,7 +84,7 @@ nnoremap <silent> <expr> <bar>
             \ v:count == 0
             \ ? winlayout()[0] == 'leaf' <bar><bar> (winlayout()[0] == 'col' && winlayout()[1][0][0] == 'leaf')
             \   ? '<c-w>v'
-            \   : '<cmd>vertical resize '..(winwidth(0) > &columns / 4 ? &columns / 4 : &columns / 4 * 3)..'<cr>'
+            \   : '<cmd>vertical resize '..(winwidth(0) < &columns / 4 * 3 ? &columns / 4 * 3: &columns / 4)..'<cr>'
             \ : '<bar>'
 "}}}
 

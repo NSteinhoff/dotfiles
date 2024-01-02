@@ -1,12 +1,35 @@
-import = [
-    "/Users/niko.steinhoff/.config/alacritty/font.toml",
-    "/Users/niko.steinhoff/.config/alacritty/bash.toml",
-    # "/Users/niko.steinhoff/.config/alacritty/keybindings.toml",
-    "/Users/niko.steinhoff/.config/alacritty/colors/default-dark.toml",
-]
+import = ["~/.config/alacritty/colors/spaceduck.toml"]
 
 [window]
 dynamic_title = true
+option_as_alt = "OnlyLeft"
 
 [colors]
 draw_bold_text_with_bright_colors = false
+
+[shell]
+args = ["--login"]
+program = "/opt/homebrew/bin/bash"
+
+[font]
+size = 16
+
+[font.bold]
+family = "Victor Mono"
+style = "Bold"
+
+[font.glyph_offset]
+x = 0
+y = 0
+
+[font.italic]
+family = "Victor Mono"
+style = "Italic"
+
+[font.normal]
+family = "Victor Mono"
+style = "Regular"
+
+[font.offset]
+x = 0
+y = 0
