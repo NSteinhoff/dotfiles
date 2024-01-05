@@ -15,13 +15,15 @@ highlight lCursor                      cterm=inverse                ctermfg=NONE
 highlight CursorIM                     cterm=inverse                ctermfg=NONE  ctermbg=NONE
 highlight TermCursor                   cterm=inverse                ctermfg=NONE  ctermbg=NONE
 highlight TermCursorNC                 cterm=inverse                ctermfg=NONE  ctermbg=NONE
-highlight Visual                       cterm=NONE                   ctermfg=0     ctermbg=2
+highlight Visual                       cterm=NONE                   ctermfg=NONE  ctermbg=2
 "}}}
 
 "{{{ Basic UI Elements
 highlight Directory                    cterm=NONE                   ctermfg=3     ctermbg=NONE
 highlight EndOfBuffer                  cterm=NONE                   ctermfg=8     ctermbg=NONE
 highlight ErrorMsg                     cterm=NONE                   ctermfg=1     ctermbg=NONE
+highlight WarningMsg                   cterm=NONE                   ctermfg=1     ctermbg=NONE
+highlight MoreMsg                      cterm=NONE                   ctermfg=12    ctermbg=NONE
 highlight Folded                       cterm=NONE                   ctermfg=8     ctermbg=NONE
 highlight LineNr                       cterm=NONE                   ctermfg=8     ctermbg=NONE
 highlight Menu                         cterm=NONE                   ctermfg=NONE  ctermbg=NONE
@@ -30,7 +32,7 @@ highlight NonText                      cterm=NONE                   ctermfg=8   
 highlight NormalNc                     cterm=NONE                   ctermfg=NONE  ctermbg=NONE
 highlight Pmenu                        cterm=NONE                   ctermfg=NONE  ctermbg=0
 highlight PmenuSbar                    cterm=NONE                   ctermfg=NONE  ctermbg=15
-highlight PmenuSel                     cterm=NONE                   ctermfg=0     ctermbg=6
+highlight PmenuSel                     cterm=NONE                   ctermfg=NONE  ctermbg=6
 highlight PmenuThumb                   cterm=NONE                   ctermfg=NONE  ctermbg=11
 highlight Question                     cterm=italic                 ctermfg=7     ctermbg=NONE
 highlight Scrollbar                    cterm=NONE                   ctermfg=NONE  ctermbg=NONE
@@ -51,15 +53,15 @@ highlight VertSplit                    cterm=NONE                   ctermfg=8   
 "}}}
 
 "{{{ Spelling
-highlight SpellBad                     cterm=NONE                   ctermfg=1     ctermbg=NONE
-highlight SpellCap                     cterm=NONE                   ctermfg=12    ctermbg=NONE
-highlight SpellLocal                   cterm=NONE                   ctermfg=12    ctermbg=NONE
-highlight SpellRare                    cterm=NONE                   ctermfg=12    ctermbg=NONE
+highlight SpellBad                     cterm=underline              ctermfg=1     ctermbg=NONE
+highlight SpellCap                     cterm=underline              ctermfg=12    ctermbg=NONE
+highlight SpellLocal                   cterm=underline              ctermfg=12    ctermbg=NONE
+highlight SpellRare                    cterm=underline              ctermfg=12    ctermbg=NONE
 "}}}
 
 "{{{ Diff
 highlight DiffAdd                      cterm=underline              ctermfg=2     ctermbg=NONE
-highlight DiffChange                   cterm=underline              ctermfg=3     ctermbg=NONE
+highlight DiffChange                   cterm=underline              ctermfg=NONE  ctermbg=NONE
 highlight DiffDelete                   cterm=NONE                   ctermfg=1     ctermbg=NONE
 highlight DiffText                     cterm=underline              ctermfg=13    ctermbg=NONE
 
@@ -68,11 +70,11 @@ highlight diffRemoved                  cterm=NONE                   ctermfg=1   
 "}}}
 
 "{{{ Status line
-highlight StatusLine                   cterm=NONE                   ctermfg=0     ctermbg=4
-highlight StatusLineNC                 cterm=NONE                   ctermfg=4     ctermbg=8
-highlight StatusLineFocus              cterm=NONE                   ctermfg=4     ctermbg=15
-highlight StatusLineTerm               cterm=NONE                   ctermfg=0     ctermbg=13
-highlight StatusLineTermNC             cterm=NONE                   ctermfg=4     ctermbg=8
+highlight StatusLine                   cterm=NONE                   ctermfg=NONE  ctermbg=4
+highlight StatusLineNC                 cterm=NONE                   ctermfg=NONE  ctermbg=8
+highlight StatusLineFocus              cterm=NONE                   ctermfg=NONE  ctermbg=15
+highlight StatusLineTerm               cterm=NONE                   ctermfg=NONE  ctermbg=13
+highlight StatusLineTermNC             cterm=NONE                   ctermfg=NONE  ctermbg=8
 "}}}
 
 "{{{ Tab line
@@ -93,29 +95,30 @@ highlight MatchParen                   cterm=NONE                   ctermfg=12  
 "}}}
 
 "{{{ Syntax
-highlight Comment                      cterm=italic                 ctermfg=8     ctermbg=NONE
-highlight Constant                     cterm=NONE                   ctermfg=3     ctermbg=NONE
-highlight Define                       cterm=NONE                   ctermfg=15    ctermbg=NONE
-highlight Delimiter                    cterm=bold                   ctermfg=12    ctermbg=NONE
-highlight Error                        cterm=NONE                   ctermfg=1     ctermbg=NONE
-highlight Exception                    cterm=bold                   ctermfg=15    ctermbg=NONE
-highlight Function                     cterm=bold                   ctermfg=NONE  ctermbg=NONE
-highlight Identifier                   cterm=NONE                   ctermfg=NONE  ctermbg=NONE
-highlight Conceal                      cterm=NONE                   ctermfg=8     ctermbg=NONE
-highlight Ignore                       cterm=NONE                   ctermfg=8     ctermbg=NONE
-highlight Keyword                      cterm=NONE                   ctermfg=15    ctermbg=NONE
-highlight Macro                        cterm=NONE                   ctermfg=15    ctermbg=NONE
-highlight Number                       cterm=NONE                   ctermfg=3     ctermbg=NONE
-highlight Operator                     cterm=bold                   ctermfg=15    ctermbg=NONE
-highlight PreProc                      cterm=NONE                   ctermfg=13    ctermbg=NONE
-highlight Special                      cterm=NONE                   ctermfg=12    ctermbg=NONE
-highlight SpecialChar                  cterm=bold                   ctermfg=12    ctermbg=NONE
-highlight SpecialComment               cterm=NONE                   ctermfg=12    ctermbg=NONE
-highlight Statement                    cterm=NONE                   ctermfg=15    ctermbg=NONE
-highlight String                       cterm=NONE                   ctermfg=3     ctermbg=NONE
-highlight Todo                         cterm=bold                   ctermfg=2     ctermbg=8
-highlight Type                         cterm=NONE                   ctermfg=6     ctermbg=NONE
-highlight Underlined                   cterm=underline              ctermfg=NONE  ctermbg=NONE
+highlight Comment                      cterm=italic     ctermfg=8     ctermbg=NONE
+highlight Constant                     cterm=NONE       ctermfg=3     ctermbg=NONE
+highlight Define                       cterm=NONE       ctermfg=15    ctermbg=NONE
+highlight Delimiter                    cterm=bold       ctermfg=12    ctermbg=NONE
+highlight Error                        cterm=NONE       ctermfg=1     ctermbg=NONE
+highlight Exception                    cterm=bold       ctermfg=15    ctermbg=NONE
+highlight Function                     cterm=bold       ctermfg=NONE  ctermbg=NONE
+highlight Identifier                   cterm=NONE       ctermfg=NONE  ctermbg=NONE
+highlight Conceal                      cterm=NONE       ctermfg=8     ctermbg=NONE
+highlight Ignore                       cterm=NONE       ctermfg=8     ctermbg=NONE
+highlight Keyword                      cterm=NONE       ctermfg=15    ctermbg=NONE
+highlight Macro                        cterm=NONE       ctermfg=15    ctermbg=NONE
+highlight Number                       cterm=NONE       ctermfg=3     ctermbg=NONE
+highlight Float                        cterm=NONE       ctermfg=15    ctermbg=NONE
+highlight Operator                     cterm=bold       ctermfg=15    ctermbg=NONE
+highlight PreProc                      cterm=NONE       ctermfg=13    ctermbg=NONE
+highlight Special                      cterm=NONE       ctermfg=12    ctermbg=NONE
+highlight SpecialChar                  cterm=bold       ctermfg=12    ctermbg=NONE
+highlight SpecialComment               cterm=NONE       ctermfg=12    ctermbg=NONE
+highlight Statement                    cterm=NONE       ctermfg=15    ctermbg=NONE
+highlight String                       cterm=NONE       ctermfg=3     ctermbg=NONE
+highlight Todo                         cterm=bold       ctermfg=2     ctermbg=8
+highlight Type                         cterm=NONE       ctermfg=6     ctermbg=NONE
+highlight Underlined                   cterm=underline  ctermfg=NONE  ctermbg=NONE
 "}}}
 
 " --- Neovim specific stuff ---

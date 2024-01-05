@@ -15,7 +15,7 @@ highlight lCursor                      cterm=inverse                ctermfg=NONE
 highlight CursorIM                     cterm=inverse                ctermfg=NONE  ctermbg=NONE
 highlight TermCursor                   cterm=inverse                ctermfg=NONE  ctermbg=NONE
 highlight TermCursorNC                 cterm=inverse                ctermfg=NONE  ctermbg=NONE
-highlight Visual                       cterm=NONE                   ctermfg=0     ctermbg=2
+highlight Visual                       cterm=NONE                   ctermfg=NONE  ctermbg=2
 "}}}
 
 "{{{ Basic UI Elements
@@ -32,7 +32,7 @@ highlight NonText                      cterm=NONE                   ctermfg=8   
 highlight NormalNc                     cterm=NONE                   ctermfg=NONE  ctermbg=NONE
 highlight Pmenu                        cterm=NONE                   ctermfg=NONE  ctermbg=0
 highlight PmenuSbar                    cterm=NONE                   ctermfg=NONE  ctermbg=15
-highlight PmenuSel                     cterm=NONE                   ctermfg=0     ctermbg=6
+highlight PmenuSel                     cterm=NONE                   ctermfg=NONE  ctermbg=6
 highlight PmenuThumb                   cterm=NONE                   ctermfg=NONE  ctermbg=11
 highlight Question                     cterm=italic                 ctermfg=7     ctermbg=NONE
 highlight Scrollbar                    cterm=NONE                   ctermfg=NONE  ctermbg=NONE
@@ -53,10 +53,10 @@ highlight VertSplit                    cterm=NONE                   ctermfg=8   
 "}}}
 
 "{{{ Spelling
-highlight SpellBad                     cterm=NONE                   ctermfg=1     ctermbg=NONE
-highlight SpellCap                     cterm=NONE                   ctermfg=12    ctermbg=NONE
-highlight SpellLocal                   cterm=NONE                   ctermfg=12    ctermbg=NONE
-highlight SpellRare                    cterm=NONE                   ctermfg=12    ctermbg=NONE
+highlight SpellBad                     cterm=underline              ctermfg=1     ctermbg=NONE
+highlight SpellCap                     cterm=underline              ctermfg=12    ctermbg=NONE
+highlight SpellLocal                   cterm=underline              ctermfg=12    ctermbg=NONE
+highlight SpellRare                    cterm=underline              ctermfg=12    ctermbg=NONE
 "}}}
 
 "{{{ Diff
@@ -70,11 +70,11 @@ highlight diffRemoved                  cterm=NONE                   ctermfg=1   
 "}}}
 
 "{{{ Status line
-highlight StatusLine                   cterm=NONE                   ctermfg=0     ctermbg=4
-highlight StatusLineNC                 cterm=NONE                   ctermfg=4     ctermbg=8
-highlight StatusLineFocus              cterm=NONE                   ctermfg=4     ctermbg=15
-highlight StatusLineTerm               cterm=NONE                   ctermfg=0     ctermbg=13
-highlight StatusLineTermNC             cterm=NONE                   ctermfg=4     ctermbg=8
+highlight StatusLine                   cterm=NONE                   ctermfg=NONE  ctermbg=4
+highlight StatusLineNC                 cterm=NONE                   ctermfg=NONE  ctermbg=8
+highlight StatusLineFocus              cterm=NONE                   ctermfg=NONE  ctermbg=15
+highlight StatusLineTerm               cterm=NONE                   ctermfg=NONE  ctermbg=13
+highlight StatusLineTermNC             cterm=NONE                   ctermfg=NONE  ctermbg=8
 "}}}
 
 "{{{ Tab line
@@ -112,9 +112,11 @@ highlight Float                        cterm=NONE       ctermfg=15    ctermbg=NO
 highlight Operator                     cterm=bold       ctermfg=15    ctermbg=NONE
 highlight PreProc                      cterm=NONE       ctermfg=NONE  ctermbg=NONE
 highlight Special                      cterm=bold       ctermfg=NONE  ctermbg=NONE
+highlight SpecialChar                  cterm=bold       ctermfg=NONE  ctermbg=NONE
+highlight SpecialComment               cterm=NONE       ctermfg=NONE  ctermbg=NONE
 highlight Statement                    cterm=NONE       ctermfg=NONE  ctermbg=NONE
 highlight String                       cterm=NONE       ctermfg=15    ctermbg=NONE
-highlight Todo                         cterm=bold       ctermfg=2     ctermbg=8
+highlight Todo                         cterm=bold       ctermfg=NONE  ctermbg=8
 highlight Type                         cterm=bold       ctermfg=NONE  ctermbg=NONE
 highlight Underlined                   cterm=underline  ctermfg=NONE  ctermbg=NONE
 "}}}

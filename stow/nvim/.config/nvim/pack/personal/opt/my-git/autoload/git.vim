@@ -25,12 +25,12 @@ function s:temp_buffer(lines, name, filetype, ...)
     endif
 
     if s:can_be_alt(@#)
-        call add(undosteps, "let @# = '"..@#.."'")
+        call add(undosteps, "let @# = '"..bufnr('#').."'")
     endif
 
     let initsteps = []
     if s:can_be_alt(@#)
-        call add(initsteps, "let @# = '"..@#.."'")
+        call add(initsteps, "let @# = '"..bufnr('#').."'")
     endif
     call add(initsteps, "file "..name) 
     call add(initsteps, "set ft="..a:filetype) 

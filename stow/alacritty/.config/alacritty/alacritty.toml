@@ -1,4 +1,4 @@
-import = ["~/.config/alacritty/colors/spaceduck.toml"]
+import = ["~/.config/alacritty/colors/seashells.toml"]
 
 [window]
 dynamic_title = true
