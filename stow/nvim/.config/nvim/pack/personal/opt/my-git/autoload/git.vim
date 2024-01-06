@@ -299,6 +299,14 @@ function git#load_changed_files(...)
     endfor
 endfunction
 
+function git#quick_diff(revision, jump)
+    let ref = s:ref(a:revision)
+    let lines = s:git(getcwd(), 'jump --stdout diff '..ref)
+    call setqflist([], 'r', {'efm': "%f:%l:%m", 'title': "Diff <> "..ref, 'lines': lines})
+    cwindow
+    if a:jump|cc|endif
+endfunction
+
 function git#set_diff_target(reset, revision)
     if a:reset
         if exists('t:diff_target')

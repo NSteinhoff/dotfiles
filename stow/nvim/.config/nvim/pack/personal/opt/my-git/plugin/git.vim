@@ -38,6 +38,7 @@ endfunction
 command! -nargs=? -bang -complete=customlist,s:complete_log ChangedFiles call s:changed_files(<q-args>, <bang>1)
 command! -nargs=? -bang -complete=customlist,s:complete_log DiffTarget call git#set_diff_target(<bang>0, <q-args>)
 command! -nargs=? -complete=customlist,s:complete_log Review call git#review(<q-args>)
+command! -nargs=? -bang -complete=customlist,s:complete_log QuickDiff call git#quick_diff(<q-args>, <bang>1)
 
 function s:track_changes()
     augroup my-changed-files
