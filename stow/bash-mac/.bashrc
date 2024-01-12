@@ -67,13 +67,9 @@ xterm*|rxvt*)
     ;;
 esac
 
-# Hook direnv into your shell.
-eval "$(asdf exec direnv hook bash)"
-
-# A shortcut for asdf managed direnv.
-direnv() { asdf exec direnv "$@"; }
-
 # Alias definitions.
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
+source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc"

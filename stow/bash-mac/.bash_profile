@@ -37,8 +37,6 @@ export CC=clang
 # export CFLAGS="-I/opt/homebrew/include -I/opt/homebrew/opt/llvm/include"
 # export LDFLAGS="-L/opt/homebrew/lib -L/opt/homebrew/opt/llvm/lib -Wl,-rpath,/opt/homebrew/opt/llvm/lib"
 # export LDLIBS=
-
-
 # --------------------------------------------------------------------------- #
 #                                  ~/.bashrc                                  #
 # --------------------------------------------------------------------------- #
