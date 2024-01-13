@@ -1,11 +1,7 @@
 import = ["~/.config/alacritty/colors/seashells.toml"]
 
 [window]
-dynamic_title = true
 option_as_alt = "OnlyLeft"
-
-[colors]
-draw_bold_text_with_bright_colors = false
 
 [shell]
 args = ["--login"]
@@ -13,23 +9,22 @@ program = "/opt/homebrew/bin/bash"
 
 [font]
 size = 16
+normal.family = "Victor Mono"
+bold.style = "Bold"
+italic.style = "Italic"
+bold_italic.style= "Bold Italic"
 
-[font.bold]
-family = "Victor Mono"
-style = "Bold"
+[[keyboard.bindings]]
+key = "U"
+mode = "Vi"
+action = "ScrollHalfPageUp"
 
-[font.glyph_offset]
-x = 0
-y = 0
+[[keyboard.bindings]]
+key = "D"
+mode = "Vi"
+action = "ScrollHalfPageDown"
 
-[font.italic]
-family = "Victor Mono"
-style = "Italic"
-
-[font.normal]
-family = "Victor Mono"
-style = "Regular"
-
-[font.offset]
-x = 0
-y = 0
+[[keyboard.bindings]]
+key = "Q"
+mode = "Vi"
+action = "ToggleViMode"

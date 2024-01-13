@@ -1,9 +1,31 @@
 #!/bin/bash
 config=$HOME/.config/alacritty/alacritty.toml
-colorsd=$HOME/.config/alacritty/colors
+colorsd=${config%/*}/colors
 
-colors=$(for f in $(ls $colorsd); do echo "${f%%.toml}"; done)
-color=$(grep -E "$colorsdir"'/colors/.*.toml"' "$config" | cut -d \" -f 2 | rev | cut -d / -f 1 | rev | cut -d '.' -f 1)
+colors=$(for f in $(ls $colorsd); do
+    [[ $f == *.toml ]] && echo "${f%%.toml}"
+done)
+
+while read line; do
+    case $line in
+        */colors/*.toml*)
+            color="$line"
+            color=${color##*/}
+            color=${color%%.toml*}
+            break;;
+    esac
+done <"$config"
+
+if [ -z $color ]; then
+    echo "Error: Unable to parse colorscheme from $config"
+    exit 1
+fi
+
+case $1 in
+    -d | --dry-run) dry=true; shift;;
+    -p | --print) echo "$color"; exit 0;;
+    -l | --list) for c in $colors; do echo $c; done; exit 0;;
+esac
 
 available() {
     [[ -z $1 ]] && return 1
@@ -14,22 +36,30 @@ available() {
     return 1
 }
 
-case $1 in
-    -p | --print) echo "$color"; exit 0;;
-    -l | --list) for c in $colors; do echo $c; done; exit 0;;
-esac
-
 echo "Colorscheme: $color"
-[ $# == 1 ] && selected="$1"
+(( $# >= 1 )) && selected="$1"
 
 if ! available "$selected"; then
     select selected in $colors; do break; done
     ( [ -z $selected ] || [ -z "$REPLY" ] ) && echo "Okay then..." && exit 1
 fi
+
 if [[ "$selected" == "$color" ]]; then
     echo "You are already using '$selected'."
     exit 1
 fi
 
 echo -e "Setting colors to '$selected'"
-sed -i '' -E 's:(colors/)(.*)(.toml):\1'"$selected"'\3:' "$config"
+result=$(sed -E 's:(colors/)(.*)(.toml):\1'"$selected"'\3:' "$config")
+if [ "$dry" == true ]; then
+    echo "$result" | diff -U0 --minimal --color=auto "$config" -
+    while read -p "Apply new colors (Y/N)? " answer; do
+        case $answer in
+            Y | [Yy]es) break;;
+            N | [Nn]o) echo "Ok then..."; exit;;
+        esac
+        echo "(Y)es or (N)o please."
+    done
+fi
+
+echo "$result" > "$config"

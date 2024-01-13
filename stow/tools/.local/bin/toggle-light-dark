@@ -1,5 +1,8 @@
 #!/bin/bash
-color=$(colorscheme -p)
+if ! color=$(colorscheme -p); then
+    echo "$color"
+    exit 1
+fi
 
 mode=unknown
 case $color in
