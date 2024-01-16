@@ -68,7 +68,7 @@ endfunction
 
 " Split path into directory and filename
 function s:pathsplit(fpath)
-    let fpath = expand(a:fpath)
+    let fpath = resolve(expand(a:fpath))
     if isdirectory(fpath)
         return [fnamemodify(fpath, ':p'), '']
     endif

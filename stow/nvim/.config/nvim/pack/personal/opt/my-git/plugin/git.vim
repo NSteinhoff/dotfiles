@@ -14,13 +14,13 @@ function s:complete_log(arglead, cmdline, cursorpos)
 endfunction
 
 function s:log(bang, args)
-    let open_in_split = !(a:bang || empty(@%))
-    call git#show_log(open_in_split, getcwd(), a:args)
+    let split_window = !(a:bang || empty(@%))
+    call git#show_log(split_window, getcwd(), a:args)
 endfunction
 
 function s:timeline(bang, line1, line2, range)
-    let open_in_split = !(a:bang || empty(@%))
-    call git#show_timeline(open_in_split, a:line1, a:line2, a:range, @%)
+    let split_window = !(a:bang || empty(@%))
+    call git#show_timeline(split_window, a:line1, a:line2, a:range, @%)
 endfunction
 
 command! -bang -nargs=* GitLog call s:log(<bang>0, <q-args>)
