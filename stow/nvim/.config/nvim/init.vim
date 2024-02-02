@@ -138,7 +138,14 @@ packadd! my-tabline
 packadd! my-marks                               " Show marks in the gutter
 packadd! my-filefinder                          " Start simple file finder with :ff
 packadd! my-zettelkasten                        " Note-taking
-packadd! my-treesitter                          " Language aware highlighting
+
+" Treesitter
+let disable_treesitter = v:true
+if disable_treesitter
+    lua vim.treesitter.start = function() end
+else
+    packadd! my-treesitter                          " Language aware highlighting
+endif
 "}}}
 
 "{{{ Third Party
