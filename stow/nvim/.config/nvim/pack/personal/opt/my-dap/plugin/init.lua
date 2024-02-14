@@ -1,10 +1,15 @@
 vim.cmd([[packadd nvim-dap]])
 local dap = require("dap")
-local colorsave = vim.fn.execute('colorscheme'):gsub('\n', '')
 
 -- Remove most of the default :Dap* commands
-local keep_commands =
-    { "DapStart", "DapShowLog", "DapContinue", "DapSetLogLevel", "DapToggleBreakpoint", "DapRunLast"}
+local keep_commands = {
+    "DapStart",
+    "DapShowLog",
+    "DapContinue",
+    "DapSetLogLevel",
+    "DapToggleBreakpoint",
+    "DapRunLast",
+}
 for name, _ in pairs(vim.api.nvim_get_commands({})) do
     if
         string.match(name, "Dap%u%a*")
@@ -83,7 +88,8 @@ dap.configurations.c = {
 
 -- Mappings and Commands
 local ui = require("dap.ui.widgets")
-local scopes_sidebar = ui.sidebar(ui.scopes, { width = 30 }, "leftabove vertical split")
+local scopes_sidebar =
+    ui.sidebar(ui.scopes, { width = 42 }, "leftabove vertical split")
 
 local keymaps = {
     ["n"] = {
@@ -100,8 +106,10 @@ local keymaps = {
             rhs = dap.run_to_cursor,
             opts = { desc = "DAP Run to cursor" },
         },
-        ["s"] = {
-            rhs = dap.step_into,
+        ["di"] = {
+            rhs = function()
+                dap.step_into({ steppingGranularity = "instruction" })
+            end,
             opts = { desc = "DAP Step into" },
         },
         ["ds"] = {
@@ -297,8 +305,6 @@ local commands = {
 local default_opts = { buffer = false, silent = false }
 
 local function on_attach(_)
-    colorsave = vim.fn.execute('colorscheme'):gsub('\n', '')
-    vim.fn.execute('colorscheme default')
     for mode, mode_map in pairs(keymaps) do
         for lhs, mapping in pairs(mode_map) do
             local opts = vim.tbl_extend("force", default_opts, mapping.opts)
@@ -312,8 +318,9 @@ local function on_attach(_)
 end
 
 local function on_detach(_, payload)
-    if not payload then return end
-    vim.fn.execute('colorscheme '..colorsave)
+    if not payload then
+        return
+    end
 
     for mode, mode_map in pairs(keymaps) do
         for lhs, _ in pairs(mode_map) do
@@ -326,21 +333,36 @@ local function on_detach(_, payload)
         end
     end
     scopes_sidebar.close()
-    vim.cmd[[redraw]]
+    vim.cmd([[redraw]])
 end
 
 dap.listeners.after.event_initialized["my-dap"] = on_attach
 dap.listeners.after.event_terminated["my-dap"] = on_detach
 dap.listeners.after.event_exited["my-dap"] = on_detach
 
-vim.fn.sign_define('DapBreakpoint', {text='B', texthl='Special', linehl='', numhl=''})
-vim.fn.sign_define('DapBreakpointCondition', {text='C', texthl='Special', linehl='', numhl=''})
-vim.fn.sign_define('DapBreakpointRejected', {text='R', texthl='Error', linehl='', numhl=''})
-vim.fn.sign_define('DapLogPoint', {text='R', texthl='Special', linehl='', numhl=''})
-vim.fn.sign_define('DapStopped', {text='→', texthl='Todo', linehl='Underlined', numhl=''})
+vim.fn.sign_define(
+    "DapBreakpoint",
+    { text = "B", texthl = "Special", linehl = "", numhl = "" }
+)
+vim.fn.sign_define(
+    "DapBreakpointCondition",
+    { text = "C", texthl = "Special", linehl = "", numhl = "" }
+)
+vim.fn.sign_define(
+    "DapBreakpointRejected",
+    { text = "R", texthl = "Error", linehl = "", numhl = "" }
+)
+vim.fn.sign_define(
+    "DapLogPoint",
+    { text = "R", texthl = "Special", linehl = "", numhl = "" }
+)
+vim.fn.sign_define(
+    "DapStopped",
+    { text = "→", texthl = "Todo", linehl = "Underlined", numhl = "" }
+)
 
 vim.api.nvim_create_autocmd("User", {
-  group = vim.api.nvim_create_augroup("dap-status", { clear = true }),
-  pattern = "DapProgressUpdate",
-  command = "redrawstatus"
+    group = vim.api.nvim_create_augroup("dap-status", { clear = true }),
+    pattern = "DapProgressUpdate",
+    command = "redrawstatus",
 })
