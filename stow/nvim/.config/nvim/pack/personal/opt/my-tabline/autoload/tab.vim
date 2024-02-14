@@ -20,10 +20,14 @@ function! tab#label(n)
         endif
 
         if name =~ '^term:'
-            let [term, process, cmd] = split(name, ':')
+            let [prefix; args] = split(name)
+            let [term, process, cmd] = split(prefix, ':')
             let [directory, pid] = split(process, '//')
             let procdir = fnamemodify(directory, ':p')
             let windir = fnamemodify(getcwd(), ':p')
+            if len(args) > 0
+                let cmd .= ' ' .. join(args)
+            endif
             return '>_ '..(procdir == windir ? '' : directory..':')..fnamemodify(cmd, ':t')
         else
             let label = name =~ '/$'
