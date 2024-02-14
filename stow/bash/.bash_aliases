@@ -65,7 +65,7 @@ alias :e='$EDITOR'
 alias g='git status'
 alias g-='git switch -'
 alias gg='g && echo "git switch ..." \
-    && select branch in $(git branch --format="%(refname:strip=2)"); do break; done \
+    && select branch in $(git branch --format="%(refname:strip=2)" | grep -v "HEAD detached"); do break; done \
     && [ -n "$branch" ] \
     && git switch "$branch" \
     || echo "Okay then..."'
@@ -116,9 +116,6 @@ alias i='pushd -0'
 
 # Read errors from stdin into a scratch buffer and load into quickfix list
 alias quickfix='vim +"set bt=nofile" +cbuffer -'
-
-# Run neovide with the multigrid feature by default
-alias neovide='neovide --multigrid'
 
 ###############
 ### Note-Taking
