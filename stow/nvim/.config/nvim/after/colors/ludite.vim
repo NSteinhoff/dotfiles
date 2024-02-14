@@ -43,7 +43,7 @@ highlight WildMenu                     cterm=NONE                   ctermfg=NONE
 "}}}
 
 "{{{ UI Columns and Lines
-highlight ColorColumn                  cterm=NONE                   ctermfg=11    ctermbg=8
+highlight ColorColumn                  cterm=NONE                   ctermfg=NONE  ctermbg=8
 highlight CursorColumn                 cterm=NONE                   ctermfg=0     ctermbg=11
 highlight CursorLine                   cterm=NONE                   ctermfg=0     ctermbg=11
 highlight CursorLineNr                 cterm=NONE                   ctermfg=NONE  ctermbg=NONE
@@ -70,7 +70,7 @@ highlight diffRemoved                  cterm=NONE                   ctermfg=1   
 "}}}
 
 "{{{ Status line
-highlight StatusLine                   cterm=NONE                   ctermfg=NONE  ctermbg=4
+highlight StatusLine                   cterm=NONE                   ctermfg=15    ctermbg=4
 highlight StatusLineNC                 cterm=NONE                   ctermfg=NONE  ctermbg=8
 highlight StatusLineFocus              cterm=NONE                   ctermfg=NONE  ctermbg=15
 highlight StatusLineTerm               cterm=NONE                   ctermfg=NONE  ctermbg=13
@@ -89,9 +89,16 @@ highlight TabLineSel                   cterm=bold,underline         ctermfg=15  
 
 "{{{ Searching/Matches
 highlight Search                       cterm=bold,underline         ctermfg=NONE  ctermbg=NONE
-highlight IncSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=5
-highlight CurSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=5
+highlight IncSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=4
+highlight CurSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=4
 highlight MatchParen                   cterm=NONE                   ctermfg=12    ctermbg=NONE
+"}}}
+
+"{{{ Floating Window
+highlight NormalFloat                  cterm=NONE                   ctermfg=NONE  ctermbg=8
+highlight FloatBorder                  cterm=NONE                   ctermfg=15    ctermbg=4
+highlight FloatTitle                   cterm=NONE                   ctermfg=15    ctermbg=4
+highlight FloatFooter                  cterm=NONE                   ctermfg=15    ctermbg=4
 "}}}
 
 "{{{ Syntax
@@ -108,7 +115,6 @@ highlight Ignore                       cterm=NONE       ctermfg=8     ctermbg=NO
 highlight Keyword                      cterm=NONE       ctermfg=NONE  ctermbg=NONE
 highlight Macro                        cterm=NONE       ctermfg=NONE  ctermbg=NONE
 highlight Number                       cterm=NONE       ctermfg=15    ctermbg=NONE
-highlight Float                        cterm=NONE       ctermfg=15    ctermbg=NONE
 highlight Operator                     cterm=bold       ctermfg=15    ctermbg=NONE
 highlight PreProc                      cterm=NONE       ctermfg=NONE  ctermbg=NONE
 highlight Special                      cterm=bold       ctermfg=NONE  ctermbg=NONE
