@@ -65,7 +65,7 @@ alias :e='$EDITOR'
 alias g='git status'
 alias g-='git switch -'
 alias gg='g && echo "git switch ..." \
-    && select branch in $(git branch --format="%(refname:strip=2)" | grep -v "HEAD detached"); do break; done \
+    && select branch in $(git branch --sort=-committerdate --format="%(refname:strip=2)" | grep -v "HEAD detached"); do break; done \
     && [ -n "$branch" ] \
     && git switch "$branch" \
     || echo "Okay then..."'

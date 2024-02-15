@@ -28,7 +28,7 @@ post_cd() {
     if [[ -d '.git' ]]; then
         _cd_repo
     else
-        ls
+        ls --color=always -p
     fi
 }
 
