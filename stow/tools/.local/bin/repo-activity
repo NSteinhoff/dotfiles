@@ -1,17 +1,18 @@
 #!/bin/bash
 
+repo="${1##$HOME/}"
 since="${2:-two weeks ago}"
-repo="$1"
 pushd $repo > /dev/null
 
 if [[ -n $(git log --since="$since") ]]; then
-    log=$(git log -n 1 --pretty=format:'%an %ar')
-    author=$(echo "$log" | cut -f1)
-    time_ago=$(echo "$log" | cut -f2)
+    log=$(git log -n 1 --pretty=format:"%an:%ar:%s")
+    author=$(echo "$log" | cut -d ':' -f1)
+    time_ago=$(echo "$log" | cut -d ':' -f2)
+    subject=$(echo "$log" | cut -d ':' -f3-)
     if [[ "$author" == "$(git config --get user.name)" ]]; then
         dirty=""
         [[ -n $(git status --short) ]] && dirty='!!!'
-        printf '\t%-30s%20s %s\n' "$repo" "$time_ago" "$dirty"
+        printf '\t%-50s%20s %s\n\t\t%s\n' "$repo" "$time_ago" "$dirty" "$subject"
     fi
 fi
 

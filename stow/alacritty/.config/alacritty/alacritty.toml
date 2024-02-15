@@ -1,4 +1,4 @@
-import = ["~/.config/alacritty/colors/seashells.toml"]
+import = ["~/.config/alacritty/colors/default-dark.toml"]
 
 [window]
 option_as_alt = "OnlyLeft"

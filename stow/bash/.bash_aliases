@@ -190,6 +190,7 @@ export ZETTELKASTEN=~/Dropbox/Zettel
 # ---------------------------- Pandoc CSS Styles ------------------------------
 export PANDOC_CSS="$HOME/.local/styles/markdown.css"
 
+export PROMPT_COMMAND=bashbot
 # --------------------------------- Go Path -----------------------------------
 # I don't like go/ cluttering up my home directory
 export GOPATH="$HOME/.local/opt/go"

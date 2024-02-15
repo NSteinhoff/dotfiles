@@ -1,8 +1,10 @@
 #!/bin/bash
 
-pushd $1 > /dev/null
-branch_name=$(git rev-parse --abbrev-ref HEAD)
-last_commit=$(git log -n 1 --pretty=format:'%an %ar')
+repo="${1}"
+pushd "$repo" > /dev/null
+
+branch_name=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+last_commit=$(git log -n 1 --pretty=format:'%an %ar' 2>/dev/null)
 echo "$(printf '\t%-30s' $1) [$branch_name] $last_commit"
 
 git status --short | while IFS= read -r line; do

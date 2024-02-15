@@ -1,6 +1,7 @@
 #!/bin/bash
 
-activity=$(find-repos 3 | xargs repo-activity)
+repos=$(find-repos ~/Develop 3)
+activity=$(echo $repos | xargs -n 1 repo-activity)
 [ -z "$activity" ] || (echo "===Activity===" && echo -e "\n$activity\n")
 
 # vim: ft=sh

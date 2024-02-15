@@ -2,7 +2,7 @@
 
 echo "===Status==="
 git log -n 1
-[[ -n $(git status --short) ]] && echo && git status --short
-[[ -n $(git diff) ]] && echo && git diff --stat
+status=$(git status --short)
+[[ -n "$status" ]] && printf "\n%s\n\n" "$status"
 
 # vim: ft=sh

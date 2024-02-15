@@ -1,7 +1,8 @@
 #!/bin/bash
 
-depth="${1:-2}"
+dir="${1:-.}"
+depth="${2:-2}"
 echo "===Repositories==="
-find-repos $depth | xargs -n1 repo-stats
+find-repos "$dir" "$depth" | xargs -n1 repo-stats
 
 # vim: ft=sh

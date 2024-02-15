@@ -1,8 +1,10 @@
+debug=false
+$debug && echo "Bashbot says: Hi!"
+
 # vim: ft=sh
-lib=$HOME/.local/lib/bash_functions
-[ -f "$lib" ] || exit
 
 LAST=$(fc -ln -1 | xargs)
+$debug && echo "LAST = $LAST"
 
 # Colors
 NC='\033[0m' # No Color
@@ -22,11 +24,16 @@ post_cd() {
         $HOME) _cd_home;;
         $DEVELOP|$DEV) _cd_dev;;
     esac
-    [[ -d '.git' ]] && _cd_repo
+
+    if [[ -d '.git' ]]; then
+        _cd_repo
+    else
+        ls
+    fi
 }
 
 _cd_dev() {
-    repo-summary
+    false repo-summary
 }
 
 _cd_repo() {
@@ -34,7 +41,7 @@ _cd_repo() {
 }
 
 _cd_home() {
-    recent-activity
+    false && recent-activity
 }
 
 [[ $LAST =~ $RE_CD ]] && post_cd

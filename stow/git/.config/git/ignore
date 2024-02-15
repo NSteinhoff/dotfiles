@@ -1,4 +1,6 @@
 # Tags
+tasks
+!tasks/
 tags
 !tags/
 tags-lib
