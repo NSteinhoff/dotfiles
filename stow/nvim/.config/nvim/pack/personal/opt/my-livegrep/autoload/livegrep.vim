@@ -142,6 +142,7 @@ function livegrep#start(query, bang)
 
         if !empty(a:query) || a:bang || empty(getline(1))
             call setline(1, a:query) | 1 | doau TextChanged
+            call livegrep#update(0, bufnr(), 1)
         endif
 endfunction
 
@@ -149,6 +150,7 @@ function livegrep#update(live, buf, ...)
     call s:placeholder(a:buf)
     let force_update = a:0
     if s:editing(a:buf) && s:searchable(a:buf, a:live) || force_update
+        call s:wipe(a:buf)
         call s:search(a:buf)
     endif
 endfunction
