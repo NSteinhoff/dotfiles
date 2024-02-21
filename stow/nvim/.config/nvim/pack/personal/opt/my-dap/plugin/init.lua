@@ -3,10 +3,9 @@ local dap = require("dap")
 
 -- Remove most of the default :Dap* commands
 local keep_commands = {
-    "DapStart",
     "DapShowLog",
-    "DapContinue",
     "DapSetLogLevel",
+    "DapContinue",
     "DapToggleBreakpoint",
     "DapRunLast",
 }

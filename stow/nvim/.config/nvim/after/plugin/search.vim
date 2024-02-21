@@ -26,3 +26,4 @@ function s:search(engine, ...)
 endfunction
 
 command -nargs=+ -complete=customlist,<sid>complete_engine Search call s:search(<f-args>)
+call abbrev#cmdline('search', 'Search')
