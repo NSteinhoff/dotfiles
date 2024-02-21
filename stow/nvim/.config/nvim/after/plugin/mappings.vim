@@ -273,10 +273,13 @@ nnoremap yoy <cmd>Noyo<cr>
 nnoremap yow <cmd>call options#toggle('wrap')<cr>
 nnoremap yol <cmd>call options#toggle('list')<cr>
 nnoremap yon <cmd>call options#toggle('number')<cr>
+nnoremap yor <cmd>call options#toggle('relativenumber')<cr>
 nnoremap yos <cmd>call options#toggle('laststatus', 2, 0)<cr>
 nnoremap yot <cmd>call options#toggle('showtabline', 2, 0)<cr>
 nnoremap yov <cmd>call options#toggle('virtualedit', 'all', '')<cr>
 nnoremap yoc <cmd>execute 'colorscheme ' . (colors_name == 'ludite' ? 'minimal' : 'ludite')..'\|colorscheme'<cr>
+nnoremap yod <cmd>call options#toggle('diff')<cr>
+nnoremap yop <cmd>call options#toggle('spell')<cr>
 "}}}
 
 " vim: foldmethod=marker

@@ -68,6 +68,10 @@ function status#spell()
     return &spell ? '[spell]' : ''
 endfunction
 
+function status#diff()
+    return &diff ? '[diff]' : ''
+endfunction
+
 function status#alt()
     let alt = expand('#:t')
     if empty(alt) || expand('#') == expand('%')
