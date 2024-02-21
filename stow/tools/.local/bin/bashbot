@@ -25,7 +25,7 @@ post_cd() {
         $DEVELOP|$DEV) _cd_dev;;
     esac
 
-    if [[ -d '.git' ]]; then
+    if git status >/dev/null; then
         _cd_repo
     else
         ls --color=always -p

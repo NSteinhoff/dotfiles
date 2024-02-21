@@ -25,8 +25,8 @@
 	branch-get-behind	= "!git branch --list --format='%(refname:short) %(upstream:track)' | grep '\\[behind' | while read branch _; do echo $branch; done"
 	branch-get-stale	= "!git branch --list --format='%(refname:short) %(upstream:track)' | grep '\\[gone\\]' | while read branch _; do echo $branch; done"
 	branch-remove-stale	= "!git branch-get-stale | (while read branch; do git branch --delete --force $branch; done)"
-	branch-update-behind	= "!git branch-get-behind | (while read branch; do git switch $branch && git pull --ff-only; done)"
-	branch-switch-main	= "!git switch $(git branch-get-main)"
+	branch-update-behind	= "!git branch-get-behind | (while read branch; do git switch --ignore-other-worktrees $branch && git pull --ff-only; done)"
+	branch-switch-main	= "!git switch --ignore-other-worktrees $(git branch-get-main)"
 	fresh			= "!git remote update --prune && git branch-update-behind && git branch-switch-main && git branch-remove-stale"
 
 	# Reviewing
