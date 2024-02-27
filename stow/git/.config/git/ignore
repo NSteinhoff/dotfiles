@@ -57,3 +57,4 @@ node_modules/
 # C artifacts
 a.out
 a.out.dSYM/
+*.dSYM/

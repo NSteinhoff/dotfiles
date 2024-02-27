@@ -9,6 +9,7 @@ local keep_commands = {
     "DapToggleBreakpoint",
     "DapRunLast",
 }
+
 for name, _ in pairs(vim.api.nvim_get_commands({})) do
     if
         string.match(name, "Dap%u%a*")

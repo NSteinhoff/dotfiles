@@ -10,7 +10,7 @@ let g:loaded_perl_provider = 0
 
 "{{{ Colors
 set notermguicolors
-colorscheme minimal
+colorscheme ludite
 "}}}
 
 "{{{ Appearance
