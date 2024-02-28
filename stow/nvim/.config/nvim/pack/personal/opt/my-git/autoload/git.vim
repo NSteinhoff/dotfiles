@@ -274,8 +274,8 @@ function git#show_file_version(revision, path, filetype, split)
     return bufnr
 endfunction
 
-function git#load_changed_files(...)
-    let ref = s:ref(a:0 ? a:1 : '')
+function git#load_changed_files(ref = '')
+    let ref = a:ref == '' ? '' : s:ref(a:ref)
     let cwd = getcwd()
     let gitdir = finddir('.git', ';')
     if empty(gitdir)
