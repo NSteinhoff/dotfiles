@@ -89,26 +89,30 @@ nnoremap <silent> <expr> <bar>
 "}}}
 
 "{{{ Cycling lists
-nnoremap [a <cmd>previous<cr>
 nnoremap ]a <cmd>next<cr>
+nnoremap [a <cmd>previous<cr>
 
-nnoremap [b <cmd>bprevious<cr>
 nnoremap ]b <cmd>bnext<cr>
+nnoremap [b <cmd>bprevious<cr>
 
-nnoremap [q <cmd>cprevious<cr>
 nnoremap ]q <cmd>cnext<cr>
-if empty(maparg("<c-p>", "n"))|nnoremap <c-p> <cmd>cprevious<cr>|endif
+nnoremap [q <cmd>cprevious<cr>
 if empty(maparg("<c-n>", "n"))|nnoremap <c-n> <cmd>cnext<cr>|endif
+if empty(maparg("<c-p>", "n"))|nnoremap <c-p> <cmd>cprevious<cr>|endif
 
-nnoremap [l <cmd>lprevious<cr>
 nnoremap ]l <cmd>lnext<cr>
-if empty(maparg("<c-k>", "n"))|nnoremap <c-k> <cmd>lprevious<cr>|endif
+nnoremap [l <cmd>lprevious<cr>
 if empty(maparg("<c-j>", "n"))|nnoremap <c-j> <cmd>lnext<cr>|endif
+if empty(maparg("<c-k>", "n"))|nnoremap <c-k> <cmd>lprevious<cr>|endif
 
 nnoremap [t <cmd>tprevious<cr>
 nnoremap ]t <cmd>tnext<cr>
 "}}}
 
+"{{{ Arglist
+nnoremap ]A <cmd>argadd %<bar>echo "Added arg '"..expand("%").."'"<cr>
+nnoremap [A <cmd>argdelete %<bar>echo "Removed arg '"..expand("%").."'"<cr>
+"}}}
 
 "{{{ Search and replace
 vnoremap * y<cmd>let @/=@"<cr>n
@@ -185,7 +189,7 @@ cnoremap <m-f> <s-right>
 " Switch to alternative buffer
 nmap <bs> <c-^>
 nnoremap <c-^> <cmd>call buffers#alternative()<cr>
-nnoremap <leader>a <cmd>call buffers#yang()<cr>
+nnoremap <leader><bs> <cmd>call buffers#yang()<cr>
 
 " Missing `:tab split` mapping
 " Like <c-w>T, but without removing the window from the current page.
@@ -280,6 +284,18 @@ nnoremap yov <cmd>call options#toggle('virtualedit', 'all', '')<cr>
 nnoremap yoc <cmd>execute 'colorscheme ' . (colors_name == 'ludite' ? 'minimal' : 'ludite')..'\|colorscheme'<cr>
 nnoremap yod <cmd>call options#toggle('diff')<cr>
 nnoremap yop <cmd>call options#toggle('spell')<cr>
+"}}}
+
+"{{{ Git add  / reset current file
+nmap ]g <plug>(git-add)
+nmap [g <plug>(git-reset)
+"}}}
+
+"{{{ Reviewing
+nmap ]r <plug>(git-review-next)
+nmap [r <plug>(git-review-prev)
+nmap ]R <plug>(git-review-mark-seen)
+nmap [R <plug>(git-review-first)
 "}}}
 
 " vim: foldmethod=marker

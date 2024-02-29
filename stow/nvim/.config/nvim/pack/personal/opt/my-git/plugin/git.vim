@@ -25,8 +25,11 @@ endfunction
 
 command! -bang -nargs=* GitLog call s:log(<bang>0, <q-args>)
 command! -bang -range=% Timeline call s:timeline(<bang>0, <line1>, <line2>, <range>)
-command! -nargs=? -complete=customlist,s:complete_file_log DiffThis call git#side_by_side_diff(<q-args>, @%)
+command! -bar -nargs=? -complete=customlist,s:complete_file_log DiffThis call git#side_by_side_diff(<q-args>, @%)
 command! -bang -nargs=? -complete=customlist,s:complete_file_log PatchThis call git#inline_diff(<bang>1, <q-args>, @%)
+command! -bar -nargs=? -complete=buffer GitAdd call git#add(<q-args>)
+command! -bar -nargs=? -complete=buffer GitReset call git#reset(<q-args>)
+command! -bar -nargs=? -complete=buffer GitStatus call git#status(<q-args>)
 
 function s:changed_files(revision, goto)
     call git#load_changed_files(a:revision)
@@ -38,17 +41,23 @@ endfunction
 command! -nargs=? -bang -complete=customlist,s:complete_log ChangedFiles call s:changed_files(<q-args>, <bang>1)
 command! -nargs=? -bang -complete=customlist,s:complete_log DiffTarget call git#set_diff_target(<bang>0, <q-args>)
 command! -nargs=? -complete=customlist,s:complete_log Review call git#review(<q-args>)
+command! MarkReviewed only | diffoff! | argdelete % | argument | DiffThis | echo "Mark reviewed '"..expand("%").."'"
 command! -nargs=? -bang -complete=customlist,s:complete_log QuickDiff call git#quick_diff(<q-args>, <bang>1)
 
-function s:track_changes()
+function s:track_changes(jump)
     augroup my-changed-files
         autocmd!
         autocmd VimResume,FocusGained * call git#load_changed_files()
         autocmd DirChanged * call git#load_changed_files()
         autocmd BufWritePost * call git#load_changed_files()
+        autocmd User MyGitAdd call git#load_changed_files()
     augroup END
 
     call git#load_changed_files()
+
+    if a:jump
+        first
+    endif
 endfunction
 
 function s:no_track_changes()
@@ -63,7 +72,7 @@ function s:no_track_changes()
     argd *
 endfunction
 
-command -bang TrackChanges call s:track_changes()
+command -bang TrackChanges call s:track_changes(<bang>0)
 command -bang NoTrackChanges call s:no_track_changes()
 
 nnoremap <plug>(git-diff-split) <cmd>DiffThis<cr>
@@ -72,5 +81,11 @@ nnoremap <plug>(git-diff-split-ref) :DiffThis <c-z>
 nnoremap <plug>(git-patch-split-ref) :PatchThis <c-z>
 nnoremap <plug>(git-blame) <cmd>Blame<cr>
 vnoremap <plug>(git-blame) :Blame<cr>
+nnoremap <plug>(git-add) <cmd>GitAdd<cr>
+nnoremap <plug>(git-reset) <cmd>GitReset<cr>
+nnoremap <plug>(git-review-next) <cmd>only<bar>diffoff!<bar>next<bar>DiffThis<cr>
+nnoremap <plug>(git-review-prev) <cmd>only<bar>diffoff!<bar>prev<bar>DiffThis<cr>
+nnoremap <plug>(git-review-first) <cmd>only<bar>diffoff!<bar>first<bar>DiffThis<cr>
+nnoremap <plug>(git-review-mark-seen) <cmd>MarkReviewed<cr>
 
 call abbrev#cmdline('dd', 'DiffThis')

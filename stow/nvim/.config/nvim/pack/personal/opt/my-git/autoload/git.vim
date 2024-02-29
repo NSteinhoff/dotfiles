@@ -1,7 +1,17 @@
 let s:revision_format = '%h\ %d\ %s\ \(%cr\)'
 
-function s:ref(revision)
-    return a:revision != '' ? split(a:revision)[0] : get(t:, 'diff_target', 'HEAD')
+function s:git(dir, cmd)
+    let cmd = 'git -C '..shellescape(a:dir)..' '..a:cmd
+    let result = systemlist(cmd)
+    if v:shell_error
+        echoerr "Git ("..v:shell_error.."): "..result[0].." Running '"..cmd.."'"
+        return []
+    endif
+    return result
+endfunction
+
+function s:ref(revision, default = 'HEAD')
+    return a:revision != '' ? split(a:revision)[0] : get(t:, 'diff_target', a:default)
 endfunction
 
 function s:can_be_alt(bufname)
@@ -66,6 +76,17 @@ function s:temp_buffer(lines, name, filetype, ...)
     return bufnr()
 endfunction
 
+" Show a file revision
+function s:file_version(ref, path)
+    let [fdir, fname] = s:pathsplit(a:path)
+    let lines = s:git(fdir, 'show '..a:ref..':./'..fname)
+    if v:shell_error
+        echoerr join(lines, "\n")
+    else
+        return lines
+    endif
+endfunction
+
 " Split path into directory and filename
 function s:pathsplit(fpath)
     let fpath = resolve(expand(a:fpath))
@@ -75,66 +96,42 @@ function s:pathsplit(fpath)
     return [fnamemodify(fpath, ':p:h'), fnamemodify(fpath, ':t')]
 endfunction
 
-function s:git(dir, cmd)
-    let cmd = 'git -C '..shellescape(a:dir)..' '..a:cmd
-    let result = systemlist(cmd)
-    if v:shell_error
-        echoerr "Git ("..v:shell_error.."): "..result[0].." Running '"..cmd.."'"
-        return []
-    endif
-    return result
-endfunction
-
 " -------------------------------- Revision ----------------------------------
 " HEAD revision
-function git#head(directory)
-    return s:git(a:directory, ' show @ --format='..s:revision_format)[0]
+function s:head(directory)
+    return s:git(a:directory, 'show @ --format='..s:revision_format)[0]
 endfunction
 
 " Get a single revision
-function git#revision(revision, directory)
+function s:revision(revision, directory)
     let ref = s:ref(a:revision)
-    return s:git(a:directory, ' show '..ref)
+    return s:git(a:directory, 'show '..ref)
 endfunction
 
 " ----------------------------------- Log ------------------------------------
 " Get all revisions
 function git#log(directory, args = '')
-    return s:git(a:directory, ' log --format='..s:revision_format..' '..a:args)
+    return s:git(a:directory, 'log --format='..s:revision_format..' '..a:args)
 endfunction
 
 " Get revisions for a file
 function git#file_log(path)
     let [fdir, fname] = s:pathsplit(a:path)
-    return s:git(fdir, ' log --no-patch --format='..s:revision_format..' -- '..fname)
+    return s:git(fdir, 'log --no-patch --format='..s:revision_format..' -- '..fname)
 endfunction
 
 " Get revisions for lines in a file
-function git#line_log(line1, line2, path)
+function s:line_log(line1, line2, path)
     let [fdir, fname] = s:pathsplit(a:path)
-    return s:git(fdir, ' log -L '..a:line1..','..a:line2..':'..fname..' --no-patch --format='..s:revision_format)
+    return s:git(fdir, 'log -L '..a:line1..','..a:line2..':'..fname..' --no-patch --format='..s:revision_format)
 endfunction
-
-" ------------------------------ File Version --------------------------------
-" Show a file revision
-function git#file_version(revision, path)
-    let [fdir, fname] = s:pathsplit(a:path)
-    let ref = s:ref(a:revision)
-    let lines = s:git(fdir, ' show '..ref..':./'..fname)
-    if v:shell_error
-        echoerr join(lines, "\n")
-    else
-        return lines
-    endif
-endfunction
-
 
 " -------------------------------------------------------------------------- "
 "                                   Blame                                    "
 " -------------------------------------------------------------------------- "
 function git#blame(line1, line2)
     let [fdir, fname] = s:pathsplit(@%)
-    return s:git(fdir, ' blame -L '..a:line1..','..a:line2..' --date=short '..fname)
+    return s:git(fdir, 'blame -L '..a:line1..','..a:line2..' --date=short '..fname)
 endfunction
 
 function s:blame_update()
@@ -175,8 +172,9 @@ endfunction
 function git#side_by_side_diff(revision, path)
     if empty(a:path)|return|endif
     let [fdir, fname] = s:pathsplit(a:path)
-    let bufname = a:path..'@'..s:ref(a:revision)
-    let lines = git#file_version(a:revision, a:path)
+    let ref = s:ref(a:revision, '')
+    let bufname = a:path..'@'..ref
+    let lines = s:file_version(ref, a:path)
     if empty(lines)|return -1|endif
     let bufnr = s:temp_buffer(lines, bufname, &ft, {'cmd': 'leftabove vertical new'})
 
@@ -193,9 +191,9 @@ endfunction
 function git#inline_diff(split, revision, path) abort
     if empty(a:path)|return|endif
     let [fdir, fname] = s:pathsplit(a:path)
-    let bufname = a:path..' VS '..s:ref(a:revision)
     let ref = s:ref(a:revision)
-    let lines = s:git(fdir, ' diff '..ref..' -- '..fname)
+    let bufname = a:path..' VS '..ref
+    let lines = s:git(fdir, 'diff '..ref..' -- '..fname)
     if empty(lines)|return -1|endif
     let cmd = a:split ? 'leftabove new' : 'enew'
     let bufnr = s:temp_buffer(lines, bufname, 'diff', {'cmd': cmd})
@@ -210,7 +208,7 @@ function git#show_diff(split, from, until, path) abort
     let until = split(a:until)[0]
     let from = split(a:from)[0]
     let bufname = 'PATCH: '..a:path..'@'..(from == until ? until : from..'..'..until)
-    let lines = s:git(fdir, ' diff '..from..'~ '..until..(!empty(fname) ? ' -- '..fname : ''))
+    let lines = s:git(fdir, 'diff '..from..'~ '..until..(!empty(fname) ? ' -- '..fname : ''))
     if empty(lines)|return -1|endif
     let cmd = a:split ? 'leftabove new' : 'enew'
     let bufnr = s:temp_buffer(lines, bufname, 'diff', {'cmd': cmd})
@@ -224,19 +222,19 @@ function git#show_timeline(split, line1, line2, range, path)
     if !filereadable(a:path)|return git#show_log(a:split, a:path)|endif
 
     let [fdir, fname] = s:pathsplit(a:path)
-    let bufname = 'TIMELINE: '..fname..(a:range ? ':'..a:line1..','..a:line2 : '')..' '..git#head(fdir)
+    let bufname = 'TIMELINE: '..fname..(a:range ? ':'..a:line1..','..a:line2 : '')..' '..s:head(fdir)
     let cmd = a:split ? 'leftabove vertical new' : 'enew'
     let ft=&ft
     let file_log = git#file_log(a:path)
-    let line_log = git#line_log(a:line1, a:line2, a:path)
+    let line_log = s:line_log(a:line1, a:line2, a:path)
     let line_log = map(line_log, { _, v -> index(file_log, v) == -1 ? v .. ' [RENAMED]' : v })
     let bufnr = s:temp_buffer(line_log, bufname, 'gitlog', {'cmd': cmd})
     if bufnr > 0
         let b:peek_patch  = { line1, line2 -> git#show_diff(1, getline(line2), getline(line1), fdir..'/'..fname) }
         let b:open_file   = { -> git#show_file_version(getline('.'), fdir..'/'..fname, ft, 0) }
         let b:peek_file   = { -> git#show_file_version(getline('.'), fdir..'/'..fname, ft, 1) }
-        let b:open_commit = { -> git#show_revision(getline('.'), fdir, 0) }
-        let b:peek_commit = { -> git#show_revision(getline('.'), fdir, 1) }
+        let b:open_commit = { -> s:show_revision(getline('.'), fdir, 0) }
+        let b:peek_commit = { -> s:show_revision(getline('.'), fdir, 1) }
     endif
     return bufnr
 endfunction
@@ -244,21 +242,21 @@ endfunction
 function git#show_log(split, path, args)
     let path = isdirectory(a:path) ? a:path : getcwd()
     let cmd = a:split ? 'leftabove vertical new' : 'enew'
-    let bufname = 'GITLOG: '..git#head(path)
+    let bufname = 'GITLOG: '..s:head(path)
     let lines = git#log(path, a:args)
     let bufnr = s:temp_buffer(lines, bufname, 'gitlog', {'cmd': cmd})
     if bufnr > 0
         let b:peek_patch  = { line1, line2 -> git#show_diff(1, getline(line2), getline(line1), path) }
-        let b:open_commit = { -> git#show_revision(getline('.'), path, 0) }
-        let b:peek_commit = { -> git#show_revision(getline('.'), path, 1) }
+        let b:open_commit = { -> s:show_revision(getline('.'), path, 0) }
+        let b:peek_commit = { -> s:show_revision(getline('.'), path, 1) }
     endif
     return bufnr
 endfunction
 
-function git#show_revision(revision, directory, split)
+function s:show_revision(revision, directory, split)
     let cmd = a:split ? 'leftabove new' : 'enew'
     let bufname = a:revision
-    let lines = git#revision(a:revision, a:directory)
+    let lines = s:revision(a:revision, a:directory)
     if empty(lines)|return -1|endif
     let bufnr = s:temp_buffer(lines, bufname, 'git', {'cmd': cmd})
     return bufnr
@@ -267,15 +265,16 @@ endfunction
 function git#show_file_version(revision, path, filetype, split)
     let cmd = a:split ? 'vertical new' : 'enew'
     if empty(a:path)|return|endif
-    let bufname = a:path..'@'..s:ref(a:revision)
-    let lines = git#file_version(a:revision, a:path)
+    let ref =s:ref(a:revision)
+    let bufname = a:path..'@'..ref
+    let lines = s:file_version(ref, a:path)
     if empty(lines)|return -1|endif
     let bufnr = s:temp_buffer(lines, bufname, a:filetype, {'cmd': cmd})
     return bufnr
 endfunction
 
 function git#load_changed_files(ref = '')
-    let ref = a:ref == '' ? '' : s:ref(a:ref)
+    let ref = s:ref(a:ref, '')
     let cwd = getcwd()
     let gitdir = finddir('.git', ';')
     if empty(gitdir)
@@ -332,6 +331,32 @@ function git#review(revision)
         echo v:exception
         tabclose
     endtry
+endfunction
+
+function git#reset(path)
+    let path = a:path == '' ? bufname() : a:path
+    let [fdir, fname] = s:pathsplit(path)
+    let fname = fname == '' ? '.' : fname " The entire directory
+    let result = s:git(fdir, 'reset -- '..fname)
+    echo "Unstaged '"..path.."'"
+    doautocmd User MyGitIndexChanged
+endfunction
+
+function git#add(path)
+    let path = a:path == '' ? bufname() : a:path
+    let [fdir, fname] = s:pathsplit(path)
+    let fname = fname == '' ? '.' : fname " The entire directory
+    let result = s:git(fdir, 'add -- '..fname)
+    echo "Staged '"..path.."'"
+    doautocmd User MyGitIndexChanged
+endfunction
+
+function git#status(path)
+    let path = a:path == '' ? getcwd() : a:path
+    let [fdir, fname] = s:pathsplit(path)
+    let fname = fname == '' ? '.' : fname " The entire directory
+    let lines = s:git(fdir, 'status --short -- '..fname)
+    echo lines->join("\n")
 endfunction
 
 function git#ctags(lib)
