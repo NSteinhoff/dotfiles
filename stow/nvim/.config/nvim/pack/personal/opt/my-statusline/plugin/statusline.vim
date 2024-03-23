@@ -1,7 +1,7 @@
 let stl  = '%w%y'
 let stl .= ' %<%f%m%a'
 let stl .= '%{status#yang()}'
-let stl .= '%{status#tree()}'
+" let stl .= '%{status#tree()}'
 let stl .= '%='
 let stl .= '%{status#dap()}'
 let stl .= '%='

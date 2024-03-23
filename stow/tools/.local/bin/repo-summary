@@ -4,5 +4,6 @@ dir="${1:-.}"
 depth="${2:-2}"
 echo "===Repositories==="
 find-repos "$dir" "$depth" | xargs -n1 repo-stats
+exit 0
 
 # vim: ft=sh

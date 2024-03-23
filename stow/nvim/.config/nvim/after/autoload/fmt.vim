@@ -21,7 +21,9 @@ function fmt#fmt(yes = 0)
     let after = tempname()
     call writefile(lines, before, 'Ds')
     call writefile(formatted, after, 'Ds')
-    let diff = system(["diff", "-u", before, after])
+    " let diff = system(["diff", "-u" ,before, after])
+    let diff = system(["diff", before, after])
+    " let diff = system(["diff", "-y", "--suppress-common-lines", before, after])
     if empty(diff)
         echo "Already formatted"
         return

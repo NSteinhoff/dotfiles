@@ -41,7 +41,18 @@ endfunction
 command! -nargs=? -bang -complete=customlist,s:complete_log ChangedFiles call s:changed_files(<q-args>, <bang>1)
 command! -nargs=? -bang -complete=customlist,s:complete_log DiffTarget call git#set_diff_target(<bang>0, <q-args>)
 command! -nargs=? -complete=customlist,s:complete_log Review call git#review(<q-args>)
-command! MarkReviewed only | diffoff! | argdelete % | argument | DiffThis | echo "Mark reviewed '"..expand("%").."'"
+
+function s:mark_reviewed()
+        argdelete % 
+        echo "Mark reviewed '"..expand("%").."'" 
+        only 
+        diffoff! 
+        if argc() > 0
+            execute argidx() < argc() ? 'argument' : 'prev'
+            DiffThis
+        endif
+endfunction
+command! MarkReviewed call s:mark_reviewed()
 command! -nargs=? -bang -complete=customlist,s:complete_log QuickDiff call git#quick_diff(<q-args>, <bang>1)
 
 function s:track_changes(jump)
@@ -83,8 +94,8 @@ nnoremap <plug>(git-blame) <cmd>Blame<cr>
 vnoremap <plug>(git-blame) :Blame<cr>
 nnoremap <plug>(git-add) <cmd>GitAdd<cr>
 nnoremap <plug>(git-reset) <cmd>GitReset<cr>
-nnoremap <plug>(git-review-next) <cmd>only<bar>diffoff!<bar>next<bar>DiffThis<cr>
-nnoremap <plug>(git-review-prev) <cmd>only<bar>diffoff!<bar>prev<bar>DiffThis<cr>
+nnoremap <plug>(git-review-next) <cmd>next<bar>only<bar>diffoff!<bar>DiffThis<cr>
+nnoremap <plug>(git-review-prev) <cmd>prev<bar>only<bar>diffoff!<bar>DiffThis<cr>
 nnoremap <plug>(git-review-first) <cmd>only<bar>diffoff!<bar>first<bar>DiffThis<cr>
 nnoremap <plug>(git-review-mark-seen) <cmd>MarkReviewed<cr>
 

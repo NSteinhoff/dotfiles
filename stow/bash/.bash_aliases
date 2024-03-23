@@ -124,6 +124,7 @@ complete -F _complete_notes note
 _complete_notes() { COMPREPLY=( $(compgen -W "$(ls $NOTES_DIR)" $2) ); }
 alias journal='nvim +Journal!'
 alias todo='nvim +Todo!'
+alias tasks='nvim tasks'
 alias zettel='_() { nvim "+Zettel $*"; }; _'
 
 ########

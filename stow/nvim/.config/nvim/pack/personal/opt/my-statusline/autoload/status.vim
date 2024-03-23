@@ -1,7 +1,11 @@
-function status#yang()
-    let alt = get(b:, 'yang', '')
+let s:yang_long = v:false
 
-    return alt != '' && findfile(alt) != '' ? ' A ' : ''
+function status#yang()
+    let path = get(b:, 'yang', '')
+
+    return path != '' && !empty(findfile(path))
+                \ ? (s:yang_long ? ' <> ['..path..'] ' : ' A ')
+                \ : ''
 endfunction
 
 function status#err()

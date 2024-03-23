@@ -1,7 +1,7 @@
 vim.cmd([[packadd nvim-treesitter]])
--- vim.cmd([[packadd nvim-treesitter-commentstring]])
 -- vim.cmd([[packadd nvim-treesitter-rainbow]])
 -- vim.cmd([[packadd nvim-treesitter-textobjects]])
+-- vim.cmd([[packadd nvim-treesitter-commentstring]])
 -- vim.cmd([[packadd nvim-treesitter-refactor]])
 
 local function init()
@@ -18,6 +18,7 @@ local function init()
         sync_install = false,
         auto_install = true,
         ignore_install = { "phpdoc" },
+
         highlight = {
             enable = true,
             disable = function(lang, bufnr)
@@ -41,9 +42,7 @@ local function init()
                 return false
             end,
         },
-        indent = { enable = false },
-        context_commentstring = { enable = true },
-        rainbow = { enable = true },
+
         incremental_selection = {
             enable = true,
             keymaps = {
@@ -53,6 +52,13 @@ local function init()
                 node_decremental = "<BS>",
             },
         },
+
+        indent = { enable = false },
+
+        context_commentstring = { enable = true },
+
+        rainbow = { enable = true },
+
         textobjects = {
             move = {
                 enable = true,
@@ -97,12 +103,13 @@ local function init()
                 },
             },
         },
+
         refactor = {
             enable = false,
-            highlight_definitions = { enable = false },
-            highlight_current_scope = { enable = false },
+            highlight_definitions = { enable = true },
+            highlight_current_scope = { enable = true },
             navigation = {
-                enable = false,
+                enable = true,
                 keymaps = {
                     goto_definition = "gd",
                     list_definitions_toc = "gO",

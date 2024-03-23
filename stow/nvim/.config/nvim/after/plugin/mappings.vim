@@ -9,6 +9,13 @@ autocmd CmdwinEnter * nnoremap <buffer> <c-p> <c-p>
 augroup END
 "}}}
 
+"{{{ <leader> / Wildchar
+" Explicitly map the <leader> key. Otherwise some plugins use their own default.
+let mapleader = '\'
+let maplocalleader = '\'
+set wildcharm=<c-z>
+"}}}
+
 " Execute script
 nnoremap <leader><leader> <cmd>w<bar>Run<cr>
 
@@ -20,20 +27,13 @@ nnoremap <leader>,i <cmd>EditIndent<cr>
 nnoremap <leader>,c <cmd>EditColorscheme<cr>
 "}}}
 
-"{{{ <leader> / Wildchar
-" Explicitly map the <leader> key. Otherwise some plugins use their own default.
-let mapleader = '\'
-let maplocalleader = '\'
-set wildcharm=<c-z>
-"}}}
-
 "{{{ Basics / Improving standard mappings
 nnoremap <esc> <cmd>nohlsearch<bar>diffupdate<cr>
 nnoremap <c-h> <cmd>nohlsearch<bar>diffupdate<cr>
-nnoremap <c-w><c-o> <cmd>diffoff!<bar>only<cr>
 
 " Toggle folds with <space>
 nnoremap <space> za
+nnoremap <c-w><c-o> <cmd>diffoff!<bar>only<cr>
 
 " Insert tabs as spaces after the first non-blank character
 imap <Tab> <Plug>(smarttab)
@@ -41,7 +41,7 @@ imap <Tab> <Plug>(smarttab)
 " Yank to clipboard with "" (Why would I ever explicitly need to target
 " the unnamed register anyways?)
 noremap "" "+
-nnoremap "? <cmd>registers<cr>
+nnoremap "? <cmd>registers "0123456789-+/<cr>
 
 " Close all folds but show the cursorline
 nnoremap zV <cmd>normal zMzv<cr>
@@ -133,7 +133,7 @@ vnoremap gm y:<c-u>Match <c-r>"<cr>
 " Mnemonic:
 "   < and > change indentation
 "   <> => 'indent all'
-nnoremap <silent> <> <cmd>Fmt<cr>
+nnoremap <silent> <> <cmd>Fmt!<cr>
 "}}}
 
 "{{{ Fix
@@ -156,7 +156,7 @@ nnoremap <silent> <c-w><c-space> <cmd>cclose<bar>lclose<cr><c-w>z
 "{{{ Preview / Hover
 " Preview definition
 nnoremap <expr><silent> <c-space>         !empty(tagfiles()) ? '<c-w>}' : !empty(expand('<cword>')) ? ':psearch <c-r><c-w><cr>' : ''
-vnoremap <expr><silent> <c-space>         !empty(tagfiles()) ? 'y:ptag <c-r>"<cr>' !empty(expand('<cword>')) ? : 'y:psearch /.*<c-r>".*/<cr>' : ''
+vnoremap <expr><silent> <c-space>         !empty(tagfiles()) ? 'y:ptag <c-r>"<cr>' : !empty(expand('<cword>')) ? : 'y:psearch /.*<c-r>".*/<cr>' : ''
 
 " Signature help via :ptag
 inoremap <expr><silent> <c-h> '<cmd>ptag '.expand('<cword>').'<cr>'
@@ -189,7 +189,7 @@ cnoremap <m-f> <s-right>
 " Switch to alternative buffer
 nmap <bs> <c-^>
 nnoremap <c-^> <cmd>call buffers#alternative()<cr>
-nnoremap <leader><bs> <cmd>call buffers#yang()<cr>
+nnoremap <leader>a <cmd>call buffers#yang()<cr>
 
 " Missing `:tab split` mapping
 " Like <c-w>T, but without removing the window from the current page.
@@ -230,7 +230,7 @@ nnoremap <leader>D :call buffers#recent()<cr>:bdelete<c-b>
 nnoremap <leader>T :buffer term://<c-z>
 "}}}
 
-" Scratch buffer
+" Toggle Scratch buffer
 nnoremap <leader>s <cmd>Scratch<cr>
 
 " Journal

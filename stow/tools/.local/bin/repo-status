@@ -4,5 +4,6 @@ echo "===Status==="
 git log -n 1
 status=$(git status --short)
 [[ -n "$status" ]] && printf "\n%s\n\n" "$status"
+exit 0
 
 # vim: ft=sh

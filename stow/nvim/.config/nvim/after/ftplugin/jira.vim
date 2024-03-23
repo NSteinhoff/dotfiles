@@ -12,10 +12,10 @@ endfunction
 
 function s:toggle_strikethrough(lnum)
     let text = getline(a:lnum)
-    if text =~ '^\s*([x/])\s\+-[^-].*-\s*$'
-        execute a:lnum.'s/\(^\s*([x/])\)\s\+-\s*\([^-].\{-}\)\s*-\s*$/\1 \2'
-    elseif text =~ '^\s*([x/])\s\+.*$'
-        execute a:lnum.'s/\(^\s*([x/])\)\s\+\([^-].\{-}\)\s*$/\1 -\2-'
+    if text =~ '^\s*([x/])[  ]\+-[^-].*-\s*$'
+        execute a:lnum.'s/\(^\s*([x/])\)\([  ]\)\+-\s*\([^-].\{-}\)\s*-\s*$/\1\2\3'
+    elseif text =~ '^\s*([x/])[  ]\+.*$'
+        execute a:lnum.'s/\(^\s*([x/])\)\([  ]\)\+\([^-].\{-}\)\s*$/\1\2-\3-'
     endif
 endfunction
 

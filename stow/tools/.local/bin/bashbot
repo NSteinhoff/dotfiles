@@ -18,30 +18,34 @@ DEVELOP="$HOME/Develop"
 HOME="$HOME"
 
 post_cd() {
-    list-tasks && echo
-
     case $PWD in
         $HOME) _cd_home;;
         $DEVELOP|$DEV) _cd_dev;;
     esac
 
-    if git status >/dev/null; then
+    if git status &>/dev/null; then
         _cd_repo
     else
-        ls --color=always -p
+        _cd_other
     fi
+
+    list-tasks
+}
+
+_cd_other() {
+    ls --color=always -p && echo
 }
 
 _cd_dev() {
-    false repo-summary
+    false && repo-summary && echo
 }
 
 _cd_repo() {
-    repo-status
+    repo-status && echo
 }
 
 _cd_home() {
-    false && recent-activity
+    false && recent-activity && echo
 }
 
 [[ $LAST =~ $RE_CD ]] && post_cd
