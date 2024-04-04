@@ -3,8 +3,8 @@ $debug && echo "Bashbot says: Hi!"
 
 # vim: ft=sh
 
-LAST=$(fc -ln -1 | xargs)
-$debug && echo "LAST = $LAST"
+last=$(fc -ln -1 | xargs)
+$debug && echo "last = $last"
 
 # Colors
 NC='\033[0m' # No Color
@@ -12,40 +12,21 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 ORANGE='\033[0;33m'
 
-RE_CD='cd.*'
-DEV="$HOME/dev"
-DEVELOP="$HOME/Develop"
-HOME="$HOME"
+re_cd='cd.*'
 
 post_cd() {
     case $PWD in
-        $HOME) _cd_home;;
-        $DEVELOP|$DEV) _cd_dev;;
+        $HOME) false && recent-activity && echo;;
+        $HOME/dev|$HOME/Develop) false && repo-summary && echo;;
     esac
 
     if git status &>/dev/null; then
-        _cd_repo
+        repo-status && echo
     else
-        _cd_other
+        ls --color=always -p && echo
     fi
 
     list-tasks
 }
 
-_cd_other() {
-    ls --color=always -p && echo
-}
-
-_cd_dev() {
-    false && repo-summary && echo
-}
-
-_cd_repo() {
-    repo-status && echo
-}
-
-_cd_home() {
-    false && recent-activity && echo
-}
-
-[[ $LAST =~ $RE_CD ]] && post_cd
+[[ $last =~ $re_cd ]] && post_cd

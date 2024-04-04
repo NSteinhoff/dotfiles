@@ -7,16 +7,10 @@ colors=$(for f in $(ls $colorsd); do
 done)
 
 while read line; do
-    case $line in
-        */colors/*.toml*)
-            color="$line"
-            color=${color##*/}
-            color=${color%%.toml*}
-            break;;
-    esac
+    [[ $line =~ colors/(.*).toml ]] && color="${BASH_REMATCH[1]}"
 done <"$config"
 
-if [ -z $color ]; then
+if [[ -z $color ]]; then
     echo "Error: Unable to parse colorscheme from $config"
     exit 1
 fi
@@ -41,18 +35,21 @@ echo "Colorscheme: $color"
 
 if ! available "$selected"; then
     select selected in $colors; do break; done
-    ( [ -z $selected ] || [ -z "$REPLY" ] ) && echo "Okay then..." && exit 1
+    ( [[ -z $selected ]] || [[ -z $REPLY ]] ) && echo "Okay then..." && exit 1
 fi
 
-if [[ "$selected" == "$color" ]]; then
+if [[ $selected == $color ]]; then
     echo "You are already using '$selected'."
     exit 1
 fi
 
 echo -e "Setting colors to '$selected'"
-result=$(sed -E 's:(colors/)(.*)(.toml):\1'"$selected"'\3:' "$config")
-if [ "$dry" == true ]; then
-    echo "$result" | diff -U0 --minimal --color=auto "$config" -
+
+content=$(<"$config")
+modified="${content/$color/$selected}"
+
+if [[ "$dry" == "true" ]]; then
+    echo "$modified" | diff -U0 --minimal --color=auto "$config" -
     while read -p "Apply new colors (Y/N)? " answer; do
         case $answer in
             Y | [Yy]es) break;;
@@ -62,4 +59,4 @@ if [ "$dry" == true ]; then
     done
 fi
 
-echo "$result" > "$config"
+echo "$modified" > "$config"
