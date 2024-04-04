@@ -10,6 +10,24 @@ function s:git(dir, cmd)
     return result
 endfunction
 
+function s:gitroot()
+    let gitdir = finddir('.git', ';')
+    if empty(gitdir)
+        " We might be in a worktree where '.git' is not a directory
+        let gitdir = findfile('.git', ';')
+    endif
+    if empty(gitdir)
+        echoerr "You don't seem to be inside a git repository."
+        return ''
+    endif
+    return fnamemodify(gitdir, ':h')
+endfunction
+
+function s:main()
+    let branches = s:git(getcwd(), "branch --list --format='%(refname:short)'")->filter({_, v -> v =~ 'main\|master'})
+    return branches[0]
+endfunction
+
 function s:ref(revision, default = 'HEAD')
     return a:revision != '' ? split(a:revision)[0] : get(t:, 'diff_target', a:default)
 endfunction
@@ -274,18 +292,8 @@ function git#show_file_version(revision, path, filetype, split)
 endfunction
 
 function git#load_changed_files(ref = '')
+    let gitroot = s:gitroot()
     let ref = s:ref(a:ref, '')
-    let cwd = getcwd()
-    let gitdir = finddir('.git', ';')
-    if empty(gitdir)
-        " We might be in a worktree where '.git' is not a directory
-        let gitdir = findfile('.git', ';')
-    endif
-    if empty(gitdir)
-        echoerr "You don't seem to be inside a git repository."
-        return
-    endif
-    let gitroot = fnamemodify(gitdir, ':h')
     let changed = s:git(getcwd(), 'diff --name-only '..ref..' -- .')
     let absolute = map(changed, { k, v -> gitroot..'/'..v })
     let resolved = map(absolute, { k, v -> resolve(v) })
@@ -319,7 +327,8 @@ function git#set_diff_target(reset, revision)
 endfunction
 
 function git#review(revision)
-    let l:revision = a:revision == '' ? 'origin/master' : a:revision
+    let l:main = s:main()
+    let l:revision = a:revision == '' ? 'origin/'..l:main : a:revision
 
     tab split
     call git#set_diff_target(0, l:revision)
