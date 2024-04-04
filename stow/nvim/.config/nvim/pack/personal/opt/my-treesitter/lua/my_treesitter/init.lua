@@ -7,7 +7,10 @@ vim.cmd([[packadd nvim-treesitter]])
 local function init()
     require("nvim-treesitter.configs").setup({
         ensure_installed = {
+            "vim",
             "vimdoc",
+            "markdown",
+            "markdown_inline",
             "c",
             "lua",
             "python",

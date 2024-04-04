@@ -19,28 +19,30 @@ function post#post()
     endif
 
     let request = getline(1, req_end)
-    let requeset = filter(request, 'v:val !~ "^#.*$"')
-    let request = join(request, " ")
-    " Remove whitespace before joined URL params
+                \->filter('v:val !~ "^#.*$"')
+                \->map('trim(v:val)')
+                \->join(" ")
     let request = substitute(request, '\s\([&?=]\)', '\1', 'g')
-    " Wrap URL in single quotes
-    let request = substitute(request, '\s\(http.\+\)\(\s\|$\)', ' ''\1'' ', '')
 
     if request !~ '^curl'
         let request = 'curl --silent --fail --show-error '..request
     endif
 
+    " Wrap URL in single quotes
+    let request = substitute(request, '\s\(http.\{-}\)\(\s\|$\)', ' ''\1'' ', '')
+
     echo 'Request: '..request
 
     call deletebufline(buf, req_end + 1, '$')
-    call append(req_end, [""])
+    call append(req_end, ["", "# RESPONSE"])
+    let response_start = req_end + 2
 
     let response = systemlist(request)
     if v:shell_error || getbufvar(buf, "&ft") != 'json'
-        call append(req_end + 1, response)
+        call append(response_start, response)
     else
         echo "Formatting Response"
         let formatted = systemlist("jq '.'", response)
-        call append(req_end + 1, formatted)
+        call append(response_start, formatted)
     endif
 endfunction

@@ -59,9 +59,9 @@ set listchars+=trail:…
 set listchars+=extends:»
 set listchars+=precedes:«
 set listchars+=nbsp:␣
-" set listchars+=eol:¬
+set listchars+=eol:¬
 set listchars+=lead:\ 
-set listchars+=multispace:\ \ \ ·               " Add markers for every 4 spaces
+" set listchars+=multispace:\ \ \ ·               " Add markers for every 4 spaces
 "}}}
 
 "{{{ Text formatting
