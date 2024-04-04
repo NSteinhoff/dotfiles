@@ -14,8 +14,8 @@ AlignOperands: AlignAfterOperator
 AllowShortBlocksOnASingleLine: Never
 AllowShortFunctionsOnASingleLine: false
 AllowShortCaseLabelsOnASingleLine: true
-AllowShortIfStatementsOnASingleLine: Never
-AllowShortLoopsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLoopsOnASingleLine: true
 AllowShortEnumsOnASingleLine: true
 # AlignConsecutiveDeclarations: Consecutive
 # AlignConsecutiveAssignments: Consecutive

@@ -13,3 +13,8 @@ CompileFlags:
     - -Wno-strict-prototypes
     - -Wno-gnu-empty-initializer
     - -Wno-unsafe-buffer-usage
+
+If:
+  PathMatch: .*\.h
+  CompileFlags:
+    Add: -xc-header
