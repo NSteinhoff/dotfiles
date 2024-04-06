@@ -1,6 +1,5 @@
 require("my_lsp.diagnostics").config()
 require("my_lsp.mappings").setup()
--- require("my_lsp.3rd.fidget").setup()
 
 local function on_attach(...)
     require("my_lsp.capabilities").on_attach(...)

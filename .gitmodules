@@ -5,9 +5,6 @@
 	path = 3rd/pack/external/opt/nvim-lspconfig
 	url = git@github.com:neovim/nvim-lspconfig.git
 	ignore = untracked
-[submodule "3rd/pack/external/opt/vim-commentary"]
-	path = 3rd/pack/external/opt/vim-commentary
-	url = git@github.com:tpope/vim-commentary.git
 [submodule "3rd/pandoc-letter"]
 	path = 3rd/pandoc-letter
 	url = git@github.com:benedictdudel/pandoc-letter-din5008.git
@@ -29,9 +26,6 @@
 [submodule "3rd/pack/external/opt/nvim-treesitter-rainbow"]
 	path = 3rd/pack/external/opt/nvim-treesitter-rainbow
 	url = git@github.com:p00f/nvim-ts-rainbow.git
-[submodule "3rd/pack/external/opt/fidget.nvim"]
-	path = 3rd/pack/external/opt/fidget.nvim
-	url = git@github.com:j-hui/fidget.nvim.git
 [submodule "3rd/pack/external/opt/nvim-dap"]
 	path = 3rd/pack/external/opt/nvim-dap
 	url = git@github.com:mfussenegger/nvim-dap.git

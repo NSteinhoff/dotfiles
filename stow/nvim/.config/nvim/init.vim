@@ -151,7 +151,6 @@ endif
 "{{{ Third Party
 " packadd! my-dap                                  " Debug Adapter configurations
 packadd! my-dirvish                             " Minimalist file browser (customized)
-packadd! vim-commentary                         " Comment out stuff
 "}}}
 
 "}}}
