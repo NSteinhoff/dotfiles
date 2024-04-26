@@ -22,8 +22,8 @@ CompilerSet makeprg=clang
             \\ -Wno-shadow
             \\ -Wno-padded
             \\ -Wno-implicit-fallthrough
-            \\ -Wno-vla
             \\ -Wno-unsafe-buffer-usage
+            \\ -Wno-vla
             \\ -fsyntax-only
             \\ %
             \\ $*

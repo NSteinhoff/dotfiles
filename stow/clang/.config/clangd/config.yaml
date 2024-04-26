@@ -13,6 +13,7 @@ CompileFlags:
     - -Wno-strict-prototypes
     - -Wno-gnu-empty-initializer
     - -Wno-unsafe-buffer-usage
+    - -Wno-vla
 
 If:
   PathMatch: .*\.h

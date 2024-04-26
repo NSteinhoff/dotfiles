@@ -12,7 +12,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 ORANGE='\033[0;33m'
 
-re_cd='cd.*'
+re_cd='^cd([[:space:]].*)?$'
 
 post_cd() {
     case $PWD in

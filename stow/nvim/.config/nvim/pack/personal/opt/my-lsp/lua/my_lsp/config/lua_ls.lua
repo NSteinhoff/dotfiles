@@ -32,7 +32,7 @@ local function on_init(client)
 end
 
 return function(config)
-    config.autostart = true
+    config.autostart = false
     config.on_init = on_init
 
     lspconfig["lua_ls"].setup(config)

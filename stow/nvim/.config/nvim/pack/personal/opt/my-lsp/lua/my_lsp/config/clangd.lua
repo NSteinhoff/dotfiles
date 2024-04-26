@@ -1,7 +1,7 @@
 local lspconfig = require("lspconfig")
 
 return function(config)
-    config.autostart = true
+    config.autostart = false
     config.filetypes = { "c" }
 
     lspconfig["clangd"].setup(config)
