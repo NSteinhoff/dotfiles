@@ -267,11 +267,6 @@ nnoremap <silent> gh <cmd>StealthToggle<cr>
 nnoremap <F7> <cmd>silent !toggle-light-dark<cr>
 "}}}
 
-"{{{ Open
-nnoremap <silent> <leader>o <cmd>Open <cWORD><cr>
-vnoremap <silent> <leader>o y:<C-U>Open <C-R>"<cr>
-"}}}
-
 "{{{ Toggle Options
 nnoremap yoy <cmd>Noyo<cr>
 nnoremap yow <cmd>call options#toggle('wrap')<cr>
