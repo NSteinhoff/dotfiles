@@ -82,11 +82,11 @@ tmux_ls_or_cmd() {
         tmux $@
     fi
 }
-tmux_new_session_in_dir() {
+tmux_new_session() {
     if (( $# == 0 )); then
         tmux new -s "$(basename $PWD)"
     else
-        tmux new -s "$(basename $1)" -c $1
+        tmux new -s "$1"
     fi
 }
 tmux_smart_attach() {
@@ -98,12 +98,11 @@ tmux_smart_attach() {
 }
 
 alias t='tmux_ls_or_cmd'
-alias tn='tmux_new_session_in_dir'
+alias tn='tmux_new_session'
 alias tt='tmux_smart_attach'
 complete -F _complete_tmux t
-complete -d tn
-complete -F _complete_tt tt
-_complete_tt() { COMPREPLY=( $(compgen -W "$(tmux ls -F '#S')" $2) ); }
+complete -F _complete_tmux_sessions tt
+_complete_tmux_sessions() { COMPREPLY=( $(compgen -W "$(tmux ls -F '#S')" $2) ); }
 
 ########
 ### Dirs
