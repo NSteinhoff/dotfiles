@@ -1,4 +1,4 @@
-import = ["~/.config/alacritty/colors/right-in-the-teals-light.toml"]
+import = ["~/.config/alacritty/colors/right-in-the-teals-dark.toml"]
 
 [window]
 option_as_alt = "OnlyLeft"

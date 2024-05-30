@@ -17,7 +17,8 @@ local servers = {
     "lua_ls",
     "java_language_server",
     "gopls",
-    "pylsp"
+    "pylsp",
+    "html",
 }
 for _, server in ipairs(servers) do
     require("my_lsp.config")[server]({

@@ -99,6 +99,7 @@ endif
 
 "{{{ Mappings
 nnoremap <c-l> <cmd>nohlsearch<bar>diffupdate<bar>normal! <c-l><cr>
+noremap "" "+
 "}}}
 
 " vim: foldmethod=marker
