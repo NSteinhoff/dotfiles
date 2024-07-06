@@ -196,3 +196,5 @@ export PROMPT_COMMAND=bashbot
 # --------------------------------- Go Path -----------------------------------
 # I don't like go/ cluttering up my home directory
 export GOPATH="$HOME/.local/opt/go"
+
+alias jira='nvim +"set ft=jira" +"set buftype=nofile"'
