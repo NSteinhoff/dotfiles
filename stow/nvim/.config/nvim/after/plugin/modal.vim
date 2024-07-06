@@ -1,7 +1,3 @@
-" Visual blockwise (CTRL-V) is matched by \x16
-autocmd ModeChanged [vV\x16]*:* let &l:relativenumber = mode() =~# '^[vV\x16]'
-autocmd ModeChanged *:[vV\x16]* let &l:relativenumber = mode() =~# '^[vV\x16]'
-autocmd WinEnter,WinLeave * let &l:relativenumber = mode() =~# '^[vV\x16]'
 
 " Colorscheme based on situation
 let s:default_colors = g:colors_name
@@ -25,6 +21,10 @@ endfunction
 
 augroup modal
     autocmd!
+    " Visual blockwise (CTRL-V) is matched by \x16
+    autocmd ModeChanged [vV\x16]*:* let &l:relativenumber = &l:number && mode() =~# '^[vV\x16]'
+    autocmd ModeChanged *:[vV\x16]* let &l:relativenumber = &l:number && mode() =~# '^[vV\x16]'
+    autocmd WinEnter,WinLeave * let &l:relativenumber = &l:number && mode() =~# '^[vV\x16]'
     autocmd CursorHold * call s:set_colors()
     autocmd Colorscheme * let s:default_colors = expand("<amatch>")
 augroup END

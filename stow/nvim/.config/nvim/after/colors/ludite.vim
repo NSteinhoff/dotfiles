@@ -15,7 +15,7 @@ highlight lCursor                      cterm=inverse                ctermfg=NONE
 highlight CursorIM                     cterm=inverse                ctermfg=NONE  ctermbg=NONE
 highlight TermCursor                   cterm=inverse                ctermfg=NONE  ctermbg=NONE
 highlight TermCursorNC                 cterm=inverse                ctermfg=NONE  ctermbg=NONE
-highlight Visual                       cterm=NONE                   ctermfg=NONE  ctermbg=2
+highlight Visual                       cterm=NONE                   ctermfg=0  ctermbg=2
 "}}}
 
 "{{{ Basic UI Elements

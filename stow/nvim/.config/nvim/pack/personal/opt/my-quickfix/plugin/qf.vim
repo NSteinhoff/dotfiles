@@ -11,8 +11,8 @@ command! -bar Cfree call setqflist([], 'f')
 command! -bar Lfree call setloclist(0, [], 'f')
 
 """ Mappings
-nnoremap <leader>q <cmd>call qf#ctoggle()<cr>
-nnoremap <leader>l <cmd>call qf#ltoggle()<cr>
+nnoremap <c-\> <cmd>call qf#ctoggle()<cr>
+nnoremap <m-\> <cmd>call qf#ltoggle()<cr>
 nnoremap <leader>Q <cmd>Ctab<cr>
 nnoremap <leader>L <cmd>Ltab<cr>
 nnoremap <c-p> <cmd> call qf#cycle_qf(0)<cr>

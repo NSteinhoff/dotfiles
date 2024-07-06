@@ -5,4 +5,5 @@ augroup AUTO
     autocmd CursorMoved * silent! checktime
     autocmd QuickFixCmdPre * call make#ignore_make_errors()
     " autocmd BufWritePost * call tags#refresh_buf(expand("<afile>"))
+    " autocmd CursorHold *.[ch] ++nested call preview#preview_word('')
 augroup END

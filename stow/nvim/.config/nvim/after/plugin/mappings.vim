@@ -44,8 +44,6 @@ noremap "" "+
 nnoremap "? <cmd>registers "0123456789-+/<cr>
 nnoremap '? <cmd>marks abcdefgABCDEFG<cr>
 
-
-
 " Close all folds but show the cursorline
 nnoremap zV <cmd>normal zMzv<cr>
 
@@ -71,8 +69,12 @@ map <silent> [] k$][%?}<CR>
 nnoremap c* <cmd>let @/ = '\<'..expand('<cword>')..'\>'<cr>cgn
 nnoremap cg* <cmd>let @/ = expand('<cword>')<cr>cgn
 
+" Exchange current selection with last text yanked
+vmap x <plug>(exchange)
+
 " Escape terminal mode
 tnoremap <c-\><c-\> <c-\><c-n>
+" tnoremap <esc> <c-\><c-n>
 "}}}
 
 "{{{ Viewport
@@ -158,11 +160,10 @@ nnoremap <silent> <c-w><c-space> <cmd>cclose<bar>lclose<cr><c-w>z
 
 "{{{ Preview / Hover
 " Preview definition
-nnoremap <expr><silent> <c-space>         !empty(tagfiles()) ? '<c-w>}' : !empty(expand('<cword>')) ? ':psearch <c-r><c-w><cr>' : ''
-vnoremap <expr><silent> <c-space>         !empty(tagfiles()) ? 'y:ptag <c-r>"<cr>' : !empty(expand('<cword>')) ? : 'y:psearch /.*<c-r>".*/<cr>' : ''
-
-" Signature help via :ptag
-inoremap <expr><silent> <c-h> '<cmd>ptag '.expand('<cword>').'<cr>'
+nmap <silent> <c-w>} <plug>(preview)
+vmap <silent> <c-w>} <plug>(preview)
+nmap <silent> <c-space> <c-w>}
+vmap <silent> <c-space> <c-w>}
 "}}}
 
 "{{{ Completion
@@ -181,6 +182,8 @@ nmap m<space> <cmd>wall<bar>make!<cr>
 "}}}
 
 "{{{ Quality of life
+vnoremap v iw
+
 " Change indentation of selected lines
 vnoremap <tab> >gv
 vnoremap <s-tab> <gv
@@ -246,11 +249,11 @@ nnoremap <leader>c <cmd>ChangedFiles<cr>
 nnoremap <leader>f <Plug>(filefinder)
 
 " Switching tabs
-nnoremap <c-\> gt
-nnoremap <m-\> gT
 for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
     execute 'nnoremap <leader>'.i.' '.i.'gt'
 endfor
+nnoremap <c-w><c-[> gT
+nnoremap <c-w><c-]> gt
 
 "{{{ (c): Changes / Diffing
 nmap <expr> dp (&diff ? '<cmd>diffput<cr>' : '<cmd>DiffThis<cr>')

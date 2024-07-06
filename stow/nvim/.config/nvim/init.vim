@@ -19,8 +19,8 @@ set cmdheight=1
 set inccommand=split
 set showmode
 set number
-set scrolloff=5
-set sidescrolloff=3
+set scrolloff=1
+set sidescrolloff=1
 set showmatch
 set signcolumn=number
 set shortmess+=s
