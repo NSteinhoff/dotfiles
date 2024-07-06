@@ -51,7 +51,7 @@ set jumpoptions=stack
 "}}}
 
 "{{{ Special characters
-set fillchars=eob:·
+"set fillchars=eob:·
 set list
 set listchars=
 set listchars+=tab:¦\ 
@@ -140,12 +140,7 @@ packadd! my-filefinder                          " Start simple file finder with 
 packadd! my-zettelkasten                        " Note-taking
 
 " Treesitter
-let disable_treesitter = v:true
-if disable_treesitter
-    lua vim.treesitter.start = function() end
-else
-    packadd! my-treesitter                          " Language aware highlighting
-endif
+packadd! my-treesitter                          " Language aware highlighting
 "}}}
 
 "{{{ Third Party
