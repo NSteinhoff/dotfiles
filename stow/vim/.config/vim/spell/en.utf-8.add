@@ -25,3 +25,10 @@ datetime
 inlining
 Mocky
 cyclomatic
+listchars
+eol
+shiftwidth
+commentstring
+gq
+foldmethod
+netrw
