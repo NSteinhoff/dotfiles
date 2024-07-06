@@ -151,6 +151,8 @@ if [ -n "$(ls ~/.config/bash-completion/)" ]; then
     for file in ~/.config/bash-completion/*; do source "$file"; done
 fi
 
+
+alias mux='tmuxinator start --suppress-tmux-version-warning=on'
 _complete_tmux() {
     COMPREPLY=( $(compgen -W "$(tmux list-commands -F#{command_list_name})" $2) )
 }
