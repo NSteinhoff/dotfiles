@@ -2,20 +2,17 @@ CompileFlags:
   Add:
     - -xc
     - -std=c17
-    - -Werror
+    - -pedantic
     - -Wall
     - -Wextra
-    - -Weverything
-    - -pedantic
-    - -Wno-padded
-    - -Wno-shadow
-    - -Wno-declaration-after-statement
-    - -Wno-strict-prototypes
-    - -Wno-gnu-empty-initializer
-    - -Wno-unsafe-buffer-usage
-    - -Wno-vla
+    - -Wconversion
+    - -Wmissing-prototypes
+    - -iquote=lib
+
+---
 
 If:
   PathMatch: .*\.h
-  CompileFlags:
-    Add: -xc-header
+
+CompileFlags:
+  Add: -xc-header

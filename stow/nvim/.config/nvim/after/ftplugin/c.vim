@@ -25,21 +25,18 @@ iabbrev <buffer> :errgo: if (err) goto error;
 command! -buffer -nargs=* CompileAndRun w|make %:r|!./%:r <args>
 
 let b:interpreter  = 'clang'
+let b:interpreter .= ' -Wno-error' " run anyways
 let b:interpreter .= ' -Wall'
 let b:interpreter .= ' -Wextra'
 let b:interpreter .= ' -pedantic'
-let b:interpreter .= ' -Wno-declaration-after-statement'
-let b:interpreter .= ' -Wno-strict-prototypes'
-let b:interpreter .= ' -Wno-shadow'
-let b:interpreter .= ' -Wno-padded'
-let b:interpreter .= ' -Wno-implicit-fallthrough'
-let b:interpreter .= ' -Wno-vla'
-" let b:interpreter .= ' -Wno-cast-qual'
-let b:interpreter .= ' -Wno-error' " run anyways
+let b:interpreter .= ' -Wconversion'
+let b:interpreter .= ' -Wmissing-prototypes'
 let b:interpreter .= ' -o /tmp/'..expand('%:t:r')
 let b:interpreter .= ' -xc -'
 let b:interpreter .= ' && /tmp/'..expand('%:t:r')
 
 if findfile('Makefile') == ""
     compiler clang
+else
+    set errorformat+=Assertion\ \failed:\ %m\\,\ file\ %f\\,\ line\ %l%.
 endif

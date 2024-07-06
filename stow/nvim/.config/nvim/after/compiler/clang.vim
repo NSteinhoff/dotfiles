@@ -12,18 +12,13 @@ runtime compiler/gcc.vim
 let current_compiler = "clang"
 
 CompilerSet makeprg=clang
-            \\ -Werror
+            \\ -std=c17
+            \\ -pedantic
             \\ -Wall
             \\ -Wextra
-            \\ -Weverything
-            \\ -pedantic
-            \\ -Wno-declaration-after-statement
-            \\ -Wno-strict-prototypes
-            \\ -Wno-shadow
-            \\ -Wno-padded
-            \\ -Wno-implicit-fallthrough
-            \\ -Wno-unsafe-buffer-usage
-            \\ -Wno-vla
+            \\ -Wconversion
+            \\ -Wmissing-prototypes
+            \\ -Wno-unknown-attricutes
             \\ -fsyntax-only
             \\ %
             \\ $*
