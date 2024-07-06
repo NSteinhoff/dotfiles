@@ -18,7 +18,6 @@ CompilerSet makeprg=clang
             \\ -Wextra
             \\ -Wconversion
             \\ -Wmissing-prototypes
-            \\ -Wno-unknown-attricutes
             \\ -fsyntax-only
             \\ %
             \\ $*
