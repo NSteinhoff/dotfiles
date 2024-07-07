@@ -1,13 +1,15 @@
 "{{{ Sanitizer
 augroup SANITIZER
-autocmd!
-autocmd CmdwinEnter * nnoremap <buffer> <cr> <cr>
-autocmd CmdwinEnter * nnoremap <buffer> <bs> <bs>
-autocmd CmdwinEnter * nnoremap <buffer> <space> <space>
-autocmd CmdwinEnter * nnoremap <buffer> <c-n> <c-n>
-autocmd CmdwinEnter * nnoremap <buffer> <c-p> <c-p>
+    autocmd!
+    autocmd CmdwinEnter * nnoremap <buffer> <cr> <cr>
+    autocmd CmdwinEnter * nnoremap <buffer> <bs> <bs>
+    autocmd CmdwinEnter * nnoremap <buffer> <space> <space>
+    autocmd CmdwinEnter * nnoremap <buffer> <c-n> <c-n>
+    autocmd CmdwinEnter * nnoremap <buffer> <c-p> <c-p>
 augroup END
 "}}}
+
+nnoremap g? <cmd>help my-stuff<cr>
 
 "{{{ <leader> / Wildchar
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.

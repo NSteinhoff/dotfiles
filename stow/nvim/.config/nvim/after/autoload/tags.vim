@@ -1,12 +1,3 @@
-function! tags#refresh_buf(filename)
-    let tagfiles = tagfiles()
-    if len(tagfiles) == 0|return|endif
-    let tagfile = tagfiles[0]
-    let opt = {'cwd': fnamemodify(tagfile, ":h")}
-    let cmd = ["ctags", "--append", "--tag-relative=no", a:filename]
-    call jobstart(cmd, opt)
-endfunction
-
 function! tags#toc(index, ...)
     if empty(tagfiles())
         echo 'No tags file.'
