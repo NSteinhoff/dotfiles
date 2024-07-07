@@ -1,12 +1,34 @@
 function s:comment_affixes()
     let prefix = matchstr(&commentstring, '\S*\(\s*%s\)\@=')
     let suffix = matchstr(&commentstring, '\(\S*\s*%s\)\@<=\S*')
+    if empty(prefix)
+        let prefix = '/'
+    endif
     return [prefix, suffix]
+endfunction
+
+function s:help_header(words, sub = v:false)
+    let fillchar = a:sub ? '-' : '='
+    let ncols = 79
+    let text = a:words == '' ? trim(getline('.')) : a:words
+    let link = tolower(text)
+    let link = substitute(link, '\s', '-', 'g')
+    let link = '*'..link..'*'
+
+    let ruler = repeat(fillchar, ncols)
+    let title = text..repeat(' ', ncols - strlen(text) - strlen(link) - 5)..link
+    call setline(line('.'), title)
+    call append(line('.')-1, ruler)
 endfunction
 
 " Create an 80 column wide section header with lines above
 " and below the text wrapped in a comment.
 function section#header(words)
+    if &ft == 'help'
+        call s:help_header(a:words)
+        return
+    endif
+
     let [prefix, suffix] = s:comment_affixes()
     let suffix = suffix == "" ? " ".prefix : " ".suffix
     let prefix = prefix..' '
@@ -39,6 +61,10 @@ endfunction
 " line. With no argument and an empty line, will simply draw the separator
 " line.
 function section#subheader(words)
+    if &ft == 'help'
+        call s:help_header(a:words, v:true)
+        return
+    endif
     let [prefix, suffix] = s:comment_affixes()
     let suffix = suffix == "" ? "" : " ".suffix
     let prefix = prefix..' '

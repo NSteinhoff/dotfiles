@@ -1,6 +1,7 @@
+let s:toggle_colors = v:true
 
 " Colorscheme based on situation
-let s:default_colors = g:colors_name
+let s:default_colors = get(g:, 'colors_name', 'default')
 
 function s:is_debugging()
     try
@@ -14,7 +15,7 @@ function s:set_colors()
     let l:colors = s:is_debugging() ? "industry"
                 \                   : s:default_colors
 
-    if g:colors_name !=# l:colors
+    if get(g:, 'colors_name', 'default') !=# l:colors
         execute 'noautocmd colorscheme '.l:colors
     endif
 endfunction
@@ -25,6 +26,8 @@ augroup modal
     autocmd ModeChanged [vV\x16]*:* let &l:relativenumber = &l:number && mode() =~# '^[vV\x16]'
     autocmd ModeChanged *:[vV\x16]* let &l:relativenumber = &l:number && mode() =~# '^[vV\x16]'
     autocmd WinEnter,WinLeave * let &l:relativenumber = &l:number && mode() =~# '^[vV\x16]'
-    autocmd CursorHold * call s:set_colors()
-    autocmd Colorscheme * let s:default_colors = expand("<amatch>")
+    if s:toggle_colors
+        autocmd CursorHold * call s:set_colors()
+        autocmd Colorscheme * let s:default_colors = expand("<amatch>")
+    endif
 augroup END

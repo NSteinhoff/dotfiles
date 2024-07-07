@@ -150,11 +150,6 @@ nnoremap <silent> <> <cmd>Fmt!<cr>
 nnoremap <silent> !> <cmd>Fix<cr>
 "}}}
 
-"{{{  Errors: Quickfix / Location Lists
-nnoremap <silent> `<space>  <cmd>clist<cr>
-nnoremap <silent> <leader><space>  <cmd>llist<cr>
-"}}}
-
 "{{{ Close all utility windows
 nnoremap <silent> <c-w><space>   <cmd>cclose<bar>lclose<cr><c-w>z
 nnoremap <silent> <c-w><c-space> <cmd>cclose<bar>lclose<cr><c-w>z

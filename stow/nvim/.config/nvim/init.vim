@@ -10,7 +10,7 @@ let g:loaded_perl_provider = 0
 
 "{{{ Colors
 set notermguicolors
-colorscheme ludite
+colorscheme default
 "}}}
 
 "{{{ Appearance
@@ -140,7 +140,12 @@ packadd! my-filefinder                          " Start simple file finder with 
 packadd! my-zettelkasten                        " Note-taking
 
 " Treesitter
-packadd! my-treesitter                          " Language aware highlighting
+let disable_treesitter = v:true
+if disable_treesitter
+    lua vim.treesitter.start = function() end
+else
+    packadd! my-treesitter                          " Language aware highlighting
+endif
 "}}}
 
 "{{{ Third Party
