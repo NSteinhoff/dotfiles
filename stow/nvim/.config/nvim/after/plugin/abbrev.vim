@@ -1,6 +1,8 @@
 " ------------------------------- Command Line --------------------------------
 " Open man pages
-call abbrev#cmdline('man', 'Man', {'prefix': '\(\(tab\\|vert\)\s\)\?'})
+call abbrev#cmdline('man', 'Man', {'split': v:true})
+
+" Quickfix
 call abbrev#cmdline('cfilter', 'Cfilter')
 
 " ---------------------------------- Dates ------------------------------------
@@ -18,8 +20,6 @@ iabbrev <expr> ddl strftime("%a %b %e %Y %r")
 " --------------------------------- Favicon -----------------------------------
 " Favicon href
 iabbrev "myfavicon" "https://gist.githubusercontent.com/NSteinhoff/9bc4844403ca3d1e2f9a3c698dfc1493/raw/069483f72ee493a4cb890c1c18de43666c1096e0/favicon.ico"
-
-" vim:foldmethod=marker textwidth=0
 
 function! CompleteAbbrev(findstart, base) abort
     if a:findstart

@@ -13,7 +13,7 @@ function! mydirvish#create_range_edit_command(name, cmd, require_range = v:false
 
     execute "command! -buffer -range -bang -nargs=* "..cmd
 
-    call abbrev#cmdline(tolower(a:name), a:name, {'buffer': v:true, 'prefix': '\(''<,''>\)\?'})
+    call abbrev#cmdline(tolower(a:name), a:name, {'buffer': v:true, 'range': v:true})
 endfunction
 
 function! mydirvish#add_segment()

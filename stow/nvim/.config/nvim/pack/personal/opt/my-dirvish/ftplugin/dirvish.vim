@@ -48,7 +48,7 @@ command! -buffer -bang PathAdd execute 'set path'..(<bang>0 ? '' : '+')..'='..ex
 command! -buffer PathRemove execute 'set path-='..expand('%')
 " Tree prints the input path, so we can just filter the lines
 command! -buffer -range -bang -nargs=* Expand execute '<line1>,<line2>!xargs tree -afiF'..(<bang>0 ? '' : ' -L 1')..' --noreport <args>'|normal $
-call abbrev#cmdline('expand', 'Expand', {'buffer': v:true, 'prefix': '\(''<,''>\)\?'})
+call abbrev#cmdline('expand', 'Expand', {'buffer': v:true, 'range': v:true})
 
 call mydirvish#create_range_edit_command('Mv',    'mv', v:true)
 call mydirvish#create_range_edit_command('Cp',    'cp', v:true)
