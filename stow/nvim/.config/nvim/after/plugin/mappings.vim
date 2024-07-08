@@ -38,7 +38,7 @@ nnoremap <space> za
 nnoremap <c-w><c-o> <cmd>diffoff!<bar>only<cr>
 
 " Insert tabs as spaces after the first non-blank character
-imap <Tab> <Plug>(smarttab)
+imap <Tab> <plug>(smarttab)
 
 " Yank to clipboard with "" (Why would I ever explicitly need to target
 " the unnamed register anyways?)
@@ -243,7 +243,7 @@ nnoremap <leader>J <cmd>Journal<cr>
 nnoremap <leader>c <cmd>ChangedFiles<cr>
 
 " Fuzzy Find: <leader>f
-nnoremap <leader>f <Plug>(filefinder)
+nnoremap <leader>f <plug>(filefinder)
 
 " Switching tabs
 for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]

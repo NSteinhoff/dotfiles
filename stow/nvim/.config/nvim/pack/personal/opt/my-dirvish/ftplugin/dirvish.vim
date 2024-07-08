@@ -3,11 +3,11 @@ mapclear <buffer>
 nnoremap <buffer> - <cmd>exe 'Dirvish %:h'.repeat(':h',v:count1)<cr>
 nnoremap <nowait><buffer><silent> dax  :<C-U>arglocal<Bar>silent! argdelete *<Bar>echo "arglist: cleared"<Bar>Dirvish %<CR>
 
-nmap <nowait> <buffer> X <Plug>(dirvish_arg)
-xmap <nowait> <buffer> X <Plug>(dirvish_arg)
+nmap <nowait> <buffer> X <plug>(dirvish_arg)
+xmap <nowait> <buffer> X <plug>(dirvish_arg)
 
-nmap <nowait> <buffer> gh <Plug>(dirvish_K)
-xmap <nowait> <buffer> gh <Plug>(dirvish_K)
+nmap <nowait> <buffer> gh <plug>(dirvish_K)
+xmap <nowait> <buffer> gh <plug>(dirvish_K)
 
 nnoremap <buffer> <cr> <cmd>call dirvish#open('edit', 0)<cr>
 nnoremap <buffer> <space> <cmd>call dirvish#open('edit', 0)<cr>

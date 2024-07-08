@@ -12,4 +12,4 @@ function s:smarttab()
     return repeat(' ', num_spaces)
 endfunction
 
-inoremap <expr> <Plug>(smarttab) <SID>smarttab()
+inoremap <expr> <plug>(smarttab) <SID>smarttab()

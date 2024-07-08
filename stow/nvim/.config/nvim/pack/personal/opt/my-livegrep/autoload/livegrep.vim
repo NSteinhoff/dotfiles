@@ -24,8 +24,7 @@ function s:job.on_exit(job_id, data, event)
         return
     endif
 
-    call nvim_buf_clear_namespace(self.buf, s:ns_results, 0, -1)
-    call nvim_buf_clear_namespace(self.buf, s:ns_loading, 0, -1)
+    call s:wipe(self.buf)
 
     let lines = self.data
     if !empty(self.err)
@@ -39,7 +38,6 @@ function s:job.on_exit(job_id, data, event)
         call nvim_buf_set_extmark(self.buf, s:ns_results, 0, 0, {'virt_text': [[printf('(%d)', len(self.data)), 'Special']]})
     endif
 
-    call s:wipe(self.buf)
     call appendbufline(self.buf, '$', self.data + self.err)
 endfunction
 
@@ -59,7 +57,7 @@ endfunction
 function s:job.loading()
     call nvim_buf_clear_namespace(self.buf, s:ns_results, 0, -1)
     call nvim_buf_clear_namespace(self.buf, s:ns_loading, 0, -1)
-    call nvim_buf_set_extmark(self.buf, s:ns_loading, 0, 0, {'virt_text': [['?', 'Special']]})
+    call nvim_buf_set_extmark(self.buf, s:ns_loading, 0, 0, {'virt_text': [['(?)', 'Special']]})
 endfunction
 
 function s:previous_query()
@@ -88,7 +86,9 @@ function s:placeholder(buf)
 endfunction
 
 function s:query(buf)
-    return getbufline(a:buf, 1)[0]
+    let l:line = getbufline(a:buf, 1)[0]
+    let l:query = substitute(l:line, ' ', '\\s', 'g')
+    return l:query
 endfunction
 
 function s:editing(buf)
@@ -97,6 +97,8 @@ endfunction
 
 function s:wipe(buf)
     call deletebufline(a:buf, 2, '$')
+    call nvim_buf_clear_namespace(a:buf, s:ns_results, 0, -1)
+    call nvim_buf_clear_namespace(a:buf, s:ns_loading, 0, -1)
     call livegrep#insert_separator(a:buf, mode())
 endfunction
 
@@ -120,7 +122,7 @@ function s:search(buf)
     let l:query = s:query(a:buf)
     let b:query = l:query
     if !empty(l:query)
-        call s:job.start(a:buf, s:grepprg.' '.l:query.' .')
+        call s:job.start(a:buf, s:grepprg..' '..l:query..' .')
     endif
 endfunction
 
@@ -142,25 +144,24 @@ function livegrep#start(query, bang)
 
         if !empty(a:query) || a:bang || empty(getline(1))
             call setline(1, a:query) | 1 | doau TextChanged
-            call livegrep#update(0, bufnr(), 1)
+            call livegrep#update(0, bufnr(), v:true)
         endif
 endfunction
 
-function livegrep#update(live, buf, ...)
+function livegrep#update(live, buf, force = v:false)
     call s:placeholder(a:buf)
-    let force_update = a:0
-    if s:editing(a:buf) && s:searchable(a:buf, a:live) || force_update
+    if s:editing(a:buf) && s:searchable(a:buf, a:live) || a:force
         call s:wipe(a:buf)
         call s:search(a:buf)
     endif
 endfunction
 
-function livegrep#export(buf, ...)
+function livegrep#export(buf, bang = v:false)
     if empty(s:query(a:buf))
         return
     endif
     let lines = getbufline(a:buf, 3, '$')
-    if a:0 && a:1
+    if a:bang
         call setqflist([], 'a', {'lines': lines, 'efm': s:errorformat, 'nr': '$'})
     else
         let title = '[livegrep] '..s:query(a:buf)
@@ -169,7 +170,7 @@ function livegrep#export(buf, ...)
     endif
 endfunction
 
-function livegrep#goto(line, export = 0)
+function livegrep#goto(line, export = v:false)
     if a:line <=2
         return
     endif
