@@ -22,7 +22,11 @@ function s:search(engine, ...)
     let engine = s:engines[a:engine]
     let query = join(a:000, '+')
     let uri = substitute(engine, '%s', query, '')
-    execute 'Open '..uri
+    try
+        call v:lua.vim.ui.open(uri)
+    catch
+        " pass
+    endtry
 endfunction
 
 command -nargs=+ -complete=customlist,<sid>complete_engine Search call s:search(<f-args>)

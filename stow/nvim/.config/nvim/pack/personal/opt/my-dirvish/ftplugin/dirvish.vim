@@ -41,8 +41,8 @@ nnoremap <buffer> ? ?\ze[^/]*[/]\=$<Home>
 
 nnoremap <buffer> g? <cmd>map <buffer><cr>
 
-nnoremap <buffer> go <cmd>Open %<cr>
-nnoremap <buffer> gO <cmd>Open .<cr>
+nnoremap <buffer> go <cmd>!open %<cr>
+nnoremap <buffer> gO <cmd>!open .<cr>
 
 command! -buffer -bang PathAdd execute 'set path'..(<bang>0 ? '' : '+')..'='..expand('%')
 command! -buffer PathRemove execute 'set path-='..expand('%')
