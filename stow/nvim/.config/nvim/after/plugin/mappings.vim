@@ -44,7 +44,8 @@ imap <Tab> <plug>(smarttab)
 " the unnamed register anyways?)
 noremap "" "+
 nnoremap "? <cmd>registers "0123456789-+/<cr>
-nnoremap '? <cmd>marks abcdefgABCDEFG<cr>
+nnoremap '? <cmd>Marks<cr>
+nnoremap '! <cmd>Delmarks!<cr>
 
 " Close all folds but show the cursorline
 nnoremap zV <cmd>normal zMzv<cr>

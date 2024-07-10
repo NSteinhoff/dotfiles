@@ -1,5 +1,5 @@
-if get(g:, 'loaded_showmarks')|finish|endif
-let g:loaded_showmarks = 1
+if get(g:, 'loaded_marks')|finish|endif
+let g:loaded_marks = 1
 
 let s:sign_group = 'marks'
 let s:signs = split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', '\ze')
@@ -53,8 +53,8 @@ command! NoShowMarks call s:disable()
 command! ShowMarks call s:enable()
 
 """ Show global marks
-command! -nargs=* Marks execute 'try | '(<q-args> != '' ? 'filter :'..<q-args>..':' : '')..' marks ABCDEFGHIJKLMNOPQRSTUVWXYZ | catch | endtry'
-command! -nargs=* -bang -complete=customlist,s:complete_marks Delmarks execute 'delmarks '..(<bang>0 ? 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' : <q-args>)
+command! -nargs=* -complete=customlist,s:complete_marks Marks execute 'marks '..(empty(<q-args>) ? 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' : <q-args>)
+command! -nargs=* -bang -complete=customlist,s:complete_marks Delmarks execute 'delmarks '..(<bang>0 ? 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' : <q-args>) | echo "Cleared Marks!"
 
 nnoremap <plug>(list-marks) <cmd>Marks<cr>
 

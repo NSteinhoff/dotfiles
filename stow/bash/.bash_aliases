@@ -62,13 +62,33 @@ alias :e='$EDITOR'
 
 #######
 ### Git
+_git_branches() {
+    echo $(git branch --sort=-committerdate --format="%(refname:strip=2)" | grep -v "HEAD detached")
+}
+
+_complete_branches() { COMPREPLY=( $(compgen -W "$(_git_branches)" $2) ); }
+
+_gg() {
+    if (( $# == 0 )); then
+        git status
+        echo "git switch ..."
+        select branch in $(_git_branches); do break; done
+
+        if [[ -n "$branch" ]]; then
+            git switch "$branch"
+        else
+            echo "Okay then..."
+        fi
+    else
+        git switch $@
+    fi
+
+}
+
 alias g='git status'
 alias g-='git switch -'
-alias gg='g && echo "git switch ..." \
-    && select branch in $(git branch --sort=-committerdate --format="%(refname:strip=2)" | grep -v "HEAD detached"); do break; done \
-    && [ -n "$branch" ] \
-    && git switch "$branch" \
-    || echo "Okay then..."'
+alias gg='_gg'
+complete -F _complete_branches gg
 
 ########
 ### Tmux
