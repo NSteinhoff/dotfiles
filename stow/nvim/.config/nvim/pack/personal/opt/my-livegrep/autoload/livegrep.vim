@@ -156,12 +156,12 @@ function livegrep#update(live, buf, force = v:false)
     endif
 endfunction
 
-function livegrep#export(buf, bang = v:false)
+function livegrep#export(buf, append = v:false)
     if empty(s:query(a:buf))
         return
     endif
     let lines = getbufline(a:buf, 3, '$')
-    if a:bang
+    if a:append
         call setqflist([], 'a', {'lines': lines, 'efm': s:errorformat, 'nr': '$'})
     else
         let title = '[livegrep] '..s:query(a:buf)
@@ -176,13 +176,11 @@ function livegrep#goto(line, export = v:false)
     endif
     if a:export
         call livegrep#export('%')
-        execute 'keepalt cc '.(a:line - 2)
-    else
-        let parts = split(getline(a:line), ':')
-        let fname = parts[0]
-        let line = parts[1]
-        execute 'edit +'..line..' '..fname
     endif
+    let parts = split(getline(a:line), ':')
+    let fname = parts[0]
+    let line = parts[1]
+    execute 'edit +'..line..' '..fname
 endfunction
 
 function livegrep#inspect()

@@ -27,3 +27,5 @@ endfunction
 
 iabbrev <buffer> excp export function SomeComponent(): JSX.Element {}
 iabbrev <buffer> <expr> expr <sid>props()
+
+nnoremap <buffer> gO <cmd>TagToc ! C<cr>
