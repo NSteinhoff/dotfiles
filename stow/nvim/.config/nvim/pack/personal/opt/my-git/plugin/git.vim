@@ -2,6 +2,7 @@
 command! -range Blame echo join(git#blame(<line1>, <line2>), "\n")
 command! ShowBlame call git#blame_on()
 command! NoShowBlame call git#blame_off()
+command! ToggleBlame call git#blame_toggle()
 
 " Regenerate the git ctags
 command! Ctags call git#ctags(0)

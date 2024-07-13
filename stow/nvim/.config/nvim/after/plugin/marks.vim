@@ -33,24 +33,36 @@ function s:place_signs()
     call sign_placelist(signs)
 endfunction
 
+function s:enabled()
+    return exists('#my-showmarks')
+endfunction
+
+function s:toggle()
+    if s:enabled()
+        call s:disable()
+    else
+        call s:enable()
+    endif
+endfunction
+
 function s:enable()
-    augroup my-showmarks
-        if !exists('#my-showmarks#BufEnter,CursorHold')
-            autocmd BufEnter,CursorHold * silent! call s:place_signs()
-        endif
-    augroup END
+    if s:enabled()|return|endif
+    aug my-showmarks
+    au!
+    au BufEnter,CursorHold * silent! call s:place_signs()
+    aug END
 endfunction
 
 function s:disable()
-    if exists('#my-showmarks#BufEnter,CursorHold')
-        autocmd! my-showmarks
-        augroup! my-showmarks
-        call sign_unplace(s:sign_group)
-    endif
+    if !s:enabled()|return|endif
+    au! my-showmarks
+    aug! my-showmarks
+    call sign_unplace(s:sign_group)
 endfunction
 
 command! NoShowMarks call s:disable()
 command! ShowMarks call s:enable()
+command! ToggleMarks call s:toggle()
 
 """ Show global marks
 command! -nargs=* -complete=customlist,s:complete_marks Marks execute 'marks '..(empty(<q-args>) ? 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' : <q-args>)

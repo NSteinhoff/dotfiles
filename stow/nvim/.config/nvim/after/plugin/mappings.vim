@@ -211,40 +211,38 @@ vnoremap <silent> gr y:let @/=escape(@", '.\|$[]()')<bar>execute 'silent grep! '
 nnoremap <silent> ga <cmd>let @/=expand("<cword>")<bar>execute "silent grepadd! '\\b"..@/.."\\b'"<bar>set hlsearch<cr>
 vnoremap <silent> ga y:let @/=escape(@", '.\|$[]()')<bar>execute 'silent grepadd! '..shellescape(@/, '\|')<bar>set hlsearch<cr>
 
-" LiveGrep
-nmap <leader>G <plug>(livegrep-resume)
-nmap <leader>g <plug>(livegrep-new)
-vmap <leader>g <plug>(livegrep-selection)
-
 " Outline
 nmap gO <cmd>TagToc<cr>
 "}}}
 
 "{{{ Leader mappings
 "{{{ Buffer Switching
-nnoremap <leader>b :call buffers#recent()<cr>:buffer<space>
-nnoremap <leader>v :call buffers#recent()<cr>:vert sbuffer<space>
-nnoremap <leader>t :call buffers#recent()<cr>:tab sbuffer<space>
+nnoremap <leader>bb :call buffers#recent()<cr>:buffer<space>
+nnoremap <leader>bv :call buffers#recent()<cr>:vert sbuffer<space>
+nnoremap <leader>bt :call buffers#recent()<cr>:tab sbuffer<space>
 
-nnoremap <leader>d :call buffers#recent()<cr>:bdelete<space>
-nnoremap <leader>D :call buffers#recent()<cr>:bdelete<c-b>
-" for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
-"     execute 'nnoremap <leader>'.i.' <cmd>call buffers#pos('.i.')<cr>'
-" endfor
-nnoremap <leader>T :buffer term://<c-z>
+nnoremap <leader>bd :call buffers#recent()<cr>:bdelete<space>
+nnoremap <leader>bD :call buffers#recent()<cr>:bdelete<c-b>
+
+nnoremap <leader>bT :buffer term://<c-z>
 "}}}
 
 " Toggle Scratch buffer
-nnoremap <leader>s <cmd>Scratch<cr>
+nnoremap <leader>bs <cmd>Scratch<cr>
 
 " Journal
-nnoremap <leader>J <cmd>Journal<cr>
+nnoremap <leader>bJ <cmd>Journal<cr>
 
 " Changed Files
 nnoremap <leader>c <cmd>ChangedFiles<cr>
 
-" Fuzzy Find: <leader>f
+" File Finder: <leader>f
 nnoremap <leader>f <plug>(filefinder)
+
+" Live Search
+nmap <leader>G <plug>(livegrep-resume)
+nmap <leader>g <plug>(livegrep-new)
+vmap <leader>g <plug>(livegrep-selection)
 
 " Switching tabs
 for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -283,6 +281,8 @@ nnoremap yov <cmd>call options#toggle('virtualedit', 'all', '')<cr>
 nnoremap yoc <cmd>execute 'colorscheme ' . (colors_name == 'ludite' ? 'minimal' : 'ludite')..'\|colorscheme'<cr>
 nnoremap yod <cmd>call options#toggle('diff')<cr>
 nnoremap yop <cmd>call options#toggle('spell')<cr>
+nnoremap yom <cmd>ToggleMarks<cr>
+nnoremap yob <cmd>ToggleBlame<cr>
 "}}}
 
 "{{{ Git add  / reset current file

@@ -167,18 +167,33 @@ function s:blame_mark(lnum)
     call nvim_buf_set_extmark(0, ns, lnum, 0, {'virt_text': [['    '..text, 'Comment']]})
 endfunction
 
+function s:blame_enabled()
+    return exists('#my-git-blame')
+endfunction
+
+function git#blame_toggle()
+    if s:blame_enabled()
+        call git#blame_off()
+    else
+        call git#blame_on()
+    endif
+endfunction
+
 function git#blame_on()
+    if s:blame_enabled()|return|endif
     call s:blame_update()
     call s:blame_mark(line('.'))
-    aug blame
-        au!
-        au CursorMoved <buffer> call s:blame_mark(line('.'))
-        au TextChanged <buffer> call s:blame_update()
+    aug my-git-blame
+    au!
+    au CursorMoved <buffer> call s:blame_mark(line('.'))
+    au TextChanged <buffer> call s:blame_update()
     aug END
 endfunction
 
 function git#blame_off()
-    au! blame
+    if !s:blame_enabled()|return|endif
+    au! my-git-blame
+    aug! my-git-blame
     call git#blame_clear()
 endfunction
 

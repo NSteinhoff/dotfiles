@@ -1,7 +1,14 @@
 let s:insert_help = '<cr> go to first result ; <c-c> to exit'
 let s:normal_help = '<space> jump to result; <cr> export and jump to result ; e(X)port; (R)eload'
-let s:placeholder = '  <<< some.*pattern.*in.*file.*contents'
-let s:grepprg = 'rg -n --smart-case --sort path --glob !.git/*'
+
+let s:fixed_strings = v:true
+if s:fixed_strings
+    let s:placeholder = '  <<< some string in file'
+    let s:grepprg = 'rg -n --smart-case --sort path --glob !.git/* --fixed-strings'
+else
+    let s:placeholder = '  <<< some.*pattern.*in.*file.*contents'
+    let s:grepprg = 'rg -n --smart-case --sort path --glob !.git/*'
+endif
 let s:errorformat = '%f:%l:%m'
 let s:ns_loading = nvim_create_namespace('livegrep_job_loading')
 let s:ns_results = nvim_create_namespace('livegrep_job_results')
@@ -45,12 +52,13 @@ function s:job.stop()
     call jobstop(self.id)
 endfunction
 
-function s:job.start(buf, cmd)
+function s:job.start(buf, cmd, query)
     call self.stop()
     let self.data = []
     let self.err = []
     let self.buf = a:buf
-    let self.id = jobstart(split(a:cmd) , self)
+    let l:cmd = split(a:cmd) + [a:query, '.']
+    let self.id = jobstart(l:cmd , self)
     call self.loading()
 endfunction
 
@@ -87,8 +95,8 @@ endfunction
 
 function s:query(buf)
     let l:line = getbufline(a:buf, 1)[0]
-    let l:query = substitute(l:line, ' ', '\\s', 'g')
-    return l:query
+    "let l:query = substitute(l:line, ' ', '\\s', 'g')
+    return l:line
 endfunction
 
 function s:editing(buf)
@@ -108,8 +116,7 @@ function s:searchable(buf, live)
     if empty(q) | return 0 | endif
     if q ==# s:previous_query() | return 0 | endif
     if len(q) < (a:live ? 3 : 1) | return 0 | endif
-    if q =~ '[|\\]$' | return 0 | endif
-    if q =~ '([^)]*$' | return 0 | endif
+    if q =~ '[|\\]$' | return s:fixed_strings | endif
 
     for a in split(q, '|')
         if len(a) < (a:live ? 3 : 1) | return 0 | endif
@@ -122,7 +129,7 @@ function s:search(buf)
     let l:query = s:query(a:buf)
     let b:query = l:query
     if !empty(l:query)
-        call s:job.start(a:buf, s:grepprg..' '..l:query..' .')
+        call s:job.start(a:buf, s:grepprg, l:query)
     endif
 endfunction
 
