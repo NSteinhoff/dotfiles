@@ -36,8 +36,7 @@ function s:can_be_alt(bufname)
     return !empty(a:bufname) && buflisted(a:bufname)
 endfunction
 
-function s:temp_buffer(lines, name, filetype, ...)
-    let options = a:0 ? a:1 : {}
+function s:temp_buffer(lines, name, filetype, options = {})
     let name = 'my-git://'..escape(a:name, '"#%')
     let bufnr = bufnr('^'..name..'$')
     if bufnr > 0
@@ -45,7 +44,8 @@ function s:temp_buffer(lines, name, filetype, ...)
         return bufnr
     endif
 
-    let create = get(options, 'cmd', 'enew')
+    let create = get(a:options, 'cmd', 'enew')
+    let winfix = get(a:options, 'winfix', v:false)
 
     let undosteps = []
     if !empty(@%)
@@ -66,6 +66,9 @@ function s:temp_buffer(lines, name, filetype, ...)
     try
         execute create
         set buftype=nofile bufhidden=wipe nobuflisted noswapfile
+        if winfix
+            set winfixbuf
+        endif
     catch
         echom 'Unable to create buffer: '.v:exception
         for step in undosteps|execute step|endfor
@@ -194,13 +197,23 @@ function git#side_by_side_diff(revision, path)
     let bufname = a:path..'@'..ref
     let lines = s:file_version(ref, a:path)
     if empty(lines)|return -1|endif
+
+    let winid = win_getid()
     let bufnr = s:temp_buffer(lines, bufname, &ft, {'cmd': 'leftabove vertical new'})
 
     if bufnr > 0
+        " Left
+        set winfixbuf
         diffthis
-        au BufWipeout <buffer> diffoff!
+
+        " Right
         wincmd p
+        set winfixbuf
         diffthis
+
+        " Cleanup
+        execute printf('autocmd BufWipeout <buffer=%d> ++once lua vim.api.nvim_set_option_value("diff", false, {win = %d})', bufnr, winid)
+        execute printf('autocmd BufWipeout <buffer=%d> ++once lua vim.api.nvim_set_option_value("winfixbuf", false, {win = %d})', bufnr, winid)
     endif
 
     return bufnr

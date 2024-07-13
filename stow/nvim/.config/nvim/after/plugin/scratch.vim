@@ -4,6 +4,7 @@ function s:scratch(mods)
     let winnr = bufwinnr(bufnr(b))
     if winnr == -1
         execute a:mods..' split +set\ nobuflisted\ buftype=nofile\ bufhidden=hide\ noswapfile '..b
+        setlocal winfixbuf
         setlocal nospell
         setlocal path-=.
         nnoremap <buffer> <Leader>r mz:read !

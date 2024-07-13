@@ -60,13 +60,14 @@ highlight SpellRare                    cterm=underline              ctermfg=12  
 "}}}
 
 "{{{ Diff
-highlight DiffAdd                      cterm=underline              ctermfg=2     ctermbg=NONE
-highlight DiffChange                   cterm=underline              ctermfg=NONE  ctermbg=NONE
-highlight DiffDelete                   cterm=NONE                   ctermfg=1     ctermbg=NONE
-highlight DiffText                     cterm=underline              ctermfg=13    ctermbg=NONE
+highlight Added                        cterm=NONE                   ctermfg=2     ctermbg=NONE
+highlight Changed                      cterm=NONE                   ctermfg=3     ctermbg=NONE
+highlight Removed                      cterm=NONE                   ctermfg=1     ctermbg=NONE
 
-highlight diffAdded                    cterm=NONE                   ctermfg=2     ctermbg=NONE
-highlight diffRemoved                  cterm=NONE                   ctermfg=1     ctermbg=NONE
+highlight DiffAdd                      cterm=NONE                   ctermfg=2     ctermbg=NONE
+highlight DiffChange                   cterm=NONE                   ctermfg=3     ctermbg=NONE
+highlight DiffDelete                   cterm=NONE                   ctermfg=1     ctermbg=NONE
+highlight DiffText                     cterm=NONE                   ctermfg=5     ctermbg=NONE
 "}}}
 
 "{{{ Status line

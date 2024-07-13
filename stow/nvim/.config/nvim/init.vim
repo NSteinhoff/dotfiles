@@ -19,6 +19,7 @@ set cmdheight=1
 set inccommand=split
 set showmode
 set number
+set smoothscroll
 set scrolloff=1
 set sidescrolloff=1
 set showmatch
@@ -139,7 +140,7 @@ packadd! my-filefinder                          " Start simple file finder with 
 packadd! my-zettelkasten                        " Note-taking
 
 " Treesitter
-let disable_treesitter = v:true
+let disable_treesitter = v:false
 if disable_treesitter
     lua vim.treesitter.start = function() end
 else

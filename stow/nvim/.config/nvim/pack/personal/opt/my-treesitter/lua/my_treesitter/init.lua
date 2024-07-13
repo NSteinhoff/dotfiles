@@ -1,7 +1,7 @@
 vim.cmd([[packadd nvim-treesitter]])
 -- vim.cmd([[packadd nvim-treesitter-rainbow]])
--- vim.cmd([[packadd nvim-treesitter-commentstring]])
 -- vim.cmd([[packadd nvim-treesitter-textobjects]])
+-- vim.cmd([[packadd nvim-treesitter-commentstring]])
 -- vim.cmd([[packadd nvim-treesitter-refactor]])
 
 local function init()
