@@ -1,4 +1,4 @@
-import = ["~/.config/alacritty/colors/solarized-dark.toml"]
+import = ["~/.config/alacritty/colors/zenburn.toml"]
 
 [window]
 option_as_alt = "OnlyLeft"

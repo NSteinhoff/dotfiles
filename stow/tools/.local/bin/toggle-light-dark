@@ -6,8 +6,12 @@ fi
 
 mode=unknown
 case $color in
-    *-light) mode=light; othermode=dark;;
-    *-dark ) mode=dark;  othermode=light;;
+    papertheme) mode=$color; othermode=seashells;;
+    seashells) mode=$color; othermode=papertheme;;
+    *-light) mode=-light; othermode=-dark;;
+    *-dark ) mode=-dark;  othermode=-light;;
+    *-dawn) mode=-dawn; othermode=-moon;;
+    *-moon) mode=-moon;  othermode=-dawn;;
 esac
 
 if [[ "$mode" == unknown ]]; then
@@ -17,5 +21,5 @@ fi
 
 newmode=${1:-$othermode}
 if [[ $newmode != $mode ]]; then
-    colorscheme "${color%-$mode}-$newmode"
+    colorscheme "${color%$mode}$newmode"
 fi

@@ -22,7 +22,7 @@ let rootrcfile = !empty(gitroot) ? findfile('jsconfig.json', fnamemodify(gitroot
 let rcfile = empty(rootrcfile) ? findfile('jsconfig.json', ".;$HOME,;$HOME") : rootrcfile
 
 if rcfile == ''
-    CompilerSet makeprg=npx\ tsc\ --strict\ --checkJs\ --noEmit\ --lib\ esnext,dom\ --target\ esnext\ $*\ %
+    CompilerSet makeprg=npx\ tsc\ --strict\ --checkJs\ --noEmit\ --lib\ esnext,dom\ --target\ esnext\ --module\ esnext\ $*\ %
     finish
 endif
 
