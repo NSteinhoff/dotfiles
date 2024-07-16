@@ -283,6 +283,7 @@ nnoremap yod <cmd>call options#toggle('diff')<cr>
 nnoremap yop <cmd>call options#toggle('spell')<cr>
 nnoremap yom <cmd>ToggleMarks<cr>
 nnoremap yob <cmd>ToggleBlame<cr>
+nnoremap yoh <cmd>StealthToggle<cr>
 "}}}
 
 "{{{ Git add  / reset current file

@@ -2,39 +2,54 @@ setlocal noexpandtab
 setlocal tabstop=8
 setlocal shiftwidth=0
 
-let indend_width = &shiftwidth ? &shiftwidth : &tabstop
-let use_tab = &expandtab ? 'Never' : 'AlignWithSpaces'
+function s:style()
+    let indend_width = &shiftwidth ? &shiftwidth : &tabstop
+    let use_tab = &expandtab ? 'Never' : 'AlignWithSpaces'
+    let column_limit = &textwidth ? &textwidth : 100
+    let tab_width = &tabstop
 
-" There is also a .clang-format with the same settings, but this allows
-" changing the indentation settings on the fly.
-let s:style = '"{'
-let s:style.= 'BasedOnStyle: llvm'
-let s:style.= ', ColumnLimit: 100'
-let s:style.= ', UseTab: '..use_tab
-let s:style.= ', TabWidth: '..&tabstop
-let s:style.= ', IndentWidth: '..indend_width
-let s:style.= ', ContinuationIndentWidth: '..indend_width
-let s:style.= ', AlwaysBreakBeforeMultilineStrings: true'
-let s:style.= ', BreakBeforeTernaryOperators: true'
-let s:style.= ', IndentGotoLabels: true'
-let s:style.= ', ReflowComments: false'
-let s:style.= ', BreakStringLiterals: false'
-let s:style.= ', AlignArrayOfStructures: Left'
-let s:style.= ', AlignOperands: AlignAfterOperator'
-let s:style.= ', AllowShortBlocksOnASingleLine: Never'
-let s:style.= ', AllowShortFunctionsOnASingleLine: false'
-let s:style.= ', AllowShortCaseLabelsOnASingleLine: true'
-let s:style.= ', AllowShortIfStatementsOnASingleLine: WithoutElse'
-let s:style.= ', AllowShortLoopsOnASingleLine: true'
-let s:style.= ', AllowShortEnumsOnASingleLine: true'
-" let s:style.= ', AlignConsecutiveDeclarations: Consecutive'
-" let s:style.= ', AlignConsecutiveAssignments: Consecutive'
-" let s:style.= ', AlignAfterOpenBracket: AlwaysBreak'
-let s:style.= '}"'
+    " There is also a .clang-format with the same settings, but this allows
+    " changing the indentation settings on the fly.
+    let l:style = '"{'
+    let l:style.= 'BasedOnStyle: llvm'
+    let l:style.= ', ColumnLimit: '..column_limit
+    let l:style.= ', UseTab: '..use_tab
+    let l:style.= ', TabWidth: '..tab_width
+    let l:style.= ', IndentWidth: '..indend_width
+    let l:style.= ', ContinuationIndentWidth: '..indend_width
+    let l:style.= ', AlwaysBreakBeforeMultilineStrings: true'
+    let l:style.= ', BreakBeforeTernaryOperators: true'
+    let l:style.= ', IndentGotoLabels: true'
+    let l:style.= ', ReflowComments: false'
+    let l:style.= ', BreakStringLiterals: false'
+    let l:style.= ', AlignArrayOfStructures: Left'
+    let l:style.= ', AlignOperands: AlignAfterOperator'
+    let l:style.= ', AllowShortBlocksOnASingleLine: Never'
+    let l:style.= ', AllowShortFunctionsOnASingleLine: false'
+    let l:style.= ', AllowShortCaseLabelsOnASingleLine: true'
+    let l:style.= ', AllowShortIfStatementsOnASingleLine: WithoutElse'
+    let l:style.= ', AllowShortLoopsOnASingleLine: true'
+    let l:style.= ', AllowShortEnumsOnASingleLine: true'
+    " let l:style.= ', AlignConsecutiveDeclarations: Consecutive'
+    " let l:style.= ', AlignConsecutiveAssignments: Consecutive'
+    " let l:style.= ', AlignAfterOpenBracket: AlwaysBreak'
+    let l:style.= '}"'
+
+    return l:style
+endfunction
+
+function s:create_fmt()
+    return 'clang-format --assume-filename=file.c --style='..s:style()
+endfunction
+
+function s:create_fix()
+    return 'clang-tidy --fix --format-style='..s:style()..' '..expand('%')
+endfunction
 
 if executable('clang-format')
-    let b:formatprg = 'clang-format --assume-filename=file.c --style='..s:style
+    let b:formatprgfunc = function('s:create_fmt')
 endif
+
 if executable('clang-tidy')
-    let b:fixprg = 'clang-tidy --fix --format-style='..s:style..' '..expand('%')
+    let b:fixprgfunc = function('s:create_fix')
 endif

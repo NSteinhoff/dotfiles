@@ -26,3 +26,9 @@ function ftutils#javascript#get_alt(path)
 
     return dir..'/'..name..(is_test ? '.' : '.test.')..ext
 endfunction
+
+function ftutils#javascript#use_prettier(buf)
+    let buf = expand(a:buf)
+    let path = (!empty(buf) && isdirectory(buf) ? buf..';$HOME,' : '')..'.;$HOME,;$HOME,'
+    return !empty(findfile('.prettierrc', path))
+endfunction

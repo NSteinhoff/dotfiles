@@ -10,16 +10,24 @@ function s:fakename()
     return get(ext, &ft, 'tmp.js')
 endfunction
 
-let buf = expand('%')
-let path = (!empty(buf) && isdirectory(buf) ? buf..';$HOME,' : '')..'.;$HOME,;$HOME,'
-let ispackage = !empty(findfile('package.json', path))
+function s:create()
+    let l:buf = expand('%')
+    let l:path = (!empty(l:buf) && isdirectory(l:buf) ? l:buf..';$HOME,' : '')..'.;$HOME,;$HOME,'
+    let l:ispackage = !empty(findfile('package.json', l:path))
 
-let prettier = (ispackage && executable('npx') ? 'npx ' : '')
-let prettier.= 'prettier'
-let prettier.= ' --stdin-filepath '..(empty(expand('%:t')) ? s:fakename() : expand('%:t'))
-let prettier.= ' --config-precedence=prefer-file'
-let prettier.= ' --arrow-parens=always'
-let prettier.= ' --trailing-comma=all'
-let prettier.= ' --tab-width='..&sw
+    let l:cmd = (l:ispackage && executable('npx') ? 'npx ' : '')
+    let l:cmd.= 'prettier'
+    let l:cmd.= ' --stdin-filepath '..(empty(expand('%:t')) ? s:fakename() : expand('%:t'))
+    let l:cmd.= ' --config-precedence=prefer-file'
+    let l:cmd.= ' --arrow-parens=always'
+    let l:cmd.= ' --trailing-comma=all'
+    if &expandtab
+        let l:cmd.= ' --tab-width='..&shiftwidth
+    else
+        let l:cmd.= ' --use-tab'
+    endif
 
-let b:formatprg = prettier
+    return l:cmd
+endfunction
+
+let b:formatprgfunc = function("s:create")
