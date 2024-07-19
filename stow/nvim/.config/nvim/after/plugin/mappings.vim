@@ -269,23 +269,6 @@ nnoremap <silent> gh <cmd>StealthToggle<cr>
 nnoremap <F7> <cmd>silent !toggle-light-dark<cr>
 "}}}
 
-"{{{ Toggle Options
-nnoremap yoy <cmd>Noyo<cr>
-nnoremap yow <cmd>call options#toggle('wrap')<cr>
-nnoremap yol <cmd>call options#toggle('list')<cr>
-nnoremap yon <cmd>call options#toggle('number')<cr>
-nnoremap yor <cmd>call options#toggle('relativenumber')<cr>
-nnoremap yos <cmd>call options#toggle('laststatus', 2, 0)<cr>
-nnoremap yot <cmd>call options#toggle('showtabline', 2, 0)<cr>
-nnoremap yov <cmd>call options#toggle('virtualedit', 'all', '')<cr>
-nnoremap yoc <cmd>execute 'colorscheme ' . (colors_name == 'ludite' ? 'minimal' : 'ludite')..'\|colorscheme'<cr>
-nnoremap yod <cmd>call options#toggle('diff')<cr>
-nnoremap yop <cmd>call options#toggle('spell')<cr>
-nnoremap yom <cmd>ToggleMarks<cr>
-nnoremap yob <cmd>ToggleBlame<cr>
-nnoremap yoh <cmd>StealthToggle<cr>
-"}}}
-
 "{{{ Git add  / reset current file
 nmap ]g <plug>(git-add)
 nmap [g <plug>(git-reset)

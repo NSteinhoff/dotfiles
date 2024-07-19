@@ -24,7 +24,7 @@ function s:create()
     if &expandtab
         let l:cmd.= ' --tab-width='..&shiftwidth
     else
-        let l:cmd.= ' --use-tab'
+        let l:cmd.= ' --use-tabs'
     endif
 
     return l:cmd

@@ -45,6 +45,9 @@ local function init()
 
                 return false
             end,
+
+            -- The indentation function needs to be able to inspect syntax elements
+            additional_vim_regex_highlighting = {'javascript', 'typescript'},
         },
         incremental_selection = {
             enable = true,

@@ -5,7 +5,7 @@ function! mydirvish#create_range_edit_command(name, cmd, require_range = v:false
         let cmd .= printf(" if <range> < 2 || <line1> == <line2> | echo 'Command :%s needs a range. Abort!' | else | ", a:name)
     endif
 
-    let cmd .= printf(" execute '<line1>,<line2>w !xargs '..(<bang>0 ? ' ' : 'echo ')..'%s <args>'", a:cmd)
+    let cmd .= printf(" execute '<line1>,<line2>w !xargs '..(<bang>0 ? 'echo ' : ' ')..'%s <args>'", a:cmd)
 
     if a:require_range
         let cmd .= " | endif"

@@ -10,11 +10,10 @@ if (executable('xcrun'))
 endif
 
 " Add Rust style 'internal' doc comments for module level documentation.
-setlocal comments-=://
-setlocal comments+=://!
-setlocal comments+=://
+setlocal comments =sO:*\ -,mO:*\ \ ,exO:*/
+setlocal comments+=s1:/*,mb:*,ex:*/
+setlocal comments+=:///,://!,://
 setlocal keywordprg=:Man\ 3
-setlocal formatoptions-=o
 iabbrev <buffer> :pr: printf("");<c-o>F"
 iabbrev <buffer> :prn: printf("\n");<c-o>F\
 iabbrev <buffer> #inc" #include ""<left>

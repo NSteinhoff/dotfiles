@@ -6,8 +6,8 @@ fi
 
 mode=unknown
 case $color in
-    papertheme) mode=$color; othermode=seashells;;
-    seashells) mode=$color; othermode=papertheme;;
+    papertheme) mode=$color; othermode=zenburn;;
+    zenburn) mode=$color; othermode=papertheme;;
     *-light) mode=-light; othermode=-dark;;
     *-dark ) mode=-dark;  othermode=-light;;
     *-dawn) mode=-dawn; othermode=-moon;;
