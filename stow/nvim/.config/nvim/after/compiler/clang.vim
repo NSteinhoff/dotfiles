@@ -9,15 +9,17 @@ endif
 
 " Base this compiler on the 'GCC' compiler settings
 runtime compiler/gcc.vim
-let current_compiler = "clang"
 
-CompilerSet makeprg=clang
-            \\ -std=c17
-            \\ -pedantic
-            \\ -Wall
-            \\ -Wextra
-            \\ -Wconversion
-            \\ -Wmissing-prototypes
-            \\ -fsyntax-only
-            \\ %
-            \\ $*
+let s:cmd  = 'clang'
+let s:cmd .= ' -std=c17 -pedantic'
+let s:cmd .= ' -Wall -Wextra'
+let s:cmd .= ' -Wconversion'
+let s:cmd .= ' -Wmissing-prototypes'
+let s:cmd .= ' -Wsign-conversion'
+let s:cmd .= ' -Wconversion'
+let s:cmd .= ' -fsyntax-only'
+let s:cmd .= ' '..get(b:, 'cflagsadd', '')
+let s:cmd .= ' % $*'
+
+let current_compiler = "clang"
+execute 'CompilerSet makeprg='..escape(s:cmd, ' ')

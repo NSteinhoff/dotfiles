@@ -6,6 +6,7 @@ CompileFlags:
     - -Wall
     - -Wextra
     - -Wconversion
+    - -Wsign-conversion
     - -Wmissing-prototypes
 
 ---
