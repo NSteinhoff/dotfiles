@@ -212,9 +212,28 @@ export ZETTELKASTEN=~/Dropbox/Zettel
 # ---------------------------- Pandoc CSS Styles ------------------------------
 export PANDOC_CSS="$HOME/.local/styles/markdown.css"
 
-export PROMPT_COMMAND=bashbot
+# export PROMPT_COMMAND=bashbot
 # --------------------------------- Go Path -----------------------------------
 # I don't like go/ cluttering up my home directory
 export GOPATH="$HOME/.local/opt/go"
 
 alias jira='nvim +"set ft=jira" +"set buftype=nofile"'
+
+# --------------------------------------------------------------------------- #
+#                               NiN Navigation                                #
+# --------------------------------------------------------------------------- #
+n() {
+    cmdfile="/Users/niko.steinhoff/.local/share/nin-postcmd"
+    local nin_path="$1"
+    local nin_idx
+    while true; do
+        nin "$nin_path" "$nin_idx" || return 1
+
+        if [[ -f "$cmdfile" ]]; then
+            source "$cmdfile"
+            rm -f -- "$cmdfile"  >/dev/null
+        else
+            break
+        fi
+    done
+}
