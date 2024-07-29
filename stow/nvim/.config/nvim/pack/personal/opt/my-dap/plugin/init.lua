@@ -22,7 +22,7 @@ end
 -- Adapters
 dap.adapters.lldb = {
     type = "executable",
-    command = "/opt/homebrew/opt/llvm/bin/lldb-vscode", -- adjust as needed, must be absolute path
+    command = "/opt/homebrew/opt/llvm/bin/lldb-dap", -- adjust as needed, must be absolute path
     name = "lldb",
 }
 
@@ -84,6 +84,16 @@ dap.configurations.c = {
         end,
         args = {},
     },
+    {
+        name = "Nin",
+        type = "lldb",
+        request = "attach",
+        stopOnEntry = false,
+        pid = function()
+            return require("dap.utils").pick_process({ filter = "nin" })
+        end,
+        args = {},
+    },
 }
 
 -- Mappings and Commands
@@ -96,6 +106,7 @@ local keymaps = {
         -- Inspect / Hover
         ["dK"] = { rhs = ui.hover, opts = { desc = "DAP Hover" } },
 
+        -- Continue
         ["dc"] = {
             rhs = dap.continue,
             opts = { desc = "DAP Continue / Start" },
@@ -191,6 +202,12 @@ local keymaps = {
                 ui.centered_float(ui.scopes)
             end,
             opts = { desc = "DAP Show scopes" },
+        },
+        ["dts"] = {
+            rhs = function()
+                scopes_sidebar.toggle()
+            end,
+            opts = { desc = "DAP Toggle scopes sidebar" },
         },
         -- Session management
         ["dR"] = {
@@ -298,7 +315,7 @@ local commands = {
         cmd = function()
             scopes_sidebar.toggle()
         end,
-        opts = { desc = "DAP Show scopes" },
+        opts = { desc = "DAP Toggle scopes sidebar" },
     },
 }
 

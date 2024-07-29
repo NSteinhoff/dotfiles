@@ -75,9 +75,10 @@ function section#subheader(words)
     let text = a:words == '' ? trim(getline('.')) : a:words
     let text = text == "" ? "" : ' '.text.' '
 
+    " TODO: This does not play nice with tab indentation!
     " We start at the current cursor column, divide the rule into two
     " parts and fit the text in-between
-    let cstart = col('.')
+    let cstart = 0 " col('.')
     let width = ncols - cstart
     let sepwidth = (width - strlen(text) - strlen(prefix)) / 2
 

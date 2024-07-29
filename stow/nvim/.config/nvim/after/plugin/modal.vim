@@ -12,7 +12,7 @@ function s:is_debugging()
 endfunction
 
 function s:set_colors()
-    let l:colors = s:is_debugging() ? "industry"
+    let l:colors = s:is_debugging() ? "wildcharm"
                 \                   : s:default_colors
 
     if get(g:, 'colors_name', 'default') !=# l:colors
