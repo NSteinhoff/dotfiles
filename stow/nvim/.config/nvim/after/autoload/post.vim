@@ -2,10 +2,11 @@ function post#post()
     let buf = bufname()
     echo "Posting from buffer "..buf
 
-    let cursave = getcurpos()
-    call cursor(1, 1)
-    let req_end  = search('^$', 'W')
-    call setpos('.', cursave)
+    let lnum = 1
+    while getline(lnum) =~ "^#" | let lnum += 1 | endwhile
+    let req_start = lnum
+    while getline(lnum) !~ "^$" | let lnum += 1 | endwhile
+    let req_end  = lnum
 
     if req_end == 0
         let req_end = line('$')
