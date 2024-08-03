@@ -29,3 +29,6 @@
 [submodule "3rd/pack/external/opt/nvim-dap"]
 	path = 3rd/pack/external/opt/nvim-dap
 	url = git@github.com:mfussenegger/nvim-dap.git
+[submodule "3rd/pack/external/opt/oil.nvim"]
+	path = 3rd/pack/external/opt/oil.nvim
+	url = https://github.com/stevearc/oil.nvim.git
