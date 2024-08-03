@@ -34,6 +34,8 @@ for _, server in ipairs(servers) do
     })
 end
 
+--[[
 vim.api.nvim_create_autocmd("LspDetach", {
     callback = on_detach,
 })
+--]]

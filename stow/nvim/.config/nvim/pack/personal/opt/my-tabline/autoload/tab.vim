@@ -1,7 +1,6 @@
 function! tab#label(n)
     if a:n != tabpagenr() && getcwd(-1, a:n) != getcwd(-1, 0)
         " Inactive tabs
-
         let gcwd = fnamemodify(getcwd(-1, -1), ":.")
         let tcwd = fnamemodify(getcwd(-1, a:n), ":.")
         " Make tab paths relative to global working directory
@@ -54,11 +53,16 @@ function! tab#diff(n)
 endfunction
 
 function! tab#cwd()
+    let global = fnamemodify(getcwd(-1, -1), ":p")
     let win = fnamemodify(getcwd(), ":p")
     let tab = fnamemodify(getcwd(-1, tabpagenr()), ":p")
 
     let cwd = substitute(tab, $HOME, '~', '')
     let cwd = cwd == '~' ? '~/' : cwd
+
+    if tab != global
+        let cwd = '%#TabLineDirectory#' .. cwd
+    endif
 
     if win != tab
         let relative_path = substitute(substitute(win, tab, '', ''), $HOME, '~', '')

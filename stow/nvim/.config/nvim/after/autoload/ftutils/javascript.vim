@@ -30,5 +30,12 @@ endfunction
 function ftutils#javascript#use_prettier(buf)
     let buf = expand(a:buf)
     let path = (!empty(buf) && isdirectory(buf) ? buf..';$HOME,' : '')..'.;$HOME,;$HOME,'
-    return !empty(findfile('.prettierrc', path))
+
+    for f in ['.prettierrc', '.prettierrc.json', '.pretttierrc.js']
+        if !empty(findfile(f, path))
+            return v:true
+        endif
+    endfor
+
+    return v:false
 endfunction

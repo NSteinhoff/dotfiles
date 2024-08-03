@@ -1,7 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 man-page-of-the-day
 recent-activity
 list-tasks
-
-# vim: ft=sh

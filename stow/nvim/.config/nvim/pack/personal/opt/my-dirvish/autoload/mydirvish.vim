@@ -49,12 +49,19 @@ function mydirvish#path_sort()
     " match the extension or the filename if no extension
     let pfile = '/\.\@![^/]\{-}\zs\.\?[^/.]\+$'
     let pattern = pdir..'\|'..phidden..'\|'..pfile
+    " exclude file pattern
+    let pexclude = '.DS_STORE'
+
+    let lines = getline(0, '$')
+    call filter(lines, { i, v -> v !~ pexclude })
 
     let grouped = {}
-    for line in getline(0, '$')
+    for line in lines
         let suffix = matchstr(line, pattern)
         let grouped[suffix] = add(get(grouped, suffix, []), line)
     endfor
+
+    silent 1,$ delete _
 
     let lnum = 1
     if has_key(grouped, '/')
@@ -66,6 +73,10 @@ function mydirvish#path_sort()
     if has_key(grouped, '.')
         let hidden = remove(grouped, '.')
     else
+        let hidden = []
+    endif
+
+    if get(g:, 'dirvish_hide_dotfiles', v:false)
         let hidden = []
     endif
 

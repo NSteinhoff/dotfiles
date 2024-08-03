@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 NC='\033[0m' # No Color
 RED='\033[0;31m'
@@ -31,5 +31,3 @@ if [[ -n "$tasks" ]] || [[ -n "$notes" ]]; then
     fi
     echo "---"
 fi
-
-# vim: ft=sh

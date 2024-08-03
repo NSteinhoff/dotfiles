@@ -1,5 +1,4 @@
-#!/bin/bash
-# vim: ft=sh
+#!/usr/bin/env bash
 
 git_unstaged_changes() {
     [ -n "$(git diff --shortstat 2> /dev/null | tail -n1)" ]

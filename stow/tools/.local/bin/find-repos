@@ -1,7 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 dir="${1:-.}"
 depth="${2:-1}"
-find "$dir" -maxdepth "$depth" -path '*/.git' -exec dirname {} \;
-
-# vim: ft=sh
+find "$dir" -maxdepth "$depth" -path '*/.git' -not -path '*/3rd/*' -exec dirname {} \;

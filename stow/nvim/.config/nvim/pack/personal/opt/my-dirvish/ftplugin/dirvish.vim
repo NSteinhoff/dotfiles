@@ -26,9 +26,10 @@ nnoremap <buffer> <expr> za '<cmd>set conceallevel='..(&conceallevel == 0 ? '2' 
 nnoremap <buffer> <nowait> < $T/D
 nnoremap <buffer> <nowait> > <cmd>call mydirvish#add_segment()<cr>$
 
-nnoremap <buffer> <nowait> <expr> . ':<C-u>'.(v:count ? 'Shdo'.(v:count?'!':'').' {}' : ('! '.shellescape(empty(fnamemodify(getline('.'),':.')) ? '.' : fnamemodify(getline('.'),':.')))).'<Home><C-Right>'
-xnoremap <buffer> <nowait> <expr> . ':Shdo'..(v:count ? '!' : ' ')..' {}<Left><Left><Left>'
+nnoremap <buffer> <nowait> <expr> . ':<C-u>Shdo'.(v:count?'!':'').' {}<Home><C-Right> '
+xnoremap <buffer> <nowait> <expr> . ':Shdo {}<Left><Left><Left> '
 nnoremap <buffer> <nowait> <expr> cd ':<C-u>'..(v:count ? 'cd' : 'lcd')..' %<Bar>pwd<CR>'
+nnoremap <buffer> <nowait> <expr> g. ':<C-u>! '.shellescape(empty(fnamemodify(getline('.'),':.')) ? '.' : fnamemodify(getline('.'),':.')).'<Home><C-Right> '
 
 onoremap <buffer> i/ <cmd>normal! T/vt/<cr>
 onoremap <buffer> a/ <cmd>normal! F/vf/<cr>
@@ -44,6 +45,7 @@ nnoremap <buffer> g? <cmd>map <buffer><cr>
 nnoremap <buffer> go <cmd>!open %<cr>
 nnoremap <buffer> gO <cmd>!open .<cr>
 
+command! -buffer DotfilesToggle let g:dirvish_hide_dotfiles=!get(g:, 'dirvish_hide_dotfiles', v:false)|edit
 command! -buffer -bang PathAdd execute 'set path'..(<bang>0 ? '' : '+')..'='..expand('%')
 command! -buffer PathRemove execute 'set path-='..expand('%')
 " Tree prints the input path, so we can just filter the lines

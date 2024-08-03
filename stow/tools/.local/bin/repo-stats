@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 repo="${1}"
 pushd "$repo" > /dev/null
@@ -11,5 +11,3 @@ git status --short | while IFS= read -r line; do
     printf '\t\t%s\n' "$line"
 done
 popd > /dev/null
-
-# vim: ft=sh

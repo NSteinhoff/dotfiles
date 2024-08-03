@@ -1,17 +1,18 @@
-#!/bin/bash
+#!/usr/bin/env bash
 if ! color=$(colorscheme -p); then
     echo "$color"
     exit 1
 fi
 
 mode=unknown
+type=unknown
 case $color in
-    papertheme) mode=$color; othermode=zenburn;;
-    zenburn) mode=$color; othermode=papertheme;;
-    *-light) mode=-light; othermode=-dark;;
-    *-dark ) mode=-dark;  othermode=-light;;
-    *-dawn) mode=-dawn; othermode=-moon;;
-    *-moon) mode=-moon;  othermode=-dawn;;
+    papertheme) type=light;     mode=$color;    othermode=zenburn;;
+    zenburn)    type=dark;      mode=$color;    othermode=papertheme;;
+    *-light)    type=light;     mode=-light;    othermode=-dark;;
+    *-dark )    type=dark;      mode=-dark;     othermode=-light;;
+    *-dawn)     type=light;     mode=-dawn;     othermode=-moon;;
+    *-moon)     type=dark;      mode=-moon;     othermode=-dawn;;
 esac
 
 if [[ "$mode" == unknown ]]; then
@@ -19,7 +20,12 @@ if [[ "$mode" == unknown ]]; then
     exit 1
 fi
 
-newmode=${1:-$othermode}
+if [[ $1 == "" ]] || [[ $1 != $type ]]; then
+    newmode=$othermode
+else
+    newmode=$mode
+fi
+
 if [[ $newmode != $mode ]]; then
     colorscheme "${color%$mode}$newmode"
 fi

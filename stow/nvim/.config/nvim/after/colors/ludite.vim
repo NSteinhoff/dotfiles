@@ -91,8 +91,8 @@ highlight TabLineSel                   cterm=bold,underline         ctermfg=15  
 
 "{{{ Searching/Matches
 highlight Search                       cterm=bold,underline         ctermfg=NONE  ctermbg=NONE
-highlight IncSearch                    cterm=NONE                   ctermfg=0     ctermbg=2
-highlight CurSearch                    cterm=NONE                   ctermfg=0     ctermbg=2
+highlight IncSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=4
+highlight CurSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=4
 highlight MatchParen                   cterm=NONE                   ctermfg=12    ctermbg=NONE
 "}}}
 

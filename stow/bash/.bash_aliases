@@ -191,7 +191,7 @@ if $starship_prompt && (which starship &>/dev/null); then
 elif $fancy_prompt; then
     case "$TERM" in
     xterm*|rxvt*|tmux*|screen*|alacritty*)
-        PS1='$(tmux-prompt)\[\033[1;34m\]\w\[\033[m\]$(git-prompt)\n\j:\[\033[1;32m\]\$\[\033[m\] '
+        PS1="$(make-bash-prompt)"
         ;;
     *)
         ;;
@@ -225,9 +225,9 @@ alias jira='nvim +"set ft=jira" +"set buftype=nofile"'
 n() {
     cmdfile="/Users/niko.steinhoff/.local/share/nin-postcmd"
     local nin_path="$1"
-    local nin_idx
+    local nin_args
     while true; do
-        nin "$nin_path" "$nin_idx" || return 1
+        nin "$nin_path" "$nin_args" || return 1
 
         if [[ -f "$cmdfile" ]]; then
             source "$cmdfile"

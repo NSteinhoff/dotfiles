@@ -130,27 +130,24 @@ if exists('$GIT_INDEX_FILE') | finish | endif
 packadd packer                                  " Package utilities and paths
 
 "{{{ Personal
-packadd my-lsp                                  " Language Server configurations
 packadd my-livegrep                             " Start grepping live with :lg
-packadd! my-git                                 " Git utilities (bloated): Show diff with :dd
-packadd! my-quickfix                            " Quickfix niceties, mostly limited to quickfix windows
+packadd! my-filefinder                          " Start simple file finder with :ff
 packadd! my-statusline
 packadd! my-tabline
-packadd! my-filefinder                          " Start simple file finder with :ff
-packadd! my-zettelkasten                        " Note-taking
+packadd! my-git                                 " Git utilities (bloated): Show diff with :dd
+packadd! my-quickfix                            " Quickfix niceties, mostly limited to quickfix windows
+"}}}
 
+"{{{ Third Party
+packadd my-lsp                                  " Language Server configurations
+packadd! my-dirvish                             " Minimalist file browser (customized)
 " Treesitter
-let disable_treesitter = v:true
+let disable_treesitter = v:false
 if disable_treesitter
     lua vim.treesitter.start = function() end
 else
     packadd! my-treesitter                          " Language aware highlighting
 endif
-"}}}
-
-"{{{ Third Party
-" packadd! my-dap                                  " Debug Adapter configurations
-packadd! my-dirvish                             " Minimalist file browser (customized)
 "}}}
 
 "}}}
