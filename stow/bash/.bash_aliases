@@ -222,16 +222,18 @@ alias jira='nvim +"set ft=jira" +"set buftype=nofile"'
 # --------------------------------------------------------------------------- #
 #                               NiN Navigation                                #
 # --------------------------------------------------------------------------- #
+export PATH="$HOME/Develop/base/target:$PATH"
+
 n() {
-    cmdfile="/Users/niko.steinhoff/.local/share/nin-postcmd"
+    cmdfile="$HOME/.local/share/nin-postcmd"
     local nin_path="$1"
     local nin_args
     while true; do
+        rm -f -- "$cmdfile"  >/dev/null
         nin "$nin_path" "$nin_args" || return 1
 
         if [[ -f "$cmdfile" ]]; then
             source "$cmdfile"
-            rm -f -- "$cmdfile"  >/dev/null
         else
             break
         fi
