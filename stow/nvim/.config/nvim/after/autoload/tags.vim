@@ -22,7 +22,7 @@ function! tags#toc(index, ...)
         let l:items = sort(l:items, {l, r -> l.lnum - r.lnum})
     endif
 
-    let l:title = (a:index ? 'Index' : 'TOC')..(l:filter_kinds ? '|'..join(l:kinds, ',')..'|' : '')..': '..l:fname
+    let l:title = (a:index ? 'Index' : 'TOC')..(l:filter_kinds ? '|'..join(l:kinds, ',')..'|' : '')..': '..fnamemodify(l:fname, ":.")
     if !empty(l:items)
         call setloclist(0, [], (getloclist(0, {'title': 1}).title == l:title ? 'r' : ' '), {'items': l:items, 'title': l:title})
         botright lopen|wincmd p
