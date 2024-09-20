@@ -95,9 +95,9 @@ nnoremap <plug>(git-blame) <cmd>Blame<cr>
 vnoremap <plug>(git-blame) :Blame<cr>
 nnoremap <plug>(git-add) <cmd>GitAdd<cr>
 nnoremap <plug>(git-reset) <cmd>GitReset<cr>
-nnoremap <plug>(git-review-next) <cmd>next<bar>only<bar>diffoff!<bar>DiffThis<cr>
-nnoremap <plug>(git-review-prev) <cmd>prev<bar>only<bar>diffoff!<bar>DiffThis<cr>
-nnoremap <plug>(git-review-first) <cmd>only<bar>diffoff!<bar>first<bar>DiffThis<cr>
+nnoremap <plug>(git-review-next)  <cmd>set nowinfixbuf<bar>next<bar>only<bar>diffoff!<bar>DiffThis<cr>
+nnoremap <plug>(git-review-prev)  <cmd>set nowinfixbuf<bar>prev<bar>only<bar>diffoff!<bar>DiffThis<cr>
+nnoremap <plug>(git-review-first) <cmd>set nowinfixbuf<bar>only<bar>diffoff!<bar>first<bar>DiffThis<cr>
 nnoremap <plug>(git-review-mark-seen) <cmd>MarkReviewed<cr>
 
 call abbrev#cmdline('dd', 'DiffThis')

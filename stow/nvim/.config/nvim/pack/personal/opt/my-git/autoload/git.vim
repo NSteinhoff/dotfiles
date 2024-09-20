@@ -213,10 +213,10 @@ function git#side_by_side_diff(revision, path)
     let lines = s:file_version(ref, a:path)
     if empty(lines)|return -1|endif
 
-    let winid = win_getid()
-    let bufnr = s:temp_buffer(lines, bufname, &ft, {'cmd': 'leftabove vertical new'})
+    let right_win = win_getid()
+    let left_buf = s:temp_buffer(lines, bufname, &ft, {'cmd': 'leftabove vertical new'})
 
-    if bufnr > 0
+    if left_buf > 0
         " Left
         set winfixbuf
         diffthis
@@ -227,11 +227,11 @@ function git#side_by_side_diff(revision, path)
         diffthis
 
         " Cleanup
-        execute printf('autocmd BufWipeout <buffer=%d> ++once lua vim.api.nvim_set_option_value("diff", false, {win = %d})', bufnr, winid)
-        execute printf('autocmd BufWipeout <buffer=%d> ++once lua vim.api.nvim_set_option_value("winfixbuf", false, {win = %d})', bufnr, winid)
+        execute printf('autocmd BufWipeout <buffer=%d> ++once lua vim.api.nvim_set_option_value("diff", false, {win = %d})', left_buf, right_win)
+        execute printf('autocmd BufWipeout <buffer=%d> ++once lua vim.api.nvim_set_option_value("winfixbuf", false, {win = %d})', left_buf, right_win)
     endif
 
-    return bufnr
+    return left_buf
 endfunction
 
 function git#inline_diff(split, revision, path) abort
@@ -364,6 +364,7 @@ function git#review(revision)
     try
         call git#load_changed_files()
         first
+        DiffThis
     catch
         echo v:exception
         tabclose
