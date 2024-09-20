@@ -1,8 +1,8 @@
 " Add Homebrew installed headers
-" if !empty(finddir('/opt/homebrew/include/'))
-"     setlocal path+=/opt/homebrew/include/
-"     setlocal path+=/opt/homebrew/opt/*/include
-" endif
+if !empty(finddir('/opt/homebrew/include/'))
+    setlocal path+=/opt/homebrew/include/
+    setlocal path+=/opt/homebrew/opt/*/include
+endif
 
 " Add Mac OS X development headers location
 if (executable('xcrun'))
@@ -38,5 +38,17 @@ let b:interpreter .= ' && /tmp/'..expand('%:t:r')
 if findfile('Makefile') == ""
     compiler clang
 else
+    " Ignore logs
+    set errorformat^=%-G%.%#GMT\ [INFO]%.%#
+    set errorformat^=%-G%.%#GMT\ [WARNING]%.%#
+    set errorformat^=%-G%.%#GMT\ [ERROR]%.%#
+
+    " Ignore 'diff' and test output
+    set errorformat^=%-G\|%.%#
+    set errorformat^=%-G>%.%#
+    set errorformat^=%-G<%.%#
+
     set errorformat+=Assertion\ \failed:\ %m\\,\ file\ %f\\,\ line\ %l%.
+
+    set errorformat+=%-G%.%#
 endif
