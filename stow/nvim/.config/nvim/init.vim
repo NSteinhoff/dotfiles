@@ -49,6 +49,7 @@ set sessionoptions+=options                     " remember options and mappings
 set isfname-==
 set fileformats=unix                            " show <CR><NL>
 set jumpoptions=stack
+set undofile
 "}}}
 
 "{{{ Special characters
