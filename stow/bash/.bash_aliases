@@ -54,6 +54,7 @@ alias grep='grep --color=auto'
 ### Web search
 [[ os == linux ]] && opener=xdg-open || opener=open
 alias q='_() { q="${@:1}"; '$opener' "https://duckduckgo.com/?q=${q}"; }; _'
+alias mdn='_() { q="${@:1}"; '$opener' "https://developer.mozilla.org/en-US/search?q=${q}"; }; _'
 
 ###########
 ### Why not

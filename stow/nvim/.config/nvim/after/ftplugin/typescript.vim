@@ -23,3 +23,5 @@ iabbrev <buffer> exif export interface {}
 if fnamemodify(bufname(), ':p') =~ '.*/node_modules/.*'
     setlocal nobuflisted noswapfile
 endif
+
+nnoremap <buffer> gO <cmd>TagToc ! C p v<cr>

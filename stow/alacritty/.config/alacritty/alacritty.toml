@@ -1,4 +1,4 @@
-import = ["~/.config/alacritty/colors/default-light.toml"]
+import = ["~/.config/alacritty/colors/rose-pine-moon.toml"]
 
 [window]
 option_as_alt = "OnlyLeft"
