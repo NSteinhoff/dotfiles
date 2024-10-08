@@ -1,7 +1,6 @@
 [user]
 	name = Niko Steinhoff
 	email = niko.steinhoff@pm.me
-	signingkey = niko.steinhoff@pm.me
 
 [color]
 	pager = true
@@ -22,7 +21,6 @@
 
 [commit]
 	verbose = true
-	gpgsign = true
 
 [pull]
 	ff = only
@@ -54,6 +52,7 @@
 	addEmptyPathspec = false
 
 [include]
+	path = ~/.config/git/config.sign
 	path = ~/.config/git/config.alias
 	path = ~/.config/git/config.nvim
 	; path = ~/.config/git/config.delta
