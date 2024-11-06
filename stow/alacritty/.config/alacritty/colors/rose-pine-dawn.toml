@@ -2,6 +2,10 @@
 background = '#faf4ed'
 foreground = '#575279'
 
+[colors.selection]
+text = '#575279'
+background = '#dfdad9'
+
 [colors.cursor]
 text = '#575279'
 cursor = '#cecacd'
@@ -9,10 +13,6 @@ cursor = '#cecacd'
 [colors.vi_mode_cursor]
 text = '#575279'
 cursor = '#cecacd'
-
-[colors.selection]
-text = '#575279'
-background = '#dfdad9'
 
 [colors.normal]
 black = '#f2e9e1'

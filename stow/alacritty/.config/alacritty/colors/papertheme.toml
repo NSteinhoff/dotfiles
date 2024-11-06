@@ -1,13 +1,9 @@
-# Colors (Paper Theme)
-
-# Default colors
 [colors.primary]
 background = '#F2EEDE'
 foreground = '#000000'
 
-# Normal colors
 [colors.normal]
-black   = '#000000'
+black   = "#ffffff"
 red     = '#CC3E28'
 green   = '#216609'
 yellow  = '#B58900'
@@ -16,9 +12,8 @@ magenta = '#5C21A5'
 cyan    = '#158C86'
 white   = '#AAAAAA'
 
-# Bright colors
 [colors.bright]
-black   = '#555555'
+black   = "#bfbfbf"
 red     = '#CC3E28'
 green   = '#216609'
 yellow  = '#B58900'

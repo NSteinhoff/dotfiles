@@ -2,6 +2,10 @@
 background = '#232136'
 foreground = '#e0def4'
 
+[colors.selection]
+text = '#e0def4'
+background = '#44415a'
+
 [colors.cursor]
 text = '#e0def4'
 cursor = '#56526e'
@@ -10,9 +14,6 @@ cursor = '#56526e'
 text = '#e0def4'
 cursor = '#56526e'
 
-[colors.selection]
-text = '#e0def4'
-background = '#44415a'
 [colors.normal]
 black = '#393552'
 red = '#eb6f92'
