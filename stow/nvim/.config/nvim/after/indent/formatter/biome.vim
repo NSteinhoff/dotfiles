@@ -7,6 +7,7 @@ function s:ext()
     \ 'typescriptreact': 'tsx',
     \ 'json': 'json',
     \ 'markdown': 'md',
+    \ 'css': 'css',
     \}
     return get(ext, &ft, 'js')
 endfunction
@@ -20,4 +21,5 @@ function s:create()
     return l:cmd
 endfunction
 
+let b:formatname = 'biome'
 let b:formatprgfunc = function("s:create")

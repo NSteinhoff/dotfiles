@@ -6,6 +6,8 @@ function s:fakename()
     \ 'typescriptreact': 'tmp.tsx',
     \ 'json': 'tmp.json',
     \ 'markdown': 'tmp.md',
+    \ 'html': 'tmp.html',
+    \ 'svg': 'tmp.html',
     \}
     return get(ext, &ft, 'tmp.js')
 endfunction
@@ -30,4 +32,5 @@ function s:create()
     return l:cmd
 endfunction
 
+let b:formatname = 'prettier'
 let b:formatprgfunc = function("s:create")

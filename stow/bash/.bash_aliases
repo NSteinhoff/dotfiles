@@ -235,6 +235,7 @@ n() {
 
         if [[ -f "$cmdfile" ]]; then
             source "$cmdfile"
+            
         else
             break
         fi

@@ -26,7 +26,7 @@ function post#post()
     let request = substitute(request, '\s\([&?=]\)', '\1', 'g')
 
     if request !~ '^curl'
-        let request = 'curl --silent --fail --show-error '..request
+        let request = 'curl --silent --fail-with-body --show-error '..request
     endif
 
     " Wrap URL in single quotes

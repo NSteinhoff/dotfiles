@@ -21,6 +21,7 @@ function s:style()
     let l:style.= ', BreakBeforeTernaryOperators: true'
     let l:style.= ', IndentGotoLabels: true'
     let l:style.= ', ReflowComments: false'
+    let l:style.= ', SortIncludes: Never'
     let l:style.= ', BreakStringLiterals: false'
     let l:style.= ', AlignArrayOfStructures: Left'
     let l:style.= ', AlignOperands: AlignAfterOperator'

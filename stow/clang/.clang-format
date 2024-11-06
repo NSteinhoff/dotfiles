@@ -9,6 +9,7 @@ BreakBeforeTernaryOperators: true
 IndentGotoLabels: true
 ReflowComments: false
 BreakStringLiterals: false
+SortIncludes: Never
 AlignArrayOfStructures: Left
 AlignOperands: AlignAfterOperator
 AllowShortBlocksOnASingleLine: Never

@@ -214,6 +214,13 @@ function git#side_by_side_diff(revision, path)
     if empty(lines)|return -1|endif
 
     let right_win = win_getid()
+    let optsav = {
+        \ 'scrollbind': &l:scrollbind,
+        \ 'cursorbind': &l:cursorbind,
+        \ 'wrap': &l:wrap,
+        \ 'foldmethod': &l:foldmethod,
+        \ 'foldcolumn': &l:foldcolumn,
+        \}
     let left_buf = s:temp_buffer(lines, bufname, &ft, {'cmd': 'leftabove vertical new'})
 
     if left_buf > 0
@@ -229,6 +236,11 @@ function git#side_by_side_diff(revision, path)
         " Cleanup
         execute printf('autocmd BufWipeout <buffer=%d> ++once lua vim.api.nvim_set_option_value("diff", false, {win = %d})', left_buf, right_win)
         execute printf('autocmd BufWipeout <buffer=%d> ++once lua vim.api.nvim_set_option_value("winfixbuf", false, {win = %d})', left_buf, right_win)
+        execute printf('autocmd BufWipeout <buffer=%d> ++once lua vim.api.nvim_set_option_value("scrollbind", %s, {win = %d})', left_buf, optsav.scrollbind ? "true" : "false", right_win)
+        execute printf('autocmd BufWipeout <buffer=%d> ++once lua vim.api.nvim_set_option_value("cursorbind", %s, {win = %d})', left_buf, optsav.cursorbind ? "true" : "false", right_win)
+        execute printf('autocmd BufWipeout <buffer=%d> ++once lua vim.api.nvim_set_option_value("wrap", %s, {win = %d})', left_buf, optsav.wrap ? "true" : "false", right_win)
+        execute printf('autocmd BufWipeout <buffer=%d> ++once lua vim.api.nvim_set_option_value("foldmethod", "%s", {win = %d})', left_buf, optsav.foldmethod, right_win)
+        execute printf('autocmd BufWipeout <buffer=%d> ++once lua vim.api.nvim_set_option_value("foldcolumn", "%s", {win = %d})', left_buf, optsav.foldcolumn, right_win)
     endif
 
     return left_buf
