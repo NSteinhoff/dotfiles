@@ -9,8 +9,6 @@ augroup SANITIZER
 augroup END
 "}}}
 
-nnoremap g? <cmd>help my-stuff<cr>
-
 "{{{ <leader> / Wildchar
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
 let mapleader = '\'

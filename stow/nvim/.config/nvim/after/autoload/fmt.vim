@@ -1,12 +1,10 @@
 function fmt#fmt(yes = 0)
-    let formatprg = ''
-
     let F = get(b:, 'formatprgfunc')
     if type(F) == v:t_func
-        let formatprg = F()
-    else
-        let formatprg = get(b:, 'formatprg', &equalprg)
+        let b:formatprg = F()
     endif
+
+    let formatprg = get(b:, 'formatprg', &equalprg)
 
     if empty(formatprg)
         echomsg "Abort: 'formatprg' unset"
@@ -63,14 +61,12 @@ function fmt#fmt(yes = 0)
 endfunction
 
 function fmt#fix(yes = 0)
-    let fixprg = ''
-
     let F = get(b:, 'fixprgfunc')
     if type(F) == v:t_func
-        let fixprg = F()
-    else
-        let fixprg = get(b:, 'fixprg', '')
+        let b:fixprg = F()
     endif
+
+    let fixprg = get(b:, 'fixprg', '')
 
     if empty(fixprg)
         echomsg "Abort: 'fixprg' unset"

@@ -1,5 +1,5 @@
 [general]
-import = ["~/.config/alacritty/colors/zenburn.toml"]
+import = ["~/.config/alacritty/colors/papertheme.toml"]
 
 [window]
 option_as_alt = "OnlyLeft"

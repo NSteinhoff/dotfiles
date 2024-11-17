@@ -52,3 +52,10 @@ else
 
     set errorformat+=%-G%.%#
 endif
+
+"{{{ Unmap default-mappings
+"nnoremap <buffer> [d [d
+"nnoremap <buffer> ]d ]d
+"nnoremap <buffer> <c-w>d <c-w>d
+"}}}
+
