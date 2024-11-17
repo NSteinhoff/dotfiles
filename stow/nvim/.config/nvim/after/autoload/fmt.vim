@@ -57,8 +57,7 @@ function fmt#fmt(yes = 0)
     " happen with %delete -> append()
     call setline(1, formatted)
     undojoin
-    call deletebufline('%', len(formatted) + 1, '$')
-    silent update
+    call deletebufline(bufnr(), len(formatted) + 1, '$')
 
     echo "Formatted buffer"
 endfunction
