@@ -58,7 +58,7 @@ call mydirvish#create_range_edit_command('Rm',    'rm')
 call mydirvish#create_range_edit_command('Mkdir', 'mkdir')
 call mydirvish#create_range_edit_command('Touch', 'touch')
 
-command! -buffer -nargs=+ Xargs <line1>,<line2>w !xargs <args>
+command! -buffer -nargs=+ -range Xargs <line1>,<line2>w !xargs <args>
 call abbrev#cmdline('xargs', 'Xargs', {'buffer': v:true, 'range': v:true})
 
 silent normal $

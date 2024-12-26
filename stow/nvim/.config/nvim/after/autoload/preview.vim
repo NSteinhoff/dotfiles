@@ -1,5 +1,4 @@
 function preview#preview_word(word)
-
     " don't do this in the preview window
     if &previewwindow
         return
@@ -13,10 +12,10 @@ function preview#preview_word(word)
     endif
 
     " Delete any existing highlight before showing another tag
-    silent! wincmd P                    " jump to preview window
-    if &previewwindow           " if we really get there...
-        match none                        " delete existing highlight
-        wincmd p                  " back to old window
+    silent! wincmd P          " jump to preview window
+    if &previewwindow         " if we really get there...
+        match none            " delete existing highlight
+        wincmd p              " back to old window
     endif
 
     " Try displaying a matching tag for the word under the cursor

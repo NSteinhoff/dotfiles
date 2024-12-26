@@ -31,6 +31,7 @@ let b:interpreter .= ' -Wextra'
 let b:interpreter .= ' -pedantic'
 let b:interpreter .= ' -Wconversion'
 let b:interpreter .= ' -Wmissing-prototypes'
+let b:interpreter .= ' -Wtype-limits'
 let b:interpreter .= ' -o /tmp/'..expand('%:t:r')
 let b:interpreter .= ' -xc -'
 let b:interpreter .= ' && /tmp/'..expand('%:t:r')

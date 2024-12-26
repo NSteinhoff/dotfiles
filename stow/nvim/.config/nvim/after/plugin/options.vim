@@ -21,7 +21,7 @@ nnoremap yot <cmd>call options#toggle('showtabline', 2, 0)<cr>
 nnoremap you <cmd>echo "Toggle 'you' unused"<cr>
 nnoremap yov <cmd>call options#toggle('virtualedit', 'all', '')<cr>
 nnoremap yow <cmd>call options#toggle('wrap')<cr>
-nnoremap yox <cmd>echo "Toggle 'yox' unused"<cr>
+nnoremap yox <cmd>call options#toggle('cursorline')<bar>let &cursorcolumn=&cursorline<cr>
 nnoremap yoy <cmd>Noyo<cr>
 nnoremap yoz <cmd>echo "Toggle 'yoz' unused"<cr>
 nnoremap yo? <cmd>set ignorecase? diff? spell?  list? number? relativenumber? laststatus? showtabline? virtualedit? wrap?<cr>

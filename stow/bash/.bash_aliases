@@ -25,6 +25,7 @@ esac
 # --------------------------------------------------------------------------- #
 #                                   Aliases                                   #
 # --------------------------------------------------------------------------- #
+alias v='NVIM_APPNAME=v nvim'
 ################
 ### Safer delete
 alias rm='rm -i'
@@ -121,9 +122,7 @@ tmux_smart_attach() {
 alias t='tmux_ls_or_cmd'
 alias tn='tmux_new_session'
 alias tt='tmux_smart_attach'
-complete -F _complete_tmux t
-complete -F _complete_tmux_sessions tt
-_complete_tmux_sessions() { COMPREPLY=( $(compgen -W "$(tmux ls -F '#S')" $2) ); }
+alias tm='tmuxinator start --suppress-tmux-version-warning=on'
 
 ########
 ### Dirs
@@ -172,17 +171,17 @@ if [ -n "$(ls ~/.config/bash-completion/)" ]; then
     for file in ~/.config/bash-completion/*; do source "$file"; done
 fi
 
+complete -F _complete_tmux tmux t
+_complete_tmux() { COMPREPLY=( $(compgen -W "$(tmux list-commands -F#{command_list_name})" $2) ); }
 
-alias mux='tmuxinator start --suppress-tmux-version-warning=on'
-_complete_tmux() {
-    COMPREPLY=( $(compgen -W "$(tmux list-commands -F#{command_list_name})" $2) )
-}
-complete -F _complete_tmux tmux
+complete -F _complete_tmux_sessions tt
+_complete_tmux_sessions() { COMPREPLY=( $(compgen -W "$(tmux ls -F '#S')" $2) ); }
 
-_complete_colorscheme() {
-    COMPREPLY=( $(compgen -W "$(colorscheme -l)" $2) )
-}
+complete -F _complete_tmuxinator_projects tm
+_complete_tmuxinator_projects() { COMPREPLY=( $(compgen -W "$(tmuxinator completions start)" $2) ); }
+
 complete -F _complete_colorscheme colorscheme
+_complete_colorscheme() { COMPREPLY=( $(compgen -W "$(colorscheme -l)" $2) ); }
 
 # ---------------------------------- PROMPT -----------------------------------
 starship_prompt=false

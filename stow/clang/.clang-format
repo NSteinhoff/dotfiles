@@ -4,20 +4,26 @@ UseTab: AlignWithSpaces
 TabWidth: 8
 IndentWidth: 8
 ContinuationIndentWidth: 8
+
+IndentGotoLabels: true
+SortIncludes: Never
+
+ReflowComments: false
 AlwaysBreakBeforeMultilineStrings: true
 BreakBeforeTernaryOperators: true
-IndentGotoLabels: true
-ReflowComments: false
 BreakStringLiterals: false
-SortIncludes: Never
-AlignArrayOfStructures: Left
+AlignAfterOpenBracket: AlwaysBreak
+
+PointerAlignment: Right
+AlignArrayOfStructures: None
 AlignOperands: AlignAfterOperator
-AllowShortBlocksOnASingleLine: Never
-AllowShortFunctionsOnASingleLine: false
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: AcrossComments
+AlignConsecutiveMacros: AcrossComments
+
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: true
 AllowShortCaseLabelsOnASingleLine: true
-AllowShortIfStatementsOnASingleLine: WithoutElse
 AllowShortLoopsOnASingleLine: true
 AllowShortEnumsOnASingleLine: true
-# AlignConsecutiveDeclarations: Consecutive
-# AlignConsecutiveAssignments: Consecutive
-# AlignAfterOpenBracket: AlwaysBreak
+AllowShortIfStatementsOnASingleLine: WithoutElse

@@ -5,7 +5,7 @@ setlocal shiftwidth=0
 function s:style()
     let indend_width = &shiftwidth ? &shiftwidth : &tabstop
     let use_tab = &expandtab ? 'Never' : 'AlignWithSpaces'
-    let column_limit = &textwidth ? &textwidth : 100
+    let column_limit = &textwidth ? &textwidth : 80
     let tab_width = &tabstop
 
     " There is also a .clang-format with the same settings, but this allows
@@ -17,23 +17,28 @@ function s:style()
     let l:style.= ', TabWidth: '..tab_width
     let l:style.= ', IndentWidth: '..indend_width
     let l:style.= ', ContinuationIndentWidth: '..indend_width
+    let l:style.= ', IndentGotoLabels: true'
+    let l:style.= ', SortIncludes: Never'
+
+    let l:style.= ', ReflowComments: false'
     let l:style.= ', AlwaysBreakBeforeMultilineStrings: true'
     let l:style.= ', BreakBeforeTernaryOperators: true'
-    let l:style.= ', IndentGotoLabels: true'
-    let l:style.= ', ReflowComments: false'
-    let l:style.= ', SortIncludes: Never'
     let l:style.= ', BreakStringLiterals: false'
-    let l:style.= ', AlignArrayOfStructures: Left'
+    let l:style.= ', AlignAfterOpenBracket: AlwaysBreak'
+
+    let l:style.= ', PointerAlignment: Right'
+    let l:style.= ', AlignArrayOfStructures: None'
     let l:style.= ', AlignOperands: AlignAfterOperator'
-    let l:style.= ', AllowShortBlocksOnASingleLine: Never'
-    let l:style.= ', AllowShortFunctionsOnASingleLine: false'
+    let l:style.= ', AlignConsecutiveAssignments: false'
+    let l:style.= ', AlignConsecutiveDeclarations: AcrossComments'
+    let l:style.= ', AlignConsecutiveMacros: AcrossComments'
+
+    let l:style.= ', AllowShortBlocksOnASingleLine: Empty'
+    let l:style.= ', AllowShortFunctionsOnASingleLine: true'
     let l:style.= ', AllowShortCaseLabelsOnASingleLine: true'
-    let l:style.= ', AllowShortIfStatementsOnASingleLine: WithoutElse'
     let l:style.= ', AllowShortLoopsOnASingleLine: true'
     let l:style.= ', AllowShortEnumsOnASingleLine: true'
-    " let l:style.= ', AlignConsecutiveDeclarations: Consecutive'
-    " let l:style.= ', AlignConsecutiveAssignments: Consecutive'
-    " let l:style.= ', AlignAfterOpenBracket: AlwaysBreak'
+    let l:style.= ', AllowShortIfStatementsOnASingleLine: WithoutElse'
     let l:style.= '}"'
 
     return l:style

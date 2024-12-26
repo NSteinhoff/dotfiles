@@ -19,8 +19,7 @@ function post#post()
         return
     endif
 
-    let request = getline(1, req_end)
-                \->filter('v:val !~ "^#.*$"')
+    let request = getline(req_start, req_end)
                 \->map('trim(v:val)')
                 \->join(" ")
     let request = substitute(request, '\s\([&?=]\)', '\1', 'g')

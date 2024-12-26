@@ -1,7 +1,7 @@
 local lspconfig = require("lspconfig")
 
 return function(config)
-    config.autostart = false
+    config.autostart = true
 
     config.root_dir = function(fname)
         -- Prefer the repository root for typescript

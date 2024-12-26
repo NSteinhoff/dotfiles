@@ -143,7 +143,7 @@ packadd! my-quickfix                            " Quickfix niceties, mostly limi
 packadd my-lsp                                  " Language Server configurations
 packadd! my-dirvish                             " Minimalist file browser (customized)
 " Treesitter
-let disable_treesitter = v:false
+let disable_treesitter = v:true
 if disable_treesitter
     lua vim.treesitter.start = function() end
 else

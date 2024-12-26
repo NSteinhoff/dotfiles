@@ -1,5 +1,6 @@
 "{{{ Basic
-source $VIMRUNTIME/defaults.vim
+set nocompatible
+filetype plugin indent on
 
 " Stop assuming that I care about C header files
 set path-=/usr/include
@@ -13,7 +14,9 @@ colorscheme ludite
 "}}}
 
 "{{{ Appearance
+set display=truncate
 set cmdheight=1
+set ruler
 set showmode
 set rulerformat=%25(%l,%c%V%M%=%P\ %y%)
 set scrolloff=3
@@ -25,6 +28,8 @@ set shortmess+=s
 "}}}
 
 "{{{ Behavior
+set ttimeout		    " time out for key codes
+set ttimeoutlen=100	    " wait up to 100ms after Esc for special key
 set noswapfile
 set updatetime=250
 set foldenable
@@ -34,6 +39,7 @@ set foldcolumn=0
 set mouse=nv                " enable mouse in normal and visual mode
 set autoread
 set hidden
+set incsearch
 set ignorecase              " ignore case in searches ...
 set smartcase               " ... Unless it includes capital letters
 set tagcase=match           " ... But match case in :tag searches
@@ -41,6 +47,7 @@ set splitright              " open vertical splits on the right
 set sessionoptions+=options " save global mappings and options
 set completeopt=menuone,noinsert,noselect
 set spell
+set nrformats-=octal
 
 """ Special characters (disabled by default)
 set nolist
@@ -98,6 +105,10 @@ endif
 "}}}
 
 "{{{ Mappings
+map Q gq|sunmap Q
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
 nnoremap <c-l> <cmd>nohlsearch<bar>diffupdate<bar>normal! <c-l><cr>
 noremap "" "+
 "}}}

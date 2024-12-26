@@ -27,5 +27,5 @@ function s:toggle_completed(lnum)
     endif
 endfunction
 
-nnoremap <buffer> <silent> <space> :call <sid>toggle_completed(line('.'))<cr>
-vnoremap <buffer> <silent> <space> :call <sid>toggle_completed(line('.'))<cr>
+nnoremap <buffer> <silent> <c-space> :call <sid>toggle_completed(line('.'))<cr>
+vnoremap <buffer> <silent> <c-space> :call <sid>toggle_completed(line('.'))<cr>
