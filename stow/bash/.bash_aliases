@@ -196,6 +196,8 @@ elif $fancy_prompt; then
     *)
         ;;
     esac
+else
+	PS1="\[\033[1;34m\]\w\[\033[1;32m\]\n\j:\$\[\033[m\] "
 fi
 
 # --------------------------- Directory Shortcuts -----------------------------

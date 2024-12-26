@@ -1,11 +1,22 @@
 "{{{ --------------------------------- Options -----------------------------------
-
-"{{{ Disable external provider
-let g:loaded_python3_provider = 0
-let g:loaded_pythonx_provider = 0
-let g:loaded_ruby_provider = 0
-let g:loaded_node_provider = 0
-let g:loaded_perl_provider = 0
+"{{{ Disable Bloat
+let s:loaded = [
+\   "python3_provider",
+\   "pythonx_provider",
+\   "ruby_provider",
+\   "node_provider",
+\   "perl_provider",
+\   "matchparen",
+\   "matchit",
+\   "netrwPlugin",
+\   "tutor_mode_plugin",
+\   "remote_plugins",
+\   "gzip",
+\   "tarPlugin",
+\   "zipPlugin",
+\   "2html_plugin",
+\]
+for name in s:loaded | execute "let g:loaded_"..name.." = 1" | endfor
 "}}}
 
 "{{{ Colors
@@ -120,14 +131,12 @@ let g:markdown_folding = 1
 "{{{ Get help
 set keywordprg=:Search\ ddg
 "}}}
-
 "}}}
 
 " Stop here when running as git editor
 if exists('$GIT_INDEX_FILE') | finish | endif
 
 "{{{ --------------------------------- Plugins -----------------------------------
-
 packadd packer                                  " Package utilities and paths
 
 "{{{ Personal
@@ -140,7 +149,7 @@ packadd! my-quickfix                            " Quickfix niceties, mostly limi
 "}}}
 
 "{{{ Third Party
-packadd my-lsp                                  " Language Server configurations
+packadd! my-lsp                                 " Language Server configurations
 packadd! my-dirvish                             " Minimalist file browser (customized)
 " Treesitter
 let disable_treesitter = v:true
@@ -150,7 +159,6 @@ else
     packadd! my-treesitter                          " Language aware highlighting
 endif
 "}}}
-
 "}}}
 
 " vim: foldmethod=marker

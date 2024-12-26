@@ -173,7 +173,7 @@ inoremap <expr> <c-space> empty(&omnifunc) ? '<c-x><c-]>' : '<c-x><c-o>'
 imap <c-l> <c-r>=complete#localpath()<cr>
 "}}}
 
-"{{{ Running builds with `<key>
+"{{{ Running builds
 nmap m<space> <cmd>wall<bar>make!<cr>
 "}}}
 

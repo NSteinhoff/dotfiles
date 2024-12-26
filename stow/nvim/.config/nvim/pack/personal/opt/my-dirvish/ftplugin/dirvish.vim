@@ -6,8 +6,8 @@ nnoremap <nowait><buffer><silent> dax  :<C-U>arglocal<Bar>silent! argdelete *<Ba
 nmap <nowait> <buffer> X <plug>(dirvish_arg)
 xmap <nowait> <buffer> X <plug>(dirvish_arg)
 
-nmap <nowait> <buffer> gh <plug>(dirvish_K)
-xmap <nowait> <buffer> gh <plug>(dirvish_K)
+nmap <nowait> <buffer> K <plug>(dirvish_K)
+xmap <nowait> <buffer> K <plug>(dirvish_K)
 
 nnoremap <buffer> <cr> <cmd>call dirvish#open('edit', 0)<cr>
 nnoremap <buffer> <space> <cmd>call dirvish#open('edit', 0)<cr>
@@ -19,7 +19,6 @@ nnoremap <buffer> o <cmd>call mydirvish#add_line_below()<cr>
 nnoremap <buffer> O <cmd>call mydirvish#add_line_above()<cr>
 
 nnoremap <buffer> R <cmd>let b:linesave=line('.')<bar>e %<bar>execute b:linesave<cr>
-nnoremap <buffer> K <cmd>Expand<cr>
 nnoremap <buffer> zc <cmd>set conceallevel=2<cr>
 nnoremap <buffer> zo <cmd>set conceallevel=0<cr>
 nnoremap <buffer> <expr> za '<cmd>set conceallevel='..(&conceallevel == 0 ? '2' : '0')..'<cr>'
