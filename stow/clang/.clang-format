@@ -15,9 +15,12 @@ BreakStringLiterals: false
 AlignAfterOpenBracket: AlwaysBreak
 
 PointerAlignment: Right
-AlignArrayOfStructures: None
+AlignArrayOfStructures: Right
 AlignOperands: AlignAfterOperator
-AlignConsecutiveAssignments: false
+AlignConsecutiveAssignments:
+  Enabled: true
+  AcrossComments: true
+  AlignCompound: true
 AlignConsecutiveDeclarations: AcrossComments
 AlignConsecutiveMacros: AcrossComments
 

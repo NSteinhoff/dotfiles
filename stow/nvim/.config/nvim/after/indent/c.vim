@@ -27,9 +27,9 @@ function s:style()
     let l:style.= ', AlignAfterOpenBracket: AlwaysBreak'
 
     let l:style.= ', PointerAlignment: Right'
-    let l:style.= ', AlignArrayOfStructures: None'
+    let l:style.= ', AlignArrayOfStructures: Right'
     let l:style.= ', AlignOperands: AlignAfterOperator'
-    let l:style.= ', AlignConsecutiveAssignments: false'
+    let l:style.= ', AlignConsecutiveAssignments: {Enabled: true, AcrossComments: true, AlignCompound: true}'
     let l:style.= ', AlignConsecutiveDeclarations: AcrossComments'
     let l:style.= ', AlignConsecutiveMacros: AcrossComments'
 

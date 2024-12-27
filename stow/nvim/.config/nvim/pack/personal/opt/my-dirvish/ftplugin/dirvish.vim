@@ -19,6 +19,7 @@ nnoremap <buffer> o <cmd>call mydirvish#add_line_below()<cr>
 nnoremap <buffer> O <cmd>call mydirvish#add_line_above()<cr>
 
 nnoremap <buffer> R <cmd>let b:linesave=line('.')<bar>e %<bar>execute b:linesave<cr>
+nnoremap <buffer> za <cmd>Expand<cr>
 nnoremap <buffer> zc <cmd>set conceallevel=2<cr>
 nnoremap <buffer> zo <cmd>set conceallevel=0<cr>
 nnoremap <buffer> <expr> za '<cmd>set conceallevel='..(&conceallevel == 0 ? '2' : '0')..'<cr>'
