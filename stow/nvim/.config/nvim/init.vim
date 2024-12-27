@@ -38,7 +38,6 @@ set signcolumn=number
 set shortmess+=s
 set concealcursor=n
 set laststatus=2
-set showtabline=2
 set title
 "}}}
 

@@ -1,10 +1,12 @@
-lua require('my_lsp')
+function s:start()
+    lua require('my_lsp')
+    LspStart
+endfunction
 
-call abbrev#cmdline('lsp', 'LspStart')
+command! Lsp call s:start()
+
+call abbrev#cmdline('lsp', 'Lsp')
 call abbrev#cmdline('lspstart', 'LspStart')
 call abbrev#cmdline('lspstop', 'LspStop')
 
-" aug my-lsp-set-diagnostics
-"     autocmd!
-"     autocmd DiagnosticChanged * lua vim.diagnostic.setloclist({ open = false })
-" aug END
+call timer_start(200, {-> execute("lua require('my_lsp')")})

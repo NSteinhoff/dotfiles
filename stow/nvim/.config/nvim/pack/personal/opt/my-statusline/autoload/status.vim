@@ -23,11 +23,8 @@ function status#err()
 endfunction
 
 function status#comp()
-    try
-        let lsp = luaeval('require("my_lsp.status").'..(winwidth(0) < 100 ? 'tiny' : 'long')..'()')
-    catch
-        let lsp = ''
-    endtry
+    let lsp = get(b:, 'my_lsp_status', {})
+    let lsp = get(lsp, winwidth(0) < 100 ? 'tiny' : 'long', '')
 
     let compiler = get(b:, 'current_compiler', get(g:, 'current_compiler', ''))
     let compiler = !empty(compiler) ? winwidth(0) >= 100 ? '$'..compiler : '$' : ''

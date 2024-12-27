@@ -33,8 +33,17 @@ local function long()
     end
 end
 
+local function status()
+    return {
+        tiny = tiny(),
+        short = short(),
+        long = long(),
+    }
+end
+
 return {
     tiny = tiny,
     short = short,
     long = long,
+    status = status,
 }

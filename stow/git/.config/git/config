@@ -13,7 +13,7 @@
 	grep = auto
 
 [core]
-	editor = vim
+	editor = nvim
 
 [init]
 	templatedir = ~/.config/git/template

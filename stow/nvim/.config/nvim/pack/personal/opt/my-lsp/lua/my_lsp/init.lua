@@ -6,12 +6,14 @@ local function on_attach(...)
     require("my_lsp.options").on_attach()
     require("my_lsp.commands").on_attach()
     require("my_lsp.mappings").on_attach()
+    vim.b.my_lsp_status = require("my_lsp.status").status()
 end
 
 local function on_detach(args)
     require("my_lsp.commands").on_detach(args.buf)
     require("my_lsp.mappings").on_detach(args.buf)
     require("my_lsp.options").on_detach(args.buf)
+    vim.b.my_lsp_status = {}
 end
 
 local servers = {
@@ -34,8 +36,6 @@ for _, server in ipairs(servers) do
     })
 end
 
---[[
 vim.api.nvim_create_autocmd("LspDetach", {
     callback = on_detach,
 })
---]]
