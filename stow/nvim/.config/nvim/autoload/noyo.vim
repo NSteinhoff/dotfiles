@@ -22,4 +22,9 @@ function noyo#toggle(bang)
         execute printf("let &%s='%s'", opt, newvalue)
     endfor
     let s:noyo_on = !s:noyo_on
+    if s:noyo_on
+        echo "  noyo"
+    else
+        echo "nonoyo"
+    endif
 endfunction

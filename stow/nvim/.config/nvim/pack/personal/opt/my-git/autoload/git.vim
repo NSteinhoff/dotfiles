@@ -174,8 +174,10 @@ endfunction
 function git#blame_toggle()
     if s:blame_enabled()
         call git#blame_off()
+        echo "noshowblame"
     else
         call git#blame_on()
+        echo "  showblame"
     endif
 endfunction
 

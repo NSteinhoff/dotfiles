@@ -40,8 +40,10 @@ endfunction
 function s:toggle()
     if s:enabled()
         call s:disable()
+        echo "noshowmarks"
     else
         call s:enable()
+        echo "  showmarks"
     endif
 endfunction
 
