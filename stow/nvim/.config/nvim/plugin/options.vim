@@ -3,7 +3,6 @@
 set notermguicolors
 colorscheme ludite
 "}}}
-
 "{{{ Appearance
 set noshowcmd
 set cmdheight=1
@@ -21,7 +20,6 @@ set laststatus=2
 set showtabline=2
 set title
 "}}}
-
 "{{{ Behavior
 set ttimeoutlen=25
 set noswapfile
@@ -42,7 +40,6 @@ set fileformats=unix                            " show <CR><NL>
 set jumpoptions=stack
 set undofile
 "}}}
-
 "{{{ Special characters
 "set fillchars=eob:·
 set list
@@ -56,7 +53,6 @@ set listchars+=eol:¬
 set listchars+=lead:\ 
 " set listchars+=multispace:\ \ \ ·               " Add markers for every 4 spaces
 "}}}
-
 "{{{ Text formatting
 set tabstop=8
 set shiftwidth=4
@@ -85,25 +81,21 @@ set formatoptions+=n                            " recognize numbered lists
 " recognize * and - as list headers
 set formatlistpat=^\\s*\\(\\d\\+[\\]:.)}\\t\ ]\\\|[*-][\\t\ ]\\)\\s*
 "}}}
-
 "{{{ Completions
 set wildmode=longest:full,full
 set wildoptions=pum
 set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 "}}}
-
 "{{{ Path and files
 set path=,,.
 set wildignore+=*.dSym/
 " set wildignore+=*/node_modules/*
 "}}}
-
 "{{{ Get help
 set keywordprg=:Search\ ddg
 "}}}
 "}}}
-
 "{{{ Toggles
 nnoremap yob <cmd>ToggleBlame<cr>
 nnoremap yoc <cmd>execute 'colorscheme ' . (colors_name == 'ludite' ? 'minimal' : 'ludite')..'\|colorscheme'<cr>

@@ -1,4 +1,4 @@
-local disable = {
+local loaded = {
     "python3_provider",
     "pythonx_provider",
     "ruby_provider",
@@ -15,7 +15,7 @@ local disable = {
     "2html_plugin",
 }
 
-for _, name in ipairs(disable) do
+for _, name in ipairs(loaded) do
     vim.g["loaded_" .. name] = true
 end
 

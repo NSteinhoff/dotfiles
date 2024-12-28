@@ -1,5 +1,5 @@
 if vim.g.did_load_filetypes then
-  return
+    return
 end
 
 local filetypes = {
@@ -10,7 +10,7 @@ local filetypes = {
     taskpaper = { "*.taskpaper" },
 }
 
-vim.api.nvim_create_augroup('filetypedetect', { clear = false })
+vim.api.nvim_create_augroup("filetypedetect", { clear = false })
 for ft, pattern in pairs(filetypes) do
     vim.api.nvim_create_autocmd({ "BufFilePost", "BufNewFile", "BufRead" }, {
         group = "filetypedetect",
