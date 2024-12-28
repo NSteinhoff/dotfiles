@@ -1,4 +1,4 @@
-function s:smarttab()
+function smarttab#smarttab()
     if &expandtab == 1
         return "\<tab>"
     endif
@@ -11,5 +11,3 @@ function s:smarttab()
 
     return repeat(' ', num_spaces)
 endfunction
-
-inoremap <expr> <plug>(smarttab) <SID>smarttab()

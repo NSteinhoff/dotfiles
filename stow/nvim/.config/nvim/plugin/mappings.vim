@@ -20,7 +20,7 @@ set wildcharm=<c-z>
 nnoremap <leader><leader> <cmd>w<bar>Run<cr>
 
 "{{{ Open Settings
-nnoremap <leader>,, <cmd>edit $MYVIMRC<cr>
+nnoremap <leader>,, <cmd>EditPlugin options<cr>
 nnoremap <leader>,m <cmd>EditPlugin mappings<cr>
 nnoremap <leader>,f <cmd>EditFtplugin<cr>
 nnoremap <leader>,i <cmd>EditIndent<cr>
