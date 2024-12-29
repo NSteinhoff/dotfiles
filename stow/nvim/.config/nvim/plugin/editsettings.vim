@@ -3,6 +3,7 @@ function s:edit_settings(type, selected, mods, after = v:false)
     \   'compiler': get(b:, 'current_compiler', get(g:, 'current_compiler', '')),
     \   'colors': get(g:, 'colors_name'),
     \   'plugin': '',
+    \   'autoload': expand("%:t:r"),
     \}
     let selected = empty(a:selected) ? get(defaults, a:type, &ft) : a:selected
     let selected = empty(selected) ? selected : selected..'.vim'

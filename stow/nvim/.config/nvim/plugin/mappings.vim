@@ -8,17 +8,12 @@ augroup SANITIZER
     autocmd CmdwinEnter * nnoremap <buffer> <c-p> <c-p>
 augroup END
 "}}}
-
 "{{{ <leader> / Wildchar
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
 let mapleader = '\'
 let maplocalleader = '\'
 set wildcharm=<c-z>
 "}}}
-
-" Execute script
-nnoremap <leader><leader> <cmd>w<bar>Run<cr>
-
 "{{{ Open Settings
 nnoremap <leader>,, <cmd>EditPlugin options<cr>
 nnoremap <leader>,m <cmd>EditPlugin mappings<cr>
@@ -26,7 +21,6 @@ nnoremap <leader>,f <cmd>EditFtplugin<cr>
 nnoremap <leader>,i <cmd>EditIndent<cr>
 nnoremap <leader>,c <cmd>EditColorscheme<cr>
 "}}}
-
 "{{{ Basics / Improving standard mappings
 nnoremap <esc> <cmd>nohlsearch<bar>diffupdate<cr>
 nnoremap <c-h> <cmd>nohlsearch<bar>diffupdate<cr>
@@ -77,7 +71,6 @@ vmap x <plug>(exchange)
 tnoremap <c-\><c-\> <c-\><c-n>
 " tnoremap <esc> <c-\><c-n>
 "}}}
-
 "{{{ Viewport
 " Window resizing with the arrow keys
 nnoremap <left>  5<c-w><
@@ -93,7 +86,6 @@ nnoremap <silent> <expr> <bar>
             \   : '<cmd>vertical resize '..(winwidth(0) < &columns / 4 * 3 ? &columns / 4 * 3: &columns / 4)..'<cr>'
             \ : '<bar>'
 "}}}
-
 "{{{ Cycling lists
 nnoremap ]a <cmd>next<cr>
 nnoremap [a <cmd>previous<cr>
@@ -114,12 +106,10 @@ if empty(maparg("<c-k>", "n"))|nnoremap <c-k> <cmd>lprevious<cr>|endif
 nnoremap [t <cmd>tprevious<cr>
 nnoremap ]t <cmd>tnext<cr>
 "}}}
-
 "{{{ Arglist
 nnoremap ]A <cmd>argadd %<bar>echo "Added arg '"..expand("%").."'"<cr>
 nnoremap [A <cmd>argdelete %<bar>echo "Removed arg '"..expand("%").."'"<cr>
 "}}}
-
 "{{{ Search and replace
 vnoremap * y<cmd>let @/=@"<cr>n
 nnoremap gs :%s/
@@ -128,32 +118,27 @@ vnoremap gs :s/
 nnoremap <expr> gS ':%s/\C\V\<'.expand('<cword>').'\>/'
 vnoremap gS y:%s/\C\V<c-r>=escape(@", '\/.')<cr>/
 "}}}
-
 "{{{ Highlight matches
 nnoremap <expr> gm v:count <= 1 ? '<cmd>Match<cr>' : '<cmd>Match'.v:count.'<cr>'
 nnoremap <expr> gM v:count <= 1 ? '<cmd>match<cr>' : '<cmd>'.v:count.'match<cr>'
 vnoremap gm y:<c-u>Match <c-r>"<cr>
 "}}}
-
 "{{{ Format
 " Mnemonic:
 "   < and > change indentation
 "   <> => 'indent all'
 nnoremap <silent> <> <cmd>Fmt!<cr>
 "}}}
-
 "{{{ Fix
 " Mnemonic:
 "   ! change / modify / action
 "   > into file
 nnoremap <silent> !> <cmd>Fix<cr>
 "}}}
-
 "{{{ Close all utility windows
 nnoremap <silent> <c-w><space>   <cmd>cclose<bar>lclose<cr><c-w>z
 nnoremap <silent> <c-w><c-space> <cmd>cclose<bar>lclose<cr><c-w>z
 "}}}
-
 "{{{ Preview / Hover
 " Preview definition
 nmap <silent> <c-w>} <plug>(preview)
@@ -161,7 +146,6 @@ vmap <silent> <c-w>} <plug>(preview)
 nmap <silent> <c-space> <c-w>}
 vmap <silent> <c-space> <c-w>}
 "}}}
-
 "{{{ Completion
 " <c-space> is used for smart completion.
 " By default it completes tags. This could be remapped to omni-completion
@@ -172,11 +156,12 @@ inoremap <expr> <c-space> empty(&omnifunc) ? '<c-x><c-]>' : '<c-x><c-o>'
 " imap <c-x><c-h> <c-r>=complete#localpath()<cr>
 imap <c-l> <c-r>=complete#localpath()<cr>
 "}}}
-
-"{{{ Running builds
+"{{{ Running builds/scripts
+" Make
 nmap m<space> <cmd>wall<bar>make!<cr>
+" Execute script
+nnoremap <leader><leader> <cmd>w<bar>Run<cr>
 "}}}
-
 "{{{ Quality of life
 vnoremap v iw
 
@@ -212,7 +197,6 @@ vnoremap <silent> ga y:let @/=escape(@", '.\|$[](){}')<bar>execute 'silent grepa
 " Outline
 nmap gO <cmd>TagToc<cr>
 "}}}
-
 "{{{ Leader mappings
 "{{{ Buffer Switching
 nnoremap <leader>bb :call buffers#recent()<cr>:buffer<space>
@@ -277,6 +261,64 @@ nmap ]r <plug>(git-review-next)
 nmap [r <plug>(git-review-prev)
 nmap ]R <plug>(git-review-mark-seen)
 nmap [R <plug>(git-review-first)
+"}}}
+"}}}
+"{{{ Toggles
+nnoremap yob <cmd>ToggleBlame<cr>
+nnoremap yoc <cmd>execute 'colorscheme ' . (colors_name == 'ludite' ? 'minimal' : 'ludite')..'\|colorscheme'<cr>
+nnoremap yod <cmd>call options#toggle('diff')<cr>
+nnoremap yoh <cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()); print("Inlay hints " .. (vim.lsp.inlay_hint.is_enabled() and "enabled" or "disabled"))<cr>
+nnoremap yoi <cmd>call options#toggle('ignorecase')<cr>
+nnoremap yol <cmd>call options#toggle('list')<cr>
+nnoremap yom <cmd>ToggleMarks<cr>
+nnoremap yon <cmd>call options#toggle('number')<cr>
+nnoremap yop <cmd>call options#toggle('spell')<cr>
+nnoremap yor <cmd>call options#toggle('relativenumber')<cr>
+nnoremap yos <cmd>call options#toggle('laststatus', 2, 0)<cr>
+nnoremap yot <cmd>call options#toggle('showtabline', 2, 0)<cr>
+nnoremap yov <cmd>call options#toggle('virtualedit', 'all', '')<cr>
+nnoremap yow <cmd>call options#toggle('wrap')<cr>
+nnoremap yox <cmd>call options#toggle('cursorline')<bar>let &cursorcolumn=&cursorline<cr>
+nnoremap yoy <cmd>Noyo<cr>
+nnoremap yo? <cmd>set ignorecase? diff? spell?  list? number? relativenumber? laststatus? showtabline? virtualedit? wrap?<cr>
+nnoremap yoT <cmd>silent !toggle-light-dark<cr>
+nnoremap yoS <cmd>StealthToggle<cr>
+
+nnoremap yoa <cmd>echo "Toggle 'yoa' unused"<cr>
+nnoremap yoe <cmd>echo "Toggle 'yoe' unused"<cr>
+nnoremap yof <cmd>echo "Toggle 'yof' unused"<cr>
+nnoremap yog <cmd>echo "Toggle 'yog' unused"<cr>
+nnoremap yoj <cmd>echo "Toggle 'yoj' unused"<cr>
+nnoremap yok <cmd>echo "Toggle 'yok' unused"<cr>
+nnoremap yoo <cmd>echo "Toggle 'yoo' unused"<cr>
+nnoremap yoq <cmd>echo "Toggle 'yoq' unused"<cr>
+nnoremap you <cmd>echo "Toggle 'you' unused"<cr>
+nnoremap yoz <cmd>echo "Toggle 'yoz' unused"<cr>
+
+nnoremap yoA <cmd>echo "Toggle 'yoA' unused"<cr>
+nnoremap yoB <cmd>echo "Toggle 'yoB' unused"<cr>
+nnoremap yoC <cmd>echo "Toggle 'yoC' unused"<cr>
+nnoremap yoD <cmd>echo "Toggle 'yoD' unused"<cr>
+nnoremap yoE <cmd>echo "Toggle 'yoE' unused"<cr>
+nnoremap yoF <cmd>echo "Toggle 'yoF' unused"<cr>
+nnoremap yoG <cmd>echo "Toggle 'yoG' unused"<cr>
+nnoremap yoH <cmd>echo "Toggle 'yoH' unused"<cr>
+nnoremap yoI <cmd>echo "Toggle 'yoI' unused"<cr>
+nnoremap yoJ <cmd>echo "Toggle 'yoJ' unused"<cr>
+nnoremap yoK <cmd>echo "Toggle 'yoK' unused"<cr>
+nnoremap yoL <cmd>echo "Toggle 'yoL' unused"<cr>
+nnoremap yoM <cmd>echo "Toggle 'yoM' unused"<cr>
+nnoremap yoN <cmd>echo "Toggle 'yoN' unused"<cr>
+nnoremap yoO <cmd>echo "Toggle 'yoO' unused"<cr>
+nnoremap yoP <cmd>echo "Toggle 'yoP' unused"<cr>
+nnoremap yoQ <cmd>echo "Toggle 'yoQ' unused"<cr>
+nnoremap yoR <cmd>echo "Toggle 'yoR' unused"<cr>
+nnoremap yoU <cmd>echo "Toggle 'yoU' unused"<cr>
+nnoremap yoV <cmd>echo "Toggle 'yoV' unused"<cr>
+nnoremap yoW <cmd>echo "Toggle 'yoW' unused"<cr>
+nnoremap yoX <cmd>echo "Toggle 'yoX' unused"<cr>
+nnoremap yoY <cmd>echo "Toggle 'yoY' unused"<cr>
+nnoremap yoZ <cmd>echo "Toggle 'yoZ' unused"<cr>
 "}}}
 
 " vim: foldmethod=marker
