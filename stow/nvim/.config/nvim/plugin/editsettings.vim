@@ -5,11 +5,20 @@ function s:edit_settings(type, selected, mods, after = v:false)
     \   'plugin': '',
     \   'autoload': expand("%:t:r"),
     \}
-    let selected = empty(a:selected) ? get(defaults, a:type, &ft) : a:selected
-    let selected = empty(selected) ? selected : selected..'.vim'
-    let basepath = ' $HOME/.config/nvim/'..(a:after ? 'after/' : '')..a:type..'/'
+    let filename = empty(a:selected) ? get(defaults, a:type, &ft) : a:selected
+    let basepath = ' '..$HOME..'/.config/nvim/'..(a:after ? 'after/' : '')..a:type..'/'
+    if (filename != '')
+        if (!empty(findfile(filename..'.lua', basepath)))
+            let path = basepath .. filename .. '.lua'
+        else
+            let path = basepath .. filename .. '.vim'
+        endif
+    else
+        let path = basepath
+    endif
+    echom filename
 
-    exe a:mods..(a:mods =~ 'vert\|tab' ? ' split' : ' edit')..basepath..selected
+    exe a:mods..(a:mods =~ 'vert\|tab' ? ' split' : ' edit')..path
 endfunction
 
 command! -nargs=? -complete=compiler EditCompiler call s:edit_settings('compiler', <q-args>, <q-mods>, v:true)
