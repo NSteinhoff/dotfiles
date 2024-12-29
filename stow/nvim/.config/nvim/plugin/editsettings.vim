@@ -2,8 +2,8 @@ function s:edit_settings(type, selected, mods, after = v:false)
     let defaults = {
     \   'compiler': get(b:, 'current_compiler', get(g:, 'current_compiler', '')),
     \   'colors': get(g:, 'colors_name'),
-    \   'plugin': '',
     \   'autoload': expand("%:t:r"),
+    \   'plugin': '',
     \}
     let filename = empty(a:selected) ? get(defaults, a:type, &ft) : a:selected
     let basepath = ' '..$HOME..'/.config/nvim/'..(a:after ? 'after/' : '')..a:type..'/'
@@ -16,7 +16,6 @@ function s:edit_settings(type, selected, mods, after = v:false)
     else
         let path = basepath
     endif
-    echom filename
 
     exe a:mods..(a:mods =~ 'vert\|tab' ? ' split' : ' edit')..path
 endfunction

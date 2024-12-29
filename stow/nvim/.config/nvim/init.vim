@@ -1,3 +1,103 @@
+"{{{ --- OPTIONS ---
+"{{{ Colors
+set notermguicolors
+colorscheme ludite
+"}}}
+"{{{ Appearance
+set noshowcmd
+set cmdheight=1
+set inccommand=split
+set showmode
+set number
+set smoothscroll
+set scrolloff=1
+set sidescrolloff=1
+set showmatch
+set signcolumn=number
+set shortmess+=s
+set concealcursor=n
+set laststatus=2
+set showtabline=2
+set title
+"}}}
+"{{{ Behavior
+set ttimeoutlen=25
+set noswapfile
+set updatetime=250
+set foldenable
+set foldmethod=indent
+set foldlevelstart=99                           " start with all folds opened
+set foldcolumn=0
+set mouse=nv                                    " enable mouse in normal and visual mode
+set mousemodel=extend
+set ignorecase                                  " ignore case in searches ...
+set smartcase                                   " ... unless it includes capital letters
+set tagcase=match                               " Match case in :tag searches
+set splitright                                  " open vertical splits on the right
+set sessionoptions+=options                     " remember options and mappings
+set isfname-==
+set fileformats=unix                            " show <CR><NL>
+set jumpoptions=stack
+set undofile
+"}}}
+"{{{ Special characters
+"set fillchars=eob:·
+set list
+set listchars=
+set listchars+=tab:¦\ 
+set listchars+=trail:…
+set listchars+=extends:»
+set listchars+=precedes:«
+set listchars+=nbsp:␣
+set listchars+=eol:¬
+set listchars+=lead:\ 
+" set listchars+=multispace:\ \ \ ·               " Add markers for every 4 spaces
+"}}}
+"{{{ Text formatting
+set tabstop=8
+set shiftwidth=4
+set softtabstop=-1
+set expandtab
+
+set nowrap
+set linebreak
+set breakindent                                 " indent wrapped lines
+set showbreak=└                                 " prepend wrapped lines with this
+set smartindent
+
+set formatoptions=
+set formatoptions+=l                            " don't wrap lines that were too long to begin with
+" sentences
+set formatoptions+=p                            " don't wrap after . + single space
+" set cpoptions+=J                                " require double space after sentences
+" set joinspaces                                  " double spaces after sentences
+" comments
+set formatoptions+=c                            " wrap comments
+set formatoptions+=j                            " remove commentstring when joining comment lines
+set formatoptions+=q                            " also format comments with 'gq'
+set formatoptions+=r                            " continue comments when hitting <Enter>
+" lists
+set formatoptions+=n                            " recognize numbered lists
+" recognize * and - as list headers
+set formatlistpat=^\\s*\\(\\d\\+[\\]:.)}\\t\ ]\\\|[*-][\\t\ ]\\)\\s*
+"}}}
+"{{{ Completions
+set wildmode=longest:full,full
+set wildoptions=pum
+set completeopt=menuone,noinsert,noselect
+set shortmess+=c
+"}}}
+"{{{ Path and files
+set path=,,.
+set wildignore+=*.dSym/
+set wildignore+=*/node_modules/*
+"}}}
+"{{{ Get help
+set keywordprg=:Search\ ddg
+"}}}
+"}}}
+
+"{{{ --- MAPPINGS ---
 "{{{ Sanitizer
 augroup SANITIZER
     autocmd!
@@ -15,8 +115,10 @@ let maplocalleader = '\'
 set wildcharm=<c-z>
 "}}}
 "{{{ Open Settings
-nnoremap <leader>,, <cmd>EditPlugin options<cr>
-nnoremap <leader>,m <cmd>EditPlugin mappings<cr>
+nnoremap <leader>,, <cmd>edit +set\ fdl=0\|0 $MYVIMRC<cr>
+nnoremap <leader>,o <cmd>edit +set\ fdl=1\|/---\\sOPTIONS $MYVIMRC<cr>
+nnoremap <leader>,m <cmd>edit +set\ fdl=1\|/---\\sMAPPINGS $MYVIMRC<cr>
+nnoremap <leader>,p <cmd>edit +set\ fdl=1\|/---\\sPACKAGES $MYVIMRC<cr>
 nnoremap <leader>,f <cmd>EditFtplugin<cr>
 nnoremap <leader>,i <cmd>EditIndent<cr>
 nnoremap <leader>,c <cmd>EditColorscheme<cr>
@@ -319,6 +421,64 @@ nnoremap yoW <cmd>echo "Toggle 'yoW' unused"<cr>
 nnoremap yoX <cmd>echo "Toggle 'yoX' unused"<cr>
 nnoremap yoY <cmd>echo "Toggle 'yoY' unused"<cr>
 nnoremap yoZ <cmd>echo "Toggle 'yoZ' unused"<cr>
+"}}}
+"}}}
+
+"{{{ --- BLOAT ---
+"{{{ Disable
+let s:loaded = [
+\   "python3_provider",
+\   "pythonx_provider",
+\   "ruby_provider",
+\   "node_provider",
+\   "perl_provider",
+\   "matchparen",
+\   "matchit",
+\   "netrwPlugin",
+\   "tutor_mode_plugin",
+\   "remote_plugins",
+\   "gzip",
+\   "tarPlugin",
+\   "zipPlugin",
+\   "2html_plugin",
+\]
+
+for name in s:loaded | let g:["loaded_" .. name] = 1 | endfor
+"}}}
+"{{{ Configure
+"  Speed up diff syntax highlighting by disabling localization
+let g:diff_translations = 0
+"  Prefer C over C++ for header files
+let g:c_syntax_for_h = 1
+"  Better folding for markdown.
+let g:markdown_folding = 1
+"}}}
+"}}}
+
+"{{{ --- PACKAGES ---
+if exists('$GIT_INDEX_FILE') | finish | endif
+"{{{ Personal
+packadd my-livegrep                            " Start grepping live with :lg
+packadd! my-filefinder                          " Start simple file finder with :ff
+packadd! my-statusline
+packadd! my-tabline
+packadd! my-git                                 " Git utilities (bloated): Show diff with :dd
+packadd! my-quickfix                            " Quickfix niceties, mostly limited to quickfix windows
+"}}}
+"{{{ Third Party
+set packpath+=~/Develop/Dotfiles/3rd
+
+packadd! my-lsp                                 " Language Server configurations
+packadd! my-dirvish                             " Minimalist file browser (customized)
+
+" Treesitter
+let disable_treesitter = v:false
+if disable_treesitter
+    lua vim.treesitter.start = function() end
+else
+    packadd! my-treesitter                          " Language aware highlighting
+endif
+"}}}
 "}}}
 
 " vim: foldmethod=marker
