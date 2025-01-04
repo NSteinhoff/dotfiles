@@ -183,13 +183,9 @@ nnoremap [b <cmd>bprevious<cr>
 
 nnoremap ]q <cmd>cnext<cr>
 nnoremap [q <cmd>cprevious<cr>
-if empty(maparg("<c-n>", "n"))|nnoremap <c-n> <cmd>cnext<cr>|endif
-if empty(maparg("<c-p>", "n"))|nnoremap <c-p> <cmd>cprevious<cr>|endif
 
 nnoremap ]l <cmd>lnext<cr>
 nnoremap [l <cmd>lprevious<cr>
-if empty(maparg("<c-j>", "n"))|nnoremap <c-j> <cmd>lnext<cr>|endif
-if empty(maparg("<c-k>", "n"))|nnoremap <c-k> <cmd>lprevious<cr>|endif
 
 nnoremap [t <cmd>tprevious<cr>
 nnoremap ]t <cmd>tnext<cr>
@@ -397,6 +393,18 @@ nnoremap yoW <cmd>echo "Toggle 'yoW' unused"<cr>
 nnoremap yoX <cmd>echo "Toggle 'yoX' unused"<cr>
 nnoremap yoY <cmd>echo "Toggle 'yoY' unused"<cr>
 nnoremap yoZ <cmd>echo "Toggle 'yoZ' unused"<cr>
+"}}}
+"{{{ Quickfix/Location List
+nmap g<space> <plug>(qf-ctoggle)
+nmap gl <plug>(qf-ltoggle)
+nmap <leader>q <plug>(qf-ctoggle)
+nmap <leader>l <plug>(qf-ltoggle)
+nmap <leader>Q <plug>(qf-ctab)
+nmap <leader>L <plug>(qf-ltab)
+nmap <c-n> <plug>(qf-cnext)
+nmap <c-p> <plug>(qf-cprev)
+nmap <c-j> <plug>(qf-lnext)
+nmap <c-k> <plug>(qf-lprev)
 "}}}
 "{{{ Sanitizer
 augroup SANITIZER

@@ -11,14 +11,14 @@ command! -bar Cfree call setqflist([], 'f')
 command! -bar Lfree call setloclist(0, [], 'f')
 
 """ Mappings
-nnoremap <leader>q <cmd>call qf#ctoggle()<cr>
-nnoremap <leader>l <cmd>call qf#ltoggle()<cr>
-nnoremap <leader>Q <cmd>Ctab<cr>
-nnoremap <leader>L <cmd>Ltab<cr>
-nnoremap <c-p> <cmd> call qf#cycle_qf(0)<cr>
-nnoremap <c-n> <cmd> call qf#cycle_qf(1)<cr>
-nnoremap <c-k> <cmd> call qf#cycle_loc(0)<cr>
-nnoremap <c-j> <cmd> call qf#cycle_loc(1)<cr>
+nnoremap <plug>(qf-ctoggle) <cmd>call qf#ctoggle()<cr>
+nnoremap <plug>(qf-ltoggle) <cmd>call qf#ltoggle()<cr>
+nnoremap <plug>(qf-ctab) <cmd>Ctab<cr>
+nnoremap <plug>(qf-ltab) <cmd>Ltab<cr>
+nnoremap <plug>(qf-cprev) <cmd> call qf#cycle_qf(0)<cr>
+nnoremap <plug>(qf-cnext) <cmd> call qf#cycle_qf(1)<cr>
+nnoremap <plug>(qf-lprev) <cmd> call qf#cycle_loc(0)<cr>
+nnoremap <plug>(qf-lnext) <cmd> call qf#cycle_loc(1)<cr>
 
 augroup my-qf
     autocmd!
