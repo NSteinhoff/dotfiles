@@ -61,6 +61,9 @@ alias mdn='_() { q="${@:1}"; '$opener' "https://developer.mozilla.org/en-US/sear
 ### Why not
 alias :q='exit'
 alias :e='$EDITOR'
+alias :split='tmux split-window'
+alias :vsplit='tmux split-window -h'
+alias :tsplit='tmux new-window'
 
 #######
 ### Git
