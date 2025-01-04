@@ -7,28 +7,50 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "gutter": {
-    "line_numbers": true,
-    "code_actions": false,
-    "folds": false,
-    "runnables": false
-  },
+  // Vim
   "vim_mode": true,
-  "ui_font_size": 16,
-  "buffer_font_size": 16,
-  "autosave": "off",
-  "remove_trailing_whitespace_on_save": false,
+  "vim": {
+    "use_system_clipboard": "never"
+  },
+
+  // Visuals
+  "ui_font_size": 15,
+  "buffer_font_size": 15,
+  "buffer_line_height": "comfortable",
+  "buffer_font_features": { "calt": false },
+  "show_whitespaces": "selection",
   "soft_wrap": "none",
   "theme": {
     "mode": "system",
     "light": "Rosé Pine Dawn",
     "dark": "Rosé Pine Moon"
   },
+  "gutter": {
+    "line_numbers": true,
+    "code_actions": false,
+    "folds": false,
+    "runnables": false
+  },
+
+  // Automation
+  "autosave": "off",
+  "use_autoclose": false,
+  "use_auto_surround": false,
+  "show_inline_completions": false,
+  "show_completions_on_input": false,
+  "remove_trailing_whitespace_on_save": false,
+
+  // Splits
+  "pane_split_direction_vertical": "right",
+
+  // Git
   "git": {
     "git_gutter": "hide",
     "gutter_debounce": null,
     "inline_blame": { "enabled": false }
   },
+
+  // AI
   "features": {
     "inline_completion_provider": "none"
   },
@@ -38,5 +60,16 @@
       "model": "claude-3-5-sonnet-latest"
     },
     "version": "2"
+  },
+
+  // File types and languages
+  "file_types": {
+    "C": ["h"]
+  },
+  "languages": {
+    "C": {
+      "hard_tabs": true,
+      "tab_size": 8
+    }
   }
 }

@@ -27,7 +27,7 @@ local keymaps = {
             rhs = vim.lsp.buf.declaration,
             opts = { desc = "LSP Goto Declaration" },
         },
-        ["gi"] = {
+        ["gI"] = {
             rhs = vim.lsp.buf.implementation,
             opts = { desc = "LSP Goto Implementation" },
         },

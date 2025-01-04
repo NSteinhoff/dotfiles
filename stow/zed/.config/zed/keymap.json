@@ -9,22 +9,27 @@
   {
     "context": "Workspace",
     "bindings": {
-      // "shift shift": "file_finder::Toggle"
+      "ctrl-w shift-o": "workspace::CloseAllDocks",
+      "ctrl-z": "workspace::ToggleBottomDock"
     }
   },
   {
-    "context": "Editor",
+    "context": "Editor && vim_mode == normal",
     "bindings": {
-      // "j k": ["workspace::SendKeystrokes", "escape"]
+      "shift-y": ["workspace::SendKeystrokes", "y $"],
+      "|": "pane::SplitVertical",
+      "ctrl-space": "editor::Hover",
+      "backspace": "pane::AlternateFile",
+      "space": "editor::ToggleFold",
+      "g enter": "task::Rerun"
     }
   },
   {
-    "context": "vim_mode == normal && !menu",
+    "context": "vim_mode == visual",
     "bindings": {
-      // Use neovim's yank behavior: yank to end of line.
-      "shift-y": ["workspace::SendKeystrokes", "y $"]
-      // This does not seem to work
-      // "y o w": ["editor::ToggleSoftWrap"]
+      "v": "vim::SelectLargerSyntaxNode",
+      "enter": "vim::SelectLargerSyntaxNode",
+      "backspace": "vim::SelectSmallerSyntaxNode"
     }
   }
 ]
