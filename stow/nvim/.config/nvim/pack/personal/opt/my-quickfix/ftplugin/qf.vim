@@ -26,6 +26,6 @@ nnoremap <silent> <buffer> dd <cmd>call qf#delete()<cr>
 vnoremap <silent> <buffer> d :call qf#delete()<cr>
 
 " Search and Replace entries
-nnoremap <buffer> gs :cdo s/
-nnoremap <buffer> <expr> gS ':cdo s/\C\V\<'.expand('<cword>').'\>/'
-vnoremap <buffer> gS y:cdo s/\C\V<c-r>=escape(@", '\/')<cr>/
+nnoremap <buffer> <expr> gs (qf#isloc() ? ':ldo' : ':cdo')..' s/'
+nnoremap <buffer> <expr> gS (qf#isloc() ? ':ldo' : ':cdo')..' s/\C\V\<'.expand('<cword>').'\>/'
+vnoremap <buffer> <expr> gS (qf#isloc() ? 'y:ldo' : 'y:cdo')..' s/\C\V<c-r>=escape(@", '\/')<cr>/

@@ -267,10 +267,10 @@ nnoremap <silent> <c-w>t <cmd>tab split<bar>diffoff<cr>
 nmap <c-w><c-t> <c-w>t
 
 " Grep, i.e. poor man's 'go-to-reference'
-nnoremap <silent> gr <cmd>let @/=expand("<cword>")<bar>execute "silent grep! '\\b"..@/.."\\b'"<bar>set hlsearch<cr>
-vnoremap <silent> gr y:let @/=escape(@", '.\|$[](){}')<bar>execute 'silent grep! '..shellescape(@/, '\|')<bar>set hlsearch<cr>
-nnoremap <silent> ga <cmd>let @/=expand("<cword>")<bar>execute "silent grepadd! '\\b"..@/.."\\b'"<bar>set hlsearch<cr>
-vnoremap <silent> ga y:let @/=escape(@", '.\|$[](){}')<bar>execute 'silent grepadd! '..shellescape(@/, '\|')<bar>set hlsearch<cr>
+nnoremap <silent> gr <cmd>let @/=expand("<cword>")<bar>execute "silent lgrep! '\\b"..@/.."\\b'"<bar>set hlsearch<cr>
+vnoremap <silent> gr y:let @/=escape(@", '.\|$[](){}')<bar>execute 'silent lgrep! '..shellescape(@/, '\|')<bar>set hlsearch<cr>
+nnoremap <silent> ga <cmd>let @/=expand("<cword>")<bar>execute "silent lgrepadd! '\\b"..@/.."\\b'"<bar>set hlsearch<cr>
+vnoremap <silent> ga y:let @/=escape(@", '.\|$[](){}')<bar>execute 'silent lgrepadd! '..shellescape(@/, '\|')<bar>set hlsearch<cr>
 
 " Outline
 nmap gO <cmd>TagToc<cr>
