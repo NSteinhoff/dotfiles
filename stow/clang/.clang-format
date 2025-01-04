@@ -30,3 +30,5 @@ AllowShortCaseLabelsOnASingleLine: true
 AllowShortLoopsOnASingleLine: true
 AllowShortEnumsOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: WithoutElse
+
+ForEachMacros: [foreach_word,foreach_line,foreach_token]

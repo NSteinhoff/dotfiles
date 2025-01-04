@@ -4,12 +4,10 @@ set notermguicolors
 colorscheme ludite
 "}}}
 "{{{ Appearance
-set noshowcmd
 set cmdheight=1
 set inccommand=split
 set showmode
 set number
-set smoothscroll
 set scrolloff=1
 set sidescrolloff=1
 set showmatch
@@ -18,11 +16,9 @@ set shortmess+=s
 set concealcursor=n
 set laststatus=2
 set showtabline=2
-set title
 "}}}
 "{{{ Behavior
-set ttimeoutlen=25
-set noswapfile
+set ttimeoutlen=25                              " shorter key sequence timeout
 set updatetime=250
 set foldenable
 set foldmethod=indent
@@ -98,16 +94,6 @@ set keywordprg=:Search\ ddg
 "}}}
 
 "{{{ --- MAPPINGS ---
-"{{{ Sanitizer
-augroup SANITIZER
-    autocmd!
-    autocmd CmdwinEnter * nnoremap <buffer> <cr> <cr>
-    autocmd CmdwinEnter * nnoremap <buffer> <bs> <bs>
-    autocmd CmdwinEnter * nnoremap <buffer> <space> <space>
-    autocmd CmdwinEnter * nnoremap <buffer> <c-n> <c-n>
-    autocmd CmdwinEnter * nnoremap <buffer> <c-p> <c-p>
-augroup END
-"}}}
 "{{{ <leader> / Wildchar
 " Explicitly map the <leader> key. Otherwise some plugins use their own default.
 let mapleader = '\'
@@ -129,6 +115,7 @@ nnoremap <c-h> <cmd>nohlsearch<bar>diffupdate<cr>
 
 " Toggle folds with <space>
 nnoremap <space> za
+
 nnoremap <c-w><c-o> <cmd>diffoff!<bar>only<cr>
 
 " Insert tabs as spaces after the first non-blank character
@@ -171,7 +158,6 @@ vmap x <plug>(exchange)
 
 " Escape terminal mode
 tnoremap <c-\><c-\> <c-\><c-n>
-" tnoremap <esc> <c-\><c-n>
 "}}}
 "{{{ Viewport
 " Window resizing with the arrow keys
@@ -225,13 +211,11 @@ nnoremap <expr> gm v:count <= 1 ? '<cmd>Match<cr>' : '<cmd>Match'.v:count.'<cr>'
 nnoremap <expr> gM v:count <= 1 ? '<cmd>match<cr>' : '<cmd>'.v:count.'match<cr>'
 vnoremap gm y:<c-u>Match <c-r>"<cr>
 "}}}
-"{{{ Format
+"{{{ Formatting and Fixing
 " Mnemonic:
 "   < and > change indentation
 "   <> => 'indent all'
 nnoremap <silent> <> <cmd>Fmt!<cr>
-"}}}
-"{{{ Fix
 " Mnemonic:
 "   ! change / modify / action
 "   > into file
@@ -285,12 +269,8 @@ nnoremap <leader>a <cmd>call buffers#yang()<cr>
 " Also works when there is only one window.
 nnoremap <silent> <c-w>t <cmd>tab split<bar>diffoff<cr>
 nmap <c-w><c-t> <c-w>t
-" nnoremap <c-n> gt
-" nnoremap <c-p> gT
 
 " Grep, i.e. poor man's 'go-to-reference'
-" These use the location list, because they are meant to be used frequently
-" and should not conflict with the more groomed quickfix lists.
 nnoremap <silent> gr <cmd>let @/=expand("<cword>")<bar>execute "silent grep! '\\b"..@/.."\\b'"<bar>set hlsearch<cr>
 vnoremap <silent> gr y:let @/=escape(@", '.\|$[](){}')<bar>execute 'silent grep! '..shellescape(@/, '\|')<bar>set hlsearch<cr>
 nnoremap <silent> ga <cmd>let @/=expand("<cword>")<bar>execute "silent grepadd! '\\b"..@/.."\\b'"<bar>set hlsearch<cr>
@@ -310,54 +290,50 @@ nnoremap <leader>bD :call buffers#recent()<cr>:bdelete<c-b>
 
 nnoremap <leader>bT :buffer term://<c-z>
 "}}}
-
-" Toggle Scratch buffer
+"{{{ Toggle Scratch buffer
 nnoremap <leader>bs <cmd>Scratch<cr>
-
-" Journal
+"}}}
+"{{{ Open Journal
 nnoremap <leader>bJ <cmd>Journal<cr>
-
-" Changed Files
+"}}}
+"{{{ Changed Files
 nnoremap <leader>c <cmd>ChangedFiles<cr>
-
-" File Finder: <leader>f
+"}}}
+"{{{ File Finder: <leader>f
 nnoremap <leader>f <plug>(filefinder)
-
-" Live Search
+"}}}
+"{{{ Live Search
 nmap <leader>G <plug>(livegrep-resume)
 nmap <leader>g <plug>(livegrep-new)
 vmap <leader>g <plug>(livegrep-selection)
-
-" Switching tabs
+"}}}
+"{{{ Switching tabs
 for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
     execute 'nnoremap <leader>'.i.' '.i.'gt'
 endfor
 nnoremap <c-w><c-[> gT
 nnoremap <c-w><c-]> gt
-
+"}}}
 "{{{ (c): Changes / Diffing
 nmap <expr> dp (&diff ? '<cmd>diffput<cr>' : '<cmd>DiffThis<cr>')
 nmap dP :DiffThis <c-z>
 "}}}
-
 "{{{ (gb): Git Blame
 nmap <silent> gb <plug>(git-blame)
 vmap <silent> gb <plug>(git-blame)
 "}}}
-
 "{{{ (gh): Stealth Mode
 nnoremap <silent> gh <cmd>StealthToggle<cr>
 "}}}
-
 "{{{ Theme and Colors
 nnoremap <F7> <cmd>silent !toggle-light-dark<cr>
 "}}}
-
 "{{{ Git add  / reset current file
 nmap ]g <plug>(git-add)
 nmap [g <plug>(git-reset)
+nmap ]G <plug>(git-add)
+nmap [G <plug>(git-reset)
 "}}}
-
 "{{{ Reviewing
 nmap ]r <plug>(git-review-next)
 nmap [r <plug>(git-review-prev)
@@ -421,6 +397,16 @@ nnoremap yoW <cmd>echo "Toggle 'yoW' unused"<cr>
 nnoremap yoX <cmd>echo "Toggle 'yoX' unused"<cr>
 nnoremap yoY <cmd>echo "Toggle 'yoY' unused"<cr>
 nnoremap yoZ <cmd>echo "Toggle 'yoZ' unused"<cr>
+"}}}
+"{{{ Sanitizer
+augroup SANITIZER
+    autocmd!
+    autocmd CmdwinEnter * nnoremap <buffer> <cr> <cr>
+    autocmd CmdwinEnter * nnoremap <buffer> <bs> <bs>
+    autocmd CmdwinEnter * nnoremap <buffer> <space> <space>
+    autocmd CmdwinEnter * nnoremap <buffer> <c-n> <c-n>
+    autocmd CmdwinEnter * nnoremap <buffer> <c-p> <c-p>
+augroup END
 "}}}
 "}}}
 

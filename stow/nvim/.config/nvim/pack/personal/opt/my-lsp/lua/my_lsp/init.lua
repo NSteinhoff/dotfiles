@@ -10,6 +10,10 @@ local function on_attach(...)
 end
 
 local function on_detach(args)
+    if not vim.api.nvim_buf_is_loaded(args.buf) then
+        return
+    end
+
     require("my_lsp.commands").on_detach(args.buf)
     require("my_lsp.mappings").on_detach(args.buf)
     require("my_lsp.options").on_detach(args.buf)
@@ -36,6 +40,9 @@ for _, server in ipairs(servers) do
     })
 end
 
+local augroup = vim.api.nvim_create_augroup("my-lsp", { clear = true })
+
 vim.api.nvim_create_autocmd("LspDetach", {
+    group = augroup,
     callback = on_detach,
 })

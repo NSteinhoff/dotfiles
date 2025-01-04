@@ -25,7 +25,7 @@ endfunction
 
 function buffers#yang()
     if !exists('b:yang')
-        echo "No yang to this yin."
+        echo "No yin to this yang."
         return
     endif
 
@@ -34,7 +34,7 @@ function buffers#yang()
         execute 'edit '..b:yang
     else
         let s:tried_yang = v:true
-        echo "No yang to this yin. Try again to create."
+        echo "No yin to this yang. Try again to create."
     endif
 endfunction
 

@@ -5,4 +5,5 @@ augroup AUTO
     autocmd BufWritePre /tmp/* setlocal noundofile
     autocmd BufWritePost init.vim,mappings.vim,options.vim source <afile>
     autocmd QuickFixCmdPre * call make#ignore_make_errors()
+    autocmd VimResume,FocusGained * call auto#blink_crosshair()
 augroup END

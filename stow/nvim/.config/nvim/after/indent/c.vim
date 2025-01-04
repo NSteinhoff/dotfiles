@@ -40,6 +40,7 @@ function s:style()
     let l:style.= ', AllowShortLoopsOnASingleLine: true'
     let l:style.= ', AllowShortEnumsOnASingleLine: true'
     let l:style.= ', AllowShortIfStatementsOnASingleLine: WithoutElse'
+    let l:style.= ', ForEachMacros: [foreach_word,foreach_line,foreach_token]'
     let l:style.= '}"'
 
     return l:style
