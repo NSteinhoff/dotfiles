@@ -13,7 +13,6 @@ export PATH=/opt/homebrew/bin:$PATH
 # ----------------------------------- ASDF ------------------------------------
 # Setup ASDF environment
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
-. /opt/homebrew/opt/asdf/etc/bash_completion.d/asdf.bash
 
 # ---------------------------------- Cargo ------------------------------------
 # Setup cargo environment

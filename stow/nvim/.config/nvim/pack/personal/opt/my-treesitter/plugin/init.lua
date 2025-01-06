@@ -53,8 +53,8 @@ local function init()
             enable = true,
             keymaps = {
                 init_selection = "<CR>",
-                node_incremental = "<CR>",
-                scope_incremental = "-",
+                node_incremental = "v",
+                scope_incremental = "<CR>",
                 node_decremental = "<BS>",
             },
         },

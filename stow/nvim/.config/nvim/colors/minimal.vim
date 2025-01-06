@@ -93,7 +93,7 @@ highlight FloatTitle                   cterm=NONE                   ctermfg=15  
 highlight FloatFooter                  cterm=NONE                   ctermfg=15    ctermbg=4
 "}}}
 "{{{ Syntax
-highlight Comment                      cterm=italic                 ctermfg=8     ctermbg=NONE
+highlight Comment                      cterm=NONE                   ctermfg=8     ctermbg=NONE
 highlight Constant                     cterm=NONE                   ctermfg=3     ctermbg=NONE
 highlight Define                       cterm=NONE                   ctermfg=15    ctermbg=NONE
 highlight Delimiter                    cterm=bold                   ctermfg=12    ctermbg=NONE

@@ -24,7 +24,7 @@ iabbrev <buffer> :errgo: if (err) goto error;
 command! -buffer -nargs=* CompileAndRun w|make %:r|!./%:r <args>
 nnoremap <buffer> gO <cmd>TagToc ! m<cr>
 
-let b:interpreter  = 'clang'
+let b:interpreter  = 'clang -O1'
 let b:interpreter .= ' -Wno-error' " run anyways
 let b:interpreter .= ' -Wall'
 let b:interpreter .= ' -Wextra'

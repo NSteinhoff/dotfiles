@@ -243,6 +243,7 @@ imap <c-l> <c-r>=complete#localpath()<cr>
 nmap m<space> <cmd>wall<bar>make!<cr>
 " Execute script
 nnoremap <leader><leader> <cmd>w<bar>Run<cr>
+nnoremap g<cr> <cmd>w<bar>Run<cr>
 "}}}
 "{{{ Quality of life
 vnoremap v iw
@@ -267,10 +268,10 @@ nnoremap <silent> <c-w>t <cmd>tab split<bar>diffoff<cr>
 nmap <c-w><c-t> <c-w>t
 
 " Grep, i.e. poor man's 'go-to-reference'
-nnoremap <silent> gr <cmd>let @/=expand("<cword>")<bar>execute "silent lgrep! '\\b"..@/.."\\b'"<bar>set hlsearch<cr>
-vnoremap <silent> gr y:let @/=escape(@", '.\|$[](){}')<bar>execute 'silent lgrep! '..shellescape(@/, '\|')<bar>set hlsearch<cr>
-nnoremap <silent> ga <cmd>let @/=expand("<cword>")<bar>execute "silent lgrepadd! '\\b"..@/.."\\b'"<bar>set hlsearch<cr>
-vnoremap <silent> ga y:let @/=escape(@", '.\|$[](){}')<bar>execute 'silent lgrepadd! '..shellescape(@/, '\|')<bar>set hlsearch<cr>
+nnoremap <silent> gr <cmd>let @/=expand("<cword>")<bar>execute "silent grep! '\\b"..@/.."\\b'"<bar>set hlsearch<cr>
+vnoremap <silent> gr y:let @/=escape(@", '.\|$[](){}')<bar>execute 'silent grep! '..shellescape(@/, '\|')<bar>set hlsearch<cr>
+nnoremap <silent> ga <cmd>let @/=expand("<cword>")<bar>execute "silent grepadd! '\\b"..@/.."\\b'"<bar>set hlsearch<cr>
+vnoremap <silent> ga y:let @/=escape(@", '.\|$[](){}')<bar>execute 'silent grepadd! '..shellescape(@/, '\|')<bar>set hlsearch<cr>
 
 " Outline
 nmap gO <cmd>TagToc<cr>
@@ -299,6 +300,7 @@ nnoremap <leader>c <cmd>ChangedFiles<cr>
 nnoremap <leader>f <plug>(filefinder)
 "}}}
 "{{{ Live Search
+nmap g/ <plug>(livegrep-new)
 nmap <leader>G <plug>(livegrep-resume)
 nmap <leader>g <plug>(livegrep-new)
 vmap <leader>g <plug>(livegrep-selection)
@@ -396,7 +398,7 @@ nnoremap yoZ <cmd>echo "Toggle 'yoZ' unused"<cr>
 "}}}
 "{{{ Quickfix/Location List
 nmap g<space> <plug>(qf-ctoggle)
-nmap gl <plug>(qf-ltoggle)
+nmap g. <plug>(qf-ltoggle)
 nmap <leader>q <plug>(qf-ctoggle)
 nmap <leader>l <plug>(qf-ltoggle)
 nmap <leader>Q <plug>(qf-ctab)

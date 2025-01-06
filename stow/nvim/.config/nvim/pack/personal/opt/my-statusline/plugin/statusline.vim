@@ -12,7 +12,7 @@ let stl .= '%{status#comp()}'
 let stl .= '%*'
 let stl .= '%{status#term()}'
 let stl .= ' '
-let stl .= '☰ %l:%c | %p%%'
+let stl .= '%l:%c | %p%%'
 let &stl = stl
 
 let &ruf = '%50(%=%<%m %t %l:%c %P %y%)'

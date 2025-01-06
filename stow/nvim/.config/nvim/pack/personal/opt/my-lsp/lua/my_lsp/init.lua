@@ -46,3 +46,10 @@ vim.api.nvim_create_autocmd("LspDetach", {
     group = augroup,
     callback = on_detach,
 })
+
+vim.api.nvim_create_autocmd("DiagnosticChanged", {
+    group = augroup,
+    callback = function(args)
+        vim.diagnostic.setloclist({ open = false })
+    end,
+})
