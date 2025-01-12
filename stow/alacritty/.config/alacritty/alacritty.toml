@@ -1,5 +1,5 @@
 [general]
-import = ["~/.config/alacritty/colors/rose-pine-dawn.toml"]
+import = ["~/.config/alacritty/colors/seashells.toml"]
 
 [window]
 option_as_alt = "OnlyLeft"
@@ -13,7 +13,8 @@ size = 16
 normal.family = "Iosevka Nerd Font Mono"
 bold.style = "Bold"
 italic.style = "Italic"
-bold_italic.style= "Bold Italic"
+bold_italic.style = "Bold Italic"
+offset.y = 5
 
 [[keyboard.bindings]]
 key = "U"

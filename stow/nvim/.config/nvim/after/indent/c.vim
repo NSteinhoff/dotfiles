@@ -26,6 +26,7 @@ function s:style()
     let l:style.= ', BreakBeforeBinaryOperators: NonAssignment'
     let l:style.= ', BreakStringLiterals: false'
     let l:style.= ', AlignAfterOpenBracket: AlwaysBreak'
+    let l:style.= ', SpacesInContainerLiterals: true'
 
     let l:style.= ', PointerAlignment: Right'
     let l:style.= ', AlignArrayOfStructures: Left'

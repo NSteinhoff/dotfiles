@@ -198,9 +198,8 @@ nnoremap [A <cmd>argdelete %<bar>echo "Removed arg '"..expand("%").."'"<cr>
 vnoremap * y<cmd>let @/=@"<cr>n
 nnoremap gs :%s/
 vnoremap gs :s/
-
-nnoremap <expr> gS ':%s/\C\V\<'.expand('<cword>').'\>/'
-vnoremap gS y:%s/\C\V<c-r>=escape(@", '\/.')<cr>/
+nnoremap gS yiw:let @/=@"<cr>:%s/\C\V\<<c-r>=escape(@/, '\/.')<cr>\>/
+vnoremap gS y:let @/=@"<cr>:%s/\C\V<c-r>=escape(@/, '\/.')<cr>/
 "}}}
 "{{{ Highlight matches
 nnoremap <expr> gm v:count <= 1 ? '<cmd>Match<cr>' : '<cmd>Match'.v:count.'<cr>'
