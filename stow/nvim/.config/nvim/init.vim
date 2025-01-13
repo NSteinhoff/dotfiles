@@ -5,6 +5,7 @@ colorscheme ludite
 "}}}
 "{{{ Appearance
 set cmdheight=1
+set previewheight=10
 set inccommand=split
 set showmode
 set number
@@ -319,9 +320,6 @@ nmap dP :DiffThis <c-z>
 nmap <silent> gb <plug>(git-blame)
 vmap <silent> gb <plug>(git-blame)
 "}}}
-"{{{ (gh): Stealth Mode
-nnoremap <silent> gh <cmd>StealthToggle<cr>
-"}}}
 "{{{ Theme and Colors
 nnoremap <F7> <cmd>silent !toggle-light-dark<cr>
 "}}}
@@ -397,7 +395,7 @@ nnoremap yoZ <cmd>echo "Toggle 'yoZ' unused"<cr>
 "}}}
 "{{{ Quickfix/Location List
 nmap g<space> <plug>(qf-ctoggle)
-nmap g. <plug>(qf-ltoggle)
+nmap g<bs> <plug>(qf-ltoggle)
 nmap <leader>q <plug>(qf-ctoggle)
 nmap <leader>l <plug>(qf-ltoggle)
 nmap <leader>Q <plug>(qf-ctab)

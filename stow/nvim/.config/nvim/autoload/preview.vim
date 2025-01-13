@@ -1,46 +1,78 @@
+let s:jump_on_double_click = v:false
+
 function preview#preview_word(word)
-    " don't do this in the preview window
-    if &previewwindow
-        return
-    endif
+    let started_in_preview = &previewwindow
+    " Get the word under cursor
+    let word = empty(a:word) ? expand("<cword>") : a:word
 
-    let w = empty(a:word) ? expand("<cword>") : a:word  " get the word under cursor
-
-    " if the word does not contain a letter
-    if w !~ '\a'
+    " If the word does not contain a letter
+    if word !~ '\a'
         return
     endif
 
     " Delete any existing highlight before showing another tag
-    silent! wincmd P          " jump to preview window
-    if &previewwindow         " if we really get there...
-        match none            " delete existing highlight
-        wincmd p              " back to old window
+    if started_in_preview
+        match none
+    else
+        " Jump to preview window
+        silent! wincmd P
+        if &previewwindow
+            if s:jump_on_double_click
+                " Check for double click
+                let [_, l, c; _] =  getcurpos() 
+                let [pword, ppos] = get(w:, 'matched_word', ['', [0, 0]])
+                if pword == word && ppos == [l, c]
+                    " Cursor is on the previous match. Stop here!
+                    return
+                endif
+            endif
+
+            " Delete existing highlight
+            match none
+            " Back to old window
+            wincmd p
+        endif
     endif
 
     " Try displaying a matching tag for the word under the cursor
     try
-        exe "ptag " .. w
+        execute "ptag " .. word
     catch
+        let save_ignorecase = &ignorecase
+        set noignorecase
         try
-            exe "psearch " .. w
+            execute "psearch " .. word
         catch 
             return
+        finally
+            let &ignorecase = save_ignorecase
         endtry
     endtry
 
-    silent! wincmd P                    " jump to preview window
+    " Jump to preview window
+    silent! wincmd P
     if !&previewwindow
         return
     endif
+
     if has("folding")
-        silent! .foldopen            " don't want a closed fold
+        " Don't want a closed fold
+        silent! .foldopen
     endif
-    call search("$", "b")          " to end of previous line
-    let w = substitute(w, '\\', '\\\\', "")
-    call search('\<\V' .. w .. '\>')       " position cursor on match
+    " To end of previous line
+    call search("$", "b")
+    let word = substitute(word, '\\', '\\\\', "")
+    " Position cursor on match
+    call search('\<\V' .. word .. '\>')
     " Add a match highlight to the word at this position
     hi previewWord term=bold ctermbg=green guibg=green
-    exe 'match previewWord "\%' .. line(".") .. 'l\%' .. col(".") .. 'c\k*"'
-    wincmd p                  " back to old window
+    let [_, l, c; _] = getcurpos()
+    exe 'match previewWord "\%' .. l .. 'l\%' .. c .. 'c\k*"'
+    " Record the matched word to check for double clicks
+    let w:matched_word = [word, [l, c]]
+
+    if !started_in_preview
+        " Back to old window
+        wincmd p
+    endif
 endfun

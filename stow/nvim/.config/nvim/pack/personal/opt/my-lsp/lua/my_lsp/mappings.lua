@@ -14,7 +14,7 @@ local keymaps = {
     },
     ["n"] = {
         -- ["<s-k>"] = { rhs = vim.lsp.buf.hover, opts = { desc = "LSP Hover" }},
-        ["<c-space>"] = {
+        ["gh"] = {
             rhs = vim.lsp.buf.hover,
             opts = { desc = "LSP Hover" },
         },
