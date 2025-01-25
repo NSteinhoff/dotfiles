@@ -5,7 +5,7 @@ setlocal shiftwidth=0
 function s:style()
     let indend_width = &shiftwidth ? &shiftwidth : &tabstop
     let use_tab = &expandtab ? 'Never' : 'AlignWithSpaces'
-    let column_limit = &textwidth ? &textwidth : 80
+    let column_limit = &textwidth ? &textwidth : 100
     let tab_width = &tabstop
 
     " There is also a .clang-format with the same settings, but this allows
@@ -36,7 +36,7 @@ function s:style()
     let l:style.= ', AlignConsecutiveMacros: AcrossComments'
 
     let l:style.= ', AllowShortBlocksOnASingleLine: Empty'
-    let l:style.= ', AllowShortFunctionsOnASingleLine: true'
+    let l:style.= ', AllowShortFunctionsOnASingleLine: None'
     let l:style.= ', AllowShortCaseLabelsOnASingleLine: true'
     let l:style.= ', AllowShortLoopsOnASingleLine: true'
     let l:style.= ', AllowShortEnumsOnASingleLine: true'

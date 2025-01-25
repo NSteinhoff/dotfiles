@@ -26,7 +26,7 @@ AlignConsecutiveDeclarations: AcrossComments
 AlignConsecutiveMacros: AcrossComments
 
 AllowShortBlocksOnASingleLine: Empty
-AllowShortFunctionsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: None
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortLoopsOnASingleLine: true
 AllowShortEnumsOnASingleLine: true

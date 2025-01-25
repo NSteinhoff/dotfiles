@@ -8,6 +8,7 @@ local filetypes = {
     gitconfig = { "*/.config/git/config.*" },
     lox = { "*.lox" },
     taskpaper = { "*.taskpaper" },
+    -- scratch = { "scratch://*" },
 }
 
 vim.api.nvim_create_augroup("filetypedetect", { clear = false })

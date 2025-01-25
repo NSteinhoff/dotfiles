@@ -27,3 +27,4 @@ command! -nargs=? -complete=filetype EditIndent call s:edit_settings('indent', <
 command! -nargs=? -complete=color EditColorscheme call s:edit_settings('colors', <q-args>, <q-mods>)
 command! -nargs=? -complete=customlist,editsettings#complete_plugins EditPlugin call s:edit_settings('plugin', <q-args>, <q-mods>)
 command! -nargs=? -complete=customlist,editsettings#complete_plugins EditAutoload call s:edit_settings('autoload', <q-args>, <q-mods>)
+command! EditTerminalSettings edit ~/.config/alacritty/alacritty.toml

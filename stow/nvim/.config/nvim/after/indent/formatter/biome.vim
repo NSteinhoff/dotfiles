@@ -16,7 +16,7 @@ function s:create()
     let l:cmd = 'biome format --stdin-file-path=tmp.'..s:ext()
     let l:cmd.= ' --indent-style='..(&expandtab ? 'space' : 'tab')
     if &expandtab
-        let l:cmd.= ' --indent-width='..&shiftwidth
+        let l:cmd.= ' --indent-width='..(&shiftwidth > 0 ? &shiftwidth : &tabstop)
     endif
     return l:cmd
 endfunction

@@ -6,12 +6,14 @@ stty -ixon
 # History
 HISTSIZE=100000
 HISTFILESIZE=200000
-
-# Prefer local binaries
-export PATH="$HOME/.local/bin:$PATH"
+HISTCONTROL=ignorespace:ignoredups:erasedups
 
 shopt -s histappend
 shopt -s histverify
+export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+
+# Prefer local binaries
+export PATH="$HOME/.local/bin:$PATH"
 
 # Set Vim as default editor
 which nvim &>/dev/null && export EDITOR=nvim || export EDITOR=vim
@@ -64,6 +66,10 @@ alias :e='$EDITOR'
 alias :split='tmux split-window'
 alias :vsplit='tmux split-window -h'
 alias :tsplit='tmux new-window'
+
+#########
+### Debug
+alias db='lldb --batch --one-line run -- '
 
 #######
 ### Git

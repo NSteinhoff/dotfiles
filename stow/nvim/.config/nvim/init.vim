@@ -109,6 +109,7 @@ nnoremap <leader>,p <cmd>edit +set\ fdl=1\|/---\\sPACKAGES $MYVIMRC<cr>
 nnoremap <leader>,f <cmd>EditFtplugin<cr>
 nnoremap <leader>,i <cmd>EditIndent<cr>
 nnoremap <leader>,c <cmd>EditColorscheme<cr>
+nnoremap <leader>,t <cmd>EditTerminalSettings<cr>
 "}}}
 "{{{ Basics / Improving standard mappings
 nnoremap <esc> <cmd>nohlsearch<bar>diffupdate<cr>
@@ -337,6 +338,7 @@ nmap [R <plug>(git-review-first)
 "}}}
 "}}}
 "{{{ Toggles
+nnoremap yo? <cmd>set ignorecase? diff? spell?  list? number? relativenumber? laststatus? showtabline? virtualedit? wrap?<cr>
 nnoremap yob <cmd>ToggleBlame<cr>
 nnoremap yoc <cmd>execute 'colorscheme ' . (colors_name == 'ludite' ? 'minimal' : 'ludite')..'\|colorscheme'<cr>
 nnoremap yod <cmd>call options#toggle('diff')<cr>
@@ -353,7 +355,8 @@ nnoremap yov <cmd>call options#toggle('virtualedit', 'all', '')<cr>
 nnoremap yow <cmd>call options#toggle('wrap')<cr>
 nnoremap yox <cmd>call options#toggle('cursorline')<bar>let &cursorcolumn=&cursorline<cr>
 nnoremap yoy <cmd>Noyo<cr>
-nnoremap yo? <cmd>set ignorecase? diff? spell?  list? number? relativenumber? laststatus? showtabline? virtualedit? wrap?<cr>
+
+nnoremap yoD <cmd>if &diff\|diffoff!\|else\|windo diffthis<cr>
 nnoremap yoT <cmd>silent !toggle-light-dark<cr>
 nnoremap yoS <cmd>StealthToggle<cr>
 
@@ -371,7 +374,6 @@ nnoremap yoz <cmd>echo "Toggle 'yoz' unused"<cr>
 nnoremap yoA <cmd>echo "Toggle 'yoA' unused"<cr>
 nnoremap yoB <cmd>echo "Toggle 'yoB' unused"<cr>
 nnoremap yoC <cmd>echo "Toggle 'yoC' unused"<cr>
-nnoremap yoD <cmd>echo "Toggle 'yoD' unused"<cr>
 nnoremap yoE <cmd>echo "Toggle 'yoE' unused"<cr>
 nnoremap yoF <cmd>echo "Toggle 'yoF' unused"<cr>
 nnoremap yoG <cmd>echo "Toggle 'yoG' unused"<cr>
