@@ -10,7 +10,7 @@ local function init()
     vim.fn["abbrev#cmdline"]("lspstop", "LspStop")
 
     did_init = true
-    vim.cmd([[echom "LSP initialized"]])
+    vim.g.initialized_lsp = true
 end
 
 vim.api.nvim_create_user_command("Lsp", function()

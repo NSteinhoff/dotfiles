@@ -38,9 +38,9 @@ function s:style()
     let l:style.= ', AllowShortBlocksOnASingleLine: Empty'
     let l:style.= ', AllowShortFunctionsOnASingleLine: None'
     let l:style.= ', AllowShortCaseLabelsOnASingleLine: true'
-    let l:style.= ', AllowShortLoopsOnASingleLine: true'
+    let l:style.= ', AllowShortLoopsOnASingleLine: false'
     let l:style.= ', AllowShortEnumsOnASingleLine: true'
-    let l:style.= ', AllowShortIfStatementsOnASingleLine: WithoutElse'
+    let l:style.= ', AllowShortIfStatementsOnASingleLine: Never'
     let l:style.= ', ForEachMacros: [foreach_word,foreach_line,foreach_token]'
     let l:style.= '}"'
 

@@ -20,3 +20,6 @@
 [submodule "3rd/pack/external/opt/nvim-treesitter-rainbow"]
 	path = 3rd/pack/external/opt/nvim-treesitter-rainbow
 	url = git@github.com:p00f/nvim-ts-rainbow.git
+[submodule "3rd/pack/external/opt/nvim-dap"]
+	path = 3rd/pack/external/opt/nvim-dap
+	url = git@github.com:mfussenegger/nvim-dap.git

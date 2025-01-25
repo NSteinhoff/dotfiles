@@ -89,3 +89,13 @@ endfunction
 function status#stealth()
     return exists('*stealth#status') ? stealth#status() : ''
 endfunction
+
+function status#dap()
+    let status = get(g:, 'my_dap_status')
+
+    if empty(status)
+        return ""
+    endif
+
+    return "DGB" .. (status != "" ? " "..status : "")
+endfunction

@@ -464,6 +464,7 @@ packadd! my-quickfix                            " Quickfix niceties, mostly limi
 set packpath+=~/Develop/Dotfiles/3rd
 
 packadd! my-lsp                                 " Language Server configurations
+packadd! my-dap                                 " Debugger
 packadd! my-dirvish                             " Minimalist file browser (customized)
 
 " Treesitter

@@ -62,7 +62,7 @@ local function init()
         indent = { enable = false },
     })
 
-    vim.cmd([[echom "Treesitter initialized"]])
+    vim.g.initialized_treesitter = true
 end
 
 -- Delay the initialization
