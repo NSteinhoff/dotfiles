@@ -21,7 +21,7 @@ local function on_detach(args)
 end
 
 local servers = {
-    "tsserver",
+    "ts_ls",
     "rust_analyzer",
     "clangd",
     "jsonls",

@@ -11,7 +11,7 @@ local default = {
 }
 
 local custom = {
-    tsserver = require("my_lsp.config.tsserver"),
+    ts_ls = require("my_lsp.config.ts_ls"),
     rust_analyzer = require("my_lsp.config.rust_analyzer"),
     lua_ls = require("my_lsp.config.lua_ls"),
     jsonls = require("my_lsp.config.jsonls"),
