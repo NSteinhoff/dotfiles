@@ -1,7 +1,9 @@
 local default_opts = { buffer = false, silent = false }
 
 local function warn_disabled_mapping(op)
-    return function() print("'"..op.."' disabled during debugging!") end
+    return function()
+        print("'" .. op .. "' disabled during debugging!")
+    end
 end
 
 local colors = {
@@ -10,34 +12,41 @@ local colors = {
 }
 
 local keep_commands = {
-    "DapShowLog",
-    "DapSetLogLevel",
     "DapContinue",
-    "DapRunLast",
-    "DapToggleBreakpoint",
+    "DapShowLog",
 }
 
 local function create_commands(commands)
     for name, command in pairs(commands) do
-        vim.api.nvim_create_user_command(name, command.cmd, command.opts)
+        local opts = vim.tbl_extend("force", { nargs = 0 }, command.opts or {})
+        vim.api.nvim_create_user_command(name, command.cmd, opts)
     end
 end
 
 local function remove_commands(commands)
-    for name, _ in pairs(commands or vim.api.nvim_get_commands({})) do
-        if
-            string.match(name, "Dap%u%a*")
-            and not vim.tbl_contains(keep_commands, name)
-        then
-            vim.api.nvim_del_user_command(name)
+    if commands == nil then
+        -- Remove global commands
+        for name, _ in pairs(vim.api.nvim_get_commands({})) do
+            if
+                string.match(name, "Dap%u%a*")
+                and not vim.tbl_contains(keep_commands, name)
+            then
+                vim.api.nvim_del_user_command(name)
+            end
         end
+        return
+    end
+
+    for name, _ in pairs(commands) do
+        vim.api.nvim_del_user_command(name)
     end
 end
 
 local function create_keymaps(keymaps)
     for mode, mode_map in pairs(keymaps) do
         for lhs, mapping in pairs(mode_map) do
-            local opts = vim.tbl_extend("force", default_opts, mapping.opts or {})
+            local opts =
+                vim.tbl_extend("force", default_opts, mapping.opts or {})
             vim.keymap.set(mode, lhs, mapping.rhs, opts)
         end
     end
@@ -53,9 +62,9 @@ end
 
 local function set_colorscheme(debugging)
     if debugging then
-        vim.cmd("colorscheme "..colors.debugging)
+        vim.cmd("colorscheme " .. colors.debugging)
     else
-        vim.cmd("colorscheme "..colors.editing)
+        vim.cmd("colorscheme " .. colors.editing)
     end
 end
 
@@ -185,7 +194,93 @@ local function init()
     local scopes_sidebar =
         ui.sidebar(ui.scopes, { width = 42 }, "leftabove vertical split")
 
-    local keymaps = {
+    local global_keymaps = {
+        ["n"] = {
+            ["dC"] = {
+                rhs = "<cmd>DapContinue<cr>",
+                opts = { desc = "DAP Start session or continue" },
+            },
+            ["dR"] = {
+                rhs = "<cmd>DapRestart<cr>",
+                opts = { desc = "DAP Restart session or run last" },
+            },
+            -- Breakpoints (s)et
+            ["dsb"] = {
+                rhs = "<cmd>DapBreakpointToggle<cr>",
+                opts = { desc = "DAP Toggle breakpoint" },
+            },
+            ["dsc"] = {
+                rhs = "<cmd>DapBreakpointCondition<cr>",
+                opts = { desc = "DAP Set conditional breakpoint" },
+            },
+            ["dsl"] = {
+                rhs = "<cmd>DapLogpointSet<cr>",
+                opts = { desc = "DAP Set log point" },
+            },
+            ["dsB"] = {
+                rhs = "<cmd>DapBreakpointsClear<cr>",
+                opts = { desc = "DAP Clear all breakpoints" },
+            },
+            ["dsL"] = {
+                rhs = "<cmd>DapBreakpointsList<cr>",
+                opts = { desc = "DAP List all breakpoints in quickfix list" },
+            },
+        },
+    }
+
+    local global_commands = {
+        ["DapRestart"] = {
+            cmd = function()
+                if dap.status() == "" then
+                    dap.run_last()
+                else
+                    dap.restart()
+                end
+            end,
+            opts = {
+                desc = "DAP Restart current session or run last configuration",
+            },
+        },
+
+        -- Breakpoints / Logpoints
+        ["DapBreakpointToggle"] = {
+            cmd = function()
+                dap.toggle_breakpoint()
+            end,
+            opts = { desc = "DAP Toggle breakpoint" },
+        },
+        ["DapBreakpointsClear"] = {
+            cmd = function()
+                dap.clear_breakpoints()
+            end,
+            opts = { desc = "DAP Clear all breakpoints" },
+        },
+        ["DapBreakpointsList"] = {
+            cmd = function()
+                dap.list_breakpoints()
+                vim.cmd.cwindow()
+            end,
+            opts = { desc = "DAP List breakpoints in quickfix list" },
+        },
+        ["DapBreakpointCondition"] = {
+            cmd = function()
+                dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
+            end,
+            opts = { desc = "DAP Set breakpoint condition" },
+        },
+        ["DapLogpointSet"] = {
+            cmd = function()
+                dap.set_breakpoint(
+                    nil,
+                    nil,
+                    vim.fn.input("Log point message: ")
+                )
+            end,
+            opts = { desc = "DAP Set log point" },
+        },
+    }
+
+    local session_keymaps = {
         ["n"] = {
             -- Disable buffer modifying maps
             ["d"] = { rhs = warn_disabled_mapping("d") },
@@ -200,18 +295,18 @@ local function init()
             ["O"] = { rhs = warn_disabled_mapping("O") },
             ["p"] = { rhs = warn_disabled_mapping("p") },
             ["P"] = { rhs = warn_disabled_mapping("P") },
-            ["J"] = { rhs = warn_disabled_mapping("") },
+            ["J"] = { rhs = warn_disabled_mapping("J") },
+            ["s"] = { rhs = warn_disabled_mapping("s") },
+            ["S"] = { rhs = warn_disabled_mapping("S") },
 
             -- Inspect / Hover
             ["dh"] = { rhs = ui.hover, opts = { desc = "DAP Hover" } },
 
-            -- Continue
+            -- Stepping
             ["dc"] = {
                 rhs = dap.continue,
                 opts = { desc = "DAP Continue / Start" },
             },
-
-            -- Stepping
             ["d."] = {
                 rhs = dap.run_to_cursor,
                 opts = { desc = "DAP Run to cursor" },
@@ -234,38 +329,9 @@ local function init()
                 rhs = dap.step_out,
                 opts = { desc = "DAP Step out / Finish" },
             },
-
-            -- Breakpoints
-            ["db"] = {
-                rhs = dap.toggle_breakpoint,
-                opts = { desc = "DAP Toggle breakpoint" },
-            },
-            ["dl"] = {
-                rhs = function()
-                    dap.list_breakpoints()
-                    vim.cmd.cwindow()
-                end,
-                opts = { desc = "DAP List all breakpoints in quickfix list" },
-            },
-            ["dB"] = {
-                rhs = dap.clear_breakpoints,
-                opts = { desc = "DAP Clear all breakpoints" },
-            },
-            ["dC"] = {
-                rhs = function()
-                    dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
-                end,
-                opts = { desc = "DAP Set breakpoint condition" },
-            },
-            ["dL"] = {
-                rhs = function()
-                    dap.set_breakpoint(
-                        nil,
-                        nil,
-                        vim.fn.input("Log point message: ")
-                    )
-                end,
-                opts = { desc = "DAP Set log point" },
+            ["dr"] = {
+                rhs = dap.restart_frame,
+                opts = { desc = "DAP Restart frame" },
             },
 
             -- Navigate stack frame
@@ -307,6 +373,7 @@ local function init()
                 end,
                 opts = { desc = "DAP Toggle scopes sidebar" },
             },
+
             -- Session management
             ["dD"] = {
                 rhs = function()
@@ -324,41 +391,7 @@ local function init()
         },
     }
 
-    local commands = {
-        ["DapFrameFocus"] = {
-            cmd = dap.focus_frame,
-            opts = { desc = "DAP Focus current Frame" },
-        },
-
-        -- Breakpoints / Logpoints
-        ["DapBreakpointClear"] = {
-            cmd = dap.clear_breakpoints,
-            opts = { desc = "DAP Clear all breakpoints" },
-        },
-        ["DapBreakpointList"] = {
-            cmd = function()
-                dap.list_breakpoints()
-                vim.cmd.cwindow()
-            end,
-            opts = { desc = "DAP List breakpoints in quickfix list" },
-        },
-        ["DapBreakpointCondition"] = {
-            cmd = function()
-                dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
-            end,
-            opts = { desc = "DAP Set breakpoint condition" },
-        },
-        ["DapLogpointSet"] = {
-            cmd = function()
-                dap.set_breakpoint(
-                    nil,
-                    nil,
-                    vim.fn.input("Log point message: ")
-                )
-            end,
-            opts = { desc = "DAP Set log point" },
-        },
-
+    local session_commands = {
         -- Session management
         ["DapSessionDisconnect"] = {
             cmd = function()
@@ -370,7 +403,9 @@ local function init()
             },
         },
         ["DapSessionTerminate"] = {
-            cmd = dap.terminate,
+            cmd = function()
+                dap.terminate()
+            end,
             opts = { desc = "DAP Terminate Debugee and Adapter" },
         },
 
@@ -408,8 +443,8 @@ local function init()
     }
 
     local function on_attach(_)
-        create_keymaps(keymaps)
-        create_commands(commands)
+        create_keymaps(session_keymaps)
+        create_commands(session_commands)
         scopes_sidebar.open()
     end
 
@@ -418,8 +453,8 @@ local function init()
             return
         end
         scopes_sidebar.close()
-        remove_keymaps(keymaps)
-        remove_commands(commands)
+        remove_keymaps(session_keymaps)
+        remove_commands(session_commands)
         vim.cmd([[redraw]])
     end
 
@@ -442,8 +477,10 @@ local function init()
         end,
     })
 
-    -- Global commands
-    remove_commands()
+    -- Global mappings and commands
+    remove_commands() -- Clear builtins
+    create_keymaps(global_keymaps)
+    create_commands(global_commands)
 
     vim.g.initialized_dap = true
 end

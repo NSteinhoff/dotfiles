@@ -14,10 +14,10 @@ local keymaps = {
     },
     ["n"] = {
         -- ["<s-k>"] = { rhs = vim.lsp.buf.hover, opts = { desc = "LSP Hover" }},
-        ["<c-space>"] = {
-            rhs = vim.lsp.buf.hover,
-            opts = { desc = "LSP Hover" },
-        },
+        -- ["<c-space>"] = {
+        --     rhs = vim.lsp.buf.hover,
+        --     opts = { desc = "LSP Hover" },
+        -- },
         ["gh"] = {
             rhs = vim.lsp.buf.hover,
             opts = { desc = "LSP Hover" },
@@ -61,14 +61,6 @@ local keymaps = {
             opts = { desc = "LSP List Outgoing Calls" },
         },
         -- Diagnostics
-        ["dh"] = {
-            rhs = vim.diagnostic.open_float,
-            opts = { desc = "LSP Show Diagnostics" },
-        },
-        ["dH"] = {
-            rhs = vim.diagnostic.setloclist,
-            opts = { desc = "LSP Set Diagnostics Loclist" },
-        },
         ["]e"] = {
             rhs = vim.diagnostic.goto_next,
             opts = { desc = "LSP Goto Next Diagnostic" },
@@ -77,6 +69,17 @@ local keymaps = {
             rhs = vim.diagnostic.goto_prev,
             opts = { desc = "LSP Goto Previous Diagnostic" },
         },
+
+        -- The conflict with my debugger mappings
+        -- ["dh"] = {
+        --     rhs = vim.diagnostic.open_float,
+        --     opts = { desc = "LSP Show Diagnostics" },
+        -- },
+        -- ["dH"] = {
+        --     rhs = vim.diagnostic.setloclist,
+        --     opts = { desc = "LSP Set Diagnostics Loclist" },
+        -- },
+
         -- Code actions
         ["gA"] = {
             rhs = vim.lsp.buf.code_action,

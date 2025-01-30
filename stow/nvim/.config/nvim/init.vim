@@ -289,10 +289,10 @@ nnoremap <leader>bD :call buffers#recent()<cr>:bdelete<c-b>
 nnoremap <leader>bT :buffer term://<c-z>
 "}}}
 "{{{ Toggle Scratch buffer
-nnoremap <leader>bs <cmd>Scratch<cr>
+nnoremap <leader>s <cmd>Scratch<cr>
 "}}}
 "{{{ Open Journal
-nnoremap <leader>bJ <cmd>Journal<cr>
+nnoremap <leader>j <cmd>Journal<cr>
 "}}}
 "{{{ Changed Files
 nnoremap <leader>c <cmd>ChangedFiles<cr>
