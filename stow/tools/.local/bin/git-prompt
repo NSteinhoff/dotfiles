@@ -48,8 +48,21 @@ branch_status() {
     esac
 }
 
+rebase_in_progress() {
+    rebasing=$(git status 2>/dev/null | grep '^interactive rebase in progress')
+    if [ -n "$rebasing" ]
+    then
+        echo -en "\033[1;31m"
+        echo -n " $rebasing"
+        echo -en "\033[0m"
+        return 0
+    fi
+    return 1
+}
+
 main() {
     detached_head           && return 0
+    rebase_in_progress      && return 0
     branch=$(branch_name)   || return 0
     [ -n "$branch" ]        || return 1
 
