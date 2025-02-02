@@ -1,5 +1,5 @@
 [general]
-import = ["~/.config/alacritty/colors/nord-dark.toml"]
+import = ["~/.config/alacritty/colors/nord-light.toml"]
 
 [window]
 option_as_alt = "OnlyLeft"

@@ -1,19 +1,8 @@
 local default_opts = { buffer = false, silent = false }
 
-local function warn_disabled_mapping(op)
-    return function()
-        print("'" .. op .. "' disabled during debugging!")
-    end
-end
-
 local colors = {
     editing = vim.g.colors_name,
     debugging = "darkblue",
-}
-
-local keep_commands = {
-    "DapContinue",
-    "DapShowLog",
 }
 
 local function create_commands(commands)
@@ -27,10 +16,7 @@ local function remove_commands(commands)
     if commands == nil then
         -- Remove global commands
         for name, _ in pairs(vim.api.nvim_get_commands({})) do
-            if
-                string.match(name, "Dap%u%a*")
-                and not vim.tbl_contains(keep_commands, name)
-            then
+            if string.match(name, "Dap%u%a*") then
                 vim.api.nvim_del_user_command(name)
             end
         end
@@ -43,27 +29,24 @@ local function remove_commands(commands)
 end
 
 local function create_keymaps(keymaps)
-    for mode, mode_map in pairs(keymaps) do
-        for lhs, mapping in pairs(mode_map) do
-            local opts =
-                vim.tbl_extend("force", default_opts, mapping.opts or {})
-            vim.keymap.set(mode, lhs, mapping.rhs, opts)
-        end
+    for lhs, mapping in pairs(keymaps) do
+        local opts = vim.tbl_extend("force", default_opts, mapping.opts or {})
+        vim.keymap.set("n", lhs, mapping.rhs, opts)
     end
 end
 
 local function remove_keymaps(keymaps)
-    for mode, mode_map in pairs(keymaps) do
-        for lhs, _ in pairs(mode_map) do
-            vim.keymap.del(mode, lhs, default_opts)
-        end
+    for lhs, _ in pairs(keymaps) do
+        vim.keymap.del("n", lhs, default_opts)
     end
 end
 
 local function set_colorscheme(debugging)
     if debugging then
+        vim.o.termguicolors = true
         vim.cmd("colorscheme " .. colors.debugging)
     else
+        vim.o.termguicolors = false
         vim.cmd("colorscheme " .. colors.editing)
     end
 end
@@ -192,53 +175,31 @@ local function init()
 
     -- Mappings and Commands
     local scopes_sidebar =
-        ui.sidebar(ui.scopes, { width = 42 }, "leftabove vertical split")
-
-    local global_keymaps = {
-        ["n"] = {
-            ["dC"] = {
-                rhs = "<cmd>DapContinue<cr>",
-                opts = { desc = "DAP Start session or continue" },
-            },
-            ["dR"] = {
-                rhs = "<cmd>DapRestart<cr>",
-                opts = { desc = "DAP Restart session or run last" },
-            },
-            -- Breakpoints (s)et
-            ["dsb"] = {
-                rhs = "<cmd>DapBreakpointToggle<cr>",
-                opts = { desc = "DAP Toggle breakpoint" },
-            },
-            ["dsc"] = {
-                rhs = "<cmd>DapBreakpointCondition<cr>",
-                opts = { desc = "DAP Set conditional breakpoint" },
-            },
-            ["dsl"] = {
-                rhs = "<cmd>DapLogpointSet<cr>",
-                opts = { desc = "DAP Set log point" },
-            },
-            ["dsB"] = {
-                rhs = "<cmd>DapBreakpointsClear<cr>",
-                opts = { desc = "DAP Clear all breakpoints" },
-            },
-            ["dsL"] = {
-                rhs = "<cmd>DapBreakpointsList<cr>",
-                opts = { desc = "DAP List all breakpoints in quickfix list" },
-            },
-        },
-    }
+        ui.sidebar(ui.scopes, { width = 32 }, "leftabove vertical split")
 
     local global_commands = {
-        ["DapRestart"] = {
+        ["DapContinue"] = {
             cmd = function()
-                if dap.status() == "" then
-                    dap.run_last()
-                else
-                    dap.restart()
-                end
+                dap.continue()
+            end,
+            ops = {
+                desc = "DAP Start / Continue execution",
+            },
+        },
+        ["DapRunLast"] = {
+            cmd = function()
+                dap.run_last()
             end,
             opts = {
-                desc = "DAP Restart current session or run last configuration",
+                desc = "DAP Run last configuration",
+            },
+        },
+        ["DapShowLogs"] = {
+            cmd = function()
+                dap.show_logs()
+            end,
+            ops = {
+                desc = "DAP Show log files",
             },
         },
 
@@ -280,118 +241,65 @@ local function init()
         },
     }
 
-    local session_keymaps = {
-        ["n"] = {
-            -- Disable buffer modifying maps
-            ["d"] = { rhs = warn_disabled_mapping("d") },
-            ["D"] = { rhs = warn_disabled_mapping("D") },
-            ["c"] = { rhs = warn_disabled_mapping("c") },
-            ["C"] = { rhs = warn_disabled_mapping("C") },
-            ["i"] = { rhs = warn_disabled_mapping("i") },
-            ["I"] = { rhs = warn_disabled_mapping("I") },
-            ["a"] = { rhs = warn_disabled_mapping("a") },
-            ["A"] = { rhs = warn_disabled_mapping("A") },
-            ["o"] = { rhs = warn_disabled_mapping("o") },
-            ["O"] = { rhs = warn_disabled_mapping("O") },
-            ["p"] = { rhs = warn_disabled_mapping("p") },
-            ["P"] = { rhs = warn_disabled_mapping("P") },
-            ["J"] = { rhs = warn_disabled_mapping("J") },
-            ["s"] = { rhs = warn_disabled_mapping("s") },
-            ["S"] = { rhs = warn_disabled_mapping("S") },
-
-            -- Inspect / Hover
-            ["dh"] = { rhs = ui.hover, opts = { desc = "DAP Hover" } },
-
-            -- Stepping
-            ["dc"] = {
-                rhs = dap.continue,
-                opts = { desc = "DAP Continue / Start" },
-            },
-            ["d."] = {
-                rhs = dap.run_to_cursor,
-                opts = { desc = "DAP Run to cursor" },
-            },
-            ["di"] = {
-                rhs = function()
-                    dap.step_into({ steppingGranularity = "instruction" })
-                end,
-                opts = { desc = "DAP Step into" },
-            },
-            ["ds"] = {
-                rhs = dap.step_into,
-                opts = { desc = "DAP Step into" },
-            },
-            ["dn"] = {
-                rhs = dap.step_over,
-                opts = { desc = "DAP Step over" },
-            },
-            ["df"] = {
-                rhs = dap.step_out,
-                opts = { desc = "DAP Step out / Finish" },
-            },
-            ["dr"] = {
-                rhs = dap.restart_frame,
-                opts = { desc = "DAP Restart frame" },
-            },
-
-            -- Navigate stack frame
-            ["d,"] = {
-                rhs = dap.focus_frame,
-                opts = { desc = "DAP Focus current Frame" },
-            },
-            ["d<"] = {
-                rhs = dap.up,
-                opts = { desc = "DAP Go up one stack frame" },
-            },
-            ["d>"] = {
-                rhs = dap.down,
-                opts = { desc = "DAP Go down one stack frame" },
-            },
-
-            -- Widgets
-            ["dP"] = {
-                rhs = function()
-                    ui.preview()
-                end,
-                opts = { desc = "DAP Preview" },
-            },
-            ["dF"] = {
-                rhs = function()
-                    ui.centered_float(ui.frames)
-                end,
-                opts = { desc = "DAP Show frames" },
-            },
-            ["dS"] = {
-                rhs = function()
-                    ui.centered_float(ui.scopes)
-                end,
-                opts = { desc = "DAP Show scopes" },
-            },
-            ["dts"] = {
-                rhs = function()
-                    scopes_sidebar.toggle()
-                end,
-                opts = { desc = "DAP Toggle scopes sidebar" },
-            },
-
-            -- Session management
-            ["dD"] = {
-                rhs = function()
-                    dap.disconnect()
-                    dap.close()
-                end,
-                opts = {
-                    desc = "DAP Disconnect from Debugee and close Debug Adapter",
-                },
-            },
-            ["dT"] = {
-                rhs = dap.terminate,
-                opts = { desc = "DAP Terminate Debugee and Adapter" },
-            },
-        },
-    }
-
     local session_commands = {
+        -- Stepping
+        ["DapRunToCursor"] = {
+            cmd = function()
+                dap.run_to_cursor()
+            end,
+            opts = { desc = "DAP Run to cursor" },
+        },
+        ["DapStepInto"] = {
+            cmd = function()
+                dap.step_into()
+            end,
+            opts = { desc = "DAP Step into" },
+        },
+        ["DapStepOver"] = {
+            cmd = function()
+                dap.step_over()
+            end,
+            opts = { desc = "DAP Step over" },
+        },
+        ["DapStepOut"] = {
+            cmd = function()
+                dap.step_out()
+            end,
+            opts = { desc = "DAP Step out / Finish" },
+        },
+        ["DapStepInstruction"] = {
+            cmd = function()
+                dap.step_into({ steppingGranularity = "instruction" })
+            end,
+            opts = { desc = "DAP Step single instruction" },
+        },
+
+        -- Navigate stack frame
+        ["DapFrameFocus"] = {
+            cmd = function()
+                dap.focus_frame()
+            end,
+            opts = { desc = "DAP Focus current Frame" },
+        },
+        ["DapFrameUp"] = {
+            cmd = function()
+                dap.up()
+            end,
+            opts = { desc = "DAP Go up one stack frame" },
+        },
+        ["DapFrameDown"] = {
+            cmd = function()
+                dap.down()
+            end,
+            opts = { desc = "DAP Go down one stack frame" },
+        },
+        ["DapFrameRestart"] = {
+            cmd = function()
+                dap.restart_frame()
+            end,
+            opts = { desc = "DAP Restart frame" },
+        },
+
         -- Session management
         ["DapSessionDisconnect"] = {
             cmd = function()
@@ -408,8 +316,20 @@ local function init()
             end,
             opts = { desc = "DAP Terminate Debugee and Adapter" },
         },
+        ["DapSessionRestart"] = {
+            cmd = function()
+                dap.restart()
+            end,
+            opts = { desc = "DAP Restart current session" },
+        },
 
         -- Widgets
+        ["DapHover"] = {
+            cmd = function()
+                ui.hover()
+            end,
+            opts = { desc = "DAP Hover" },
+        },
         ["DapShowRepl"] = {
             cmd = function()
                 dap.repl.toggle()
@@ -434,7 +354,7 @@ local function init()
             end,
             opts = { desc = "DAP Show scopes" },
         },
-        ["DapToggleScopes"] = {
+        ["DapToggleSidebar"] = {
             cmd = function()
                 scopes_sidebar.toggle()
             end,
@@ -442,10 +362,54 @@ local function init()
         },
     }
 
+    local global_keymaps = {
+        -- Session
+        ["<leader>dc"] = { rhs = "<cmd>DapContinue<cr>" },
+        ["<leader>dr"] = { rhs = "<cmd>DapRunLast<cr>" },
+
+        -- Breakpoints
+        ["<leader>dd"] = { rhs = "<cmd>DapBreakpointToggle<cr>" },
+        --[[
+        ["<leader>dbb"] = { rhs = "<cmd>DapBreakpointToggle<cr>" },
+        ["<leader>dbc"] = { rhs = "<cmd>DapBreakpointCondition<cr>" },
+        ["<leader>dbl"] = { rhs = "<cmd>DapLogpointSet<cr>" },
+        ["<leader>dbL"] = { rhs = "<cmd>DapBreakpointsList<cr>" },
+        ["<leader>dbD"] = { rhs = "<cmd>DapBreakpointsClear<cr>" },
+        --]]
+    }
+
+    local session_keymaps = {
+        -- Stepping
+        ["ds\\"] = { rhs = "<cmd>DapContinue<cr>" },
+        ["ds."] = { rhs = "<cmd>DapRunToCursor<cr>" },
+        ["ds;"] = { rhs = "<cmd>DapStepInto<cr>" },
+        ["ds'"] = { rhs = "<cmd>DapStepOver<cr>" },
+        ["ds:"] = { rhs = "<cmd>DapStepOut<cr>" },
+        ["dsi"] = { rhs = "<cmd>DapStepInstruction<cr>" },
+
+        -- Navigate stack frame
+        ["ds,"] = { rhs = "<cmd>DapFrameFocus<cr>" },
+        ["ds<"] = { rhs = "<cmd>DapFrameUp<cr>" },
+        ["ds>"] = { rhs = "<cmd>DapFrameDown<cr>" },
+        ["dsr"] = { rhs = "<cmd>DapFrameRestart<cr>" },
+
+        -- Widgets (only map the temporary floats)
+        ["<leader>dh"] = { rhs = "<cmd>DapHover<cr>" },
+        ["<leader>dp"] = { rhs = "<cmd>DapShowPreview<cr>" },
+        ["<leader>df"] = { rhs = "<cmd>DapShowFrames<cr>" },
+        ["<leader>ds"] = { rhs = "<cmd>DapShowScopes<cr>" },
+
+        -- Session management
+        ["<leader>dR"] = { rhs = "<cmd>DapSessionRestart<cr>" },
+        ["<leader>dD"] = { rhs = "<cmd>DapSessionDisconnect<cr>" },
+        ["<leader>dT"] = { rhs = "<cmd>DapSessionTerminate<cr>" },
+    }
+
     local function on_attach(_)
         create_keymaps(session_keymaps)
         create_commands(session_commands)
         scopes_sidebar.open()
+        dap.repl.open({ height = 6 })
     end
 
     local function on_detach(_, payload)
@@ -453,6 +417,7 @@ local function init()
             return
         end
         scopes_sidebar.close()
+        dap.repl.close()
         remove_keymaps(session_keymaps)
         remove_commands(session_commands)
         vim.cmd([[redraw]])
