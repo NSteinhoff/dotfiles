@@ -90,6 +90,14 @@ local function define_signs()
     end
 end
 
+local function add_env_vars()
+    local variables = {}
+    for k, v in pairs(vim.fn.environ()) do
+        table.insert(variables, string.format("%s=%s", k, v))
+    end
+    return variables
+end
+
 local function init()
     vim.cmd("packadd nvim-dap")
     local dap = require("dap")
@@ -103,72 +111,70 @@ local function init()
         name = "lldb",
     }
 
+    local function pick_process()
+        return utils.pick_process({
+            filter = vim.fn.input("Filter process name: "),
+        })
+    end
+
+    local function pick_program()
+        return vim.fn.input(
+            "Path to executable: ",
+            vim.fn.getcwd() .. "/",
+            "file"
+        )
+    end
+
+    local function create_launch_configuration(program)
+        local configuration = {
+            name = "Launch: " .. program,
+            type = "lldb",
+            request = "launch",
+            program = program,
+            cwd = "${workspaceFolder}",
+            stopOnEntry = false,
+            args = {},
+            env = add_env_vars,
+        }
+
+        return configuration
+    end
+
+    local function create_attach_configuration(name)
+        local configuration = {
+            name = "Attach: " .. name,
+            type = "lldb",
+            request = "attach",
+            pid = function()
+                utils.pick_process({
+                    filter = name,
+                })
+            end,
+            stopOnEntry = false,
+            args = {},
+        }
+
+        return configuration
+    end
+
     -- Configurations
     dap.configurations.c = {
         {
             name = "Launch",
             type = "lldb",
             request = "launch",
-            program = function()
-                return vim.fn.input(
-                    "Path to executable: ",
-                    vim.fn.getcwd() .. "/",
-                    "file"
-                )
-            end,
-            cwd = "${workspaceFolder}",
+            program = pick_program,
             stopOnEntry = false,
-            args = {},
-            env = function()
-                local variables = {}
-                for k, v in pairs(vim.fn.environ()) do
-                    table.insert(variables, string.format("%s=%s", k, v))
-                end
-                return variables
-            end,
-        },
-        {
-            name = "LaunchThisFile",
-            type = "lldb",
-            request = "launch",
-            program = "${fileBasenameNoExtension}",
             cwd = "${workspaceFolder}",
-            stopOnEntry = false,
             args = {},
-            env = function()
-                local variables = {}
-                for k, v in pairs(vim.fn.environ()) do
-                    table.insert(variables, string.format("%s=%s", k, v))
-                end
-                return variables
-            end,
+            env = add_env_vars,
         },
         {
             name = "Attach",
             type = "lldb",
             request = "attach",
+            pid = pick_process,
             stopOnEntry = false,
-            pid = "${command:pickProcess}",
-            args = {},
-        },
-        {
-            name = "RdThr",
-            type = "lldb",
-            request = "attach",
-            stopOnEntry = false,
-            pid = function()
-                return utils.pick_process({ filter = "rdthr" })
-            end,
-            args = {},
-        },
-        {
-            name = "Nin",
-            type = "lldb",
-            request = "attach",
-            stopOnEntry = false,
-            pid = function()
-                return utils.pick_process({ filter = "nin" })
-            end,
             args = {},
         },
     }
@@ -178,7 +184,31 @@ local function init()
         ui.sidebar(ui.scopes, { width = 32 }, "leftabove vertical split")
 
     local global_commands = {
-        ["DapContinue"] = {
+        ["DapLaunch"] = {
+            cmd = function(opts)
+                local program = opts.fargs[1]
+                print("DAP Launching " .. program)
+                dap.run(create_launch_configuration(program))
+            end,
+            opts = {
+                desc = "DAP Launch file",
+                complete = "file",
+                nargs = 1,
+            },
+        },
+        ["DapAttach"] = {
+            cmd = function(opts)
+                local name = opts.fargs[1]
+                print("DAP Attaching " .. name)
+                dap.run(create_attach_configuration(name))
+            end,
+            opts = {
+                desc = "DAP Attach to process",
+                nargs = 1,
+            },
+        },
+
+        ["DapSessionContinue"] = {
             cmd = function()
                 dap.continue()
             end,
@@ -186,23 +216,27 @@ local function init()
                 desc = "DAP Start / Continue execution",
             },
         },
-        ["DapRunLast"] = {
+        ["DapSessionRestart"] = {
             cmd = function()
-                dap.run_last()
+                if dap.status() == "" then
+                    dap.run_last()
+                else
+                    dap.restart()
+                end
             end,
             opts = {
                 desc = "DAP Run last configuration",
             },
         },
+
         ["DapShowLogs"] = {
             cmd = function()
                 dap.show_logs()
             end,
-            ops = {
+            opts = {
                 desc = "DAP Show log files",
             },
         },
-
         -- Breakpoints / Logpoints
         ["DapBreakpointToggle"] = {
             cmd = function()
@@ -229,7 +263,7 @@ local function init()
             end,
             opts = { desc = "DAP Set breakpoint condition" },
         },
-        ["DapLogpointSet"] = {
+        ["DapBreakpointLog"] = {
             cmd = function()
                 dap.set_breakpoint(
                     nil,
@@ -243,7 +277,7 @@ local function init()
 
     local session_commands = {
         -- Stepping
-        ["DapRunToCursor"] = {
+        ["DapStepToCursor"] = {
             cmd = function()
                 dap.run_to_cursor()
             end,
@@ -316,25 +350,13 @@ local function init()
             end,
             opts = { desc = "DAP Terminate Debugee and Adapter" },
         },
-        ["DapSessionRestart"] = {
-            cmd = function()
-                dap.restart()
-            end,
-            opts = { desc = "DAP Restart current session" },
-        },
 
         -- Widgets
-        ["DapHover"] = {
+        ["DapShowHover"] = {
             cmd = function()
                 ui.hover()
             end,
             opts = { desc = "DAP Hover" },
-        },
-        ["DapShowRepl"] = {
-            cmd = function()
-                dap.repl.toggle()
-            end,
-            opts = { desc = "DAP Toggle REPL" },
         },
         ["DapShowPreview"] = {
             cmd = function()
@@ -360,19 +382,25 @@ local function init()
             end,
             opts = { desc = "DAP Toggle scopes sidebar" },
         },
+        ["DapToggleRepl"] = {
+            cmd = function()
+                dap.repl.toggle({ height = 6 })
+            end,
+            opts = { desc = "DAP Toggle REPL" },
+        },
     }
 
     local global_keymaps = {
         -- Session
-        ["<leader>dc"] = { rhs = "<cmd>DapContinue<cr>" },
-        ["<leader>dr"] = { rhs = "<cmd>DapRunLast<cr>" },
+        ["<leader>dc"] = { rhs = "<cmd>DapSessionContinue<cr>" },
+        ["<leader>dr"] = { rhs = "<cmd>DapSessionRestart<cr>" },
 
         -- Breakpoints
         ["<leader>dd"] = { rhs = "<cmd>DapBreakpointToggle<cr>" },
         --[[
         ["<leader>dbb"] = { rhs = "<cmd>DapBreakpointToggle<cr>" },
         ["<leader>dbc"] = { rhs = "<cmd>DapBreakpointCondition<cr>" },
-        ["<leader>dbl"] = { rhs = "<cmd>DapLogpointSet<cr>" },
+        ["<leader>dbl"] = { rhs = "<cmd>DapBreakpointLog<cr>" },
         ["<leader>dbL"] = { rhs = "<cmd>DapBreakpointsList<cr>" },
         ["<leader>dbD"] = { rhs = "<cmd>DapBreakpointsClear<cr>" },
         --]]
@@ -380,8 +408,8 @@ local function init()
 
     local session_keymaps = {
         -- Stepping
-        ["ds\\"] = { rhs = "<cmd>DapContinue<cr>" },
-        ["ds."] = { rhs = "<cmd>DapRunToCursor<cr>" },
+        ["ds\\"] = { rhs = "<cmd>DapSessionContinue<cr>" },
+        ["ds."] = { rhs = "<cmd>DapStepToCursor<cr>" },
         ["ds;"] = { rhs = "<cmd>DapStepInto<cr>" },
         ["ds'"] = { rhs = "<cmd>DapStepOver<cr>" },
         ["ds:"] = { rhs = "<cmd>DapStepOut<cr>" },
@@ -393,14 +421,13 @@ local function init()
         ["ds>"] = { rhs = "<cmd>DapFrameDown<cr>" },
         ["dsr"] = { rhs = "<cmd>DapFrameRestart<cr>" },
 
-        -- Widgets (only map the temporary floats)
-        ["<leader>dh"] = { rhs = "<cmd>DapHover<cr>" },
+        -- Widgets
+        ["<leader>dh"] = { rhs = "<cmd>DapShowHover<cr>" },
         ["<leader>dp"] = { rhs = "<cmd>DapShowPreview<cr>" },
         ["<leader>df"] = { rhs = "<cmd>DapShowFrames<cr>" },
         ["<leader>ds"] = { rhs = "<cmd>DapShowScopes<cr>" },
 
         -- Session management
-        ["<leader>dR"] = { rhs = "<cmd>DapSessionRestart<cr>" },
         ["<leader>dD"] = { rhs = "<cmd>DapSessionDisconnect<cr>" },
         ["<leader>dT"] = { rhs = "<cmd>DapSessionTerminate<cr>" },
     }
