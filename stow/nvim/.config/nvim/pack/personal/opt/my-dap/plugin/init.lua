@@ -72,7 +72,7 @@ local function define_signs()
             numhl = "",
         },
         DapLogPoint = {
-            text = "R",
+            text = "L",
             texthl = "Special",
             linehl = "",
             numhl = "",
@@ -181,7 +181,7 @@ local function init()
 
     -- Mappings and Commands
     local scopes_sidebar =
-        ui.sidebar(ui.scopes, { width = 32 }, "leftabove vertical split")
+        ui.sidebar(ui.scopes, { width = vim.o.columns / 4 }, "leftabove vertical split")
 
     local global_commands = {
         ["DapLaunch"] = {
@@ -397,7 +397,7 @@ local function init()
 
         -- Breakpoints
         ["<leader>dd"] = { rhs = "<cmd>DapBreakpointToggle<cr>" },
-        --[[
+        --[x[
         ["<leader>dbb"] = { rhs = "<cmd>DapBreakpointToggle<cr>" },
         ["<leader>dbc"] = { rhs = "<cmd>DapBreakpointCondition<cr>" },
         ["<leader>dbl"] = { rhs = "<cmd>DapBreakpointLog<cr>" },
@@ -408,24 +408,26 @@ local function init()
 
     local session_keymaps = {
         -- Stepping
-        ["ds\\"] = { rhs = "<cmd>DapSessionContinue<cr>" },
-        ["ds."] = { rhs = "<cmd>DapStepToCursor<cr>" },
-        ["ds;"] = { rhs = "<cmd>DapStepInto<cr>" },
-        ["ds'"] = { rhs = "<cmd>DapStepOver<cr>" },
-        ["ds:"] = { rhs = "<cmd>DapStepOut<cr>" },
+        ["d\\"] = { rhs = "<cmd>DapSessionContinue<cr>" },
+        ["d."] = { rhs = "<cmd>DapStepToCursor<cr>" },
+        ["d;"] = { rhs = "<cmd>DapStepInto<cr>" },
+        ["d'"] = { rhs = "<cmd>DapStepOver<cr>" },
+        ["d:"] = { rhs = "<cmd>DapStepOut<cr>" },
         ["dsi"] = { rhs = "<cmd>DapStepInstruction<cr>" },
 
         -- Navigate stack frame
-        ["ds,"] = { rhs = "<cmd>DapFrameFocus<cr>" },
-        ["ds<"] = { rhs = "<cmd>DapFrameUp<cr>" },
-        ["ds>"] = { rhs = "<cmd>DapFrameDown<cr>" },
-        ["dsr"] = { rhs = "<cmd>DapFrameRestart<cr>" },
+        ["d,"] = { rhs = "<cmd>DapFrameFocus<cr>" },
+        ["d<"] = { rhs = "<cmd>DapFrameUp<cr>" },
+        ["d>"] = { rhs = "<cmd>DapFrameDown<cr>" },
+        ["dr"] = { rhs = "<cmd>DapFrameRestart<cr>" },
 
         -- Widgets
-        ["<leader>dh"] = { rhs = "<cmd>DapShowHover<cr>" },
+        ["dK"]         = { rhs = "<cmd>DapShowHover<cr>" },
         ["<leader>dp"] = { rhs = "<cmd>DapShowPreview<cr>" },
         ["<leader>df"] = { rhs = "<cmd>DapShowFrames<cr>" },
         ["<leader>ds"] = { rhs = "<cmd>DapShowScopes<cr>" },
+        ["<leader>dS"] = { rhs = "<cmd>DapToggleSidebar<cr>" },
+        ["<leader>dR"] = { rhs = "<cmd>DapToggleRepl<cr>" },
 
         -- Session management
         ["<leader>dD"] = { rhs = "<cmd>DapSessionDisconnect<cr>" },
@@ -436,7 +438,7 @@ local function init()
         create_keymaps(session_keymaps)
         create_commands(session_commands)
         scopes_sidebar.open()
-        dap.repl.open({ height = 6 })
+        -- dap.repl.open({ height = 6 })
     end
 
     local function on_detach(_, payload)
