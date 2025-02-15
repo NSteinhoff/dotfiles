@@ -38,14 +38,21 @@ function preview#preview_word(word)
     try
         execute "ptag " .. word
     catch
+        " No matching tag, so let's run a :psearch on the word
         let save_ignorecase = &ignorecase
         set noignorecase
+        let save_path = &l:path
+        " Allow the path to be adjusted by the ftplugin.
+        " For C files, this can limit the search path to local files,
+        " skipping the system headers.
+        let &l:path = get(b:, 'preview_search_path', &l:path)
         try
             execute "psearch " .. word
         catch 
             return
         finally
             let &ignorecase = save_ignorecase
+            let &l:path = save_path
         endtry
     endtry
 

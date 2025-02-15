@@ -1,4 +1,5 @@
 " Add Homebrew installed headers
+let b:preview_search_path = &path
 if !empty(finddir('/opt/homebrew/include/'))
     setlocal path+=/opt/homebrew/include/
     setlocal path+=/opt/homebrew/opt/*/include
