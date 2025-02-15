@@ -13,11 +13,12 @@ local keymaps = {
         },
     },
     ["n"] = {
-        -- ["<s-k>"] = { rhs = vim.lsp.buf.hover, opts = { desc = "LSP Hover" }},
-        -- ["<c-space>"] = {
-        --     rhs = vim.lsp.buf.hover,
-        --     opts = { desc = "LSP Hover" },
-        -- },
+        -- ["<s-k>"]     : conflicts with 'keywordprg'
+        -- ["<c-space>"] : conflicts with preview tags
+        ["<c-h>"] = {
+            rhs = vim.lsp.buf.hover,
+            opts = { desc = "LSP Hover" },
+        },
         ["gh"] = {
             rhs = vim.lsp.buf.hover,
             opts = { desc = "LSP Hover" },

@@ -113,7 +113,6 @@ nnoremap <leader>,t <cmd>EditTerminalSettings<cr>
 "}}}
 "{{{ Basics / Improving standard mappings
 nnoremap <esc> <cmd>nohlsearch<bar>diffupdate<cr>
-nnoremap <c-h> <cmd>nohlsearch<bar>diffupdate<cr>
 
 " Toggle folds with <space>
 nnoremap <space> za
