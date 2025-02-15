@@ -1,4 +1,4 @@
-setlocal keywordprg=:Search\ devdocs\ javascript
+setlocal keywordprg=:Mdn
 
 " Execution
 let b:interpreter = 'node -'

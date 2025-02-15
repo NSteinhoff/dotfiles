@@ -1,4 +1,4 @@
-setlocal keywordprg=:Search\ devdocs\ typescript
+setlocal keywordprg=:Mdn
 
 " Execution
 let b:interpreter = 'ts-node'
