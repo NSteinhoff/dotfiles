@@ -13,6 +13,5 @@ crawl_key
 **/fff
 **/brogue.desktop
 **/bin/rust-analyzer
-stow/direnv/.config/direnv/lib/use_asdf.sh
 
 !.config/

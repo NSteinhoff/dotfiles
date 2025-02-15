@@ -72,4 +72,5 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc"
+eval "$(direnv hook bash)"
+. <(asdf completion bash)

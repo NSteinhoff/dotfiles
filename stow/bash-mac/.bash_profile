@@ -12,7 +12,7 @@ export PATH=/opt/homebrew/bin:$PATH
 
 # ----------------------------------- ASDF ------------------------------------
 # Setup ASDF environment
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # ---------------------------------- Cargo ------------------------------------
 # Setup cargo environment
