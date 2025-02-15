@@ -174,6 +174,10 @@ nnoremap <silent> <expr> <bar>
             \   ? '<c-w>v'
             \   : '<cmd>vertical resize '..(winwidth(0) < &columns / 4 * 3 ? &columns / 4 * 3: &columns / 4)..'<cr>'
             \ : '<bar>'
+
+" Smarter C-P/N in the command line
+cnoremap <expr> <c-n> wildmenumode() ? "\<c-n>" : "\<down>"
+cnoremap <expr> <c-p> wildmenumode() ? "\<c-p>" : "\<up>"
 "}}}
 "{{{ Cycling lists
 nnoremap ]a <cmd>next<cr>
@@ -355,7 +359,7 @@ nnoremap yow <cmd>call options#toggle('wrap')<cr>
 nnoremap yox <cmd>call options#toggle('cursorline')<bar>let &cursorcolumn=&cursorline<cr>
 nnoremap yoy <cmd>Noyo<cr>
 
-nnoremap yoD <cmd>if &diff\|diffoff!\|else\|windo diffthis<cr>
+nnoremap yoD <cmd>exec &diff ? 'diffoff!' : 'windo diffthis'<cr>
 nnoremap yoT <cmd>silent !toggle-light-dark<cr>
 nnoremap yoS <cmd>StealthToggle<cr>
 
