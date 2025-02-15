@@ -10,7 +10,7 @@ endfunction
 function s:help_header(words, sub = v:false)
     let fillchar = a:sub ? '-' : '='
     let ncols = 79
-    let text = a:words == '' ? trim(getline('.')) : a:words
+    let text = a:words == '' ? trim(s:getline(prefix)) : a:words
     let link = tolower(text)
     let link = substitute(link, '\s', '-', 'g')
     let link = '*'..link..'*'
@@ -19,6 +19,10 @@ function s:help_header(words, sub = v:false)
     let title = text..repeat(' ', ncols - strlen(text) - strlen(link) - 5)..link
     call setline(line('.'), title)
     call append(line('.')-1, ruler)
+endfunction
+
+function s:getline(prefix)
+    return substitute(getline('.'), '^'..escape(a:prefix, '/'), '', '')
 endfunction
 
 " Create an 80 column wide section header with lines above
@@ -36,7 +40,7 @@ function section#header(words)
     let ncols = &tw ? &tw : 79
 
     " Set the section header text
-    let text = a:words == '' ? trim(getline('.')) : a:words
+    let text = a:words == '' ? trim(s:getline(prefix)) : a:words
 
     " Build the rulers line
     let ruler = prefix.repeat(fillchar, ncols - strlen(prefix) - strlen(suffix)).suffix
@@ -72,7 +76,7 @@ function section#subheader(words)
     let ncols = &tw ? &tw : 79
 
     " Set the text that goes in-between the separators
-    let text = a:words == '' ? trim(getline('.')) : a:words
+    let text = a:words == '' ? trim(s:getline(prefix)) : a:words
     let text = text == "" ? "" : ' '.text.' '
 
     " TODO: This does not play nice with tab indentation!
