@@ -1,6 +1,7 @@
 setlocal noexpandtab
 setlocal tabstop=8
 setlocal shiftwidth=0
+setlocal cinoptions+=l1
 
 function s:style()
     let indend_width = &shiftwidth ? &shiftwidth : &tabstop
@@ -23,7 +24,6 @@ function s:style()
     let l:style.= ', ReflowComments: false'
     let l:style.= ', AlwaysBreakBeforeMultilineStrings: true'
     let l:style.= ', BreakBeforeTernaryOperators: true'
-    let l:style.= ', BreakBeforeBinaryOperators: NonAssignment'
     let l:style.= ', BreakStringLiterals: false'
     let l:style.= ', AlignAfterOpenBracket: AlwaysBreak'
     let l:style.= ', SpacesInContainerLiterals: true'
@@ -31,8 +31,8 @@ function s:style()
     let l:style.= ', PointerAlignment: Right'
     let l:style.= ', AlignArrayOfStructures: Left'
     let l:style.= ', AlignOperands: AlignAfterOperator'
-    let l:style.= ', AlignConsecutiveAssignments: {Enabled: true, AcrossComments: true, AlignCompound: true}'
-    let l:style.= ', AlignConsecutiveDeclarations: {Enabled: true, AcrossComments: true}'
+    let l:style.= ', AlignConsecutiveAssignments: {Enabled: false, AcrossComments: true, AlignCompound: true}'
+    let l:style.= ', AlignConsecutiveDeclarations: {Enabled: false, AcrossComments: true}'
     let l:style.= ', AlignConsecutiveMacros: AcrossComments'
 
     let l:style.= ', AllowShortBlocksOnASingleLine: Empty'

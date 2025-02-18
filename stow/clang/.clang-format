@@ -16,13 +16,15 @@ AlignAfterOpenBracket: AlwaysBreak
 SpacesInContainerLiterals: true
 
 PointerAlignment: Right
-AlignArrayOfStructures: Right
+AlignArrayOfStructures: Left
 AlignOperands: AlignAfterOperator
 AlignConsecutiveAssignments:
-  Enabled: true
+  Enabled: false
   AcrossComments: true
   AlignCompound: true
-AlignConsecutiveDeclarations: AcrossComments
+AlignConsecutiveDeclarations:
+  Enabled: false
+  AcrossComments: true
 AlignConsecutiveMacros: AcrossComments
 
 AllowShortBlocksOnASingleLine: Empty
