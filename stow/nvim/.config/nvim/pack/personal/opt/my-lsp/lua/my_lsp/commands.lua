@@ -1,57 +1,59 @@
 local M = {}
 
+local verbose = false
+
 local commands = {
     ["LspCodeAction"] = {
-        cmd = vim.lsp.buf.code_action,
+        cmd = function() vim.lsp.buf.code_action() end,
         opts = { desc = "LSP Code Action" },
     },
     ["LspCodeRename"] = {
-        cmd = vim.lsp.buf.rename,
+        cmd = function() vim.lsp.buf.rename() end,
         opts = { desc = "LSP Rename Symbol" },
     },
     ["LspCodeFormat"] = {
-        cmd = vim.lsp.buf.format,
+        cmd = function() vim.lsp.buf.format() end,
         opts = { desc = "LSP Format Document" },
     },
     ["LspListReferences"] = {
-        cmd = vim.lsp.buf.references,
+        cmd = function() vim.lsp.buf.references() end,
         opts = { desc = "LSP List References" },
     },
     ["LspListDocumentSymbols"] = {
-        cmd = vim.lsp.buf.document_symbol,
+        cmd = function() vim.lsp.buf.document_symbol() end,
         opts = { desc = "LSP List Document Symbols" },
     },
     ["LspListWorkspaceSymbols"] = {
-        cmd = vim.lsp.buf.workspace_symbol,
+        cmd = function() vim.lsp.buf.workspace_symbol() end,
         opts = { desc = "LSP List Workspace Symbols" },
     },
     ["LspListOutgoingCalls"] = {
-        cmd = vim.lsp.buf.outgoing_calls,
+        cmd = function() vim.lsp.buf.outgoing_calls() end,
         opts = { desc = "LSP List Outgoing Calls" },
     },
     ["LspListIncomingCalls"] = {
-        cmd = vim.lsp.buf.incoming_calls,
+        cmd = function() vim.lsp.buf.incoming_calls() end,
         opts = { desc = "LSP List Incoming Calls" },
     },
     ["LspSetLocList"] = {
-        cmd = vim.diagnostic.setloclist,
+        cmd = function() vim.diagnostic.setloclist() end,
         opts = { desc = "LSP Set Diagnostics Loclist" },
     },
     ["LspSetQfList"] = {
-        cmd = vim.diagnostic.setqflist,
+        cmd = function() vim.diagnostic.setqflist() end,
         opts = { desc = "LSP Set Diagnostics Quickfix list" },
     },
     ["LspBufDisableDiagnostics"] = {
-        cmd = vim.diagnostic.hide,
+        cmd = function() vim.diagnostic.hide() end,
         opts = { desc = "LSP Disable Diagnostics" },
     },
     ["LspBufEnableDiagnostics"] = {
-        cmd = vim.diagnostic.show,
+        cmd = function() vim.diagnostic.show() end,
         opts = { desc = "LSP Enable Diagnostics" },
     },
     ["LspBufStop"] = {
         cmd = function()
-            for _, client in pairs(vim.lsp.buf_clients()) do
+            for _, client in pairs(vim.lsp.get_clients({bufnr = vim.api.nvim_get_current_buf()})) do
                 client.stop()
             end
         end,
@@ -78,7 +80,7 @@ end
 function M.on_detach(buf)
     for name, _ in pairs(commands) do
         local res, err = pcall(vim.api.nvim_buf_del_user_command, buf, name)
-        if not res then
+        if not res and verbose then
             vim.api.nvim_err_writeln(
                 "Error deleting command "
                     .. name

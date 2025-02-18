@@ -1,5 +1,7 @@
 local M = {}
 
+local verbose = false
+
 local default_opts = { buffer = true, silent = true }
 local keymaps = {
     ["i"] = {
@@ -114,7 +116,7 @@ function M.on_detach(buf)
                 lhs,
                 vim.tbl_extend("force", default_opts, { buffer = buf })
             )
-            if not res then
+            if not res and verbose then
                 vim.api.nvim_err_writeln(
                     "Trying to delete mapping "
                         .. lhs

@@ -1,7 +1,7 @@
 "{{{ --- OPTIONS ---
 "{{{ Colors
 set notermguicolors
-colorscheme ludite
+colorscheme minimal
 "}}}
 "{{{ Appearance
 set cmdheight=1
@@ -102,10 +102,10 @@ let maplocalleader = '\'
 set wildcharm=<c-z>
 "}}}
 "{{{ Open Settings
-nnoremap <leader>,, <cmd>edit +set\ fdl=0\|0 $MYVIMRC<cr>
-nnoremap <leader>,o <cmd>edit +set\ fdl=1\|/---\\sOPTIONS $MYVIMRC<cr>
-nnoremap <leader>,m <cmd>edit +set\ fdl=1\|/---\\sMAPPINGS $MYVIMRC<cr>
-nnoremap <leader>,p <cmd>edit +set\ fdl=1\|/---\\sPACKAGES $MYVIMRC<cr>
+nnoremap <leader>,, <cmd>edit +set\ foldlevel=0\|0 $MYVIMRC<cr>
+nnoremap <leader>,o <cmd>edit +set\ foldlevel=1\|/---\\sOPTIONS $MYVIMRC<cr>
+nnoremap <leader>,m <cmd>edit +set\ foldlevel=1\|/---\\sMAPPINGS $MYVIMRC<cr>
+nnoremap <leader>,p <cmd>edit +set\ foldlevel=1\|/---\\sPACKAGES $MYVIMRC<cr>
 nnoremap <leader>,f <cmd>EditFtplugin<cr>
 nnoremap <leader>,i <cmd>EditIndent<cr>
 nnoremap <leader>,c <cmd>EditColorscheme<cr>
@@ -278,7 +278,7 @@ nnoremap <silent> ga <cmd>let @/=expand("<cword>")<bar>execute "silent grepadd! 
 vnoremap <silent> ga y:let @/=escape(@", '.\|$[](){}')<bar>execute 'silent grepadd! '..shellescape(@/, '\|')<bar>set hlsearch<cr>
 
 " Outline
-nmap gO <cmd>TagToc<cr>
+nmap gO <cmd>Outline<cr>
 "}}}
 "{{{ Leader mappings
 "{{{ Buffer Switching
@@ -356,6 +356,7 @@ nnoremap yos <cmd>call options#toggle('laststatus', 2, 0)<cr>
 nnoremap yot <cmd>call options#toggle('showtabline', 2, 0)<cr>
 nnoremap yov <cmd>call options#toggle('virtualedit', 'all', '')<cr>
 nnoremap yow <cmd>call options#toggle('wrap')<cr>
+nnoremap yok <cmd>call options#toggle('cursorline')<cr>
 nnoremap yox <cmd>call options#toggle('cursorline')<bar>let &cursorcolumn=&cursorline<cr>
 nnoremap yoy <cmd>Noyo<cr>
 
@@ -368,7 +369,6 @@ nnoremap yoe <cmd>echo "Toggle 'yoe' unused"<cr>
 nnoremap yof <cmd>echo "Toggle 'yof' unused"<cr>
 nnoremap yog <cmd>echo "Toggle 'yog' unused"<cr>
 nnoremap yoj <cmd>echo "Toggle 'yoj' unused"<cr>
-nnoremap yok <cmd>echo "Toggle 'yok' unused"<cr>
 nnoremap yoo <cmd>echo "Toggle 'yoo' unused"<cr>
 nnoremap yoq <cmd>echo "Toggle 'yoq' unused"<cr>
 nnoremap you <cmd>echo "Toggle 'you' unused"<cr>

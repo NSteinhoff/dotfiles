@@ -45,6 +45,9 @@ yarn-error.log
 # Node
 node_modules/
 
+# TypeScript
+*.tsbuildinfo
+
 # direnv
 .envrc
 

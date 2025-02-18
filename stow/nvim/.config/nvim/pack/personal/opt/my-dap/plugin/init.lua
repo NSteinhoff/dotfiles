@@ -146,7 +146,7 @@ local function init()
             type = "lldb",
             request = "attach",
             pid = function()
-                utils.pick_process({
+                return utils.pick_process({
                     filter = name,
                 })
             end,
