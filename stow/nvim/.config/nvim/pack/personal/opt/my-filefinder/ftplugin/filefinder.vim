@@ -17,3 +17,5 @@ inoremap <buffer> <space> .*
 inoremap <buffer> <cr> <cmd>call filefinder#open_selected()<bar>stopinsert<cr>
 inoremap <buffer> <c-n> <cmd>call filefinder#move_selection(1)<cr>
 inoremap <buffer> <c-p> <cmd>call filefinder#move_selection(-1)<cr>
+
+call shell#create_commands()
