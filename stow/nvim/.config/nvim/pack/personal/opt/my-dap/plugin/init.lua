@@ -109,6 +109,9 @@ local function init()
         type = "executable",
         command = "/opt/homebrew/opt/llvm/bin/lldb-dap", -- adjust as needed, must be absolute path
         name = "lldb",
+        options = {
+            initialize_timeout_sec = 2
+        },
     }
 
     local function pick_process()
@@ -125,7 +128,7 @@ local function init()
         )
     end
 
-    local function create_launch_configuration(program)
+    local function create_launch_configuration(program, args)
         local configuration = {
             name = "Launch: " .. program,
             type = "lldb",
@@ -133,7 +136,7 @@ local function init()
             program = program,
             cwd = "${workspaceFolder}",
             stopOnEntry = false,
-            args = {},
+            args = args or {},
             env = add_env_vars,
         }
 
@@ -150,8 +153,18 @@ local function init()
                     filter = name,
                 })
             end,
-            stopOnEntry = false,
-            args = {},
+        }
+
+        return configuration
+    end
+
+    local function create_waitfor_configuration(name)
+        local configuration = {
+            name = "Wait For: " .. name,
+            type = "lldb",
+            request = "attach",
+            program = name,
+            waitFor = true,
         }
 
         return configuration
@@ -175,7 +188,6 @@ local function init()
             request = "attach",
             pid = pick_process,
             stopOnEntry = false,
-            args = {},
         },
     }
 
@@ -187,13 +199,17 @@ local function init()
         ["DapLaunch"] = {
             cmd = function(opts)
                 local program = opts.fargs[1]
-                print("DAP Launching " .. program)
-                dap.run(create_launch_configuration(program))
+                local args = {}
+                for i = 2, #opts.fargs do
+                    args[#args + 1] = opts.fargs[i]
+                end
+                print("DAP Launching " .. program .. " " .. table.concat(args, ' '))
+                dap.run(create_launch_configuration(program, args))
             end,
             opts = {
                 desc = "DAP Launch file",
                 complete = "file",
-                nargs = 1,
+                nargs = "+",
             },
         },
         ["DapAttach"] = {
@@ -207,7 +223,20 @@ local function init()
                 nargs = 1,
             },
         },
+        ["DapWaitFor"] = {
+            cmd = function(opts)
+                local name = opts.fargs[1]
+                print("DAP Waiting for " .. name)
+                dap.run(create_waitfor_configuration(name))
+            end,
+            opts = {
+                desc = "DAP Wait for process",
+                complete = "file",
+                nargs = 1,
+            },
+        },
 
+        -- Session management
         ["DapSessionContinue"] = {
             cmd = function()
                 dap.continue()
@@ -228,10 +257,25 @@ local function init()
                 desc = "DAP Run last configuration",
             },
         },
+        ["DapSessionDisconnect"] = {
+            cmd = function()
+                dap.disconnect()
+                dap.close()
+            end,
+            opts = {
+                desc = "DAP Disconnect from Debugee and close Debug Adapter",
+            },
+        },
+        ["DapSessionTerminate"] = {
+            cmd = function()
+                dap.terminate()
+            end,
+            opts = { desc = "DAP Terminate Debugee and Adapter" },
+        },
 
         ["DapShowLogs"] = {
             cmd = function()
-                dap.show_logs()
+                require('dap._cmds').show_logs()
             end,
             opts = {
                 desc = "DAP Show log files",
@@ -334,23 +378,6 @@ local function init()
             opts = { desc = "DAP Restart frame" },
         },
 
-        -- Session management
-        ["DapSessionDisconnect"] = {
-            cmd = function()
-                dap.disconnect()
-                dap.close()
-            end,
-            opts = {
-                desc = "DAP Disconnect from Debugee and close Debug Adapter",
-            },
-        },
-        ["DapSessionTerminate"] = {
-            cmd = function()
-                dap.terminate()
-            end,
-            opts = { desc = "DAP Terminate Debugee and Adapter" },
-        },
-
         -- Widgets
         ["DapShowHover"] = {
             cmd = function()
@@ -394,6 +421,8 @@ local function init()
         -- Session
         ["<leader>dc"] = { rhs = "<cmd>DapSessionContinue<cr>" },
         ["<leader>dr"] = { rhs = "<cmd>DapSessionRestart<cr>" },
+        ["<leader>dD"] = { rhs = "<cmd>DapSessionDisconnect<cr>" },
+        ["<leader>dT"] = { rhs = "<cmd>DapSessionTerminate<cr>" },
 
         -- Breakpoints
         ["<leader>dd"] = { rhs = "<cmd>DapBreakpointToggle<cr>" },
@@ -428,10 +457,6 @@ local function init()
         ["<leader>ds"] = { rhs = "<cmd>DapShowScopes<cr>" },
         ["<leader>dS"] = { rhs = "<cmd>DapToggleSidebar<cr>" },
         ["<leader>dR"] = { rhs = "<cmd>DapToggleRepl<cr>" },
-
-        -- Session management
-        ["<leader>dD"] = { rhs = "<cmd>DapSessionDisconnect<cr>" },
-        ["<leader>dT"] = { rhs = "<cmd>DapSessionTerminate<cr>" },
     }
 
     local function on_attach(_)
