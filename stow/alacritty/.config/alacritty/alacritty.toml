@@ -1,5 +1,5 @@
 [general]
-import = ["~/.config/alacritty/colors/gruvbox-dark.toml"]
+import = ["~/.config/alacritty/colors/right-in-the-teals-light.toml"]
 
 [window]
 option_as_alt = "OnlyLeft"

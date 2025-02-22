@@ -1,7 +1,7 @@
 "{{{ --- OPTIONS ---
 "{{{ Colors
 set notermguicolors
-colorscheme minimal
+colorscheme ludite
 "}}}
 "{{{ Appearance
 set cmdheight=1

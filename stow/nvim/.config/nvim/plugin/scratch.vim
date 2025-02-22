@@ -49,8 +49,8 @@ endfunction
 
 command! -bar Scratch call s:scratch('<mods>')
 
-augroup scratch
-    autocmd!
-    autocmd InsertLeave,TextChanged scratch://SCRATCH call s:write()
-    autocmd BufEnter scratch://SCRATCH call s:init()
-augroup END
+"augroup scratch
+"    autocmd!
+"    autocmd InsertLeave,TextChanged scratch://SCRATCH call s:write()
+"    autocmd BufEnter scratch://SCRATCH call s:init()
+"augroup END
