@@ -2,7 +2,7 @@ local default_opts = { buffer = false, silent = false }
 
 local colors = {
     editing = vim.g.colors_name,
-    debugging = "darkblue",
+    debugging = "default",
 }
 
 local function create_commands(commands)
@@ -193,7 +193,7 @@ local function init()
 
     -- Mappings and Commands
     local scopes_sidebar =
-        ui.sidebar(ui.scopes, { width = vim.o.columns / 4 }, "leftabove vertical split")
+        ui.sidebar(ui.scopes, { width = vim.o.columns / 4 }, "rightbelow vertical split")
 
     local global_commands = {
         ["DapLaunch"] = {
@@ -419,10 +419,10 @@ local function init()
 
     local global_keymaps = {
         -- Session
-        ["<leader>dc"] = { rhs = "<cmd>DapSessionContinue<cr>" },
-        ["<leader>dr"] = { rhs = "<cmd>DapSessionRestart<cr>" },
-        ["<leader>dD"] = { rhs = "<cmd>DapSessionDisconnect<cr>" },
-        ["<leader>dT"] = { rhs = "<cmd>DapSessionTerminate<cr>" },
+        ["<leader>d<cr>"] = { rhs = "<cmd>DapSessionContinue<cr>" },
+        ["<leader>d<leader>"] = { rhs = "<cmd>DapSessionRestart<cr>" },
+        ["<leader>d|"] = { rhs = "<cmd>DapSessionDisconnect<cr>" },
+        ["<leader>d<bs>"] = { rhs = "<cmd>DapSessionTerminate<cr>" },
 
         -- Breakpoints
         ["<leader>dd"] = { rhs = "<cmd>DapBreakpointToggle<cr>" },
@@ -455,8 +455,8 @@ local function init()
         ["<leader>dp"] = { rhs = "<cmd>DapShowPreview<cr>" },
         ["<leader>df"] = { rhs = "<cmd>DapShowFrames<cr>" },
         ["<leader>ds"] = { rhs = "<cmd>DapShowScopes<cr>" },
+        ["<leader>dr"] = { rhs = "<cmd>DapToggleRepl<cr>" },
         ["<leader>dS"] = { rhs = "<cmd>DapToggleSidebar<cr>" },
-        ["<leader>dR"] = { rhs = "<cmd>DapToggleRepl<cr>" },
     }
 
     local function on_attach(_)
