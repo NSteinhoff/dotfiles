@@ -32,6 +32,11 @@ function s:ref(revision, default = 'HEAD')
     return a:revision != '' ? split(a:revision)[0] : get(t:, 'diff_target', a:default)
 endfunction
 
+function s:mergebase()
+    let l:mergebase = s:git(getcwd(), "merge-base HEAD "..s:main())
+    return l:mergebase[0]
+endfunction
+
 function s:can_be_alt(bufname)
     return !empty(a:bufname) && buflisted(a:bufname)
 endfunction
@@ -369,8 +374,7 @@ function git#set_diff_target(reset, revision)
 endfunction
 
 function git#review(revision)
-    let l:main = s:main()
-    let l:revision = a:revision == '' ? 'origin/'..l:main : a:revision
+    let l:revision = a:revision == '' ? s:mergebase() : a:revision
 
     tab split
     call git#set_diff_target(0, l:revision)
