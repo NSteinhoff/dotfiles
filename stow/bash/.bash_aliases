@@ -30,6 +30,9 @@ esac
 alias v='NVIM_APPNAME=v nvim'
 alias yot='toggle-light-dark'
 
+# Search history
+alias hg='history | grep '
+
 ################
 ### Safer delete
 alias rm='rm -i'
@@ -68,6 +71,10 @@ alias :e='$EDITOR'
 alias :split='tmux split-window'
 alias :vsplit='tmux split-window -h'
 alias :tsplit='tmux new-window'
+
+#########
+### Debug
+alias dbg='lldb --batch --one-line run -- '
 
 #######
 ### Git
