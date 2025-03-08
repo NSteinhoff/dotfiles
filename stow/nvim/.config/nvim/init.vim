@@ -114,6 +114,9 @@ nnoremap <leader>,t <cmd>EditTerminalSettings<cr>
 "{{{ Basics / Improving standard mappings
 nnoremap <esc> <cmd>nohlsearch<bar>diffupdate<cr>
 
+" Favourite global mark
+nnoremap gz `Z
+
 " Toggle folds with <space>
 nnoremap <space> za
 
