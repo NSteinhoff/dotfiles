@@ -10,6 +10,9 @@ endif
 call abbrev#cmdline('gg', 'silent grep!')
 call abbrev#cmdline('grep', 'silent grep!')
 call abbrev#cmdline('lgrep', 'silent lgrep!')
+call abbrev#cmdline('ga', 'silent grepadd!')
+call abbrev#cmdline('grepadd', 'silent grepadd!')
+call abbrev#cmdline('lgrepadd', 'silent lgrepadd!')
 
 function s:lastqf()
     return getwininfo(win_getid())[0].quickfix == 1 && len(getwininfo()) <= 1

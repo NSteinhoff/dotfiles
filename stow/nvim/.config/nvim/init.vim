@@ -195,8 +195,11 @@ nnoremap [q <cmd>cprevious<cr>
 nnoremap ]l <cmd>lnext<cr>
 nnoremap [l <cmd>lprevious<cr>
 
-nnoremap [t <cmd>tprevious<cr>
 nnoremap ]t <cmd>tnext<cr>
+nnoremap [t <cmd>tprevious<cr>
+
+nnoremap ]p <cmd>ptnext<cr>
+nnoremap [p <cmd>ptprevious<cr>
 "}}}
 "{{{ Arglist
 nnoremap ]A <cmd>argadd %<bar>echo "Added arg '"..expand("%").."'"<cr>

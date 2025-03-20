@@ -63,6 +63,7 @@ alias grep='grep --color=auto'
 [[ os == linux ]] && opener=xdg-open || opener=open
 alias q='_() { q="${@:1}"; '$opener' "https://duckduckgo.com/?q=${q}"; }; _'
 alias mdn='_() { q="${@:1}"; '$opener' "https://developer.mozilla.org/en-US/search?q=${q}"; }; _'
+alias ai='$opener "https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1"'
 
 ###########
 ### Why not
@@ -238,7 +239,7 @@ alias jira='nvim +"set ft=jira" +"set buftype=nofile"'
 # --------------------------------------------------------------------------- #
 #                               NiN Navigation                                #
 # --------------------------------------------------------------------------- #
-export PATH="$HOME/Develop/base/target:$PATH"
+export PATH="$HOME/Develop/based/target:$PATH"
 
 n() {
     cmdfile="$HOME/.local/share/nin-postcmd"
@@ -246,7 +247,7 @@ n() {
     local nin_args
     while true; do
         rm -f -- "$cmdfile"  >/dev/null
-        nin "$nin_path" "$nin_args" || return 1
+        based-navigate "$nin_path" "$nin_args" || return 1
 
         if [[ -f "$cmdfile" ]]; then
             source "$cmdfile"

@@ -40,7 +40,9 @@ function s:style()
     endwhile
 
     " Overwrite with current editor settings
-    let l:config['ColumnLimit'] = &textwidth ? &textwidth : 100
+    if (&textwidth)
+        let l:config['ColumnLimit'] = &textwidth
+    endif
     let l:config['UseTab'] = &expandtab ? 'Never' : 'AlignWithSpaces'
     let l:config['TabWidth'] = &tabstop
     let l:config['IndentWidth'] = &shiftwidth ? &shiftwidth : &tabstop

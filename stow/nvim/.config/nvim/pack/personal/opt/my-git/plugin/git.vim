@@ -35,6 +35,8 @@ command! -bar -nargs=? -complete=buffer GitStatus call git#status(<q-args>)
 function s:changed_files(revision, goto)
     call git#load_changed_files(a:revision)
     if a:goto && argc()
+        diffoff!
+        only
         first
     endif
     args
