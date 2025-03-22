@@ -54,25 +54,25 @@ end
 local function define_signs()
     local signs = {
         DapBreakpoint = {
-            text = "B",
+            text = "B!",
             texthl = "Special",
             linehl = "",
             numhl = "",
         },
         DapBreakpointCondition = {
-            text = "C",
+            text = "B?",
             texthl = "Special",
             linehl = "",
             numhl = "",
         },
         DapBreakpointRejected = {
-            text = "R",
+            text = "B-",
             texthl = "Error",
             linehl = "",
             numhl = "",
         },
         DapLogPoint = {
-            text = "L",
+            text = "L!",
             texthl = "Special",
             linehl = "",
             numhl = "",
