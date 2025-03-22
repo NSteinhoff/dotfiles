@@ -14,7 +14,7 @@ highlight lCursor                      cterm=inverse                ctermfg=NONE
 highlight CursorIM                     cterm=inverse                ctermfg=NONE  ctermbg=NONE
 highlight TermCursor                   cterm=inverse                ctermfg=NONE  ctermbg=NONE
 highlight TermCursorNC                 cterm=inverse                ctermfg=NONE  ctermbg=NONE
-highlight Visual                       cterm=NONE                   ctermfg=NONE  ctermbg=2
+highlight Visual                       cterm=NONE                   ctermfg=0     ctermbg=2
 "}}}
 "{{{ Basic UI Elements
 highlight Directory                    cterm=NONE                   ctermfg=3     ctermbg=NONE
@@ -30,7 +30,7 @@ highlight NonText                      cterm=NONE                   ctermfg=8   
 highlight NormalNc                     cterm=NONE                   ctermfg=NONE  ctermbg=NONE
 highlight Pmenu                        cterm=NONE                   ctermfg=NONE  ctermbg=0
 highlight PmenuSbar                    cterm=NONE                   ctermfg=NONE  ctermbg=15
-highlight PmenuSel                     cterm=NONE                   ctermfg=NONE  ctermbg=6
+highlight PmenuSel                     cterm=NONE                   ctermfg=0     ctermbg=6
 highlight PmenuThumb                   cterm=NONE                   ctermfg=NONE  ctermbg=11
 highlight Question                     cterm=italic                 ctermfg=7     ctermbg=NONE
 highlight Scrollbar                    cterm=NONE                   ctermfg=NONE  ctermbg=NONE
@@ -44,6 +44,7 @@ highlight ColorColumn                  cterm=NONE                   ctermfg=NONE
 highlight CursorColumn                 cterm=NONE                   ctermfg=0     ctermbg=11
 highlight CursorLine                   cterm=NONE                   ctermfg=0     ctermbg=11
 highlight CursorLineNr                 cterm=NONE                   ctermfg=NONE  ctermbg=NONE
+
 highlight FoldColumn                   cterm=bold                   ctermfg=15    ctermbg=NONE
 highlight SignColumn                   cterm=NONE                   ctermfg=8     ctermbg=NONE
 highlight VertSplit                    cterm=NONE                   ctermfg=8     ctermbg=NONE
@@ -65,7 +66,7 @@ highlight DiffDelete                   cterm=NONE                   ctermfg=1   
 highlight DiffText                     cterm=NONE                   ctermfg=5     ctermbg=NONE
 "}}}
 "{{{ Status line
-highlight StatusLine                   cterm=NONE                   ctermfg=15    ctermbg=4
+highlight StatusLine                   cterm=NONE                   ctermfg=0     ctermbg=4
 highlight StatusLineNC                 cterm=NONE                   ctermfg=NONE  ctermbg=8
 highlight StatusLineFocus              cterm=NONE                   ctermfg=NONE  ctermbg=15
 highlight StatusLineTerm               cterm=NONE                   ctermfg=NONE  ctermbg=13

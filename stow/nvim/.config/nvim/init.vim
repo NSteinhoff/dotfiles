@@ -345,6 +345,10 @@ nmap [r <plug>(git-review-prev)
 nmap ]R <plug>(git-review-mark-seen)
 nmap [R <plug>(git-review-first)
 "}}}
+"{{{ Debugging NeoVim
+nnoremap <leader>i <cmd>Inspect<cr>
+nnoremap <leader>I <cmd>InspectTree<cr>
+"}}}
 "}}}
 "{{{ Toggles
 nnoremap yo? <cmd>set ignorecase? diff? spell?  list? number? relativenumber? laststatus? showtabline? virtualedit? wrap?<cr>

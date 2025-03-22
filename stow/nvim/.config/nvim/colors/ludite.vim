@@ -30,7 +30,7 @@ highlight NonText                      cterm=NONE                   ctermfg=8   
 highlight NormalNc                     cterm=NONE                   ctermfg=NONE  ctermbg=NONE
 highlight Pmenu                        cterm=NONE                   ctermfg=NONE  ctermbg=0
 highlight PmenuSbar                    cterm=NONE                   ctermfg=NONE  ctermbg=15
-highlight PmenuSel                     cterm=NONE                   ctermfg=NONE  ctermbg=6
+highlight PmenuSel                     cterm=NONE                   ctermfg=0     ctermbg=6
 highlight PmenuThumb                   cterm=NONE                   ctermfg=NONE  ctermbg=11
 highlight Question                     cterm=italic                 ctermfg=7     ctermbg=NONE
 highlight Scrollbar                    cterm=NONE                   ctermfg=NONE  ctermbg=NONE
@@ -44,6 +44,7 @@ highlight ColorColumn                  cterm=NONE                   ctermfg=NONE
 highlight CursorColumn                 cterm=NONE                   ctermfg=0     ctermbg=11
 highlight CursorLine                   cterm=NONE                   ctermfg=0     ctermbg=11
 highlight CursorLineNr                 cterm=NONE                   ctermfg=NONE  ctermbg=NONE
+
 highlight FoldColumn                   cterm=bold                   ctermfg=15    ctermbg=NONE
 highlight SignColumn                   cterm=NONE                   ctermfg=8     ctermbg=NONE
 highlight VertSplit                    cterm=NONE                   ctermfg=8     ctermbg=NONE
@@ -65,7 +66,7 @@ highlight DiffDelete                   cterm=NONE                   ctermfg=1   
 highlight DiffText                     cterm=NONE                   ctermfg=5     ctermbg=NONE
 "}}}
 "{{{ Status line
-highlight StatusLine                   cterm=NONE                   ctermfg=15    ctermbg=4
+highlight StatusLine                   cterm=NONE                   ctermfg=0     ctermbg=4
 highlight StatusLineNC                 cterm=NONE                   ctermfg=NONE  ctermbg=8
 highlight StatusLineFocus              cterm=NONE                   ctermfg=NONE  ctermbg=15
 highlight StatusLineTerm               cterm=NONE                   ctermfg=NONE  ctermbg=13
@@ -82,8 +83,8 @@ highlight TabLineSel                   cterm=bold,underline         ctermfg=15  
 "}}}
 "{{{ Searching/Matches
 highlight Search                       cterm=bold,underline         ctermfg=NONE  ctermbg=NONE
-highlight IncSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=4
-highlight CurSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=4
+highlight IncSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=5
+highlight CurSearch                    cterm=NONE                   ctermfg=NONE  ctermbg=5
 highlight MatchParen                   cterm=NONE                   ctermfg=12    ctermbg=NONE
 "}}}
 "{{{ Floating Window
