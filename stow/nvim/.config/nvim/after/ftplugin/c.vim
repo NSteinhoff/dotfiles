@@ -57,6 +57,9 @@ else
     set errorformat+=%-G%.%#
 endif
 
+" Reset omnifunc to be able to use tag completion
+setlocal omnifunc&
+
 "{{{ Unmap default-mappings
 "nnoremap <buffer> [d [d
 "nnoremap <buffer> ]d ]d

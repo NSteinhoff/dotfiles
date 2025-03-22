@@ -1,4 +1,4 @@
-let s:jump_on_double_click = v:false
+let s:jump_on_double_click = v:true
 
 function preview#preview_word(word)
     let started_in_preview = &previewwindow
