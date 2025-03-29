@@ -65,23 +65,29 @@ local keymaps = {
         },
         -- Diagnostics
         ["]e"] = {
-            rhs = vim.diagnostic.goto_next,
+            rhs = function()
+                vim.diagnostic.jump({ count = 1, float = true })
+            end,
             opts = { desc = "LSP Goto Next Diagnostic" },
         },
         ["[e"] = {
-            rhs = vim.diagnostic.goto_prev,
+            rhs = function()
+                vim.diagnostic.jump({ count = -1, float = true })
+            end,
             opts = { desc = "LSP Goto Previous Diagnostic" },
         },
-
-        -- The conflict with my debugger mappings
-        -- ["dh"] = {
-        --     rhs = vim.diagnostic.open_float,
-        --     opts = { desc = "LSP Show Diagnostics" },
-        -- },
-        -- ["dH"] = {
-        --     rhs = vim.diagnostic.setloclist,
-        --     opts = { desc = "LSP Set Diagnostics Loclist" },
-        -- },
+        ["]E"] = {
+            rhs = function()
+                vim.diagnostic.jump({ count = math.huge, float = true, wrap = false })
+            end,
+            opts = { desc = "LSP Goto First Diagnostic in Buffer" },
+        },
+        ["[E"] = {
+            rhs = function()
+                vim.diagnostic.jump({ count = -math.huge, float = true, wrap = false })
+            end,
+            opts = { desc = "LSP Goto Last Diagnostic in Buffer" },
+        },
 
         -- Code actions
         ["gA"] = {

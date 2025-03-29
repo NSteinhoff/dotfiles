@@ -182,25 +182,6 @@ nnoremap <silent> <expr> <bar>
 cnoremap <expr> <c-n> wildmenumode() ? "\<c-n>" : "\<down>"
 cnoremap <expr> <c-p> wildmenumode() ? "\<c-p>" : "\<up>"
 "}}}
-"{{{ Cycling lists
-nnoremap ]a <cmd>next<cr>
-nnoremap [a <cmd>previous<cr>
-
-nnoremap ]b <cmd>bnext<cr>
-nnoremap [b <cmd>bprevious<cr>
-
-nnoremap ]q <cmd>cnext<cr>
-nnoremap [q <cmd>cprevious<cr>
-
-nnoremap ]l <cmd>lnext<cr>
-nnoremap [l <cmd>lprevious<cr>
-
-nnoremap ]t <cmd>tnext<cr>
-nnoremap [t <cmd>tprevious<cr>
-
-nnoremap ]p <cmd>ptnext<cr>
-nnoremap [p <cmd>ptprevious<cr>
-"}}}
 "{{{ Arglist
 nnoremap ]A <cmd>argadd %<bar>echo "Added arg '"..expand("%").."'"<cr>
 nnoremap [A <cmd>argdelete %<bar>echo "Removed arg '"..expand("%").."'"<cr>
@@ -278,10 +259,10 @@ nnoremap <silent> <c-w>t <cmd>tab split<bar>diffoff<cr>
 nmap <c-w><c-t> <c-w>t
 
 " Grep, i.e. poor man's 'go-to-reference'
-nnoremap <silent> gr <cmd>let @/=expand("<cword>")<bar>execute "silent grep! '\\b"..@/.."\\b'"<bar>set hlsearch<cr>
-vnoremap <silent> gr y:let @/=escape(@", '.\|$[](){}')<bar>execute 'silent grep! '..shellescape(@/, '\|')<bar>set hlsearch<cr>
-nnoremap <silent> ga <cmd>let @/=expand("<cword>")<bar>execute "silent grepadd! '\\b"..@/.."\\b'"<bar>set hlsearch<cr>
-vnoremap <silent> ga y:let @/=escape(@", '.\|$[](){}')<bar>execute 'silent grepadd! '..shellescape(@/, '\|')<bar>set hlsearch<cr>
+nnoremap <nowait> <silent> gr <cmd>let @/=expand("<cword>")<bar>execute "silent grep! '\\b"..@/.."\\b'"<bar>set hlsearch<cr>
+vnoremap <nowait> <silent> gr y:let @/=escape(@", '.\|$[](){}')<bar>execute 'silent grep! '..shellescape(@/, '\|')<bar>set hlsearch<cr>
+nnoremap <nowait> <silent> ga <cmd>let @/=expand("<cword>")<bar>execute "silent grepadd! '\\b"..@/.."\\b'"<bar>set hlsearch<cr>
+vnoremap <nowait> <silent> ga y:let @/=escape(@", '.\|$[](){}')<bar>execute 'silent grepadd! '..shellescape(@/, '\|')<bar>set hlsearch<cr>
 
 " Outline
 nmap gO <cmd>Outline<cr>
