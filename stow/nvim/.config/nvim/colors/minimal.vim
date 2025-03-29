@@ -13,7 +13,6 @@ highlight Cursor                       cterm=inverse                ctermfg=NONE
 highlight lCursor                      cterm=inverse                ctermfg=NONE  ctermbg=NONE
 highlight CursorIM                     cterm=inverse                ctermfg=NONE  ctermbg=NONE
 highlight TermCursor                   cterm=inverse                ctermfg=NONE  ctermbg=NONE
-highlight TermCursorNC                 cterm=inverse                ctermfg=NONE  ctermbg=NONE
 highlight Visual                       cterm=NONE                   ctermfg=0     ctermbg=2
 "}}}
 "{{{ Basic UI Elements
@@ -103,15 +102,15 @@ highlight Exception                    cterm=bold                   ctermfg=15  
 highlight Function                     cterm=bold                   ctermfg=NONE  ctermbg=NONE
 highlight Identifier                   cterm=NONE                   ctermfg=NONE  ctermbg=NONE
 highlight Conceal                      cterm=NONE                   ctermfg=8     ctermbg=NONE
-highlight Ignore                       cterm=NONE                   ctermfg=8     ctermbg=NONE
+highlight Ignore                       cterm=NONE                   ctermfg=0     ctermbg=NONE
 highlight Keyword                      cterm=NONE                   ctermfg=15    ctermbg=NONE
 highlight Macro                        cterm=NONE                   ctermfg=15    ctermbg=NONE
 highlight Number                       cterm=NONE                   ctermfg=3     ctermbg=NONE
 highlight Operator                     cterm=bold                   ctermfg=15    ctermbg=NONE
 highlight PreProc                      cterm=NONE                   ctermfg=13    ctermbg=NONE
-highlight Special                      cterm=NONE                   ctermfg=12    ctermbg=NONE
-highlight SpecialChar                  cterm=bold                   ctermfg=12    ctermbg=NONE
-highlight SpecialComment               cterm=NONE                   ctermfg=12    ctermbg=NONE
+highlight Special                      cterm=NONE                   ctermfg=6     ctermbg=NONE
+highlight SpecialChar                  cterm=bold                   ctermfg=6     ctermbg=NONE
+highlight SpecialComment               cterm=NONE                   ctermfg=6     ctermbg=NONE
 highlight Statement                    cterm=NONE                   ctermfg=15    ctermbg=NONE
 highlight String                       cterm=NONE                   ctermfg=3     ctermbg=NONE
 highlight Todo                         cterm=bold                   ctermfg=2     ctermbg=8

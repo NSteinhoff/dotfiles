@@ -13,7 +13,6 @@ highlight Cursor                       cterm=inverse                ctermfg=NONE
 highlight lCursor                      cterm=inverse                ctermfg=NONE  ctermbg=NONE
 highlight CursorIM                     cterm=inverse                ctermfg=NONE  ctermbg=NONE
 highlight TermCursor                   cterm=inverse                ctermfg=NONE  ctermbg=NONE
-highlight TermCursorNC                 cterm=inverse                ctermfg=NONE  ctermbg=NONE
 highlight Visual                       cterm=NONE                   ctermfg=0     ctermbg=2
 "}}}
 "{{{ Basic UI Elements
@@ -94,7 +93,7 @@ highlight FloatTitle                   cterm=NONE                   ctermfg=15  
 highlight FloatFooter                  cterm=NONE                   ctermfg=15    ctermbg=4
 "}}}
 "{{{ Syntax
-highlight Comment                      cterm=NONE                   ctermfg=6     ctermbg=NONE
+highlight Comment                      cterm=NONE                   ctermfg=8     ctermbg=NONE
 highlight Constant                     cterm=NONE                   ctermfg=15    ctermbg=NONE
 highlight Define                       cterm=NONE                   ctermfg=NONE  ctermbg=NONE
 highlight Delimiter                    cterm=NONE                   ctermfg=2     ctermbg=NONE
@@ -102,8 +101,8 @@ highlight Error                        cterm=bold                   ctermfg=1   
 highlight Exception                    cterm=bold                   ctermfg=15    ctermbg=NONE
 highlight Function                     cterm=bold                   ctermfg=NONE  ctermbg=NONE
 highlight Identifier                   cterm=NONE                   ctermfg=NONE  ctermbg=NONE
-highlight Conceal                      cterm=NONE                   ctermfg=NONE  ctermbg=NONE
-highlight Ignore                       cterm=NONE                   ctermfg=8     ctermbg=NONE
+highlight Conceal                      cterm=NONE                   ctermfg=8     ctermbg=NONE
+highlight Ignore                       cterm=NONE                   ctermfg=0     ctermbg=NONE
 highlight Keyword                      cterm=NONE                   ctermfg=NONE  ctermbg=NONE
 highlight Macro                        cterm=NONE                   ctermfg=NONE  ctermbg=NONE
 highlight Number                       cterm=NONE                   ctermfg=15    ctermbg=NONE

@@ -193,7 +193,7 @@ local function init()
 
     -- Mappings and Commands
     local scopes_sidebar =
-        ui.sidebar(ui.scopes, { width = vim.o.columns / 4 }, "rightbelow vertical split")
+        ui.sidebar(ui.scopes, { width = math.ceil(vim.o.columns / 4) }, "rightbelow vertical split")
 
     local global_commands = {
         ["DapLaunch"] = {
