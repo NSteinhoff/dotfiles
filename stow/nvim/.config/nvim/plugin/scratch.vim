@@ -10,13 +10,16 @@ function s:getfile()
     return s:global_scratch_file
 endfunction
 
-function s:init() 
+function s:init()
     let filename = s:getfile()
     if !filereadable(filename)
         return
     endif
 
     let buf = bufnr(s:bufname)
+    if buf == -1
+        return
+    endif
     call deletebufline(buf, 1, '$')
 
     let lines = readfile(filename)
@@ -49,8 +52,9 @@ endfunction
 
 command! -bar Scratch call s:scratch('<mods>')
 
-"augroup scratch
-"    autocmd!
-"    autocmd InsertLeave,TextChanged scratch://SCRATCH call s:write()
-"    autocmd BufEnter scratch://SCRATCH call s:init()
-"augroup END
+augroup scratch
+    autocmd!
+    autocmd InsertLeave,TextChanged scratch://SCRATCH call s:write()
+    autocmd BufEnter scratch://SCRATCH call s:init()
+    autocmd FocusGained * call s:init()
+augroup END

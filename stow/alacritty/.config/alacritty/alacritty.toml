@@ -9,7 +9,7 @@ args = ["--login"]
 program = "/opt/homebrew/bin/bash"
 
 [font]
-size = 14
+size = 16
 normal.family = "Iosevka Nerd Font Mono"
 bold.style = "Bold"
 italic.style = "Italic"

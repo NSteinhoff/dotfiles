@@ -279,7 +279,7 @@ nnoremap <leader>bD :call buffers#recent()<cr>:bdelete<c-b>
 nnoremap <leader>bT :buffer term://<c-z>
 "}}}
 "{{{ Toggle Scratch buffer
-nnoremap <leader>s <cmd>Scratch<cr>
+nnoremap <leader>s <cmd>Scratch<cr>G
 "}}}
 "{{{ Open Journal
 nnoremap <leader>j <cmd>Journal<cr>
