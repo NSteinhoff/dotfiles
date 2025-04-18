@@ -45,7 +45,7 @@ function s:job.on_exit(job_id, data, event)
         call nvim_buf_set_extmark(self.buf, s:ns_results, 0, 0, {'virt_text': [[printf('(%d)', len(self.data)), 'Special']]})
     endif
 
-    call appendbufline(self.buf, '$', self.data + self.err)
+    call appendbufline(self.buf, '$', lines)
 endfunction
 
 function s:job.stop()

@@ -33,8 +33,8 @@ nnoremap <buffer> <cr>    <cmd>call livegrep#goto(line('.'), v:true)<cr>
 " Quickly jump to the input line
 nnoremap <buffer> <expr> i line('.') == 1 ? 'i' : '1GI'
 nnoremap <buffer> <expr> a line('.') == 1 ? 'a' : '1GA'
-nnoremap <buffer>        I 1GI'
-nnoremap <buffer>        A 1GA'
+nnoremap <buffer>        I 1GI
+nnoremap <buffer>        A 1GA
 
 " Export and search/replace
 nnoremap <buffer> gs <cmd>call livegrep#export('%')<cr>:cdo s/
