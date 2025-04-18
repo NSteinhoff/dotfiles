@@ -40,19 +40,17 @@ alias rm='rm -i'
 #################
 ### Listing
 # Listing files
-[ $os = "linux" ] && alias ls='ls --color=auto --group-directories-first'
-[ $os = "mac" ] && alias ls='ls -G'
+[[ $os == linux ]] && alias ls='ls --color=auto --group-directories-first'
+[[ $os == mac ]] && alias ls='ls -G'
 alias l='ls -CF'
 alias la='l -A'
 alias ll='ls -lFh'
 alias lla='ll -A'
 alias tree='tree -CF --dirsfirst --gitignore'
-
 # Listing ports
 alias lsop='_() { lsof -i -nP $@ | grep LISTEN; }; _'
-
-# Find my IP on local network
-alias lip='_() { ifconfig | grep "inet " | grep -v 127.0.0.1 | grep "broadcast" | cut -d " " -f2 ; }; _'
+# Listing my IP on local network
+alias lsip='_() { ifconfig | grep "inet " | grep -v 127.0.0.1 | grep "broadcast" | cut -d " " -f2 ; }; _'
 
 ###################
 ### Grep with color
@@ -61,9 +59,17 @@ alias grep='grep --color=auto'
 ##############
 ### Web search
 [[ os == linux ]] && opener=xdg-open || opener=open
-alias q='_() { q="${@:1}"; '$opener' "https://duckduckgo.com/?q=${q}"; }; _'
-alias mdn='_() { q="${@:1}"; '$opener' "https://developer.mozilla.org/en-US/search?q=${q}"; }; _'
-alias ai='$opener "https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1"'
+_search_web() {
+    local name="$1"; shift
+    local engine_url="$1"; shift
+    local query="$1"; shift
+    if [[ -z "$name" ]] || [[ -z "$engine_url" ]]; then echo "Invalid number of arguments"; return 1; fi
+    if [[ -z "$query" ]]; then echo "usage: $name <query>"; return 1; fi
+    $opener "${engine_url}${query}"
+}
+q()   { _search_web "${FUNCNAME[0]}" "https://duckduckgo.com/?q="                    "$1"; }
+mdn() { _search_web "${FUNCNAME[0]}" "https://developer.mozilla.org/en-US/search?q=" "$1"; }
+ai()  { $opener "https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1"; }
 
 ###########
 ### Why not
@@ -80,31 +86,30 @@ alias dbg='lldb --batch --one-line run -- '
 #######
 ### Git
 _git_branches() {
+    git status &>/dev/null || return 1
     echo $(git branch --sort=-committerdate --format="%(refname:strip=2)" | grep -v "HEAD detached")
 }
 
 _complete_branches() { COMPREPLY=( $(compgen -W "$(_git_branches)" $2) ); }
 
-_gg() {
-    if (( $# == 0 )); then
-        git status
-        echo "git switch ..."
-        select branch in $(_git_branches); do break; done
-
-        if [[ -n "$branch" ]]; then
-            git switch "$branch"
-        else
-            echo "Okay then..."
-        fi
-    else
+_git_switch_select_branch() {
+    if (( $# > 0 )); then
         git switch $@
+        return
     fi
 
+    git status || return 1
+    echo -e "\nSwitch to branch:"
+    local branches
+    branches=$(_git_branches) || return 1
+    select branch in $branches; do break; done
+    [[ -n "$branch" ]] || return 1
+    git switch "$branch"
 }
 
 alias g='git status'
 alias g-='git switch -'
-alias gg='_gg'
+alias gg='_git_switch_select_branch'
 complete -F _complete_branches gg
 
 ########
@@ -112,21 +117,21 @@ complete -F _complete_branches gg
 # t     List sessions or execute tmux commands
 # tn    Create a new session named after the directory
 # tt    Attach to a session
-tmux_ls_or_cmd() {
+_tmux_ls_or_cmd() {
     if (( $# == 0 )); then
         tmux ls
     else
         tmux $@
     fi
 }
-tmux_new_session() {
+_tmux_new_session() {
     if (( $# == 0 )); then
         tmux new -s "$(basename $PWD)"
     else
         tmux new -s "$1"
     fi
 }
-tmux_smart_attach() {
+_tmux_smart_attach() {
     if (( $# == 0 )); then
         tmux attach
     else
@@ -134,9 +139,9 @@ tmux_smart_attach() {
     fi
 }
 
-alias t='tmux_ls_or_cmd'
-alias tn='tmux_new_session'
-alias tt='tmux_smart_attach'
+alias t='_tmux_ls_or_cmd'
+alias tn='_tmux_new_session'
+alias tt='_tmux_smart_attach'
 alias tm='tmuxinator start --suppress-tmux-version-warning=on'
 
 ########
@@ -158,7 +163,6 @@ complete -F _complete_notes note
 _complete_notes() { COMPREPLY=( $(compgen -W "$(ls $NOTES_DIR)" $2) ); }
 alias journal='nvim +Journal!'
 alias todo='nvim +Todo!'
-alias tasks='nvim tasks'
 alias zettel='_() { nvim "+Zettel $*"; }; _'
 
 ########
