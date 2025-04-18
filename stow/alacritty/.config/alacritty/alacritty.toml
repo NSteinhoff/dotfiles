@@ -1,5 +1,5 @@
 [general]
-import = ["~/.config/alacritty/colors/right-in-the-teals-light.toml"]
+import = ["~/.config/alacritty/colors/rose-pine-dawn.toml"]
 
 [window]
 option_as_alt = "OnlyLeft"
@@ -9,7 +9,7 @@ args = ["--login"]
 program = "/opt/homebrew/bin/bash"
 
 [font]
-size = 16
+size = 14
 normal.family = "Iosevka Nerd Font Mono"
 bold.style = "Bold"
 italic.style = "Italic"

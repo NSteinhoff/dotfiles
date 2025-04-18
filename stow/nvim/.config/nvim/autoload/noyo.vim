@@ -8,6 +8,7 @@ let s:set_opts.showtabline = 0
 let s:set_opts.signcolumn = "no"
 let s:set_opts.showcmd = 0
 let s:set_opts.ruler = 0
+let s:set_opts.list = 0
 
 function noyo#toggle(bang)
     if a:bang && !s:noyo_on|return|endif
