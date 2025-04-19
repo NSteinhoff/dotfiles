@@ -203,32 +203,16 @@ complete -F _complete_colorscheme colorscheme
 _complete_colorscheme() { COMPREPLY=( $(compgen -W "$(colorscheme -l)" $2) ); }
 
 # ---------------------------------- PROMPT -----------------------------------
-starship_prompt=false
-fancy_prompt=true
-if $starship_prompt && (which starship &>/dev/null); then
-    eval "$(starship init bash)"
-elif $fancy_prompt; then
-    case "$TERM" in
-    xterm*|rxvt*|tmux*|screen*|alacritty*)
-        PS1="$(make-bash-prompt)"
-        ;;
-    *)
-        ;;
-    esac
-else
-	PS1="\[\033[1;34m\]\w\[\033[1;32m\]\n\j:\$\[\033[m\] "
-fi
+case basic in
+    starship) eval "$(starship init bash)" ;;
+       fancy) PS1="$(make-bash-prompt)" ;;
+       basic) PS1="\[\e[1;34m\]\w\[\e[1;32m\]\n\j:\$\[\e[m\] " ;;
+esac
 
 # --------------------------- Directory Shortcuts -----------------------------
 export CDPATH=.:~/Develop # include the explicit '.' to support bash < 4.2
 export NOTES_DIR=~/Dropbox/Notes
 export ZETTELKASTEN=~/Dropbox/Zettel
-
-# --------------------------- C Compilation ---------------------------------
-# export CC=clang
-# export CFLAGS="${CFLAGS:+${CFLAGS} }-Wall -Werror -Wextra -pedantic -Weverything -Wno-declaration-after-statement -Wno-strict-prototypes -Wno-shadow -Wno-padded"
-# export LDFLAGS="${LDFLAGS:+${LDFLAGS} }"
-# export LDLIBS="${LDLIBS:+${LDLIBS} }"
 
 # ---------------------------- Pandoc CSS Styles ------------------------------
 export PANDOC_CSS="$HOME/.local/styles/markdown.css"
@@ -243,8 +227,6 @@ alias jira='nvim +"set ft=jira" +"set buftype=nofile"'
 # --------------------------------------------------------------------------- #
 #                               NiN Navigation                                #
 # --------------------------------------------------------------------------- #
-export PATH="$HOME/Develop/based/target:$PATH"
-
 n() {
     cmdfile="$HOME/.local/share/nin-postcmd"
     local nin_path="$1"
@@ -252,11 +234,7 @@ n() {
     while true; do
         rm -f -- "$cmdfile"  >/dev/null
         based-navigate "$nin_path" "$nin_args" || return 1
-
-        if [[ -f "$cmdfile" ]]; then
-            source "$cmdfile"
-        else
-            break
-        fi
+        [[ -f "$cmdfile" ]] || return 0
+        source "$cmdfile"
     done
 }
