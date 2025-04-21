@@ -17,7 +17,6 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # Set Vim as default editor
 which nvim &>/dev/null && export EDITOR=nvim || export EDITOR=vim
-# which nvim &>/dev/null && export MANPAGER='nvim +Man!'
 
 case $OSTYPE in
     linux*) os="linux";;
@@ -30,7 +29,8 @@ esac
 alias v='NVIM_APPNAME=v nvim'
 alias yot='toggle-light-dark'
 
-# Search history
+# History
+alias h='history'
 alias hg='history | grep '
 
 ################
