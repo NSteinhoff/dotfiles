@@ -1,5 +1,118 @@
 #!/usr/bin/env bash
+bash_prompt_definitions=$(cat <<'EOF'
+_git_prompt_unstaged_changes() {
+    [ -n "$(git diff --shortstat 2> /dev/null | tail -n1)" ]
+}
+
+_git_prompt_uncommitted_changes() {
+    [ -n "$(git diff --shortstat --staged 2> /dev/null | tail -n1)" ]
+}
+
+_git_prompt_stashed_changes() {
+    [ -n "$(git stash list 2> /dev/null | tail -n1)" ]
+}
+
+_git_prompt_branch_name() {
+    echo -n "$(git branch --show-current 2>/dev/null)"
+}
+
+_git_prompt_upstream_branch() {
+    upstream="$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)" || return 1
+    echo -n "$upstream"
+}
+
+_git_prompt_detached_head() {
+    detached=$(git status 2>/dev/null | grep '^HEAD detached ')
+    if [ -n "$detached" ]
+    then
+        echo -en "\033[1;31m"
+        echo -n " $detached"
+        echo -en "\033[0m"
+        return 0
+    fi
+    return 1
+}
+
+_git_prompt_branch_status() {
+    status=$(
+        git status 2>/dev/null |
+        grep '^Your branch ' |
+        grep -o 'ahead\|behind\|diverged\|up to date'
+    ) || return 1
+
+    case $status in
+        diverged) echo -n "<>" ;;
+        ahead) echo -n ">" ;;
+        behind) echo -n "<" ;;
+        'up to date') echo -n "=";;
+    esac
+}
+
+_git_prompt_rebase_in_progress() {
+    rebasing=$(git status 2>/dev/null | grep '^interactive rebase in progress')
+    if [ -n "$rebasing" ]
+    then
+        echo -en "\033[1;31m"
+        echo -n " $rebasing"
+        echo -en "\033[0m"
+        return 0
+    fi
+    return 1
+}
+
+_git_prompt() {
+    _git_prompt_detached_head           && return 0
+    _git_prompt_rebase_in_progress      && return 0
+    local branch=$(_git_prompt_branch_name)   || return 0
+    [ -n "$branch" ]        || return 1
+
+    local upstream=$(_git_prompt_upstream_branch)
+    if [ -n "$upstream" ]; then
+        upstream_name="${upstream#*/}"
+        upstream_indicator="\033[0;36m$(_git_prompt_branch_status)"
+        if [ "$upstream_name" != "$branch" ]; then
+            upstream_indicator="$upstream_indicator($upstream_name)"
+        fi
+    fi
+
+    if $(_git_prompt_unstaged_changes); then unstaged="\033[0;31m +"; fi
+    if $(_git_prompt_uncommitted_changes); then uncommitted="\033[0;32m +"; fi
+    if $(_git_prompt_stashed_changes); then stashed="\033[0;33m $"; fi
+
+    echo -n " on "
+    echo -en "\033[1;35m"
+    echo -en "${branch}"
+    echo -en "${upstream_indicator}"
+    echo -en "$unstaged$uncommitted$stashed"
+    echo -en "\033[0m"
+}
+
+_tmux_prompt() {
+    [[ -n "${TMUX}" ]] || return
+
+    # Only show the prompt when the statusline is disabled
+    tmux show-options -g status | grep --silent "status off" || return
+
+    local tmuxinfo="$(
+        tmux list-windows -F '#S:#I:#P #{window_active}' |
+        grep '1$' |
+        cut -w -f1
+    )"
+
+    local session="$(echo $tmuxinfo | cut -d : -f1)"
+    local window="$(echo $tmuxinfo | cut -d : -f2)"
+    local pane="$(echo $tmuxinfo | cut -d : -f3)"
+
+    echo -en "\033[1;33m"
+    echo -n "[${session}:${window}:${pane}]"
+    echo -en "\033[0m "
+}
+
 cwd='\[\033[1;34m\]\w\[\033[m\]'
 stp='\[\033[1;32m\]\$\[\033[m\]'
 
-echo '$(tmux-prompt)'$cwd'$(git-prompt)\n\j:'$stp' '
+PS1='$(_tmux_prompt)'$cwd'$(_git_prompt)\n\j:'$stp' '
+EOF
+)
+
+echo "$bash_prompt_definitions"

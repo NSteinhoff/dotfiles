@@ -203,9 +203,9 @@ complete -F _complete_colorscheme colorscheme
 _complete_colorscheme() { COMPREPLY=( $(compgen -W "$(colorscheme -l)" $2) ); }
 
 # ---------------------------------- PROMPT -----------------------------------
-case basic in
+case fancy in
     starship) eval "$(starship init bash)" ;;
-       fancy) PS1="$(make-bash-prompt)" ;;
+       fancy) eval "$(make-bash-prompt)" ;;
        basic) PS1="\[\e[1;34m\]\w\[\e[1;32m\]\n\j:\$\[\e[m\] " ;;
 esac
 
