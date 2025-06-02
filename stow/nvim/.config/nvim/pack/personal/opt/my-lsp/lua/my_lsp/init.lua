@@ -1,11 +1,27 @@
-require("my_lsp.diagnostics").config()
-require("my_lsp.mappings").setup()
+require("my_lsp.config")
 
-local function on_attach(...)
-    require("my_lsp.capabilities").on_attach(...)
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("ts_ls")
+vim.lsp.enable("jsonls")
+-- vim.lsp.enable("clangd")
+-- vim.lsp.enable("rust_analyzer")
+
+vim.diagnostic.config({
+    signs = true,
+    underline = false,
+    virtual_text = false,
+    update_in_insert = false,
+})
+
+local function on_attach(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+    client.server_capabilities.documentFormattingProvider = nil
+    client.server_capabilities.semanticTokensProvider = nil
+
     require("my_lsp.options").on_attach()
     require("my_lsp.commands").on_attach()
     require("my_lsp.mappings").on_attach()
+
     vim.b.my_lsp_status = require("my_lsp.status").status()
 end
 
@@ -20,32 +36,17 @@ local function on_detach(args)
     vim.b.my_lsp_status = {}
 end
 
-local servers = {
-    "ts_ls",
-    "rust_analyzer",
-    "clangd",
-    "jsonls",
-    "cssls",
-    "lua_ls",
-    "java_language_server",
-    "gopls",
-    "pylsp",
-    "html",
-}
-
-for _, server in ipairs(servers) do
-    require("my_lsp.config")[server]({
-        on_attach = on_attach,
-        autostart = false,
-    })
-end
-
 local augroup = vim.api.nvim_create_augroup("my-lsp", { clear = true })
 
-vim.api.nvim_create_autocmd("LspDetach", {
-    group = augroup,
-    callback = on_detach,
-})
+vim.api.nvim_create_autocmd(
+    "LspAttach",
+    { group = augroup, callback = on_attach }
+)
+
+vim.api.nvim_create_autocmd(
+    "LspDetach",
+    { group = augroup, callback = on_detach }
+)
 
 --[[
 vim.api.nvim_create_autocmd("DiagnosticChanged", {
