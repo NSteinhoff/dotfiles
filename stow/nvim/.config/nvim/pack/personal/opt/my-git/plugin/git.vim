@@ -5,8 +5,8 @@ command! NoShowBlame call git#blame_off()
 command! ToggleBlame call git#blame_toggle()
 
 " Regenerate the git ctags
-command! Ctags call git#ctags(0)
-command! CtagsLib call git#ctags(1)
+command! -bar Ctags call git#ctags(0)
+command! -bar CtagsLib call git#ctags(1)
 function s:complete_file_log(arglead, cmdline, cursorpos)
     return filter(git#file_log(@%), { _, v -> v =~ a:arglead})
 endfunction

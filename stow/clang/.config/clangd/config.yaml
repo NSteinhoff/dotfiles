@@ -1,13 +1,13 @@
 CompileFlags:
   Add:
     - -xc
-    - -std=c17
+    - -std=c23
     - -pedantic
     - -Wall
     - -Wextra
+    - -Wmissing-prototypes
     - -Wconversion
     - -Wsign-conversion
-    - -Wmissing-prototypes
     - -I/opt/homebrew/include
 
 ---

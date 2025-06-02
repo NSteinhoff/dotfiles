@@ -60,6 +60,9 @@ endif
 " Reset omnifunc to be able to use tag completion
 setlocal omnifunc&
 
+" Stop inserting comment leaders for // comments
+setlocal formatoptions-=o
+
 "{{{ Unmap default-mappings
 "nnoremap <buffer> [d [d
 "nnoremap <buffer> ]d ]d

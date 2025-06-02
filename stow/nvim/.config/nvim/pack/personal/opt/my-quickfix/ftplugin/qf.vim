@@ -29,3 +29,4 @@ vnoremap <silent> <buffer> d :call qf#delete()<cr>
 nnoremap <buffer> <expr> gs (qf#isloc() ? ':ldo' : ':cdo')..' s/'
 nnoremap <buffer> <expr> gS (qf#isloc() ? ':ldo' : ':cdo')..' s/\C\V\<'.expand('<cword>').'\>/'
 vnoremap <buffer> <expr> gS (qf#isloc() ? 'y:ldo' : 'y:cdo')..' s/\C\V<c-r>=escape(@", '\/')<cr>/
+nnoremap <buffer> <expr> gU (qf#isloc() ? ':lfdo' : ':cfdo')..' update<cr>'

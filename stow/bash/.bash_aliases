@@ -23,11 +23,14 @@ case $OSTYPE in
     darwin*) os="mac";;
 esac
 
+export MANPAGER='v=NVIM_APPNAME=v nvim +Man!'
+
 # --------------------------------------------------------------------------- #
 #                                   Aliases                                   #
 # --------------------------------------------------------------------------- #
 alias v='NVIM_APPNAME=v nvim'
 alias yot='toggle-light-dark'
+alias mdv='based-markdown-viewer --open'
 
 # History
 alias h='history'
@@ -108,6 +111,8 @@ _git_switch_select_branch() {
 }
 
 alias g='git status'
+alias gl='git lo'
+alias gd='git diff'
 alias g-='git switch -'
 alias gg='_git_switch_select_branch'
 complete -F _complete_branches gg

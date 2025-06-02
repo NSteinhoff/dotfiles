@@ -59,3 +59,9 @@
 
 [includeIf "gitdir:~/Develop/S2/"]
 	path = ~/.config/git/config.s2
+
+[includeIf "gitdir:~/Develop/S2/onemofa/"]
+	path = ~/.config/git/config.accenture
+
+[includeIf "gitdir:~/Develop/S2/vw-pitch/"]
+	path = ~/.config/git/config.accenture

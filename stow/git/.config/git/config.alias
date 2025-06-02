@@ -1,15 +1,18 @@
 [alias]
 	# Simplified logs
-	lo		= log --graph --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'
-	loa		= log --graph --all --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'
-	lf		= log --graph --date=short --format='%C(auto)%h%d %s %C(green)(%cd) %C(blue)<%an>%Creset'
-	lfa		= log --graph --all --date=short --format='%C(auto)%h%d %s %C(green)(%cd) %C(blue)<%an>%Creset'
+	lo		= log --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'
+	lf		= lo --date=short
+	loa		= lo --graph --all
+	lfa		= lf --graph --all
 	loga		= log --graph --all
 
 	# Diffing
 	di		= diff
 	dis		= diff --staged
 	diw		= diff --color-words
+
+	# Switching
+	sw		= switch
 
 	# Committing (crimes)
 	pave		= commit --all --amend --no-edit
@@ -24,7 +27,7 @@
 	branch-get-main		= "!git branch --list --format='%(refname:short)' | grep -E '^(main(line)?|trunk|root|master)$' | head -n 1"
 	branch-get-behind	= "!git branch --list --format='%(refname:short) %(upstream:track)' | grep '\\[behind' | while read branch _; do echo $branch; done"
 	branch-get-stale	= "!git branch --list --format='%(refname:short) %(upstream:track)' | grep '\\[gone\\]' | while read branch _; do echo $branch; done"
-	branch-remove-stale	= "!git branch-get-stale | (while read branch; do git branch --delete --force $branch; done)"
+	branch-remove-stale	= "!git branch-get-stale | (while read branch; do git branch --delete $branch; done)"
 	branch-update-behind	= "!git branch-get-behind | (while read branch; do git switch --ignore-other-worktrees $branch && git pull --ff-only; done)"
 	branch-switch-main	= "!git switch $(test -f .git && echo "--detach") $(git branch-get-main)"
 	fresh			= "!git remote update --prune && git branch-update-behind && git branch-switch-main && git branch-remove-stale"
@@ -38,7 +41,6 @@
 	# External tools
 	tree		= !git ls-files | tree --fromfile --dirsfirst -C
 	ctags		= !$(git rev-parse --git-common-dir)/hooks/ctags
-	ctags-lib	= !$(git rev-parse --git-common-dir)/hooks/ctags-lib
 	watch		= !git ls-files | entr
 
 	# Submodule management

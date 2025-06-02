@@ -53,3 +53,5 @@ command! -buffer -range -bang -nargs=* Expand execute '<line1>,<line2>!xargs tre
 call abbrev#cmdline('expand', 'Expand', {'buffer': v:true, 'range': v:true})
 
 call shell#create_commands()
+
+setlocal nolist

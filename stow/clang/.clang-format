@@ -12,6 +12,7 @@ ReflowComments: false
 AlwaysBreakBeforeMultilineStrings: true
 BreakBeforeTernaryOperators: true
 BreakStringLiterals: false
+BreakBeforeBraces: Attach
 AlignAfterOpenBracket: AlwaysBreak
 SpacesInContainerLiterals: true
 
@@ -19,7 +20,7 @@ PointerAlignment: Right
 AlignArrayOfStructures: Left
 AlignOperands: AlignAfterOperator
 AlignConsecutiveAssignments:
-  Enabled: false
+  Enabled: true
   AcrossComments: true
   AlignCompound: true
 AlignConsecutiveDeclarations:
@@ -28,10 +29,10 @@ AlignConsecutiveDeclarations:
 AlignConsecutiveMacros: AcrossComments
 
 AllowShortBlocksOnASingleLine: Empty
-AllowShortFunctionsOnASingleLine: None
 AllowShortCaseLabelsOnASingleLine: true
-AllowShortLoopsOnASingleLine: false
 AllowShortEnumsOnASingleLine: true
+AllowShortLoopsOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: Never
+AllowShortFunctionsOnASingleLine: None
 
-ForEachMacros: [foreach_word,foreach_line,foreach_token]
+ForEachMacros: [FOREACH, foreach_word,foreach_line,foreach_token]

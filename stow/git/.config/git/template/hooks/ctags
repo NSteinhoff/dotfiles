@@ -4,6 +4,6 @@ PATH="/usr/local/bin:$PATH"
 
 trap 'rm -f "$$.tags"' EXIT
 
-git ls-files | ctags --tag-relative=yes --sort=yes --languages=-JSON,-Markdown,-SVG,-JavaScript -L - -f"$$.tags"
+git ls-files | ctags --tag-relative=yes --sort=yes --languages=-JSON,-Markdown,-SVG,-JavaScript,-Make,-CSS -L - -f"$$.tags"
 
 mv "$$.tags" tags

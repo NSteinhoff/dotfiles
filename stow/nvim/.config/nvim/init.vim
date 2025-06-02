@@ -111,6 +111,14 @@ nnoremap <leader>,i <cmd>EditIndent<cr>
 nnoremap <leader>,c <cmd>EditColorscheme<cr>
 nnoremap <leader>,t <cmd>EditTerminalSettings<cr>
 "}}}
+"{{{ Disable some default mappings
+if maparg('[d', 'n') != ''
+    unmap [d
+endif
+if maparg(']d', 'n') != ''
+    unmap ]d
+endif
+"}}}
 "{{{ Basics / Improving standard mappings
 nnoremap <esc> <cmd>nohlsearch<bar>diffupdate<cr>
 
@@ -283,6 +291,9 @@ nnoremap <leader>s <cmd>Scratch<cr>G
 "}}}
 "{{{ Open Journal
 nnoremap <leader>j <cmd>Journal<cr>
+"}}}
+"{{{ Open To-Dos
+nnoremap <leader>t <cmd>Todo<cr>
 "}}}
 "{{{ Changed Files
 nnoremap <leader>c <cmd>ChangedFiles<cr>
