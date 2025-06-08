@@ -23,7 +23,7 @@ function status#err()
 endfunction
 
 function status#comp()
-    let lsp = get(b:, 'my_lsp_status', {})
+    let lsp = get(b:, 'my.lsp.status', {})
     let lsp = get(lsp, winwidth(0) < 100 ? 'tiny' : 'long', '')
 
     let compiler = get(b:, 'current_compiler', get(g:, 'current_compiler', ''))
@@ -91,7 +91,7 @@ function status#stealth()
 endfunction
 
 function status#dap()
-    let status = get(g:, 'my_dap_status')
+    let status = get(g:, 'my.dap.status')
 
     if empty(status)
         return ""

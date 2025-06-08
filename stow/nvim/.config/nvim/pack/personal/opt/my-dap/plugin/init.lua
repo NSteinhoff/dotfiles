@@ -490,7 +490,7 @@ local function init()
         pattern = "DapProgressUpdate",
         callback = function()
             local status = dap.status()
-            vim.g.my_dap_status = status
+            vim.g['my.dap.status'] = status
             set_colorscheme(status ~= "")
             vim.cmd("redrawstatus")
         end,

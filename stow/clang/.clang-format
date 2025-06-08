@@ -31,7 +31,7 @@ AlignConsecutiveMacros: AcrossComments
 AllowShortBlocksOnASingleLine: Empty
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortEnumsOnASingleLine: true
-AllowShortLoopsOnASingleLine: true
+AllowShortLoopsOnASingleLine: false
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortFunctionsOnASingleLine: None
 

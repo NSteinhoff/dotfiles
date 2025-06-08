@@ -1,10 +1,4 @@
-require("my_lsp.config")
-
-vim.lsp.enable("lua_ls")
-vim.lsp.enable("ts_ls")
-vim.lsp.enable("jsonls")
--- vim.lsp.enable("clangd")
--- vim.lsp.enable("rust_analyzer")
+require("my.lsp.config")
 
 vim.diagnostic.config({
     signs = true,
@@ -13,16 +7,26 @@ vim.diagnostic.config({
     update_in_insert = false,
 })
 
+vim.lsp.config("*", {
+    root_markers = { ".git" },
+})
+
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("ts_ls")
+vim.lsp.enable("jsonls")
+vim.lsp.enable("rust_analyzer")
+-- vim.lsp.enable("clangd")
+
 local function on_attach(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
     client.server_capabilities.documentFormattingProvider = nil
     client.server_capabilities.semanticTokensProvider = nil
 
-    require("my_lsp.options").on_attach()
-    require("my_lsp.commands").on_attach()
-    require("my_lsp.mappings").on_attach()
+    require("my.lsp.options").on_attach()
+    require("my.lsp.commands").on_attach()
+    require("my.lsp.mappings").on_attach()
 
-    vim.b.my_lsp_status = require("my_lsp.status").status()
+    vim.b['my.lsp.status'] = require("my.lsp.status").status()
 end
 
 local function on_detach(args)
@@ -30,13 +34,13 @@ local function on_detach(args)
         return
     end
 
-    require("my_lsp.commands").on_detach(args.buf)
-    require("my_lsp.mappings").on_detach(args.buf)
-    require("my_lsp.options").on_detach(args.buf)
-    vim.b.my_lsp_status = {}
+    require("my.lsp.commands").on_detach(args.buf)
+    require("my.lsp.mappings").on_detach(args.buf)
+    require("my.lsp.options").on_detach(args.buf)
+    vim.b['my.lsp.status'] = {}
 end
 
-local augroup = vim.api.nvim_create_augroup("my-lsp", { clear = true })
+local augroup = vim.api.nvim_create_augroup("my.lsp", { clear = true })
 
 vim.api.nvim_create_autocmd(
     "LspAttach",
@@ -46,6 +50,11 @@ vim.api.nvim_create_autocmd(
 vim.api.nvim_create_autocmd(
     "LspDetach",
     { group = augroup, callback = on_detach }
+)
+
+vim.api.nvim_create_autocmd(
+    "LspProgress",
+    { group = augroup, pattern = "*", command = "redrawstatus" }
 )
 
 --[[

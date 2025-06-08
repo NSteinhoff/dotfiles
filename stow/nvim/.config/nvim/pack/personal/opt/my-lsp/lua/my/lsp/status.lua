@@ -1,4 +1,5 @@
 local symbol = "*"
+
 local function clients()
     local results = {}
     for _, c in pairs(vim.lsp.get_clients({bufnr = 0})) do
