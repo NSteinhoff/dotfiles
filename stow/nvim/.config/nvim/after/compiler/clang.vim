@@ -11,7 +11,7 @@ endif
 runtime compiler/gcc.vim
 
 let s:cmd  = 'clang'
-let s:cmd .= ' -std=c17 -pedantic'
+let s:cmd .= ' -std=c23 -pedantic'
 let s:cmd .= ' -Wall -Wextra'
 let s:cmd .= ' -Wconversion'
 let s:cmd .= ' -Wmissing-prototypes'

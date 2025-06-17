@@ -4,15 +4,15 @@
 export LANG="en_US.UTF-8"
 
 # --------------------------------- Homebrew ----------------------------------
-# Prefer brewed executables
+# Prefer brewed executables over builtins
 export PATH=/opt/homebrew/bin:$PATH
+
+# ----------------------------------- ASDF ------------------------------------
+# Prefer ASDF shims over brewed stuff
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # Setup Bash completions
 [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
-
-# ----------------------------------- ASDF ------------------------------------
-# Setup ASDF environment
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # ---------------------------------- Cargo ------------------------------------
 # Setup cargo environment
@@ -37,6 +37,7 @@ export CC=clang
 # export CFLAGS="-I/opt/homebrew/include -I/opt/homebrew/opt/llvm/include"
 # export LDFLAGS="-L/opt/homebrew/lib -L/opt/homebrew/opt/llvm/lib -Wl,-rpath,/opt/homebrew/opt/llvm/lib"
 # export LDLIBS=
+
 # --------------------------------------------------------------------------- #
 #                                  ~/.bashrc                                  #
 # --------------------------------------------------------------------------- #

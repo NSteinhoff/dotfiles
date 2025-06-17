@@ -49,3 +49,11 @@ vim.lsp.config("ts_ls", {
         },
     },
 })
+
+vim.lsp.config("zls", {
+    settings = {
+        zls = {
+            semantic_tokens = "partial",
+        }
+    },
+})

@@ -26,7 +26,7 @@ command! -buffer -nargs=* CompileAndRun w|make %:r|!./%:r <args>
 nnoremap <buffer> gO <cmd>TagToc ! m<cr>
 
 let b:interpreter  = 'clang -O1'
-let b:interpreter .= ' -std=c17'
+let b:interpreter .= ' -std=c23'
 let b:interpreter .= ' -pedantic'
 let b:interpreter .= ' -I'..expand("%:.:h")
 let b:interpreter .= ' -Wno-error' " run anyways

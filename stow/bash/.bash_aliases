@@ -23,7 +23,7 @@ case $OSTYPE in
     darwin*) os="mac";;
 esac
 
-export MANPAGER='v=NVIM_APPNAME=v nvim +Man!'
+# export MANPAGER='NVIM_APPNAME=v nvim +Man!'
 
 # --------------------------------------------------------------------------- #
 #                                   Aliases                                   #
@@ -232,14 +232,4 @@ alias jira='nvim +"set ft=jira" +"set buftype=nofile"'
 # --------------------------------------------------------------------------- #
 #                               NiN Navigation                                #
 # --------------------------------------------------------------------------- #
-n() {
-    cmdfile="$HOME/.local/share/nin-postcmd"
-    local nin_path="$1"
-    local nin_args
-    while true; do
-        rm -f -- "$cmdfile"  >/dev/null
-        based-navigate "$nin_path" "$nin_args" || return 1
-        [[ -f "$cmdfile" ]] || return 0
-        source "$cmdfile"
-    done
-}
+command -v based-navigate &>/dev/null && eval "$(based-navigate --setup-shell)"

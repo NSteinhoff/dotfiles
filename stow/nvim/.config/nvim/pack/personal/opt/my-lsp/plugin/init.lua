@@ -5,6 +5,8 @@ local defaults = {
     lua = "lua_ls",
     rust = "rust_analyzer",
     json = "jsonls",
+    zig = "zls",
+    go = "gopls",
     javascript = "ts_ls",
     typescript = "ts_ls",
     javascriptreact = "ts_ls",
@@ -36,7 +38,7 @@ vim.api.nvim_create_user_command("Lsp", function(opts)
         local filetype = vim.bo.ft
         local name = defaults[filetype]
         if not name then
-            vim.notify(("No default for filetype '%s'"):format(filetype))
+            vim.notify(("No default LSP configured for filetype '%s'"):format(filetype))
             return
         end
 
