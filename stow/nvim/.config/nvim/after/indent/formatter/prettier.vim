@@ -15,9 +15,16 @@ endfunction
 function s:create()
     let l:buf = expand('%')
     let l:path = (!empty(l:buf) && isdirectory(l:buf) ? l:buf..';$HOME,' : '')..'.;$HOME,;$HOME,'
-    let l:ispackage = !empty(findfile('package.json', l:path))
+    let l:is_package = !empty(findfile('package.json', l:path))
+    let l:is_pnpm = !empty(findfile('pnpm-lock.yaml', l:path))
 
-    let l:cmd = (l:ispackage && executable('npx') ? 'npx ' : '')
+    let l:cmd = ''
+    if l:is_package && l:is_pnpm && executable('pnpm')
+        let l:cmd  .= 'pnpm --silent dlx '
+    elseif l:is_package && executable('npx')
+        let l:cmd  .= 'npx '
+    endif
+
     let l:cmd.= 'prettier'
     let l:cmd.= ' --stdin-filepath '..(empty(expand('%:t')) ? s:fakename() : expand('%:t'))
     let l:cmd.= ' --config-precedence=prefer-file'
