@@ -1,22 +1,23 @@
-let l:buf = expand('%')
-if empty(l:buf)|finish|endif
+let s:buf = expand('%')
+if empty(s:buf)|finish|endif
 
-let l:path = (isdirectory(l:buf) ? l:buf..';$HOME,' : '')..'.;$HOME,;$HOME,'
-let l:is_package = !empty(findfile('package.json', l:path))
-let l:is_pnpm = !empty(findfile('pnpm-lock.yaml', l:path))
-let l:rcfile = findfile('.eslintrc.js', l:path)
+let s:path = (isdirectory(s:buf) ? s:buf..';$HOME,' : '')..'.;$HOME,;$HOME,'
+let s:is_package = !empty(findfile('package.json', s:path))
+let s:is_pnpm = !empty(findfile('pnpm-lock.yaml', s:path))
+let s:rcfile = findfile('.eslintrc.js', s:path)
 
-let l:cmd = ''
-if l:is_package && l:is_pnpm && executable('pnpm')
-    let l:cmd  .= 'pnpm --silent dlx '
-elseif l:is_package && executable('npx')
-    let l:cmd  .= 'npx '
+let s:cmd = ''
+if s:is_package && s:is_pnpm && executable('pnpm')
+    let s:cmd  .= 'pnpm --silent dlx '
+elseif s:is_package && executable('npx')
+    let s:cmd  .= 'npx '
 endif
 
-let l:cmd  = (l:is_package && executable('npx') ? 'npx ' : '')
-let l:cmd .= 'eslint'
-let l:cmd .= !empty(l:rcfile) ? ' --config '.l:rcfile : ' --no-eslintrc'
-let l:cmd .= ' --fix '
-let l:cmd .= l:buf
+let s:cmd  = (s:is_package && executable('npx') ? 'npx ' : '')
+let s:cmd .= 'eslint'
+let s:cmd .= !empty(s:rcfile) ? ' --config '.s:rcfile : ' --no-eslintrc'
+let s:cmd .= ' --fix '
+let s:cmd .= s:buf
 
-let b:fixprg = l:cmd
+let b:fixname = 'eslint'
+let b:fixprgfunc = s:cmd
