@@ -27,7 +27,7 @@ function s:create()
 
     let l:cmd.= 'prettier'
     let l:cmd.= ' --stdin-filepath '..(empty(expand('%:t')) ? s:fakename() : expand('%:t'))
-    let l:cmd.= ' --config-precedence=prefer-file'
+    let l:cmd.= ' --config-precedence=cli-override'
     let l:cmd.= ' --arrow-parens=always'
     let l:cmd.= ' --trailing-comma=all'
     if &expandtab

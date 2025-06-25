@@ -38,7 +38,7 @@ vim.lsp.config("jsonls", {
 })
 
 vim.lsp.config("clangd", {
-    cmd = { "clangd", "--log=verbose" },
+    cmd = { "clangd" },
     filetypes = { "c" },
 })
 

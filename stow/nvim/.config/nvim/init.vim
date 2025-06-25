@@ -73,6 +73,7 @@ set formatoptions+=c                            " wrap comments
 set formatoptions+=j                            " remove commentstring when joining comment lines
 set formatoptions+=q                            " also format comments with 'gq'
 set formatoptions+=r                            " continue comments when hitting <Enter>
+set formatoptions+=o                            " insert commen leader when adding newline with 'o'
 " lists
 set formatoptions+=n                            " recognize numbered lists
 " recognize * and - as list headers
