@@ -18,6 +18,7 @@ vim.lsp.enable("rust_analyzer")
 vim.lsp.enable("clangd")
 vim.lsp.enable("zls")
 vim.lsp.enable("gopls")
+vim.lsp.enable('astro')
 
 local function on_attach(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))

@@ -165,3 +165,14 @@ nsteinhoff
 typedefs
 OAuth
 footguns
+typedef
+structs
+CamelCase
+isize
+usize
+JSDoc
+u8
+i32
+f64
+POSIX
+struct

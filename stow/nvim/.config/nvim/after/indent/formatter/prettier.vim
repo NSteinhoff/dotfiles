@@ -8,6 +8,7 @@ function s:fakename()
     \ 'markdown': 'tmp.md',
     \ 'html': 'tmp.html',
     \ 'svg': 'tmp.html',
+    \ 'astro': 'tmp.astro',
     \}
     return get(ext, &ft, 'tmp.js')
 endfunction
