@@ -114,18 +114,16 @@ local function init()
         },
     }
 
-    local function pick_process()
+    local function pick_process(filter)
         return utils.pick_process({
-            filter = vim.fn.input("Filter process name: "),
+            filter = filter,
         })
     end
 
-    local function pick_program()
-        return vim.fn.input(
-            "Path to executable: ",
-            vim.fn.getcwd() .. "/",
-            "file"
-        )
+    local function pick_program(filter)
+        return utils.pick_file({
+            filter = filter,
+        })
     end
 
     local function create_launch_configuration(program, args)
@@ -143,16 +141,12 @@ local function init()
         return configuration
     end
 
-    local function create_attach_configuration(name)
+    local function create_attach_configuration(pid)
         local configuration = {
-            name = "Attach: " .. name,
+            name = "Attach: " .. pid,
             type = "lldb",
             request = "attach",
-            pid = function()
-                return utils.pick_process({
-                    filter = name,
-                })
-            end,
+            pid = pid,
         }
 
         return configuration
@@ -171,7 +165,7 @@ local function init()
     end
 
     -- Configurations
-    dap.configurations.c = {
+    local lldb = {
         {
             name = "Launch",
             type = "lldb",
@@ -191,6 +185,11 @@ local function init()
         },
     }
 
+    dap.configurations.c = lldb
+    dap.configurations.rust = lldb
+    dap.configurations.odin = lldb
+    dap.configurations.zig = lldb
+
     -- Mappings and Commands
     local scopes_sidebar =
         ui.sidebar(ui.scopes, { width = math.ceil(vim.o.columns / 4) }, "rightbelow vertical split")
@@ -198,7 +197,7 @@ local function init()
     local global_commands = {
         ["DapLaunch"] = {
             cmd = function(opts)
-                local program = opts.fargs[1]
+                local program = pick_program(opts.fargs[1])
                 local args = {}
                 for i = 2, #opts.fargs do
                     args[#args + 1] = opts.fargs[i]
@@ -209,18 +208,18 @@ local function init()
             opts = {
                 desc = "DAP Launch file",
                 complete = "file",
-                nargs = "+",
+                nargs = "*",
             },
         },
         ["DapAttach"] = {
             cmd = function(opts)
-                local name = opts.fargs[1]
+                local name = pick_process(opts.fargs[1])
                 print("DAP Attaching " .. name)
                 dap.run(create_attach_configuration(name))
             end,
             opts = {
                 desc = "DAP Attach to process",
-                nargs = 1,
+                nargs = "?",
             },
         },
         ["DapWaitFor"] = {
