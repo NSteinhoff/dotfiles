@@ -166,6 +166,9 @@ alias quickfix='vim +"set bt=nofile" +cbuffer -'
 alias note='_() { $EDITOR --cmd "cd $NOTES_DIR" $NOTES_DIR/$1 ; }; _'
 complete -F _complete_notes note
 _complete_notes() { COMPREPLY=( $(compgen -W "$(ls $NOTES_DIR)" $2) ); }
+alias today='note $(date +"%Y-%m-%d.md")'
+alias yesterday='note $(date -v-1d +"%Y-%m-%d.md")'
+alias tomorrow='note $(date -v+1d +"%Y-%m-%d.md")'
 alias journal='nvim +Journal!'
 alias todo='nvim +Todo!'
 alias zettel='_() { nvim "+Zettel $*"; }; _'
