@@ -462,7 +462,7 @@ local function init()
         create_keymaps(session_keymaps)
         create_commands(session_commands)
         scopes_sidebar.open()
-        -- dap.repl.open({ height = 6 })
+        dap.repl.open({ height = 6 })
     end
 
     local function on_detach(_, payload)

@@ -17,7 +17,7 @@ AlignAfterOpenBracket: AlwaysBreak
 SpacesInContainerLiterals: true
 
 PointerAlignment: Right
-AlignArrayOfStructures: Left
+AlignArrayOfStructures: None
 AlignOperands: AlignAfterOperator
 AlignConsecutiveAssignments:
   Enabled: true
@@ -35,4 +35,4 @@ AllowShortLoopsOnASingleLine: false
 AllowShortIfStatementsOnASingleLine: WithoutElse
 AllowShortFunctionsOnASingleLine: None
 
-ForEachMacros: [FOREACH, foreach_word,foreach_line,foreach_token]
+ForEachMacros: [FOREACH, foreach_word, foreach_line, foreach_token]

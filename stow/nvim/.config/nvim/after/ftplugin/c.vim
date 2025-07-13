@@ -61,7 +61,7 @@ endif
 setlocal omnifunc&
 
 " Stop inserting comment leaders for // comments
-setlocal formatoptions-=o
+" setlocal formatoptions-=o
 
 "{{{ Unmap default-mappings
 "nnoremap <buffer> [d [d

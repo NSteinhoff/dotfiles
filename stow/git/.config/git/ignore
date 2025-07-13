@@ -64,3 +64,5 @@ node_modules/
 a.out
 a.out.dSYM/
 *.dSYM/
+
+.zig-cache/

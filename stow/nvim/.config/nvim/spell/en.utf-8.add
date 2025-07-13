@@ -176,3 +176,4 @@ i32
 f64
 POSIX
 struct
+str

@@ -1,11 +1,18 @@
 let s:config_file = expand("~/.clang-format")
 
 function s:style()
-    let l:style = ""
-    if (filereadable(s:config_file) == v:false)
-        return "LLVM"
+    let l:config = {}
+    if (filereadable(s:config_file))
+        let l:config = s:read_config_file()
+    else
+        let l:config['BasedOnStyle'] = "LLVM"
     endif
+    let l:config = s:apply_local_settings(l:config)
+    let l:style  = s:dump_config(l:config)
+    return l:style
+endfunction
 
+function s:read_config_file()
     let l:lines = readfile(s:config_file)
     let l:len = len(l:lines)
 
@@ -39,15 +46,11 @@ function s:style()
         endif
     endwhile
 
-    " Overwrite with current editor settings
-    if (&textwidth)
-        let l:config['ColumnLimit'] = &textwidth
-    endif
-    let l:config['UseTab'] = &expandtab ? 'Never' : 'AlignWithSpaces'
-    let l:config['TabWidth'] = &tabstop
-    let l:config['IndentWidth'] = &shiftwidth ? &shiftwidth : &tabstop
+    return l:config
+endfunction
 
-    " Dump modified style
+function s:dump_config(config)
+    let l:config = a:config
     let l:style = '"{'
     let n = 0
     for [k, v] in items(l:config)
@@ -69,6 +72,18 @@ function s:style()
     let l:style .= '}"'
 
     return l:style
+endfunction
+
+function s:apply_local_settings(config)
+    let l:config = a:config
+    if (&textwidth)
+        let l:config['ColumnLimit'] = &textwidth
+    endif
+    let l:config['UseTab'] = &expandtab ? 'Never' : 'AlignWithSpaces'
+    let l:config['TabWidth'] = &tabstop
+    let l:config['IndentWidth'] = &shiftwidth ? &shiftwidth : &tabstop
+    let l:config['ContinuationIndentWidth'] = l:config['IndentWidth']
+    return l:config
 endfunction
 
 function s:create_fmt()
