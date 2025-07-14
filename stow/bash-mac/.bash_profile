@@ -6,6 +6,7 @@ export LANG="en_US.UTF-8"
 # --------------------------------- Homebrew ----------------------------------
 # Prefer brewed executables over builtins
 export PATH=/opt/homebrew/bin:$PATH
+export PATH="${HOMEBREW_PREFIX}/opt/openssl/bin:$PATH"
 
 # ----------------------------------- ASDF ------------------------------------
 # Prefer ASDF shims over brewed stuff
@@ -16,7 +17,7 @@ export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # ---------------------------------- Cargo ------------------------------------
 # Setup cargo environment
-. "$HOME/.cargo/env"
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
 # ----------------------------------- Go --------------------------------------
 # Setup Go environment
