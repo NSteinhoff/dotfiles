@@ -276,6 +276,18 @@ vnoremap <nowait> <silent> ga y:let @/=escape(@", '.\|$[](){}')<bar>execute 'sil
 " Outline
 nmap gO <cmd>Outline<cr>
 "}}}
+"{{{ Switching windows
+for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    execute 'nnoremap <m-'.i.'> '.i.'<c-w>w'
+endfor
+"}}}
+"{{{ Switching tabs
+for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    execute 'nnoremap <leader>'.i.' '.i.'gt'
+endfor
+nnoremap <c-w><c-[> gT
+nnoremap <c-w><c-]> gt
+"}}}
 "{{{ Leader mappings
 "{{{ Buffer Switching
 nnoremap <leader>bb :call buffers#recent()<cr>:buffer<space>
@@ -307,13 +319,6 @@ nmap g/ <plug>(livegrep-new)
 nmap <leader>G <plug>(livegrep-resume)
 nmap <leader>g <plug>(livegrep-new)
 vmap <leader>g <plug>(livegrep-selection)
-"}}}
-"{{{ Switching tabs
-for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    execute 'nnoremap <leader>'.i.' '.i.'gt'
-endfor
-nnoremap <c-w><c-[> gT
-nnoremap <c-w><c-]> gt
 "}}}
 "{{{ (c): Changes / Diffing
 nmap <expr> dp (&diff ? '<cmd>diffput<cr>' : '<cmd>DiffThis<cr>')

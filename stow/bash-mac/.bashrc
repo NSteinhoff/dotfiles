@@ -72,5 +72,5 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-[ -x direnv ] && eval "$(direnv hook bash)"
-[ -x asdf ] && source <(asdf completion bash)
+command -v direnv &>/dev/null && eval "$(direnv hook bash)"
+command -v asdf &>/dev/null && source <(asdf completion bash)

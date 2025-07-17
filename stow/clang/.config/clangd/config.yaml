@@ -9,6 +9,7 @@ CompileFlags:
     - -Wconversion
     - -Wsign-conversion
     - -I/opt/homebrew/include
+    - -I/opt/homebrew/opt/ncurses/include
 
 ---
 

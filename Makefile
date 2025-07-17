@@ -1,29 +1,29 @@
-uname := $(shell uname -s)
-share := $(HOME)/.local/share
-bin := $(HOME)/.local/bin
+OS := $(shell uname -s)
+SHARE_DIR := $(HOME)/.local/share
+BIN_DIR := $(HOME)/.local/bin
 
 # ----------------------------------- Stow ------------------------------------
-stowlist := $(shell ls stow)
-stowtargets := $(filter-out %-mac, $(stowlist))
+STOW_LIST_ALL := $(shell ls stow)
+STOW_TARGETS := $(filter-out %-mac, $(STOW_LIST_ALL))
 
-ifeq ($(uname), Darwin)
-    stowtargets += $(filter %-mac, $(stowlist))
+ifeq ($(OS), Darwin)
+    STOW_TARGETS += $(filter %-mac, $(STOW_LIST_ALL))
 endif
 
 install: stow
 uninstall: unstow
 
 stow: install-stow
-	stow -vvv $(stowtargets)
+	stow -vvv $(STOW_TARGETS)
 .PHONY: stow
 
 unstow: install-stow
-	stow -D $(stowtargets)
+	stow -D $(STOW_TARGETS)
 .PHONY: unstow
 
-ifeq ($(uname), Linux)
+ifeq ($(OS), Linux)
 install_cmd := apt-get install -y
-else ifeq ($(uname), Darwin)
+else ifeq ($(OS), Darwin)
 install_cmd := brew install
 install: clangd
 else
@@ -36,40 +36,40 @@ install-stow: .stamps/stow-installed
 	$(install_cmd) stow
 	@touch $@
 
-clangd: $(crawl_key)
-ifeq ($(uname), Darwin)
+clangd:
+ifeq ($(OS), Darwin)
 	mkdir -p $(HOME)/Library/Preferences/clangd
 	ln -sf $(PWD)/stow/clang/.config/clangd/config.yaml $(HOME)/Library/Preferences/clangd/config.yaml
 endif
 .PHONY: clangd
 
 # ---------------------------------- Crawl ------------------------------------
-crawld := $(share)/crawl
-crawl_key := $(crawld)/crawl_key
+CRAWL_DIR := $(SHARE_DIR)/crawl
+CRAWL_KEY := $(CRAWL_DIR)/crawl_key
 
-crawl: $(crawl_key)
-ifeq ($(uname), Darwin)
+crawl: $(CRAWL_KEY)
+ifeq ($(OS), Darwin)
 	ln -sf $(PWD)/stow/crawl/.config/crawl/crawlrc $(HOME)/Library/Application\ Support/Dungeon\ Crawl\ Stone\ Soup/init.txt
 endif
 .PHONY: crawl
 
 uncrawl:
-	rm -rf $(crawld)
+	rm -rf $(CRAWL_DIR)
 .PHONY: uncrawl
 
-$(crawl_key): | $(crawld)
-	curl https://crawl.develz.org/cao_key 2>/dev/null > $(crawl_key)
-	chmod 600 $(crawl_key)
+$(CRAWL_KEY): | $(CRAWL_DIR)
+	curl https://crawl.develz.org/cao_key 2>/dev/null > $(CRAWL_KEY)
+	chmod 600 $(CRAWL_KEY)
 
-$(crawld): | $(share)
-	mkdir -p $(crawld)
+$(CRAWL_DIR): | $(SHARE_DIR)
+	mkdir -p $(CRAWL_DIR)
 
 # ----------------------------------- Dirs ------------------------------------
-$(share):
-	mkdir -p $(share)
+$(SHARE_DIR):
+	mkdir -p $(SHARE_DIR)
 
-$(bin):
-	mkdir -p $(bin)
+$(BIN_DIR):
+	mkdir -p $(BIN_DIR)
 
 .stamps/:
 	mkdir -p .stamps
