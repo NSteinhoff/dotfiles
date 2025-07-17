@@ -14,12 +14,6 @@
 [submodule "3rd/pack/external/opt/nvim-treesitter"]
 	path = 3rd/pack/external/opt/nvim-treesitter
 	url = git@github.com:nvim-treesitter/nvim-treesitter.git
-[submodule "3rd/pack/external/opt/nvim-treesitter-textobjects"]
-	path = 3rd/pack/external/opt/nvim-treesitter-textobjects
-	url = git@github.com:nvim-treesitter/nvim-treesitter-textobjects.git
-[submodule "3rd/pack/external/opt/nvim-treesitter-rainbow"]
-	path = 3rd/pack/external/opt/nvim-treesitter-rainbow
-	url = git@github.com:p00f/nvim-ts-rainbow.git
 [submodule "3rd/pack/external/opt/nvim-dap"]
 	path = 3rd/pack/external/opt/nvim-dap
 	url = git@github.com:mfussenegger/nvim-dap.git

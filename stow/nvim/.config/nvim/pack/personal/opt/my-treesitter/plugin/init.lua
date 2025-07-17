@@ -1,7 +1,5 @@
 local function init()
     vim.cmd("packadd nvim-treesitter")
-    -- vim.cmd("packadd nvim-treesitter-rainbow")
-    -- vim.cmd("packadd nvim-treesitter-textobjects")
 
     require("nvim-treesitter.configs").setup({
         sync_install = false,
