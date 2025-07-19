@@ -236,3 +236,8 @@ alias jira='nvim +"set ft=jira" +"set buftype=nofile"'
 #                               NiN Navigation                                #
 # --------------------------------------------------------------------------- #
 command -v based-navigate &>/dev/null && eval "$(based-navigate --setup-shell)"
+
+# --------------------------------------------------------------------------- #
+#                                 AWS awsume                                  #
+# --------------------------------------------------------------------------- #
+alias awsume=". awsume"

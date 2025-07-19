@@ -179,3 +179,4 @@ struct
 str
 Dotfiles
 editorconfig
+LSPs
