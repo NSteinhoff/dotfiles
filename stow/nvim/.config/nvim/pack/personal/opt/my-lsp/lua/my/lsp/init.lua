@@ -1,4 +1,5 @@
 require("my.lsp.config")
+local autostart = false
 
 vim.diagnostic.config({
     signs = true,
@@ -11,14 +12,16 @@ vim.lsp.config("*", {
     root_markers = { ".git" },
 })
 
-vim.lsp.enable("lua_ls")
-vim.lsp.enable("ts_ls")
-vim.lsp.enable("jsonls")
-vim.lsp.enable("rust_analyzer")
-vim.lsp.enable("clangd")
-vim.lsp.enable("zls")
-vim.lsp.enable("gopls")
-vim.lsp.enable('astro')
+if autostart then
+    vim.lsp.enable("lua_ls")
+    vim.lsp.enable("ts_ls")
+    vim.lsp.enable("jsonls")
+    vim.lsp.enable("rust_analyzer")
+    vim.lsp.enable("clangd")
+    vim.lsp.enable("zls")
+    vim.lsp.enable("gopls")
+    vim.lsp.enable('astro')
+end
 
 local function on_attach(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
