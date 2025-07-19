@@ -12,8 +12,7 @@ runtime compiler/gcc.vim
 
 let s:cmd  = 'clang'
 let s:cmd .= ' -std=c23 -pedantic'
-let s:cmd .= ' -Wall -Wextra'
-let s:cmd .= ' -Wconversion'
+let s:cmd .= ' -Werror -Wall -Wextra'
 let s:cmd .= ' -Wmissing-prototypes'
 let s:cmd .= ' -Wconversion'
 let s:cmd .= ' -Wsign-conversion'

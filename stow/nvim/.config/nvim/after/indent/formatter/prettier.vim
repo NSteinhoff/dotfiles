@@ -32,7 +32,7 @@ function s:create()
     let l:cmd.= ' --arrow-parens=always'
     let l:cmd.= ' --trailing-comma=all'
     if &expandtab
-        let l:cmd.= ' --tab-width='..&shiftwidth
+        let l:cmd.= ' --tab-width='..(&shiftwidth == 0 ? &tabstop : &shiftwidth)
     else
         let l:cmd.= ' --use-tabs'
     endif

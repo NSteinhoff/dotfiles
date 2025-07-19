@@ -178,3 +178,4 @@ POSIX
 struct
 str
 Dotfiles
+editorconfig
