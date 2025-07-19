@@ -1,13 +1,15 @@
-local default_opts = { buffer = false, silent = false }
+local default_keymap_opts = { buffer = false, silent = false, remap = false }
+local default_command_opts = { nargs = 0 }
 
 local colors = {
-    editing = vim.g.colors_name,
-    debugging = "default",
+    editing = { name = vim.g.colors_name, termgui = false },
+    debugging = { name = "default", termgui = false },
 }
 
 local function create_commands(commands)
     for name, command in pairs(commands) do
-        local opts = vim.tbl_extend("force", { nargs = 0 }, command.opts or {})
+        local opts =
+            vim.tbl_extend("force", default_command_opts, command.opts or {})
         vim.api.nvim_create_user_command(name, command.cmd, opts)
     end
 end
@@ -30,25 +32,22 @@ end
 
 local function create_keymaps(keymaps)
     for lhs, mapping in pairs(keymaps) do
-        local opts = vim.tbl_extend("force", default_opts, mapping.opts or {})
+        local opts =
+            vim.tbl_extend("force", default_keymap_opts, mapping.opts or {})
         vim.keymap.set("n", lhs, mapping.rhs, opts)
     end
 end
 
 local function remove_keymaps(keymaps)
     for lhs, _ in pairs(keymaps) do
-        vim.keymap.del("n", lhs, default_opts)
+        vim.keymap.del("n", lhs, default_keymap_opts)
     end
 end
 
 local function set_colorscheme(debugging)
-    if debugging then
-        vim.o.termguicolors = true
-        vim.cmd("colorscheme " .. colors.debugging)
-    else
-        vim.o.termguicolors = false
-        vim.cmd("colorscheme " .. colors.editing)
-    end
+    local color = debugging and colors.debugging or colors.editing
+    vim.o.termguicolors = color.termgui
+    vim.cmd("colorscheme " .. color.name)
 end
 
 local function define_signs()
@@ -110,7 +109,7 @@ local function init()
         command = "/opt/homebrew/opt/llvm/bin/lldb-dap", -- adjust as needed, must be absolute path
         name = "lldb",
         options = {
-            initialize_timeout_sec = 2
+            initialize_timeout_sec = 2,
         },
     }
 
@@ -191,132 +190,11 @@ local function init()
     dap.configurations.zig = lldb
 
     -- Mappings and Commands
-    local scopes_sidebar =
-        ui.sidebar(ui.scopes, { width = math.ceil(vim.o.columns / 4) }, "rightbelow vertical split")
-
-    local global_commands = {
-        ["DapLaunch"] = {
-            cmd = function(opts)
-                local program = pick_program(opts.fargs[1])
-                local args = {}
-                for i = 2, #opts.fargs do
-                    args[#args + 1] = opts.fargs[i]
-                end
-                print("DAP Launching " .. program .. " " .. table.concat(args, ' '))
-                dap.run(create_launch_configuration(program, args))
-            end,
-            opts = {
-                desc = "DAP Launch file",
-                complete = "file",
-                nargs = "*",
-            },
-        },
-        ["DapAttach"] = {
-            cmd = function(opts)
-                local name = pick_process(opts.fargs[1])
-                print("DAP Attaching " .. name)
-                dap.run(create_attach_configuration(name))
-            end,
-            opts = {
-                desc = "DAP Attach to process",
-                nargs = "?",
-            },
-        },
-        ["DapWaitFor"] = {
-            cmd = function(opts)
-                local name = opts.fargs[1]
-                print("DAP Waiting for " .. name)
-                dap.run(create_waitfor_configuration(name))
-            end,
-            opts = {
-                desc = "DAP Wait for process",
-                complete = "file",
-                nargs = 1,
-            },
-        },
-
-        -- Session management
-        ["DapSessionContinue"] = {
-            cmd = function()
-                dap.continue()
-            end,
-            ops = {
-                desc = "DAP Start / Continue execution",
-            },
-        },
-        ["DapSessionRestart"] = {
-            cmd = function()
-                if dap.status() == "" then
-                    dap.run_last()
-                else
-                    dap.restart()
-                end
-            end,
-            opts = {
-                desc = "DAP Run last configuration",
-            },
-        },
-        ["DapSessionDisconnect"] = {
-            cmd = function()
-                dap.disconnect()
-                dap.close()
-            end,
-            opts = {
-                desc = "DAP Disconnect from Debugee and close Debug Adapter",
-            },
-        },
-        ["DapSessionTerminate"] = {
-            cmd = function()
-                dap.terminate()
-            end,
-            opts = { desc = "DAP Terminate Debugee and Adapter" },
-        },
-
-        ["DapShowLogs"] = {
-            cmd = function()
-                require('dap._cmds').show_logs()
-            end,
-            opts = {
-                desc = "DAP Show log files",
-            },
-        },
-        -- Breakpoints / Logpoints
-        ["DapBreakpointToggle"] = {
-            cmd = function()
-                dap.toggle_breakpoint()
-            end,
-            opts = { desc = "DAP Toggle breakpoint" },
-        },
-        ["DapBreakpointsClear"] = {
-            cmd = function()
-                dap.clear_breakpoints()
-            end,
-            opts = { desc = "DAP Clear all breakpoints" },
-        },
-        ["DapBreakpointsList"] = {
-            cmd = function()
-                dap.list_breakpoints()
-                vim.cmd.cwindow()
-            end,
-            opts = { desc = "DAP List breakpoints in quickfix list" },
-        },
-        ["DapBreakpointCondition"] = {
-            cmd = function()
-                dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
-            end,
-            opts = { desc = "DAP Set breakpoint condition" },
-        },
-        ["DapBreakpointLog"] = {
-            cmd = function()
-                dap.set_breakpoint(
-                    nil,
-                    nil,
-                    vim.fn.input("Log point message: ")
-                )
-            end,
-            opts = { desc = "DAP Set log point" },
-        },
-    }
+    local scopes_sidebar = ui.sidebar(
+        ui.scopes,
+        { width = math.ceil(vim.o.columns / 4) },
+        "rightbelow vertical split"
+    )
 
     local session_commands = {
         -- Stepping
@@ -416,6 +294,177 @@ local function init()
         },
     }
 
+    local session_keymaps = {
+        -- Stepping
+        ["d\\"] = { rhs = "<cmd>DapSessionContinue<cr>" },
+        ["d."] = { rhs = "<cmd>DapStepToCursor<cr>" },
+        ["d;"] = { rhs = "<cmd>DapStepInto<cr>" },
+        ["d'"] = { rhs = "<cmd>DapStepOver<cr>" },
+        ["d:"] = { rhs = "<cmd>DapStepOut<cr>" },
+        ["dsi"] = { rhs = "<cmd>DapStepInstruction<cr>" },
+
+        -- Navigate stack frame
+        ["d,"] = { rhs = "<cmd>DapFrameFocus<cr>" },
+        ["d<"] = { rhs = "<cmd>DapFrameUp<cr>" },
+        ["d>"] = { rhs = "<cmd>DapFrameDown<cr>" },
+        ["dr"] = { rhs = "<cmd>DapFrameRestart<cr>" },
+
+        -- Widgets
+        ["dK"] = { rhs = "<cmd>DapShowHover<cr>" },
+        ["<leader>dp"] = { rhs = "<cmd>DapShowPreview<cr>" },
+        ["<leader>df"] = { rhs = "<cmd>DapShowFrames<cr>" },
+        ["<leader>ds"] = { rhs = "<cmd>DapShowScopes<cr>" },
+        ["<leader>dr"] = { rhs = "<cmd>DapToggleRepl<cr>" },
+        ["<leader>dS"] = { rhs = "<cmd>DapToggleSidebar<cr>" },
+    }
+
+    local function on_attach(session)
+        create_keymaps(session_keymaps)
+        create_commands(session_commands)
+        scopes_sidebar.open()
+        dap.repl.open({ height = 6 })
+    end
+
+    local function on_detach(clear)
+        scopes_sidebar.close()
+        dap.repl.close()
+        if clear then
+            remove_keymaps(session_keymaps)
+            remove_commands(session_commands)
+        end
+        vim.cmd([[redraw]])
+    end
+
+    local global_commands = {
+        ["DapLaunch"] = {
+            cmd = function(opts)
+                local program = pick_program(opts.fargs[1])
+                local args = {}
+                for i = 2, #opts.fargs do
+                    args[#args + 1] = opts.fargs[i]
+                end
+                print(
+                    "DAP Launching "
+                        .. program
+                        .. " "
+                        .. table.concat(args, " ")
+                )
+                dap.run(create_launch_configuration(program, args))
+            end,
+            opts = {
+                desc = "DAP Launch file",
+                complete = "file",
+                nargs = "*",
+            },
+        },
+        ["DapAttach"] = {
+            cmd = function(opts)
+                local name = pick_process(opts.fargs[1])
+                print("DAP Attaching " .. name)
+                dap.run(create_attach_configuration(name))
+            end,
+            opts = {
+                desc = "DAP Attach to process",
+                nargs = "?",
+            },
+        },
+        ["DapWaitFor"] = {
+            cmd = function(opts)
+                local name = opts.fargs[1]
+                print("DAP Waiting for " .. name)
+                dap.run(create_waitfor_configuration(name))
+            end,
+            opts = {
+                desc = "DAP Wait for process",
+                complete = "file",
+                nargs = 1,
+            },
+        },
+
+        -- Session management
+        ["DapSessionContinue"] = {
+            cmd = function()
+                dap.continue()
+            end,
+            ops = {
+                desc = "DAP Start / Continue execution",
+            },
+        },
+        ["DapSessionRestart"] = {
+            cmd = function()
+                if dap.status() == "" then
+                    dap.run_last()
+                else
+                    dap.restart()
+                end
+            end,
+            opts = {
+                desc = "DAP Run last configuration",
+            },
+        },
+        ["DapSessionDisconnect"] = {
+            cmd = function()
+                dap.disconnect()
+                dap.close()
+                on_detach(true)
+            end,
+            opts = {
+                desc = "DAP Disconnect from Debugee and close Debug Adapter",
+            },
+        },
+        ["DapSessionTerminate"] = {
+            cmd = function()
+                dap.terminate()
+            end,
+            opts = { desc = "DAP Terminate Debugee and Adapter" },
+        },
+
+        ["DapShowLogs"] = {
+            cmd = function()
+                require("dap._cmds").show_logs()
+            end,
+            opts = {
+                desc = "DAP Show log files",
+            },
+        },
+        -- Breakpoints / Logpoints
+        ["DapBreakpointToggle"] = {
+            cmd = function()
+                dap.toggle_breakpoint()
+            end,
+            opts = { desc = "DAP Toggle breakpoint" },
+        },
+        ["DapBreakpointsClear"] = {
+            cmd = function()
+                dap.clear_breakpoints()
+            end,
+            opts = { desc = "DAP Clear all breakpoints" },
+        },
+        ["DapBreakpointsList"] = {
+            cmd = function()
+                dap.list_breakpoints()
+                vim.cmd.cwindow()
+            end,
+            opts = { desc = "DAP List breakpoints in quickfix list" },
+        },
+        ["DapBreakpointCondition"] = {
+            cmd = function()
+                dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
+            end,
+            opts = { desc = "DAP Set breakpoint condition" },
+        },
+        ["DapBreakpointLog"] = {
+            cmd = function()
+                dap.set_breakpoint(
+                    nil,
+                    nil,
+                    vim.fn.input("Log point message: ")
+                )
+            end,
+            opts = { desc = "DAP Set log point" },
+        },
+    }
+
     local global_keymaps = {
         -- Session
         ["<leader>d<cr>"] = { rhs = "<cmd>DapSessionContinue<cr>" },
@@ -434,51 +483,9 @@ local function init()
         --]]
     }
 
-    local session_keymaps = {
-        -- Stepping
-        ["d\\"] = { rhs = "<cmd>DapSessionContinue<cr>" },
-        ["d."] = { rhs = "<cmd>DapStepToCursor<cr>" },
-        ["d;"] = { rhs = "<cmd>DapStepInto<cr>" },
-        ["d'"] = { rhs = "<cmd>DapStepOver<cr>" },
-        ["d:"] = { rhs = "<cmd>DapStepOut<cr>" },
-        ["dsi"] = { rhs = "<cmd>DapStepInstruction<cr>" },
-
-        -- Navigate stack frame
-        ["d,"] = { rhs = "<cmd>DapFrameFocus<cr>" },
-        ["d<"] = { rhs = "<cmd>DapFrameUp<cr>" },
-        ["d>"] = { rhs = "<cmd>DapFrameDown<cr>" },
-        ["dr"] = { rhs = "<cmd>DapFrameRestart<cr>" },
-
-        -- Widgets
-        ["dK"]         = { rhs = "<cmd>DapShowHover<cr>" },
-        ["<leader>dp"] = { rhs = "<cmd>DapShowPreview<cr>" },
-        ["<leader>df"] = { rhs = "<cmd>DapShowFrames<cr>" },
-        ["<leader>ds"] = { rhs = "<cmd>DapShowScopes<cr>" },
-        ["<leader>dr"] = { rhs = "<cmd>DapToggleRepl<cr>" },
-        ["<leader>dS"] = { rhs = "<cmd>DapToggleSidebar<cr>" },
-    }
-
-    local function on_attach(_)
-        create_keymaps(session_keymaps)
-        create_commands(session_commands)
-        scopes_sidebar.open()
-        dap.repl.open({ height = 6 })
-    end
-
-    local function on_detach(_, payload)
-        if not payload then
-            return
-        end
-        scopes_sidebar.close()
-        dap.repl.close()
-        remove_keymaps(session_keymaps)
-        remove_commands(session_commands)
-        vim.cmd([[redraw]])
-    end
-
     dap.listeners.after.event_initialized["my-dap"] = on_attach
-    dap.listeners.after.event_terminated["my-dap"] = on_detach
-    dap.listeners.after.event_exited["my-dap"] = on_detach
+    dap.listeners.after.event_terminated["my-dap"] = function(_, body) on_detach(body) end
+    dap.listeners.after.event_exited["my-dap"] = function(_, body) on_detach(body) end
 
     -- Signs
     define_signs()
@@ -489,7 +496,8 @@ local function init()
         pattern = "DapProgressUpdate",
         callback = function()
             local status = dap.status()
-            vim.g['my.dap.status'] = status
+            vim.g["my.dap.status"] = status
+            print("status: " .. status)
             set_colorscheme(status ~= "")
             vim.cmd("redrawstatus")
         end,
