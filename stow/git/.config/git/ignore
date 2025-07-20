@@ -1,6 +1,10 @@
 # Scratch
 .scratch
 
+# Secrets
+.envrc
+.env
+
 # Tags
 tasks
 !tasks/
@@ -19,13 +23,6 @@ compile.log
 # Mac
 .DS_Store
 
-# Python caches
-__pycache__/
-.mypy_cache/
-
-# Exercism metadata
-.exercism/
-
 # Vim utility files
 *.swp
 *.session
@@ -36,33 +33,33 @@ Sessionx.vim
 .vscode/settings.json
 *.code-workspace
 
-# Yarn
-yarn-error.log
-
 # Error files (compiler errors)
 *.err
-
-# Node
-node_modules/
-
-# TypeScript
-*.tsbuildinfo
-
-# direnv
-.envrc
-
-# ASDF
-.tool-versions
-
-# JavaScript source maps
-*.js.map
 
 # Local tmuxinator configs
 .tmuxinator.yml
 
-# C artifacts
+# ------------------------------ Build Artifacts ------------------------------
+# C
 a.out
 a.out.dSYM/
 *.dSYM/
+*.d
+*.o
+*.so
+*.a
+*.dylib
 
+# Zig
 .zig-cache/
+
+# Python
+__pycache__/
+.mypy_cache/
+
+# JS / TS
+node_modules/
+*.js.map
+*.tsbuildinfo
+yarn-error.log
+
