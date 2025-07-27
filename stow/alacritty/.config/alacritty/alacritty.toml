@@ -9,12 +9,12 @@ args = ["--login"]
 program = "/opt/homebrew/bin/bash"
 
 [font]
-size = 14
+size = 16
 normal.family = "Iosevka Nerd Font Mono"
 bold.style = "Bold"
 italic.style = "Italic"
 bold_italic.style = "Bold Italic"
-offset.y = 5
+# offset.y = 5
 
 [[keyboard.bindings]]
 key = "U"

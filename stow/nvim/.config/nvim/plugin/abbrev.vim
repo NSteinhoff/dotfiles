@@ -21,6 +21,7 @@ iabbrev <expr> ddl strftime("%a %b %e %Y %r")
 " Favicon href
 iabbrev "myfavicon" "https://gist.githubusercontent.com/NSteinhoff/9bc4844403ca3d1e2f9a3c698dfc1493/raw/069483f72ee493a4cb890c1c18de43666c1096e0/favicon.ico"
 
+" Complete available abbreviations
 function! CompleteAbbrev(findstart, base) abort
     if a:findstart
         " locate the start of the word

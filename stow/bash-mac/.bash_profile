@@ -4,44 +4,53 @@
 export LANG="en_US.UTF-8"
 
 # --------------------------------- Homebrew ----------------------------------
-# Prefer brewed executables over builtins
-export PATH=/opt/homebrew/bin:$PATH
-export PATH="${HOMEBREW_PREFIX}/opt/openssl/bin:$PATH"
+if command -v brew &>/dev/null; then
+    brewed="$(brew --prefix)"
+
+    # Prefer brewed executables over builtins
+    export PATH="${brewed}/bin:$PATH"
+    export PATH="${brewed}/opt/openssl/bin:$PATH"
+
+    # Setup Bash completions
+    if [[ -r "${brewed}/etc/profile.d/bash_completion.sh" ]]; then
+        source "${brewed}/etc/profile.d/bash_completion.sh"
+    fi
+
+    # Use clang provided by brewed LLVM
+    export PATH="${brewed}/opt/llvm/bin:$PATH"
+    # Use brewed headers and libraries
+    export PKG_CONFIG_PATH="${brewed}/opt/ncurses/lib/pkgconfig"
+    # export CFLAGS="-I${brewed}/include -I${brewed}/opt/llvm/include"
+    # export LDFLAGS="-L${brewed}/lib -L${brewed}/opt/llvm/lib -Wl,-rpath,${brewed}/opt/llvm/lib"
+    # export LDLIBS=
+fi
 
 # ----------------------------------- ASDF ------------------------------------
 # Prefer ASDF shims over brewed stuff
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-
-# Setup Bash completions
-[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+if command -v asdf &>/dev/null; then
+    export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+fi
 
 # ---------------------------------- Cargo ------------------------------------
 # Setup cargo environment
-[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+if [ -f "$HOME/.cargo/env" ]; then
+    source "$HOME/.cargo/env"
+fi
 
 # ----------------------------------- Go --------------------------------------
 # Setup Go environment
-export PATH="$HOME/go/bin:$PATH"
+if command -v go &>/dev/null; then
+    export PATH="$HOME/.local/opt/go/bin:$PATH"
+fi
 
 # ----------------------------------- GPG -------------------------------------
 # Inform GPG about the current terminal device
 export GPG_TTY=$(tty)
 
-# --------------------------- C Compilation ---------------------------------
-# Use clang provided by brewed LLVM
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
-
-# Use clang as the C compiler
-export CC=clang
-
-# Use brewed headers and libraries
-export PKG_CONFIG_PATH="/opt/homebrew/opt/ncurses/lib/pkgconfig"
-# export CFLAGS="-I/opt/homebrew/include -I/opt/homebrew/opt/llvm/include"
-# export LDFLAGS="-L/opt/homebrew/lib -L/opt/homebrew/opt/llvm/lib -Wl,-rpath,/opt/homebrew/opt/llvm/lib"
-# export LDLIBS=
-#
 # ---------------------------------- Docker -----------------------------------
-export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
+if command -v colima &>/dev/null; then
+    export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
+fi
 
 # --------------------------------------------------------------------------- #
 #                                  ~/.bashrc                                  #

@@ -328,7 +328,7 @@ local function init()
     local function on_detach(clear)
         scopes_sidebar.close()
         dap.repl.close()
-        if clear then
+        if clear and false then
             remove_keymaps(session_keymaps)
             remove_commands(session_commands)
         end

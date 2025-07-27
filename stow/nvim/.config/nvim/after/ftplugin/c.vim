@@ -21,6 +21,7 @@ iabbrev <buffer> #inc" #include ""<left>
 iabbrev <buffer> #inc< #include <><left>
 iabbrev <buffer> :err: if (err) return err;
 iabbrev <buffer> :errgo: if (err) goto error;
+iabbrev <buffer> //// //////////////////////////////////////////////////<NL>
 
 command! -buffer -nargs=* CompileAndRun w|make %:r|!./%:r <args>
 nnoremap <buffer> gO <cmd>TagToc ! m<cr>
