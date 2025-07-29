@@ -11,17 +11,9 @@ font-size = 16
 font-feature = "-calt, -liga, -dlig"
 
 # Theme
-theme = light:xcodelight,dark:xcodedark
-# theme = light:Monokai Pro Light,dark:Monokai Pro
-# theme = light:neobones_light,dark:neobones_dark
-# theme = light:rose-pine-dawn,dark:rose-pine
-# theme = light:zenbones_light,dark:zenbones_dark
-# theme = light:Melange_light,dark:Melange_dark
-# theme = light:Violet Light,dark:Violet Dark
-# theme = light:iceberg-light,dark:iceberg-dark
-
-# Bad Light Colors
-# theme = light:Builtin Light,dark:Builtin Dark
+theme = light:rose-pine-dawn,dark:rose-pine-moon
+# theme = light:right-in-the-teals-light,dark:right-in-the-teals-dark
+# theme = light:victor-mono-light,dark:victor-mono-dark
 
 # Keys
 macos-option-as-alt = left
