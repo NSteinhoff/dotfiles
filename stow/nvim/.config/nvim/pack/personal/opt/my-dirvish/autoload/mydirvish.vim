@@ -82,3 +82,12 @@ function mydirvish#path_sort()
         let lnum += 1
     endfor
 endfunction
+
+function mydirvish#open_or_create()
+    let l:path = getline('.')
+    if !isdirectory(l:path) && !filereadable(l:path)
+        echo "Creating file: " .. l:path
+        call system("touch " .. l:path)
+    endif
+    call dirvish#open('edit', 0)
+endfunction

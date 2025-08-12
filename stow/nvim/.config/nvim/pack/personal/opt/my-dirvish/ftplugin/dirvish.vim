@@ -9,7 +9,7 @@ xmap <nowait> <buffer> X <plug>(dirvish_arg)
 nmap <nowait> <buffer> gh <plug>(dirvish_K)
 xmap <nowait> <buffer> gh <plug>(dirvish_K)
 
-nnoremap <buffer> <cr> <cmd>call dirvish#open('edit', 0)<cr>
+nnoremap <buffer> <cr> <cmd>call mydirvish#open_or_create()<cr>
 nnoremap <buffer> <space> <cmd>call dirvish#open('edit', 0)<cr>
 nnoremap <buffer> <c-space> <cmd>call dirvish#open('p', 1)<cr>
 nnoremap <buffer> <c-j> j<cmd>call dirvish#open("p", 1)<cr>

@@ -23,7 +23,7 @@ function s:create()
     if l:is_package && l:is_pnpm && executable('pnpm')
         let l:cmd  .= 'pnpm --silent dlx '
     elseif l:is_package && executable('npx')
-        let l:cmd  .= 'npx '
+        let l:cmd  .= 'NPM_CONFIG_LOGLEVEL=silent npx '
     endif
 
     let l:cmd.= 'prettier'

@@ -15,9 +15,9 @@ let rcfile = empty(rootrcfile) ? findfile('tsconfig.json', ".;$HOME,;$HOME") : r
 " let rcfile = findfile('tsconfig.json', ".;$HOME,;$HOME")
 
 if rcfile == ''
-    CompilerSet makeprg=npx\ tsc\ --noEmit\ $*\ %
+    CompilerSet makeprg=NPM_CONFIG_LOGLEVEL=silent\ npx\ tsc\ --noEmit\ $*\ %
     finish
 endif
 
 let project_root = fnamemodify(rcfile, ":h")
-execute 'CompilerSet makeprg=npx\ tsc\ --build\ '.rcfile.'\ $*'
+execute 'CompilerSet makeprg=NPM_CONFIG_LOGLEVEL=silent\ npx\ tsc\ --build\ '.rcfile.'\ $*'

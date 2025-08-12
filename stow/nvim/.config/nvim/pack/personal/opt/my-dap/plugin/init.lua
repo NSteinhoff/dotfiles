@@ -322,7 +322,7 @@ local function init()
         create_keymaps(session_keymaps)
         create_commands(session_commands)
         scopes_sidebar.open()
-        dap.repl.open({ height = 6 })
+        -- dap.repl.open({ height = 6 })
     end
 
     local function on_detach(clear)
@@ -475,7 +475,8 @@ local function init()
         -- Breakpoints
         ["<leader>dd"] = { rhs = "<cmd>DapBreakpointToggle<cr>" },
         --[x[
-        ["<leader>dbb"] = { rhs = "<cmd>DapBreakpointToggle<cr>" },
+        ["<leader>dbb"] = { rhs = "<cmd>DapBreakpointsList<cr>" },
+        -- ["<leader>dbb"] = { rhs = "<cmd>DapBreakpointToggle<cr>" },
         ["<leader>dbc"] = { rhs = "<cmd>DapBreakpointCondition<cr>" },
         ["<leader>dbl"] = { rhs = "<cmd>DapBreakpointLog<cr>" },
         ["<leader>dbL"] = { rhs = "<cmd>DapBreakpointsList<cr>" },

@@ -6,6 +6,7 @@ function s:ext()
     \ 'javascriptreact': 'jsx',
     \ 'typescriptreact': 'tsx',
     \ 'json': 'json',
+    \ 'jsonc': 'json',
     \ 'markdown': 'md',
     \ 'css': 'css',
     \}

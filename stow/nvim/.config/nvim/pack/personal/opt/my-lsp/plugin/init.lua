@@ -7,6 +7,7 @@ local defaults = {
     json = "jsonls",
     zig = "zls",
     go = "gopls",
+    astro = "astro",
     javascript = "ts_ls",
     typescript = "ts_ls",
     javascriptreact = "ts_ls",

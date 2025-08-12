@@ -10,7 +10,7 @@ let s:cmd = ''
 if s:is_package && s:is_pnpm && executable('pnpm')
     let s:cmd  .= 'pnpm --silent dlx '
 elseif s:is_package && executable('npx')
-    let s:cmd  .= 'npx '
+    let s:cmd  .= 'NPM_CONFIG_LOGLEVEL=silent npx '
 endif
 
 let s:cmd  = (s:is_package && executable('npx') ? 'npx ' : '')
