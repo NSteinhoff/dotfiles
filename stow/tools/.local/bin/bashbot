@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-debug=false
+debug=true
 $debug && echo "Bashbot says: Hi!"
 
+echo "$(fc -ln -1 | xargs)"
 last=$(fc -ln -1 | xargs)
 $debug && echo "last = $last"
 
