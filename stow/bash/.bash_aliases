@@ -48,6 +48,7 @@ esac
 alias v='NVIM_APPNAME=v nvim'
 alias yot='toggle-light-dark'
 alias mdv='based-markdown-viewer --open'
+alias pmake='make -j'
 
 ###########
 ### History

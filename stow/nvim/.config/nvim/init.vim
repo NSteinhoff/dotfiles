@@ -36,6 +36,7 @@ set isfname-==
 set fileformats=unix                            " show <CR><NL>
 set jumpoptions=stack
 set undofile
+set makeprg=make\ -j
 "}}}
 "{{{ Special characters
 "set fillchars=eob:·

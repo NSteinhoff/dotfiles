@@ -20,4 +20,4 @@ theme = light:rose-pine-dawn,dark:rose-pine-moon
 # Keys
 macos-option-as-alt = left
 
-# keybind = global:cmd+grave_accent=toggle_quick_terminal
+keybind = global:cmd+grave_accent=toggle_quick_terminal
