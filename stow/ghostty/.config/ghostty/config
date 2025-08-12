@@ -6,11 +6,13 @@ shell-integration-features = no-cursor
 mouse-hide-while-typing = true
 
 # Font
-font-family = "Iosevka Nerd Font Mono"
-font-size = 16
+# font-family = "Iosevka Nerd Font Mono"
+font-family = "VictorMono Nerd Font Mono"
+font-size = 14
 font-feature = "-calt, -liga, -dlig"
 
 # Theme
+# theme = light:default-light,dark:default-dark
 theme = light:rose-pine-dawn,dark:rose-pine-moon
 # theme = light:right-in-the-teals-light,dark:right-in-the-teals-dark
 # theme = light:victor-mono-light,dark:victor-mono-dark

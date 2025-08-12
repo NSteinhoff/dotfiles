@@ -1,11 +1,8 @@
-cursor-text  = #575279
+cursor-text  = #464261
 cursor-color  = #cecacd
 
 background  = #faf4ed
-foreground  = #575279
-
-selection-foreground  = #575279
-selection-background  = #dfdad9
+foreground  = #464261
 
 palette = 0=#f2e9e1
 palette = 1=#b4637a
@@ -22,4 +19,4 @@ palette = 11=#ea9d34
 palette = 12=#56949f
 palette = 13=#907aa9
 palette = 14=#d7827e
-palette = 15=#575279
+palette = 15=#323046

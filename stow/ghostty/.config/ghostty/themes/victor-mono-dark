@@ -4,9 +4,6 @@ cursor-color = #7DA5D4
 background = #3A3F45
 foreground = #C3CCD1
 
-selection-foreground = #3A3F45
-selection-background = #7DA5D4
-
 palette = 0=#686E74
 palette = 1=#FF7272
 palette = 2=#99C794
