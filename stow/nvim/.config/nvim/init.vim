@@ -37,6 +37,9 @@ set fileformats=unix                            " show <CR><NL>
 set jumpoptions=stack
 set undofile
 set makeprg=make\ -j
+set title
+set titlestring=Nvim\ -\ %t%m
+set titlelen=70
 "}}}
 "{{{ Special characters
 "set fillchars=eob:·

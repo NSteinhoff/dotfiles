@@ -21,3 +21,4 @@ theme = light:rose-pine-dawn,dark:rose-pine-moon
 macos-option-as-alt = left
 
 keybind = global:cmd+grave_accent=toggle_quick_terminal
+keybind = super+enter=toggle_split_zoom

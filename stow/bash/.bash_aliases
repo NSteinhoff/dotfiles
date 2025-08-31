@@ -171,10 +171,10 @@ if has tmux; then
         fi
     }
 
-    alias t='_tmux_ls_or_cmd'
-    alias tn='_tmux_new_session'
-    alias tt='_tmux_smart_attach'
-    alias tm='tmuxinator start --suppress-tmux-version-warning=on'
+    alias tx='_tmux_ls_or_cmd'
+    alias txn='_tmux_new_session'
+    alias txx='_tmux_smart_attach'
+    alias txm='tmuxinator start --suppress-tmux-version-warning=on'
 fi
 
 ########
@@ -194,14 +194,16 @@ if has nvim; then
 
     export NOTES_DIR=~/Dropbox/Notes
     export ZETTELKASTEN=~/Dropbox/Zettel
-    alias note='_() { $EDITOR --cmd "cd $NOTES_DIR" $NOTES_DIR/$1 ; }; _'
+    alias note='_() { nvim +Noyo +"set ruler" --cmd "cd $NOTES_DIR" $NOTES_DIR/$1 ; }; _'
     complete -F _complete_notes note
     _complete_notes() { COMPREPLY=( $(compgen -W "$(ls $NOTES_DIR)" $2) ); }
     alias today='note "Daily/$(date +"%Y-%m-%d.md")"'
     alias yesterday='note "Daily/$(date -v-1d +"%Y-%m-%d.md")"'
     alias tomorrow='note "Daily/$(date -v+1d +"%Y-%m-%d.md")"'
-    alias journal='nvim +Journal!'
-    alias todo='nvim +Todo!'
+    alias journal='nvim +Journal! +Noyo +"set ruler"'
+    alias todo='nvim +Todo! +Noyo +"set ruler"'
+    alias t='nvim +Dev! +Noyo +"set ruler"'
+    alias j=journal
     alias zettel='_() { nvim "+Zettel $*"; }; _'
 fi
 
