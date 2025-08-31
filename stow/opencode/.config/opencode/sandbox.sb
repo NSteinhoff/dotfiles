@@ -1,0 +1,59 @@
+(version 1)
+
+;; Allow all operations by default
+(allow default)
+
+;; Globally deny all file writes
+(deny file-write*)
+
+;; Allow writes only in current working directory
+(allow file-write*
+    (subpath (param "PWD")))
+
+;; Deny modifying the .git/ folder
+(deny file-write*
+    (subpath (string-append (param "PWD") "/.git")))
+
+;; Allow writes to opencode directories
+(allow file-write*
+    (subpath (string-append (param "HOME") "/.config/opencode"))
+    (subpath (string-append (param "HOME") "/.local/share/opencode"))
+    (subpath (string-append (param "HOME") "/.cache/opencode")))
+
+;; Allow writes to standard streams
+(allow file-write*
+    (literal "/dev/stdout")
+    (literal "/dev/stderr"))
+
+;; Deny read access to sensitive directories
+(deny file-read*
+    ;; SSH keys and config
+    (subpath (string-append (param "HOME") "/.ssh"))
+
+    ;; GPG keys
+    (subpath (string-append (param "HOME") "/.gnupg"))
+
+    ;; User keychain
+    (subpath (string-append (param "HOME") "/Library/Keychains"))
+
+    ;; Browser data (passwords, cookies, etc.)
+    (subpath (string-append (param "HOME") "/Library/Application Support/Google"))
+    (subpath (string-append (param "HOME") "/Library/Application Support/Firefox"))
+    (subpath (string-append (param "HOME") "/Library/Application Support/Safari"))
+
+    ;; Password managers
+    (subpath (string-append (param "HOME") "/.password-store"))
+    (subpath (string-append (param "HOME") "/Library/Application Support/1Password"))
+
+    ;; System keychain
+    (subpath "/Library/Keychains")
+
+    ;; Common secret/config directories
+    (subpath (string-append (param "HOME") "/.aws"))
+    (subpath (string-append (param "HOME") "/.docker"))
+    (subpath (string-append (param "HOME") "/.kube"))
+
+    ;; Personal folders that might contain secrets
+    (subpath (string-append (param "HOME") "/Documents"))
+    (subpath (string-append (param "HOME") "/Desktop"))
+    (subpath (string-append (param "HOME") "/Downloads")))

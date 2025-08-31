@@ -1,15 +1,15 @@
 # General Instructions:
 
 - Avoid flowery language. Be direct and to the point!
-- Analyze the code and provide feedback.
 - I typically write code in C on the back-end and for native applications. On
-  the front-end I write vanilla JavaScript with JSDoc type annotations. Stick to
-  those languages.
+  the front-end I write vanilla JavaScript with JSDoc type annotations.
 
 # Coding style:
 
 - Prefer simple code constructs
 - Prefer early returns / breaks / continues over nesting blocks
+- Add empty lines before control statements (return, break, continue), unless
+  those are the only statement in a block.
 - In C programs I prefer to use typedefs for integer and floating point types
   that follow the naming conventions of the Rust programming language. (u8, i32,
   f64, usize, isize, etc.). I prefer to typedef structs and enums using
@@ -26,6 +26,8 @@
 - Follow the standard library convention for `const` placement.
     Good: const char *str;
     Bad: char const *str;
+- When a group of functions operate on a struct, the functions are prefixed with
+  the struct name and take the struct as a first argument (usually by pointer).
 
 # Portability and dependencies
 

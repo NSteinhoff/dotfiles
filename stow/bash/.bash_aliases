@@ -262,6 +262,10 @@ has based-navigate && eval "$(based-navigate --setup-shell)"
 ### AWS awsume
 alias awsume=". awsume"
 
+##############
+### Opencode
+source ~/.config/opencode/setup-shell.sh
+
 ############
 ### BASH Bot
 # export PROMPT_COMMAND="bashbot;$PROMPT_COMMAND"

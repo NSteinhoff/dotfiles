@@ -1,6 +1,8 @@
 {
   "contextFileName": "AGENTS.md",
-  "theme": "GitHub Light",
+  "theme": "ANSI",
   "selectedAuthType": "oauth-personal",
-  "preferredEditor": "neovim"
+  "preferredEditor": "neovim",
+  "sandbox": true,
+  "vimMode": true
 }
