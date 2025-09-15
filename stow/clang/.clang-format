@@ -25,7 +25,7 @@ AlignConsecutiveAssignments:
   AlignCompound: true
 AlignConsecutiveDeclarations:
   Enabled: false
-  AcrossComments: true
+  AcrossComments: false
 AlignConsecutiveMacros: AcrossComments
 
 AllowShortBlocksOnASingleLine: Empty

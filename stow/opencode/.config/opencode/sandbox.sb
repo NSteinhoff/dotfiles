@@ -2,9 +2,14 @@
 
 ;; Allow all operations by default
 (allow default)
+(allow process-exec)
 
 ;; Globally deny all file writes
 (deny file-write*)
+
+;; Allow writes of temp files for /editor integration
+(allow file-write*
+  (subpath "/var/folders"))
 
 ;; Allow writes only in current working directory
 (allow file-write*
@@ -18,10 +23,12 @@
 (allow file-write*
     (subpath (string-append (param "HOME") "/.config/opencode"))
     (subpath (string-append (param "HOME") "/.local/share/opencode"))
+    (subpath (string-append (param "HOME") "/.local/state/opencode"))
     (subpath (string-append (param "HOME") "/.cache/opencode")))
 
-;; Allow writes to standard streams
+;; Allow writes to standard streams and black hole
 (allow file-write*
+    (literal "/dev/null")
     (literal "/dev/stdout")
     (literal "/dev/stderr"))
 
