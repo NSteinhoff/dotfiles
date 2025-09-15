@@ -1,14 +1,14 @@
 command = "/opt/homebrew/bin/bash --login"
 
-macos-auto-secure-input = true
 cursor-style = block
+macos-auto-secure-input = true
 shell-integration-features = no-cursor
 mouse-hide-while-typing = true
 
 # Font
 # font-family = "Iosevka Nerd Font Mono"
-font-family = "VictorMono Nerd Font Mono"
-font-size = 14
+font-family  = "VictorMono Nerd Font Mono"
+font-size    = 14
 font-feature = "-calt, -liga, -dlig"
 
 # Theme
@@ -19,6 +19,5 @@ theme = light:rose-pine-dawn,dark:rose-pine-moon
 
 # Keys
 macos-option-as-alt = left
-
 keybind = global:cmd+grave_accent=toggle_quick_terminal
 keybind = super+enter=toggle_split_zoom

@@ -1,8 +1,8 @@
-cursor-text  = #464261
-cursor-color  = #cecacd
+# cursor-text  = #464261
+# cursor-color  = #cecacd
 
 background  = #faf4ed
-foreground  = #464261
+foreground  = #262241
 
 palette = 0=#f2e9e1
 palette = 1=#b4637a

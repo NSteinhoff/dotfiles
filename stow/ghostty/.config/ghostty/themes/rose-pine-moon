@@ -1,5 +1,5 @@
-cursor-text  = #e0def4
-cursor-color  = #56526e
+# cursor-text  = #e0def4
+# cursor-color  = #56526e
 
 background  = #232136
 foreground  = #e0def4
