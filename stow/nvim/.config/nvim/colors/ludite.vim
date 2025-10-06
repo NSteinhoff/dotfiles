@@ -124,7 +124,7 @@ highlight   SpecialChar      cterm=bold        ctermfg=NONE   ctermbg=NONE
 highlight   SpecialComment   cterm=bold        ctermfg=NONE   ctermbg=NONE
 highlight   Statement        cterm=NONE        ctermfg=NONE   ctermbg=NONE
 highlight   String           cterm=NONE        ctermfg=15     ctermbg=NONE
-highlight   CommentNote      cterm=bold        ctermfg=0      ctermbg=4
+highlight   CommentNote      cterm=bold        ctermfg=0      ctermbg=5
 highlight   Todo             cterm=bold        ctermfg=NONE   ctermbg=2
 highlight   Type             cterm=bold        ctermfg=NONE   ctermbg=NONE
 highlight   Underlined       cterm=underline   ctermfg=NONE   ctermbg=NONE

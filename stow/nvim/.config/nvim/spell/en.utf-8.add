@@ -180,3 +180,5 @@ str
 Dotfiles
 editorconfig
 LSPs
+openid
+Cognito
