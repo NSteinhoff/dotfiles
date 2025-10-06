@@ -9,7 +9,7 @@
 
 ;; Allow writes of temp files for /editor integration
 (allow file-write*
-  (subpath "/var/folders"))
+    (subpath (param "TMPDIR")))
 
 ;; Allow writes only in current working directory
 (allow file-write*
