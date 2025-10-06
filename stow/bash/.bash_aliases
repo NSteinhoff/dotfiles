@@ -59,6 +59,24 @@ alias hg='history | grep '
 ### Safer delete
 alias rm='rm -i'
 
+################
+### Brew upgrade pinned formulae and re-pin them afterwards
+_brew_upgrade_pinned() {
+    local formulae="$@"
+    [[ -n "$formulae" ]] || formulae=$(brew outdated)
+    for f in $formulae; do brew info ${f} | grep -m 1 '==>'; done
+    echo "-------------------------------------------------------"
+    for f in $formulae; do
+        echo "  < Unpin   $f" && brew unpin $f
+        echo "  | Upgrade $f" && brew upgrade $f || true # always re-pin!
+        echo "  > Re-Pin  $f" && brew pin $f
+    done
+    echo "-------------------------------------------------------"
+    for f in $formulae; do brew info ${f} | grep -m 1 '==>'; done
+    echo "Done!"
+}
+alias brew-upgrade-pinned='_brew_upgrade_pinned'
+
 #################
 ### Listing
 # Listing files
