@@ -476,11 +476,9 @@ local function init()
         ["<leader>dd"] = { rhs = "<cmd>DapBreakpointToggle<cr>" },
         --[x[
         ["<leader>dbb"] = { rhs = "<cmd>DapBreakpointsList<cr>" },
-        -- ["<leader>dbb"] = { rhs = "<cmd>DapBreakpointToggle<cr>" },
+        ["<leader>dBB"] = { rhs = "<cmd>DapBreakpointsClear<cr>" },
         ["<leader>dbc"] = { rhs = "<cmd>DapBreakpointCondition<cr>" },
         ["<leader>dbl"] = { rhs = "<cmd>DapBreakpointLog<cr>" },
-        ["<leader>dbL"] = { rhs = "<cmd>DapBreakpointsList<cr>" },
-        ["<leader>dbD"] = { rhs = "<cmd>DapBreakpointsClear<cr>" },
         --]]
     }
 

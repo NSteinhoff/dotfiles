@@ -1,15 +1,29 @@
+Documentation:
+  CommentFormat: Doxygen
+
 CompileFlags:
   Add:
     - -xc
     - -std=c17
+    - -I/opt/homebrew/include
+    - -I/opt/homebrew/opt/ncurses/include
     - -pedantic
     - -Wall
     - -Wextra
-    - -Wmissing-prototypes
+    - -Wcast-align
     - -Wconversion
     - -Wsign-conversion
-    - -I/opt/homebrew/include
-    - -I/opt/homebrew/opt/ncurses/include
+    - -Wfloat-equal
+    - -Wswitch-default
+    - -Wswitch-enum
+    - -Wcomma
+    - -Wextra-semi-stmt
+    - -Wmissing-prototypes
+    - -Wmissing-variable-declarations
+    - -Wdeclaration-after-statement
+    - -Wtautological-unsigned-zero-compare
+    - -Wunused-macros
+    - -Wvla
 
 ---
 

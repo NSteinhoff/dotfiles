@@ -23,6 +23,10 @@ if command -v brew &>/dev/null; then
     # export CFLAGS="-I${brewed}/include -I${brewed}/opt/llvm/include"
     # export LDFLAGS="-L${brewed}/lib -L${brewed}/opt/llvm/lib -Wl,-rpath,${brewed}/opt/llvm/lib"
     # export LDLIBS=
+
+    if [[ -x "${brewed}/bin/bash" ]]; then
+        export SHELL="${brewed}/bin/bash"
+    fi
 fi
 
 # ----------------------------------- ASDF ------------------------------------

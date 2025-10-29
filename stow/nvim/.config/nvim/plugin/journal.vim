@@ -21,4 +21,3 @@ endfunction
 command! -bang -bar -nargs=1 -complete=customlist,s:complete Note call s:open_note(<bang>0, '<mods>', <q-args>)
 command! -bang -bar Journal call s:open_note(<bang>0, '<mods>', 'journal.md')
 command! -bang -bar Todo call s:open_note(<bang>0, '<mods>', 'todo.taskpaper')
-command! -bang -bar Dev call s:open_note(<bang>0, '<mods>', 'dev.md')
