@@ -9,9 +9,12 @@ local function edit(path) return function() vim.cmd.edit(path) end end
 map("n", "<BS>", "<c-^>", { desc = "Switch to alternative buffer." })
 map("n", "|", "<c-w>v", { desc = "Split window vertically."})
 map("n", "<space>", "za", { desc = "Toggle folds." })
+map("n", "m<space>", "<cmd>wall<bar>make!<cr>", { desc = "Build with :make." } );
 
 -- Opening settings
 map("n", "<leader>,,", edit(cfg), { desc = "Open settings file." })
-map("n", "<leader>,m", edit(plug("keymap")), { desc = "Open keymaps." })
+map("n", "<leader>,k", edit(plug("keymap")), { desc = "Open keymaps." })
 map("n", "<leader>,a", edit(plug("autocmd")), { desc = "Open autocommands." })
-map("n", "m<space>", "<cmd>wall<bar>make!<cr>", { desc = "Build with :make." } );
+
+-- Escape mode in terminal
+map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Escape to normal mode." })
