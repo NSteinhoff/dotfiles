@@ -78,6 +78,9 @@ function fmt#fix(yes = 0)
     let result = systemlist(fixprg)
 
     if v:shell_error > 0
+        for line in result
+            echomsg line
+        endfor
         echomsg "Error: fixprg '".fixprg."' exited with status ".v:shell_error
         return
     endif

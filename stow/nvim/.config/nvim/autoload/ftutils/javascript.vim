@@ -39,3 +39,16 @@ function ftutils#javascript#use_prettier(buf)
 
     return v:false
 endfunction
+
+function ftutils#javascript#use_biome(buf)
+    let buf = expand(a:buf)
+    let path = (!empty(buf) && isdirectory(buf) ? buf..';$HOME,' : '')..'.;$HOME,;$HOME,'
+
+    for f in ['biome.json']
+        if !empty(findfile(f, path))
+            return v:true
+        endif
+    endfor
+
+    return v:false
+endfunction

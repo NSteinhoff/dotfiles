@@ -2,6 +2,7 @@ local did_init = false
 
 local defaults = {
     c = "clangd",
+    cs = "csharp_ls",
     lua = "lua_ls",
     rust = "rust_analyzer",
     json = "jsonls",

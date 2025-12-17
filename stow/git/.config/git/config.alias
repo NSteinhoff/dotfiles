@@ -39,7 +39,7 @@
 	semver		= tag --list --sort=-v:refname
 
 	# External tools
-	tree		= !git ls-files | tree --fromfile --dirsfirst -C
+	tree		= !git ls-files | CLICOLOR=1 tree --fromfile --dirsfirst
 	ctags		= !$(git rev-parse --git-common-dir)/hooks/ctags
 	watch		= !git ls-files | entr
 

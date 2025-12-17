@@ -1,3 +1,26 @@
+" Read curl request from buffer and place output below.
+"
+" Examples:
+"
+" // Comments an leading empty lines get ignored
+" // 
+"
+" -XGET http://some-host/some-path?param1=one&param2=two
+" -H 'Accept: application/json'
+"
+" ---
+"
+" -XGET https://some-host.org/path
+"  ?param1=one
+"  &param2=two
+" -H 'Accept: application/json'
+"
+" ---
+"
+" -XPOST https://some-host.org/path
+" -d '{"one": 1, "two": 2}'
+" -H 'Accept: application/json'
+"
 function post#post()
     let buf = bufname()
     echo "Posting from buffer "..buf
@@ -36,10 +59,16 @@ function post#post()
     let response = systemlist(request)
     if v:shell_error || !is_json
         call append(response_start, response)
-    else
-        echo "Formatting JSON Response"
-        let jq_command = printf("jq --monochrome-output --indent %d %s", shiftwidth(), "'.'")
-        let formatted = systemlist(jq_command, response)
-        call append(response_start, formatted)
+        return
     endif
+
+    echo "Formatting JSON Response"
+    let jq_command = printf("jq --monochrome-output --indent %d %s", shiftwidth(), "'.'")
+    let formatted = systemlist(jq_command, response)
+    if v:shell_error
+        call extend(formatted, ["", "---", ""])
+        call extend(formatted, response)
+    endif
+
+    call append(response_start, formatted)
 endfunction

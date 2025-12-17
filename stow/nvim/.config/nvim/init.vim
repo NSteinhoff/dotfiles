@@ -36,10 +36,10 @@ set isfname-==
 set fileformats=unix                            " show <CR><NL>
 set jumpoptions=stack
 set undofile
-set makeprg=make\ -j
 set title
 set titlestring=Nvim\ -\ %t%m
 set titlelen=70
+let &makeprg = "make -j "..max([1, system("sysctl -n hw.physicalcpu") / 2])
 "}}}
 "{{{ Special characters
 "set fillchars=eob:·
@@ -353,10 +353,11 @@ nnoremap <leader>I <cmd>InspectTree<cr>
 "}}}
 "}}}
 "{{{ Toggles
-nnoremap yo? <cmd>set ignorecase? diff? spell?  list? number? relativenumber? laststatus? showtabline? virtualedit? wrap?<cr>
+nnoremap yo? <cmd>set ignorecase? diff? spell?  list? number? relativenumber? laststatus? showtabline? virtualedit? wrap? winfixbuf?<cr>
 nnoremap yob <cmd>ToggleBlame<cr>
-nnoremap yoc <cmd>execute 'colorscheme ' . (colors_name == 'ludite' ? 'minimal' : 'ludite')..'\|colorscheme'<cr>
+nnoremap yoc <cmd>execute 'colorscheme ' . (colors_name == 'ludite' ? 'default' : 'ludite')..'\|colorscheme'<cr>
 nnoremap yod <cmd>call options#toggle('diff')<cr>
+nnoremap yof <cmd>call options#toggle('winfixbuf')<cr>
 nnoremap yoh <cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()); print("Inlay hints " .. (vim.lsp.inlay_hint.is_enabled() and "enabled" or "disabled"))<cr>
 nnoremap yoi <cmd>call options#toggle('ignorecase')<cr>
 nnoremap yol <cmd>call options#toggle('list')<cr>
@@ -378,7 +379,6 @@ nnoremap yoS <cmd>StealthToggle<cr>
 
 nnoremap yoa <cmd>echo "Toggle 'yoa' unused"<cr>
 nnoremap yoe <cmd>echo "Toggle 'yoe' unused"<cr>
-nnoremap yof <cmd>echo "Toggle 'yof' unused"<cr>
 nnoremap yog <cmd>echo "Toggle 'yog' unused"<cr>
 nnoremap yoj <cmd>echo "Toggle 'yoj' unused"<cr>
 nnoremap yoo <cmd>echo "Toggle 'yoo' unused"<cr>

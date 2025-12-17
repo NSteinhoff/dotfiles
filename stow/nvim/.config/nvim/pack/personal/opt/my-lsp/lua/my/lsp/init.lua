@@ -21,6 +21,7 @@ if autostart then
     vim.lsp.enable("zls")
     vim.lsp.enable("gopls")
     vim.lsp.enable('astro')
+    vim.lsp.enable('csharp_ls')
 end
 
 local function on_attach(args)

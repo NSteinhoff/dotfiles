@@ -4,7 +4,10 @@ setlocal shiftwidth=0
 
 setlocal formatexpr&
 
-if ftutils#javascript#use_prettier('%')
+if ftutils#javascript#use_biome('%')
+    source <sfile>:h/formatter/biome.vim
+    source <sfile>:h/fixer/biome.vim
+elseif ftutils#javascript#use_prettier('%')
     source <sfile>:h/formatter/prettier.vim
     source <sfile>:h/fixer/eslint.vim
 else

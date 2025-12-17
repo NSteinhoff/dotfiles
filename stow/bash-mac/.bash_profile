@@ -56,6 +56,11 @@ if command -v colima &>/dev/null; then
     export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
 fi
 
+# ---------------------------------- Dotnet -----------------------------------
+if command -v dotnet &>/dev/null; then
+    export PATH="$HOME/.dotnet/tools:$PATH"
+fi
+
 # --------------------------------------------------------------------------- #
 #                                  ~/.bashrc                                  #
 # --------------------------------------------------------------------------- #

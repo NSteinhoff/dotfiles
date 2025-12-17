@@ -11,4 +11,4 @@ function s:ext()
     return get(ext, &ft, 'js')
 endfunction
 
-let b:fixprg = 'biome lint --stdin-file-path=tmp.'..s:ext()
+let b:fixprg = 'biome lint --fix --stdin-file-path=tmp.'..s:ext()
