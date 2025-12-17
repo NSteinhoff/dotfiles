@@ -4,7 +4,7 @@ Documentation:
 CompileFlags:
   Add:
     - -xc
-    - -std=c17
+    - -std=c23
     - -I/opt/homebrew/include
     - -I/opt/homebrew/opt/ncurses/include
     - -pedantic
@@ -23,7 +23,7 @@ CompileFlags:
     - -Wdeclaration-after-statement
     - -Wtautological-unsigned-zero-compare
     - -Wunused-macros
-    - -Wvla
+    - -Wno-vla
 
 ---
 

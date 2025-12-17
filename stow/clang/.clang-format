@@ -5,8 +5,10 @@ TabWidth: 8
 IndentWidth: 8
 ContinuationIndentWidth: 8
 
-IndentGotoLabels: true
 SortIncludes: Never
+
+IndentGotoLabels: true
+IndentCaseLabels: false
 
 ReflowComments: false
 AlwaysBreakBeforeMultilineStrings: true
@@ -25,7 +27,7 @@ AlignConsecutiveAssignments:
   AlignCompound: true
 AlignConsecutiveDeclarations:
   Enabled: false
-  AcrossComments: false
+  AcrossComments: true
 AlignConsecutiveMacros: AcrossComments
 
 AllowShortBlocksOnASingleLine: Empty
@@ -36,3 +38,4 @@ AllowShortIfStatementsOnASingleLine: WithoutElse
 AllowShortFunctionsOnASingleLine: None
 
 ForEachMacros: [FOREACH, foreach_word, foreach_line, foreach_token]
+IfMacros: [IF_ERR, IF_OK, CATCH]
