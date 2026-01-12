@@ -15,7 +15,7 @@ AlwaysBreakBeforeMultilineStrings: true
 BreakBeforeTernaryOperators: true
 BreakStringLiterals: false
 BreakBeforeBraces: Attach
-AlignAfterOpenBracket: AlwaysBreak
+AlignAfterOpenBracket: BlockIndent
 SpacesInContainerLiterals: true
 
 PointerAlignment: Right
@@ -26,7 +26,7 @@ AlignConsecutiveAssignments:
   AcrossComments: true
   AlignCompound: true
 AlignConsecutiveDeclarations:
-  Enabled: false
+  Enabled: true
   AcrossComments: true
 AlignConsecutiveMacros: AcrossComments
 
@@ -38,4 +38,4 @@ AllowShortIfStatementsOnASingleLine: WithoutElse
 AllowShortFunctionsOnASingleLine: None
 
 ForEachMacros: [FOREACH, foreach_word, foreach_line, foreach_token]
-IfMacros: [IF_ERR, IF_OK, CATCH]
+IfMacros: [IF_ERR, IF_OK, CATCH, TEST_CASE]
