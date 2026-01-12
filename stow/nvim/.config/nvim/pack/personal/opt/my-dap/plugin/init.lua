@@ -54,13 +54,13 @@ local function define_signs()
     local signs = {
         DapBreakpoint = {
             text = "B!",
-            texthl = "Special",
+            texthl = "Added",
             linehl = "",
             numhl = "",
         },
         DapBreakpointCondition = {
             text = "B?",
-            texthl = "Special",
+            texthl = "Changed",
             linehl = "",
             numhl = "",
         },
@@ -72,7 +72,7 @@ local function define_signs()
         },
         DapLogPoint = {
             text = "L!",
-            texthl = "Special",
+            texthl = "Added",
             linehl = "",
             numhl = "",
         },
@@ -310,7 +310,7 @@ local function init()
         ["dr"] = { rhs = "<cmd>DapFrameRestart<cr>" },
 
         -- Widgets
-        ["dK"] = { rhs = "<cmd>DapShowHover<cr>" },
+        ["dK"] = { rhs = "<cmd>DapShowPreview<cr>" },
         ["<leader>dp"] = { rhs = "<cmd>DapShowPreview<cr>" },
         ["<leader>df"] = { rhs = "<cmd>DapShowFrames<cr>" },
         ["<leader>ds"] = { rhs = "<cmd>DapShowScopes<cr>" },

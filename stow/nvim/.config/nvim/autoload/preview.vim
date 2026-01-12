@@ -72,7 +72,7 @@ function preview#preview_word(word)
     " Position cursor on match
     call search('\<\V' .. word .. '\>')
     " Add a match highlight to the word at this position
-    hi previewWord term=bold cterm=inverse
+    hi previewWord term=bold cterm=underline
     let [_, l, c; _] = getcurpos()
     exe 'match previewWord "\%' .. l .. 'l\%' .. c .. 'c\k*"'
     " Record the matched word to check for double clicks

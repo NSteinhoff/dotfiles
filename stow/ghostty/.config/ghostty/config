@@ -16,6 +16,9 @@ font-feature = "-calt, -liga, -dlig"
 theme = light:rose-pine-dawn,dark:rose-pine-moon
 # theme = light:right-in-the-teals-light,dark:right-in-the-teals-dark
 # theme = light:victor-mono-light,dark:victor-mono-dark
+# theme = light:Gruvbox Light,dark:Gruvbox Dark
+# theme = light:Neobones Light,dark:Neobones Dark
+# theme = light:Selenized Light,dark:Selenized Dark
 
 # Keys
 macos-option-as-alt = left

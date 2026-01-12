@@ -84,6 +84,14 @@ function s:get(...)
     endif
 endfunction
 
+function s:history()
+    if qf#isloc()
+        lhistory
+    else
+        chistory
+    endif
+endfunction
+
 function s:sign_group()
     return 'qf-selected-'..(qf#isloc() ? 'loc' : 'qf')
 endfunction
@@ -205,6 +213,7 @@ endfunction
 
 function qf#delete() range
     if !qf#isqf()|return|endif
+    call qf#clear_marks()
 
     let lnums = range(a:firstline, a:lastline)
     let items = s:get()
@@ -231,23 +240,24 @@ endfunction
 
 function qf#filter(v, ...) abort
     if !qf#isqf()|return|endif
-
     let items = a:v ? s:unselected() : s:selected()
-    call qf#clear_marks()
     if empty(items)|return|endif
+
+    call qf#clear_marks()
     let this = s:get({'all': 1})
     let this.title = '*'..this.title
     let this.items = items
     let this.nr = (a:0 && a:1 ? '$' : 0)
     call s:set([], ' ', this)
+    call s:history()
 endfunction
 
 function qf#swap(v) abort
     if !qf#isqf()|return|endif
-
     let items = a:v ? s:unselected() : s:selected()
-    call qf#clear_marks()
     if empty(items)|return|endif
+
+    call qf#clear_marks()
     call s:replace(items)
 endfunction
 
@@ -312,6 +322,7 @@ function qf#paste() abort
         call s:replace_all(lists)
         call s:goto(nr + 1)
     endif
+    call s:history()
 endfunction
 
 function qf#only() abort
@@ -321,6 +332,7 @@ function qf#only() abort
     let this.nr = '$'
     call s:set([], 'f')
     call s:set([], ' ', this)
+    call s:history()
 endfunction
 
 function qf#textfunc(info)

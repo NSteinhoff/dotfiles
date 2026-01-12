@@ -32,9 +32,15 @@ local function init()
                 -- Disable in syntax help to show 'group-name' highlights
                 if
                     lang == "vimdoc"
-                    and vim.endswith(
-                        vim.api.nvim_buf_get_name(bufnr),
-                        "runtime/doc/syntax.txt"
+                    and (
+                        vim.endswith(
+                            vim.api.nvim_buf_get_name(bufnr),
+                            "runtime/doc/syntax.txt"
+                        )
+                        or vim.endswith(
+                            vim.api.nvim_buf_get_name(bufnr),
+                            "runtime/syntax/colortest.vim"
+                        )
                     )
                 then
                     return true
