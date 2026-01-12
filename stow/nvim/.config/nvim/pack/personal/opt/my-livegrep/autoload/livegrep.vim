@@ -57,7 +57,7 @@ function s:job.start(buf, cmd, query)
     let self.data = []
     let self.err = []
     let self.buf = a:buf
-    let l:cmd = split(a:cmd) + [a:query, '.']
+    let l:cmd = split(a:cmd) + split(a:query) + ['.']
     let self.id = jobstart(l:cmd , self)
     call self.loading()
 endfunction
