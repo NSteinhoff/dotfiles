@@ -15,7 +15,7 @@ AlwaysBreakBeforeMultilineStrings: true
 BreakBeforeTernaryOperators: true
 BreakStringLiterals: false
 BreakBeforeBraces: Attach
-AlignAfterOpenBracket: BlockIndent
+AlignAfterOpenBracket: AlwaysBreak
 SpacesInContainerLiterals: true
 
 PointerAlignment: Right
@@ -37,5 +37,5 @@ AllowShortLoopsOnASingleLine: false
 AllowShortIfStatementsOnASingleLine: WithoutElse
 AllowShortFunctionsOnASingleLine: None
 
-ForEachMacros: [FOREACH, foreach_word, foreach_line, foreach_token]
+ForEachMacros: [FOR, FOR_IN, FOR_EACH, FOREACH, foreach_word, foreach_line, foreach_token]
 IfMacros: [IF_ERR, IF_OK, CATCH, TEST_CASE]

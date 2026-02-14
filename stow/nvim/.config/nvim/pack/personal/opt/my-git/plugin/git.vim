@@ -64,7 +64,7 @@ function s:track_changes(jump)
         autocmd VimResume,FocusGained * call git#load_changed_files()
         autocmd DirChanged * call git#load_changed_files()
         autocmd BufWritePost * call git#load_changed_files()
-        autocmd User MyGitAdd call git#load_changed_files()
+        autocmd User MyGitIndexChanged call git#load_changed_files()
     augroup END
 
     call git#load_changed_files()

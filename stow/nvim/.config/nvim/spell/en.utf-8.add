@@ -182,3 +182,6 @@ editorconfig
 LSPs
 openid
 Cognito
+rebase
+vtable
+memmove

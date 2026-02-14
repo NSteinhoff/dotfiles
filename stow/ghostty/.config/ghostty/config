@@ -8,17 +8,27 @@ mouse-hide-while-typing = true
 # Font
 # font-family = "Iosevka Nerd Font Mono"
 font-family  = "VictorMono Nerd Font Mono"
-font-size    = 14
+font-size    = 13
 font-feature = "-calt, -liga, -dlig"
 
 # Theme
+# theme = based-dark
+theme = Nightfox
+# theme = Tokyonight
+# theme = Catppuccin Mocha
+# theme = compline
+
+
 # theme = light:default-light,dark:default-dark
-theme = light:rose-pine-dawn,dark:rose-pine-moon
+# theme = light:based-light,dark:based-dark
+# theme = light:lauds,dark:compline
+# theme = light:rose-pine-dawn,dark:rose-pine-moon
 # theme = light:right-in-the-teals-light,dark:right-in-the-teals-dark
 # theme = light:victor-mono-light,dark:victor-mono-dark
 # theme = light:Gruvbox Light,dark:Gruvbox Dark
 # theme = light:Neobones Light,dark:Neobones Dark
 # theme = light:Selenized Light,dark:Selenized Dark
+# theme = light:Catppuccin Latte,dark:Catppuccin Mocha
 
 # Keys
 macos-option-as-alt = left

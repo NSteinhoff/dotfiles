@@ -13,6 +13,8 @@ case $color in
     *-dark )    type=dark;      mode=-dark;     othermode=-light;;
     *-dawn)     type=light;     mode=-dawn;     othermode=-moon;;
     *-moon)     type=dark;      mode=-moon;     othermode=-dawn;;
+    lauds)      type=light;     mode=$color;    othermode=compline;;
+    compline)   type=dark;      mode=$color;    othermode=lauds;;
 esac
 
 if [[ "$mode" == unknown ]]; then

@@ -24,6 +24,8 @@ CompileFlags:
     - -Wtautological-unsigned-zero-compare
     - -Wunused-macros
     - -Wno-vla
+    - -Wno-shadow
+    - -Wno-initializer-overrides
 
 ---
 

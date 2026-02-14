@@ -2,6 +2,7 @@
 .scratch
 
 # Secrets
+mise.toml
 .envrc
 .env
 

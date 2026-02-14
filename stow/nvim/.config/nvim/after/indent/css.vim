@@ -1,6 +1,6 @@
 setlocal noexpandtab
 setlocal tabstop=4
-setlocal shiftwidth=4
+setlocal shiftwidth=0
 setlocal formatexpr&
 
 if ftutils#javascript#use_prettier('%')

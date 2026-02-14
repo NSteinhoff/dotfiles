@@ -72,5 +72,11 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-command -v direnv &>/dev/null && eval "$(direnv hook bash)"
-command -v asdf &>/dev/null && source <(asdf completion bash)
+use_mise=true
+if $use_mise;
+then
+    eval "$(mise activate bash)"
+else
+    command -v direnv &>/dev/null && eval "$(direnv hook bash)"
+    command -v asdf &>/dev/null && source <(asdf completion bash)
+fi

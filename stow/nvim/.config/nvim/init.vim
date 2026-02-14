@@ -45,7 +45,7 @@ let &makeprg = "make -j "..max([1, system("sysctl -n hw.physicalcpu") / 2])
 "set fillchars=eob:·
 set list
 set listchars=
-set listchars+=tab:¦\ 
+set listchars+=tab:›\ 
 set listchars+=trail:…
 set listchars+=extends:»
 set listchars+=precedes:«
@@ -200,6 +200,7 @@ nnoremap ]A <cmd>argadd %<bar>echo "Added arg '"..expand("%").."'"<cr>
 nnoremap [A <cmd>argdelete %<bar>echo "Removed arg '"..expand("%").."'"<cr>
 "}}}
 "{{{ Search and replace
+nnoremap * <cmd>let @/='\C\<'..expand("<cword>")..'\>'<cr>n
 vnoremap * y<cmd>let @/=@"<cr>n
 nnoremap gs :%s/
 vnoremap gs :s/
@@ -244,10 +245,13 @@ imap <c-l> <c-r>=complete#localpath()<cr>
 "}}}
 "{{{ Running builds/scripts
 " Make
-nmap m<space> <cmd>wall<bar>make!<cr>
+nnoremap m<space> <cmd>wall<bar>make!<cr>
+nnoremap m<cr> <cmd>wall<bar>make test<cr>
+nnoremap m<leader> <cmd>wall<bar>make compile<cr>
+nnoremap m<bs> <cmd>wall<bar>make build<cr>
 " Execute script
 nnoremap <leader><leader> <cmd>w<bar>Run<cr>
-nnoremap g<cr> <cmd>w<bar>Run<cr>
+" nnoremap g<cr> <cmd>w<bar>Run<cr>
 "}}}
 "{{{ Quality of life
 vnoremap v iw
@@ -306,11 +310,9 @@ nnoremap <leader>bT :buffer term://<c-z>
 "{{{ Toggle Scratch buffer
 nnoremap <leader>s <cmd>Scratch<cr>G
 "}}}
-"{{{ Open Journal
-nnoremap <leader>j <cmd>Journal<cr>
-"}}}
-"{{{ Open To-Dos
-nnoremap <leader>t <cmd>Todo<cr>
+"{{{ Open Notes, Journal, Todos etc.
+nnoremap <leader>oj <cmd>Journal<cr>
+nnoremap <leader>ot <cmd>Todo<cr>
 "}}}
 "{{{ Changed Files
 nnoremap <leader>c <cmd>ChangedFiles<cr>
@@ -333,7 +335,7 @@ nmap <silent> gb <plug>(git-blame)
 vmap <silent> gb <plug>(git-blame)
 "}}}
 "{{{ Theme and Colors
-nnoremap <F7> <cmd>silent !toggle-light-dark<cr>
+" nnoremap <F7> <cmd>silent !toggle-light-dark<cr>
 "}}}
 "{{{ Git add  / reset current file
 nmap ]g <plug>(git-add)
@@ -355,7 +357,7 @@ nnoremap <leader>I <cmd>InspectTree<cr>
 "{{{ Toggles
 nnoremap yo? <cmd>set ignorecase? diff? spell?  list? number? relativenumber? laststatus? showtabline? virtualedit? wrap? winfixbuf?<cr>
 nnoremap yob <cmd>ToggleBlame<cr>
-nnoremap yoc <cmd>execute 'colorscheme ' . (colors_name == 'ludite' ? 'default' : 'ludite')..'\|colorscheme'<cr>
+nnoremap yoc <cmd>execute 'colorscheme ' . (colors_name == 'ludite' ? 'minimal' : 'ludite')..'\|colorscheme'<cr>
 nnoremap yod <cmd>call options#toggle('diff')<cr>
 nnoremap yof <cmd>call options#toggle('winfixbuf')<cr>
 nnoremap yoh <cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()); print("Inlay hints " .. (vim.lsp.inlay_hint.is_enabled() and "enabled" or "disabled"))<cr>
@@ -412,7 +414,7 @@ nnoremap yoZ <cmd>echo "Toggle 'yoZ' unused"<cr>
 "}}}
 "{{{ Quickfix/Location List
 nmap g<space> <plug>(qf-ctoggle)
-nmap g<bs> <plug>(qf-ltoggle)
+nmap g<cr> <plug>(qf-ltoggle)
 nmap <leader>q <plug>(qf-ctoggle)
 nmap <leader>l <plug>(qf-ltoggle)
 nmap <leader>Q <plug>(qf-ctab)

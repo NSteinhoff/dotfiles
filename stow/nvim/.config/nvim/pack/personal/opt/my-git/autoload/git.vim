@@ -385,7 +385,6 @@ function git#review(revision)
         DiffThis
     catch
         echo v:exception
-        tabclose
     endtry
 endfunction
 

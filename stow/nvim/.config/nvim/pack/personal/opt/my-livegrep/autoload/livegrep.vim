@@ -1,7 +1,7 @@
 let s:insert_help = '<cr> go to first result ; <c-c> to exit'
 let s:normal_help = '<space> jump to result; <cr> export and jump to result ; e(X)port; (R)eload'
 
-let s:fixed_strings = v:true
+let s:fixed_strings = v:false
 if s:fixed_strings
     let s:placeholder = '  <<< some string in file'
     let s:grepprg = 'rg -n --smart-case --sort path --glob !.git/* --fixed-strings'
@@ -16,7 +16,7 @@ let s:ns_results = nvim_create_namespace('livegrep_job_results')
 " Plugin State
 let s:history = []
 let s:histindex = -1
-let s:job = {'id': 0}
+let s:job = {'id': 0, 'cmd': ''}
 
 function s:job.on_stdout(job_id, data, event)
     let self.data = extend(self.data, filter(a:data, {_, v -> !empty(v)}))
@@ -36,13 +36,13 @@ function s:job.on_exit(job_id, data, event)
     let lines = self.data
     if !empty(self.err)
         let lines += ['', '=================================== ERROR ====================================']
-        let lines += ['$ '..s:grepprg..' '..b:query]
+        let lines += ['$ '..join(self.cmd, " ")]
         let lines += self.err
         let lines += ['', '=================================== HELP =====================================']
         let lines += systemlist(s:grepprg..' --help')
         call nvim_buf_set_extmark(self.buf, s:ns_results, 0, 0, {'virt_text': [['!!!', 'Error']]} )
     else
-        call nvim_buf_set_extmark(self.buf, s:ns_results, 0, 0, {'virt_text': [[printf('(%d)', len(self.data)), 'Special']]})
+        call nvim_buf_set_extmark(self.buf, s:ns_results, 0, 0, {'virt_text': [[printf('(%d) %s', len(self.data), self.cmd), 'Special']]})
     endif
 
     call appendbufline(self.buf, '$', lines)
@@ -53,11 +53,17 @@ function s:job.stop()
 endfunction
 
 function s:job.start(buf, cmd, query)
+    let l:query = split(a:query)
+    if len(l:query) < 2
+        let l:query += ['.']
+    endif
+    let l:cmd = split(a:cmd) + l:query
+
     call self.stop()
     let self.data = []
     let self.err = []
     let self.buf = a:buf
-    let l:cmd = split(a:cmd) + split(a:query) + ['.']
+    let self.cmd = l:cmd
     let self.id = jobstart(l:cmd , self)
     call self.loading()
 endfunction

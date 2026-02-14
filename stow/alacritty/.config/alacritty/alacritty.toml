@@ -1,5 +1,5 @@
 [general]
-import = ["~/.config/alacritty/colors/solarized-dark.toml"]
+import = ["~/.config/alacritty/colors/compline.toml"]
 
 [window]
 option_as_alt = "OnlyLeft"
@@ -9,8 +9,9 @@ args = ["--login"]
 program = "/opt/homebrew/bin/bash"
 
 [font]
-size = 16
+size = 14
 normal.family = "Iosevka Nerd Font Mono"
+normal.style = "Light"
 bold.style = "Bold"
 italic.style = "Italic"
 bold_italic.style = "Bold Italic"

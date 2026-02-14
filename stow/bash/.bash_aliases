@@ -16,11 +16,12 @@ export PATH="$HOME/.local/bin:$PATH"
 
 export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 export CDPATH=.:~/Develop # include the explicit '.' to support bash < 4.2
+export CDPATH="$CDPATH:~/Develop/Accenture/NAIP"
 
 ##########
 ### Prompt
-prompttype=fancy
-case $prompttype in
+prompt_type=fancy
+case $prompt_type in
     starship) eval "$(starship init bash)" ;;
        fancy) eval "$(make-bash-prompt)" ;;
        basic) PS1="\[\e[1;34m\]\w\[\e[1;32m\]\n\j:\$\[\e[m\] " ;;
@@ -48,6 +49,7 @@ esac
 alias v='NVIM_APPNAME=v nvim'
 alias yot='toggle-light-dark'
 alias mdv='based-markdown-viewer --open'
+alias fetch='based-fetch'
 alias pmake='make -j'
 
 ###########
@@ -156,6 +158,7 @@ if has git; then
     alias g='git status'
     alias gl='git lo'
     alias gd='git diff'
+    alias gs='git switch'
     alias g-='git switch -'
     alias gg='_git_switch_select_branch'
     complete -F _complete_branches gg

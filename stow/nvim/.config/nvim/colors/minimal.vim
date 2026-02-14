@@ -113,6 +113,7 @@ highlight SpecialChar                  cterm=bold                   ctermfg=6   
 highlight SpecialComment               cterm=NONE                   ctermfg=6     ctermbg=NONE
 highlight Statement                    cterm=NONE                   ctermfg=15    ctermbg=NONE
 highlight String                       cterm=NONE                   ctermfg=3     ctermbg=NONE
+highlight CommentNote                  cterm=bold                   ctermfg=0     ctermbg=5
 highlight Todo                         cterm=bold                   ctermfg=2     ctermbg=8
 highlight Type                         cterm=NONE                   ctermfg=6     ctermbg=NONE
 highlight Underlined                   cterm=underline              ctermfg=NONE  ctermbg=NONE
