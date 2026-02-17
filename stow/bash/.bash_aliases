@@ -219,8 +219,6 @@ if has nvim; then
     _complete_notes() { COMPREPLY=( $(compgen -W "$(ls $NOTES_DIR)" $2) ); }
     alias journal='nvim +Journal! +Noyo +"set ruler"'
     alias todo='nvim +Todo! +Noyo +"set ruler"'
-    alias j=journal
-    alias t=todo
 fi
 
 ########

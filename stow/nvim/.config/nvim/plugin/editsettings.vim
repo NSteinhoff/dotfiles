@@ -28,3 +28,4 @@ command! -nargs=? -complete=color EditColorscheme call s:edit_settings('colors',
 command! -nargs=? -complete=customlist,editsettings#complete_plugins EditPlugin call s:edit_settings('plugin', <q-args>, <q-mods>)
 command! -nargs=? -complete=customlist,editsettings#complete_plugins EditAutoload call s:edit_settings('autoload', <q-args>, <q-mods>)
 command! EditTerminalSettings edit ~/.config/ghostty/config
+command! EditAgentSettings edit ~/.config/opencode/opencode.json

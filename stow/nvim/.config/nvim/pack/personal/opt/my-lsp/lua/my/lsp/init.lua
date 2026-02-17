@@ -1,5 +1,5 @@
 require("my.lsp.config")
-local autostart = false
+local autostart = true
 
 vim.diagnostic.config({
     signs = true,
@@ -72,3 +72,5 @@ vim.api.nvim_create_autocmd("DiagnosticChanged", {
     end,
 })
 --]]
+
+vim.lsp.set_log_level("ERROR")

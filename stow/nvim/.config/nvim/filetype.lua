@@ -8,7 +8,7 @@ local filetypes = {
     gitconfig = { "*/.config/git/config.*" },
     lox = { "*.lox" },
     taskpaper = { "*.taskpaper" },
-    fetch = { "POST*", "GET*" },
+    fetch = { "\\CPOST*", "\\CGET*" },
     -- scratch = { "scratch://*" },
 }
 

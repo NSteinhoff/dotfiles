@@ -115,6 +115,7 @@ nnoremap <leader>,f <cmd>EditFtplugin<cr>
 nnoremap <leader>,i <cmd>EditIndent<cr>
 nnoremap <leader>,c <cmd>EditColorscheme<cr>
 nnoremap <leader>,t <cmd>EditTerminalSettings<cr>
+nnoremap <leader>,a <cmd>EditAgentSettings<cr>
 "}}}
 "{{{ Disable some default mappings
 if maparg('[d', 'n') != ''
