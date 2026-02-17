@@ -1,6 +1,6 @@
-OS := $(shell uname -s)
+OS        := $(shell uname -s)
 SHARE_DIR := $(HOME)/.local/share
-BIN_DIR := $(HOME)/.local/bin
+BIN_DIR   := $(HOME)/.local/bin
 
 # ----------------------------------- Stow ------------------------------------
 STOW_LIST_ALL := $(shell ls stow)
@@ -10,7 +10,7 @@ ifeq ($(OS), Darwin)
     STOW_TARGETS += $(filter %-mac, $(STOW_LIST_ALL))
 endif
 
-install: stow
+install: stow opencode-tools
 uninstall: unstow
 
 stow: install-stow
@@ -20,6 +20,10 @@ stow: install-stow
 unstow: install-stow
 	stow -D $(STOW_TARGETS)
 .PHONY: unstow
+
+opencode-tools:
+	cp opencode-tools/* ~/.config/opencode/tools/
+.PHONY: opencode-tools
 
 ifeq ($(OS), Linux)
 install_cmd := apt-get install -y

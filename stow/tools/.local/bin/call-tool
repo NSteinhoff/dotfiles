@@ -1,0 +1,270 @@
+#!/usr/bin/env bun
+// vim:ft=typescript
+
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { pathToFileURL } from "node:url";
+
+type ContextAskArgs = {
+	permission?: string;
+	patterns?: string[];
+	always?: string[];
+	metadata?: unknown;
+};
+
+type ToolContext = {
+	worktree: string;
+	ask: (args: ContextAskArgs) => Promise<{ allow: true }>;
+};
+
+function printHelp(): void {
+	console.log(
+		[
+			"Usage:",
+			"  call-tool [toolname] [...args]",
+			"  call-tool help [toolname]",
+			"",
+			"Args:",
+			"  key=value pairs become tool args",
+			"  first positional arg maps to 'target' when key=value is not used",
+			"",
+			"Options:",
+			"  --json <json>   Pass full args object as JSON",
+			"  --verbose       Print debug info before execution",
+			"  -h, --help      Show this help",
+			"",
+			"Examples:",
+			"  call-tool make help",
+			"  call-tool make target=test",
+			"  call-tool help",
+			"  call-tool help make",
+			'  call-tool make --json \'{"target":"help"}\'',
+		].join("\n"),
+	);
+}
+
+function isFlag(value: string): boolean {
+	return value.startsWith("-");
+}
+
+function getOpencodeToolPath(toolName: string): string {
+	const opencodeRoot = path.join(os.homedir(), ".config", "opencode");
+	const candidate = path.join(opencodeRoot, "tools", `${toolName}.ts`);
+	if (!fs.existsSync(candidate)) {
+		throw new Error(`Could not find tools/${toolName}.ts in ${opencodeRoot}`);
+	}
+
+	return candidate;
+}
+
+function listOpencodeToolNames(): string[] {
+	const opencodeRoot = path.join(os.homedir(), ".config", "opencode");
+	const toolsDir = path.join(opencodeRoot, "tools");
+	if (!fs.existsSync(toolsDir)) {
+		throw new Error(`Could not find tools directory in ${opencodeRoot}`);
+	}
+
+	return fs
+		.readdirSync(toolsDir, { withFileTypes: true })
+		.filter((entry) => entry.isFile() && entry.name.endsWith(".ts"))
+		.map((entry) => entry.name.replace(/\.ts$/, ""))
+		.sort();
+}
+
+function readDescription(tool: unknown): string | undefined {
+	if (!tool || typeof tool !== "object") return undefined;
+	const candidate = (tool as { description?: unknown }).description;
+	if (typeof candidate === "string" && candidate.trim().length > 0) {
+		return candidate.trim();
+	}
+	return undefined;
+}
+
+function readArgNames(tool: unknown): string[] {
+	if (!tool || typeof tool !== "object") return [];
+
+	const args = (tool as { args?: unknown }).args;
+	if (!args || typeof args !== "object" || Array.isArray(args)) return [];
+
+	return Object.keys(args).sort();
+}
+
+async function printToolHelp(toolName: string): Promise<void> {
+	const toolFilePath = getOpencodeToolPath(toolName);
+	const module = (await import(pathToFileURL(toolFilePath).href)) as {
+		default?: unknown;
+	};
+
+	const tool = module.default;
+	if (!tool || typeof tool !== "object") {
+		throw new Error(`Tool '${toolName}' has no callable default export`);
+	}
+
+	const description = readDescription(tool);
+	const argNames = readArgNames(tool);
+	const lines = [
+		`Tool: ${toolName}`,
+		`Path: ${toolFilePath}`,
+		`Description: ${description || "(none)"}`,
+		"Arguments:",
+		...(argNames.length > 0 ? argNames.map((name) => `- ${name}`) : ["- (none)"]),
+	];
+
+	console.log(lines.join("\n"));
+}
+
+async function printGeneralToolHelp(): Promise<void> {
+	const names = listOpencodeToolNames();
+	const lines = ["Available tools:", ...names.map((name) => `- ${name}`)];
+	console.log(lines.join("\n"));
+}
+
+function parseArgs(argv: string[]): {
+	verbose: boolean;
+	jsonArgs?: string;
+	positional: string[];
+	keyValues: Record<string, string>;
+} {
+	const positional: string[] = [];
+	const keyValues: Record<string, string> = {};
+	let verbose = false;
+	let jsonArgs: string | undefined;
+
+	for (let i = 0; i < argv.length; i += 1) {
+		const current = argv[i] ?? "";
+
+		if (current === "--verbose") {
+			verbose = true;
+			continue;
+		}
+
+		if (current === "--json") {
+			const next = argv[i + 1];
+			if (!next) throw new Error("Missing value for --json");
+			jsonArgs = next;
+			i += 1;
+			continue;
+		}
+
+		if (current.includes("=") && !isFlag(current)) {
+			const splitIndex = current.indexOf("=");
+			const key = current.slice(0, splitIndex).trim();
+			const value = current.slice(splitIndex + 1);
+			if (!key) throw new Error(`Invalid key=value arg: ${current}`);
+			keyValues[key] = value;
+			continue;
+		}
+
+		positional.push(current);
+	}
+
+	return { verbose, jsonArgs, positional, keyValues };
+}
+
+function buildToolArgs(parsed: {
+	jsonArgs?: string;
+	positional: string[];
+	keyValues: Record<string, string>;
+}): Record<string, unknown> {
+	if (parsed.jsonArgs) {
+		const data = JSON.parse(parsed.jsonArgs) as unknown;
+		if (!data || typeof data !== "object" || Array.isArray(data)) {
+			throw new Error("--json must decode to an object");
+		}
+		return data as Record<string, unknown>;
+	}
+
+	const args: Record<string, unknown> = { ...parsed.keyValues };
+	if (parsed.positional.length > 0 && !("target" in args)) {
+		args.target = parsed.positional[0];
+	}
+
+	if (parsed.positional.length > 1) {
+		args._ = parsed.positional.slice(1);
+	}
+
+	return args;
+}
+
+async function main(): Promise<void> {
+	const [, , ...argv] = process.argv;
+	if (argv.length === 0 || argv[0] === "-h" || argv[0] === "--help") {
+		printHelp();
+		return;
+	}
+
+	if (argv[0] === "help") {
+		const toolName = argv[1];
+		if (toolName) {
+			await printToolHelp(toolName);
+			return;
+		}
+
+		await printGeneralToolHelp();
+		return;
+	}
+
+	const [toolName, ...argValues] = argv;
+	if (!toolName) {
+		printHelp();
+		process.exitCode = 1;
+		return;
+	}
+
+	const parsed = parseArgs(argValues);
+	const worktree = process.cwd();
+	const toolFilePath = getOpencodeToolPath(toolName);
+	const module = (await import(pathToFileURL(toolFilePath).href)) as {
+		default?: {
+			execute?: (args: unknown, context: ToolContext) => Promise<unknown>;
+		};
+	};
+
+	const tool = module.default;
+	if (!tool || typeof tool.execute !== "function") {
+		throw new Error(
+			`Tool '${toolName}' has no callable default.execute(args, context)`,
+		);
+	}
+
+	const toolArgs = buildToolArgs(parsed);
+	const context: ToolContext = {
+		worktree,
+		ask: async (_args: ContextAskArgs) => ({ allow: true }),
+	};
+
+	if (parsed.verbose) {
+		console.error(
+			JSON.stringify(
+				{
+					tool: toolName,
+					toolFilePath,
+					worktree,
+					args: toolArgs,
+					autoAllow: true,
+				},
+				null,
+				2,
+			),
+		);
+	}
+
+	const result = await tool.execute(toolArgs, context);
+	if (typeof result === "string") {
+		console.log(result);
+		return;
+	}
+
+	if (result === undefined) {
+		return;
+	}
+
+	console.log(JSON.stringify(result, null, 2));
+}
+
+await main().catch((error: unknown) => {
+	const message = error instanceof Error ? error.message : String(error);
+	console.error(`call-tool: ${message}`);
+	process.exit(1);
+});
