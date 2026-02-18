@@ -1,6 +1,9 @@
 # Scratch
 .scratch
 
+# Coding Agent
+Makefile.agent
+
 # Secrets
 mise.toml
 .envrc

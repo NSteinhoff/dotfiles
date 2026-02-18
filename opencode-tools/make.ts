@@ -51,20 +51,21 @@ export default tool({
 	},
 	async execute(args, context) {
 		const worktree = context.worktree;
-		const makefilePath = path.join(worktree, "Makefile");
-		const makefile = Bun.file(makefilePath);
 		const target = args.target?.trim();
 		const wantsHelp = target === "help";
 		const effectiveTarget = target || "default";
+		const makefile =
+			await getMakefileContents(worktree, "Makefile.agent") ||
+			await getMakefileContents(worktree, "Makefile");
 
-		if (!(await makefile.exists())) {
+		if (!makefile) {
 			return wantsHelp
 				? "No Makefile found in worktree root."
 				: "Skipped: no Makefile found in worktree root.";
 		}
 
 		if (wantsHelp) {
-			const content = await makefile.text();
+			const content = makefile.contents;
 			const hasHelpTarget = parseTargets(content).some(
 				(item) => item.name === "help",
 			);
@@ -76,7 +77,7 @@ export default tool({
 				metadata: {
 					target: "help",
 					worktree,
-					path: makefilePath,
+					path: makefile.path,
 					mode: hasHelpTarget ? "make-help" : "generated-help",
 				},
 			});
@@ -95,7 +96,7 @@ export default tool({
 			metadata: {
 				target: effectiveTarget,
 				worktree,
-				path: makefilePath,
+				path: makefile.path,
 				mode: target ? "make-target" : "make-default",
 			},
 		});
@@ -173,4 +174,18 @@ function parseTargets(makefileContent: string): TargetInfo[] {
 	}
 
 	return targets;
+}
+
+async function getMakefileContents(
+	worktree: string,
+	filename: string,
+): Promise<{ path: string; contents: string } | undefined> {
+	const makefilePath = path.join(worktree, filename);
+	const makefile = Bun.file(makefilePath);
+
+	if (!(await makefile.exists())) {
+		return undefined;
+	}
+
+	return { path: makefilePath.toString(), contents: await makefile.text() };
 }
