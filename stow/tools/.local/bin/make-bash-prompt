@@ -1,4 +1,47 @@
 #!/usr/bin/env bash
+
+if [[ $# != 1 ]]; then
+    echo "Must provide prompt style argument!"
+    exit 1;
+fi
+
+if [[ $1 == basic ]]; then
+bash_prompt_definitions=$(cat <<'EOF'
+_git_prompt_branch_name() {
+    echo -n "$(git branch --show-current 2>/dev/null)"
+}
+
+_git_prompt_rebase_in_progress() {
+    rebasing=$(git status 2>/dev/null | grep '^interactive rebase in progress')
+    if [ -n "$rebasing" ]
+    then
+        echo -en "\033[1;31m"
+        echo -n " $rebasing"
+        echo -en "\033[0m"
+        return 0
+    fi
+    return 1
+}
+
+_git_prompt() {
+    _git_prompt_rebase_in_progress      && return 0
+    local branch=$(_git_prompt_branch_name)   || return 0
+    [ -n "$branch" ]        || return 1
+
+
+    echo -n " on "
+    echo -en "\033[1;35m"
+    echo -en "${branch}"
+    echo -en "\033[0m"
+}
+
+cwd='\[\033[1;34m\]\w\[\033[m\]'
+stp='\[\033[1;32m\]\$\[\033[m\]'
+
+PS1=$cwd'$(_git_prompt)\n\j:'$stp' '
+EOF
+)
+elif [[ $1 == fancy ]]; then
 bash_prompt_definitions=$(cat <<'EOF'
 _git_prompt_unstaged_changes() {
     [ -n "$(git diff --shortstat 2> /dev/null | tail -n1)" ]
@@ -93,5 +136,9 @@ stp='\[\033[1;32m\]\$\[\033[m\]'
 PS1=$cwd'$(_git_prompt)\n\j:'$stp' '
 EOF
 )
+else
+    echo "Invalid prompt style $1"
+fi
+
 
 echo "$bash_prompt_definitions"

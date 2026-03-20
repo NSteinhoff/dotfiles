@@ -1,5 +1,7 @@
 local did_init = false
 
+local tsls = "tsgo" -- "ts_ls"
+
 local defaults = {
     c = "clangd",
     cs = "csharp_ls",
@@ -9,10 +11,10 @@ local defaults = {
     zig = "zls",
     go = "gopls",
     astro = "astro",
-    javascript = "ts_ls",
-    typescript = "ts_ls",
-    javascriptreact = "ts_ls",
-    typescriptreact = "ts_ls",
+    javascript = tsls,
+    typescript = tsls,
+    javascriptreact = tsls,
+    typescriptreact = tsls,
 }
 
 local function init()

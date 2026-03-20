@@ -1,7 +1,7 @@
-if exists("current_compiler") && current_compiler != 'tsc'
+if exists("current_compiler") && current_compiler != 'tsgo'
     finish
 endif
-let current_compiler = "tsc"
+let current_compiler = "tsgo"
 
 CompilerSet errorformat^=
             \%-GDone%.%#,
@@ -16,9 +16,9 @@ let rcfile = empty(rootrcfile) ? findfile('tsconfig.json', ".;$HOME,;$HOME") : r
 " let rcfile = findfile('tsconfig.json', ".;$HOME,;$HOME")
 
 if rcfile == ''
-    CompilerSet makeprg=NPM_CONFIG_LOGLEVEL=silent\ npx\ tsc\ --noEmit\ $*\ %
+    CompilerSet makeprg=tsgo\ --noEmit\ $*\ %
     finish
 endif
 
 let project_root = fnamemodify(rcfile, ":h")
-execute 'CompilerSet makeprg=NPM_CONFIG_LOGLEVEL=silent\ npx\ tsc\ --build\ '.rcfile.'\ $*'
+execute 'CompilerSet makeprg=tsgo\ --build\ '.rcfile.'\ $*'

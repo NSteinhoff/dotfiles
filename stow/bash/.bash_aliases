@@ -20,11 +20,12 @@ export CDPATH="$CDPATH:~/Develop/Accenture/NAIP"
 
 ##########
 ### Prompt
-prompt_type=fancy
+prompt_type=basic
 case $prompt_type in
     starship) eval "$(starship init bash)" ;;
-       fancy) eval "$(make-bash-prompt)" ;;
-       basic) PS1="\[\e[1;34m\]\w\[\e[1;32m\]\n\j:\$\[\e[m\] " ;;
+       basic) eval "$(make-bash-prompt basic)" ;;
+       fancy) eval "$(make-bash-prompt fancy)" ;;
+       dumb) PS1="\[\e[1;34m\]\w\[\e[1;32m\]\n\j:\$\[\e[m\] " ;;
 esac
 
 function has() {
@@ -116,7 +117,7 @@ _search_web() {
 }
 q()   { _search_web "${FUNCNAME[0]}" "https://duckduckgo.com/?q="                    "$1"; }
 mdn() { _search_web "${FUNCNAME[0]}" "https://developer.mozilla.org/en-US/search?q=" "$1"; }
-ai()  { $opener "https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1"; }
+ai()  { $opener "https://duck.ai/"; }
 
 ###########
 ### Why not

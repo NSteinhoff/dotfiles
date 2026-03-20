@@ -50,6 +50,14 @@ vim.lsp.config("ts_ls", {
     },
 })
 
+vim.lsp.config("tsgo", {
+    init_options = {
+        preferences = {
+            disableSuggestions = true,
+        },
+    },
+})
+
 vim.lsp.config("zls", {
     settings = {
         zls = {

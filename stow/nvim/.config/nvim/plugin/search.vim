@@ -31,5 +31,9 @@ endfunction
 
 command! -nargs=+ -complete=customlist,<sid>complete_engine Search call s:search(<f-args>)
 call abbrev#cmdline('search', 'Search')
+
 command! -nargs=+ Mdn Search mdn <args>
+command! -nargs=+ Ddg Search ddg <args>
+
 call abbrev#cmdline('mdn', 'Mdn')
+call abbrev#cmdline('ddg', 'Ddg')

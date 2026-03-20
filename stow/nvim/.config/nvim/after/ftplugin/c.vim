@@ -63,3 +63,4 @@ setlocal omnifunc&
 
 " Stop inserting comment leaders for // comments
 " setlocal formatoptions-=o
+command! Expand execute "Slurp clang -Ilib --std=c23 -E "..expand("%")

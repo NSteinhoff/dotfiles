@@ -14,7 +14,7 @@ let &l:include='\(^\(import\|export\)\s\|^}\).*\sfrom\s\''\zs\.\+\/\(\w\|[/.-]\)
 let &l:includeexpr="substitute(substitute(substitute(v:fname, '\\.\\(m\\?js\\|ts\\)$' , '', ''), '\\./', '', ''), '\\.', '../', 'g')"
 let &l:define='^\s*\(export\s\)\?\(async\s\)\?\(function\|class\|interface\|type\|const\|let\|var\)\s\ze'
 
-execute 'compiler '..get(g:, &ft..'_compiler', 'tsc')
+execute 'compiler '..get(g:, &ft..'_compiler', 'tsgo')
 
 iabbrev <buffer> exif export interface {}
 " command -buffer Run !ts-node %

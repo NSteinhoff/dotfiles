@@ -10,7 +10,7 @@ ifeq ($(OS), Darwin)
     STOW_TARGETS += $(filter %-mac, $(STOW_LIST_ALL))
 endif
 
-install: stow opencode-tools
+install: stow opencode
 uninstall: unstow
 
 stow: install-stow
@@ -21,9 +21,9 @@ unstow: install-stow
 	stow -D $(STOW_TARGETS)
 .PHONY: unstow
 
-opencode-tools:
-	cp opencode-tools/* ~/.config/opencode/tools/
-.PHONY: opencode-tools
+opencode:
+	cp -r opencode/* ~/.config/opencode/
+.PHONY: opencode
 
 ifeq ($(OS), Linux)
 install_cmd := apt-get install -y

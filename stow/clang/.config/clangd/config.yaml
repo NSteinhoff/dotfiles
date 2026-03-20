@@ -14,8 +14,9 @@ CompileFlags:
     - -Wconversion
     - -Wsign-conversion
     - -Wfloat-equal
-    - -Wswitch-default
+    - -Wswitch
     - -Wswitch-enum
+    - -Wcovered-switch-default
     - -Wcomma
     - -Wextra-semi-stmt
     - -Wmissing-prototypes
