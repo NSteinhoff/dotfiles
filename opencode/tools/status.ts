@@ -5,6 +5,8 @@ const DESCRIPTION = [
 	"Use this to review local pending changes and local commits without running git directly.",
 	"This tool replaces direct use of git status, git diff, git log, and git show for coding-agent workflows.",
 	"Only non-destructive local inspection commands are executed.",
+	"Examples: status (defaults to overview), status [view=diff], status [view=show rev=HEAD~1].",
+	"For git-status-like output, omit view or use view=overview. Do not use view=status.",
 ];
 
 const ALLOWED_VIEWS = new Set(["overview", "diff", "log", "show"]);
@@ -25,6 +27,8 @@ export default tool({
 				[
 					"Inspection view to render.",
 					"Supported values: overview, diff, log, show.",
+					"For git-status-like output, omit view or use view=overview.",
+					"Do not use view=status.",
 					"Default: overview.",
 				].join(" "),
 			),
