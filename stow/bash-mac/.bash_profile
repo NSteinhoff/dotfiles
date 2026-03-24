@@ -35,7 +35,9 @@ if command -v asdf &>/dev/null; then
     export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 fi
 
-# ---------------------------------- Cargo ------------------------------------
+# ------------------------------ Rustup / Cargo -------------------------------
+export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
+
 # Setup cargo environment
 if [ -f "$HOME/.cargo/env" ]; then
     source "$HOME/.cargo/env"

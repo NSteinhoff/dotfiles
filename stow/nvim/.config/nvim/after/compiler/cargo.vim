@@ -16,4 +16,4 @@ CompilerSet errorformat^=
             \test\ %f\ -\ %m\ (line\ %l)\ ...\ FAILED,
             \%-Gwarning:\ %.%#emitted
 CompilerSet errorformat+=%-G%.%#
-CompilerSet makeprg=cargo\ build\ $*
+CompilerSet makeprg=cargo\ check\ $*

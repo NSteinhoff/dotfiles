@@ -12,11 +12,13 @@ font-size    = 13
 font-feature = "-calt, -liga, -dlig"
 
 # Theme
-# theme = light:default-light,dark:default-dark
-# theme = light:rose-pine-dawn,dark:rose-pine-moon
+theme = light:Zenwritten Light,dark:Ghostty Default Style Dark
 # theme = light:Neobones Light,dark:Neobones Dark
 # theme = light:Gruvbox Light,dark:Gruvbox Dark
 # theme = light:Selenized Light,dark:Selenized Dark
+# Custom
+# theme = light:default-light,dark:default-dark
+# theme = light:rose-pine-dawn,dark:rose-pine-moon
 
 # Keys
 macos-option-as-alt = left
