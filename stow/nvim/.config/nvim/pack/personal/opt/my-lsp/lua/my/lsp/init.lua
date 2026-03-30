@@ -13,14 +13,15 @@ vim.lsp.config("*", {
 })
 
 if autostart then
+    -- vim.lsp.enable("clangd")
+    -- vim.lsp.enable("gopls")
+    -- vim.lsp.enable("jsonls")
     -- vim.lsp.enable("lua_ls")
+    -- vim.lsp.enable("rust_analyzer")
+    -- vim.lsp.enable("sourcekit")
     -- vim.lsp.enable("ts_ls")
     vim.lsp.enable("tsgo")
-    -- vim.lsp.enable("jsonls")
-    -- vim.lsp.enable("rust_analyzer")
-    -- vim.lsp.enable("clangd")
     -- vim.lsp.enable("zls")
-    -- vim.lsp.enable("gopls")
     vim.lsp.enable('astro')
     -- vim.lsp.enable('csharp_ls')
 end

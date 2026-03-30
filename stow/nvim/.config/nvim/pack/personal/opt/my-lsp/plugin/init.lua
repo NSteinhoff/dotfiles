@@ -3,18 +3,19 @@ local did_init = false
 local tsls = "tsgo" -- "ts_ls"
 
 local defaults = {
+    astro = "astro",
     c = "clangd",
     cs = "csharp_ls",
+    go = "gopls",
+    javascript = tsls,
+    javascriptreact = tsls,
+    json = "jsonls",
     lua = "lua_ls",
     rust = "rust_analyzer",
-    json = "jsonls",
-    zig = "zls",
-    go = "gopls",
-    astro = "astro",
-    javascript = tsls,
+    swift = "sourcekit",
     typescript = tsls,
-    javascriptreact = tsls,
     typescriptreact = tsls,
+    zig = "zls",
 }
 
 local function init()

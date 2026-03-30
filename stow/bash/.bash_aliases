@@ -20,7 +20,7 @@ export CDPATH="$CDPATH:~/Develop/Accenture/NAIP"
 
 ##########
 ### Prompt
-prompt_type=basic
+prompt_type=fancy
 case $prompt_type in
     starship) eval "$(starship init bash)" ;;
        basic) eval "$(make-bash-prompt basic)" ;;

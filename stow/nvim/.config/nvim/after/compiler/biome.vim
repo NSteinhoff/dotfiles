@@ -7,10 +7,5 @@ if exists(":CompilerSet") != 2
     command! -nargs=* CompilerSet setlocal <args>
 endif
 
-let buf = expand('%')
-
-let path = (isdirectory(buf) ? buf..';$HOME,' : '')..'.;$HOME,;$HOME,'
-let cmd = 'npx\ biome'
-
-execute 'CompilerSet makeprg=biome\ lint\ --colors=off\ --log-kind=compact\ $*'
+execute 'CompilerSet makeprg=npx\ biome\ check\ --colors=off\ --log-kind=compact\ --error-on-warnings\ $*'
 CompilerSet errorformat=%f:%l:%c\ %m

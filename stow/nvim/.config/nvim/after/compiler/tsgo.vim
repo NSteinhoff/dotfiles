@@ -3,12 +3,10 @@ if exists("current_compiler") && current_compiler != 'tsgo'
 endif
 let current_compiler = "tsgo"
 
-CompilerSet errorformat^=
-            \%-GDone%.%#,
-            \%-G$\ %.%#,
-            \%-Gyarn\ run%.%#,
-            \%-Gerror\ Command\ failed%.%#,
-            \%-Ginfo\ Visit%.%#,
+CompilerSet errorformat=
+            \%f\ %#(%l\\,%c):\ %trror\ TS%n:\ %m,
+            \%trror\ TS%n:\ %m,
+            \%-G%.%#
 
 let gitroot = finddir('.git', ".;$HOME,;$HOME")
 let rootrcfile = !empty(gitroot) ? findfile('tsconfig.json', fnamemodify(gitroot, ':p:h:h')) : ''

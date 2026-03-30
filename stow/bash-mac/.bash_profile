@@ -37,6 +37,7 @@ fi
 
 # ------------------------------ Rustup / Cargo -------------------------------
 export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
+# export PATH="/Users/niko.steinhoff/.vscode/extensions/vadimcn.vscode-lldb-1.12.1/adapter:$PATH"
 
 # Setup cargo environment
 if [ -f "$HOME/.cargo/env" ]; then

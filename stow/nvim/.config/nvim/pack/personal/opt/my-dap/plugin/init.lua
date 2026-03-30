@@ -106,7 +106,9 @@ local function init()
     -- Adapters
     dap.adapters.lldb = {
         type = "executable",
-        command = "/opt/homebrew/opt/llvm/bin/lldb-dap", -- adjust as needed, must be absolute path
+        command = "lldb-dap",
+        -- command = "codelldb", -- adjust as needed, must be absolute path
+        -- command = "/opt/homebrew/opt/llvm/bin/lldb-dap", -- adjust as needed, must be absolute path
         name = "lldb",
         options = {
             initialize_timeout_sec = 2,

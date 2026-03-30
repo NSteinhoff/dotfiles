@@ -104,30 +104,30 @@ highlight   FloatTitle    cterm=NONE   ctermfg=15     ctermbg=4
 highlight   FloatFooter   cterm=NONE   ctermfg=15     ctermbg=4
 "}}}
 "{{{ Syntax
-highlight   Comment          cterm=NONE        ctermfg=4      ctermbg=NONE
-highlight   Constant         cterm=NONE        ctermfg=15     ctermbg=NONE
-highlight   Define           cterm=NONE        ctermfg=NONE   ctermbg=NONE
-highlight   Delimiter        cterm=NONE        ctermfg=15     ctermbg=NONE
-highlight   Error            cterm=bold        ctermfg=1      ctermbg=NONE
-highlight   Exception        cterm=bold        ctermfg=15     ctermbg=NONE
-highlight   Function         cterm=bold        ctermfg=NONE   ctermbg=NONE
-highlight   Identifier       cterm=NONE        ctermfg=NONE   ctermbg=NONE
-highlight   Conceal          cterm=NONE        ctermfg=8      ctermbg=NONE
-highlight   Ignore           cterm=NONE        ctermfg=8      ctermbg=NONE
-highlight   Keyword          cterm=NONE        ctermfg=NONE   ctermbg=NONE
-highlight   Macro            cterm=NONE        ctermfg=NONE   ctermbg=NONE
-highlight   Number           cterm=NONE        ctermfg=15     ctermbg=NONE
-highlight   Operator         cterm=bold        ctermfg=15     ctermbg=NONE
-highlight   PreProc          cterm=NONE        ctermfg=NONE   ctermbg=NONE
-highlight   Special          cterm=bold        ctermfg=NONE   ctermbg=NONE
-highlight   SpecialChar      cterm=bold        ctermfg=NONE   ctermbg=NONE
-highlight   SpecialComment   cterm=bold        ctermfg=NONE   ctermbg=NONE
-highlight   Statement        cterm=NONE        ctermfg=NONE   ctermbg=NONE
-highlight   String           cterm=NONE        ctermfg=15     ctermbg=NONE
-highlight   CommentNote      cterm=bold        ctermfg=0      ctermbg=5
-highlight   Todo             cterm=bold        ctermfg=NONE   ctermbg=2
-highlight   Type             cterm=bold        ctermfg=NONE   ctermbg=NONE
-highlight   Underlined       cterm=underline   ctermfg=NONE   ctermbg=NONE
+highlight   Comment          cterm=NONE         ctermfg=4      ctermbg=NONE
+highlight   Constant         cterm=NONE         ctermfg=15     ctermbg=NONE
+highlight   Define           cterm=NONE         ctermfg=NONE   ctermbg=NONE
+highlight   Delimiter        cterm=NONE         ctermfg=15     ctermbg=NONE
+highlight   Error            cterm=bold         ctermfg=1      ctermbg=NONE
+highlight   Exception        cterm=bold         ctermfg=15     ctermbg=NONE
+highlight   Function         cterm=bold         ctermfg=NONE   ctermbg=NONE
+highlight   Identifier       cterm=NONE         ctermfg=NONE   ctermbg=NONE
+highlight   Conceal          cterm=NONE         ctermfg=8      ctermbg=NONE
+highlight   Ignore           cterm=NONE         ctermfg=8      ctermbg=NONE
+highlight   Keyword          cterm=NONE         ctermfg=NONE   ctermbg=NONE
+highlight   Macro            cterm=NONE         ctermfg=NONE   ctermbg=NONE
+highlight   Number           cterm=NONE         ctermfg=15     ctermbg=NONE
+highlight   Operator         cterm=bold         ctermfg=15     ctermbg=NONE
+highlight   PreProc          cterm=NONE         ctermfg=NONE   ctermbg=NONE
+highlight   Special          cterm=bold         ctermfg=NONE   ctermbg=NONE
+highlight   SpecialChar      cterm=bold         ctermfg=NONE   ctermbg=NONE
+highlight   SpecialComment   cterm=bold         ctermfg=NONE   ctermbg=NONE
+highlight   Statement        cterm=NONE         ctermfg=NONE   ctermbg=NONE
+highlight   String           cterm=NONE         ctermfg=15     ctermbg=NONE
+highlight   CommentNote      cterm=bold         ctermfg=0      ctermbg=5
+highlight   Todo             cterm=inverse,bold ctermfg=NONE   ctermbg=NONE
+highlight   Type             cterm=bold         ctermfg=NONE   ctermbg=NONE
+highlight   Underlined       cterm=underline    ctermfg=NONE   ctermbg=NONE
 "}}}
 " --- Neovim specific stuff
 "{{{ Win bar
