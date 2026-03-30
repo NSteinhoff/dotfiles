@@ -1,6 +1,6 @@
 ---
-description: Reviews code changes for bugs, behavior regressions, and convention mismatches
-mode: primary
+description: Reviews code changes for bugs, behavior regressions, and convention mismatches.
+mode: subagent
 model: openai/gpt-5.4
 temperature: 0.1
 permission:

@@ -14,7 +14,7 @@
 
 		"edit": {
 			"*": "allow",
-			"Makefile": "deny"
+			"Makefile": "ask"
 		},
 
 		"make": "allow",
