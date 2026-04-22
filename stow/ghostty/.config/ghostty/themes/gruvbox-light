@@ -1,0 +1,48 @@
+# Gruvbox Light (Neutral Background)
+# Based on Gruvbox Light with reduced yellow tint
+
+# Background - neutral light gray instead of cream
+background = #f9f5f1
+
+# Foreground - dark gray
+foreground = #3c3836
+
+# Cursor
+cursor-color = #3c3836
+cursor-text = #f9f5f1
+
+# Selection
+selection-background = #d5c4a1
+selection-foreground = #3c3836
+
+# Black (normal and bright)
+palette = 0=#f9f5f1
+palette = 8=#928374
+
+# Red (normal and bright)
+palette = 1=#cc241d
+palette = 9=#9d0006
+
+# Green (normal and bright)
+palette = 2=#98971a
+palette = 10=#79740e
+
+# Yellow (normal and bright)
+palette = 3=#d79921
+palette = 11=#b57614
+
+# Blue (normal and bright)
+palette = 4=#458588
+palette = 12=#076678
+
+# Purple (normal and bright)
+palette = 5=#b16286
+palette = 13=#8f3f71
+
+# Cyan (normal and bright)
+palette = 6=#689d6a
+palette = 14=#427b58
+
+# White (normal and bright)
+palette = 7=#7c6f64
+palette = 15=#3c3836

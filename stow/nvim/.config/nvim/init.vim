@@ -1,7 +1,7 @@
 "{{{ --- OPTIONS ---
 "{{{ Colors
 set notermguicolors
-colorscheme ludite
+colorscheme minimal
 "}}}
 "{{{ Appearance
 set cmdheight=1
@@ -469,7 +469,14 @@ let g:markdown_folding = 1
 "}}}
 
 "{{{ --- PACKAGES ---
-if exists('$GIT_INDEX_FILE') | finish | endif
+if exists('$GIT_INDEX_FILE') |
+    colorscheme ludite
+    finish
+endif
+"{{{ Builtin
+packadd! nvim.undotree
+"}}}
+
 "{{{ Personal
 packadd my-livegrep                            " Start grepping live with :lg
 packadd! my-filefinder                          " Start simple file finder with :ff
@@ -495,4 +502,6 @@ endif
 "}}}
 "}}}
 
+
+"lua require('vim._core.ui2').enable({})
 " vim: foldmethod=marker
