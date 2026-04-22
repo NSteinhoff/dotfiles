@@ -3,6 +3,7 @@
 
 # Coding Agent
 Makefile.agent
+.claude/worktrees/
 
 # Secrets
 mise.toml
@@ -67,3 +68,5 @@ node_modules/
 *.tsbuildinfo
 yarn-error.log
 .pnpm-store/
+
+**/.claude/settings.local.json

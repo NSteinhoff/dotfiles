@@ -280,3 +280,7 @@ alias awsume=". awsume"
 ############
 ### BASH Bot
 # export PROMPT_COMMAND="bashbot;$PROMPT_COMMAND"
+
+############
+### Claude
+alias claude="claude --permission-mode=plan"
