@@ -1,16 +1,16 @@
-# ------------------------------- Plain ASCII ---------------------------------
 command_timeout = 1000
 
-[character]
-success_symbol = "[>](bold green)"
-error_symbol = "[x](bold red)"
-vicmd_symbol = "[<](bold green)"
+# ------------------------------- Plain ASCII ---------------------------------
+# [character]
+# success_symbol = "[>](bold green)"
+# error_symbol = "[x](bold red)"
+# vicmd_symbol = "[<](bold green)"
 
-[git_commit]
-tag_symbol = " tag "
+# [git_commit]
+# tag_symbol = " tag "
 
-[git_branch]
-symbol = "git "
+# [git_branch]
+# symbol = "git "
 
 [git_status]
 ahead = ">"
@@ -19,108 +19,147 @@ diverged = "<>"
 renamed = "r"
 deleted = "x"
 
+# ------------------------------- Languages and Tools ---------------------------------
 [aws]
+disabled = true
 symbol = "aws "
 
 [c]
+disabled = true
 symbol = "C "
 
 [cobol]
+disabled = true
 symbol = "cobol "
 
 [conda]
+disabled = true
 symbol = "conda "
 
 [crystal]
+disabled = true
 symbol = "cr "
 
 [cmake]
+disabled = true
 symbol = "cmake "
 
 [dart]
+disabled = true
 symbol = "dart "
 
 [deno]
+disabled = true
 symbol = "deno "
 
 [dotnet]
+disabled = true
 symbol = ".NET "
 
 [directory]
 read_only = " ro"
 
 [docker_context]
+disabled = true
 symbol = "docker "
 
 [elixir]
+disabled = true
 symbol = "exs "
 
 [elm]
+disabled = true
 symbol = "elm "
 
 [golang]
+disabled = true
 symbol = "go "
 
 [hg_branch]
+disabled = true
 symbol = "hg "
 
 [java]
+disabled = true
 symbol = "java "
 
 [julia]
+disabled = true
 symbol = "jl "
 
 [kotlin]
+disabled = true
 symbol = "kt "
 
 [nodejs]
+disabled = true
 symbol = "nodejs "
 
 [memory_usage]
+disabled = true
 symbol = "memory "
 
 [nim]
+disabled = true
 symbol = "nim "
 
 [nix_shell]
+disabled = true
 symbol = "nix "
 
 [ocaml]
+disabled = true
 symbol = "ml "
 
 [package]
+disabled = true
 symbol = "pkg "
 
 [perl]
+disabled = true
 symbol = "pl "
 
 [php]
+disabled = true
 symbol = "php "
 
 [pulumi]
+disabled = true
 symbol = "pulumi "
 
 [purescript]
+disabled = true
 symbol = "purs "
 
 [python]
+disabled = true
 symbol = "py "
 
 [ruby]
+disabled = true
 symbol = "rb "
 
 [rust]
+disabled = true
 symbol = "rs "
 
 [scala]
+disabled = true
 symbol = "scala "
 
 [spack]
+disabled = true
 symbol = "spack "
 
 [sudo]
+disabled = true
 symbol = "sudo "
 
 [swift]
+disabled = true
 symbol = "swift "
+
+[zig]
+disabled = true
+symbol = "zig "
 # ----------------------------- END: Plain ASCII ------------------------------
