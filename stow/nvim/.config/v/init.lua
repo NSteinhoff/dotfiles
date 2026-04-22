@@ -1,4 +1,6 @@
--- Disable builtin bloat
+local opt = vim.opt
+
+-- [[ Disable builtin bloat ]]
 local plugins = {
         -- Provider
         "python3_provider",
@@ -19,56 +21,54 @@ local plugins = {
 }
 for _, name in ipairs(plugins) do vim.g["loaded_"..name] = true end
 
--- Set terminal colors
+-- [[ Set terminal colors ]]
 vim.cmd.colorscheme("ludite")
 
--- Options
-local options = {
-        ttimeoutlen     = 25,
-        swapfile        = false,
-        termguicolors   = false,
-        number          = false,
-        signcolumn      = "number",
-        undofile        = true,
-        showmatch       = true,
-        concealcursor   = "n",
-
-        foldmethod      = "indent",
-        foldlevelstart  = 99,
-
-        splitright      = true,
-        inccommand      = "split",
-
-        scrolloff       = 1,
-        sidescrolloff   = 1,
-
-        ignorecase      = true,
-        smartcase       = true,
-        tagcase         = "match",
-
-        mouse           = "nv",
-        mousemodel      = "extend",
-
-        list            = false,
-        listchars       = [[tab:¦ ,trail:▓,extends:»,precedes:«,nbsp:␣,eol:¬,lead: ]],
-
-        wrap            = false,
-        linebreak       = true,
-        breakindent     = true,
-        showbreak       = "└",
-        smartindent     = true,
-
-        tabstop         = 4,
-        shiftwidth      = 4,
-        softtabstop     = -1,
-        expandtab       = true,
-
-        formatoptions   = "cjlnpqr",
-        formatlistpat   = [[^\s*\(\d\+[\]:.)}\t ]\|[*-][\t ]\)\s*]],
-
-        wildmode        = { "longest:full", "full" },
-        wildoptions     = "pum",
-        completeopt     = { "menuone", "noinsert", "noselect" },
-        shortmess        = "ltToOCFsc",
-}
-for key, value in pairs(options) do vim.opt[key] = value end
+-- [[ Options ]]
+-- general
+opt.ttimeoutlen     = 25
+opt.swapfile        = false
+opt.termguicolors   = false
+opt.number          = false
+opt.signcolumn      = "number"
+opt.undofile        = true
+opt.showmatch       = true
+opt.concealcursor   = "n"
+-- folding
+opt.foldmethod      = "indent"
+opt.foldlevelstart  = 99
+-- window splitting
+opt.splitright      = true
+opt.inccommand      = "split"
+-- scrolling
+opt.scrolloff       = 1
+opt.sidescrolloff   = 1
+-- search case
+opt.ignorecase      = true
+opt.smartcase       = true
+opt.tagcase         = "match"
+-- mouse
+opt.mouse           = "nv"
+opt.mousemodel      = "extend"
+-- special characters
+opt.list            = false
+opt.listchars       = [[tab:¦ ,trail:▓,extends:»,precedes:«,nbsp:␣,eol:¬,lead: ]]
+-- line wrapping
+opt.wrap            = false
+opt.linebreak       = true
+opt.breakindent     = true
+opt.showbreak       = "└"
+opt.smartindent     = true
+-- indentation
+opt.tabstop         = 4
+opt.shiftwidth      = 4
+opt.softtabstop     = -1
+opt.expandtab       = true
+-- formatting
+opt.formatoptions   = "cjlnpqr"
+opt.formatlistpat   = [[^\s*\(\d\+[\]:.)}\t ]\|[*-][\t ]\)\s*]]
+-- wildmenu
+opt.wildmode        = { "longest:full", "full" }
+opt.wildoptions     = "pum"
+opt.completeopt     = { "menuone", "noinsert", "noselect" }
+opt.shortmess       = "ltToOCFsc"

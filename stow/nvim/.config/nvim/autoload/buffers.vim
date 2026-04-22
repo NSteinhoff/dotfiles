@@ -23,15 +23,30 @@ function buffers#recent(n = 0)
     echo execute('ls t')->split("\n")[:n]->join("\n")
 endfunction
 
+function! buffers#get_yang()
+    let l:current = expand('%')
+
+    if l:current =~ '\.\(c\|h\)$'
+        return fnamemodify(l:current, ':r') . (l:current =~ '\.c$' ? '.h' : '.c')
+    endif
+
+    if l:current =~ '\.\(js\|jsx\|ts\|tsx\)$'
+        return ftutils#javascript#get_alt(l:current)
+    endif
+
+    return ''
+endfunction
+
 function buffers#yang()
-    if !exists('b:yang')
+    let l:yang = buffers#get_yang()
+    if empty(l:yang)
         echo "No yin to this yang."
         return
     endif
 
-    if findfile(b:yang) != '' || bufname('^'..b:yang..'$') != '' || s:tried_yang
+    if findfile(l:yang) != '' || bufname('^'..l:yang..'$') != '' || s:tried_yang
         let s:tried_yang = v:false
-        execute 'edit '..b:yang
+        execute 'edit '..l:yang
     else
         let s:tried_yang = v:true
         echo "No yin to this yang. Try again to create."

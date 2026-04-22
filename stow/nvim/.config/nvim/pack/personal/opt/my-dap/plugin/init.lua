@@ -1,5 +1,7 @@
 local default_keymap_opts = { buffer = false, silent = false, remap = false }
 local default_command_opts = { nargs = 0 }
+local debugging_augroup =
+    vim.api.nvim_create_augroup("dap-debugging", { clear = true })
 
 local colors = {
     editing = { name = vim.g.colors_name, termgui = false },
@@ -11,6 +13,53 @@ local function create_commands(commands)
         local opts =
             vim.tbl_extend("force", default_command_opts, command.opts or {})
         vim.api.nvim_create_user_command(name, command.cmd, opts)
+    end
+end
+
+local function lock_buffer(bufnr)
+    bufnr = bufnr or vim.api.nvim_get_current_buf()
+    -- Store original values if not already locked
+    if not vim.b[bufnr].debug_saved_state then
+        vim.b[bufnr].debug_saved_state = {
+            modifiable = vim.bo[bufnr].modifiable,
+        }
+
+        -- Lock the buffer
+        vim.bo[bufnr].modifiable = false
+    end
+end
+
+local function unlock_buffer(bufnr)
+    bufnr = bufnr or vim.api.nvim_get_current_buf()
+    local saved = vim.b[bufnr].debug_saved_state
+    if saved then
+        -- Restore original values
+        vim.bo[bufnr].modifiable = saved.modifiable
+
+        -- Clear saved state
+        vim.b[bufnr].debug_saved_state = nil
+    end
+end
+
+local function start_debugging()
+    vim.api.nvim_create_autocmd("BufEnter", {
+        group = debugging_augroup,
+        pattern = "*",
+        callback = function(args)
+            lock_buffer(args.buf)
+        end,
+    })
+    lock_buffer()
+end
+
+local function stop_debugging()
+    vim.api.nvim_clear_autocmds({ group = debugging_augroup })
+
+    -- Unlock all buffers that we locked
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.api.nvim_buf_is_loaded(buf) then
+            unlock_buffer(buf)
+        end
     end
 end
 
@@ -107,8 +156,9 @@ local function init()
     dap.adapters.lldb = {
         type = "executable",
         command = "lldb-dap",
-        -- command = "codelldb", -- adjust as needed, must be absolute path
         -- command = "/opt/homebrew/opt/llvm/bin/lldb-dap", -- adjust as needed, must be absolute path
+        -- command = "codelldb", -- adjust as needed, must be absolute path
+        -- command = "/Users/niko.steinhoff/.vscode/extensions/vadimcn.vscode-lldb-1.12.1/adapter/codelldb",
         name = "lldb",
         options = {
             initialize_timeout_sec = 2,
@@ -324,6 +374,7 @@ local function init()
         create_keymaps(session_keymaps)
         create_commands(session_commands)
         scopes_sidebar.open()
+        start_debugging()
         -- dap.repl.open({ height = 6 })
     end
 
@@ -335,6 +386,7 @@ local function init()
             remove_commands(session_commands)
         end
         vim.cmd([[redraw]])
+        stop_debugging()
     end
 
     local global_commands = {
@@ -485,8 +537,12 @@ local function init()
     }
 
     dap.listeners.after.event_initialized["my-dap"] = on_attach
-    dap.listeners.after.event_terminated["my-dap"] = function(_, body) on_detach(body) end
-    dap.listeners.after.event_exited["my-dap"] = function(_, body) on_detach(body) end
+    dap.listeners.after.event_terminated["my-dap"] = function(_, body)
+        on_detach(body)
+    end
+    dap.listeners.after.event_exited["my-dap"] = function(_, body)
+        on_detach(body)
+    end
 
     -- Signs
     define_signs()

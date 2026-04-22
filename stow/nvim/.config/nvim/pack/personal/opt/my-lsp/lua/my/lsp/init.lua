@@ -17,9 +17,10 @@ if autostart then
     -- vim.lsp.enable("gopls")
     -- vim.lsp.enable("jsonls")
     -- vim.lsp.enable("lua_ls")
-    -- vim.lsp.enable("rust_analyzer")
+    vim.lsp.enable("rust_analyzer")
     -- vim.lsp.enable("sourcekit")
     -- vim.lsp.enable("ts_ls")
+    -- vim.lsp.enable("cssls")
     vim.lsp.enable("tsgo")
     -- vim.lsp.enable("zls")
     vim.lsp.enable('astro')
@@ -75,4 +76,7 @@ vim.api.nvim_create_autocmd("DiagnosticChanged", {
 })
 --]]
 
-vim.lsp.set_log_level("ERROR")
+
+vim.lsp.log.set_level(vim.log.levels.ERROR)
+vim.api.nvim_create_user_command("LspInfo", "checkhealth vim.lsp", {})
+-- vim.lsp.document_color.enable()

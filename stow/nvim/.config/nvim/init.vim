@@ -142,6 +142,7 @@ imap <Tab> <plug>(smarttab)
 " Yank to clipboard with "" (Why would I ever explicitly need to target
 " the unnamed register anyways?)
 noremap "" "+
+nnoremap """ <cmd>let @+=expand("%:.")<bar>echo "Copied: '"..@+.."'"<cr>
 nnoremap "? <cmd>registers "0123456789-+/<cr>
 nnoremap '? <cmd>Marks<cr>
 nnoremap '! <cmd>Delmarks!<cr>
@@ -349,6 +350,9 @@ nmap ]r <plug>(git-review-next)
 nmap [r <plug>(git-review-prev)
 nmap ]R <plug>(git-review-mark-seen)
 nmap [R <plug>(git-review-first)
+"}}}
+"{{{ Undotree
+nnoremap <leader>u <cmd>Undotree<cr>
 "}}}
 "{{{ Debugging NeoVim
 nnoremap <leader>i <cmd>Inspect<cr>

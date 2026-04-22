@@ -1,6 +1,7 @@
 local did_init = false
 
-local tsls = "tsgo" -- "ts_ls"
+local tsls = "tsgo"
+-- local tsls = "ts_ls"
 
 local defaults = {
     astro = "astro",
