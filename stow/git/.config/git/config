@@ -58,5 +58,5 @@
 	path = ~/.config/git/config.nvim
 	; path = ~/.config/git/config.delta
 
-[includeIf "gitdir:~/Develop/Accenture/"]
-	path = ~/.config/git/config.accenture
+[includeIf "gitdir:~/Develop/Work/"]
+	path = ~/.config/git/config.work

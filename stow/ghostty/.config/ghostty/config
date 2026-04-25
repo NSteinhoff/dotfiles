@@ -21,7 +21,7 @@ font-feature = "-calt, -liga, -dlig"
 # theme = light:Zenwritten Light,dark:Ghostty Default Style Dark
 # theme = light:Neobones Light,dark:Neobones Dark
 # theme = light:Gruvbox Light Hard,dark:Gruvbox Dark
-theme = light:gruvbox-light,dark:Gruvbox Dark
+theme = light:gruvbox-light,dark:gruvbox-dark
 # theme = light:Rose Pine Dawn,dark:Rose Pine
 
 # Keys

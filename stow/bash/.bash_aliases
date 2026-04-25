@@ -16,7 +16,8 @@ export PATH="$HOME/.local/bin:$PATH"
 
 export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 export CDPATH=.:~/Develop # include the explicit '.' to support bash < 4.2
-export CDPATH="$CDPATH:~/Develop/Accenture/NAIP"
+export CDPATH="$CDPATH:~/Develop/Work/NAIP"
+export CDPATH="$CDPATH:~/Develop/Work/OneHub"
 
 ##########
 ### Prompt
@@ -196,7 +197,6 @@ if has tmux; then
     alias tx='_tmux_ls_or_cmd'
     alias txn='_tmux_new_session'
     alias txx='_tmux_smart_attach'
-    alias txm='tmuxinator start --suppress-tmux-version-warning=on'
 fi
 
 ########

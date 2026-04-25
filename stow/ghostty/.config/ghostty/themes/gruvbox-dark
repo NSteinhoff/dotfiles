@@ -1,0 +1,49 @@
+# Gruvbox Dark
+# Based on the classic Gruvbox Dark palette
+
+# Background - standard gruvbox dark
+background = #282828
+
+# Foreground - cream
+foreground = #ebdbb2
+
+# Cursor
+cursor-color = #ebdbb2
+cursor-text = #282828
+
+# Selection
+selection-background = #504945
+selection-foreground = #ebdbb2
+
+# Black (normal and bright)
+# Normal black is shifted slightly darker than the background
+palette = 0=#1d2021
+palette = 8=#928374
+
+# Red (normal and bright)
+palette = 1=#cc241d
+palette = 9=#fb4934
+
+# Green (normal and bright)
+palette = 2=#98971a
+palette = 10=#b8bb26
+
+# Yellow (normal and bright)
+palette = 3=#d79921
+palette = 11=#fabd2f
+
+# Blue (normal and bright)
+palette = 4=#458588
+palette = 12=#83a598
+
+# Purple (normal and bright)
+palette = 5=#b16286
+palette = 13=#d3869b
+
+# Cyan (normal and bright)
+palette = 6=#689d6a
+palette = 14=#8ec07c
+
+# White (normal and bright)
+palette = 7=#a89984
+palette = 15=#ebdbb2

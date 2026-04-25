@@ -87,7 +87,7 @@ highlight CurSearch                    cterm=NONE                   ctermfg=NONE
 highlight MatchParen                   cterm=NONE                   ctermfg=12    ctermbg=NONE
 "}}}
 "{{{ Floating Window
-highlight NormalFloat                  cterm=NONE                   ctermfg=NONE  ctermbg=8
+highlight NormalFloat                  cterm=NONE                   ctermfg=NONE  ctermbg=0
 highlight FloatBorder                  cterm=NONE                   ctermfg=15    ctermbg=4
 highlight FloatTitle                   cterm=NONE                   ctermfg=15    ctermbg=4
 highlight FloatFooter                  cterm=NONE                   ctermfg=15    ctermbg=4
