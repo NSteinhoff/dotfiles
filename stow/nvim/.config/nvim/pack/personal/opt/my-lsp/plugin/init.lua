@@ -25,8 +25,6 @@ local function init()
     end
 
     require("my.lsp")
-    vim.fn["abbrev#cmdline"]("lspstart", "LspStart")
-    vim.fn["abbrev#cmdline"]("lspstop", "LspStop")
 
     did_init = true
     vim.g.initialized_lsp = true
